@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.local/schemas/lua-napi-index.schema.json",
+  "title": "XIVLegacy Lua N-API Call Index",
+  "type": "object",
+  "required": [
+    "version",
+    "gameVersion",
+    "extraction",
+    "source",
+    "apiCount",
+    "totalCallsites",
+    "apis"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "gameVersion": { "type": "string" },
+    "extraction": { "type": "string" },
+    "source": { "type": "string" },
+    "apiCount": { "type": "integer", "minimum": 0 },
+    "totalCallsites": { "type": "integer", "minimum": 0 },
+    "apis": {
+      "type": "object",
+      "description": "Keyed by N-API name (e.g. _getMyPlayer).",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["bcsIds", "callsiteCount", "callsites"],
+        "additionalProperties": false,
+        "properties": {
+          "bcsIds": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^BCS-Y-\\d+$" }
+          },
+          "callsiteCount": { "type": "integer", "minimum": 0 },
+          "callsites": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["script", "line"],
+              "additionalProperties": false,
+              "properties": {
+                "script": { "type": "string" },
+                "line": { "type": "integer", "minimum": 1 }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

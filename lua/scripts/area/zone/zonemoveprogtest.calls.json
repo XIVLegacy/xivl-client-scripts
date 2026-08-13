@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemoveprogtest",
+  "ciphered": "9s59/kvw5/kvw5xvo5usv3q5rq.lua",
+  "classes": [
+    "ZoneMoveProgTest"
+  ],
+  "lineCount": 5,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      2
+    ]
+  }
+}

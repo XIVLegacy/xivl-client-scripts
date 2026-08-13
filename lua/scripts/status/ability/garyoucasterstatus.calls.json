@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/garyoucasterstatus",
+  "ciphered": "rq9qpr/981y1ql/39slvp79rq5srq9qpr.lua",
+  "classes": [
+    "GaryouCasterStatus"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

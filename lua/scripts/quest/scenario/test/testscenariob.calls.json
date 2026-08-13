@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/test/testscenariob",
+  "ciphered": "tp5rq/r75w9s1v/q5rq/q5rqr75w9s1v8.lua",
+  "classes": [
+    "TestScenarioB"
+  ],
+  "lineCount": 72,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

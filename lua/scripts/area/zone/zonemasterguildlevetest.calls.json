@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterguildlevetest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s3p1y6y5o5q5rq.lua",
+  "classes": [
+    "ZoneMasterGuildleveTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

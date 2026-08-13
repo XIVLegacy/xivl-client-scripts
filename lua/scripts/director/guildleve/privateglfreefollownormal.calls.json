@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/privateglfreefollownormal",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y4s554vyyvnwvsx9y.lua",
+  "classes": [
+    "PrivateGLFreeFollowNormal"
+  ],
+  "lineCount": 135,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

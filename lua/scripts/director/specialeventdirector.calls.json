@@ -1,0 +1,15 @@
+{
+  "decoded": "director/specialeventdirector",
+  "ciphered": "61s57qvs/ru5719y5o5wq61s57qvs.lua",
+  "classes": [
+    "SpecialEventDirector"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

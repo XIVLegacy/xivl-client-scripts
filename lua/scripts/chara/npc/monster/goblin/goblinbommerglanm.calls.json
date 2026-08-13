@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/goblin/goblinbommerglanm",
+  "ciphered": "729s9/wu7/xvwrq5s/3v8y1w/3v8y1w8vxx5s3y9wx.lua",
+  "classes": [
+    "GoblinBommerGlaNM"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

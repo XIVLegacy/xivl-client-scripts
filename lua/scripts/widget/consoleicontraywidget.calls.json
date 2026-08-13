@@ -1,0 +1,29 @@
+{
+  "decoded": "widget/consoleicontraywidget",
+  "ciphered": "n1635q/7vwrvy517vwqs9ln1635q.lua",
+  "classes": [
+    "ConsoleIconTrayWidget"
+  ],
+  "lineCount": 2154,
+  "apiCount": 3,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      805,
+      928,
+      1348,
+      1864,
+      1919,
+      1949,
+      1979,
+      2007,
+      2034
+    ],
+    "_isAlive": [
+      1875
+    ]
+  }
+}

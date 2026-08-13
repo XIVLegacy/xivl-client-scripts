@@ -1,0 +1,107 @@
+{
+  "decoded": "widget/tradeeditwidget",
+  "ciphered": "n1635q/qs965561qn1635q.lua",
+  "classes": [
+    "TradeEditWidget"
+  ],
+  "lineCount": 4699,
+  "apiCount": 16,
+  "callsiteCount": 63,
+  "apis": {
+    "_countStack": [
+      1500,
+      1544,
+      1582,
+      1720
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1488,
+      1514,
+      1570,
+      1708,
+      4510,
+      4514
+    ],
+    "_getEquippingItem": [
+      2973,
+      2980,
+      2987,
+      2994
+    ],
+    "_getItem": [
+      811,
+      1113,
+      1161,
+      1559,
+      1697,
+      1917,
+      2192,
+      2804,
+      3262,
+      4548
+    ],
+    "_getItemPackageCapacity": [
+      1135,
+      2004,
+      2075,
+      4178
+    ],
+    "_getItemPackageFreeSpace": [
+      1139,
+      2009,
+      4182
+    ],
+    "_getKeyboardFocusedWidget": [
+      1085
+    ],
+    "_getMyPlayer": [
+      808,
+      1103,
+      1158,
+      1467,
+      1691,
+      1914,
+      1977,
+      2798,
+      3257,
+      4171,
+      4545
+    ],
+    "_getNameIndex": [
+      1600,
+      1724
+    ],
+    "_getParentWidget": [
+      3800,
+      3825,
+      3871,
+      3907,
+      3924
+    ],
+    "_getProperty": [
+      580,
+      3686,
+      3710
+    ],
+    "_isEquipping": [
+      1609,
+      1728,
+      3273
+    ],
+    "_isStackable": [
+      1496,
+      1540,
+      1578,
+      1716
+    ],
+    "_isTrading": [
+      1120
+    ],
+    "_math": [
+      3037
+    ]
+  }
+}

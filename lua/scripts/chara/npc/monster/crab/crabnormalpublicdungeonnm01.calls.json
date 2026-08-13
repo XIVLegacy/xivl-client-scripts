@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/crab/crabnormalpublicdungeonnm01",
+  "ciphered": "729s9/wu7/xvwrq5s/7s98/7s98wvsx9yup8y176pw35vwwxji.lua",
+  "classes": [
+    "CrabNormalPublicDungeonNM01"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

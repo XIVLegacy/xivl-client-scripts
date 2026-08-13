@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/camouflageability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/79xvp4y935981y1ql.lua",
+  "classes": [
+    "CamouflageAbility"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

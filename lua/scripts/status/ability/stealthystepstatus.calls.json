@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/stealthystepstatus",
+  "ciphered": "rq9qpr/981y1ql/rq59yq2lrq5urq9qpr.lua",
+  "classes": [
+    "StealthyStepStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

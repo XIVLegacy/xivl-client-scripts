@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/test/scetesttxt",
+  "ciphered": "tp5rq/r75w9s1v/q5rq/r75q5rqqmq.lua",
+  "classes": [
+    "SceTestTxt"
+  ],
+  "lineCount": 90,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

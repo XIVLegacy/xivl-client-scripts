@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/pcinformationwidget",
+  "ciphered": "n1635q/u71w4vsx9q1vwn1635q.lua",
+  "classes": [
+    "PcInformationWidget"
+  ],
+  "lineCount": 81,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

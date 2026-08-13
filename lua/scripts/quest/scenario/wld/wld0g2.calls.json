@@ -1,0 +1,44 @@
+{
+  "decoded": "quest/scenario/wld/wld0g2",
+  "ciphered": "tp5rq/r75w9s1v/ny6/ny6j3h.lua",
+  "classes": [
+    "Wld0g2"
+  ],
+  "lineCount": 504,
+  "apiCount": 4,
+  "callsiteCount": 24,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      45,
+      73,
+      87,
+      91,
+      107,
+      118,
+      159,
+      191,
+      223,
+      249,
+      285,
+      311,
+      343,
+      369,
+      407,
+      447,
+      475
+    ],
+    "_wait": [
+      36,
+      137,
+      259,
+      438,
+      493
+    ]
+  }
+}

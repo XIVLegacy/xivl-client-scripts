@@ -1,0 +1,15 @@
+{
+  "decoded": "status/movingcontrolstatus",
+  "ciphered": "rq9qpr/xvo1w37vwqsvyrq9qpr.lua",
+  "classes": [
+    "MovingControlStatus"
+  ],
+  "lineCount": 75,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

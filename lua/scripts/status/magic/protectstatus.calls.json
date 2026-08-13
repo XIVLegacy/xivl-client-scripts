@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/protectstatus",
+  "ciphered": "rq9qpr/x9317/usvq57qrq9qpr.lua",
+  "classes": [
+    "ProtectStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

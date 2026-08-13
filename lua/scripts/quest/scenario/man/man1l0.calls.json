@@ -1,0 +1,23 @@
+{
+  "decoded": "quest/scenario/man/man1l0",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wiyj.lua",
+  "classes": [
+    "Man1l0"
+  ],
+  "lineCount": 1198,
+  "apiCount": 3,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      51,
+      344,
+      450
+    ]
+  }
+}

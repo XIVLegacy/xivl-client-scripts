@@ -1,0 +1,15 @@
+{
+  "decoded": "status/tpregainstatus",
+  "ciphered": "rq9qpr/qus5391wrq9qpr.lua",
+  "classes": [
+    "TPRegainStatus"
+  ],
+  "lineCount": 50,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

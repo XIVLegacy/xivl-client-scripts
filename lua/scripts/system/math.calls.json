@@ -1,0 +1,15 @@
+{
+  "decoded": "system/math",
+  "ciphered": "rlrq5x/x9q2.lua",
+  "classes": [
+    "Math"
+  ],
+  "lineCount": 51,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_math": [
+      9
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "decoded": "widget/craftstartwidget",
+  "ciphered": "n1635q/7s94qrq9sqn1635q.lua",
+  "classes": [
+    "CraftStartWidget"
+  ],
+  "lineCount": 2779,
+  "apiCount": 12,
+  "callsiteCount": 17,
+  "apis": {
+    "_countStack": [
+      2533
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      2525
+    ],
+    "_getEquippingItem": [
+      307
+    ],
+    "_getItem": [
+      852,
+      2513
+    ],
+    "_getItemPackageCapacity": [
+      2479
+    ],
+    "_getItemPackageFreeSpace": [
+      2483
+    ],
+    "_getKeyboardFocusedWidget": [
+      479
+    ],
+    "_getMyPlayer": [
+      304,
+      815,
+      849,
+      2476,
+      2510
+    ],
+    "_getProperty": [
+      445
+    ],
+    "_isEquipping": [
+      2521
+    ],
+    "_isStackable": [
+      2529
+    ]
+  }
+}

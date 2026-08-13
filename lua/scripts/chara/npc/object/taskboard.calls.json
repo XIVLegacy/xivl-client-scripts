@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/object/taskboard",
+  "ciphered": "729s9/wu7/v8057q/q9rz8v9s6.lua",
+  "classes": [
+    "TaskBoard"
+  ],
+  "lineCount": 19,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

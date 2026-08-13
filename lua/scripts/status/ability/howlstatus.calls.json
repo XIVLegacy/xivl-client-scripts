@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/howlstatus",
+  "ciphered": "rq9qpr/981y1ql/2vnyrq9qpr.lua",
+  "classes": [
+    "HowlStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

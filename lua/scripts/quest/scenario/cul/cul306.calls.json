@@ -1,0 +1,22 @@
+{
+  "decoded": "quest/scenario/cul/cul306",
+  "ciphered": "tp5rq/r75w9s1v/7py/7pygjd.lua",
+  "classes": [
+    "Cul306"
+  ],
+  "lineCount": 815,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_wait": [
+      430,
+      458
+    ]
+  }
+}

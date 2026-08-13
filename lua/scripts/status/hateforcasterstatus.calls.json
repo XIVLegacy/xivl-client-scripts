@@ -1,0 +1,15 @@
+{
+  "decoded": "status/hateforcasterstatus",
+  "ciphered": "rq9qpr/29q54vs79rq5srq9qpr.lua",
+  "classes": [
+    "HateForCasterStatus"
+  ],
+  "lineCount": 50,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

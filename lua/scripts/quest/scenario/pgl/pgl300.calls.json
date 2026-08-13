@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/pgl/pgl300",
+  "ciphered": "tp5rq/r75w9s1v/u3y/u3ygjj.lua",
+  "classes": [
+    "Pgl300"
+  ],
+  "lineCount": 947,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

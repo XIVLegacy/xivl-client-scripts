@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/com/com0l8",
+  "ciphered": "tp5rq/r75w9s1v/7vx/7vxjyb.lua",
+  "classes": [
+    "Com0l8"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

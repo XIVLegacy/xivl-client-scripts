@@ -1,0 +1,27 @@
+{
+  "decoded": "command/system/emotestandardcommand",
+  "ciphered": "7vxx9w6/rlrq5x/5xvq5rq9w69s67vxx9w6.lua",
+  "classes": [
+    "EmoteStandardCommand"
+  ],
+  "lineCount": 89,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_executeEmote": [
+      76
+    ],
+    "_getBelongGrandCompany": [
+      21
+    ],
+    "_getSpecialEventWork": [
+      37
+    ],
+    "_isInstanceOf": [
+      70
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/mainskillstatus",
+  "ciphered": "rq9qpr/x91wrz1yyrq9qpr.lua",
+  "classes": [
+    "MainSkillStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

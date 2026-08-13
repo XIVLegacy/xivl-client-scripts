@@ -1,0 +1,32 @@
+{
+  "decoded": "widget/itemstoragedialogwidget",
+  "ciphered": "n1635q/1q5xrqvs935619yv3n1635q.lua",
+  "classes": [
+    "ItemStorageDialogWidget"
+  ],
+  "lineCount": 458,
+  "apiCount": 6,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      447
+    ],
+    "_getMyPlayer": [
+      217
+    ],
+    "_getNameIndex": [
+      232
+    ],
+    "_getParentWidget": [
+      369,
+      404
+    ],
+    "_sendStoryboardCommand": [
+      335,
+      344
+    ]
+  }
+}

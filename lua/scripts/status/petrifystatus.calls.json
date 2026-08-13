@@ -1,0 +1,15 @@
+{
+  "decoded": "status/petrifystatus",
+  "ciphered": "rq9qpr/u5qs14lrq9qpr.lua",
+  "classes": [
+    "PetrifyStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

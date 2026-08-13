@@ -1,0 +1,43 @@
+{
+  "decoded": "widget/journalconfirmwidget",
+  "ciphered": "n1635q/0vpsw9y7vw41sxn1635q.lua",
+  "classes": [
+    "JournalConfirmWidget"
+  ],
+  "lineCount": 726,
+  "apiCount": 6,
+  "callsiteCount": 19,
+  "apis": {
+    "_addItem": [
+      84
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      495,
+      506
+    ],
+    "_setProperty": [
+      60,
+      93,
+      121,
+      142,
+      182,
+      221,
+      257,
+      304,
+      537,
+      548,
+      557,
+      624,
+      631
+    ],
+    "_setUICommandCondition": [
+      67
+    ],
+    "_setUICommandTemplateCondition": [
+      73
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "decoded": "group/contentgroup/contentgroupbaseclass",
+  "ciphered": "3svpu/7vwq5wq3svpu/7vwq5wq3svpu89r57y9rr.lua",
+  "classes": [
+    "ContentGroupBaseClass"
+  ],
+  "lineCount": 411,
+  "apiCount": 17,
+  "callsiteCount": 58,
+  "apis": {
+    "_assignForChild": [
+      43
+    ],
+    "_callSuperClassFunc": [
+      168,
+      187,
+      242,
+      290,
+      302
+    ],
+    "_countMember": [
+      130,
+      322
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getKind": [
+      95,
+      99,
+      361,
+      365
+    ],
+    "_getMember": [
+      140,
+      260,
+      332
+    ],
+    "_getMyPlayer": [
+      90,
+      117,
+      123,
+      196,
+      207,
+      224,
+      250,
+      270,
+      309,
+      315,
+      356
+    ],
+    "_globalTemp": [
+      36,
+      52,
+      67,
+      387,
+      391,
+      405
+    ],
+    "_isAlive": [
+      394
+    ],
+    "_isExistInClientMember": [
+      135,
+      255,
+      327
+    ],
+    "_isInstanceOf": [
+      143,
+      200,
+      217,
+      263,
+      335
+    ],
+    "_isMember": [
+      87,
+      114,
+      193,
+      247,
+      306,
+      353
+    ],
+    "_onFinalize": [
+      303,
+      381
+    ],
+    "_onUpdateGroupInformation": [
+      291,
+      296
+    ],
+    "_onUpdateMember": [
+      188,
+      236
+    ],
+    "_onUpdateMemberInformation": [
+      243,
+      284
+    ],
+    "_onUpdateWork": [
+      169,
+      181
+    ]
+  }
+}

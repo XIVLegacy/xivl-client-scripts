@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/wolf/wolfscenariogridanialv00",
+  "ciphered": "729s9/wu7/xvwrq5s/nvy4/nvy4r75w9s1v3s169w19yojj.lua",
+  "classes": [
+    "WolfScenarioGridaniaLv00"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

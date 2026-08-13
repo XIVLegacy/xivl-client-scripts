@@ -1,0 +1,15 @@
+{
+  "decoded": "director/pop/popdirectorbaseclass",
+  "ciphered": "61s57qvs/uvu/uvu61s57qvs89r57y9rr.lua",
+  "classes": [
+    "PopDirectorBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

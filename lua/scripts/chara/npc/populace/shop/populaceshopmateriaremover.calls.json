@@ -1,0 +1,46 @@
+{
+  "decoded": "chara/npc/populace/shop/populaceshopmateriaremover",
+  "ciphered": "729s9/wu7/uvupy975/r2vu/uvupy975r2vux9q5s19s5xvo5s.lua",
+  "classes": [
+    "PopulaceShopMateriaRemover"
+  ],
+  "lineCount": 365,
+  "apiCount": 6,
+  "callsiteCount": 22,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getItem": [
+      356
+    ],
+    "_getMyPlayer": [
+      353
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      71,
+      111,
+      139,
+      152,
+      175,
+      202,
+      265,
+      285
+    ],
+    "_waitForCharaSchedulerFinished": [
+      41,
+      87,
+      121,
+      143,
+      162,
+      185,
+      212,
+      269,
+      295
+    ]
+  }
+}

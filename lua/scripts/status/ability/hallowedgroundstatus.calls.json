@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/hallowedgroundstatus",
+  "ciphered": "rq9qpr/981y1ql/29yyvn563svpw6rq9qpr.lua",
+  "classes": [
+    "HallowedGroundStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

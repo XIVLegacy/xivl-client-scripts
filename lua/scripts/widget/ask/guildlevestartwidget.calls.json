@@ -1,0 +1,23 @@
+{
+  "decoded": "widget/ask/guildlevestartwidget",
+  "ciphered": "n1635q/9rz/3p1y6y5o5rq9sqn1635q.lua",
+  "classes": [
+    "GuildleveStartWidget"
+  ],
+  "lineCount": 163,
+  "apiCount": 2,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      17,
+      45,
+      54,
+      63,
+      72,
+      81
+    ]
+  }
+}

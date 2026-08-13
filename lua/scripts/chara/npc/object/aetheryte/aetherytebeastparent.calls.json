@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/aetheryte/aetherytebeastparent",
+  "ciphered": "729s9/wu7/v8057q/95q25slq5/95q25slq5859rqu9s5wq.lua",
+  "classes": [
+    "AetheryteBeastParent"
+  ],
+  "lineCount": 43,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

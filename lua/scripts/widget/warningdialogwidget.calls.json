@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/warningdialogwidget",
+  "ciphered": "n1635q/n9sw1w3619yv3n1635q.lua",
+  "classes": [
+    "WarningDialogWidget"
+  ],
+  "lineCount": 64,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

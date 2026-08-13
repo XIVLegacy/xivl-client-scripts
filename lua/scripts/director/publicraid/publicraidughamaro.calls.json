@@ -1,0 +1,15 @@
+{
+  "decoded": "director/publicraid/publicraidughamaro",
+  "ciphered": "61s57qvs/up8y17s916/up8y17s916p329x9sv.lua",
+  "classes": [
+    "PublicRaidUGhamaro"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

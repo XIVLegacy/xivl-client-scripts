@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidlesserifrit",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s916y5rr5s14s1q.lua",
+  "classes": [
+    "InstanceRaidLesserIfrit"
+  ],
+  "lineCount": 25,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

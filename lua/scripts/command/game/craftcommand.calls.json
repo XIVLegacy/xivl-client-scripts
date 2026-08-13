@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/craftcommand",
+  "ciphered": "7vxx9w6/39x5/7s94q7vxx9w6.lua",
+  "classes": [
+    "CraftCommand"
+  ],
+  "lineCount": 46,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

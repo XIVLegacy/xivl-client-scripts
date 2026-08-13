@@ -1,0 +1,25 @@
+{
+  "decoded": "widget/partymanagersubwidget",
+  "ciphered": "n1635q/u9sqlx9w935srp8n1635q.lua",
+  "classes": [
+    "PartyManagerSubWidget"
+  ],
+  "lineCount": 426,
+  "apiCount": 3,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      348
+    ],
+    "_getParentWidget": [
+      147,
+      190,
+      205,
+      252,
+      289
+    ]
+  }
+}

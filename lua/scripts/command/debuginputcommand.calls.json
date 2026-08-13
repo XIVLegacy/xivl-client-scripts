@@ -1,0 +1,49 @@
+{
+  "decoded": "command/debuginputcommand",
+  "ciphered": "7vxx9w6/658p31wupq7vxx9w6.lua",
+  "classes": [
+    "DebugInputCommand"
+  ],
+  "lineCount": 220,
+  "apiCount": 10,
+  "callsiteCount": 17,
+  "apis": {
+    "_commandDebug": [
+      60
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_doServerOnCommand": [
+      204
+    ],
+    "_getCurrentTargetCursor": [
+      110,
+      199
+    ],
+    "_getGMRank": [
+      15,
+      101,
+      190
+    ],
+    "_getInstanceName": [
+      49
+    ],
+    "_getTargetCharacter": [
+      107,
+      196
+    ],
+    "_printDebugLog": [
+      40,
+      90,
+      181
+    ],
+    "_string": [
+      148,
+      154
+    ],
+    "_table": [
+      124
+    ]
+  }
+}

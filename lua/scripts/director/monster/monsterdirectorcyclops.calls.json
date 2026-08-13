@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/monsterdirectorcyclops",
+  "ciphered": "61s57qvs/xvwrq5s/xvwrq5s61s57qvs7l7yvur.lua",
+  "classes": [
+    "MonsterDirectorCyclops"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

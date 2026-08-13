@@ -1,0 +1,15 @@
+{
+  "decoded": "status/combinationstatus",
+  "ciphered": "rq9qpr/7vx81w9q1vwrq9qpr.lua",
+  "classes": [
+    "CombinationStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

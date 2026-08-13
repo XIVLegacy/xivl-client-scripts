@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/ask/guildleveselectlevelwidget",
+  "ciphered": "n1635q/9rz/3p1y6y5o5r5y57qy5o5yn1635q.lua",
+  "classes": [
+    "GuildleveSelectLevelWidget"
+  ],
+  "lineCount": 199,
+  "apiCount": 2,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      17,
+      29,
+      47,
+      70,
+      93,
+      116,
+      138
+    ]
+  }
+}

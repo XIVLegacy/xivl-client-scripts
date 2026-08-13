@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/magicshieldstatus",
+  "ciphered": "rq9qpr/x9317/x9317r215y6rq9qpr.lua",
+  "classes": [
+    "MagicShieldStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

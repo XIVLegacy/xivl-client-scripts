@@ -1,0 +1,15 @@
+{
+  "decoded": "status/dev/dev1astatus",
+  "ciphered": "rq9qpr/65o/65oi9rq9qpr.lua",
+  "classes": [
+    "Dev1aStatus"
+  ],
+  "lineCount": 98,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

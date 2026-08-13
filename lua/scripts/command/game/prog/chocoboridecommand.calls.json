@@ -1,0 +1,43 @@
+{
+  "decoded": "command/game/prog/chocoboridecommand",
+  "ciphered": "7vxx9w6/39x5/usv3/72v7v8vs1657vxx9w6.lua",
+  "classes": [
+    "ChocoboRideCommand"
+  ],
+  "lineCount": 152,
+  "apiCount": 10,
+  "callsiteCount": 11,
+  "apis": {
+    "_canRideChocobo": [
+      80
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      145
+    ],
+    "_fadeInAfterWarp": [
+      148
+    ],
+    "_fadeOut": [
+      125
+    ],
+    "_getCurrentAreaMaster": [
+      77
+    ],
+    "_getStaticActor": [
+      55,
+      101
+    ],
+    "_isPushingOut": [
+      93
+    ],
+    "_isWarpRideChocobo": [
+      84
+    ],
+    "_waitForFading": [
+      129
+    ]
+  }
+}

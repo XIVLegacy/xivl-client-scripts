@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/bgkeepout",
+  "ciphered": "729s9/wu7/v8057q/83z55uvpq.lua",
+  "classes": [
+    "BgKeepout"
+  ],
+  "lineCount": 23,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "decoded": "widget/ask/materiadialogwidget",
+  "ciphered": "n1635q/9rz/x9q5s19619yv3n1635q.lua",
+  "classes": [
+    "MateriaDialogWidget"
+  ],
+  "lineCount": 582,
+  "apiCount": 7,
+  "callsiteCount": 10,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      255
+    ],
+    "_getItem": [
+      247
+    ],
+    "_getKeyboardFocusedWidget": [
+      571
+    ],
+    "_getMyPlayer": [
+      244,
+      403
+    ],
+    "_getNameIndex": [
+      258
+    ],
+    "_getParentWidget": [
+      129,
+      138,
+      195
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/rangestatus",
+  "ciphered": "rq9qpr/s9w35rq9qpr.lua",
+  "classes": [
+    "RangeStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "decoded": "chara/npc/populace/populacelinkshellmanager",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975y1wzr25yyx9w935s.lua",
+  "classes": [
+    "PopulaceLinkshellManager"
+  ],
+  "lineCount": 1302,
+  "apiCount": 6,
+  "callsiteCount": 22,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getAllGroup": [
+      844,
+      961
+    ],
+    "_getMyPlayer": [
+      30,
+      313,
+      574,
+      798,
+      915,
+      1060,
+      1103,
+      1149,
+      1271
+    ],
+    "_isAlive": [
+      852,
+      969,
+      1288
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_string": [
+      1183,
+      1193,
+      1203,
+      1213,
+      1242,
+      1252
+    ]
+  }
+}

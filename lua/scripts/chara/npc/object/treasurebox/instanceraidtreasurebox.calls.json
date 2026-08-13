@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/treasurebox/instanceraidtreasurebox",
+  "ciphered": "729s9/wu7/v8057q/qs59rps58vm/1wrq9w75s916qs59rps58vm.lua",
+  "classes": [
+    "InstanceRaidTreasureBox"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "decoded": "director/test/testdirectorbaseclass",
+  "ciphered": "61s57qvs/q5rq/q5rq61s57qvs89r57y9rr.lua",
+  "classes": [
+    "TestDirectorBaseClass"
+  ],
+  "lineCount": 71,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      16,
+      30
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

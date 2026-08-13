@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/ogre/ogrenormalanimaobj",
+  "ciphered": "729s9/wu7/xvwrq5s/v3s5/v3s5wvsx9y9w1x9v80.lua",
+  "classes": [
+    "OgreNormalAnimaobj"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

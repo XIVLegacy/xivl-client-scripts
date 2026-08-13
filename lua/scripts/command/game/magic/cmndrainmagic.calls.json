@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/cmndrainmagic",
+  "ciphered": "7vxx9w6/39x5/x9317/7xw6s91wx9317.lua",
+  "classes": [
+    "CmnDrainMagic"
+  ],
+  "lineCount": 131,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

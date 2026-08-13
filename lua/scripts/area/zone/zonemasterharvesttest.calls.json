@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterharvesttest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s29so5rqq5rq.lua",
+  "classes": [
+    "ZoneMasterHarvestTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

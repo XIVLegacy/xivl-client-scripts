@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/scalelizard/scalelizardthunderquestdrg0j6",
+  "ciphered": "729s9/wu7/xvwrq5s/r79y5y1k9s6/r79y5y1k9s6q2pw65stp5rq6s3j0d.lua",
+  "classes": [
+    "ScalelizardThunderQuestDrg0j6"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

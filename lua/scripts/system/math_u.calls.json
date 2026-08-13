@@ -1,0 +1,11 @@
+{
+  "decoded": "system/math_u",
+  "ciphered": "rlrq5x/x9q2_p.lua",
+  "classes": [
+    "Math"
+  ],
+  "lineCount": 321,
+  "apiCount": 0,
+  "callsiteCount": 0,
+  "apis": {}
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/netstatuserswitchcommand",
+  "ciphered": "7vxx9w6/rlrq5x/w5qrq9qpr5srn1q727vxx9w6.lua",
+  "classes": [
+    "NetStatUserSwitchCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

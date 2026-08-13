@@ -1,0 +1,15 @@
+{
+  "decoded": "group/contentgroup/guildlevegroup",
+  "ciphered": "3svpu/7vwq5wq3svpu/3p1y6y5o53svpu.lua",
+  "classes": [
+    "GuildleveGroup"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

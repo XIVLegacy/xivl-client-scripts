@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.local/schemas/lua-registry.schema.json",
+  "title": "XIVLegacy Lua Script Registry",
+  "type": "object",
+  "required": [
+    "version",
+    "gameVersion",
+    "extraction",
+    "source",
+    "scriptCount",
+    "scripts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "type": "string" },
+    "gameVersion": { "type": "string" },
+    "extraction": { "type": "string" },
+    "source": { "type": "string" },
+    "scriptCount": { "type": "integer", "minimum": 0 },
+    "scripts": {
+      "type": "object",
+      "description": "Keyed by decoded (canonical) script path without .lua extension.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["ciphered", "classes", "methods", "requires", "lineCount"],
+        "additionalProperties": false,
+        "properties": {
+          "ciphered": {
+            "type": "string",
+            "description": "Original ciphered path relative to build/lua/, with .lua suffix."
+          },
+          "classes": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "CamelCase class names extracted from script content."
+          },
+          "methods": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Method names declared on the class (e.g. _onInit, prepareSpreadSheet)."
+          },
+          "requires": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Script paths this file requires() at the top level."
+          },
+          "lineCount": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}

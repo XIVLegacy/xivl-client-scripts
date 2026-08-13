@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/player/playerbaseclass_u",
+  "ciphered": "729s9/uy9l5s/uy9l5s89r57y9rr_p.lua",
+  "classes": [
+    "PlayerBaseClass"
+  ],
+  "lineCount": 941,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_callServerOnCommand_cpp": [
+      187
+    ]
+  }
+}

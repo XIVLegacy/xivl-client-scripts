@@ -1,0 +1,15 @@
+{
+  "decoded": "status/monstershieldstatus",
+  "ciphered": "rq9qpr/xvwrq5sr215y6rq9qpr.lua",
+  "classes": [
+    "MonsterShieldStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

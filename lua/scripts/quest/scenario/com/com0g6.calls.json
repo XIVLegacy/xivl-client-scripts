@@ -1,0 +1,56 @@
+{
+  "decoded": "quest/scenario/com/com0g6",
+  "ciphered": "tp5rq/r75w9s1v/7vx/7vxj3d.lua",
+  "classes": [
+    "Com0g6"
+  ],
+  "lineCount": 964,
+  "apiCount": 4,
+  "callsiteCount": 36,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      58,
+      74,
+      105,
+      129,
+      168,
+      184,
+      200,
+      254,
+      292,
+      303,
+      320,
+      342,
+      364,
+      402,
+      435,
+      446,
+      473,
+      499,
+      525,
+      639,
+      665,
+      691,
+      717,
+      743,
+      808,
+      830,
+      901,
+      923
+    ],
+    "_wait": [
+      42,
+      110,
+      125,
+      259,
+      889
+    ]
+  }
+}

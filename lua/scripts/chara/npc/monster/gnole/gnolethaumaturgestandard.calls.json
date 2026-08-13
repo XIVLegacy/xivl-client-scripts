@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/gnole/gnolethaumaturgestandard",
+  "ciphered": "729s9/wu7/xvwrq5s/3wvy5/3wvy5q29px9qps35rq9w69s6.lua",
+  "classes": [
+    "GnoleThaumaturgeStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

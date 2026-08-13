@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/systemcommandbaseclass",
+  "ciphered": "7vxx9w6/rlrq5x/rlrq5x7vxx9w689r57y9rr.lua",
+  "classes": [
+    "SystemCommandBaseClass"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

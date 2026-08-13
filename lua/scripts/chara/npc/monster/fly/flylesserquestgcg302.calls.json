@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fly/flylesserquestgcg302",
+  "ciphered": "729s9/wu7/xvwrq5s/4yl/4yly5rr5stp5rq373gjh.lua",
+  "classes": [
+    "FlyLesserQuestGcg302"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

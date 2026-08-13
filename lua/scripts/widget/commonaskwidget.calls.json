@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/commonaskwidget",
+  "ciphered": "n1635q/7vxxvw9rzn1635q.lua",
+  "classes": [
+    "CommonAskWidget"
+  ],
+  "lineCount": 133,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      120
+    ],
+    "_setKeyboardFocusedControl": [
+      106
+    ],
+    "_setUICommandTemplateCondition": [
+      30
+    ]
+  }
+}

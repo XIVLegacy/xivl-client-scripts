@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/debug/testcottage",
+  "ciphered": "729s9/wu7/658p3/q5rq7vqq935.lua",
+  "classes": [
+    "TestCottage"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_printLog": [
+      15
+    ]
+  }
+}

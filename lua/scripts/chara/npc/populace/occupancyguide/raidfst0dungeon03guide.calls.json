@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/populace/occupancyguide/raidfst0dungeon03guide",
+  "ciphered": "729s9/wu7/uvupy975/v77pu9w7l3p165/s9164rqj6pw35vwjg3p165.lua",
+  "classes": [
+    "RaidFst0Dungeon03Guide"
+  ],
+  "lineCount": 539,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

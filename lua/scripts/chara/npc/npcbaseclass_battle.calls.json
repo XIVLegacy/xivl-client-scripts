@@ -1,0 +1,11 @@
+{
+  "decoded": "chara/npc/npcbaseclass_battle",
+  "ciphered": "729s9/wu7/wu789r57y9rr_89qqy5.lua",
+  "classes": [
+    "NpcBaseClass"
+  ],
+  "lineCount": 104,
+  "apiCount": 0,
+  "callsiteCount": 0,
+  "apis": {}
+}

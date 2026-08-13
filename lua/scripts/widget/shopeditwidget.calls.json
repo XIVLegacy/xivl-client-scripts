@@ -1,0 +1,37 @@
+{
+  "decoded": "widget/shopeditwidget",
+  "ciphered": "n1635q/r2vu561qn1635q.lua",
+  "classes": [
+    "ShopEditWidget"
+  ],
+  "lineCount": 1714,
+  "apiCount": 5,
+  "callsiteCount": 15,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      1312
+    ],
+    "_getMyPlayer": [
+      350,
+      983
+    ],
+    "_getParentWidget": [
+      1232,
+      1343,
+      1385,
+      1401,
+      1629,
+      1703
+    ],
+    "_math": [
+      584,
+      1200,
+      1467,
+      1526,
+      1598
+    ]
+  }
+}

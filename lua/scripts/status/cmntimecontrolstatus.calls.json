@@ -1,0 +1,15 @@
+{
+  "decoded": "status/cmntimecontrolstatus",
+  "ciphered": "rq9qpr/7xwq1x57vwqsvyrq9qpr.lua",
+  "classes": [
+    "CmnTimeControlStatus"
+  ],
+  "lineCount": 50,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

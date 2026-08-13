@@ -1,0 +1,35 @@
+{
+  "decoded": "chara/npc/mapobj/marketstand",
+  "ciphered": "729s9/wu7/x9uv80/x9sz5qrq9w6.lua",
+  "classes": [
+    "MarketStand"
+  ],
+  "lineCount": 428,
+  "apiCount": 6,
+  "callsiteCount": 11,
+  "apis": {
+    "_countMember": [
+      107
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getGroup": [
+      99
+    ],
+    "_getMyPlayer": [
+      62,
+      170,
+      389
+    ],
+    "_onReaction": [
+      55
+    ],
+    "_runBgScheduler": [
+      15,
+      20,
+      34,
+      40
+    ]
+  }
+}

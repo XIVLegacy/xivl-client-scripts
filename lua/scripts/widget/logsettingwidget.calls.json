@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/logsettingwidget",
+  "ciphered": "n1635q/yv3r5qq1w3n1635q.lua",
+  "classes": [
+    "LogSettingWidget"
+  ],
+  "lineCount": 1307,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_table": [
+      913
+    ]
+  }
+}

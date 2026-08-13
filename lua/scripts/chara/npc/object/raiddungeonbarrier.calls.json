@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/object/raiddungeonbarrier",
+  "ciphered": "729s9/wu7/v8057q/s9166pw35vw89ss15s.lua",
+  "classes": [
+    "RaidDungeonBarrier"
+  ],
+  "lineCount": 54,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

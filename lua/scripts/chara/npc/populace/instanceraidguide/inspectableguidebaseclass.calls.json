@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/instanceraidguide/inspectableguidebaseclass",
+  "ciphered": "729s9/wu7/uvupy975/1wrq9w75s9163p165/1wru57q98y53p16589r57y9rr.lua",
+  "classes": [
+    "InspectableGuideBaseClass"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

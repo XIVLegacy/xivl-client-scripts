@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/kesaranpasaran/kesaranpasaranstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/z5r9s9wu9r9s9w/z5r9s9wu9r9s9wrq9w69s6.lua",
+  "classes": [
+    "KesaranpasaranStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

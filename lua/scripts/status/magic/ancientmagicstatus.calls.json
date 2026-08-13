@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/ancientmagicstatus",
+  "ciphered": "rq9qpr/x9317/9w715wqx9317rq9qpr.lua",
+  "classes": [
+    "AncientMagicStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

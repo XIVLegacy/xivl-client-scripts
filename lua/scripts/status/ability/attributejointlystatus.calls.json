@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/attributejointlystatus",
+  "ciphered": "rq9qpr/981y1ql/9qqs18pq50v1wqylrq9qpr.lua",
+  "classes": [
+    "AttributeJointlyStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

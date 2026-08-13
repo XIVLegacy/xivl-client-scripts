@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/npclinkshellchatcommand",
+  "ciphered": "7vxx9w6/rlrq5x/wu7y1wzr25yy729q7vxx9w6.lua",
+  "classes": [
+    "NpcLinkshellChatCommand"
+  ],
+  "lineCount": 19,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "decoded": "widget/pcprofilewidget",
+  "ciphered": "n1635q/u7usv41y5n1635q.lua",
+  "classes": [
+    "PcProfileWidget"
+  ],
+  "lineCount": 2179,
+  "apiCount": 10,
+  "callsiteCount": 12,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getAchievementTitle": [
+      22
+    ],
+    "_getBelongGrandCompany": [
+      914
+    ],
+    "_getData": [
+      999
+    ],
+    "_getEquippingItem": [
+      1044,
+      2114
+    ],
+    "_getGMRank": [
+      1844,
+      1848
+    ],
+    "_getKeyboardFocusedWidget": [
+      1889
+    ],
+    "_getMyPlayer": [
+      1538
+    ],
+    "_isAlive": [
+      1840
+    ],
+    "_loadKeyTemporarily": [
+      993
+    ]
+  }
+}

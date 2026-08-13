@@ -1,0 +1,40 @@
+{
+  "decoded": "chara/npc/mapobj/doorstandard",
+  "ciphered": "729s9/wu7/x9uv80/6vvsrq9w69s6.lua",
+  "classes": [
+    "DoorStandard"
+  ],
+  "lineCount": 241,
+  "apiCount": 7,
+  "callsiteCount": 14,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      122,
+      215,
+      230
+    ],
+    "_onReaction": [
+      201
+    ],
+    "_runBgScheduler": [
+      146,
+      184,
+      219,
+      234
+    ],
+    "_runBgSchedulerFromMidstream": [
+      92,
+      102
+    ],
+    "_setGroundOn": [
+      110
+    ],
+    "_setReactionTriggerBox": [
+      71,
+      79
+    ]
+  }
+}

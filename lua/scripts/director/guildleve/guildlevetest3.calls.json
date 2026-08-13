@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/guildlevetest3",
+  "ciphered": "61s57qvs/3p1y6y5o5/3p1y6y5o5q5rqg.lua",
+  "classes": [
+    "GuildleveTest3"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

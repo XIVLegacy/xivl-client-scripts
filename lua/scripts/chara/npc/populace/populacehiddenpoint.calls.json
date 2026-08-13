@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/populace/populacehiddenpoint",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97521665wuv1wq.lua",
+  "classes": [
+    "PopulaceHiddenPoint"
+  ],
+  "lineCount": 28,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

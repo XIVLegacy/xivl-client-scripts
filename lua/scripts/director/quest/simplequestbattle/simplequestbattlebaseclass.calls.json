@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/simplequestbattle/simplequestbattlebaseclass",
+  "ciphered": "61s57qvs/tp5rq/r1xuy5tp5rq89qqy5/r1xuy5tp5rq89qqy589r57y9rr.lua",
+  "classes": [
+    "SimpleQuestBattleBaseClass"
+  ],
+  "lineCount": 43,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

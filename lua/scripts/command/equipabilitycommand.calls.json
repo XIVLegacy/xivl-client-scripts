@@ -1,0 +1,15 @@
+{
+  "decoded": "command/equipabilitycommand",
+  "ciphered": "7vxx9w6/5tp1u981y1ql7vxx9w6.lua",
+  "classes": [
+    "EquipAbilityCommand"
+  ],
+  "lineCount": 35,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

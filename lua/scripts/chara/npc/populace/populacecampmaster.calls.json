@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/populace/populacecampmaster",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97579xux9rq5s.lua",
+  "classes": [
+    "PopulaceCampMaster"
+  ],
+  "lineCount": 819,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      27
+    ]
+  }
+}

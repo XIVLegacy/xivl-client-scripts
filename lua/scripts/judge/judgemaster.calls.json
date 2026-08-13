@@ -1,0 +1,29 @@
+{
+  "decoded": "judge/judgemaster",
+  "ciphered": "0p635/0p635x9rq5s.lua",
+  "classes": [
+    "JudgeMaster"
+  ],
+  "lineCount": 37,
+  "apiCount": 5,
+  "callsiteCount": 7,
+  "apis": {
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getStaticActor": [
+      25,
+      30
+    ],
+    "_onInit": [
+      15,
+      37
+    ],
+    "_prepareAllCommandStaticActor": [
+      33
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/configkeyboardaskwidget",
+  "ciphered": "n1635q/7vw413z5l8v9s69rzn1635q.lua",
+  "classes": [
+    "ConfigKeyboardAskWidget"
+  ],
+  "lineCount": 36,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

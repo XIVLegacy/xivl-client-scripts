@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/populacetutorial",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975qpqvs19y.lua",
+  "classes": [
+    "PopulaceTutorial"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

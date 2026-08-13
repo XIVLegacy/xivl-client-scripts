@@ -1,0 +1,24 @@
+{
+  "decoded": "chara/npc/object/beasttribesmachine2",
+  "ciphered": "729s9/wu7/v8057q/859rqqs185rx9721w5h.lua",
+  "classes": [
+    "BeastTribesMachine2"
+  ],
+  "lineCount": 92,
+  "apiCount": 3,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runCharaScheduler": [
+      38,
+      48,
+      64,
+      74
+    ],
+    "_setGroundOn": [
+      81
+    ]
+  }
+}

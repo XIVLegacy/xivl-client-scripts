@@ -1,0 +1,28 @@
+{
+  "decoded": "quest/passiveguildleve/passiveguildlevebaseclass",
+  "ciphered": "tp5rq/u9rr1o53p1y6y5o5/u9rr1o53p1y6y5o589r57y9rr.lua",
+  "classes": [
+    "PassiveGuildleveBaseClass"
+  ],
+  "lineCount": 70,
+  "apiCount": 5,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ],
+    "_fadeIn": [
+      62
+    ],
+    "_fadeOut": [
+      55
+    ],
+    "_runCharaScheduler": [
+      27
+    ],
+    "_waitForFading": [
+      59,
+      66
+    ]
+  }
+}

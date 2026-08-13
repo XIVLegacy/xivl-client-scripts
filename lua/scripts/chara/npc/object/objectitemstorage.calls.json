@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/object/objectitemstorage",
+  "ciphered": "729s9/wu7/v8057q/v8057q1q5xrqvs935.lua",
+  "classes": [
+    "ObjectItemStorage"
+  ],
+  "lineCount": 130,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      21
+    ],
+    "_setGroundOn": [
+      26
+    ]
+  }
+}

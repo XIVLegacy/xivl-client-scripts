@@ -1,0 +1,15 @@
+{
+  "decoded": "director/directordefault",
+  "ciphered": "61s57qvs/61s57qvs6549pyq.lua",
+  "classes": [
+    "DirectorDefault"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

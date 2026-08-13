@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/brd/brd0j9",
+  "ciphered": "tp5rq/r75w9s1v/8s6/8s6j0a.lua",
+  "classes": [
+    "Brd0j9"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

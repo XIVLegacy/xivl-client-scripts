@@ -1,0 +1,15 @@
+{
+  "decoded": "status/boostpointstatus",
+  "ciphered": "rq9qpr/8vvrquv1wqrq9qpr.lua",
+  "classes": [
+    "BoostPointStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/treant/treantbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/qs59wq/qs59wq89r57y9rr.lua",
+  "classes": [
+    "TreantBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

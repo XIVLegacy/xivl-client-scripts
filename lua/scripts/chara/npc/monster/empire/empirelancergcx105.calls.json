@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/empire/empirelancergcx105",
+  "ciphered": "729s9/wu7/xvwrq5s/5xu1s5/5xu1s5y9w75s37mije.lua",
+  "classes": [
+    "EmpireLancerGcx105"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

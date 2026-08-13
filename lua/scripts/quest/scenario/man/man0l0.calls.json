@@ -1,0 +1,183 @@
+{
+  "decoded": "quest/scenario/man/man0l0",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wjyj.lua",
+  "classes": [
+    "Man0l0"
+  ],
+  "lineCount": 2533,
+  "apiCount": 25,
+  "callsiteCount": 121,
+  "apis": {
+    "_aimCameraTutorial": [
+      1067,
+      1336,
+      1825,
+      1941,
+      2166
+    ],
+    "_cancelAimCameraTutorial": [
+      1151,
+      1420,
+      1847,
+      1969,
+      2188
+    ],
+    "_cancelLookAtPlayerTutorial": [
+      1612
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      979,
+      1248
+    ],
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      923,
+      1197,
+      1724
+    ],
+    "_isKeyboardOnlyTutorial": [
+      937,
+      951,
+      956,
+      1211,
+      1225,
+      1230,
+      1739,
+      1753,
+      1758
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_lockCameraControl": [
+      895,
+      1058,
+      1163,
+      1327
+    ],
+    "_lockLockonControl": [
+      1514,
+      2039,
+      2290
+    ],
+    "_lockPlayerControl": [
+      1511,
+      2036,
+      2287
+    ],
+    "_lockTargetCursorControl": [
+      1503,
+      2028,
+      2279
+    ],
+    "_lookAtPlayerTutorial": [
+      1072,
+      1341,
+      1830,
+      1946,
+      2171
+    ],
+    "_runCharaScheduler": [
+      223,
+      288,
+      334,
+      359,
+      438,
+      469,
+      548,
+      645,
+      661,
+      681,
+      696,
+      1563,
+      1638,
+      1669,
+      1694
+    ],
+    "_runCharaSchedulerTutorial": [
+      1011,
+      1077,
+      1083,
+      1280,
+      1346,
+      1352,
+      1835,
+      1951,
+      1957,
+      2176
+    ],
+    "_setTargetCharacter": [
+      1110,
+      1379,
+      1574
+    ],
+    "_unlockCameraControl": [
+      1037,
+      1147,
+      1306,
+      1416
+    ],
+    "_unlockLockonControl": [
+      1471,
+      2008,
+      2259
+    ],
+    "_unlockPlayerControl": [
+      1474,
+      2011,
+      2262
+    ],
+    "_unlockTargetCursorControl": [
+      1468,
+      2005,
+      2256
+    ],
+    "_wait": [
+      102,
+      931,
+      946,
+      983,
+      1001,
+      1022,
+      1054,
+      1205,
+      1220,
+      1252,
+      1270,
+      1291,
+      1323,
+      1441,
+      1522,
+      1559,
+      1590,
+      1748,
+      1820,
+      1936,
+      2023,
+      2156,
+      2274,
+      2403,
+      2486,
+      2520
+    ],
+    "_waitForCameraTutorial": [
+      1041,
+      1310
+    ],
+    "_waitForFading": [
+      998,
+      1267
+    ],
+    "_waitForMapLoaded": [
+      975,
+      1244
+    ],
+    "_waitForTargetTutorial": [
+      1478,
+      2015,
+      2266
+    ]
+  }
+}

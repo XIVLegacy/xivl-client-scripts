@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/poisonamagic",
+  "ciphered": "7vxx9w6/39x5/x9317/uv1rvw9x9317.lua",
+  "classes": [
+    "PoisonaMagic"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

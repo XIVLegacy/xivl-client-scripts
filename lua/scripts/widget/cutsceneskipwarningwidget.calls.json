@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/cutsceneskipwarningwidget",
+  "ciphered": "n1635q/7pqr75w5rz1un9sw1w3n1635q.lua",
+  "classes": [
+    "CutSceneSkipWarningWidget"
+  ],
+  "lineCount": 48,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/monster/whitegeneral/whitegeneralmeteor",
+  "ciphered": "729s9/wu7/xvwrq5s/n21q535w5s9y/n21q535w5s9yx5q5vs.lua",
+  "classes": [
+    "WhiteGeneralMeteor"
+  ],
+  "lineCount": 19,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

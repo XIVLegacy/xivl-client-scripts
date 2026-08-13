@@ -1,0 +1,15 @@
+{
+  "decoded": "area/privatearea/occupancy/privateareaoccupancybaseclass",
+  "ciphered": "9s59/us1o9q59s59/v77pu9w7l/us1o9q59s59v77pu9w7l89r57y9rr.lua",
+  "classes": [
+    "PrivateAreaOccupancyBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

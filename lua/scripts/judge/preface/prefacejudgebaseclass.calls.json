@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/preface/prefacejudgebaseclass",
+  "ciphered": "0p635/us54975/us549750p63589r57y9rr.lua",
+  "classes": [
+    "PrefaceJudgeBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

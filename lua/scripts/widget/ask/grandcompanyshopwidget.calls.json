@@ -1,0 +1,53 @@
+{
+  "decoded": "widget/ask/grandcompanyshopwidget",
+  "ciphered": "n1635q/9rz/3s9w67vxu9wlr2vun1635q.lua",
+  "classes": [
+    "GrandCompanyShopWidget"
+  ],
+  "lineCount": 2328,
+  "apiCount": 10,
+  "callsiteCount": 21,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      569
+    ],
+    "_getEquippingItem": [
+      1280,
+      1287,
+      1294,
+      1301
+    ],
+    "_getItemPackageCapacity": [
+      356,
+      1595
+    ],
+    "_getItemPackageFreeSpace": [
+      360,
+      1599
+    ],
+    "_getKeyboardFocusedWidget": [
+      1879
+    ],
+    "_getMyPlayer": [
+      353,
+      414,
+      423,
+      824,
+      927,
+      1217,
+      1592
+    ],
+    "_getServerTime": [
+      2274
+    ],
+    "_isStackable": [
+      956
+    ],
+    "_loadKeyTemporarily": [
+      563
+    ]
+  }
+}

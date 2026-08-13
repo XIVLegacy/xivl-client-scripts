@@ -1,0 +1,15 @@
+{
+  "decoded": "director/openingdirector",
+  "ciphered": "61s57qvs/vu5w1w361s57qvs.lua",
+  "classes": [
+    "OpeningDirector"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

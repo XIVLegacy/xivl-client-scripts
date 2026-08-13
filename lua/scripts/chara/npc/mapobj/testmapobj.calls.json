@@ -1,0 +1,25 @@
+{
+  "decoded": "chara/npc/mapobj/testmapobj",
+  "ciphered": "729s9/wu7/x9uv80/q5rqx9uv80.lua",
+  "classes": [
+    "TestMapObj"
+  ],
+  "lineCount": 67,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_onReaction": [
+      67
+    ],
+    "_runBgScheduler": [
+      62
+    ],
+    "_setReactionTriggerBox": [
+      39,
+      47
+    ]
+  }
+}

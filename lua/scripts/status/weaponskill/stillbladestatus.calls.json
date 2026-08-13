@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/stillbladestatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/rq1yy8y965rq9qpr.lua",
+  "classes": [
+    "StillBladeStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

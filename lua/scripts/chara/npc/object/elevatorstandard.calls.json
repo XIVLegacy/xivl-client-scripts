@@ -1,0 +1,36 @@
+{
+  "decoded": "chara/npc/object/elevatorstandard",
+  "ciphered": "729s9/wu7/v8057q/5y5o9qvsrq9w69s6.lua",
+  "classes": [
+    "ElevatorStandard"
+  ],
+  "lineCount": 234,
+  "apiCount": 8,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      227
+    ],
+    "_fadeInAfterWarp": [
+      230
+    ],
+    "_fadeOut": [
+      208
+    ],
+    "_getMyPlayer": [
+      205
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ],
+    "_waitForFading": [
+      212
+    ]
+  }
+}

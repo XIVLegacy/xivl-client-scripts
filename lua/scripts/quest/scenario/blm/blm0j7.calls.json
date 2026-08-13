@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/blm/blm0j7",
+  "ciphered": "tp5rq/r75w9s1v/8yx/8yxj0c.lua",
+  "classes": [
+    "Blm0j7"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

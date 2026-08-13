@@ -1,0 +1,26 @@
+{
+  "decoded": "command/system/contentcommand",
+  "ciphered": "7vxx9w6/rlrq5x/7vwq5wq7vxx9w6.lua",
+  "classes": [
+    "ContentCommand"
+  ],
+  "lineCount": 180,
+  "apiCount": 3,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      91,
+      107,
+      123,
+      139,
+      155,
+      171
+    ],
+    "_isMember": [
+      61
+    ]
+  }
+}

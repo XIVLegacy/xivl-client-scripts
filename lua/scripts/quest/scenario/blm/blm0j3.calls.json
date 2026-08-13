@@ -1,0 +1,52 @@
+{
+  "decoded": "quest/scenario/blm/blm0j3",
+  "ciphered": "tp5rq/r75w9s1v/8yx/8yxj0g.lua",
+  "classes": [
+    "Blm0j3"
+  ],
+  "lineCount": 674,
+  "apiCount": 4,
+  "callsiteCount": 32,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      63,
+      91,
+      107,
+      120,
+      134,
+      150,
+      185,
+      196,
+      227,
+      243,
+      268,
+      293,
+      318,
+      349,
+      377,
+      408,
+      445,
+      470,
+      495,
+      529,
+      559,
+      584,
+      609
+    ],
+    "_wait": [
+      130,
+      166,
+      200,
+      340,
+      629,
+      639
+    ]
+  }
+}

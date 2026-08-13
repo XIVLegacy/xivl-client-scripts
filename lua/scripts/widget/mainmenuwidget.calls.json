@@ -1,0 +1,25 @@
+{
+  "decoded": "widget/mainmenuwidget",
+  "ciphered": "n1635q/x91wx5wpn1635q.lua",
+  "classes": [
+    "MainMenuWidget"
+  ],
+  "lineCount": 2605,
+  "apiCount": 2,
+  "callsiteCount": 9,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      712,
+      958,
+      1165,
+      1178,
+      1216,
+      1278,
+      1920,
+      2092
+    ]
+  }
+}

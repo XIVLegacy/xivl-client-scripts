@@ -1,0 +1,25 @@
+{
+  "decoded": "quest/scenario/trl/trl0l3",
+  "ciphered": "tp5rq/r75w9s1v/qsy/qsyjyg.lua",
+  "classes": [
+    "Trl0l3"
+  ],
+  "lineCount": 121,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31
+    ],
+    "_wait": [
+      35,
+      52
+    ]
+  }
+}

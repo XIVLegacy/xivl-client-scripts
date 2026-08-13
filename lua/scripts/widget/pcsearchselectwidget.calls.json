@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/pcsearchselectwidget",
+  "ciphered": "n1635q/u7r59s72r5y57qn1635q.lua",
+  "classes": [
+    "PcSearchSelectWidget"
+  ],
+  "lineCount": 44,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

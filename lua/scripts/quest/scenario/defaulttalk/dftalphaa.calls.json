@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/defaulttalk/dftalphaa",
+  "ciphered": "tp5rq/r75w9s1v/6549pyqq9yz/64q9yu299.lua",
+  "classes": [
+    "DftAlphaA"
+  ],
+  "lineCount": 229,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

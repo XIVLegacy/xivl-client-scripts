@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasteroccupancy",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sv77pu9w7l.lua",
+  "classes": [
+    "ZoneMasterOccupancy"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

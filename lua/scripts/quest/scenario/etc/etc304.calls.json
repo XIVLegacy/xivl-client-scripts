@@ -1,0 +1,52 @@
+{
+  "decoded": "quest/scenario/etc/etc304",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7gjf.lua",
+  "classes": [
+    "Etc304"
+  ],
+  "lineCount": 662,
+  "apiCount": 6,
+  "callsiteCount": 28,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getSpecialEventWork": [
+      443
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runBgScheduler": [
+      480
+    ],
+    "_runCharaScheduler": [
+      37,
+      52,
+      68,
+      90,
+      127,
+      142,
+      158,
+      174,
+      190,
+      221,
+      236,
+      252,
+      268,
+      284,
+      332,
+      551
+    ],
+    "_wait": [
+      42,
+      132,
+      226,
+      361,
+      485,
+      546,
+      590,
+      600
+    ]
+  }
+}

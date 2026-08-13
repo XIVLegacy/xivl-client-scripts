@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/spl/spl0g3",
+  "ciphered": "tp5rq/r75w9s1v/ruy/ruyj3g.lua",
+  "classes": [
+    "Spl0g3"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/termite/termiteprincessraidw0d5",
+  "ciphered": "729s9/wu7/xvwrq5s/q5sx1q5/q5sx1q5us1w75rrs916nj6e.lua",
+  "classes": [
+    "TermitePrincessRaidW0D5"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

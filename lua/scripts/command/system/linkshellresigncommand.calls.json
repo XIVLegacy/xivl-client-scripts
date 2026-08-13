@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/linkshellresigncommand",
+  "ciphered": "7vxx9w6/rlrq5x/y1wzr25yys5r13w7vxx9w6.lua",
+  "classes": [
+    "LinkshellResignCommand"
+  ],
+  "lineCount": 42,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      18
+    ]
+  }
+}

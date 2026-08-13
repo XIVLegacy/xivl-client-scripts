@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/arc/arc306",
+  "ciphered": "tp5rq/r75w9s1v/9s7/9s7gjd.lua",
+  "classes": [
+    "Arc306"
+  ],
+  "lineCount": 565,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

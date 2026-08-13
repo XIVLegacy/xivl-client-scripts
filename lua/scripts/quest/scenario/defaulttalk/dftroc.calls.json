@@ -1,0 +1,51 @@
+{
+  "decoded": "quest/scenario/defaulttalk/dftroc",
+  "ciphered": "tp5rq/r75w9s1v/6549pyqq9yz/64qsv7.lua",
+  "classes": [
+    "DftRoc"
+  ],
+  "lineCount": 1183,
+  "apiCount": 4,
+  "callsiteCount": 31,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      112,
+      143,
+      256,
+      281,
+      306,
+      340,
+      365,
+      390,
+      427,
+      458,
+      495,
+      526,
+      557,
+      588,
+      619,
+      644,
+      675,
+      706,
+      731,
+      768,
+      799,
+      830,
+      861,
+      892,
+      1025,
+      1083,
+      1108,
+      1169
+    ],
+    "_wait": [
+      148
+    ]
+  }
+}

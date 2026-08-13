@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickmapobj/magicsquaregimmick",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zx9uv80/x9317rtp9s531xx17z.lua",
+  "classes": [
+    "MagicSquareGimmick"
+  ],
+  "lineCount": 26,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runBgSchedulerFromMidstream": [
+      15
+    ],
+    "_setGroundOn": [
+      21
+    ]
+  }
+}

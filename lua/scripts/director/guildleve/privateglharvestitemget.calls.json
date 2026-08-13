@@ -1,0 +1,18 @@
+{
+  "decoded": "director/guildleve/privateglharvestitemget",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y29so5rq1q5x35q.lua",
+  "classes": [
+    "PrivateGLHarvestItemGet"
+  ],
+  "lineCount": 140,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      29
+    ]
+  }
+}

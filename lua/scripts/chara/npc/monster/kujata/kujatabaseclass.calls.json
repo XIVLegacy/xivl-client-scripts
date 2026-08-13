@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/kujata/kujatabaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/zp09q9/zp09q989r57y9rr.lua",
+  "classes": [
+    "KujataBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

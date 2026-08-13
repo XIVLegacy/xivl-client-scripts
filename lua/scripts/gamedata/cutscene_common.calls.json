@@ -1,0 +1,65 @@
+{
+  "decoded": "gamedata/cutscene_common",
+  "ciphered": "39x569q9/7pqr75w5_7vxxvw.lua",
+  "classes": [
+    "CutScene"
+  ],
+  "lineCount": 1316,
+  "apiCount": 17,
+  "callsiteCount": 19,
+  "apis": {
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      1071
+    ],
+    "_getData": [
+      1052
+    ],
+    "_getMyPlayer": [
+      1038,
+      1068,
+      1304
+    ],
+    "_isInstanceOf": [
+      393
+    ],
+    "_loadCutScene": [
+      1074
+    ],
+    "_loadKeySemipermanently": [
+      21
+    ],
+    "_onFinalizeClip": [
+      59
+    ],
+    "_onHideUIClip": [
+      823
+    ],
+    "_onHideWidgetClip": [
+      1030
+    ],
+    "_onInitializationClip": [
+      30
+    ],
+    "_onOpenUIClip": [
+      499
+    ],
+    "_onShowUIClip": [
+      805
+    ],
+    "_onShowWidgetClip": [
+      934
+    ],
+    "_play": [
+      1256
+    ],
+    "_replay": [
+      1263
+    ],
+    "_unloadKey": [
+      50
+    ],
+    "_waitForMapLoaded": [
+      1307
+    ]
+  }
+}

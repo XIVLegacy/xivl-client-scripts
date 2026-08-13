@@ -1,0 +1,15 @@
+{
+  "decoded": "status/castkeepstatus",
+  "ciphered": "rq9qpr/79rqz55urq9qpr.lua",
+  "classes": [
+    "CastKeepStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

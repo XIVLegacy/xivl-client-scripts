@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/shielditem",
+  "ciphered": "1q5x/wvsx9y/r215y61q5x.lua",
+  "classes": [
+    "ShieldItem"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

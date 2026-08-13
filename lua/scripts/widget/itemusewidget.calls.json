@@ -1,0 +1,50 @@
+{
+  "decoded": "widget/itemusewidget",
+  "ciphered": "n1635q/1q5xpr5n1635q.lua",
+  "classes": [
+    "ItemUseWidget"
+  ],
+  "lineCount": 1573,
+  "apiCount": 8,
+  "callsiteCount": 22,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1104
+    ],
+    "_getItem": [
+      603,
+      745,
+      1015,
+      1096,
+      1276,
+      1286,
+      1296
+    ],
+    "_getItemPackageCapacity": [
+      942,
+      1340,
+      1451
+    ],
+    "_getItemPackageFreeSpace": [
+      1344,
+      1455
+    ],
+    "_getKeyboardFocusedWidget": [
+      372
+    ],
+    "_getMyPlayer": [
+      597,
+      740,
+      935,
+      1093,
+      1272,
+      1448
+    ],
+    "_getNameIndex": [
+      624
+    ]
+  }
+}

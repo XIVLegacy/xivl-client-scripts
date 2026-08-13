@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectorman0u102",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvsx9wjpijh.lua",
+  "classes": [
+    "QuestDirectorMan0u102"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

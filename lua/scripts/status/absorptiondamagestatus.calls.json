@@ -1,0 +1,15 @@
+{
+  "decoded": "status/absorptiondamagestatus",
+  "ciphered": "rq9qpr/98rvsuq1vw69x935rq9qpr.lua",
+  "classes": [
+    "AbsorptionDamageStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/pirate/pirategladiatorstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/u1s9q5/u1s9q53y9619qvsrq9w69s6.lua",
+  "classes": [
+    "PirateGladiatorStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

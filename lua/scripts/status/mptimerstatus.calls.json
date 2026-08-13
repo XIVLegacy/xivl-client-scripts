@@ -1,0 +1,15 @@
+{
+  "decoded": "status/mptimerstatus",
+  "ciphered": "rq9qpr/xuq1x5srq9qpr.lua",
+  "classes": [
+    "MpTimerStatus"
+  ],
+  "lineCount": 23,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

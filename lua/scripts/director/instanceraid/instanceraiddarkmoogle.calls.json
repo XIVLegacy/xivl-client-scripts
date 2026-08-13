@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraiddarkmoogle",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s91669szxvv3y5.lua",
+  "classes": [
+    "InstanceRaidDarkMoogle"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

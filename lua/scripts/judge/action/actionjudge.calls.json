@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/action/actionjudge",
+  "ciphered": "0p635/97q1vw/97q1vw0p635.lua",
+  "classes": [
+    "ActionJudge"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

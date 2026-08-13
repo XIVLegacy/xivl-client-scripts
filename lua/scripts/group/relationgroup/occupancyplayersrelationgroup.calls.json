@@ -1,0 +1,15 @@
+{
+  "decoded": "group/relationgroup/occupancyplayersrelationgroup",
+  "ciphered": "3svpu/s5y9q1vw3svpu/v77pu9w7luy9l5srs5y9q1vw3svpu.lua",
+  "classes": [
+    "OccupancyPlayersRelationGroup"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

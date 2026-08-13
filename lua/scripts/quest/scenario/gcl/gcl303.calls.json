@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/gcl/gcl303",
+  "ciphered": "tp5rq/r75w9s1v/37y/37ygjg.lua",
+  "classes": [
+    "Gcl303"
+  ],
+  "lineCount": 268,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "decoded": "area/areabaseclass_u",
+  "ciphered": "9s59/9s5989r57y9rr_p.lua",
+  "classes": [
+    "AreaBaseClass"
+  ],
+  "lineCount": 110,
+  "apiCount": 1,
+  "callsiteCount": 3,
+  "apis": {
+    "_loadAllKeyPermanently": [
+      68,
+      72,
+      76
+    ]
+  }
+}

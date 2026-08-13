@@ -1,0 +1,43 @@
+{
+  "decoded": "widget/statuseffectwidget",
+  "ciphered": "n1635q/rq9qpr54457qn1635q.lua",
+  "classes": [
+    "StatusEffectWidget"
+  ],
+  "lineCount": 615,
+  "apiCount": 5,
+  "callsiteCount": 21,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      123
+    ],
+    "_getProperty": [
+      281,
+      287
+    ],
+    "_sendStoryboardCommand": [
+      316,
+      386,
+      393,
+      451,
+      541
+    ],
+    "_setProperty": [
+      332,
+      339,
+      371,
+      378,
+      423,
+      430,
+      437,
+      444,
+      492,
+      499,
+      506,
+      513
+    ]
+  }
+}

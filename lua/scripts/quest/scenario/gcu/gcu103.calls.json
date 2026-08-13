@@ -1,0 +1,34 @@
+{
+  "decoded": "quest/scenario/gcu/gcu103",
+  "ciphered": "tp5rq/r75w9s1v/37p/37pijg.lua",
+  "classes": [
+    "Gcu103"
+  ],
+  "lineCount": 515,
+  "apiCount": 3,
+  "callsiteCount": 16,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      47,
+      75,
+      89,
+      100,
+      133,
+      158,
+      174,
+      205,
+      221,
+      237,
+      253,
+      269,
+      297
+    ]
+  }
+}

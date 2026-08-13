@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickexitrect",
+  "ciphered": "729s9/wu7/31xx17z/31xx17z5m1qs57q.lua",
+  "classes": [
+    "GimmickExitRect"
+  ],
+  "lineCount": 72,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_setGroundOn": [
+      19
+    ]
+  }
+}

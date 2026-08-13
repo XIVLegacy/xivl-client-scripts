@@ -1,0 +1,27 @@
+{
+  "decoded": "widget/itemsubwidget",
+  "ciphered": "n1635q/1q5xrp8n1635q.lua",
+  "classes": [
+    "ItemSubWidget"
+  ],
+  "lineCount": 429,
+  "apiCount": 4,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      173
+    ],
+    "_getParentWidget": [
+      242,
+      390,
+      403,
+      416
+    ],
+    "_getProperty": [
+      145
+    ]
+  }
+}

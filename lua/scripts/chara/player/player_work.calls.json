@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/player/player_work",
+  "ciphered": "729s9/uy9l5s/uy9l5s_nvsz.lua",
+  "classes": [
+    "Player"
+  ],
+  "lineCount": 699,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_math": [
+      682
+    ]
+  }
+}

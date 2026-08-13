@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/gnole/gnoleconattacklesserstd",
+  "ciphered": "729s9/wu7/xvwrq5s/3wvy5/3wvy57vw9qq97zy5rr5srq6.lua",
+  "classes": [
+    "GnoleConAttackLesserStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

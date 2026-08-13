@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/populace/instanceraidguide/noquestguidebaseclass",
+  "ciphered": "729s9/wu7/uvupy975/1wrq9w75s9163p165/wvtp5rq3p16589r57y9rr.lua",
+  "classes": [
+    "NoQuestGuideBaseClass"
+  ],
+  "lineCount": 101,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      18
+    ]
+  }
+}

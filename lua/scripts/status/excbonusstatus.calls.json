@@ -1,0 +1,15 @@
+{
+  "decoded": "status/excbonusstatus",
+  "ciphered": "rq9qpr/5m78vwprrq9qpr.lua",
+  "classes": [
+    "ExcBonusStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

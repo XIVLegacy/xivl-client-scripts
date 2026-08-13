@@ -1,0 +1,15 @@
+{
+  "decoded": "director/directorbaseclass_u",
+  "ciphered": "61s57qvs/61s57qvs89r57y9rr_p.lua",
+  "classes": [
+    "DirectorBaseClass"
+  ],
+  "lineCount": 58,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_getPos": [
+      8
+    ]
+  }
+}

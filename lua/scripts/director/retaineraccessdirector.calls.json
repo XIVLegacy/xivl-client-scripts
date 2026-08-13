@@ -1,0 +1,15 @@
+{
+  "decoded": "director/retaineraccessdirector",
+  "ciphered": "61s57qvs/s5q91w5s9775rr61s57qvs.lua",
+  "classes": [
+    "RetainerAccessDirector"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

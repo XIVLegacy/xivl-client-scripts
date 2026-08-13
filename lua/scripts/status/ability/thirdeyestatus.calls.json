@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/thirdeyestatus",
+  "ciphered": "rq9qpr/981y1ql/q21s65l5rq9qpr.lua",
+  "classes": [
+    "ThirdEyeStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

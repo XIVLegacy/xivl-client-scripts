@@ -1,0 +1,56 @@
+{
+  "decoded": "quest/scenario/man/man0g1",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wj3i.lua",
+  "classes": [
+    "Man0g1"
+  ],
+  "lineCount": 2279,
+  "apiCount": 9,
+  "callsiteCount": 26,
+  "apis": {
+    "_aimCameraTutorial": [
+      2154
+    ],
+    "_cancelAimCameraTutorial": [
+      2203
+    ],
+    "_cancelLookAtPlayerTutorial": [
+      2182
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_lookAtPlayerTutorial": [
+      2159
+    ],
+    "_runCharaScheduler": [
+      1075,
+      1113,
+      1130,
+      1168,
+      1185,
+      1223,
+      1240,
+      1278,
+      1295,
+      1333,
+      1350,
+      1394
+    ],
+    "_runCharaSchedulerTutorial": [
+      2164,
+      2170
+    ],
+    "_wait": [
+      382,
+      392,
+      402,
+      412,
+      435,
+      445
+    ]
+  }
+}

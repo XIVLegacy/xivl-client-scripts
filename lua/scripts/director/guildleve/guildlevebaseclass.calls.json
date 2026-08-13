@@ -1,0 +1,30 @@
+{
+  "decoded": "director/guildleve/guildlevebaseclass",
+  "ciphered": "61s57qvs/3p1y6y5o5/3p1y6y5o589r57y9rr.lua",
+  "classes": [
+    "GuildleveBaseClass"
+  ],
+  "lineCount": 1560,
+  "apiCount": 5,
+  "callsiteCount": 8,
+  "apis": {
+    "_assignForChild": [
+      216,
+      287
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getData": [
+      373,
+      540,
+      554
+    ],
+    "_loadKeyTemporarily": [
+      367
+    ],
+    "_randomInteger": [
+      782
+    ]
+  }
+}

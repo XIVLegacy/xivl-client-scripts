@@ -1,0 +1,15 @@
+{
+  "decoded": "director/gimmick/gategimmick",
+  "ciphered": "61s57qvs/31xx17z/39q531xx17z.lua",
+  "classes": [
+    "GateGimmick"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

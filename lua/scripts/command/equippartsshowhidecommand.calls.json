@@ -1,0 +1,15 @@
+{
+  "decoded": "command/equippartsshowhidecommand",
+  "ciphered": "7vxx9w6/5tp1uu9sqrr2vn21657vxx9w6.lua",
+  "classes": [
+    "EquipPartsShowHideCommand"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

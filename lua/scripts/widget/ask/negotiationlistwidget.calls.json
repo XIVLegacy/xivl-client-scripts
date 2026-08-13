@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/negotiationlistwidget",
+  "ciphered": "n1635q/9rz/w53vq19q1vwy1rqn1635q.lua",
+  "classes": [
+    "NegotiationListWidget"
+  ],
+  "lineCount": 307,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

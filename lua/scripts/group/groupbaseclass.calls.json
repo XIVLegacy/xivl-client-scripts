@@ -1,0 +1,38 @@
+{
+  "decoded": "group/groupbaseclass",
+  "ciphered": "3svpu/3svpu89r57y9rr.lua",
+  "classes": [
+    "GroupBaseClass"
+  ],
+  "lineCount": 71,
+  "apiCount": 8,
+  "callsiteCount": 10,
+  "apis": {
+    "_assignForChild": [
+      13,
+      22
+    ],
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onFinalize": [
+      71
+    ],
+    "_onInit": [
+      8,
+      33
+    ],
+    "_onUpdateGroupInformation": [
+      51
+    ],
+    "_onUpdateMember": [
+      39
+    ],
+    "_onUpdateMemberInformation": [
+      45
+    ],
+    "_onUpdateWork": [
+      57
+    ]
+  }
+}

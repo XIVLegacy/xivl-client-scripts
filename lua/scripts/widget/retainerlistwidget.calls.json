@@ -1,0 +1,31 @@
+{
+  "decoded": "widget/retainerlistwidget",
+  "ciphered": "n1635q/s5q91w5sy1rqn1635q.lua",
+  "classes": [
+    "RetainerListWidget"
+  ],
+  "lineCount": 785,
+  "apiCount": 4,
+  "callsiteCount": 11,
+  "apis": {
+    "_addItem": [
+      86
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getProperty": [
+      265
+    ],
+    "_setProperty": [
+      109,
+      116,
+      123,
+      437,
+      444,
+      489,
+      496,
+      530
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "decoded": "widget/ask/journaldetailwidget",
+  "ciphered": "n1635q/9rz/0vpsw9y65q91yn1635q.lua",
+  "classes": [
+    "JournalDetailWidget"
+  ],
+  "lineCount": 1826,
+  "apiCount": 5,
+  "callsiteCount": 13,
+  "apis": {
+    "_addItem": [
+      803
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      877,
+      885,
+      893,
+      921,
+      929,
+      937,
+      950
+    ],
+    "_getMyPlayer": [
+      1789
+    ],
+    "_loadKeyTemporarily": [
+      870,
+      914,
+      944
+    ]
+  }
+}

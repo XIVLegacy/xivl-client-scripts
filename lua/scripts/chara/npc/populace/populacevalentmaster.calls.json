@@ -1,0 +1,56 @@
+{
+  "decoded": "chara/npc/populace/populacevalentmaster",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975o9y5wqx9rq5s.lua",
+  "classes": [
+    "PopulaceValentMaster"
+  ],
+  "lineCount": 1275,
+  "apiCount": 4,
+  "callsiteCount": 36,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      17
+    ],
+    "_runCharaScheduler": [
+      38,
+      63,
+      85,
+      145,
+      238,
+      281,
+      331,
+      345,
+      364,
+      395,
+      417,
+      451,
+      502,
+      529,
+      574,
+      591,
+      622,
+      639,
+      730,
+      744,
+      763,
+      794,
+      832,
+      852,
+      885,
+      902,
+      929,
+      967,
+      984,
+      1017,
+      1034,
+      1183,
+      1197
+    ],
+    "_setGroundOn": [
+      22
+    ]
+  }
+}

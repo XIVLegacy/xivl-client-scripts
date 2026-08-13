@@ -1,0 +1,24 @@
+{
+  "decoded": "chara/npc/populace/populaceflyingship",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9754yl1w3r21u.lua",
+  "classes": [
+    "PopulaceFlyingShip"
+  ],
+  "lineCount": 306,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      31
+    ],
+    "_runCharaScheduler": [
+      203
+    ],
+    "_setGroundOn": [
+      27
+    ]
+  }
+}

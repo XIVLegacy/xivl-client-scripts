@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/extrabossinfomationwidget",
+  "ciphered": "n1635q/5mqs98vrr1w4vx9q1vwn1635q.lua",
+  "classes": [
+    "ExtraBossInfomationWidget"
+  ],
+  "lineCount": 18,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

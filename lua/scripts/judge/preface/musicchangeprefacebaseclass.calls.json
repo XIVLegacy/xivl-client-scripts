@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/preface/musicchangeprefacebaseclass",
+  "ciphered": "0p635/us54975/xpr17729w35us5497589r57y9rr.lua",
+  "classes": [
+    "MusicChangePrefaceBaseClass"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      8
+    ]
+  }
+}

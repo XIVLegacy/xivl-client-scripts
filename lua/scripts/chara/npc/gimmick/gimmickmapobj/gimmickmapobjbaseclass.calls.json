@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickmapobj/gimmickmapobjbaseclass",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zx9uv80/31xx17zx9uv8089r57y9rr.lua",
+  "classes": [
+    "GimmickMapObjBaseClass"
+  ],
+  "lineCount": 36,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ],
+    "_runBgSchedulerFromMidstream": [
+      15
+    ],
+    "_setGroundOn": [
+      21
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "decoded": "gamedata/gamedatabaseclass",
+  "ciphered": "39x569q9/39x569q989r57y9rr.lua",
+  "classes": [
+    "GameDataBaseClass"
+  ],
+  "lineCount": 21,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_assignForChild": [
+      13
+    ],
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      21
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/gathererstealthability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/39q25s5srq59yq2981y1ql.lua",
+  "classes": [
+    "GathererStealthAbility"
+  ],
+  "lineCount": 92,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

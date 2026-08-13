@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/partyresigncommand",
+  "ciphered": "7vxx9w6/rlrq5x/u9sqls5r13w7vxx9w6.lua",
+  "classes": [
+    "PartyResignCommand"
+  ],
+  "lineCount": 27,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_countMember": [
+      17
+    ],
+    "_defineClass": [
+      5
+    ]
+  }
+}

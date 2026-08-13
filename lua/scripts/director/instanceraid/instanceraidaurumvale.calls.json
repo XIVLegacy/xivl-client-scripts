@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidaurumvale",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s9169pspxo9y5.lua",
+  "classes": [
+    "InstanceRaidAurumVale"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

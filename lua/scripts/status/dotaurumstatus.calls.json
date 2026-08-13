@@ -1,0 +1,15 @@
+{
+  "decoded": "status/dotaurumstatus",
+  "ciphered": "rq9qpr/6vq9pspxrq9qpr.lua",
+  "classes": [
+    "DotAurumStatus"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

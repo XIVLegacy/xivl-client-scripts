@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/shielddefencecommand",
+  "ciphered": "7vxx9w6/39x5/r215y66545w757vxx9w6.lua",
+  "classes": [
+    "ShieldDefenceCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

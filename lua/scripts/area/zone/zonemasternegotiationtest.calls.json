@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasternegotiationtest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sw53vq19q1vwq5rq.lua",
+  "classes": [
+    "ZoneMasterNegotiationTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

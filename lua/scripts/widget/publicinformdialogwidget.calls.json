@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/publicinformdialogwidget",
+  "ciphered": "n1635q/up8y171w4vsx619yv3n1635q.lua",
+  "classes": [
+    "PublicInformDialogWidget"
+  ],
+  "lineCount": 72,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

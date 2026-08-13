@@ -1,0 +1,21 @@
+{
+  "decoded": "quest/scenario/wvr/wvr306",
+  "ciphered": "tp5rq/r75w9s1v/nos/nosgjd.lua",
+  "classes": [
+    "Wvr306"
+  ],
+  "lineCount": 712,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_wait": [
+      621
+    ]
+  }
+}

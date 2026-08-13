@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/wdk/wdk200",
+  "ciphered": "tp5rq/r75w9s1v/n6z/n6zhjj.lua",
+  "classes": [
+    "Wdk200"
+  ],
+  "lineCount": 981,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

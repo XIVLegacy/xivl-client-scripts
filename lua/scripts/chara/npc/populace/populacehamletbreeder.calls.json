@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/populace/populacehamletbreeder",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97529xy5q8s5565s.lua",
+  "classes": [
+    "PopulaceHamletBreeder"
+  ],
+  "lineCount": 321,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      27
+    ]
+  }
+}

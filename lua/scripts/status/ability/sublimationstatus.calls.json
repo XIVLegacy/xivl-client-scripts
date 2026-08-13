@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/sublimationstatus",
+  "ciphered": "rq9qpr/981y1ql/rp8y1x9q1vwrq9qpr.lua",
+  "classes": [
+    "SublimationStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/painsharestatus",
+  "ciphered": "rq9qpr/981y1ql/u91wr29s5rq9qpr.lua",
+  "classes": [
+    "PainShareStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "decoded": "chara/charabaseclass_event",
+  "ciphered": "729s9/729s989r57y9rr_5o5wq.lua",
+  "classes": [
+    "CharaBaseClass"
+  ],
+  "lineCount": 444,
+  "apiCount": 12,
+  "callsiteCount": 20,
+  "apis": {
+    "_countStack": [
+      327
+    ],
+    "_createExtendedTemporaryVirtualItem": [
+      339
+    ],
+    "_getAreaType": [
+      72
+    ],
+    "_getCatalogID": [
+      324
+    ],
+    "_getCurrentAreaMaster": [
+      64
+    ],
+    "_getData": [
+      377,
+      383,
+      389
+    ],
+    "_getItem": [
+      314,
+      352
+    ],
+    "_getItemPackageCapacity": [
+      305
+    ],
+    "_hasItemPackage": [
+      296
+    ],
+    "_isInstanceOf": [
+      58,
+      66
+    ],
+    "_loadKeyTemporarily": [
+      371
+    ],
+    "_math": [
+      82,
+      412,
+      418,
+      424,
+      430
+    ]
+  }
+}

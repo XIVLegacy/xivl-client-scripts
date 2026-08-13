@@ -1,0 +1,28 @@
+{
+  "decoded": "group/partygroup/partygroupbaseclass_battle",
+  "ciphered": "3svpu/u9sql3svpu/u9sql3svpu89r57y9rr_89qqy5.lua",
+  "classes": [
+    "PartyGroupBaseClass"
+  ],
+  "lineCount": 198,
+  "apiCount": 4,
+  "callsiteCount": 8,
+  "apis": {
+    "_countMember": [
+      24,
+      70
+    ],
+    "_getMember": [
+      192
+    ],
+    "_globalTemp": [
+      50,
+      148,
+      163,
+      176
+    ],
+    "_isExistInClientMember": [
+      187
+    ]
+  }
+}

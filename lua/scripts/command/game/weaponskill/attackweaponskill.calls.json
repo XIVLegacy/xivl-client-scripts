@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/attackweaponskill",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/9qq97zn59uvwrz1yy.lua",
+  "classes": [
+    "AttackWeaponSkill"
+  ],
+  "lineCount": 71,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

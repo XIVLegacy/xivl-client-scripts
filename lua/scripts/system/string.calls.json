@@ -1,0 +1,38 @@
+{
+  "decoded": "system/string",
+  "ciphered": "rlrq5x/rqs1w3.lua",
+  "classes": [
+    "String"
+  ],
+  "lineCount": 218,
+  "apiCount": 2,
+  "callsiteCount": 22,
+  "apis": {
+    "_string": [
+      14,
+      16,
+      26,
+      36,
+      38,
+      45,
+      67,
+      69,
+      79,
+      89,
+      91,
+      98,
+      112,
+      127,
+      142,
+      164,
+      176,
+      191,
+      205,
+      207
+    ],
+    "_table": [
+      173,
+      188
+    ]
+  }
+}

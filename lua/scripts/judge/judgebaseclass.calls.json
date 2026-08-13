@@ -1,0 +1,32 @@
+{
+  "decoded": "judge/judgebaseclass",
+  "ciphered": "0p635/0p63589r57y9rr.lua",
+  "classes": [
+    "JudgeBaseClass"
+  ],
+  "lineCount": 111,
+  "apiCount": 6,
+  "callsiteCount": 8,
+  "apis": {
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_createActor": [
+      63
+    ],
+    "_delete": [
+      107
+    ],
+    "_getActorByName": [
+      103
+    ],
+    "_onInit": [
+      8,
+      18
+    ],
+    "_string": [
+      39,
+      79
+    ]
+  }
+}

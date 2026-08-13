@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/linkshellchangecommand",
+  "ciphered": "7vxx9w6/rlrq5x/y1wzr25yy729w357vxx9w6.lua",
+  "classes": [
+    "LinkshellChangeCommand"
+  ],
+  "lineCount": 58,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      18
+    ]
+  }
+}

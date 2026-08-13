@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/battleprocess/battleprocessjudge",
+  "ciphered": "0p635/89qqy5usv75rr/89qqy5usv75rr0p635.lua",
+  "classes": [
+    "BattleProcessJudge"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

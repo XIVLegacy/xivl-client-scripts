@@ -1,0 +1,48 @@
+{
+  "decoded": "quest/scenario/com/com0l5",
+  "ciphered": "tp5rq/r75w9s1v/7vx/7vxjye.lua",
+  "classes": [
+    "Com0l5"
+  ],
+  "lineCount": 772,
+  "apiCount": 4,
+  "callsiteCount": 28,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      59,
+      90,
+      122,
+      133,
+      160,
+      191,
+      207,
+      223,
+      239,
+      270,
+      301,
+      329,
+      366,
+      413,
+      438,
+      463,
+      488,
+      531,
+      557,
+      579,
+      596,
+      607,
+      630,
+      655
+    ],
+    "_wait": [
+      535
+    ]
+  }
+}

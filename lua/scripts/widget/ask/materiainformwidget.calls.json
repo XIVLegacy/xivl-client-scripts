@@ -1,0 +1,26 @@
+{
+  "decoded": "widget/ask/materiainformwidget",
+  "ciphered": "n1635q/9rz/x9q5s191w4vsxn1635q.lua",
+  "classes": [
+    "MateriaInformWidget"
+  ],
+  "lineCount": 302,
+  "apiCount": 4,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      106,
+      138
+    ],
+    "_getMyPlayer": [
+      239
+    ],
+    "_getNameIndex": [
+      109,
+      141
+    ]
+  }
+}

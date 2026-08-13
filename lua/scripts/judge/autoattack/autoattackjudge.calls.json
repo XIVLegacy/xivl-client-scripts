@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/autoattack/autoattackjudge",
+  "ciphered": "0p635/9pqv9qq97z/9pqv9qq97z0p635.lua",
+  "classes": [
+    "AutoAttackJudge"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "decoded": "widget/grandcompanystatuswidget",
+  "ciphered": "n1635q/3s9w67vxu9wlrq9qprn1635q.lua",
+  "classes": [
+    "GrandCompanyStatusWidget"
+  ],
+  "lineCount": 758,
+  "apiCount": 7,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      698
+    ],
+    "_getData": [
+      502,
+      714
+    ],
+    "_getItemPackageCapacity": [
+      433
+    ],
+    "_getItemPackageFreeSpace": [
+      437
+    ],
+    "_getMyPlayer": [
+      213,
+      430,
+      540,
+      589,
+      695
+    ],
+    "_loadKeyTemporarily": [
+      496,
+      708
+    ]
+  }
+}

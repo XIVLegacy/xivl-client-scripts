@@ -1,0 +1,129 @@
+{
+  "decoded": "judge/depictionjudge",
+  "ciphered": "0p635/65u17q1vw0p635.lua",
+  "classes": [
+    "DepictionJudge"
+  ],
+  "lineCount": 814,
+  "apiCount": 14,
+  "callsiteCount": 89,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getGroup": [
+      690
+    ],
+    "_getKind": [
+      28,
+      32,
+      275,
+      504,
+      508
+    ],
+    "_getMyPlayer": [
+      15
+    ],
+    "_getNetStatSystem": [
+      66,
+      78
+    ],
+    "_getNetStatUser": [
+      90
+    ],
+    "_getOccupancyGroup": [
+      24,
+      547,
+      626
+    ],
+    "_getSystemFlag": [
+      322,
+      728
+    ],
+    "_isAccessibleInServer": [
+      386,
+      418
+    ],
+    "_isMember": [
+      39,
+      246,
+      279,
+      381,
+      451,
+      515,
+      553,
+      632,
+      695
+    ],
+    "_isTalkable": [
+      744
+    ],
+    "_setMapMarker": [
+      360,
+      398,
+      411,
+      430,
+      443,
+      464,
+      490,
+      497,
+      578,
+      679,
+      733,
+      738,
+      763,
+      768,
+      786,
+      802
+    ],
+    "_setNameplateColor": [
+      348,
+      371,
+      390,
+      403,
+      422,
+      435,
+      456,
+      478,
+      524,
+      533,
+      558,
+      568,
+      593,
+      607,
+      637,
+      652,
+      700,
+      709,
+      719,
+      748,
+      778,
+      794
+    ],
+    "_setNameplateIcon": [
+      49,
+      71,
+      83,
+      95,
+      102,
+      110,
+      124,
+      133,
+      146,
+      170,
+      177,
+      187,
+      199,
+      210,
+      221,
+      228,
+      251,
+      262,
+      284,
+      297,
+      305,
+      327,
+      334
+    ]
+  }
+}

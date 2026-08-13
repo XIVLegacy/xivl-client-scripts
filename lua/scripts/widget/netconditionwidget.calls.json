@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/netconditionwidget",
+  "ciphered": "n1635q/w5q7vw61q1vwn1635q.lua",
+  "classes": [
+    "NetConditionWidget"
+  ],
+  "lineCount": 25,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

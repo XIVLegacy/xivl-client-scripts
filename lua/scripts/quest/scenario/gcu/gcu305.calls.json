@@ -1,0 +1,34 @@
+{
+  "decoded": "quest/scenario/gcu/gcu305",
+  "ciphered": "tp5rq/r75w9s1v/37p/37pgje.lua",
+  "classes": [
+    "Gcu305"
+  ],
+  "lineCount": 317,
+  "apiCount": 3,
+  "callsiteCount": 16,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      62,
+      78,
+      94,
+      120,
+      131,
+      158,
+      201,
+      235,
+      245,
+      261,
+      277,
+      287,
+      297
+    ]
+  }
+}

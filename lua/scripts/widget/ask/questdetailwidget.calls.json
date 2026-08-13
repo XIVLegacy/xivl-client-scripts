@@ -1,0 +1,56 @@
+{
+  "decoded": "widget/ask/questdetailwidget",
+  "ciphered": "n1635q/9rz/tp5rq65q91yn1635q.lua",
+  "classes": [
+    "QuestDetailWidget"
+  ],
+  "lineCount": 1072,
+  "apiCount": 7,
+  "callsiteCount": 30,
+  "apis": {
+    "_addItem": [
+      663
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      724,
+      992
+    ],
+    "_getData": [
+      464,
+      470,
+      594,
+      600,
+      606,
+      612,
+      630,
+      641,
+      647,
+      653,
+      701,
+      793,
+      811,
+      965,
+      1047
+    ],
+    "_getMyPlayer": [
+      514,
+      721,
+      764,
+      784,
+      989
+    ],
+    "_getSpecialEventWork": [
+      1062
+    ],
+    "_loadKeyTemporarily": [
+      458,
+      588,
+      618,
+      959,
+      1041
+    ]
+  }
+}

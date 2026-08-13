@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/waitingcountdownwidget",
+  "ciphered": "n1635q/9rz/n91q1w37vpwq6vnwn1635q.lua",
+  "classes": [
+    "WaitingCountdownWidget"
+  ],
+  "lineCount": 91,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

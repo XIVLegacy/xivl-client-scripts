@@ -1,0 +1,38 @@
+# Agent / AI tooling
+.claude/
+.agents/
+AGENTS.md
+CLAUDE.md
+docs/ai_agents/local/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Local tool output
+tmp/
+out/
+artifacts/
+build/
+*.log
+
+# Python tooling
+__pycache__/
+*.pyc
+
+# Binary capture/archive data does not belong here.
+*.pcap
+*.pcapng
+*.dat
+*.index
+*.win32
+*.exe
+*.dll
+*.lpb
+
+# User-supplied retail-derived script corpus.
+/lua/scripts/**/*.lua

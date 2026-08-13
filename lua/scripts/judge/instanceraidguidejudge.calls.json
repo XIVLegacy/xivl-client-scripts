@@ -1,0 +1,18 @@
+{
+  "decoded": "judge/instanceraidguidejudge",
+  "ciphered": "0p635/1wrq9w75s9163p1650p635.lua",
+  "classes": [
+    "InstanceRaidGuideJudge"
+  ],
+  "lineCount": 12,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      2
+    ],
+    "_onInit": [
+      12
+    ]
+  }
+}

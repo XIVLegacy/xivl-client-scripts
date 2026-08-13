@@ -1,0 +1,43 @@
+{
+  "decoded": "quest/scenario/drg/drg0j5",
+  "ciphered": "tp5rq/r75w9s1v/6s3/6s3j0e.lua",
+  "classes": [
+    "Drg0j5"
+  ],
+  "lineCount": 377,
+  "apiCount": 4,
+  "callsiteCount": 23,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      67,
+      93,
+      113,
+      141,
+      164,
+      178,
+      197,
+      213,
+      223,
+      243,
+      254,
+      281,
+      291
+    ],
+    "_wait": [
+      47,
+      63,
+      71,
+      97,
+      154,
+      168,
+      193
+    ]
+  }
+}

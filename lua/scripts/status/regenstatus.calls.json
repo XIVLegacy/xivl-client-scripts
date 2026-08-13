@@ -1,0 +1,15 @@
+{
+  "decoded": "status/regenstatus",
+  "ciphered": "rq9qpr/s535wrq9qpr.lua",
+  "classes": [
+    "RegenStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

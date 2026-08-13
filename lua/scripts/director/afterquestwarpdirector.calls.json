@@ -1,0 +1,15 @@
+{
+  "decoded": "director/afterquestwarpdirector",
+  "ciphered": "61s57qvs/94q5stp5rqn9su61s57qvs.lua",
+  "classes": [
+    "AfterQuestWarpDirector"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

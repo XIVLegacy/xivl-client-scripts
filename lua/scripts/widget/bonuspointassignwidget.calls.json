@@ -1,0 +1,63 @@
+{
+  "decoded": "widget/bonuspointassignwidget",
+  "ciphered": "n1635q/8vwpruv1wq9rr13wn1635q.lua",
+  "classes": [
+    "BonusPointAssignWidget"
+  ],
+  "lineCount": 1778,
+  "apiCount": 3,
+  "callsiteCount": 45,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      358,
+      496,
+      726,
+      916,
+      960,
+      1381
+    ],
+    "_setProperty": [
+      749,
+      762,
+      775,
+      788,
+      801,
+      814,
+      830,
+      843,
+      856,
+      869,
+      882,
+      895,
+      937,
+      986,
+      993,
+      1016,
+      1023,
+      1046,
+      1053,
+      1076,
+      1083,
+      1106,
+      1113,
+      1136,
+      1143,
+      1160,
+      1183,
+      1190,
+      1213,
+      1220,
+      1243,
+      1250,
+      1273,
+      1280,
+      1303,
+      1310,
+      1333,
+      1340
+    ]
+  }
+}

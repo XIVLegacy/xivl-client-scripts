@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/splasheffectwidget",
+  "ciphered": "n1635q/ruy9r254457qn1635q.lua",
+  "classes": [
+    "SplashEffectWidget"
+  ],
+  "lineCount": 55,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

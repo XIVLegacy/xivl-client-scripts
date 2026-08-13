@@ -1,0 +1,31 @@
+{
+  "decoded": "gamedata/cutscene",
+  "ciphered": "39x569q9/7pqr75w5.lua",
+  "classes": [
+    "CutScene"
+  ],
+  "lineCount": 69,
+  "apiCount": 6,
+  "callsiteCount": 7,
+  "apis": {
+    "_callSuperClassFunc": [
+      10
+    ],
+    "_createActor": [
+      40
+    ],
+    "_delete": [
+      61
+    ],
+    "_onFinalize": [
+      69
+    ],
+    "_onInit": [
+      11,
+      53
+    ],
+    "_setFilename": [
+      35
+    ]
+  }
+}

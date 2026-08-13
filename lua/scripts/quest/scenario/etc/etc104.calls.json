@@ -1,0 +1,42 @@
+{
+  "decoded": "quest/scenario/etc/etc104",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7ijf.lua",
+  "classes": [
+    "Etc104"
+  ],
+  "lineCount": 343,
+  "apiCount": 4,
+  "callsiteCount": 22,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      47,
+      71,
+      85,
+      116,
+      149,
+      180,
+      190,
+      205,
+      236,
+      272,
+      301,
+      323
+    ],
+    "_wait": [
+      63,
+      75,
+      120,
+      194,
+      209,
+      240,
+      276
+    ]
+  }
+}
