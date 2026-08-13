@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/questtest",
+  "ciphered": "tp5rq/tp5rqq5rq.lua",
+  "classes": [
+    "QuestTest"
+  ],
+  "lineCount": 19,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

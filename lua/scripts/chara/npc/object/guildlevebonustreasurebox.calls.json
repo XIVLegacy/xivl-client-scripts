@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/guildlevebonustreasurebox",
+  "ciphered": "729s9/wu7/v8057q/3p1y6y5o58vwprqs59rps58vm.lua",
+  "classes": [
+    "GuildleveBonusTreasureBox"
+  ],
+  "lineCount": 31,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

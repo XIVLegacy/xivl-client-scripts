@@ -1,0 +1,126 @@
+{
+  "decoded": "widget/widgetbaseclass_common",
+  "ciphered": "n1635q/n1635q89r57y9rr_7vxxvw.lua",
+  "classes": [
+    "WidgetBaseClass"
+  ],
+  "lineCount": 3361,
+  "apiCount": 23,
+  "callsiteCount": 68,
+  "apis": {
+    "_addItem": [
+      3020
+    ],
+    "_addList": [
+      3130
+    ],
+    "_clearAllList": [
+      3154
+    ],
+    "_countChildWidgets": [
+      924,
+      1010,
+      1073,
+      1131
+    ],
+    "_delete": [
+      854
+    ],
+    "_getChildWidget": [
+      932,
+      1018,
+      1080,
+      1139
+    ],
+    "_getKeyboardFocusedControl": [
+      2949
+    ],
+    "_getListProperty": [
+      3117
+    ],
+    "_getProperty": [
+      1465,
+      1494,
+      1733,
+      3198,
+      3211,
+      3224,
+      3341
+    ],
+    "_isAlive": [
+      350,
+      371
+    ],
+    "_isKeyboardFocused": [
+      2937
+    ],
+    "_math": [
+      561
+    ],
+    "_removeList": [
+      3142
+    ],
+    "_sendStoryboardCommand": [
+      1245,
+      1274
+    ],
+    "_setKeyboardFocusedControl": [
+      2960
+    ],
+    "_setListProperty": [
+      3103
+    ],
+    "_setListTextProperty": [
+      3176
+    ],
+    "_setProperty": [
+      1449,
+      1480,
+      1681,
+      1707,
+      1946,
+      1975,
+      2805,
+      2824,
+      2831,
+      2838,
+      2845,
+      3027,
+      3191,
+      3237,
+      3293,
+      3302,
+      3322
+    ],
+    "_setTextProperty": [
+      1771,
+      1813,
+      1893,
+      3284
+    ],
+    "_setUICommandCondition": [
+      1289,
+      1302,
+      1315,
+      1328,
+      1344,
+      1357,
+      1410,
+      1423,
+      1436
+    ],
+    "_setUICommandTemplateCondition": [
+      1370,
+      1384
+    ],
+    "_string": [
+      46,
+      1510,
+      1538,
+      1547
+    ],
+    "_updateList": [
+      3165
+    ]
+  }
+}

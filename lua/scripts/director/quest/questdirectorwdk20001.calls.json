@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectorwdk20001",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvsn6zhjjji.lua",
+  "classes": [
+    "QuestDirectorWdk20001"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

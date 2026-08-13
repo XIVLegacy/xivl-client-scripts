@@ -1,0 +1,23 @@
+{
+  "decoded": "widget/minimapwidget",
+  "ciphered": "n1635q/x1w1x9un1635q.lua",
+  "classes": [
+    "MiniMapWidget"
+  ],
+  "lineCount": 161,
+  "apiCount": 2,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      14,
+      21,
+      28,
+      35,
+      42,
+      49
+    ]
+  }
+}

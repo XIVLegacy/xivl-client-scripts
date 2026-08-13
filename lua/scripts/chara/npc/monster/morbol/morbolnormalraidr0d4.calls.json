@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/morbol/morbolnormalraidr0d4",
+  "ciphered": "729s9/wu7/xvwrq5s/xvs8vy/xvs8vywvsx9ys916sj6f.lua",
+  "classes": [
+    "MorbolNormalRaidR0D4"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

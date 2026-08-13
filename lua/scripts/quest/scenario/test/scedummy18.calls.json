@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/test/scedummy18",
+  "ciphered": "tp5rq/r75w9s1v/q5rq/r756pxxlib.lua",
+  "classes": [
+    "SceDummy18"
+  ],
+  "lineCount": 20,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

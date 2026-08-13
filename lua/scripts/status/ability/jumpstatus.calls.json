@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/jumpstatus",
+  "ciphered": "rq9qpr/981y1ql/0pxurq9qpr.lua",
+  "classes": [
+    "JumpStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

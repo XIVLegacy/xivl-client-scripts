@@ -1,0 +1,27 @@
+{
+  "decoded": "command/system/partyinvitecommand",
+  "ciphered": "7vxx9w6/rlrq5x/u9sql1wo1q57vxx9w6.lua",
+  "classes": [
+    "PartyInviteCommand"
+  ],
+  "lineCount": 83,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_countMember": [
+      55
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getMemberDisplayName": [
+      60
+    ],
+    "_isInstanceOf": [
+      20
+    ],
+    "_isMember": [
+      33
+    ]
+  }
+}

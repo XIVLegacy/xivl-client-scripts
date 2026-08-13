@@ -1,0 +1,24 @@
+{
+  "decoded": "quest/scenario/exc/exc300",
+  "ciphered": "tp5rq/r75w9s1v/5m7/5m7gjj.lua",
+  "classes": [
+    "Exc300"
+  ],
+  "lineCount": 1132,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      144
+    ],
+    "_wait": [
+      97
+    ]
+  }
+}

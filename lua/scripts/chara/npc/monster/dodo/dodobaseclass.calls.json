@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/dodo/dodobaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/6v6v/6v6v89r57y9rr.lua",
+  "classes": [
+    "DodoBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

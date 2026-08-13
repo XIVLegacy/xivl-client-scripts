@@ -1,0 +1,55 @@
+{
+  "decoded": "widget/itemeditwidget",
+  "ciphered": "n1635q/1q5x561qn1635q.lua",
+  "classes": [
+    "ItemEditWidget"
+  ],
+  "lineCount": 1025,
+  "apiCount": 11,
+  "callsiteCount": 21,
+  "apis": {
+    "_countStack": [
+      319,
+      924
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      309,
+      906
+    ],
+    "_getItem": [
+      245,
+      860
+    ],
+    "_getKeyboardFocusedWidget": [
+      621
+    ],
+    "_getMaxStack": [
+      497
+    ],
+    "_getMyPlayer": [
+      237,
+      857,
+      996
+    ],
+    "_getNameIndex": [
+      314,
+      915
+    ],
+    "_getParentWidget": [
+      577,
+      639,
+      669,
+      816,
+      887
+    ],
+    "_isEquipping": [
+      549
+    ],
+    "_isStackable": [
+      453
+    ]
+  }
+}

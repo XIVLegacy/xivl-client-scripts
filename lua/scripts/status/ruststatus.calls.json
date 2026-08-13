@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ruststatus",
+  "ciphered": "rq9qpr/sprqrq9qpr.lua",
+  "classes": [
+    "RustStatus"
+  ],
+  "lineCount": 44,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

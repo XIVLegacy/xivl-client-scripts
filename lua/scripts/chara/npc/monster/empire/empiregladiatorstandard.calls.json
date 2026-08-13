@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/empire/empiregladiatorstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/5xu1s5/5xu1s53y9619qvsrq9w69s6.lua",
+  "classes": [
+    "EmpireGladiatorStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

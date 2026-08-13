@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/magicbaseclass",
+  "ciphered": "7vxx9w6/39x5/x9317/x931789r57y9rr.lua",
+  "classes": [
+    "MagicBaseClass"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

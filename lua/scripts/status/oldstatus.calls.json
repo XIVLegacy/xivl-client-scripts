@@ -1,0 +1,15 @@
+{
+  "decoded": "status/oldstatus",
+  "ciphered": "rq9qpr/vy6rq9qpr.lua",
+  "classes": [
+    "OldStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

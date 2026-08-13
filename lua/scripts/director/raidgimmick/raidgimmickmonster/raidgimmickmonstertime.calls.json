@@ -1,0 +1,15 @@
+{
+  "decoded": "director/raidgimmick/raidgimmickmonster/raidgimmickmonstertime",
+  "ciphered": "61s57qvs/s91631xx17z/s91631xx17zxvwrq5s/s91631xx17zxvwrq5sq1x5.lua",
+  "classes": [
+    "RaidGimmickMonsterTime"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

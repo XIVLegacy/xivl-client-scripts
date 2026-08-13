@@ -1,0 +1,29 @@
+{
+  "decoded": "debug/debugbaseclass",
+  "ciphered": "658p3/658p389r57y9rr.lua",
+  "classes": [
+    "DebugBaseClass"
+  ],
+  "lineCount": 47,
+  "apiCount": 5,
+  "callsiteCount": 7,
+  "apis": {
+    "_assignForChild": [
+      13,
+      22
+    ],
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      30
+    ],
+    "_onLoop": [
+      36
+    ],
+    "_setLoopInterval": [
+      42
+    ]
+  }
+}

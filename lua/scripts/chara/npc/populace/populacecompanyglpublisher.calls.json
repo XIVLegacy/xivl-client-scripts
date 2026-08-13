@@ -1,0 +1,56 @@
+{
+  "decoded": "chara/npc/populace/populacecompanyglpublisher",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wl3yup8y1r25s.lua",
+  "classes": [
+    "PopulaceCompanyGLPublisher"
+  ],
+  "lineCount": 1058,
+  "apiCount": 8,
+  "callsiteCount": 28,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      114,
+      820,
+      863,
+      979,
+      995
+    ],
+    "_getMyPlayer": [
+      133,
+      164,
+      630
+    ],
+    "_loadKeyTemporarily": [
+      107,
+      812,
+      855,
+      971,
+      987
+    ],
+    "_loadTextDataPermanently": [
+      120
+    ],
+    "_math": [
+      1034
+    ],
+    "_runCharaScheduler": [
+      141,
+      237,
+      259,
+      276,
+      298,
+      327,
+      419,
+      454,
+      669
+    ],
+    "_wait": [
+      178,
+      644,
+      673
+    ]
+  }
+}

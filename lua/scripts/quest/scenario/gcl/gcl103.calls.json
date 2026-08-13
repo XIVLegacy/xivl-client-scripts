@@ -1,0 +1,44 @@
+{
+  "decoded": "quest/scenario/gcl/gcl103",
+  "ciphered": "tp5rq/r75w9s1v/37y/37yijg.lua",
+  "classes": [
+    "Gcl103"
+  ],
+  "lineCount": 431,
+  "apiCount": 5,
+  "callsiteCount": 22,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      56,
+      72,
+      92,
+      103,
+      130,
+      155,
+      177,
+      193,
+      215,
+      231,
+      247,
+      263,
+      294,
+      308,
+      339,
+      364
+    ],
+    "_wait": [
+      42,
+      52
+    ],
+    "_waitForCharaSchedulerFinished": [
+      304
+    ]
+  }
+}

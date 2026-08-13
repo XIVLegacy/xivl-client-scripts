@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/npcsaywidget",
+  "ciphered": "n1635q/wu7r9ln1635q.lua",
+  "classes": [
+    "NpcSayWidget"
+  ],
+  "lineCount": 193,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

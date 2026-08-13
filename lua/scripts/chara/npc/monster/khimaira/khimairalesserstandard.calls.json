@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/khimaira/khimairalesserstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/z21x91s9/z21x91s9y5rr5srq9w69s6.lua",
+  "classes": [
+    "KhimairaLesserStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

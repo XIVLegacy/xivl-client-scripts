@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/itemwastecommand",
+  "ciphered": "7vxx9w6/rlrq5x/1q5xn9rq57vxx9w6.lua",
+  "classes": [
+    "ItemWasteCommand"
+  ],
+  "lineCount": 39,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_hasItemPackage": [
+      28
+    ]
+  }
+}

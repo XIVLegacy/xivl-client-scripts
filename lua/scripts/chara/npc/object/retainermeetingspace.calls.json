@@ -1,0 +1,119 @@
+{
+  "decoded": "chara/npc/object/retainermeetingspace",
+  "ciphered": "729s9/wu7/v8057q/s5q91w5sx55q1w3ru975.lua",
+  "classes": [
+    "RetainerMeetingSpace"
+  ],
+  "lineCount": 981,
+  "apiCount": 18,
+  "callsiteCount": 71,
+  "apis": {
+    "_countMember": [
+      30,
+      91
+    ],
+    "_countStack": [
+      630,
+      665,
+      700,
+      731,
+      807,
+      873,
+      886
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      445,
+      473,
+      634,
+      669,
+      704,
+      764,
+      783,
+      820,
+      839,
+      890
+    ],
+    "_getDealingAttached": [
+      865
+    ],
+    "_getGroup": [
+      25,
+      83
+    ],
+    "_getItem": [
+      428,
+      456,
+      609,
+      644,
+      679,
+      714,
+      738,
+      758,
+      791,
+      852
+    ],
+    "_getItemPackageCapacity": [
+      748
+    ],
+    "_getMember": [
+      48
+    ],
+    "_getMyPlayer": [
+      22,
+      79,
+      155,
+      349,
+      518,
+      971
+    ],
+    "_getNameIndex": [
+      448,
+      476,
+      637,
+      672,
+      707,
+      786,
+      823,
+      842,
+      893
+    ],
+    "_getPackage": [
+      626,
+      661,
+      696,
+      882
+    ],
+    "_hasItemPackage": [
+      743
+    ],
+    "_isAlive": [
+      53,
+      198,
+      357,
+      436,
+      464,
+      531,
+      617,
+      652,
+      687,
+      722,
+      798,
+      860
+    ],
+    "_isExistInClientMember": [
+      43
+    ],
+    "_isExistInWorldMember": [
+      38
+    ],
+    "_isInstanceOf": [
+      867
+    ],
+    "_turnDir": [
+      975
+    ]
+  }
+}

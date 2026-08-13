@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/dreadspikestatus",
+  "ciphered": "rq9qpr/981y1ql/6s596ru1z5rq9qpr.lua",
+  "classes": [
+    "DreadSpikeStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

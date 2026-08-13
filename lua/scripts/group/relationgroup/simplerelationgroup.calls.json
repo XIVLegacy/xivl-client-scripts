@@ -1,0 +1,15 @@
+{
+  "decoded": "group/relationgroup/simplerelationgroup",
+  "ciphered": "3svpu/s5y9q1vw3svpu/r1xuy5s5y9q1vw3svpu.lua",
+  "classes": [
+    "SimpleRelationGroup"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

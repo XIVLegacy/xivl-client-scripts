@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/divinebenisonstatus",
+  "ciphered": "rq9qpr/981y1ql/61o1w585w1rvwrq9qpr.lua",
+  "classes": [
+    "DivineBenisonStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

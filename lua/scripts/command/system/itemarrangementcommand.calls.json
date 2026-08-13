@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/itemarrangementcommand",
+  "ciphered": "7vxx9w6/rlrq5x/1q5x9ss9w35x5wq7vxx9w6.lua",
+  "classes": [
+    "ItemArrangementCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "decoded": "quest/scenario/war/war0j4",
+  "ciphered": "tp5rq/r75w9s1v/n9s/n9sj0f.lua",
+  "classes": [
+    "War0j4"
+  ],
+  "lineCount": 238,
+  "apiCount": 3,
+  "callsiteCount": 10,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      63,
+      91,
+      119,
+      139,
+      150,
+      177,
+      197
+    ]
+  }
+}

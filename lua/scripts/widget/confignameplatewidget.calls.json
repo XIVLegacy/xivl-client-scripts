@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/confignameplatewidget",
+  "ciphered": "n1635q/7vw413w9x5uy9q5n1635q.lua",
+  "classes": [
+    "ConfigNamePlateWidget"
+  ],
+  "lineCount": 518,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

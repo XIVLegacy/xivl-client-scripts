@@ -1,0 +1,46 @@
+{
+  "decoded": "judge/craft/craftjudge",
+  "ciphered": "0p635/7s94q/7s94q0p635.lua",
+  "classes": [
+    "CraftJudge"
+  ],
+  "lineCount": 1109,
+  "apiCount": 9,
+  "callsiteCount": 16,
+  "apis": {
+    "_callSuperClassFunc": [
+      163
+    ],
+    "_createVirtualItem": [
+      476,
+      1036,
+      1042
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      15
+    ],
+    "_getExtendedTemporaryItem": [
+      380,
+      533
+    ],
+    "_isInstanceOf": [
+      406,
+      420,
+      556,
+      570
+    ],
+    "_loadTextDataPermanently": [
+      181
+    ],
+    "_onFinalize": [
+      175
+    ],
+    "_onInit": [
+      164,
+      168
+    ]
+  }
+}

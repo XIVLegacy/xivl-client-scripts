@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/basic/monsterattackcommand",
+  "ciphered": "7vxx9w6/39x5/89r17/xvwrq5s9qq97z7vxx9w6.lua",
+  "classes": [
+    "MonsterAttackCommand"
+  ],
+  "lineCount": 207,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

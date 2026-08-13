@@ -1,0 +1,46 @@
+{
+  "decoded": "quest/scenario/wvr/wvr300",
+  "ciphered": "tp5rq/r75w9s1v/nos/nosgjj.lua",
+  "classes": [
+    "Wvr300"
+  ],
+  "lineCount": 1325,
+  "apiCount": 4,
+  "callsiteCount": 26,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      194,
+      210,
+      235,
+      266,
+      788,
+      799,
+      836,
+      861,
+      920,
+      938,
+      975,
+      1000,
+      1059,
+      1070,
+      1089,
+      1118,
+      1143,
+      1189,
+      1206,
+      1217,
+      1261,
+      1286,
+      1311
+    ],
+    "_wait": [
+      285
+    ]
+  }
+}

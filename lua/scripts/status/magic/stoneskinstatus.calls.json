@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/stoneskinstatus",
+  "ciphered": "rq9qpr/x9317/rqvw5rz1wrq9qpr.lua",
+  "classes": [
+    "StoneSkinStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

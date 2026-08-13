@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/harvestmessagewidget",
+  "ciphered": "n1635q/29so5rqx5rr935n1635q.lua",
+  "classes": [
+    "HarvestMessageWidget"
+  ],
+  "lineCount": 69,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "decoded": "quest/scenario/whm/whm0j6",
+  "ciphered": "tp5rq/r75w9s1v/n2x/n2xj0d.lua",
+  "classes": [
+    "Whm0j6"
+  ],
+  "lineCount": 751,
+  "apiCount": 4,
+  "callsiteCount": 42,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      69,
+      94,
+      119,
+      135,
+      151,
+      167,
+      187,
+      203,
+      219,
+      239,
+      254,
+      301,
+      317,
+      342,
+      373,
+      398,
+      423,
+      499,
+      515,
+      534,
+      547,
+      563,
+      579,
+      595,
+      625,
+      641,
+      657
+    ],
+    "_wait": [
+      183,
+      463,
+      474,
+      483,
+      530,
+      538,
+      611,
+      621,
+      661,
+      675,
+      685,
+      696
+    ]
+  }
+}

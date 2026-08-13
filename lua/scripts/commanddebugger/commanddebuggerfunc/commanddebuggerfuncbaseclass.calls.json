@@ -1,0 +1,23 @@
+{
+  "decoded": "commanddebugger/commanddebuggerfunc/commanddebuggerfuncbaseclass",
+  "ciphered": "7vxx9w6658p335s/7vxx9w6658p335s4pw7/7vxx9w6658p335s4pw789r57y9rr.lua",
+  "classes": [
+    "CommandDebuggerFUNCBaseClass"
+  ],
+  "lineCount": 54,
+  "apiCount": 3,
+  "callsiteCount": 5,
+  "apis": {
+    "_assignForChild": [
+      13,
+      22
+    ],
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      33
+    ]
+  }
+}

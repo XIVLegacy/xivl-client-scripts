@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/commonjudge",
+  "ciphered": "0p635/7vxxvw0p635.lua",
+  "classes": [
+    "CommonJudge"
+  ],
+  "lineCount": 51,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

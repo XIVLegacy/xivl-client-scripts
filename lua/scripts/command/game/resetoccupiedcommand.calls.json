@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/resetoccupiedcommand",
+  "ciphered": "7vxx9w6/39x5/s5r5qv77pu1567vxx9w6.lua",
+  "classes": [
+    "ResetOccupiedCommand"
+  ],
+  "lineCount": 35,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

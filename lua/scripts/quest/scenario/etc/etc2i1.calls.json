@@ -1,0 +1,29 @@
+{
+  "decoded": "quest/scenario/etc/etc2i1",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7h1i.lua",
+  "classes": [
+    "Etc2i1"
+  ],
+  "lineCount": 190,
+  "apiCount": 4,
+  "callsiteCount": 9,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      72,
+      103,
+      140,
+      172
+    ],
+    "_wait": [
+      76,
+      144,
+      176
+    ]
+  }
+}

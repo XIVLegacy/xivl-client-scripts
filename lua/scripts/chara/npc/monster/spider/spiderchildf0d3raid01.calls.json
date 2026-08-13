@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/spider/spiderchildf0d3raid01",
+  "ciphered": "729s9/wu7/xvwrq5s/ru165s/ru165s721y64j6gs916ji.lua",
+  "classes": [
+    "SpiderChildF0D3Raid01"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "decoded": "widget/ask/tutorialwidget",
+  "ciphered": "n1635q/9rz/qpqvs19yn1635q.lua",
+  "classes": [
+    "TutorialWidget"
+  ],
+  "lineCount": 1831,
+  "apiCount": 2,
+  "callsiteCount": 25,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      423,
+      457,
+      494,
+      571,
+      608,
+      662,
+      698,
+      759,
+      795,
+      831,
+      865,
+      902,
+      976,
+      1010,
+      1047,
+      1124,
+      1161,
+      1215,
+      1251,
+      1307,
+      1343,
+      1379,
+      1413,
+      1450
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectorhrv50601",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvs2soejdji.lua",
+  "classes": [
+    "QuestDirectorHrv50601"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

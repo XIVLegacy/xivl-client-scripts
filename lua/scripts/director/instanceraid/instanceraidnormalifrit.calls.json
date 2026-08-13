@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidnormalifrit",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s916wvsx9y14s1q.lua",
+  "classes": [
+    "InstanceRaidNormalIfrit"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

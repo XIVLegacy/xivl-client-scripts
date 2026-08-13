@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/populacebsmhammer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9758rx29xx5s.lua",
+  "classes": [
+    "PopulaceBsmHammer"
+  ],
+  "lineCount": 22,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

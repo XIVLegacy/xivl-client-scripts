@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/monstertest",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/xvwrq5sq5rq.lua",
+  "classes": [
+    "MonsterTest"
+  ],
+  "lineCount": 168,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

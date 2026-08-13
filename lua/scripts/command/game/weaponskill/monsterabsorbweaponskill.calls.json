@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/monsterabsorbweaponskill",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/xvwrq5s98rvs8n59uvwrz1yy.lua",
+  "classes": [
+    "MonsterAbsorbWeaponSkill"
+  ],
+  "lineCount": 169,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/lineoffirestatus",
+  "ciphered": "rq9qpr/981y1ql/y1w5v441s5rq9qpr.lua",
+  "classes": [
+    "LineOfFireStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

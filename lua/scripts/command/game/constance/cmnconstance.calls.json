@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/constance/cmnconstance",
+  "ciphered": "7vxx9w6/39x5/7vwrq9w75/7xw7vwrq9w75.lua",
+  "classes": [
+    "CmnConstance"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

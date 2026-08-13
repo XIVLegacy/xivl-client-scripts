@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidlessergaruda",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s916y5rr5s39sp69.lua",
+  "classes": [
+    "InstanceRaidLesserGaruda"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

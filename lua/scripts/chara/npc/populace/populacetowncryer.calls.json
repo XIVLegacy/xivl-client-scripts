@@ -1,0 +1,31 @@
+{
+  "decoded": "chara/npc/populace/populacetowncryer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975qvnw7sl5s.lua",
+  "classes": [
+    "PopulaceTownCryer"
+  ],
+  "lineCount": 1868,
+  "apiCount": 6,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_randomInteger": [
+      1157
+    ],
+    "_runCharaScheduler": [
+      617,
+      631
+    ],
+    "_setGroundOn": [
+      14
+    ],
+    "_wait": [
+      627
+    ]
+  }
+}

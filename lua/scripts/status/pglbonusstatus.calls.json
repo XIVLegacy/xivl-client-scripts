@@ -1,0 +1,15 @@
+{
+  "decoded": "status/pglbonusstatus",
+  "ciphered": "rq9qpr/u3y8vwprrq9qpr.lua",
+  "classes": [
+    "PglBonusStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

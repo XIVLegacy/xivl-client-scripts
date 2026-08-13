@@ -1,0 +1,19 @@
+{
+  "decoded": "chara/npc/gimmick/gimmicknpcbaseclass",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zwu789r57y9rr.lua",
+  "classes": [
+    "GimmickNpcBaseClass"
+  ],
+  "lineCount": 95,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      21,
+      31
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

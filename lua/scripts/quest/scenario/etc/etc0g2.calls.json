@@ -1,0 +1,28 @@
+{
+  "decoded": "quest/scenario/etc/etc0g2",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7j3h.lua",
+  "classes": [
+    "Etc0g2"
+  ],
+  "lineCount": 264,
+  "apiCount": 3,
+  "callsiteCount": 10,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      69,
+      106,
+      127,
+      155,
+      172,
+      222,
+      250
+    ]
+  }
+}

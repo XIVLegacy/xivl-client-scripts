@@ -1,0 +1,31 @@
+{
+  "decoded": "quest/scenario/bsm/bsm300",
+  "ciphered": "tp5rq/r75w9s1v/8rx/8rxgjj.lua",
+  "classes": [
+    "Bsm300"
+  ],
+  "lineCount": 2075,
+  "apiCount": 4,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      450,
+      475,
+      500
+    ],
+    "_wait": [
+      265,
+      360,
+      454,
+      479,
+      504,
+      526
+    ]
+  }
+}

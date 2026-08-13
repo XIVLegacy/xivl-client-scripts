@@ -1,0 +1,33 @@
+{
+  "decoded": "widget/pcmatchingviewwidget",
+  "ciphered": "n1635q/u7x9q721w3o15nn1635q.lua",
+  "classes": [
+    "PcMatchingViewWidget"
+  ],
+  "lineCount": 1828,
+  "apiCount": 5,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      276
+    ],
+    "_getMyPlayer": [
+      1779
+    ],
+    "_getParentWidget": [
+      1052,
+      1305,
+      1373,
+      1513,
+      1671
+    ],
+    "_getServerTime": [
+      61,
+      1083,
+      1163
+    ]
+  }
+}

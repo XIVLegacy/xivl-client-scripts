@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/subtargetguidewidget",
+  "ciphered": "n1635q/rp8q9s35q3p165n1635q.lua",
+  "classes": [
+    "SubTargetGuideWidget"
+  ],
+  "lineCount": 56,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

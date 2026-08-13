@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/reserveinputoperationcommand",
+  "ciphered": "7vxx9w6/rlrq5x/s5r5so51wupqvu5s9q1vw7vxx9w6.lua",
+  "classes": [
+    "ReserveInputOperationCommand"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "decoded": "widget/pcsearchwidget",
+  "ciphered": "n1635q/u7r59s72n1635q.lua",
+  "classes": [
+    "PcSearchWidget"
+  ],
+  "lineCount": 224,
+  "apiCount": 3,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      80,
+      166
+    ],
+    "_getNetStatUser": [
+      88,
+      98
+    ]
+  }
+}

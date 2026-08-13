@@ -1,0 +1,19 @@
+{
+  "decoded": "item/important/importantitembaseclass",
+  "ciphered": "1q5x/1xuvsq9wq/1xuvsq9wq1q5x89r57y9rr.lua",
+  "classes": [
+    "ImportantItemBaseClass"
+  ],
+  "lineCount": 12,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      12
+    ]
+  }
+}

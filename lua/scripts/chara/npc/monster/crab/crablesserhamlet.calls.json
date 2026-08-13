@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/crab/crablesserhamlet",
+  "ciphered": "729s9/wu7/xvwrq5s/7s98/7s98y5rr5s29xy5q.lua",
+  "classes": [
+    "CrabLesserHamlet"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

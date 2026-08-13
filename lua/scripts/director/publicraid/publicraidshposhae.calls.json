@@ -1,0 +1,15 @@
+{
+  "decoded": "director/publicraid/publicraidshposhae",
+  "ciphered": "61s57qvs/up8y17s916/up8y17s916r2uvr295.lua",
+  "classes": [
+    "PublicRaidShposhae"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

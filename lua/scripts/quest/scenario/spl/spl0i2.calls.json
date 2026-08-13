@@ -1,0 +1,63 @@
+{
+  "decoded": "quest/scenario/spl/spl0i2",
+  "ciphered": "tp5rq/r75w9s1v/ruy/ruyj1h.lua",
+  "classes": [
+    "Spl0i2"
+  ],
+  "lineCount": 1128,
+  "apiCount": 4,
+  "callsiteCount": 43,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      47,
+      63,
+      89,
+      105,
+      121,
+      137,
+      156,
+      183,
+      211,
+      227,
+      247,
+      269,
+      291,
+      307,
+      326,
+      353,
+      387,
+      397,
+      411,
+      427,
+      443,
+      453,
+      469,
+      488,
+      520,
+      534,
+      548,
+      830,
+      864,
+      919,
+      933,
+      947,
+      973,
+      987,
+      1001,
+      1025,
+      1082,
+      1096,
+      1110
+    ],
+    "_wait": [
+      1029
+    ]
+  }
+}

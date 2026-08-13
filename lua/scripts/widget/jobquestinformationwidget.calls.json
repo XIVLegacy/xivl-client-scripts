@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/jobquestinformationwidget",
+  "ciphered": "n1635q/0v8tp5rq1w4vsx9q1vwn1635q.lua",
+  "classes": [
+    "JobQuestInformationWidget"
+  ],
+  "lineCount": 117,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

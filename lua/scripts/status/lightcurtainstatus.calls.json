@@ -1,0 +1,15 @@
+{
+  "decoded": "status/lightcurtainstatus",
+  "ciphered": "rq9qpr/y132q7psq91wrq9qpr.lua",
+  "classes": [
+    "LightCurtainStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

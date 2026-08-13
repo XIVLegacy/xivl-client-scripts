@@ -1,0 +1,35 @@
+{
+  "decoded": "chara/npc/object/guildlevewarppoint",
+  "ciphered": "729s9/wu7/v8057q/3p1y6y5o5n9suuv1wq.lua",
+  "classes": [
+    "GuildleveWarpPoint"
+  ],
+  "lineCount": 548,
+  "apiCount": 5,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      105,
+      301,
+      344,
+      460,
+      476
+    ],
+    "_loadKeyTemporarily": [
+      99,
+      293,
+      336,
+      452,
+      468
+    ],
+    "_loadTextDataPermanently": [
+      115
+    ],
+    "_math": [
+      515
+    ]
+  }
+}

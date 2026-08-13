@@ -1,0 +1,33 @@
+{
+  "decoded": "judge/harvest/harvestjudge",
+  "ciphered": "0p635/29so5rq/29so5rq0p635.lua",
+  "classes": [
+    "HarvestJudge"
+  ],
+  "lineCount": 427,
+  "apiCount": 7,
+  "callsiteCount": 7,
+  "apis": {
+    "_createVirtualItem": [
+      306
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getDir": [
+      47
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_math": [
+      49
+    ],
+    "_turnDir": [
+      55
+    ],
+    "_waitForTurning": [
+      60
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/additionaleffectequipitem",
+  "ciphered": "1q5x/wvsx9y/9661q1vw9y54457q5tp1u1q5x.lua",
+  "classes": [
+    "AdditionalEffectEquipItem"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

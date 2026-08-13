@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/mole/moleechidna",
+  "ciphered": "729s9/wu7/xvwrq5s/xvy5/xvy557216w9.lua",
+  "classes": [
+    "MoleEchidna"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

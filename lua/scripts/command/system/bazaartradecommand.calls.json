@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/bazaartradecommand",
+  "ciphered": "7vxx9w6/rlrq5x/89k99sqs9657vxx9w6.lua",
+  "classes": [
+    "BazaarTradeCommand"
+  ],
+  "lineCount": 31,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

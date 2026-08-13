@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/monster/chocobo/chocobocaravanguard",
+  "ciphered": "729s9/wu7/xvwrq5s/72v7v8v/72v7v8v79s9o9w3p9s6.lua",
+  "classes": [
+    "ChocoboCaravanGuard"
+  ],
+  "lineCount": 77,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      36
+    ],
+    "_loadTextDataPermanently": [
+      23
+    ]
+  }
+}

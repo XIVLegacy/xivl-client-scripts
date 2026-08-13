@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/monsterability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/xvwrq5s981y1ql.lua",
+  "classes": [
+    "MonsterAbility"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterenemydragoonquestdrg0j6",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s5w5xl6s93vvwtp5rq6s3j0d.lua",
+  "classes": [
+    "FighterEnemyDragoonQuestDrg0J6"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

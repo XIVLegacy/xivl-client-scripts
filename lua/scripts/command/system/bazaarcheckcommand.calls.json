@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/bazaarcheckcommand",
+  "ciphered": "7vxx9w6/rlrq5x/89k99s7257z7vxx9w6.lua",
+  "classes": [
+    "BazaarCheckCommand"
+  ],
+  "lineCount": 107,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      32
+    ]
+  }
+}

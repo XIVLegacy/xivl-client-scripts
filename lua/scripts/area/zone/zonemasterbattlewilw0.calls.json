@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterbattlewilw0",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s89qqy5n1ynj.lua",
+  "classes": [
+    "ZoneMasterBattleWilW0"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

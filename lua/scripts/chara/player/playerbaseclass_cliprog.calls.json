@@ -1,0 +1,16 @@
+{
+  "decoded": "chara/player/playerbaseclass_cliprog",
+  "ciphered": "729s9/uy9l5s/uy9l5s89r57y9rr_7y1usv3.lua",
+  "classes": [
+    "PlayerBaseClass"
+  ],
+  "lineCount": 180,
+  "apiCount": 1,
+  "callsiteCount": 2,
+  "apis": {
+    "_getGroup": [
+      59,
+      87
+    ]
+  }
+}

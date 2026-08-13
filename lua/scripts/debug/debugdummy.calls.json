@@ -1,0 +1,22 @@
+{
+  "decoded": "debug/debugdummy",
+  "ciphered": "658p3/658p36pxxl.lua",
+  "classes": [
+    "DebugDummy"
+  ],
+  "lineCount": 19,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_onInit": [
+      15,
+      19
+    ]
+  }
+}

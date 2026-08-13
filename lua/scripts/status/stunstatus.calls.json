@@ -1,0 +1,15 @@
+{
+  "decoded": "status/stunstatus",
+  "ciphered": "rq9qpr/rqpwrq9qpr.lua",
+  "classes": [
+    "StunStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

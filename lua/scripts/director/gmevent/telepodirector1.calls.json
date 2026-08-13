@@ -1,0 +1,15 @@
+{
+  "decoded": "director/gmevent/telepodirector1",
+  "ciphered": "61s57qvs/3x5o5wq/q5y5uv61s57qvsi.lua",
+  "classes": [
+    "TelepoDirector1"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

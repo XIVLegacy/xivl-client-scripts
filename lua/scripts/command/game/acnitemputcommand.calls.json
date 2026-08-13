@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/acnitemputcommand",
+  "ciphered": "7vxx9w6/39x5/97w1q5xupq7vxx9w6.lua",
+  "classes": [
+    "AcnItemPutCommand"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/whitegeneral/monsterwhitegeneralnormal",
+  "ciphered": "61s57qvs/xvwrq5s/n21q535w5s9y/xvwrq5sn21q535w5s9ywvsx9y.lua",
+  "classes": [
+    "MonsterWhiteGeneralNormal"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "decoded": "system/debug_utility",
+  "ciphered": "rlrq5x/658p3_pq1y1ql.lua",
+  "classes": [
+    "Debug"
+  ],
+  "lineCount": 946,
+  "apiCount": 20,
+  "callsiteCount": 86,
+  "apis": {
+    "_commandDebug": [
+      687,
+      702
+    ],
+    "_countMember": [
+      435,
+      438,
+      445
+    ],
+    "_createActor": [
+      913
+    ],
+    "_delete": [
+      888
+    ],
+    "_fadeIn": [
+      895
+    ],
+    "_getAllCharacter": [
+      661
+    ],
+    "_getCatalogID": [
+      741
+    ],
+    "_getClassName": [
+      36
+    ],
+    "_getInstanceName": [
+      47,
+      412,
+      462
+    ],
+    "_getMember": [
+      457,
+      464,
+      479,
+      488
+    ],
+    "_getMyPlayer": [
+      892
+    ],
+    "_getNameIndex": [
+      744
+    ],
+    "_isAlive": [
+      27,
+      112,
+      302,
+      420,
+      423,
+      429
+    ],
+    "_isExistInClientMember": [
+      450
+    ],
+    "_isExistInWorldMember": [
+      472
+    ],
+    "_isInstanceOf": [
+      115,
+      123,
+      131,
+      139,
+      147,
+      155,
+      163,
+      171,
+      179,
+      187,
+      195,
+      203,
+      211,
+      219,
+      227,
+      235,
+      243,
+      251,
+      259,
+      267
+    ],
+    "_onCutScenePreview": [
+      900
+    ],
+    "_printLog": [
+      8,
+      16,
+      32,
+      43,
+      56,
+      81,
+      90,
+      372,
+      389,
+      402,
+      408,
+      419,
+      434,
+      456,
+      478,
+      487,
+      511,
+      524,
+      545,
+      569,
+      589,
+      613,
+      641,
+      670,
+      804,
+      823,
+      828,
+      837,
+      846,
+      855,
+      864,
+      937
+    ],
+    "_printText": [
+      737,
+      756,
+      772,
+      788
+    ],
+    "_string": [
+      915
+    ]
+  }
+}

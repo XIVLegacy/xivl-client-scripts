@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/hatecontrol/hatecontroljudge",
+  "ciphered": "0p635/29q57vwqsvy/29q57vwqsvy0p635.lua",
+  "classes": [
+    "HateControlJudge"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

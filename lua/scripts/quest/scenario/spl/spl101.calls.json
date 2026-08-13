@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/spl/spl101",
+  "ciphered": "tp5rq/r75w9s1v/ruy/ruyiji.lua",
+  "classes": [
+    "Spl101"
+  ],
+  "lineCount": 70,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_loadTextDataPermanently": [
+      10
+    ]
+  }
+}

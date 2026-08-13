@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickwarprect",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zn9sus57q.lua",
+  "classes": [
+    "GimmickWarpRect"
+  ],
+  "lineCount": 19,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

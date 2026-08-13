@@ -1,0 +1,19 @@
+{
+  "decoded": "widget/captionwidget",
+  "ciphered": "n1635q/79uq1vwn1635q.lua",
+  "classes": [
+    "CaptionWidget"
+  ],
+  "lineCount": 71,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      47,
+      63
+    ]
+  }
+}

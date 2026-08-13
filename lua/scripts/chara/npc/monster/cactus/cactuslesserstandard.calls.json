@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/cactus/cactuslesserstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/797qpr/797qpry5rr5srq9w69s6.lua",
+  "classes": [
+    "CactusLesserStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

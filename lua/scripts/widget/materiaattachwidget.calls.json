@@ -1,0 +1,69 @@
+{
+  "decoded": "widget/materiaattachwidget",
+  "ciphered": "n1635q/x9q5s199qq972n1635q.lua",
+  "classes": [
+    "MateriaAttachWidget"
+  ],
+  "lineCount": 1432,
+  "apiCount": 12,
+  "callsiteCount": 33,
+  "apis": {
+    "_countStack": [
+      96
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      87,
+      779,
+      793,
+      807,
+      813,
+      911,
+      944
+    ],
+    "_getEquippingItem": [
+      329,
+      336,
+      343,
+      350
+    ],
+    "_getItem": [
+      18,
+      24,
+      163,
+      260,
+      410,
+      756,
+      761
+    ],
+    "_getItemPackageCapacity": [
+      193,
+      577
+    ],
+    "_getItemPackageFreeSpace": [
+      197
+    ],
+    "_getMyPlayer": [
+      15,
+      158,
+      257,
+      574,
+      753
+    ],
+    "_getNameIndex": [
+      99,
+      947
+    ],
+    "_getParentWidget": [
+      1028
+    ],
+    "_isEquipping": [
+      48
+    ],
+    "_isStackable": [
+      93
+    ]
+  }
+}

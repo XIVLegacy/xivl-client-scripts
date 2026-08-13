@@ -1,0 +1,30 @@
+{
+  "decoded": "widget/supportdeskinformationwidget",
+  "ciphered": "n1635q/rpuuvsq65rz1w4vsx9q1vwn1635q.lua",
+  "classes": [
+    "SupportDeskInformationWidget"
+  ],
+  "lineCount": 329,
+  "apiCount": 5,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      241
+    ],
+    "_getProperty": [
+      190
+    ],
+    "_setProperty": [
+      74,
+      176
+    ],
+    "_setUICommandCondition": [
+      45,
+      51,
+      57
+    ]
+  }
+}

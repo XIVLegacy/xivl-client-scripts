@@ -1,0 +1,43 @@
+{
+  "decoded": "item/itembaseclass",
+  "ciphered": "1q5x/1q5x89r57y9rr.lua",
+  "classes": [
+    "ItemBaseClass"
+  ],
+  "lineCount": 68,
+  "apiCount": 8,
+  "callsiteCount": 15,
+  "apis": {
+    "_bindSpreadSheetData": [
+      14,
+      18,
+      22,
+      26,
+      30
+    ],
+    "_callSuperClassFunc": [
+      10
+    ],
+    "_getCatalogID": [
+      42,
+      62
+    ],
+    "_getOwner": [
+      34,
+      54
+    ],
+    "_loadWord": [
+      39
+    ],
+    "_onFinalize": [
+      68
+    ],
+    "_onInit": [
+      11,
+      48
+    ],
+    "_unloadWord": [
+      59
+    ]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "decoded": "group/partygroup/monsterpartygroup",
+  "ciphered": "3svpu/u9sql3svpu/xvwrq5su9sql3svpu.lua",
+  "classes": [
+    "MonsterPartyGroup"
+  ],
+  "lineCount": 193,
+  "apiCount": 12,
+  "callsiteCount": 32,
+  "apis": {
+    "_callSuperClassFunc": [
+      63,
+      105,
+      149,
+      188
+    ],
+    "_countMember": [
+      36,
+      162
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getMember": [
+      48,
+      135,
+      174
+    ],
+    "_getMyPlayer": [
+      18,
+      29,
+      70,
+      86,
+      111,
+      122,
+      155
+    ],
+    "_getOccupancyGroup": [
+      24,
+      76,
+      117
+    ],
+    "_isExistInClientMember": [
+      41,
+      128,
+      167
+    ],
+    "_isInstanceOf": [
+      79
+    ],
+    "_onFinalize": [
+      189,
+      193
+    ],
+    "_onUpdateGroupInformation": [
+      150,
+      182
+    ],
+    "_onUpdateMember": [
+      64,
+      99
+    ],
+    "_onUpdateMemberInformation": [
+      106,
+      143
+    ]
+  }
+}

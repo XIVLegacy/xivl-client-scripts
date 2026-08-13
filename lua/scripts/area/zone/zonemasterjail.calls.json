@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterjail",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s091y.lua",
+  "classes": [
+    "ZoneMasterJail"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

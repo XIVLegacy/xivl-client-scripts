@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/instanceraidguide/aetherytebeastchildguide",
+  "ciphered": "729s9/wu7/uvupy975/1wrq9w75s9163p165/95q25slq5859rq721y63p165.lua",
+  "classes": [
+    "AetheryteBeastChildGuide"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

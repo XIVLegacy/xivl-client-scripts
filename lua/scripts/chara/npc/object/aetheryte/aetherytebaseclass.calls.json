@@ -1,0 +1,43 @@
+{
+  "decoded": "chara/npc/object/aetheryte/aetherytebaseclass",
+  "ciphered": "729s9/wu7/v8057q/95q25slq5/95q25slq589r57y9rr.lua",
+  "classes": [
+    "AetheryteBaseClass"
+  ],
+  "lineCount": 725,
+  "apiCount": 7,
+  "callsiteCount": 17,
+  "apis": {
+    "_assignForChild": [
+      16
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getData": [
+      109,
+      151,
+      488,
+      531,
+      643,
+      659
+    ],
+    "_isAlive": [
+      156
+    ],
+    "_loadKeyTemporarily": [
+      102,
+      145,
+      480,
+      523,
+      635,
+      651
+    ],
+    "_math": [
+      696
+    ],
+    "_setGroundOn": [
+      115
+    ]
+  }
+}

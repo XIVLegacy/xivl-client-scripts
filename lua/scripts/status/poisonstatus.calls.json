@@ -1,0 +1,15 @@
+{
+  "decoded": "status/poisonstatus",
+  "ciphered": "rq9qpr/uv1rvwrq9qpr.lua",
+  "classes": [
+    "PoisonStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

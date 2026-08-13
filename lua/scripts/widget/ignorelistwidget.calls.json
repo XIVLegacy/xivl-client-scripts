@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/ignorelistwidget",
+  "ciphered": "n1635q/13wvs5y1rqn1635q.lua",
+  "classes": [
+    "IgnoreListWidget"
+  ],
+  "lineCount": 968,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_addItem": [
+      128
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      219
+    ],
+    "_math": [
+      563
+    ]
+  }
+}

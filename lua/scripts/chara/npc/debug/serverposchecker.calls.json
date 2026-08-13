@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/debug/serverposchecker",
+  "ciphered": "729s9/wu7/658p3/r5so5suvr7257z5s.lua",
+  "classes": [
+    "ServerPosChecker"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

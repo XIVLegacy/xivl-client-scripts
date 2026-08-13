@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterallygladiatorstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s9yyl3y9619qvsrq9w69s6.lua",
+  "classes": [
+    "FighterAllyGladiatorStandard"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

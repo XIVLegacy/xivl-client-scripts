@@ -1,0 +1,24 @@
+{
+  "decoded": "chara/npc/object/marketentrance",
+  "ciphered": "729s9/wu7/v8057q/x9sz5q5wqs9w75.lua",
+  "classes": [
+    "MarketEntrance"
+  ],
+  "lineCount": 214,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCurrentAreaMaster": [
+      33
+    ],
+    "_getRegion": [
+      36
+    ],
+    "_isInstanceOf": [
+      38
+    ]
+  }
+}

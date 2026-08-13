@@ -1,0 +1,38 @@
+{
+  "decoded": "chara/npc/debug/partytester",
+  "ciphered": "729s9/wu7/658p3/u9sqlq5rq5s.lua",
+  "classes": [
+    "PartyTester"
+  ],
+  "lineCount": 171,
+  "apiCount": 4,
+  "callsiteCount": 18,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isMember": [
+      39
+    ],
+    "_printLog": [
+      80,
+      89,
+      98,
+      107,
+      116,
+      122,
+      128,
+      134,
+      140,
+      146,
+      152,
+      166
+    ],
+    "_wait": [
+      84,
+      93,
+      102,
+      111
+    ]
+  }
+}

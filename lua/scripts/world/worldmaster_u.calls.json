@@ -1,0 +1,11 @@
+{
+  "decoded": "world/worldmaster_u",
+  "ciphered": "nvsy6/nvsy6x9rq5s_p.lua",
+  "classes": [
+    "WorldMaster"
+  ],
+  "lineCount": 231,
+  "apiCount": 0,
+  "callsiteCount": 0,
+  "apis": {}
+}

@@ -1,0 +1,19 @@
+{
+  "decoded": "command/system/logoutcommand",
+  "ciphered": "7vxx9w6/rlrq5x/yv3vpq7vxx9w6.lua",
+  "classes": [
+    "LogoutCommand"
+  ],
+  "lineCount": 84,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_wait": [
+      31,
+      78
+    ]
+  }
+}

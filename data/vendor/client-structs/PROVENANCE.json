@@ -1,0 +1,13 @@
+{
+  "files": [
+    {
+      "file": "lua_api_index.json",
+      "source": "XIVLegacy/xivl-client-structs manifests/lua_api_index.json",
+      "sourceSha256": "25df1fffe1eb17376ce5d09e5f55add76e9a8fe5d1f56a467a68dd0d881daa8c",
+      "sha256": "01fbb75b2d423a958baba4c23d703aee7e3a587b65bf3e85b2387ab70ec62421",
+      "evidenceTier": "promoted first-party N-API catalog",
+      "transformation": "top-level source field omitted from the promoted snapshot"
+    }
+  ],
+  "note": "Consumed by tools/lua_corpus.py annotate (N-API whitelist for Lua call annotation). Re-promotion is a deliberate explicit promotion from XIVLegacy/xivl-client-structs; no promote script exists in this repo."
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/spider/spiderfemalestandard",
+  "ciphered": "729s9/wu7/xvwrq5s/ru165s/ru165s45x9y5rq9w69s6.lua",
+  "classes": [
+    "SpiderFemaleStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

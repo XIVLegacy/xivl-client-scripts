@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/object/raiddungeonlight",
+  "ciphered": "729s9/wu7/v8057q/s9166pw35vwy132q.lua",
+  "classes": [
+    "RaidDungeonLight"
+  ],
+  "lineCount": 50,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

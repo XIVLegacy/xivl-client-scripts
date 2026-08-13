@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/kujata/kujatahornednmrush",
+  "ciphered": "729s9/wu7/xvwrq5s/zp09q9/zp09q92vsw56wxspr2.lua",
+  "classes": [
+    "KujataHornedNMRush"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "director/publicraid/publicraidbeaconfort",
+  "ciphered": "61s57qvs/up8y17s916/up8y17s9168597vw4vsq.lua",
+  "classes": [
+    "PublicRaidBeaconFort"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "decoded": "widget/craftprogresswidget",
+  "ciphered": "n1635q/7s94qusv3s5rrn1635q.lua",
+  "classes": [
+    "CraftProgressWidget"
+  ],
+  "lineCount": 929,
+  "apiCount": 6,
+  "callsiteCount": 6,
+  "apis": {
+    "_addItem": [
+      234
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      575
+    ],
+    "_getMaxStack": [
+      465
+    ],
+    "_getMyPlayer": [
+      392
+    ],
+    "_isStackable": [
+      434
+    ]
+  }
+}

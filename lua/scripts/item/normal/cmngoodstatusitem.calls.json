@@ -1,0 +1,18 @@
+{
+  "decoded": "item/normal/cmngoodstatusitem",
+  "ciphered": "1q5x/wvsx9y/7xw3vv6rq9qpr1q5x.lua",
+  "classes": [
+    "CmnGoodStatusItem"
+  ],
+  "lineCount": 68,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      14
+    ]
+  }
+}

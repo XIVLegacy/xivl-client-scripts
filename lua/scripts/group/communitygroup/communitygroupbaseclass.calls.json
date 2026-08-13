@@ -1,0 +1,19 @@
+{
+  "decoded": "group/communitygroup/communitygroupbaseclass",
+  "ciphered": "3svpu/7vxxpw1ql3svpu/7vxxpw1ql3svpu89r57y9rr.lua",
+  "classes": [
+    "CommunityGroupBaseClass"
+  ],
+  "lineCount": 43,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      16,
+      25
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

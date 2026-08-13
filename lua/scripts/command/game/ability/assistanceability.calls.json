@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/assistanceability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/9rr1rq9w75981y1ql.lua",
+  "classes": [
+    "AssistanceAbility"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

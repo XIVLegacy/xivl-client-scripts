@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/occupancyplayers/raidplayers",
+  "ciphered": "61s57qvs/1wrq9w75s916/v77pu9w7luy9l5sr/s916uy9l5sr.lua",
+  "classes": [
+    "RaidPlayers"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

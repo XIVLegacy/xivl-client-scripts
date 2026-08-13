@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemastermonstertest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sxvwrq5sq5rq.lua",
+  "classes": [
+    "ZoneMasterMonsterTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "director/publicraid/publicraidnatalan",
+  "ciphered": "61s57qvs/up8y17s916/up8y17s916w9q9y9w.lua",
+  "classes": [
+    "PublicRaidNatalan"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

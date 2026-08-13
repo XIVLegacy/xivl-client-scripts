@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidcutterscry",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s9167pqq5sr7sl.lua",
+  "classes": [
+    "InstanceRaidCuttersCry"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

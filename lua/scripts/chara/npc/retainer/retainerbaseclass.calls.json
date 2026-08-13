@@ -1,0 +1,33 @@
+{
+  "decoded": "chara/npc/retainer/retainerbaseclass",
+  "ciphered": "729s9/wu7/s5q91w5s/s5q91w5s89r57y9rr.lua",
+  "classes": [
+    "RetainerBaseClass"
+  ],
+  "lineCount": 146,
+  "apiCount": 4,
+  "callsiteCount": 13,
+  "apis": {
+    "_assignForChild": [
+      37
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getServerTime": [
+      48,
+      69,
+      90,
+      118,
+      139
+    ],
+    "_updateItemPackage": [
+      76,
+      80,
+      84,
+      125,
+      129,
+      133
+    ]
+  }
+}

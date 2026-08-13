@@ -1,0 +1,53 @@
+{
+  "decoded": "command/game/gamecommandbaseclass",
+  "ciphered": "7vxx9w6/39x5/39x57vxx9w689r57y9rr.lua",
+  "classes": [
+    "GameCommandBaseClass"
+  ],
+  "lineCount": 2698,
+  "apiCount": 9,
+  "callsiteCount": 23,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ],
+    "_getActorMainStat": [
+      76
+    ],
+    "_getData": [
+      15,
+      30,
+      984
+    ],
+    "_getEquippingItem": [
+      804,
+      1301
+    ],
+    "_getServerTime": [
+      355
+    ],
+    "_isAlive": [
+      1604,
+      1676,
+      1748,
+      1820,
+      2480
+    ],
+    "_loadKeySemipermanently": [
+      2259,
+      2269
+    ],
+    "_math": [
+      1030,
+      1389,
+      1399,
+      1987,
+      2144,
+      2147
+    ],
+    "_unloadKey": [
+      2286,
+      2296
+    ]
+  }
+}

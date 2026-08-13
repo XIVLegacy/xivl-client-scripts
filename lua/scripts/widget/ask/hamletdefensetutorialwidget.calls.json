@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/hamletdefensetutorialwidget",
+  "ciphered": "n1635q/9rz/29xy5q6545wr5qpqvs19yn1635q.lua",
+  "classes": [
+    "HamletDefenseTutorialWidget"
+  ],
+  "lineCount": 726,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

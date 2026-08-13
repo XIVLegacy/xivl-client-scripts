@@ -1,0 +1,15 @@
+{
+  "decoded": "status/cmntargetcontrolstatus",
+  "ciphered": "rq9qpr/7xwq9s35q7vwqsvyrq9qpr.lua",
+  "classes": [
+    "CmnTargetControlStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

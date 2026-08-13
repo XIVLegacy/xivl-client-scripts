@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/mightystrikenewstatus",
+  "ciphered": "rq9qpr/981y1ql/x132qlrqs1z5w5nrq9qpr.lua",
+  "classes": [
+    "MightyStrikeNewStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

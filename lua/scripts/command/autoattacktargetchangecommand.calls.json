@@ -1,0 +1,15 @@
+{
+  "decoded": "command/autoattacktargetchangecommand",
+  "ciphered": "7vxx9w6/9pqv9qq97zq9s35q729w357vxx9w6.lua",
+  "classes": [
+    "AutoAttackTargetChangeCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

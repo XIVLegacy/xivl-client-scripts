@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterwidgettest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sn1635qq5rq.lua",
+  "classes": [
+    "ZoneMasterWidgetTest"
+  ],
+  "lineCount": 37,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/livingdead/livingdeadthaumaturgestandard",
+  "ciphered": "729s9/wu7/xvwrq5s/y1o1w36596/y1o1w36596q29px9qps35rq9w69s6.lua",
+  "classes": [
+    "LivingdeadThaumaturgeStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

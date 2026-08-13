@@ -1,0 +1,15 @@
+{
+  "decoded": "director/pop/publicpopgroupdirector",
+  "ciphered": "61s57qvs/uvu/up8y17uvu3svpu61s57qvs.lua",
+  "classes": [
+    "PublicPopGroupDirector"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

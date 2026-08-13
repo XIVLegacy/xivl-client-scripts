@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/negotiationcommand",
+  "ciphered": "7vxx9w6/39x5/w53vq19q1vw7vxx9w6.lua",
+  "classes": [
+    "NegotiationCommand"
+  ],
+  "lineCount": 57,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "decoded": "widget/grandcompanyjoinwidget",
+  "ciphered": "n1635q/3s9w67vxu9wl0v1wn1635q.lua",
+  "classes": [
+    "GrandCompanyJoinWidget"
+  ],
+  "lineCount": 117,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      95
+    ],
+    "_getMyPlayer": [
+      15
+    ],
+    "_isAlive": [
+      19
+    ],
+    "_loadKeyTemporarily": [
+      89
+    ]
+  }
+}

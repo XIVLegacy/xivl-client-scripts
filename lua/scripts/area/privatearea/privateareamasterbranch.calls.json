@@ -1,0 +1,18 @@
+{
+  "decoded": "area/privatearea/privateareamasterbranch",
+  "ciphered": "9s59/us1o9q59s59/us1o9q59s59x9rq5s8s9w72.lua",
+  "classes": [
+    "PrivateAreaMasterBranch"
+  ],
+  "lineCount": 51,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getRegion": [
+      21
+    ]
+  }
+}

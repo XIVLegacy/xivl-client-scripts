@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/kujata/kujatahornedwar0j5",
+  "ciphered": "729s9/wu7/xvwrq5s/zp09q9/zp09q92vsw56n9sj0e.lua",
+  "classes": [
+    "KujataHornedWar0j5"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "widget/desktoputil",
+  "ciphered": "n1635q/65rzqvupq1y.lua",
+  "classes": [
+    "DesktopUtil"
+  ],
+  "lineCount": 39,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      9
+    ],
+    "_onFinalize": [
+      39
+    ],
+    "_onInit": [
+      32
+    ]
+  }
+}

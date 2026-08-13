@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/pixie/pixieconjurerstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/u1m15/u1m157vw0ps5srq9w69s6.lua",
+  "classes": [
+    "PixieConjurerStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/combinationstartcommand",
+  "ciphered": "7vxx9w6/39x5/7vx81w9q1vwrq9sq7vxx9w6.lua",
+  "classes": [
+    "CombinationStartCommand"
+  ],
+  "lineCount": 67,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

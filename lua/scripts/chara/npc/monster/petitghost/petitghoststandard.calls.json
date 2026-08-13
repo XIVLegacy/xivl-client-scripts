@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/petitghost/petitghoststandard",
+  "ciphered": "729s9/wu7/xvwrq5s/u5q1q32vrq/u5q1q32vrqrq9w69s6.lua",
+  "classes": [
+    "PetitghostStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

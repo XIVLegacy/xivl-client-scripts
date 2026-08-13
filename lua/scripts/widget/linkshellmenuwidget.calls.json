@@ -1,0 +1,28 @@
+{
+  "decoded": "widget/linkshellmenuwidget",
+  "ciphered": "n1635q/y1wzr25yyx5wpn1635q.lua",
+  "classes": [
+    "LinkshellMenuWidget"
+  ],
+  "lineCount": 357,
+  "apiCount": 4,
+  "callsiteCount": 8,
+  "apis": {
+    "_countMember": [
+      217
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      146
+    ],
+    "_setUICommandCondition": [
+      17,
+      24,
+      31,
+      38,
+      45
+    ]
+  }
+}

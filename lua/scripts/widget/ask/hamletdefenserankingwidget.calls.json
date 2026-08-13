@@ -1,0 +1,30 @@
+{
+  "decoded": "widget/ask/hamletdefenserankingwidget",
+  "ciphered": "n1635q/9rz/29xy5q6545wr5s9wz1w3n1635q.lua",
+  "classes": [
+    "HamletDefenseRankingWidget"
+  ],
+  "lineCount": 405,
+  "apiCount": 6,
+  "callsiteCount": 6,
+  "apis": {
+    "_countHamletSupplyRanking": [
+      338
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCurrentAreaMaster": [
+      335
+    ],
+    "_getDisplayName": [
+      240
+    ],
+    "_getHamletSupplyRanking": [
+      345
+    ],
+    "_getMyPlayer": [
+      237
+    ]
+  }
+}

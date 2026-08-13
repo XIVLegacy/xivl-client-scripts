@@ -1,0 +1,89 @@
+{
+  "decoded": "area/areabaseclass",
+  "ciphered": "9s59/9s5989r57y9rr.lua",
+  "classes": [
+    "AreaBaseClass"
+  ],
+  "lineCount": 471,
+  "apiCount": 18,
+  "callsiteCount": 41,
+  "apis": {
+    "_assignForChild": [
+      320
+    ],
+    "_callSuperClassFunc": [
+      299,
+      452
+    ],
+    "_canCreateActorByName": [
+      280
+    ],
+    "_createActor": [
+      156,
+      284,
+      367,
+      417
+    ],
+    "_delete": [
+      465
+    ],
+    "_getActorByName": [
+      413
+    ],
+    "_getRegion": [
+      348
+    ],
+    "_getZoneName": [
+      10,
+      20,
+      67,
+      170,
+      351
+    ],
+    "_isExistActor": [
+      341,
+      363,
+      409,
+      459
+    ],
+    "_isInn": [
+      360,
+      456
+    ],
+    "_isInstanceOf": [
+      189
+    ],
+    "_math": [
+      255
+    ],
+    "_onFinalize": [
+      453,
+      471
+    ],
+    "_onInit": [
+      300,
+      378
+    ],
+    "_onLoop": [
+      439
+    ],
+    "_setInstanceRaid": [
+      334
+    ],
+    "_setLoopInterval": [
+      338
+    ],
+    "_string": [
+      40,
+      150,
+      163,
+      182,
+      198,
+      220,
+      227,
+      267,
+      273,
+      385
+    ]
+  }
+}

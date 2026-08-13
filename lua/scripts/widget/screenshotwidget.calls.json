@@ -1,0 +1,25 @@
+{
+  "decoded": "widget/screenshotwidget",
+  "ciphered": "n1635q/r7s55wr2vqn1635q.lua",
+  "classes": [
+    "ScreenShotWidget"
+  ],
+  "lineCount": 78,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_sendStoryboardCommand": [
+      70
+    ],
+    "_setProperty": [
+      37
+    ],
+    "_setUICommandCondition": [
+      25,
+      31
+    ]
+  }
+}

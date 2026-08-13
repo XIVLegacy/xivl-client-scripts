@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/crowd/crowdstandard",
+  "ciphered": "729s9/wu7/7svn6/7svn6rq9w69s6.lua",
+  "classes": [
+    "CrowdStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

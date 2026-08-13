@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickgate",
+  "ciphered": "729s9/wu7/31xx17z/31xx17z39q5.lua",
+  "classes": [
+    "GimmickGate"
+  ],
+  "lineCount": 27,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runBgSchedulerFromMidstream": [
+      16
+    ],
+    "_setGroundOn": [
+      22
+    ]
+  }
+}

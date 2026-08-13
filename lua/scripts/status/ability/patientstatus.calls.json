@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/patientstatus",
+  "ciphered": "rq9qpr/981y1ql/u9q15wqrq9qpr.lua",
+  "classes": [
+    "PatientStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

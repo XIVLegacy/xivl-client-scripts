@@ -1,0 +1,31 @@
+{
+  "decoded": "command/system/talkcommand",
+  "ciphered": "7vxx9w6/rlrq5x/q9yz7vxx9w6.lua",
+  "classes": [
+    "TalkCommand"
+  ],
+  "lineCount": 90,
+  "apiCount": 6,
+  "callsiteCount": 7,
+  "apis": {
+    "_canExecuteTalk": [
+      39
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_executeTalk": [
+      83
+    ],
+    "_getPos": [
+      54,
+      57
+    ],
+    "_isActorMainStatMode": [
+      18
+    ],
+    "_isInstanceOf": [
+      33
+    ]
+  }
+}

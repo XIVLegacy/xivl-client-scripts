@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/wolf/wolfbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/nvy4/nvy489r57y9rr.lua",
+  "classes": [
+    "WolfBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

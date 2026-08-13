@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/elementalwhisperstatus",
+  "ciphered": "rq9qpr/981y1ql/5y5x5wq9yn21ru5srq9qpr.lua",
+  "classes": [
+    "ElementalWhisperStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

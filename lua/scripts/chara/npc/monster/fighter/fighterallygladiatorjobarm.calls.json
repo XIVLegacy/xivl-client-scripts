@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterallygladiatorjobarm",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s9yyl3y9619qvs0v89sx.lua",
+  "classes": [
+    "FighterAllyGladiatorJobArm"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

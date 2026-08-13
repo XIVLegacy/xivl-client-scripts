@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/chocoborentaltimerwidget",
+  "ciphered": "n1635q/72v7v8vs5wq9yq1x5sn1635q.lua",
+  "classes": [
+    "ChocoboRentalTimerWidget"
+  ],
+  "lineCount": 55,
+  "apiCount": 3,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      22
+    ],
+    "_setProperty": [
+      26,
+      33,
+      40,
+      47
+    ]
+  }
+}

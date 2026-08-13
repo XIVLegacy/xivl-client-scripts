@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/wayningmoonstatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/n9lw1w3xvvwrq9qpr.lua",
+  "classes": [
+    "WayningMoonStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

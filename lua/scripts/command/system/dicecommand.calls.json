@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/dicecommand",
+  "ciphered": "7vxx9w6/rlrq5x/61757vxx9w6.lua",
+  "classes": [
+    "DiceCommand"
+  ],
+  "lineCount": 48,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

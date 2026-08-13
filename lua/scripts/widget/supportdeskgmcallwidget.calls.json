@@ -1,0 +1,54 @@
+{
+  "decoded": "widget/supportdeskgmcallwidget",
+  "ciphered": "n1635q/rpuuvsq65rz3x79yyn1635q.lua",
+  "classes": [
+    "SupportDeskGMCallWidget"
+  ],
+  "lineCount": 567,
+  "apiCount": 5,
+  "callsiteCount": 32,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      339
+    ],
+    "_getProperty": [
+      188,
+      201,
+      222,
+      275,
+      284,
+      293,
+      450,
+      463,
+      498,
+      505,
+      512
+    ],
+    "_setProperty": [
+      142,
+      174,
+      207,
+      456,
+      470
+    ],
+    "_setUICommandCondition": [
+      33,
+      39,
+      45,
+      51,
+      57,
+      63,
+      69,
+      75,
+      81,
+      87,
+      93,
+      99,
+      105,
+      111
+    ]
+  }
+}

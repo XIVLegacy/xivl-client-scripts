@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemastercutscenetest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s7pqr75w5q5rq.lua",
+  "classes": [
+    "ZoneMasterCutSceneTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/desktopwidget_u",
+  "ciphered": "n1635q/65rzqvun1635q_p.lua",
+  "classes": [
+    "DesktopWidget"
+  ],
+  "lineCount": 472,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_getCurrentTargetCursor": [
+      133
+    ],
+    "_getLockonTarget": [
+      141
+    ],
+    "_getMyPlayer": [
+      138
+    ],
+    "_setTargetNearestCharacter": [
+      156
+    ]
+  }
+}

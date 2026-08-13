@@ -1,0 +1,15 @@
+{
+  "decoded": "director/caravanguard/caravanguarddirector",
+  "ciphered": "61s57qvs/79s9o9w3p9s6/79s9o9w3p9s661s57qvs.lua",
+  "classes": [
+    "CaravanGuardDirector"
+  ],
+  "lineCount": 742,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/changeequipsetcommand",
+  "ciphered": "7vxx9w6/39x5/729w355tp1ur5q7vxx9w6.lua",
+  "classes": [
+    "ChangeEquipSetCommand"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

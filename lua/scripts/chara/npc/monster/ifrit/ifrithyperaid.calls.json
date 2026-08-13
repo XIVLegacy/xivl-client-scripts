@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/ifrit/ifrithyperaid",
+  "ciphered": "729s9/wu7/xvwrq5s/14s1q/14s1q2lu5s916.lua",
+  "classes": [
+    "IfritHyperAid"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

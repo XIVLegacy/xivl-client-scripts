@@ -1,0 +1,27 @@
+{
+  "decoded": "chara/npc/populace/instanceraidguide/instanceraidguidecutterscry",
+  "ciphered": "729s9/wu7/uvupy975/1wrq9w75s9163p165/1wrq9w75s9163p1657pqq5sr7sl.lua",
+  "classes": [
+    "InstanceRaidGuideCuttersCry"
+  ],
+  "lineCount": 197,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_runCharaScheduler": [
+      36
+    ],
+    "_setGroundOn": [
+      14
+    ],
+    "_wait": [
+      41
+    ]
+  }
+}

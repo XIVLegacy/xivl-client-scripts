@@ -1,0 +1,39 @@
+{
+  "decoded": "chara/npc/populace/populacecompanyguide",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wl3p165.lua",
+  "classes": [
+    "PopulaceCompanyGuide"
+  ],
+  "lineCount": 564,
+  "apiCount": 5,
+  "callsiteCount": 17,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      76,
+      121,
+      166,
+      212
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      101,
+      146,
+      191,
+      269,
+      313,
+      354,
+      404,
+      448,
+      492,
+      524
+    ],
+    "_setGroundOn": [
+      64
+    ]
+  }
+}

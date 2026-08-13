@@ -1,0 +1,43 @@
+{
+  "decoded": "world/worldmaster",
+  "ciphered": "nvsy6/nvsy6x9rq5s.lua",
+  "classes": [
+    "WorldMaster"
+  ],
+  "lineCount": 135,
+  "apiCount": 8,
+  "callsiteCount": 15,
+  "apis": {
+    "_callSuperClassFunc": [
+      102
+    ],
+    "_createActor": [
+      126
+    ],
+    "_getServerTime": [
+      11,
+      17
+    ],
+    "_getStaticActor": [
+      110
+    ],
+    "_loadTextDataPermanently": [
+      106
+    ],
+    "_math": [
+      29,
+      35,
+      40,
+      74,
+      79,
+      85
+    ],
+    "_onInit": [
+      103,
+      115
+    ],
+    "_onReceiveDataPacket": [
+      121
+    ]
+  }
+}

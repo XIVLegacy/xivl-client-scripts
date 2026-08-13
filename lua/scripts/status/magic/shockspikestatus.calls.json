@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/shockspikestatus",
+  "ciphered": "rq9qpr/x9317/r2v7zru1z5rq9qpr.lua",
+  "classes": [
+    "ShockSpikeStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

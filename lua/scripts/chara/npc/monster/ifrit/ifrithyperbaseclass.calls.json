@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/ifrit/ifrithyperbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/14s1q/14s1q2lu5s89r57y9rr.lua",
+  "classes": [
+    "IfritHyperBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

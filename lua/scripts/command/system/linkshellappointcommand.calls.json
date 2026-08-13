@@ -1,0 +1,28 @@
+{
+  "decoded": "command/system/linkshellappointcommand",
+  "ciphered": "7vxx9w6/rlrq5x/y1wzr25yy9uuv1wq7vxx9w6.lua",
+  "classes": [
+    "LinkshellAppointCommand"
+  ],
+  "lineCount": 192,
+  "apiCount": 4,
+  "callsiteCount": 8,
+  "apis": {
+    "_countMember": [
+      137
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      19,
+      56,
+      60,
+      104
+    ],
+    "_isMember": [
+      118,
+      168
+    ]
+  }
+}

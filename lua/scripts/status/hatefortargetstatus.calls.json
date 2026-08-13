@@ -1,0 +1,15 @@
+{
+  "decoded": "status/hatefortargetstatus",
+  "ciphered": "rq9qpr/29q54vsq9s35qrq9qpr.lua",
+  "classes": [
+    "HateForTargetStatus"
+  ],
+  "lineCount": 38,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

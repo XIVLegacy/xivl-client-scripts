@@ -1,0 +1,15 @@
+{
+  "decoded": "director/raidgimmick/raidgimmickbaseclass",
+  "ciphered": "61s57qvs/s91631xx17z/s91631xx17z89r57y9rr.lua",
+  "classes": [
+    "RaidGimmickBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

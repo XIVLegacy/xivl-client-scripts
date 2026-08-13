@@ -1,0 +1,22 @@
+{
+  "decoded": "widget/chocobocaravanwidget",
+  "ciphered": "n1635q/72v7v8v79s9o9wn1635q.lua",
+  "classes": [
+    "ChocoboCaravanWidget"
+  ],
+  "lineCount": 369,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      27,
+      114
+    ],
+    "_randomInteger": [
+      32
+    ]
+  }
+}

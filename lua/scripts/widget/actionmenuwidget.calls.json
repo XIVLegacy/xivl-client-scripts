@@ -1,0 +1,25 @@
+{
+  "decoded": "widget/actionmenuwidget",
+  "ciphered": "n1635q/97q1vwx5wpn1635q.lua",
+  "classes": [
+    "ActionMenuWidget"
+  ],
+  "lineCount": 2773,
+  "apiCount": 3,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      736,
+      772,
+      918,
+      1290,
+      2342
+    ],
+    "_math": [
+      2121
+    ]
+  }
+}

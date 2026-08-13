@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/linkshelliconlistwidget",
+  "ciphered": "n1635q/y1wzr25yy17vwy1rqn1635q.lua",
+  "classes": [
+    "LinkshellIconListWidget"
+  ],
+  "lineCount": 142,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      60
+    ]
+  }
+}

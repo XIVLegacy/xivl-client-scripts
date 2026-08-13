@@ -1,0 +1,75 @@
+{
+  "decoded": "chara/npc/populace/populacecompanyofficer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wlv44175s.lua",
+  "classes": [
+    "PopulaceCompanyOfficer"
+  ],
+  "lineCount": 1127,
+  "apiCount": 8,
+  "callsiteCount": 47,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      563
+    ],
+    "_getMyPlayer": [
+      78,
+      150,
+      199,
+      248,
+      297,
+      353,
+      450,
+      522,
+      629,
+      718,
+      782,
+      881,
+      924,
+      975,
+      1024,
+      1073
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      109,
+      178,
+      227,
+      276,
+      479,
+      491,
+      501,
+      551,
+      593,
+      605,
+      658,
+      668,
+      755,
+      838,
+      862,
+      904,
+      950,
+      1003,
+      1052,
+      1101
+    ],
+    "_setGroundOn": [
+      64
+    ],
+    "_wait": [
+      690,
+      705,
+      751
+    ],
+    "_waitForCharaSchedulerFinished": [
+      339,
+      395,
+      679,
+      759
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "decoded": "widget/supportdeskwidget",
+  "ciphered": "n1635q/rpuuvsq65rzn1635q.lua",
+  "classes": [
+    "SupportDeskWidget"
+  ],
+  "lineCount": 685,
+  "apiCount": 6,
+  "callsiteCount": 17,
+  "apis": {
+    "_addItem": [
+      73,
+      137
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getProperty": [
+      200,
+      226,
+      357,
+      537
+    ],
+    "_setProperty": [
+      37,
+      44,
+      85,
+      92,
+      107,
+      149,
+      163,
+      523
+    ],
+    "_setUICommandCondition": [
+      51
+    ],
+    "_setUICommandTemplateCondition": [
+      57
+    ]
+  }
+}

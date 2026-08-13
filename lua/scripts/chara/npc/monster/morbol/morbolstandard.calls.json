@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/morbol/morbolstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/xvs8vy/xvs8vyrq9w69s6.lua",
+  "classes": [
+    "MorbolStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

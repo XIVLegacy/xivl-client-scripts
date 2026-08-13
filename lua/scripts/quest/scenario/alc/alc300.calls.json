@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/alc/alc300",
+  "ciphered": "tp5rq/r75w9s1v/9y7/9y7gjj.lua",
+  "classes": [
+    "Alc300"
+  ],
+  "lineCount": 1037,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

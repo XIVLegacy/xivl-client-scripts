@@ -1,0 +1,34 @@
+{
+  "decoded": "chara/npc/object/raiddungeontreasurebox",
+  "ciphered": "729s9/wu7/v8057q/s9166pw35vwqs59rps58vm.lua",
+  "classes": [
+    "RaidDungeonTreasureBox"
+  ],
+  "lineCount": 535,
+  "apiCount": 4,
+  "callsiteCount": 14,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      124,
+      157,
+      226,
+      303,
+      309,
+      315,
+      321,
+      327,
+      333,
+      362
+    ],
+    "_randomInteger": [
+      269,
+      381
+    ],
+    "_runCharaScheduler": [
+      69
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/whitegeneralattackweaponskill",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/n21q535w5s9y9qq97zn59uvwrz1yy.lua",
+  "classes": [
+    "WhiteGeneralAttackWeaponSkill"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

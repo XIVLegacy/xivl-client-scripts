@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/raiddungeonheadcount",
+  "ciphered": "729s9/wu7/v8057q/s9166pw35vw25967vpwq.lua",
+  "classes": [
+    "RaidDungeonHeadCount"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

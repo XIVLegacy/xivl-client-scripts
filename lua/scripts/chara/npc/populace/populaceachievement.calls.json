@@ -1,0 +1,75 @@
+{
+  "decoded": "chara/npc/populace/populaceachievement",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97597215o5x5wq.lua",
+  "classes": [
+    "PopulaceAchievement"
+  ],
+  "lineCount": 1339,
+  "apiCount": 7,
+  "callsiteCount": 49,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      794,
+      822,
+      850,
+      878,
+      906,
+      940,
+      974,
+      1008,
+      1036,
+      1070,
+      1120
+    ],
+    "_fadeOut": [
+      787,
+      815,
+      843,
+      871,
+      899,
+      933,
+      967,
+      1001,
+      1029,
+      1063,
+      1113
+    ],
+    "_getMyPlayer": [
+      40,
+      77,
+      768,
+      1172
+    ],
+    "_loadTextDataPermanently": [
+      27
+    ],
+    "_wait": [
+      798,
+      826,
+      854,
+      882,
+      910,
+      944,
+      978,
+      1012,
+      1040,
+      1124
+    ],
+    "_waitForFading": [
+      791,
+      819,
+      847,
+      875,
+      903,
+      937,
+      971,
+      1005,
+      1033,
+      1067,
+      1117
+    ]
+  }
+}

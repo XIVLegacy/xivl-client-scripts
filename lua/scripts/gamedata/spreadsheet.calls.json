@@ -1,0 +1,25 @@
+{
+  "decoded": "gamedata/spreadsheet",
+  "ciphered": "39x569q9/rus596r255q.lua",
+  "classes": [
+    "SpreadSheet"
+  ],
+  "lineCount": 22,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      16
+    ],
+    "_onLoadKeyAsync": [
+      22
+    ],
+    "_setFilename": [
+      11
+    ]
+  }
+}

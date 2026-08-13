@@ -1,0 +1,54 @@
+{
+  "decoded": "quest/scenario/man/man0u1",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wjpi.lua",
+  "classes": [
+    "Man0u1"
+  ],
+  "lineCount": 2885,
+  "apiCount": 5,
+  "callsiteCount": 32,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      1466,
+      1498,
+      1530,
+      1562,
+      1594,
+      1626,
+      1665,
+      1674,
+      1683,
+      1692,
+      1701,
+      1710
+    ],
+    "_wait": [
+      411,
+      421,
+      431,
+      441,
+      464,
+      474
+    ],
+    "_waitForCharaSchedulerFinished": [
+      1476,
+      1508,
+      1540,
+      1572,
+      1604,
+      1636,
+      1669,
+      1678,
+      1687,
+      1696,
+      1705,
+      1714
+    ]
+  }
+}

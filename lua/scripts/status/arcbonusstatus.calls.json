@@ -1,0 +1,15 @@
+{
+  "decoded": "status/arcbonusstatus",
+  "ciphered": "rq9qpr/9s78vwprrq9qpr.lua",
+  "classes": [
+    "ArcBonusStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

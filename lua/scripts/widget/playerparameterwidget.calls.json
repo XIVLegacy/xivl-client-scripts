@@ -1,0 +1,35 @@
+{
+  "decoded": "widget/playerparameterwidget",
+  "ciphered": "n1635q/uy9l5su9s9x5q5sn1635q.lua",
+  "classes": [
+    "PlayerParameterWidget"
+  ],
+  "lineCount": 612,
+  "apiCount": 3,
+  "callsiteCount": 17,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getProperty": [
+      373,
+      379
+    ],
+    "_setProperty": [
+      277,
+      285,
+      308,
+      315,
+      333,
+      351,
+      387,
+      394,
+      402,
+      409,
+      417,
+      424,
+      432,
+      439
+    ]
+  }
+}

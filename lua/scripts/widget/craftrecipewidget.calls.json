@@ -1,0 +1,62 @@
+{
+  "decoded": "widget/craftrecipewidget",
+  "ciphered": "n1635q/7s94qs571u5n1635q.lua",
+  "classes": [
+    "CraftRecipeWidget"
+  ],
+  "lineCount": 1541,
+  "apiCount": 11,
+  "callsiteCount": 28,
+  "apis": {
+    "_countStack": [
+      676
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      668
+    ],
+    "_getEquippingItem": [
+      1424,
+      1431,
+      1438,
+      1445
+    ],
+    "_getItem": [
+      656
+    ],
+    "_getItemPackageCapacity": [
+      587,
+      622,
+      699
+    ],
+    "_getItemPackageFreeSpace": [
+      591,
+      626,
+      703
+    ],
+    "_getMyPlayer": [
+      584,
+      619,
+      653,
+      696,
+      924,
+      959,
+      1325
+    ],
+    "_getParentWidget": [
+      310,
+      334,
+      376,
+      462,
+      1317
+    ],
+    "_isEquipping": [
+      664
+    ],
+    "_isStackable": [
+      672
+    ]
+  }
+}

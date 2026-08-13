@@ -1,0 +1,69 @@
+{
+  "decoded": "quest/scenario/pld/pld0j1",
+  "ciphered": "tp5rq/r75w9s1v/uy6/uy6j0i.lua",
+  "classes": [
+    "Pld0j1"
+  ],
+  "lineCount": 701,
+  "apiCount": 5,
+  "callsiteCount": 47,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      32,
+      43,
+      60,
+      82,
+      102,
+      119,
+      146,
+      181,
+      205,
+      227,
+      249,
+      290,
+      306,
+      411,
+      439,
+      455,
+      473,
+      487,
+      509,
+      529,
+      547,
+      565,
+      587
+    ],
+    "_wait": [
+      177,
+      191,
+      201,
+      351,
+      391,
+      415,
+      430,
+      465,
+      477,
+      491,
+      500,
+      543,
+      551,
+      625,
+      635,
+      645
+    ],
+    "_waitForCharaSchedulerFinished": [
+      265,
+      469,
+      525,
+      539,
+      561,
+      609
+    ]
+  }
+}

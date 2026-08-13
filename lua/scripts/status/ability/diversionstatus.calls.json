@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/diversionstatus",
+  "ciphered": "rq9qpr/981y1ql/61o5sr1vwrq9qpr.lua",
+  "classes": [
+    "DiversionStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

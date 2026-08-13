@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/cmnability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/7xw981y1ql.lua",
+  "classes": [
+    "CmnAbility"
+  ],
+  "lineCount": 59,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

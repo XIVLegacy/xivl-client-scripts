@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/cul/cul400",
+  "ciphered": "tp5rq/r75w9s1v/7py/7pyfjj.lua",
+  "classes": [
+    "Cul400"
+  ],
+  "lineCount": 455,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

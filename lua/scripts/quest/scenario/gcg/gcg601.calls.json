@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/gcg/gcg601",
+  "ciphered": "tp5rq/r75w9s1v/373/373dji.lua",
+  "classes": [
+    "Gcg601"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

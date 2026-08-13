@@ -1,0 +1,28 @@
+{
+  "decoded": "command/system/partyjoincommand",
+  "ciphered": "7vxx9w6/rlrq5x/u9sql0v1w7vxx9w6.lua",
+  "classes": [
+    "PartyJoinCommand"
+  ],
+  "lineCount": 70,
+  "apiCount": 5,
+  "callsiteCount": 6,
+  "apis": {
+    "_countMember": [
+      17,
+      50
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getMemberDisplayName": [
+      55
+    ],
+    "_isInstanceOf": [
+      23
+    ],
+    "_isMember": [
+      36
+    ]
+  }
+}

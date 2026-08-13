@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/ragingstrikestatus",
+  "ciphered": "rq9qpr/981y1ql/s931w3rqs1z5rq9qpr.lua",
+  "classes": [
+    "RagingStrikeStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

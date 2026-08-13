@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/confirmtradecommand",
+  "ciphered": "7vxx9w6/rlrq5x/7vw41sxqs9657vxx9w6.lua",
+  "classes": [
+    "ConfirmTradeCommand"
+  ],
+  "lineCount": 45,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      36
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "decoded": "widget/statuswidget",
+  "ciphered": "n1635q/rq9qprn1635q.lua",
+  "classes": [
+    "StatusWidget"
+  ],
+  "lineCount": 4416,
+  "apiCount": 21,
+  "callsiteCount": 51,
+  "apis": {
+    "_addItem": [
+      3372
+    ],
+    "_countEnableAchievementTitle": [
+      217,
+      3802
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getAchievementTitle": [
+      209,
+      1024
+    ],
+    "_getBelongGrandCompany": [
+      3037
+    ],
+    "_getCatalogID": [
+      4235
+    ],
+    "_getCompanyBehestTime": [
+      3408
+    ],
+    "_getData": [
+      3181
+    ],
+    "_getItem": [
+      4102,
+      4200
+    ],
+    "_getItemPackageCapacity": [
+      2505,
+      2536,
+      2643,
+      3141
+    ],
+    "_getItemPackageFreeSpace": [
+      3145
+    ],
+    "_getKeyboardFocusedWidget": [
+      3668
+    ],
+    "_getMyPlayer": [
+      107,
+      205,
+      776,
+      979,
+      1064,
+      1096,
+      1203,
+      2293,
+      2502,
+      2525,
+      2640,
+      2928,
+      3138,
+      3386,
+      3691,
+      3718,
+      3799,
+      4098,
+      4195
+    ],
+    "_getNMRushUpdateTime": [
+      3416
+    ],
+    "_getNameIndex": [
+      4122,
+      4238
+    ],
+    "_getNormalBehestTime": [
+      3400
+    ],
+    "_getOccupancyContentsTime": [
+      3424
+    ],
+    "_getServerTime": [
+      3466,
+      3561,
+      3588
+    ],
+    "_loadKeyTemporarily": [
+      3175
+    ],
+    "_math": [
+      3575,
+      3584,
+      3606
+    ],
+    "_setAchievementTitle": [
+      3694,
+      3721
+    ]
+  }
+}

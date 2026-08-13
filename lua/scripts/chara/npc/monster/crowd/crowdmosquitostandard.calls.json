@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/crowd/crowdmosquitostandard",
+  "ciphered": "729s9/wu7/xvwrq5s/7svn6/7svn6xvrtp1qvrq9w69s6.lua",
+  "classes": [
+    "CrowdMosquitoStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/gnole/gnoleconcctrllesserstd",
+  "ciphered": "729s9/wu7/xvwrq5s/3wvy5/3wvy57vw77qsyy5rr5srq6.lua",
+  "classes": [
+    "GnoleConCCtrlLesserStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

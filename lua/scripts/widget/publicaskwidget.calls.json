@@ -1,0 +1,31 @@
+{
+  "decoded": "widget/publicaskwidget",
+  "ciphered": "n1635q/up8y179rzn1635q.lua",
+  "classes": [
+    "PublicAskWidget"
+  ],
+  "lineCount": 315,
+  "apiCount": 3,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      41,
+      69,
+      168,
+      175,
+      182,
+      198,
+      205,
+      264,
+      274
+    ],
+    "_setUICommandCondition": [
+      23,
+      29,
+      35
+    ]
+  }
+}

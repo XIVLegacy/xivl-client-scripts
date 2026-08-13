@@ -1,0 +1,18 @@
+{
+  "decoded": "director/guildleve/privateglbattlesweepescort",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y89qqy5rn55u5r7vsq.lua",
+  "classes": [
+    "PrivateGLBattleSweepEscort"
+  ],
+  "lineCount": 236,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      36
+    ]
+  }
+}

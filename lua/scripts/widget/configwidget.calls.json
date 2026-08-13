@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/configwidget",
+  "ciphered": "n1635q/7vw413n1635q.lua",
+  "classes": [
+    "ConfigWidget"
+  ],
+  "lineCount": 301,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_saveUserConfig": [
+      284
+    ]
+  }
+}

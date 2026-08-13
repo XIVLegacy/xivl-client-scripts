@@ -1,0 +1,22 @@
+{
+  "decoded": "quest/scenario/thm/thm300",
+  "ciphered": "tp5rq/r75w9s1v/q2x/q2xgjj.lua",
+  "classes": [
+    "Thm300"
+  ],
+  "lineCount": 1005,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_wait": [
+      168,
+      211
+    ]
+  }
+}

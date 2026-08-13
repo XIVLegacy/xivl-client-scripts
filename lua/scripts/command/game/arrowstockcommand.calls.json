@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/arrowstockcommand",
+  "ciphered": "7vxx9w6/39x5/9ssvnrqv7z7vxx9w6.lua",
+  "classes": [
+    "ArrowStockCommand"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/cmncrafterability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/7xw7s94q5s981y1ql.lua",
+  "classes": [
+    "CmnCrafterAbility"
+  ],
+  "lineCount": 57,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

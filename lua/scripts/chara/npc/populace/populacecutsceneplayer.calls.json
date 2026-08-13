@@ -1,0 +1,63 @@
+{
+  "decoded": "chara/npc/populace/populacecutsceneplayer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757pqr75w5uy9l5s.lua",
+  "classes": [
+    "PopulaceCutScenePlayer"
+  ],
+  "lineCount": 370,
+  "apiCount": 15,
+  "callsiteCount": 21,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      313,
+      364
+    ],
+    "_getData": [
+      180,
+      227,
+      340
+    ],
+    "_getQuestActorForCutSceneReplay": [
+      138
+    ],
+    "_getStaticActor": [
+      360
+    ],
+    "_isExistStaticActor": [
+      356
+    ],
+    "_loadKeyTemporarily": [
+      145
+    ],
+    "_loadTextDataPermanently": [
+      26
+    ],
+    "_math": [
+      134
+    ],
+    "_onFinalize": [
+      370
+    ],
+    "_onTalkEvent": [
+      73
+    ],
+    "_setGroundOn": [
+      33
+    ],
+    "_setLockonTarget": [
+      49,
+      54,
+      64
+    ],
+    "_setMusic": [
+      221,
+      316
+    ],
+    "_unloadKey": [
+      322
+    ]
+  }
+}

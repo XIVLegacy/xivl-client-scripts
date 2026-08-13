@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/retainerdismissalwidget",
+  "ciphered": "n1635q/9rz/s5q91w5s61rx1rr9yn1635q.lua",
+  "classes": [
+    "RetainerDismissalWidget"
+  ],
+  "lineCount": 58,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

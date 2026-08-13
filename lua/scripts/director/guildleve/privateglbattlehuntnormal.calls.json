@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/privateglbattlehuntnormal",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y89qqy52pwqwvsx9y.lua",
+  "classes": [
+    "PrivateGLBattleHuntNormal"
+  ],
+  "lineCount": 256,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

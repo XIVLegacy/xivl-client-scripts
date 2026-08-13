@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/funguar/funguarnormalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/4pw3p9s/4pw3p9swvsx9yrq9w69s6.lua",
+  "classes": [
+    "FunguarNormalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

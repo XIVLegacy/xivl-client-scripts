@@ -1,0 +1,15 @@
+{
+  "decoded": "director/waveattackdirector",
+  "ciphered": "61s57qvs/n9o59qq97z61s57qvs.lua",
+  "classes": [
+    "WaveAttackDirector"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

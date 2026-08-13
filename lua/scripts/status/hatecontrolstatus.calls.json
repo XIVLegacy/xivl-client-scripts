@@ -1,0 +1,15 @@
+{
+  "decoded": "status/hatecontrolstatus",
+  "ciphered": "rq9qpr/29q57vwqsvyrq9qpr.lua",
+  "classes": [
+    "HateControlStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

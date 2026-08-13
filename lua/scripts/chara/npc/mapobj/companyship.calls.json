@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/mapobj/companyship",
+  "ciphered": "729s9/wu7/x9uv80/7vxu9wlr21u.lua",
+  "classes": [
+    "CompanyShip"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

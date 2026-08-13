@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/object/treasurebox/treasureboxbaseclass",
+  "ciphered": "729s9/wu7/v8057q/qs59rps58vm/qs59rps58vm89r57y9rr.lua",
+  "classes": [
+    "TreasureBoxBaseClass"
+  ],
+  "lineCount": 34,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_assignForChild": [
+      16
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

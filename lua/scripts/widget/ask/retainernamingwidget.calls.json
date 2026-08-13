@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/ask/retainernamingwidget",
+  "ciphered": "n1635q/9rz/s5q91w5sw9x1w3n1635q.lua",
+  "classes": [
+    "RetainerNamingWidget"
+  ],
+  "lineCount": 578,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      535
+    ],
+    "_getProperty": [
+      505
+    ],
+    "_getUTF8StringLength": [
+      565
+    ]
+  }
+}

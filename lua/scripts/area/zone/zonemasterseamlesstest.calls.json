@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterseamlesstest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sr59xy5rrq5rq.lua",
+  "classes": [
+    "ZoneMasterSeamlessTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

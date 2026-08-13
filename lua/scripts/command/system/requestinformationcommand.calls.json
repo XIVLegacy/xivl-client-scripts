@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/requestinformationcommand",
+  "ciphered": "7vxx9w6/rlrq5x/s5tp5rq1w4vsx9q1vw7vxx9w6.lua",
+  "classes": [
+    "RequestInformationCommand"
+  ],
+  "lineCount": 18,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "decoded": "group/partygroup/playerpartygroup",
+  "ciphered": "3svpu/u9sql3svpu/uy9l5su9sql3svpu.lua",
+  "classes": [
+    "PlayerPartyGroup"
+  ],
+  "lineCount": 358,
+  "apiCount": 14,
+  "callsiteCount": 60,
+  "apis": {
+    "_callSuperClassFunc": [
+      119,
+      170,
+      223,
+      317
+    ],
+    "_countMember": [
+      60,
+      91,
+      257,
+      289,
+      337
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getKind": [
+      38,
+      140,
+      190,
+      243
+    ],
+    "_getMember": [
+      72,
+      103,
+      209,
+      269,
+      301,
+      349
+    ],
+    "_getMyPlayer": [
+      26,
+      35,
+      47,
+      53,
+      80,
+      128,
+      137,
+      151,
+      178,
+      187,
+      201,
+      231,
+      240,
+      249,
+      278,
+      324,
+      330
+    ],
+    "_getOccupancyGroup": [
+      86,
+      284
+    ],
+    "_isExistInClientMember": [
+      65,
+      96,
+      195,
+      262,
+      294,
+      342
+    ],
+    "_isInstanceOf": [
+      144
+    ],
+    "_isMember": [
+      23,
+      44,
+      125,
+      175,
+      228,
+      321
+    ],
+    "_onFinalize": [
+      318,
+      358
+    ],
+    "_onUpdateGroupInformation": [
+      224,
+      311
+    ],
+    "_onUpdateMember": [
+      120,
+      164
+    ],
+    "_onUpdateMemberInformation": [
+      171,
+      217
+    ]
+  }
+}

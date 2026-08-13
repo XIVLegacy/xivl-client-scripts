@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/attackmagichealhpstatus",
+  "ciphered": "rq9qpr/981y1ql/9qq97zx9317259y2urq9qpr.lua",
+  "classes": [
+    "AttackMagicHealHPStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/tutorialsuccesswidget",
+  "ciphered": "n1635q/qpqvs19yrp775rrn1635q.lua",
+  "classes": [
+    "TutorialSuccessWidget"
+  ],
+  "lineCount": 61,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

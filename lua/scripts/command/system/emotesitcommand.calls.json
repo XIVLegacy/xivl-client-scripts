@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/emotesitcommand",
+  "ciphered": "7vxx9w6/rlrq5x/5xvq5r1q7vxx9w6.lua",
+  "classes": [
+    "EmoteSitCommand"
+  ],
+  "lineCount": 65,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

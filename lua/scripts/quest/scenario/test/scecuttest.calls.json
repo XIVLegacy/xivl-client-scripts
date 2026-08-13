@@ -1,0 +1,36 @@
+{
+  "decoded": "quest/scenario/test/scecuttest",
+  "ciphered": "tp5rq/r75w9s1v/q5rq/r757pqq5rq.lua",
+  "classes": [
+    "SceCutTest"
+  ],
+  "lineCount": 191,
+  "apiCount": 7,
+  "callsiteCount": 10,
+  "apis": {
+    "_cancelFading": [
+      179
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      160
+    ],
+    "_fadeOut": [
+      153,
+      171
+    ],
+    "_isFading": [
+      182
+    ],
+    "_wait": [
+      167,
+      175
+    ],
+    "_waitForFading": [
+      157,
+      164
+    ]
+  }
+}

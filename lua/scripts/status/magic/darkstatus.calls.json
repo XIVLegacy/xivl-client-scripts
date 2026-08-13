@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/darkstatus",
+  "ciphered": "rq9qpr/x9317/69szrq9qpr.lua",
+  "classes": [
+    "DarkStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

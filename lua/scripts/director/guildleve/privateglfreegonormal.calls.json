@@ -1,0 +1,18 @@
+{
+  "decoded": "director/guildleve/privateglfreegonormal",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y4s553vwvsx9y.lua",
+  "classes": [
+    "PrivateGLFreeGoNormal"
+  ],
+  "lineCount": 334,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      278
+    ]
+  }
+}

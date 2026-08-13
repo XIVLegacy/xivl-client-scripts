@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/spider/spiderbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/ru165s/ru165s89r57y9rr.lua",
+  "classes": [
+    "SpiderBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "decoded": "chara/npc/object/objectbed",
+  "ciphered": "729s9/wu7/v8057q/v8057q856.lua",
+  "classes": [
+    "ObjectBed"
+  ],
+  "lineCount": 291,
+  "apiCount": 18,
+  "callsiteCount": 28,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      147
+    ],
+    "_fadeOut": [
+      93,
+      179
+    ],
+    "_forceCameraTPSMode": [
+      77,
+      89
+    ],
+    "_getDir": [
+      266
+    ],
+    "_getMyPlayer": [
+      42
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_math": [
+      268
+    ],
+    "_onEventCancel": [
+      253
+    ],
+    "_readyInnBed": [
+      45
+    ],
+    "_runCharaScheduler": [
+      171,
+      273,
+      281
+    ],
+    "_setDir": [
+      264
+    ],
+    "_setGroundOn": [
+      14
+    ],
+    "_setNameplateVisible": [
+      63,
+      100,
+      104
+    ],
+    "_setPosDirInn": [
+      134
+    ],
+    "_setTargetCharacter": [
+      142
+    ],
+    "_wait": [
+      175,
+      277,
+      285
+    ],
+    "_waitForFading": [
+      97,
+      151,
+      183
+    ]
+  }
+}

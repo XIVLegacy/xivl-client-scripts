@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickwarp",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zn9su.lua",
+  "classes": [
+    "GimmickWarp"
+  ],
+  "lineCount": 96,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_setGroundOn": [
+      19
+    ]
+  }
+}

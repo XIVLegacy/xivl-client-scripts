@@ -1,0 +1,47 @@
+{
+  "decoded": "chara/npc/populace/populacenmreward",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975wxs5n9s6.lua",
+  "classes": [
+    "PopulaceNMReward"
+  ],
+  "lineCount": 1361,
+  "apiCount": 3,
+  "callsiteCount": 29,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      34,
+      100,
+      269,
+      438,
+      573,
+      589,
+      605,
+      665,
+      671,
+      850,
+      862,
+      878,
+      895,
+      912,
+      988,
+      1028,
+      1050,
+      1085,
+      1116,
+      1125,
+      1182,
+      1210,
+      1227,
+      1242,
+      1280,
+      1318,
+      1339
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/journalcommand",
+  "ciphered": "7vxx9w6/rlrq5x/0vpsw9y7vxx9w6.lua",
+  "classes": [
+    "JournalCommand"
+  ],
+  "lineCount": 18,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

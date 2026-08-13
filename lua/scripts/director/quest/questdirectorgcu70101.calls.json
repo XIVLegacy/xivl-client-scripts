@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectorgcu70101",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvs37pcjiji.lua",
+  "classes": [
+    "QuestDirectorGcu70101"
+  ],
+  "lineCount": 245,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

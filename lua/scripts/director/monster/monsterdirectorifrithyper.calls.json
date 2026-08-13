@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/monsterdirectorifrithyper",
+  "ciphered": "61s57qvs/xvwrq5s/xvwrq5s61s57qvs14s1q2lu5s.lua",
+  "classes": [
+    "MonsterDirectorIfritHyper"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

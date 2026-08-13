@@ -1,0 +1,33 @@
+{
+  "decoded": "widget/materiaattachwarningwidget",
+  "ciphered": "n1635q/x9q5s199qq972n9sw1w3n1635q.lua",
+  "classes": [
+    "MateriaAttachWarningWidget"
+  ],
+  "lineCount": 522,
+  "apiCount": 5,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      52,
+      100
+    ],
+    "_getItem": [
+      27,
+      74,
+      308,
+      313
+    ],
+    "_getKeyboardFocusedWidget": [
+      495
+    ],
+    "_getMyPlayer": [
+      24,
+      71,
+      305
+    ]
+  }
+}

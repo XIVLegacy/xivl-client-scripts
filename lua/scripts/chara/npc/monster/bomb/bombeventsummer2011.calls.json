@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/bomb/bombeventsummer2011",
+  "ciphered": "729s9/wu7/xvwrq5s/8vx8/8vx85o5wqrpxx5shjii.lua",
+  "classes": [
+    "BombEventSummer2011"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

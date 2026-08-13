@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/partyrootwidget",
+  "ciphered": "n1635q/u9sqlsvvqn1635q.lua",
+  "classes": [
+    "PartyRootWidget"
+  ],
+  "lineCount": 1080,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      188
+    ]
+  }
+}

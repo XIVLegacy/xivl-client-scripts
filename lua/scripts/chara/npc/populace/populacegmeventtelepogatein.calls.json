@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/populace/populacegmeventtelepogatein",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9753x5o5wqq5y5uv39q51w.lua",
+  "classes": [
+    "PopulaceGMEventTelepoGateIn"
+  ],
+  "lineCount": 54,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "decoded": "chara/npc/retainer/ordinaryretainer",
+  "ciphered": "729s9/wu7/s5q91w5s/vs61w9sls5q91w5s.lua",
+  "classes": [
+    "OrdinaryRetainer"
+  ],
+  "lineCount": 1078,
+  "apiCount": 21,
+  "callsiteCount": 71,
+  "apis": {
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_countMember": [
+      55,
+      844
+    ],
+    "_countStack": [
+      529,
+      564,
+      599,
+      630,
+      706,
+      772,
+      785
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      363,
+      391,
+      533,
+      568,
+      603,
+      663,
+      682,
+      719,
+      738,
+      789
+    ],
+    "_getDealingAttached": [
+      764
+    ],
+    "_getGroup": [
+      47,
+      836
+    ],
+    "_getItem": [
+      346,
+      374,
+      508,
+      543,
+      578,
+      613,
+      637,
+      657,
+      690,
+      751
+    ],
+    "_getItemPackageCapacity": [
+      647
+    ],
+    "_getMember": [
+      853
+    ],
+    "_getMyPlayer": [
+      72,
+      272,
+      422,
+      829,
+      1068
+    ],
+    "_getNameIndex": [
+      366,
+      394,
+      536,
+      571,
+      606,
+      685,
+      722,
+      741,
+      792
+    ],
+    "_getPackage": [
+      525,
+      560,
+      595,
+      781
+    ],
+    "_hasItemPackage": [
+      642
+    ],
+    "_isAlive": [
+      354,
+      382,
+      516,
+      551,
+      586,
+      621,
+      697,
+      759
+    ],
+    "_isInstanceOf": [
+      766
+    ],
+    "_loadTextDataPermanently": [
+      22
+    ],
+    "_math": [
+      879,
+      883
+    ],
+    "_onInit": [
+      15,
+      28
+    ],
+    "_turnDir": [
+      1072
+    ],
+    "_wait": [
+      137
+    ]
+  }
+}

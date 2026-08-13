@@ -1,0 +1,45 @@
+{
+  "decoded": "quest/scenario/gcg/gcg102",
+  "ciphered": "tp5rq/r75w9s1v/373/373ijh.lua",
+  "classes": [
+    "Gcg102"
+  ],
+  "lineCount": 1038,
+  "apiCount": 4,
+  "callsiteCount": 25,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      52,
+      68,
+      90,
+      118,
+      132,
+      147,
+      180,
+      868,
+      887,
+      912,
+      934,
+      956,
+      978,
+      1000,
+      1016,
+      1020
+    ],
+    "_wait": [
+      42,
+      185,
+      640,
+      883,
+      891,
+      1024
+    ]
+  }
+}

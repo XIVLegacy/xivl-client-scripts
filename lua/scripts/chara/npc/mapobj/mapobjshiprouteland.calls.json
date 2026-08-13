@@ -1,0 +1,25 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjshiprouteland",
+  "ciphered": "729s9/wu7/x9uv80/x9uv80r21usvpq5y9w6.lua",
+  "classes": [
+    "MapObjShipRouteLand"
+  ],
+  "lineCount": 79,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      46
+    ],
+    "_runBgSchedulerFromMidstream": [
+      61,
+      68
+    ],
+    "_setGroundOn": [
+      74
+    ]
+  }
+}

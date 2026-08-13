@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/garuda/garudanormal",
+  "ciphered": "729s9/wu7/xvwrq5s/39sp69/39sp69wvsx9y.lua",
+  "classes": [
+    "GarudaNormal"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

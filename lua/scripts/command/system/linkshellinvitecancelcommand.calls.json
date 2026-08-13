@@ -1,0 +1,20 @@
+{
+  "decoded": "command/system/linkshellinvitecancelcommand",
+  "ciphered": "7vxx9w6/rlrq5x/y1wzr25yy1wo1q579w75y7vxx9w6.lua",
+  "classes": [
+    "LinkshellInviteCancelCommand"
+  ],
+  "lineCount": 77,
+  "apiCount": 2,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      19,
+      45,
+      49
+    ]
+  }
+}

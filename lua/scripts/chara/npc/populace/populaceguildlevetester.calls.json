@@ -1,0 +1,29 @@
+{
+  "decoded": "chara/npc/populace/populaceguildlevetester",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9753p1y6y5o5q5rq5s.lua",
+  "classes": [
+    "PopulaceGuildleveTester"
+  ],
+  "lineCount": 549,
+  "apiCount": 5,
+  "callsiteCount": 7,
+  "apis": {
+    "_assignForChild": [
+      16
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      379,
+      422
+    ],
+    "_loadKeyTemporarily": [
+      371,
+      414
+    ],
+    "_math": [
+      529
+    ]
+  }
+}

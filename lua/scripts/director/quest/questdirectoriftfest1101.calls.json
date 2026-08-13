@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectoriftfest1101",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvs14q45rqiiji.lua",
+  "classes": [
+    "QuestDirectorIftFest1101"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/meditatestatus",
+  "ciphered": "rq9qpr/981y1ql/x561q9q5rq9qpr.lua",
+  "classes": [
+    "MeditateStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

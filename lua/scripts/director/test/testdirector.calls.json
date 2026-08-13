@@ -1,0 +1,24 @@
+{
+  "decoded": "director/test/testdirector",
+  "ciphered": "61s57qvs/q5rq/q5rq61s57qvs.lua",
+  "classes": [
+    "TestDirector"
+  ],
+  "lineCount": 96,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      50
+    ],
+    "_loadKeyTemporarily": [
+      44
+    ],
+    "_wait": [
+      62
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/itemsearchwidget",
+  "ciphered": "n1635q/9rz/1q5xr59s72n1635q.lua",
+  "classes": [
+    "ItemSearchWidget"
+  ],
+  "lineCount": 502,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

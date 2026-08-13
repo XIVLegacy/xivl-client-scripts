@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/materiaattachcautionwidget",
+  "ciphered": "n1635q/x9q5s199qq97279pq1vwn1635q.lua",
+  "classes": [
+    "MateriaAttachCautionWidget"
+  ],
+  "lineCount": 101,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      88
+    ]
+  }
+}

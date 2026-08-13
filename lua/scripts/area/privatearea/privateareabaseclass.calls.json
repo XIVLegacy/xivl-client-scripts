@@ -1,0 +1,25 @@
+{
+  "decoded": "area/privatearea/privateareabaseclass",
+  "ciphered": "9s59/us1o9q59s59/us1o9q59s5989r57y9rr.lua",
+  "classes": [
+    "PrivateAreaBaseClass"
+  ],
+  "lineCount": 39,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_assignForChild": [
+      19
+    ],
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_getZoneName": [
+      28
+    ],
+    "_onInit": [
+      8,
+      33
+    ]
+  }
+}
