@@ -12,10 +12,10 @@ Preservation and evidence for Final Fantasy XIV 1.23b.
 
 ## About
 
-This repository preserves tooling and derived metadata for a decompiled client
-Lua script corpus at extraction version
-`2012.09.19.0001`. The [corpus contract](lua/README.md) defines its supply,
-regeneration, provenance, and exact reproduction contract.
+This repository preserves tooling and derived metadata for a decompiled
+client Lua script corpus at extraction version `2012.09.19.0001`.
+The [corpus contract](lua/README.md) defines its supply, regeneration,
+provenance, and exact reproduction contract.
 
 ## Documentation
 
@@ -31,17 +31,19 @@ regeneration, provenance, and exact reproduction contract.
 ## Community
 
 Join the [project Discord](https://discord.gg/PxK5RJYQjm) for questions and
-community support.
-Use [Issues](https://github.com/XIVLegacy/xivl-client-scripts/issues) for bugs
-and research findings that need a durable record.
+community support. Use [Issues](https://github.com/XIVLegacy/xivl-client-scripts/issues)
+to report bugs and durable research findings.
 
 ## Contributing
 
-Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before you open one.
+Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before you
+open one.
 
 ## License
 
-Authored metadata uses the [MIT License](LICENSE). The Lua corpus derived from
-retail client files is outside that license. This project is unaffiliated with
-and unendorsed by the publisher. All trademarks belong to their respective
-owners.
+Project-authored material uses the [MIT License](LICENSE), including tools,
+schemas, documentation, manifests, non-reconstructive metadata, and
+arrangements. Retail-derived Lua and corpus facts are not covered. Vendored
+material retains the source license recorded in its provenance file.
+This project is unaffiliated with and unendorsed by the publisher. All
+trademarks belong to their respective owners.

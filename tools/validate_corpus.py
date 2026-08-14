@@ -342,6 +342,16 @@ def validate_vendor() -> dict[str, list[str]] | None:
             (item for item in records if item.get("file") == api_path.name),
             None,
         )
+        for field in ("sourceLicense", "sourceLicenseUrl"):
+            if (
+                not isinstance(record, dict)
+                or not isinstance(record.get(field), str)
+                or not record[field]
+            ):
+                errors.append(
+                    "data/vendor/client-structs/PROVENANCE.json: "
+                    f"lua_api_index.json {field} missing"
+                )
         expected_hash = record.get("sha256") if record else None
         if not expected_hash:
             errors.append(
