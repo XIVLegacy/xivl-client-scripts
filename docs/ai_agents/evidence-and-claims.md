@@ -16,7 +16,7 @@ supports it.
 | `live_validated` | Behavior verified against the retail 1.23b client in a recorded live session with an identified session record | Behavior outside the recorded live session |
 
 `data/vendor/client-structs/PROVENANCE.json` is the authoritative source
-identity and byte pin for the promoted N-API input.
+identity, source license, and byte pin for the promoted N-API input.
 
 ## Generated field limits
 

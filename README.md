@@ -41,7 +41,9 @@ Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before you op
 
 ## License
 
-Authored metadata uses the [MIT License](LICENSE). The Lua corpus derived from
-retail client files is outside that license. This project is unaffiliated with
-and unendorsed by the publisher. All trademarks belong to their respective
-owners.
+Project-authored material uses the [MIT License](LICENSE), including tools,
+schemas, documentation, manifests, and non-reconstructive metadata and
+arrangements. Retail-derived Lua and corpus facts are not covered. Vendored
+material retains the source license recorded in its provenance file. This
+project is unaffiliated with and unendorsed by the publisher. All trademarks
+belong to their respective owners.

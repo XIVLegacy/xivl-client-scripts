@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import io
 import json
 import os
@@ -253,6 +254,8 @@ L4_1 = "//dev"
                 json.dumps({
                     "files": [{
                         "file": "lua_api_index.json",
+                        "sourceLicense": "CC-BY-4.0",
+                        "sourceLicenseUrl": "https://creativecommons.org/licenses/by/4.0/",
                         "sha256": "0" * 64,
                     }]
                 }),
@@ -269,6 +272,33 @@ L4_1 = "//dev"
 
         self.assertTrue(
             any("sha256" in error for error in validator.errors)
+        )
+
+    def test_vendor_license_is_required(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            vendor_dir = Path(temp)
+            api_path = vendor_dir / "lua_api_index.json"
+            api_path.write_text(json.dumps({"apis": {}}), encoding="utf-8")
+            (vendor_dir / "PROVENANCE.json").write_text(
+                json.dumps({
+                    "files": [{
+                        "file": api_path.name,
+                        "sha256": hashlib.sha256(api_path.read_bytes()).hexdigest(),
+                    }]
+                }),
+                encoding="utf-8",
+            )
+
+            previous = validator.VENDOR_DIR
+            validator.VENDOR_DIR = vendor_dir
+            try:
+                validator.errors.clear()
+                validator.validate_vendor()
+            finally:
+                validator.VENDOR_DIR = previous
+
+        self.assertTrue(
+            any("sourceLicense missing" in error for error in validator.errors)
         )
 
 
