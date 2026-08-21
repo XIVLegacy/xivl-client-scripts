@@ -232,7 +232,7 @@ jobs:
           mkdir -p "${toolchain}/jdk"
           archive="${toolchain}/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz"
           curl --silent --fail --location --max-time 600 \
-            --max-filesize 200000000 \
+            --max-filesize 250000000 \
             --output "${archive}" \
             "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz" \
             2>> "${RUNNER_TEMP}/retail-script-private/toolchain-curl.log"
