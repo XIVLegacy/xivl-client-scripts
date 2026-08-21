@@ -15,7 +15,7 @@ decoded chunks, decompiled source, or diagnostics.
 | Check | `battle-command-baseclass-v1` |
 | Input manifest | `manifests/retail_inputs.json` |
 | Check contract | `manifests/retail_battle_command_check.json` |
-| Passing attestation | `manifests/retail_evidence/battle-command-baseclass-v1.json` |
+| Passing attestation | `manifests/retail_evidence/battle-command-baseclass.json` |
 | Environment | `retail-evidence` |
 | Input coordinate | `XIVLegacy/xivl-private-assets` |
 
@@ -84,7 +84,7 @@ passed on 2026-08-21 for public commit
 `bc15b3547326c71764b08d699cb1b67d7f4e720b`. Its evidence job completed in
 13 seconds. The downloaded pass attestation was byte-identical to a local
 regeneration for the same commit and is tracked as
-[`battle-command-baseclass-v1.json`](../../manifests/retail_evidence/battle-command-baseclass-v1.json).
+[`battle-command-baseclass.json`](../../manifests/retail_evidence/battle-command-baseclass.json).
 The retained file is 337 bytes with SHA-256
 `da4ee314b07c6a865e5e40e45006493eaf41c47f9e5b067145b5ec85fdf05eff`.
 Artifact allowlist, schema, cleanup, negative-control, and public-log leakage
