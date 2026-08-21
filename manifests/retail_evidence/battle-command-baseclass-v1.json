@@ -1,0 +1,1 @@
+{"approvedInputSha256":"74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569","check":{"id":"battle-command-baseclass-v1","version":1},"publicRepositoryCommit":"bc15b3547326c71764b08d699cb1b67d7f4e720b","result":{"status":"pass"},"schemaVersion":1,"toolVersions":{"jdk":"21.0.12.1+1","unluac":"2025_12_23","verifier":"1.0"}}
