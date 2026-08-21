@@ -223,13 +223,13 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
         ),
     ]
     attestation_path = (
-        MANIFESTS_DIR / "retail_evidence" / "battle-command-baseclass-v1.json"
+        MANIFESTS_DIR / "retail_evidence" / "battle-command-baseclass.json"
     )
     if attestation_path.is_file():
         retail_pairs.append((
             attestation_path,
             "retail-evidence-attestation.schema.json",
-            "manifests/retail_evidence/battle-command-baseclass-v1.json",
+            "manifests/retail_evidence/battle-command-baseclass.json",
         ))
     for inst_path, schema_name, label in retail_pairs:
         schema_path = SCHEMAS / schema_name
