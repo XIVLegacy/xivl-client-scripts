@@ -20,6 +20,11 @@ artifacts/
 build/
 *.log
 
+# Retail-input rehearsal output; chunks and decompiled source never enter git.
+/_retail-staging/
+*.luac
+retail-script-private/
+
 # Python tooling
 __pycache__/
 *.pyc

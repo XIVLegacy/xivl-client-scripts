@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/XIVLegacy/xivl-client-scripts/schemas/retail-inputs.schema.json",
+  "title": "Retail input grant, version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "inputs"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "inputs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "filename", "size", "sha256", "source", "allowedChecks"],
+        "properties": {
+          "id": {"const": "battle-command-baseclass-lpb-1.23b"},
+          "filename": {"const": "89qqy57vxx9w689r57y9rr.le.lpb"},
+          "size": {"const": 1507},
+          "sha256": {"const": "74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569"},
+          "source": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["repository", "commit", "path"],
+            "properties": {
+              "repository": {"const": "XIVLegacy/xivl-retail-client-inputs"},
+              "commit": {"const": "abfddb3e8434af4ae36d55269088e489cc8050e5"},
+              "path": {"const": "client-scripts/ffxiv-1.23b/client/script/7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.le.lpb"}
+            }
+          },
+          "allowedChecks": {
+            "const": ["battle-command-baseclass-v1"]
+          }
+        }
+      }
+    }
+  }
+}

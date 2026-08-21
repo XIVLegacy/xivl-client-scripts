@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "inputs": [
+    {
+      "id": "battle-command-baseclass-lpb-1.23b",
+      "filename": "89qqy57vxx9w689r57y9rr.le.lpb",
+      "size": 1507,
+      "sha256": "74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569",
+      "source": {
+        "repository": "XIVLegacy/xivl-retail-client-inputs",
+        "commit": "abfddb3e8434af4ae36d55269088e489cc8050e5",
+        "path": "client-scripts/ffxiv-1.23b/client/script/7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.le.lpb"
+      },
+      "allowedChecks": [
+        "battle-command-baseclass-v1"
+      ]
+    }
+  ]
+}

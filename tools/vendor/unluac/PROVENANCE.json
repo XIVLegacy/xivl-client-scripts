@@ -1,0 +1,11 @@
+{
+  "file": "unluac_2025_12_23.jar",
+  "source": "https://sourceforge.net/projects/unluac/files/unluac_2025_12_23.jar/download",
+  "retrieved": "2026-08-21",
+  "size": 796256,
+  "sha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc",
+  "license": "MIT",
+  "licenseFile": "LICENSE.txt",
+  "upstreamProject": "unluac",
+  "embeddedLicenseSha256": "37c47e72083e88b1c9b85c784298e93eee862c741a5f6f1210365bbe007975cf"
+}
