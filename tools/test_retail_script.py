@@ -85,6 +85,10 @@ def main() -> int:
         "hosted Python patch is pinned",
         workflow.count('python-version: "3.12.14"') == 2,
     )
+    check(
+        "JDK download bound covers the pinned archive",
+        "--max-filesize 250000000" in workflow,
+    )
     python_commands = [
         line for line in workflow.splitlines()
         if "python" in line
