@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/XIVLegacy/xivl-client-scripts/schemas/retail-script-check.schema.json",
+  "title": "Battle command script check, version 1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "checkId", "approvedInputId", "approvedInputSha256", "sourceName", "cipheredPath", "decoded", "script", "registry", "calls"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "checkId": {"const": "battle-command-baseclass-v1"},
+    "approvedInputId": {"const": "battle-command-baseclass-lpb-1.23b"},
+    "approvedInputSha256": {"const": "74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569"},
+    "sourceName": {"const": "command/game/battlecommandbaseclass"},
+    "cipheredPath": {"const": "7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.lua"},
+    "decoded": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bytes", "sha256"],
+      "properties": {
+        "bytes": {"const": 1494},
+        "sha256": {"const": "95d29680ba473e0090a3a90573d38e7ce13a9ca63759c7f846bc8a9e5fa83eb0"}
+      }
+    },
+    "script": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["bytes", "sha256", "lineCount"],
+      "properties": {
+        "bytes": {"const": 2533},
+        "sha256": {"const": "0eb0b8c77b05128461d94ca1a9bee9b65bccf397ab8efd60903c448915d1e757"},
+        "lineCount": {"const": 144}
+      }
+    },
+    "registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classes", "methods", "requires"],
+      "properties": {
+        "classes": {"const": ["BattleCommandBaseClass"]},
+        "methods": {"const": ["isBattleCommand", "getCommandType", "canAimForRelation", "getCommandTargettingMode", "canFireForRelation", "canAimParts", "getCommandRangeCode", "getRangeAngle", "useWeaponRangeInformation", "isLongRangeCommand"]},
+        "requires": {"const": ["/Command/Game/GameCommandBaseClass"]}
+      }
+    },
+    "calls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["_defineBaseClass", "_getData"],
+      "properties": {
+        "_defineBaseClass": {"const": [5]},
+        "_getData": {"const": [75, 81, 87]}
+      }
+    }
+  }
+}

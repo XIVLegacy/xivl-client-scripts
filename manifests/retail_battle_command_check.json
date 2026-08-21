@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "checkId": "battle-command-baseclass-v1",
+  "approvedInputId": "battle-command-baseclass-lpb-1.23b",
+  "approvedInputSha256": "74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569",
+  "sourceName": "command/game/battlecommandbaseclass",
+  "cipheredPath": "7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.lua",
+  "decoded": {
+    "bytes": 1494,
+    "sha256": "95d29680ba473e0090a3a90573d38e7ce13a9ca63759c7f846bc8a9e5fa83eb0"
+  },
+  "script": {
+    "bytes": 2533,
+    "sha256": "0eb0b8c77b05128461d94ca1a9bee9b65bccf397ab8efd60903c448915d1e757",
+    "lineCount": 144
+  },
+  "registry": {
+    "classes": [
+      "BattleCommandBaseClass"
+    ],
+    "methods": [
+      "isBattleCommand",
+      "getCommandType",
+      "canAimForRelation",
+      "getCommandTargettingMode",
+      "canFireForRelation",
+      "canAimParts",
+      "getCommandRangeCode",
+      "getRangeAngle",
+      "useWeaponRangeInformation",
+      "isLongRangeCommand"
+    ],
+    "requires": [
+      "/Command/Game/GameCommandBaseClass"
+    ]
+  },
+  "calls": {
+    "_defineBaseClass": [
+      5
+    ],
+    "_getData": [
+      75,
+      81,
+      87
+    ]
+  }
+}

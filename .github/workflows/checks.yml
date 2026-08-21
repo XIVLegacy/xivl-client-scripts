@@ -29,6 +29,8 @@ jobs:
           python-version: "3.12"
       - name: Install jsonschema
         run: pip install jsonschema
+      - name: Run retail script contract tests
+        run: python tools/test_retail_script.py
       - name: Run strict gate
         run: python tools/validate_corpus.py
         env:

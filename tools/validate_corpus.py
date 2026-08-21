@@ -19,6 +19,7 @@ LUA_DIR = REPO_ROOT / "lua"
 DOCS_DIR = REPO_ROOT / "docs"
 MANIFESTS_DIR = REPO_ROOT / "manifests"
 VENDOR_DIR = REPO_ROOT / "data" / "vendor" / "client-structs"
+RETAIL_VENDOR_DIR = REPO_ROOT / "tools" / "vendor" / "unluac"
 CORPUS_ABSENT = os.environ.get("XIVL_CORPUS_ABSENT") == "1"
 PERMITTED_TOP_LEVEL_GROUPS = {
     "root",
@@ -151,6 +152,17 @@ def run_focused_tests() -> bool:
             file=sys.stderr,
         )
         return False
+    retail = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "tools" / "test_retail_script.py")],
+        cwd=REPO_ROOT,
+        check=False,
+    )
+    if retail.returncode != 0:
+        print(
+            f"error: retail script contract tests failed (exit {retail.returncode})",
+            file=sys.stderr,
+        )
+        return False
     return True
 
 
@@ -197,6 +209,36 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
             errors.append(f"{label}: schema {schema_name} missing")
             continue
         _check(_load(inst_path), _validator_for(schema_path), label)
+
+    retail_pairs = [
+        (
+            MANIFESTS_DIR / "retail_inputs.json",
+            "retail-inputs.schema.json",
+            "manifests/retail_inputs.json",
+        ),
+        (
+            MANIFESTS_DIR / "retail_battle_command_check.json",
+            "retail-script-check.schema.json",
+            "manifests/retail_battle_command_check.json",
+        ),
+    ]
+    attestation_path = (
+        MANIFESTS_DIR / "retail_evidence" / "battle-command-baseclass-v1.json"
+    )
+    if attestation_path.is_file():
+        retail_pairs.append((
+            attestation_path,
+            "retail-evidence-attestation.schema.json",
+            "manifests/retail_evidence/battle-command-baseclass-v1.json",
+        ))
+    for inst_path, schema_name, label in retail_pairs:
+        schema_path = SCHEMAS / schema_name
+        if not inst_path.is_file():
+            errors.append(f"{label}: file missing")
+        elif not schema_path.is_file():
+            errors.append(f"{label}: schema {schema_name} missing")
+        else:
+            _check(_load(inst_path), _validator_for(schema_path), label)
 
     calls_schema = SCHEMAS / "lua_script_calls.schema.json"
     if not calls_schema.is_file():
@@ -369,6 +411,44 @@ def validate_vendor() -> dict[str, list[str]] | None:
     except (OSError, UnicodeError, json.JSONDecodeError, KeyError, TypeError) as exc:
         errors.append(f"vendored N-API catalog: cannot load: {exc}")
         return None
+
+
+def validate_retail_vendor() -> None:
+    """Verify the exact redistributable unluac bytes and embedded license copy."""
+    jar = RETAIL_VENDOR_DIR / "unluac_2025_12_23.jar"
+    license_path = RETAIL_VENDOR_DIR / "LICENSE.txt"
+    provenance_path = RETAIL_VENDOR_DIR / "PROVENANCE.json"
+    for path in (jar, license_path, provenance_path):
+        if not path.is_file():
+            errors.append(f"{path.relative_to(REPO_ROOT).as_posix()}: file missing")
+    if not all(path.is_file() for path in (jar, license_path, provenance_path)):
+        return
+    expected_jar = "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
+    expected_license = "37c47e72083e88b1c9b85c784298e93eee862c741a5f6f1210365bbe007975cf"
+    actual_jar = hashlib.sha256(jar.read_bytes()).hexdigest()
+    actual_license = hashlib.sha256(license_path.read_bytes()).hexdigest()
+    if jar.stat().st_size != 796256 or actual_jar != expected_jar:
+        errors.append("unluac vendor: size or sha256 mismatch")
+    if actual_license != expected_license:
+        errors.append("unluac vendor: license bytes mismatch")
+    try:
+        provenance = _load(provenance_path)
+    except (OSError, UnicodeError, json.JSONDecodeError):
+        errors.append("unluac vendor: provenance malformed")
+        return
+    expected = {
+        "file": "unluac_2025_12_23.jar",
+        "source": "https://sourceforge.net/projects/unluac/files/unluac_2025_12_23.jar/download",
+        "retrieved": "2026-08-21",
+        "size": 796256,
+        "sha256": expected_jar,
+        "license": "MIT",
+        "licenseFile": "LICENSE.txt",
+        "upstreamProject": "unluac",
+        "embeddedLicenseSha256": expected_license,
+    }
+    if provenance != expected:
+        errors.append("unluac vendor: provenance record drifted")
 
 
 def validate_lua_corpus(
@@ -623,6 +703,7 @@ def main() -> int:
         return 1
     sidecars = load_sidecars()
     api_bcs = validate_vendor()
+    validate_retail_vendor()
     validate_schemas(sidecars)
     validate_reproduction_contract(sidecars)
     validate_lua_corpus(sidecars, api_bcs)
