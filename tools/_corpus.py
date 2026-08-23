@@ -35,17 +35,6 @@ def iter_lua(root: Path) -> Iterator[tuple[Path, str]]:
         yield path, path.relative_to(root).with_suffix("").as_posix()
 
 
-def read_text_or_warn(path: Path, strict: bool = False) -> str | None:
-    """Read UTF-8 text, optionally failing on read errors."""
-    try:
-        return path.read_text(encoding="utf-8")
-    except (OSError, UnicodeError) as exc:
-        if strict:
-            raise
-        print(f"warn: cannot read {path}: {exc}", file=sys.stderr)
-        return None
-
-
 def line_count(content: str) -> int:
     """Count lines with the annotator's splitlines semantics."""
     return len(content.splitlines())
@@ -171,15 +160,13 @@ def extract_signals(
     return classes, methods, requires
 
 
-def build_registry(lua_root: Path, strict: bool = False) -> dict:
+def build_registry(lua_root: Path) -> dict:
     """Build registry data from an explicit ciphered decompile tree."""
     scripts: dict[str, dict] = {}
     for lua_path, ciphered_stem in iter_lua(lua_root):
         relative = lua_path.relative_to(lua_root).as_posix()
         decoded = decode_path(ciphered_stem)
-        content = read_text_or_warn(lua_path, strict=strict)
-        if content is None:
-            continue
+        content = lua_path.read_text(encoding="utf-8")
         classes, methods, requires = extract_signals(
             content,
             decoded.rsplit("/", 1)[-1],
@@ -283,7 +270,6 @@ def _install_publication(
 def publish_corpus(
     lua_root: Path,
     output_root: Path,
-    strict: bool = False,
     copy_file: Callable[[Path, Path], object] = copy_lua_lf,
 ) -> int:
     """Stage and publish a registry plus decoded script tree together."""
@@ -303,7 +289,7 @@ def publish_corpus(
     staged_registry = stage_root / "registry.json"
     staged_scripts = stage_root / "scripts"
     try:
-        registry = build_registry(lua_root, strict=strict)
+        registry = build_registry(lua_root)
         final_scripts = output_root / "scripts"
         if final_scripts.is_dir():
             shutil.copytree(final_scripts, staged_scripts, ignore=_ignore_lua)
@@ -312,8 +298,6 @@ def publish_corpus(
 
         for decoded, metadata in registry["scripts"].items():
             source = lua_root / metadata["ciphered"]
-            if not source.is_file():
-                raise FileNotFoundError(f"source disappeared during publication: {source}")
             destination = staged_scripts / f"{decoded}.lua"
             destination.parent.mkdir(parents=True, exist_ok=True)
             copy_file(source, destination)
@@ -366,7 +350,6 @@ def annotate_corpus(
     registry_path: Path,
     api_index_path: Path,
     index_out: Path,
-    strict: bool = False,
 ) -> int:
     """Regenerate N-API sidecars and the inverted index."""
     if not scripts_root.is_dir():
@@ -392,9 +375,7 @@ def annotate_corpus(
     script_count = scripts_with_calls = 0
     for lua_path, decoded in iter_lua(scripts_root):
         registry_entry = registry["scripts"].get(decoded, {})
-        content = read_text_or_warn(lua_path, strict=strict)
-        if content is None:
-            continue
+        content = lua_path.read_text(encoding="utf-8")
         hits = scan_script(content, whitelist)
         script_count += 1
         sidecar = {

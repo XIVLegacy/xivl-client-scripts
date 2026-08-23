@@ -24,7 +24,6 @@ provenance, and exact reproduction contract.
 - [AI-assisted contribution policy](docs/ai_agents/README.md)
 - [Comments and prose](docs/ai_agents/comments-and-prose.md)
 - [Evidence and claims](docs/ai_agents/evidence-and-claims.md)
-- [Verification](docs/ai_agents/verification.md)
 - [Tooling and regeneration](tools/README.md)
 - [Vendored N-API pin policy](data/vendor/client-structs/README.md)
 

@@ -149,13 +149,12 @@ def verify(
     decoded_path: Path | None = None,
     script_path: Path | None = None,
     *,
-    input_manifest_path: Path = INPUT_MANIFEST,
     check_manifest_path: Path = CHECK_MANIFEST,
     contract_only: bool = False,
 ) -> list[str]:
     """Return fixed-label errors; no input payload or diagnostics are emitted."""
     try:
-        input_manifest = _read_json(input_manifest_path)
+        input_manifest = _read_json(INPUT_MANIFEST)
         check_manifest = _read_json(check_manifest_path)
     except VerificationError:
         return ["retail contract document malformed"]
@@ -251,9 +250,6 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--decoded", type=Path, default=None)
     parser.add_argument("--script", type=Path, default=None)
-    parser.add_argument("--input", type=Path, default=None, dest="decoded")
-    parser.add_argument("--script-out", type=Path, default=None, dest="script")
-    parser.add_argument("--retail-inputs", type=Path, default=INPUT_MANIFEST)
     parser.add_argument("--check", type=Path, default=CHECK_MANIFEST)
     parser.add_argument("--contract-only", action="store_true")
     parser.add_argument("--validate-attestation", type=Path, default=None)
@@ -275,7 +271,6 @@ def main(argv: list[str] | None = None) -> int:
     errors = verify(
         args.decoded,
         args.script,
-        input_manifest_path=args.retail_inputs,
         check_manifest_path=args.check,
         contract_only=args.contract_only,
     )

@@ -53,10 +53,11 @@ The redistributable unluac artifact is vendored at
 `LICENSE.txt` is the embedded MIT notice and `PROVENANCE.json` records the
 dated SourceForge coordinate, retrieval date, identity, and upstream project.
 
-`tools/retail_script.py` adapts the first-party LPB wrapper and filename
-cipher. It decodes the approved LPB to a Lua 5.1 chunk, invokes the pinned JAR,
-and applies only the exact CRLF-pair-to-LF canonicalization. The expected
-decoded chunk is 1,494 bytes with SHA-256
+`tools/retail_script.py` adapts the first-party LPB wrapper. It decodes the
+approved LPB to a Lua 5.1 chunk, invokes the pinned JAR, and applies only the
+exact CRLF-pair-to-LF canonicalization. The focused test runs the vendored JAR
+twice over a synthetic Lua 5.1 chunk and checks the canonical output. The
+expected decoded chunk is 1,494 bytes with SHA-256
 `95d29680ba473e0090a3a90573d38e7ce13a9ca63759c7f846bc8a9e5fa83eb0`; the
 canonical script is 2,533 bytes with SHA-256
 `0eb0b8c77b05128461d94ca1a9bee9b65bccf397ab8efd60903c448915d1e757` and 144

@@ -9,13 +9,11 @@ from pathlib import Path
 
 from _corpus import annotate_corpus, build_script_manifest, publish_corpus, write_json
 
-
-def _add_strictness(parser: argparse.ArgumentParser, noun: str) -> None:
-    parser.add_argument(
-        "--lenient",
-        action="store_true",
-        help=f"Warn and skip an unreadable {noun}; strict by default.",
-    )
+SCRIPTS_ROOT = Path("lua/scripts")
+REGISTRY_PATH = Path("lua/registry.json")
+API_INDEX_PATH = Path("data/vendor/client-structs/lua_api_index.json")
+NAPI_INDEX_PATH = Path("lua/napi_index.json")
+MANIFEST_PATH = Path("manifests/scripts.json")
 
 
 def main() -> int:
@@ -38,31 +36,15 @@ def main() -> int:
         default=Path("lua"),
         help="Directory containing registry.json and scripts/ (default: lua).",
     )
-    _add_strictness(publish, "source script")
 
     annotate = commands.add_parser(
         "annotate",
         help="Regenerate sidecars and the N-API inverted index.",
     )
-    annotate.add_argument("--scripts-root", type=Path, default=Path("lua/scripts"))
-    annotate.add_argument("--registry", type=Path, default=Path("lua/registry.json"))
-    annotate.add_argument(
-        "--api-index",
-        type=Path,
-        default=Path("data/vendor/client-structs/lua_api_index.json"),
-    )
-    annotate.add_argument("--index-out", type=Path, default=Path("lua/napi_index.json"))
-    _add_strictness(annotate, "published script")
 
     manifest = commands.add_parser(
         "manifest",
         help="Build the canonical script reproduction manifest.",
-    )
-    manifest.add_argument("--scripts-root", type=Path, default=Path("lua/scripts"))
-    manifest.add_argument(
-        "--output",
-        type=Path,
-        default=Path("manifests/scripts.json"),
     )
 
     args = parser.parse_args()
@@ -70,26 +52,24 @@ def main() -> int:
         return publish_corpus(
             args.lua_root,
             args.output_root,
-            strict=not args.lenient,
         )
     if args.command == "annotate":
         return annotate_corpus(
-            args.scripts_root,
-            args.registry,
-            args.api_index,
-            args.index_out,
-            strict=not args.lenient,
+            SCRIPTS_ROOT,
+            REGISTRY_PATH,
+            API_INDEX_PATH,
+            NAPI_INDEX_PATH,
         )
-    if not args.scripts_root.is_dir():
-        print(f"error: {args.scripts_root} not found", file=sys.stderr)
+    if not SCRIPTS_ROOT.is_dir():
+        print(f"error: {SCRIPTS_ROOT} not found", file=sys.stderr)
         return 1
     try:
-        contract = build_script_manifest(args.scripts_root)
-        write_json(args.output, contract)
+        contract = build_script_manifest(SCRIPTS_ROOT)
+        write_json(MANIFEST_PATH, contract)
     except (OSError, UnicodeError) as exc:
         print(f"error: manifest generation failed: {exc}", file=sys.stderr)
         return 1
-    print(f"wrote {contract['scriptCount']} script hashes to {args.output}")
+    print(f"wrote {contract['scriptCount']} script hashes to {MANIFEST_PATH}")
     return 0
 
 

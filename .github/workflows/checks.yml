@@ -21,12 +21,45 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - name: Check diff
-        run: git diff --check
+        with:
+          fetch-depth: 0
+      - name: Check changed-file whitespace
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          case "${EVENT_NAME}" in
+            pull_request)
+              git diff --check "${PR_BASE_SHA}...${PR_HEAD_SHA}"
+              ;;
+            push)
+              if test "${BEFORE_SHA}" = "0000000000000000000000000000000000000000"; then
+                git diff-tree --check --root -m -r "${CURRENT_SHA}"
+              else
+                git diff --check "${BEFORE_SHA}" "${CURRENT_SHA}"
+              fi
+              ;;
+            workflow_dispatch)
+              git diff-tree --check --root -m -r "${CURRENT_SHA}"
+              ;;
+            *)
+              echo "unsupported event for revision check" >&2
+              exit 1
+              ;;
+          esac
       - name: Set up Python
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
+      - name: Set up the pinned test JDK
+        uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a # v5.5.0
+        with:
+          distribution: temurin
+          java-version: "21.0.12.1+1"
       - name: Install jsonschema
         run: pip install jsonschema
       - name: Run retail script contract tests

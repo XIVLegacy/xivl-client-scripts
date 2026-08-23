@@ -75,8 +75,8 @@ decoded name.
    python tools/lua_corpus.py annotate
    ```
 
-4. Verify the local corpus against the 2,671 recorded rows using the
-   [verification policy](../docs/ai_agents/verification.md).
+4. Run `python tools/validate_corpus.py` to verify the local corpus against the
+   2,671 recorded rows.
 
 Maintainers can rebuild the reproduction contract after an intentional corpus
 version change with `python tools/lua_corpus.py manifest`. Hash changes require

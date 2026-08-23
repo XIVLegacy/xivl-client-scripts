@@ -1,7 +1,7 @@
 # Docs index
 
 Use this index to find the corpus contract, tooling reference, repository
-charter, contribution policy, and verification guidance.
+charter, and contribution policy.
 
 | Need | File |
 |---|---|
@@ -11,7 +11,6 @@ charter, contribution policy, and verification guidance.
 | AI-assisted contributions | [ai_agents/README.md](ai_agents/README.md) |
 | Comments and prose | [ai_agents/comments-and-prose.md](ai_agents/comments-and-prose.md) |
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
-| Verification | [ai_agents/verification.md](ai_agents/verification.md) |
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 

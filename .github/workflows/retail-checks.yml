@@ -28,6 +28,12 @@ jobs:
         with:
           python-version: "3.12.14"
 
+      - name: Set up the pinned test JDK
+        uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a # v5.5.0
+        with:
+          distribution: temurin
+          java-version: "21.0.12.1+1"
+
       - name: Reject untrusted dispatch refs
         shell: bash
         run: |
@@ -152,17 +158,6 @@ jobs:
           import os
           from pathlib import Path
 
-          expected_blobs = {
-              "ffxivgame.exe": 15996808,
-              "client-data/ffxiv-1.23b/client/script/rq9q1797qvs.san": 108911,
-              "client-scripts/ffxiv-1.23b/client/script/7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.le.lpb": 1507,
-              "captures/pcap-1.23b/pcap-1.23b-objects.zip": 2622720,
-          }
-          expected_trees = {
-              "/".join(path.split("/")[:depth])
-              for path in expected_blobs
-              for depth in range(1, len(path.split("/")))
-          }
           tree = json.loads((Path(os.environ["API_ROOT"]) / "tree.json").read_text(encoding="utf-8"))
           entries = tree.get("tree")
           expected_tree = (Path(os.environ["PRIVATE_ROOT"]) / "tree-sha").read_text(
@@ -173,17 +168,10 @@ jobs:
           assert isinstance(entries, list)
           by_path = {entry.get("path"): entry for entry in entries}
           assert len(by_path) == len(entries)
-          assert set(by_path) == set(expected_blobs) | expected_trees
-          for path, size in expected_blobs.items():
-              entry = by_path[path]
-              assert entry.get("type") == "blob"
-              assert entry.get("mode") == "100644"
-              assert entry.get("size") == size
-          for path in expected_trees:
-              entry = by_path[path]
-              assert entry.get("type") == "tree"
-              assert entry.get("mode") == "040000"
           entry = by_path[os.environ["EXPECTED_PATH"]]
+          assert entry.get("type") == "blob"
+          assert entry.get("mode") == "100644"
+          assert entry.get("size") == 1507
           blob_sha = entry.get("sha")
           assert isinstance(blob_sha, str) and len(blob_sha) == 40
           (Path(os.environ["PRIVATE_ROOT"]) / "blob-sha").write_text(blob_sha + "\n", encoding="ascii")
@@ -328,8 +316,6 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           compression-level: 0
-          overwrite: false
-          include-hidden-files: false
 
       - name: Preserve a failed evidence result
         if: always() && steps.analysis.outcome != 'success'

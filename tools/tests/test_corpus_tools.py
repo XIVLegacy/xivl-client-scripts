@@ -17,10 +17,10 @@ sys.path.insert(0, str(TOOLS_DIR))
 
 import validate_corpus as validator  # noqa: E402
 from _corpus import (  # noqa: E402
+    annotate_corpus,
     copy_lua_lf,
     extract_signals,
     publish_corpus,
-    read_text_or_warn,
 )
 
 
@@ -48,16 +48,24 @@ L4_1 = "//dev"
             (["RealClass"], ["realMethod"], ["/Base/Class"]),
         )
 
-    def test_text_helpers_preserve_corpus_contract(self) -> None:
+    def test_text_reading_preserves_corpus_contract(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            path = root / "bad.lua"
-            path.write_bytes(b"ok\n\xff\n")
-
-            with self.assertRaises(UnicodeDecodeError):
-                read_text_or_warn(path, strict=True)
+            source_root = root / "source"
+            source_root.mkdir()
+            (source_root / "bad.lua").write_bytes(b"ok\n\xff\n")
             with redirect_stderr(io.StringIO()):
-                self.assertIsNone(read_text_or_warn(path, strict=False))
+                self.assertEqual(publish_corpus(source_root, root / "published"), 1)
+
+            scripts_root = root / "scripts"
+            scripts_root.mkdir()
+            (scripts_root / "bad.lua").write_bytes(b"ok\n\xff\n")
+            registry = root / "registry.json"
+            registry.write_text('{"scripts": {}}', encoding="utf-8")
+            api_index = root / "api-index.json"
+            api_index.write_text('{"apis": {}}', encoding="utf-8")
+            with self.assertRaises(UnicodeDecodeError):
+                annotate_corpus(scripts_root, registry, api_index, root / "calls.json")
 
             source = root / "source.lua"
             published = root / "published.lua"
@@ -96,7 +104,6 @@ L4_1 = "//dev"
                 result = publish_corpus(
                     source,
                     output,
-                    strict=True,
                     copy_file=fail_during_copy,
                 )
 
@@ -138,7 +145,7 @@ L4_1 = "//dev"
                 patch("_corpus.os.replace", side_effect=fail_before_script_install),
                 redirect_stderr(io.StringIO()),
             ):
-                result = publish_corpus(source, output, strict=True)
+                result = publish_corpus(source, output)
 
             self.assertEqual(result, 1)
             self.assertEqual(registry.read_bytes(), b"existing registry\n")

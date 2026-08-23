@@ -34,36 +34,19 @@ def decode_lpb(data: bytes) -> bytes | None:
     return None
 
 
-def encode_filename(name: str) -> str:
-    """Apply the shipped script filename substitution cipher."""
-    result: list[str] = []
-    for char in name.lower():
-        if char.isalpha():
-            position = ord(char) - ord("a") + 1
-            if position <= 10:
-                result.append(str(10 - position))
-            else:
-                result.append(chr(ord("a") + (37 - position) - 1))
-        elif char.isdigit():
-            result.append(chr(ord("a") + (10 - int(char)) - 1))
-        else:
-            result.append(char)
-    return "".join(result)
-
-
 def canonicalize_unluac(data: bytes) -> bytes:
     """Apply the repository's exact CRLF-pair-to-LF rule."""
     return data.replace(b"\r\n", b"\n")
 
 
-def run_unluac(jar: Path, decoded: Path, script_out: Path, timeout: int = 120) -> None:
+def run_unluac(jar: Path, decoded: Path, script_out: Path) -> None:
     """Run Java unluac without exposing its output or diagnostics."""
     try:
         result = subprocess.run(
             ["java", "-jar", str(jar), str(decoded)],
             capture_output=True,
             check=False,
-            timeout=timeout,
+            timeout=120,
         )
     except (OSError, subprocess.SubprocessError) as exc:
         raise RetailScriptError("unluac stage failed") from exc

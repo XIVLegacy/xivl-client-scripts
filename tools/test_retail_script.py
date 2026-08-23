@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import base64
 import copy
 import hashlib
 import json
@@ -20,10 +21,12 @@ import verify_retail_script as verifier  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 JAR = REPO / "tools" / "vendor" / "unluac" / "unluac_2025_12_23.jar"
+LUAC_FIXTURE = Path(__file__).resolve().parent / "tests" / "fixtures" / "minimal.luac.base64"
 LICENSE = REPO / "tools" / "vendor" / "unluac" / "LICENSE.txt"
 INPUTS = REPO / "manifests" / "retail_inputs.json"
 CHECK = REPO / "manifests" / "retail_battle_command_check.json"
 WORKFLOW = REPO / ".github" / "workflows" / "retail-checks.yml"
+CHECKS_WORKFLOW = REPO / ".github" / "workflows" / "checks.yml"
 PASS_KEYS = {
     "schemaVersion", "publicRepositoryCommit", "approvedInputSha256",
     "toolVersions", "check", "result",
@@ -40,10 +43,10 @@ def _load(path: Path) -> object:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def _run_cli(*args: str) -> subprocess.CompletedProcess[str]:
+def _run_cli(*args: str, text: bool = True) -> subprocess.CompletedProcess:
     return subprocess.run(
         [sys.executable, str(REPO / "tools" / "verify_retail_script.py"), *args],
-        cwd=REPO, capture_output=True, text=True, check=False,
+        cwd=REPO, capture_output=True, text=text, check=False,
     )
 
 
@@ -67,6 +70,7 @@ def _fixture_check(
 
 def main() -> int:
     workflow = WORKFLOW.read_text(encoding="utf-8")
+    checks_workflow = CHECKS_WORKFLOW.read_text(encoding="utf-8")
     check(
         "artifact upload requires cleanup and allowlist success",
         "steps.cleanup.outcome == 'success' && steps.allowlist.outcome == 'success'"
@@ -82,12 +86,30 @@ def main() -> int:
         and "timeout 30s git ls-remote origin refs/heads/main" in workflow,
     )
     check(
+        "whitespace check uses event revision ranges",
+        "fetch-depth: 0" in checks_workflow
+        and 'git diff --check "${PR_BASE_SHA}...${PR_HEAD_SHA}"' in checks_workflow
+        and 'git diff --check "${BEFORE_SHA}" "${CURRENT_SHA}"' in checks_workflow
+        and checks_workflow.count('git diff-tree --check --root -m -r "${CURRENT_SHA}"') == 2,
+    )
+    check(
         "hosted Python patch is pinned",
         workflow.count('python-version: "3.12.14"') == 2,
     )
     check(
+        "real-JAR tests use the pinned JDK",
+        'uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a' in workflow
+        and 'java-version: "21.0.12.1+1"' in workflow
+        and 'uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a' in checks_workflow
+        and 'java-version: "21.0.12.1+1"' in checks_workflow,
+    )
+    check(
         "JDK download bound covers the pinned archive",
         "--max-filesize 250000000" in workflow,
+    )
+    check(
+        "artifact upload relies on pinned action defaults",
+        "overwrite:" not in workflow and "include-hidden-files:" not in workflow,
     )
     python_commands = [
         line for line in workflow.splitlines()
@@ -120,9 +142,6 @@ def main() -> int:
         == clear,
     )
     check("unknown wrapper fails closed", retail_script.decode_lpb(b"unknown") is None)
-    check("filename cipher fixture", retail_script.encode_filename("ZoneMoveProgTest") == "kvw5xvo5usv3q5rq")
-    check("filename cipher involution", retail_script.encode_filename(retail_script.encode_filename("Man0g0")) == "man0g0")
-
     canonical = b"a\r\nb\r\n"
     check("CRLF canonicalization is exact", retail_script.canonicalize_unluac(canonical) == b"a\nb\n")
     regression = b"A" * 2389 + b"\n" * 144
@@ -132,17 +151,29 @@ def main() -> int:
 
     with tempfile.TemporaryDirectory(prefix="retail-script-pipeline-test-") as raw:
         root = Path(raw)
-        source = root / "fixture.le.lpb"
-        source.write_bytes(b"rlu\x0b" + b"\x00" * 4 + clear)
-
-        def fake_unluac(_jar: Path, _decoded: Path, output: Path, timeout: int = 120) -> None:
-            del timeout
-            output.write_bytes(b"fixture\r\n")
-
-        with patch.object(retail_script, "run_unluac", fake_unluac):
-            retail_script.reproduce(source, root / "tool.jar", root / "one.luac", root / "one.lua")
-            retail_script.reproduce(source, root / "tool.jar", root / "two.luac", root / "two.lua")
-        check("two synthetic pipeline runs are byte-identical", (root / "one.luac").read_bytes() == (root / "two.luac").read_bytes() and (root / "one.lua").read_bytes() == (root / "two.lua").read_bytes())
+        fixture = root / "fixture.luac"
+        fixture_bytes = base64.b64decode(
+            LUAC_FIXTURE.read_text(encoding="ascii").strip(), validate=True
+        )
+        check(
+            "synthetic Lua fixture identity is pinned",
+            len(fixture_bytes) == 101
+            and hashlib.sha256(fixture_bytes).hexdigest()
+            == "7a58980ec8f71f8c95edfe794e114ef6c2199faf516a3150a2879f86aae1e2c7",
+        )
+        fixture.write_bytes(fixture_bytes)
+        first = root / "one.lua"
+        second = root / "two.lua"
+        try:
+            retail_script.run_unluac(JAR, fixture, first)
+            retail_script.run_unluac(JAR, fixture, second)
+        except retail_script.RetailScriptError:
+            check("two real JAR runs are byte-identical", False)
+        else:
+            check(
+                "two real JAR runs are byte-identical",
+                first.read_bytes() == second.read_bytes() == b"x = 42\n",
+            )
 
     decoded = b"\x1bLuaQ" + bytes(range(256)) * 5 + b"tail"
     decoded_hash = hashlib.sha256(decoded).hexdigest()
@@ -190,26 +221,14 @@ def main() -> int:
             bad_hash_path.write_text(json.dumps(bad_hash), encoding="utf-8")
             check("expected hash mutation fails", bool(verifier.verify(decoded_path, script_path, check_manifest_path=bad_hash_path)))
 
-        first = _run_cli("--contract-only")
-        second = _run_cli("--contract-only")
+        first = _run_cli("--contract-only", text=False)
+        second = _run_cli("--contract-only", text=False)
         check("contract-only invocation passes", first.returncode == second.returncode == 0)
-        check("repeated contract attestations are byte-identical", first.stdout.encode() == second.stdout.encode())
-        raw = subprocess.run(
-            [
-                sys.executable,
-                str(REPO / "tools" / "verify_retail_script.py"),
-                "--contract-only",
-            ],
-            cwd=REPO,
-            capture_output=True,
-            text=False,
-            check=False,
-        )
+        check("repeated contract attestations are byte-identical", first.stdout == second.stdout)
         check(
             "contract attestation has a literal LF terminator",
-            raw.returncode == 0
-            and raw.stdout.endswith(b"\n")
-            and b"\r" not in raw.stdout,
+            first.stdout.endswith(b"\n")
+            and b"\r" not in first.stdout,
         )
         try:
             attestation = json.loads(first.stdout)
@@ -233,14 +252,17 @@ def main() -> int:
                 git_failed_closed = False
         check("git commit lookup fails closed", git_failed_closed)
 
-        failed = _run_cli("--decoded", str(root / "missing.luac"), "--script", str(root / "missing.lua"))
+        failed = _run_cli(
+            "--decoded", str(root / "missing.luac"), "--script", str(root / "missing.lua"),
+            text=False,
+        )
         try:
             failed_output = json.loads(failed.stdout)
         except json.JSONDecodeError:
             failed_output = {}
         check("failure invocation exits nonzero", failed.returncode != 0)
         check("failure attestation stays sanitized", set(failed_output) == PASS_KEYS and failed_output.get("result", {}).get("status") == "fail")
-        check("failure output contains no body marker", "LuaQ" not in failed.stdout and "observations" not in failed.stdout)
+        check("failure output contains no body marker", b"LuaQ" not in failed.stdout and b"observations" not in failed.stdout)
 
     if FAILED:
         print("FAIL: " + "; ".join(FAILED))

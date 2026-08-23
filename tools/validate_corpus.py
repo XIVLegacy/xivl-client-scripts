@@ -72,7 +72,7 @@ def _tracked_paths() -> list[str]:
     return sorted(path for path in result.stdout.decode("utf-8").split("\0") if path)
 
 
-def validate_repository_boundary() -> tuple[int, list[str]]:
+def validate_repository_boundary() -> list[str]:
     """Enforce the public tree and reject restricted or local content."""
     paths = _tracked_paths()
     for path in paths:
@@ -100,7 +100,7 @@ def validate_repository_boundary() -> tuple[int, list[str]]:
     for required in sorted(REQUIRED_AGENT_TOOLING_IGNORE_LINES):
         if required not in ignore_lines:
             errors.append(f".gitignore missing required line: {required}")
-    return len(paths), paths
+    return paths
 
 
 def _load(path: Path):
@@ -119,12 +119,6 @@ def validate_all_json(paths: list[str]) -> int:
             failures.append(f"{label}: cannot parse JSON: {exc}")
     if failures:
         errors.extend(failures)
-        print(
-            f"JSON validation FAILED ({len(failures)} problem(s)):",
-            file=sys.stderr,
-        )
-        for failure in failures:
-            print(f"  - {failure}", file=sys.stderr)
         return len(json_paths)
     print(f"Validated {len(json_paths)} JSON files.")
     return len(json_paths)
@@ -685,7 +679,7 @@ def validate_docs_index() -> None:
 
 
 def main() -> int:
-    tracked_count, tracked_paths = validate_repository_boundary()
+    tracked_paths = validate_repository_boundary()
     json_count = validate_all_json(tracked_paths)
     if errors:
         print(f"corpus validation FAILED ({len(errors)} problem(s)):", file=sys.stderr)
@@ -717,7 +711,7 @@ def main() -> int:
         return 1
     corpus_check = "manifest metadata" if CORPUS_ABSENT else "2,671 script hashes"
     print(
-        f"repository boundary + Lua corpus validation OK ({tracked_count} tracked "
+        f"repository boundary + Lua corpus validation OK ({len(tracked_paths)} tracked "
         f"files, {json_count} tracked JSON files, schemas, {corpus_check}, "
         "registry/sidecar/index agreement, vendor pin, derived counts + "
         "docs-index sync)."
