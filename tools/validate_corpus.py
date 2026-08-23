@@ -18,6 +18,13 @@ from _corpus import (
     scan_binding_declarations,
     scan_script,
 )
+from retail_lua_coverage import (
+    TOOLS_COMMIT,
+    TOOLS_SOURCES,
+    sha256_file,
+    sidecar_inventory,
+    validate_report,
+)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCHEMAS = REPO_ROOT / "schemas"
@@ -199,6 +206,11 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
         ),
         (LUA_DIR / "registry.json", "lua_registry.schema.json", "lua/registry.json"),
         (LUA_DIR / "napi_index.json", "lua_napi_index.schema.json", "lua/napi_index.json"),
+        (
+            MANIFESTS_DIR / "retail_lua_coverage.json",
+            "retail_lua_coverage.schema.json",
+            "manifests/retail_lua_coverage.json",
+        ),
     ]
     for inst_path, schema_name, label in pairs:
         schema_path = SCHEMAS / schema_name
@@ -249,6 +261,53 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
         validator = _validator_for(calls_schema)
         for key, sidecar in sidecars.items():
             _check(sidecar, validator, f"lua/scripts/{key}{SIDECAR_SUFFIX}")
+
+
+def validate_retail_lua_coverage() -> None:
+    """Verify retained census claims without requiring local retail bytes."""
+    coverage_path = MANIFESTS_DIR / "retail_lua_coverage.json"
+    manifest_path = MANIFESTS_DIR / "scripts.json"
+    registry_path = LUA_DIR / "registry.json"
+    if not all(path.is_file() for path in (coverage_path, manifest_path, registry_path)):
+        return
+    coverage = _load(coverage_path)
+    manifest = _load(manifest_path)
+    registry = _load(registry_path)
+    for problem in validate_report(coverage, manifest, registry):
+        errors.append(f"manifests/retail_lua_coverage.json: {problem}")
+
+    corpus = coverage.get("corpus", {})
+    expected_corpus = {
+        "manifest": "manifests/scripts.json",
+        "manifestSha256": sha256_file(manifest_path),
+        "registry": "lua/registry.json",
+        "registrySha256": sha256_file(registry_path),
+        "scriptCount": len(manifest.get("scripts", [])),
+    }
+    sidecar_count, sidecar_digest = sidecar_inventory()
+    expected_corpus.update(
+        {
+            "sidecarCount": sidecar_count,
+            "sidecarInventorySha256": sidecar_digest,
+        }
+    )
+    if corpus != expected_corpus:
+        errors.append(
+            "manifests/retail_lua_coverage.json: corpus pins disagree with tracked inputs"
+        )
+
+    expected_tool = {
+        "repository": "XIVLegacy/xivl-tools",
+        "commit": TOOLS_COMMIT,
+        "sources": [
+            {"path": path, "sha256": digest}
+            for path, digest in TOOLS_SOURCES.items()
+        ],
+    }
+    if coverage.get("tool") != expected_tool:
+        errors.append(
+            "manifests/retail_lua_coverage.json: xivl-tools pin disagrees with generator"
+        )
 
 
 def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
@@ -725,6 +784,7 @@ def main() -> int:
     api_bcs = validate_vendor()
     validate_retail_vendor()
     validate_schemas(sidecars)
+    validate_retail_lua_coverage()
     validate_reproduction_contract(sidecars)
     validate_lua_corpus(sidecars, api_bcs)
     validate_napi_index(sidecars, api_bcs)

@@ -12,6 +12,7 @@ charter, and contribution policy.
 | Comments and prose | [ai_agents/comments-and-prose.md](ai_agents/comments-and-prose.md) |
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
+| Retail Lua resource coverage | [retail-lua-coverage.md](retail-lua-coverage.md) |
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 
 `tools/validate_corpus.py` checks this index against the Markdown tree under

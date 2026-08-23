@@ -1,15 +1,15 @@
 # Lua Script Corpus
 
-This contract describes a local decompiled FFXIV 1.23b Lua corpus and the
+This contract describes a local decompiled FFXIV 1.23b Lua corpus and its
 tracked metadata derived from extraction `2012.09.19.0001`.
 
 ## Tracked and local content
 
 - `scripts/<decoded-path>.lua` - local-only decompiled source supplied by the
   user. Git ignores these files.
-- `scripts/<decoded-path>.calls.json` - tracked per-script metadata containing
-  N-API names and line locations, decoded and ciphered paths, class names, and
-  counts. It does not contain script statements or reconstructive source data.
+- `scripts/<decoded-path>.calls.json` - tracked per-script metadata containing:
+  N-API names and line locations, decoded and ciphered paths, class names, and counts.
+  It does not contain script statements or reconstructive source data.
 - `registry.json` - tracked script tree metadata: ciphered-to-decoded mapping,
   class and method names, `require` dependencies, and line counts.
 - `napi_index.json` - tracked inverted N-API callsite index joined to the
@@ -31,8 +31,8 @@ decompiler output. `lua_corpus.py publish` replaces each CRLF byte pair
 indentation, text encoding, or final-newline presence.
 
 An N-API reference is an exact match between an underscore-prefixed Lua
-identifier at a word boundary and the vendored whitelist. Calls, member and
-method access, callback assignment, and string-literal references count.
+identifier at a word boundary and an entry in the vendored whitelist. Calls,
+member and method access, callback assignment, and string-literal references count.
 Script-defined underscore helpers do not.
 
 ## Extraction pipeline
@@ -56,9 +56,8 @@ The pipeline is:
 ```
 
 The pinned `decode_lpb.py` implements the filename cipher. This repository
-applies the same involution in `_corpus.decode_filename_segment` when
-publishing, so every ciphered name maps deterministically to one canonical
-decoded name.
+applies the same involution in `_corpus.decode_filename_segment` when publishing,
+so every ciphered name maps deterministically to one canonical decoded name.
 
 ## Regenerating and verifying
 
@@ -87,9 +86,12 @@ source review. Do not alter a recorded hash to make validation pass.
 ## Coverage
 
 - 2,671 scripts have canonical decoded paths.
-- 2,650 scripts have at least one extracted class name. Twenty-one do not, including
-  19 one-line stubs.
+- 2,650 scripts have at least one extracted class name. Twenty-one do not,
+  including 19 one-line stubs.
 - 2,585 scripts have at least one `require` dependency.
+
+The [retail Lua resource census](../docs/retail-lua-coverage.md) independently
+checks whether the bounded retail `client/script` inventory covers these paths.
 
 ## License boundary
 

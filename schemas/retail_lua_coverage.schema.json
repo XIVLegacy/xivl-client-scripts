@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.local/schemas/retail-lua-coverage.schema.json",
+  "title": "XIVLegacy Retail Lua Resource Coverage Census",
+  "type": "object",
+  "required": [
+    "version",
+    "gameVersion",
+    "extraction",
+    "source",
+    "tool",
+    "corpus",
+    "summary",
+    "resources",
+    "missingScripts"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9A-F]{64}$"
+    },
+    "countMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 0
+      }
+    },
+    "wrapper": {
+      "type": "object",
+      "required": [
+        "variant",
+        "headerBytes",
+        "decodedPayloadBytes",
+        "decodedPayloadSha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "variant": { "enum": ["raw", "xor-73"] },
+        "headerBytes": { "enum": [8, 16] },
+        "decodedPayloadBytes": { "type": "integer", "minimum": 5 },
+        "decodedPayloadSha256": { "$ref": "#/$defs/sha256" },
+        "advisorySize": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "error": {
+      "type": "object",
+      "required": ["kind", "offset"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "unsupported-path",
+            "unsupported-wrapper",
+            "unexpected-end",
+            "invalid-lua-chunk"
+          ]
+        },
+        "offset": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "properties": {
+    "version": { "const": "1" },
+    "gameVersion": { "const": "1.23b" },
+    "extraction": { "const": "2012.09.19.0001" },
+    "source": {
+      "type": "object",
+      "required": ["resourceRoot", "fileCount", "inventorySha256"],
+      "additionalProperties": false,
+      "properties": {
+        "resourceRoot": { "const": "client/script" },
+        "fileCount": { "type": "integer", "minimum": 0 },
+        "inventorySha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "tool": {
+      "type": "object",
+      "required": ["repository", "commit", "sources"],
+      "additionalProperties": false,
+      "properties": {
+        "repository": { "const": "XIVLegacy/xivl-tools" },
+        "commit": {
+          "const": "d371b9bfeb93787f7dfeb8b64600976df68ca8cb"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["path", "sha256"],
+            "additionalProperties": false,
+            "properties": {
+              "path": { "type": "string", "minLength": 1 },
+              "sha256": { "$ref": "#/$defs/sha256" }
+            }
+          }
+        }
+      }
+    },
+    "corpus": {
+      "type": "object",
+      "required": [
+        "manifest",
+        "manifestSha256",
+        "registry",
+        "registrySha256",
+        "scriptCount",
+        "sidecarCount",
+        "sidecarInventorySha256"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "manifest": { "const": "manifests/scripts.json" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "registry": { "const": "lua/registry.json" },
+        "registrySha256": { "$ref": "#/$defs/sha256" },
+        "scriptCount": { "type": "integer", "minimum": 0 },
+        "sidecarCount": { "type": "integer", "minimum": 0 },
+        "sidecarInventorySha256": { "$ref": "#/$defs/sha256" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "classifications",
+        "wrapperVariants",
+        "lpbCandidateCount",
+        "validLpbCount",
+        "matchedScriptCount",
+        "missingScriptCount"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "classifications": { "$ref": "#/$defs/countMap" },
+        "wrapperVariants": { "$ref": "#/$defs/countMap" },
+        "lpbCandidateCount": { "type": "integer", "minimum": 0 },
+        "validLpbCount": { "type": "integer", "minimum": 0 },
+        "matchedScriptCount": { "type": "integer", "minimum": 0 },
+        "missingScriptCount": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "resourcePath",
+          "normalizedResourcePath",
+          "bytes",
+          "sha256",
+          "classification"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "resourcePath": { "type": "string", "minLength": 1 },
+          "normalizedResourcePath": { "type": "string" },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "$ref": "#/$defs/sha256" },
+          "classification": {
+            "enum": [
+              "matched-script",
+              "duplicate-alias",
+              "missing-script",
+              "non-script-resource",
+              "non-script-wrapper",
+              "unsupported-wrapper",
+              "extraction-failure",
+              "unsupported-path",
+              "ciphered-path-mismatch"
+            ]
+          },
+          "decodedScriptPath": {
+            "type": "string",
+            "pattern": "^lua/scripts/.+\\.lua$"
+          },
+          "wrapper": { "$ref": "#/$defs/wrapper" },
+          "error": { "$ref": "#/$defs/error" }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "classification": { "const": "matched-script" } },
+              "required": ["classification"]
+            },
+            "then": { "required": ["decodedScriptPath", "wrapper"] }
+          }
+        ]
+      }
+    },
+    "missingScripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scriptPath", "classification"],
+        "additionalProperties": false,
+        "properties": {
+          "scriptPath": {
+            "type": "string",
+            "pattern": "^lua/scripts/.+\\.lua$"
+          },
+          "classification": { "const": "missing-retail-resource" }
+        }
+      }
+    }
+  }
+}
