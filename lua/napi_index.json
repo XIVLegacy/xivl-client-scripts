@@ -1,5 +1,5 @@
 {
-  "version": "1",
+  "version": "2",
   "gameVersion": "1.23b",
   "extraction": "2012.09.19.0001",
   "source": "lua/scripts/ cross-referenced against data/vendor/client-structs/lua_api_index.json (see data/vendor/client-structs/PROVENANCE.json for source identity)",
@@ -9,6 +9,12 @@
     "_achieveTrophy": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -22,6 +28,12 @@
       "bcsIds": [
         "BCS-Y-0492",
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 22,
       "callsites": [
@@ -119,6 +131,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -131,6 +149,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -142,6 +166,12 @@
     "_aimCameraTutorial": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 22,
       "callsites": [
@@ -239,6 +269,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 6,
       "callsites": [
         {
@@ -271,6 +307,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -283,6 +325,7 @@
       "bcsIds": [
         "BCS-Y-0524"
       ],
+      "bindings": [],
       "callsiteCount": 55,
       "callsites": [
         {
@@ -512,6 +555,12 @@
         "BCS-Y-0369",
         "BCS-Y-0374"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 5,
       "callsites": [
         {
@@ -541,6 +590,7 @@
         "BCS-Y-0358",
         "BCS-Y-0360"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -567,6 +617,12 @@
         "BCS-Y-0364",
         "BCS-Y-0433"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -579,6 +635,7 @@
       "bcsIds": [
         "BCS-Y-0433"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -592,6 +649,12 @@
         "BCS-Y-0358",
         "BCS-Y-0360",
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -613,6 +676,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -624,6 +693,12 @@
     "_callServerOnTalk": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -641,6 +716,7 @@
       "bcsIds": [
         "BCS-Y-0403"
       ],
+      "bindings": [],
       "callsiteCount": 84,
       "callsites": [
         {
@@ -986,6 +1062,7 @@
         "BCS-Y-0403",
         "BCS-Y-0465"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -998,6 +1075,7 @@
       "bcsIds": [
         "BCS-Y-0403"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1011,6 +1089,7 @@
         "BCS-Y-0371",
         "BCS-Y-1813"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1023,6 +1102,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1034,6 +1119,12 @@
     "_canExecuteTalk": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -1051,6 +1142,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1062,6 +1159,12 @@
     "_canRideChocobo": {
       "bcsIds": [
         "BCS-Y-0367"
+      ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -1075,6 +1178,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1086,6 +1195,12 @@
     "_cancelAimCameraChocobo": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -1100,6 +1215,12 @@
         "BCS-Y-0371",
         "BCS-Y-0382",
         "BCS-Y-0384"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 22,
       "callsites": [
@@ -1197,6 +1318,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 9,
       "callsites": [
         {
@@ -1241,6 +1368,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 8,
       "callsites": [
         {
@@ -1281,6 +1414,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1292,6 +1431,12 @@
     "_cancelLookAt": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -1308,6 +1453,12 @@
     "_cancelLookAtPlayerTutorial": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 11,
       "callsites": [
@@ -1361,6 +1512,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -1377,6 +1534,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1388,6 +1551,12 @@
     "_cancelTalk": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -1401,6 +1570,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1412,6 +1587,12 @@
     "_chat": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -1425,6 +1606,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1436,6 +1623,12 @@
     "_clearAllList": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -1452,6 +1645,12 @@
     "_commandDebug": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "Debug",
+          "script": "system/debug_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -1493,6 +1692,7 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1504,6 +1704,12 @@
     "_countAchievementCategory": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -1517,6 +1723,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1528,6 +1740,12 @@
     "_countAchievementRateList": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -1544,6 +1762,12 @@
     "_countChildWidgets": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -1585,6 +1809,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -1596,6 +1826,12 @@
     "_countEnableAchievementTitle": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -1619,6 +1855,12 @@
         "BCS-Y-0366",
         "BCS-Y-0367"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -1635,6 +1877,12 @@
       "bcsIds": [
         "BCS-Y-0367",
         "BCS-Y-0368"
+      ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -1653,6 +1901,12 @@
         "BCS-Y-0228",
         "BCS-Y-0368",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
       ],
       "callsiteCount": 79,
       "callsites": [
@@ -1977,6 +2231,12 @@
     "_countStack": {
       "bcsIds": [
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 95,
       "callsites": [
@@ -2366,6 +2626,12 @@
       "bcsIds": [
         "BCS-Y-0414"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -2378,6 +2644,7 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [],
       "callsiteCount": 16,
       "callsites": [
         {
@@ -2450,6 +2717,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -2461,6 +2734,12 @@
     "_createVirtualItem": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -2494,6 +2773,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -2510,6 +2795,7 @@
         "BCS-Y-0510",
         "BCS-Y-0512"
       ],
+      "bindings": [],
       "callsiteCount": 139,
       "callsites": [
         {
@@ -3081,6 +3367,7 @@
         "BCS-Y-1810",
         "BCS-Y-1819"
       ],
+      "bindings": [],
       "callsiteCount": 2435,
       "callsites": [
         {
@@ -12829,6 +13116,7 @@
       "bcsIds": [
         "BCS-Y-0484"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -12841,6 +13129,7 @@
       "bcsIds": [
         "BCS-Y-0484"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -12852,6 +13141,12 @@
     "_delete": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "ActorBaseClass",
+          "script": "actorbaseclass_u"
+        }
       ],
       "callsiteCount": 28,
       "callsites": [
@@ -12973,6 +13268,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -12984,6 +13285,12 @@
     "_doServerOnCommand": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -13001,6 +13308,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13012,6 +13325,12 @@
     "_doServerOnPush": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -13027,6 +13346,7 @@
         "BCS-Y-0358",
         "BCS-Y-0360"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -13043,6 +13363,12 @@
       "bcsIds": [
         "BCS-Y-0363",
         "BCS-Y-0364"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -13076,6 +13402,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13090,6 +13422,12 @@
         "BCS-Y-0364",
         "BCS-Y-1646"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13103,6 +13441,12 @@
         "BCS-Y-0492",
         "BCS-Y-0496",
         "BCS-Y-1784"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 45,
       "callsites": [
@@ -13293,6 +13637,12 @@
         "BCS-Y-0492",
         "BCS-Y-1786"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -13349,6 +13699,12 @@
       "bcsIds": [
         "BCS-Y-0492",
         "BCS-Y-1787"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 16,
       "callsites": [
@@ -13426,6 +13782,12 @@
         "BCS-Y-1787",
         "BCS-Y-1788",
         "BCS-Y-1817"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 45,
       "callsites": [
@@ -13615,6 +13977,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -13630,6 +13998,12 @@
     "_getAchievementCategoryId": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -13663,6 +14037,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -13679,6 +14059,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13691,6 +14077,12 @@
       "bcsIds": [
         "BCS-Y-0211",
         "BCS-Y-1598"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -13708,6 +14100,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13719,6 +14117,12 @@
     "_getAchievementSheetDataIcon": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -13740,6 +14144,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -13756,6 +14166,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13767,6 +14183,12 @@
     "_getAchievementSheetDataTitle": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -13784,6 +14206,12 @@
       "bcsIds": [
         "BCS-Y-0211",
         "BCS-Y-0364"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 4,
       "callsites": [
@@ -13809,6 +14237,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -13832,6 +14261,12 @@
     "_getActorMainStat": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 16,
       "callsites": [
@@ -13904,6 +14339,12 @@
     "_getAllCharacter": {
       "bcsIds": [
         "BCS-Y-0229"
+      ],
+      "bindings": [
+        {
+          "class": "Debug",
+          "script": "system/debug_u"
+        }
       ],
       "callsiteCount": 17,
       "callsites": [
@@ -13981,6 +14422,7 @@
       "bcsIds": [
         "BCS-Y-0336"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -13992,6 +14434,12 @@
     "_getAllGroup": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 10,
       "callsites": [
@@ -14041,6 +14489,12 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [
+        {
+          "class": "Debug",
+          "script": "system/debug_u"
+        }
+      ],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -14064,6 +14518,12 @@
     "_getAllKey": {
       "bcsIds": [
         "BCS-Y-0232"
+      ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
       ],
       "callsiteCount": 9,
       "callsites": [
@@ -14111,6 +14571,12 @@
         "BCS-Y-0233",
         "BCS-Y-0368"
       ],
+      "bindings": [
+        {
+          "class": "PrivateAreaBaseClass",
+          "script": "area/privatearea/privateareabaseclass_u"
+        }
+      ],
       "callsiteCount": 5,
       "callsites": [
         {
@@ -14141,6 +14607,12 @@
         "BCS-Y-0342",
         "BCS-Y-0344",
         "BCS-Y-0364"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 22,
       "callsites": [
@@ -14238,6 +14710,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 261,
       "callsites": [
@@ -15291,6 +15769,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -15302,6 +15781,12 @@
     "_getChildWidget": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -15344,6 +15829,12 @@
         "BCS-Y-0211",
         "BCS-Y-0364"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -15358,6 +15849,12 @@
         "BCS-Y-0342",
         "BCS-Y-0344",
         "BCS-Y-0364"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -15379,6 +15876,12 @@
       "bcsIds": [
         "BCS-Y-0229",
         "BCS-Y-0231"
+      ],
+      "bindings": [
+        {
+          "class": "Debug",
+          "script": "system/debug_u"
+        }
       ],
       "callsiteCount": 11,
       "callsites": [
@@ -15432,6 +15935,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -15444,6 +15953,12 @@
       "bcsIds": [
         "BCS-Y-0234",
         "BCS-Y-0370"
+      ],
+      "bindings": [
+        {
+          "class": "ActorBaseClass",
+          "script": "actorbaseclass_u"
+        }
       ],
       "callsiteCount": 43,
       "callsites": [
@@ -15625,6 +16140,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -15681,6 +16202,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -15692,6 +16219,12 @@
     "_getCutSceneReplaySnpcNickname": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -15705,6 +16238,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -15716,6 +16255,12 @@
     "_getCutSceneReplaySnpcSkin": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -15737,6 +16282,12 @@
       "bcsIds": [
         "BCS-Y-0232",
         "BCS-Y-0374"
+      ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
       ],
       "callsiteCount": 299,
       "callsites": [
@@ -16943,6 +17494,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 8,
       "callsites": [
         {
@@ -16984,6 +17541,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -17000,6 +17563,7 @@
       "bcsIds": [
         "BCS-Y-0336"
       ],
+      "bindings": [],
       "callsiteCount": 14,
       "callsites": [
         {
@@ -17072,6 +17636,16 @@
         "BCS-Y-0368",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        },
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 9,
       "callsites": [
         {
@@ -17116,6 +17690,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -17139,6 +17719,12 @@
     "_getEquippingItem": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 112,
       "callsites": [
@@ -17597,6 +18183,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -17617,6 +18209,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -17628,6 +18221,12 @@
     "_getExtendedTemporaryGroup": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 7,
       "callsites": [
@@ -17665,6 +18264,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -17676,6 +18281,12 @@
     "_getExtendedTemporaryItem": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 10,
       "callsites": [
@@ -17725,6 +18336,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -17739,6 +18356,12 @@
         "BCS-Y-0334",
         "BCS-Y-0339",
         "BCS-Y-0340"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 9,
       "callsites": [
@@ -17785,6 +18408,12 @@
         "BCS-Y-0210",
         "BCS-Y-0363"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -17802,6 +18431,12 @@
         "BCS-Y-0211",
         "BCS-Y-0493",
         "BCS-Y-0494"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 9,
       "callsites": [
@@ -17848,6 +18483,12 @@
         "BCS-Y-0210",
         "BCS-Y-0363"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -17861,6 +18502,12 @@
         "BCS-Y-0210",
         "BCS-Y-0334",
         "BCS-Y-0374"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 22,
       "callsites": [
@@ -17961,6 +18608,16 @@
         "BCS-Y-0334",
         "BCS-Y-0337"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        },
+        {
+          "class": "DirectorBaseClass",
+          "script": "director/directorbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -17973,6 +18630,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0374"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -17992,6 +18655,12 @@
         "BCS-Y-0365",
         "BCS-Y-0366"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -18006,6 +18675,12 @@
         "BCS-Y-0365",
         "BCS-Y-0366"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -18018,6 +18693,12 @@
       "bcsIds": [
         "BCS-Y-0233",
         "BCS-Y-0367"
+      ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -18035,6 +18716,12 @@
       "bcsIds": [
         "BCS-Y-0226"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -18048,6 +18735,12 @@
         "BCS-Y-0226",
         "BCS-Y-1827"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -18059,6 +18752,12 @@
     "_getHydaelynTime": {
       "bcsIds": [
         "BCS-Y-0226"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -18072,6 +18771,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 16,
       "callsites": [
         {
@@ -18145,6 +18845,12 @@
         "BCS-Y-0210",
         "BCS-Y-0229",
         "BCS-Y-0334"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 242,
       "callsites": [
@@ -19122,6 +19828,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 108,
       "callsites": [
         {
@@ -19562,6 +20274,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 60,
       "callsites": [
         {
@@ -19814,6 +20532,12 @@
         "BCS-Y-0344",
         "BCS-Y-0364"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -19829,6 +20553,12 @@
     "_getKeyboardFocusedControl": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -19849,6 +20579,12 @@
     "_getKeyboardFocusedWidget": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 63,
       "callsites": [
@@ -20112,6 +20848,12 @@
         "BCS-Y-0369",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 26,
       "callsites": [
         {
@@ -20224,6 +20966,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -20244,6 +20992,12 @@
       "bcsIds": [
         "BCS-Y-0225"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -20261,6 +21015,12 @@
         "BCS-Y-0368",
         "BCS-Y-0371",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -20303,6 +21063,12 @@
         "BCS-Y-0210",
         "BCS-Y-0359"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -20319,6 +21085,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -20351,6 +21123,12 @@
     "_getLockonTarget": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 11,
       "callsites": [
@@ -20408,6 +21186,12 @@
         "BCS-Y-0364",
         "BCS-Y-0366"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -20424,6 +21208,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 7,
       "callsites": [
         {
@@ -20460,6 +21245,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 12,
       "callsites": [
@@ -20517,6 +21308,12 @@
       "bcsIds": [
         "BCS-Y-0228",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
       ],
       "callsiteCount": 39,
       "callsites": [
@@ -20683,6 +21480,12 @@
         "BCS-Y-0228",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -20739,6 +21542,12 @@
       "bcsIds": [
         "BCS-Y-0228",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
       ],
       "callsiteCount": 14,
       "callsites": [
@@ -20805,6 +21614,12 @@
         "BCS-Y-0228",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -20816,6 +21631,12 @@
     "_getMyPlayer": {
       "bcsIds": [
         "BCS-Y-0226"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 948,
       "callsites": [
@@ -24617,6 +25438,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -24633,6 +25460,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 102,
       "callsites": [
@@ -25051,6 +25884,12 @@
         "BCS-Y-0210",
         "BCS-Y-0352"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -25071,6 +25910,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0352"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -25104,6 +25949,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -25115,6 +25966,12 @@
     "_getOccupancyContentsTime": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 17,
       "callsites": [
@@ -25193,6 +26050,12 @@
         "BCS-Y-0228",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 11,
       "callsites": [
         {
@@ -25245,6 +26108,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 7,
       "callsites": [
         {
@@ -25282,6 +26151,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -25298,6 +26173,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 16,
       "callsites": [
@@ -25370,6 +26251,12 @@
     "_getParentWidget": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 131,
       "callsites": [
@@ -25903,6 +26790,12 @@
       "bcsIds": [
         "BCS-Y-0226"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -25915,6 +26808,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -25927,6 +26821,7 @@
       "bcsIds": [
         "BCS-Y-0336"
       ],
+      "bindings": [],
       "callsiteCount": 48,
       "callsites": [
         {
@@ -26129,6 +27024,16 @@
         "BCS-Y-0228",
         "BCS-Y-0368",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        },
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 90,
       "callsites": [
@@ -26498,6 +27403,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -26514,6 +27420,12 @@
       "bcsIds": [
         "BCS-Y-0233",
         "BCS-Y-0367"
+      ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -26546,6 +27458,12 @@
     "_getServerTime": {
       "bcsIds": [
         "BCS-Y-0226"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 94,
       "callsites": [
@@ -26931,6 +27849,12 @@
       "bcsIds": [
         "BCS-Y-0226"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 8,
       "callsites": [
         {
@@ -26972,6 +27896,7 @@
         "BCS-Y-0229",
         "BCS-Y-0232"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -26984,6 +27909,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 38,
       "callsites": [
         {
@@ -27145,6 +28071,12 @@
         "BCS-Y-0234",
         "BCS-Y-0370"
       ],
+      "bindings": [
+        {
+          "class": "ActorBaseClass",
+          "script": "actorbaseclass_u"
+        }
+      ],
       "callsiteCount": 11,
       "callsites": [
         {
@@ -27197,6 +28129,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -27217,6 +28155,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0440"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -27239,6 +28183,12 @@
         "BCS-Y-0210",
         "BCS-Y-0438"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27251,6 +28201,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0437"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -27265,6 +28221,12 @@
         "BCS-Y-0210",
         "BCS-Y-0363"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27277,6 +28239,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0441"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -27291,6 +28259,12 @@
         "BCS-Y-0210",
         "BCS-Y-0439"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27303,6 +28277,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0353"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -27325,6 +28305,12 @@
         "BCS-Y-0210",
         "BCS-Y-0436"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27337,6 +28323,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0366"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -27353,6 +28345,12 @@
     "_getTargetCharacter": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 5,
       "callsites": [
@@ -27382,6 +28380,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -27398,6 +28397,7 @@
       "bcsIds": [
         "BCS-Y-0229"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27409,6 +28409,12 @@
     "_getTradingItem": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -27422,6 +28428,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -27446,6 +28453,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -27465,6 +28473,12 @@
     "_getUserConfig": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 11,
       "callsites": [
@@ -27518,6 +28532,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -27533,6 +28553,12 @@
     "_getUserMacroIcon": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 4,
       "callsites": [
@@ -27558,6 +28584,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -27578,6 +28610,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27589,6 +28627,12 @@
     "_getWidgetFromWidgetContainer": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -27608,6 +28652,12 @@
         "BCS-Y-0367",
         "BCS-Y-0368",
         "BCS-Y-0374"
+      ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
       ],
       "callsiteCount": 14,
       "callsites": [
@@ -27674,6 +28724,7 @@
         "BCS-Y-0521",
         "BCS-Y-0522"
       ],
+      "bindings": [],
       "callsiteCount": 13,
       "callsites": [
         {
@@ -27736,6 +28787,7 @@
         "BCS-Y-0522",
         "BCS-Y-0523"
       ],
+      "bindings": [],
       "callsiteCount": 38,
       "callsites": [
         {
@@ -27896,6 +28948,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 19,
       "callsites": [
         {
@@ -27980,6 +29038,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -27994,6 +29058,12 @@
         "BCS-Y-0377",
         "BCS-Y-0378"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -28006,6 +29076,12 @@
       "bcsIds": [
         "BCS-Y-0210",
         "BCS-Y-0374"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -28027,6 +29103,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -28038,6 +29120,12 @@
     "_isActorMainStatMode": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -28082,6 +29170,7 @@
         "BCS-Y-0503",
         "BCS-Y-1519"
       ],
+      "bindings": [],
       "callsiteCount": 162,
       "callsites": [
         {
@@ -28739,6 +29828,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -28759,6 +29854,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -28770,6 +29871,12 @@
     "_isCommandPlaying": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -28802,6 +29909,12 @@
     "_isCompletedCutSceneReplayQuest": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 14,
       "callsites": [
@@ -28867,6 +29980,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -28883,6 +30002,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 4,
       "callsites": [
@@ -28908,6 +30033,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -28932,6 +30063,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -28944,6 +30081,12 @@
       "bcsIds": [
         "BCS-Y-0212",
         "BCS-Y-0334"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -28964,6 +30107,12 @@
         "BCS-Y-0344",
         "BCS-Y-0364"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -28976,6 +30125,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 44,
       "callsites": [
@@ -29163,6 +30318,12 @@
         "BCS-Y-0217",
         "BCS-Y-0334"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 13,
       "callsites": [
         {
@@ -29223,6 +30384,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 7,
       "callsites": [
         {
@@ -29259,6 +30421,12 @@
       "bcsIds": [
         "BCS-Y-0228",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
       ],
       "callsiteCount": 32,
       "callsites": [
@@ -29397,6 +30565,12 @@
         "BCS-Y-0228",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 16,
       "callsites": [
         {
@@ -29469,6 +30643,12 @@
       "bcsIds": [
         "BCS-Y-0232"
       ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
+      ],
       "callsiteCount": 11,
       "callsites": [
         {
@@ -29521,6 +30701,7 @@
       "bcsIds": [
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -29540,6 +30721,12 @@
     "_isExistWidgetInWidgetContainer": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -29561,6 +30748,12 @@
       "bcsIds": [
         "BCS-Y-0211"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -29574,6 +30767,12 @@
         "BCS-Y-0233",
         "BCS-Y-0367",
         "BCS-Y-0368"
+      ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
       ],
       "callsiteCount": 4,
       "callsites": [
@@ -29600,6 +30799,7 @@
         "BCS-Y-0229",
         "BCS-Y-0231"
       ],
+      "bindings": [],
       "callsiteCount": 205,
       "callsites": [
         {
@@ -30428,6 +31628,12 @@
       "bcsIds": [
         "BCS-Y-0225"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -30447,6 +31653,12 @@
     "_isKeyboardOnlyTutorial": {
       "bcsIds": [
         "BCS-Y-0226"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 28,
       "callsites": [
@@ -30569,6 +31781,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -30582,6 +31800,12 @@
         "BCS-Y-0211",
         "BCS-Y-0358"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -30594,6 +31818,12 @@
       "bcsIds": [
         "BCS-Y-0228",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
       ],
       "callsiteCount": 47,
       "callsites": [
@@ -30792,6 +32022,12 @@
         "BCS-Y-0211",
         "BCS-Y-0358"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -30804,6 +32040,12 @@
       "bcsIds": [
         "BCS-Y-0212",
         "BCS-Y-0334"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -30820,6 +32062,12 @@
     "_isPushingOut": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -30838,6 +32086,12 @@
         "BCS-Y-0223",
         "BCS-Y-0369"
       ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -30851,6 +32105,7 @@
         "BCS-Y-0229",
         "BCS-Y-0232"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -30875,6 +32130,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 42,
       "callsites": [
@@ -31054,6 +32315,12 @@
         "BCS-Y-0334",
         "BCS-Y-0337"
       ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
+      ],
       "callsiteCount": 5,
       "callsites": [
         {
@@ -31082,6 +32349,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -31094,6 +32367,12 @@
       "bcsIds": [
         "BCS-Y-0211",
         "BCS-Y-0414"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -31115,6 +32394,12 @@
       "bcsIds": [
         "BCS-Y-0223",
         "BCS-Y-0369"
+      ],
+      "bindings": [
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 5,
       "callsites": [
@@ -31145,6 +32430,12 @@
         "BCS-Y-0233",
         "BCS-Y-0367"
       ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -31156,6 +32447,12 @@
     "_loadAllKeyPermanently": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
       ],
       "callsiteCount": 5,
       "callsites": [
@@ -31189,6 +32486,7 @@
         "BCS-Y-0493",
         "BCS-Y-0494"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -31205,6 +32503,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -31216,6 +32520,12 @@
     "_loadKeySemipermanently": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
       ],
       "callsiteCount": 14,
       "callsites": [
@@ -31280,6 +32590,12 @@
     "_loadKeyTemporarily": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
       ],
       "callsiteCount": 77,
       "callsites": [
@@ -31597,6 +32913,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -31608,6 +32930,12 @@
     "_loadTextDataPermanently": {
       "bcsIds": [
         "BCS-Y-0370"
+      ],
+      "bindings": [
+        {
+          "class": "ActorBaseClass",
+          "script": "actorbaseclass_u"
+        }
       ],
       "callsiteCount": 468,
       "callsites": [
@@ -33489,6 +34817,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -33504,6 +34838,12 @@
     "_lockCameraControl": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 12,
       "callsites": [
@@ -33562,6 +34902,12 @@
         "BCS-Y-0358",
         "BCS-Y-0360"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -33618,6 +34964,12 @@
       "bcsIds": [
         "BCS-Y-0358",
         "BCS-Y-0360"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 14,
       "callsites": [
@@ -33684,6 +35036,12 @@
         "BCS-Y-0371",
         "BCS-Y-0374"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -33740,6 +35098,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 6,
       "callsites": [
         {
@@ -33771,6 +35135,12 @@
     "_lookAtPlayerTutorial": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 23,
       "callsites": [
@@ -33872,6 +35242,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 5,
       "callsites": [
         {
@@ -33900,6 +35276,7 @@
       "bcsIds": [
         "BCS-Y-0490"
       ],
+      "bindings": [],
       "callsiteCount": 179,
       "callsites": [
         {
@@ -34626,6 +36003,7 @@
         "BCS-Y-0522",
         "BCS-Y-0523"
       ],
+      "bindings": [],
       "callsiteCount": 23,
       "callsites": [
         {
@@ -34726,6 +36104,7 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34740,6 +36119,7 @@
         "BCS-Y-0683",
         "BCS-Y-1605"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34753,6 +36133,7 @@
         "BCS-Y-0399",
         "BCS-Y-1605"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34765,6 +36146,7 @@
       "bcsIds": [
         "BCS-Y-1605"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34785,6 +36167,7 @@
         "BCS-Y-1615",
         "BCS-Y-1814"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34801,6 +36184,7 @@
         "BCS-Y-0198",
         "BCS-Y-0218"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34819,6 +36203,7 @@
         "BCS-Y-0373",
         "BCS-Y-0402"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34839,6 +36224,7 @@
         "BCS-Y-0442",
         "BCS-Y-1611"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34858,6 +36244,7 @@
         "BCS-Y-0442",
         "BCS-Y-1611"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34875,6 +36262,7 @@
         "BCS-Y-0333",
         "BCS-Y-0444"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34898,6 +36286,7 @@
         "BCS-Y-0353",
         "BCS-Y-0402"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34914,6 +36303,7 @@
         "BCS-Y-0366",
         "BCS-Y-1612"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34932,6 +36322,7 @@
         "BCS-Y-0399",
         "BCS-Y-1621"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34948,6 +36339,7 @@
         "BCS-Y-0399",
         "BCS-Y-1621"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34962,6 +36354,7 @@
         "BCS-Y-0276",
         "BCS-Y-1639"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34976,6 +36369,7 @@
         "BCS-Y-0276",
         "BCS-Y-1639"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -34991,6 +36385,7 @@
         "BCS-Y-1688",
         "BCS-Y-1702"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35006,6 +36401,7 @@
         "BCS-Y-1655",
         "BCS-Y-1656"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35023,6 +36419,7 @@
         "BCS-Y-0427",
         "BCS-Y-0433"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35036,6 +36433,7 @@
         "BCS-Y-0154",
         "BCS-Y-1652"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35048,6 +36446,7 @@
       "bcsIds": [
         "BCS-Y-0196"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35061,6 +36460,7 @@
         "BCS-Y-0399",
         "BCS-Y-1626"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35073,6 +36473,7 @@
       "bcsIds": [
         "BCS-Y-0181"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35088,6 +36489,7 @@
         "BCS-Y-0265",
         "BCS-Y-0333"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35100,6 +36502,7 @@
       "bcsIds": [
         "BCS-Y-0196"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -35118,6 +36521,7 @@
         "BCS-Y-0189",
         "BCS-Y-0196"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35139,6 +36543,7 @@
         "BCS-Y-1661",
         "BCS-Y-1662"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -35185,6 +36590,7 @@
         "BCS-Y-1691",
         "BCS-Y-1703"
       ],
+      "bindings": [],
       "callsiteCount": 36,
       "callsites": [
         {
@@ -35341,6 +36747,7 @@
         "BCS-Y-0333",
         "BCS-Y-1616"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35358,6 +36765,7 @@
         "BCS-Y-1137",
         "BCS-Y-1608"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35375,6 +36783,7 @@
         "BCS-Y-1618",
         "BCS-Y-1814"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35391,6 +36800,7 @@
         "BCS-Y-0333",
         "BCS-Y-1620"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35407,6 +36817,7 @@
         "BCS-Y-0333",
         "BCS-Y-1644"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -35434,6 +36845,7 @@
         "BCS-Y-1780",
         "BCS-Y-1804"
       ],
+      "bindings": [],
       "callsiteCount": 83,
       "callsites": [
         {
@@ -35778,6 +37190,7 @@
         "BCS-Y-0276",
         "BCS-Y-0333"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35792,6 +37205,7 @@
         "BCS-Y-0191",
         "BCS-Y-1606"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35805,6 +37219,7 @@
         "BCS-Y-0163",
         "BCS-Y-1607"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35818,6 +37233,7 @@
         "BCS-Y-0163",
         "BCS-Y-1637"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35831,6 +37247,7 @@
         "BCS-Y-0399",
         "BCS-Y-1643"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35844,6 +37261,7 @@
         "BCS-Y-0399",
         "BCS-Y-1648"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35859,6 +37277,7 @@
         "BCS-Y-0221",
         "BCS-Y-1647"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35877,6 +37296,7 @@
         "BCS-Y-0514",
         "BCS-Y-1398"
       ],
+      "bindings": [],
       "callsiteCount": 9,
       "callsites": [
         {
@@ -35926,6 +37346,7 @@
         "BCS-Y-0276",
         "BCS-Y-0333"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35941,6 +37362,7 @@
         "BCS-Y-0276",
         "BCS-Y-0333"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35956,6 +37378,7 @@
         "BCS-Y-1654",
         "BCS-Y-1688"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35974,6 +37397,7 @@
         "BCS-Y-0333",
         "BCS-Y-1668"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -35993,6 +37417,7 @@
         "BCS-Y-0402",
         "BCS-Y-1651"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36017,6 +37442,7 @@
         "BCS-Y-1814",
         "BCS-Y-1817"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36032,6 +37458,7 @@
         "BCS-Y-1653",
         "BCS-Y-1688"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36049,6 +37476,7 @@
         "BCS-Y-0333",
         "BCS-Y-1667"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36068,6 +37496,7 @@
         "BCS-Y-0402",
         "BCS-Y-1650"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36091,6 +37520,7 @@
         "BCS-Y-1815",
         "BCS-Y-1816"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36109,6 +37539,7 @@
         "BCS-Y-0360",
         "BCS-Y-0402"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36127,6 +37558,7 @@
         "BCS-Y-0360",
         "BCS-Y-0402"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36148,6 +37580,7 @@
         "BCS-Y-0333",
         "BCS-Y-1642"
       ],
+      "bindings": [],
       "callsiteCount": 5,
       "callsites": [
         {
@@ -36181,6 +37614,7 @@
         "BCS-Y-1638",
         "BCS-Y-1640"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36198,6 +37632,7 @@
         "BCS-Y-0366",
         "BCS-Y-1641"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36218,6 +37653,7 @@
         "BCS-Y-1091",
         "BCS-Y-1665"
       ],
+      "bindings": [],
       "callsiteCount": 7,
       "callsites": [
         {
@@ -36257,6 +37693,7 @@
         "BCS-Y-0166",
         "BCS-Y-0241"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36274,6 +37711,7 @@
         "BCS-Y-0402",
         "BCS-Y-1666"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -36294,6 +37732,7 @@
         "BCS-Y-0333",
         "BCS-Y-1617"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36310,6 +37749,7 @@
         "BCS-Y-0333",
         "BCS-Y-1619"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36329,6 +37769,7 @@
         "BCS-Y-0360",
         "BCS-Y-0402"
       ],
+      "bindings": [],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -36352,6 +37793,7 @@
         "BCS-Y-0360",
         "BCS-Y-0402"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36369,6 +37811,7 @@
         "BCS-Y-1048",
         "BCS-Y-1622"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36385,6 +37828,7 @@
         "BCS-Y-0333",
         "BCS-Y-1623"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36401,6 +37845,7 @@
         "BCS-Y-1698",
         "BCS-Y-1704"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -36432,6 +37877,7 @@
         "BCS-Y-1663",
         "BCS-Y-1664"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36445,6 +37891,7 @@
         "BCS-Y-0236",
         "BCS-Y-0241"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36458,6 +37905,7 @@
         "BCS-Y-0236",
         "BCS-Y-0241"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36481,6 +37929,7 @@
         "BCS-Y-1613",
         "BCS-Y-1614"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36495,6 +37944,7 @@
         "BCS-Y-1632",
         "BCS-Y-1633"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36511,6 +37961,7 @@
         "BCS-Y-0333",
         "BCS-Y-1645"
       ],
+      "bindings": [],
       "callsiteCount": 11,
       "callsites": [
         {
@@ -36565,6 +38016,7 @@
         "BCS-Y-0188",
         "BCS-Y-1634"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36582,6 +38034,7 @@
         "BCS-Y-1629",
         "BCS-Y-1630"
       ],
+      "bindings": [],
       "callsiteCount": 20,
       "callsites": [
         {
@@ -36674,6 +38127,7 @@
         "BCS-Y-0333",
         "BCS-Y-1627"
       ],
+      "bindings": [],
       "callsiteCount": 11,
       "callsites": [
         {
@@ -36729,6 +38183,7 @@
         "BCS-Y-1635",
         "BCS-Y-1636"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36755,6 +38210,7 @@
         "BCS-Y-1631",
         "BCS-Y-1649"
       ],
+      "bindings": [],
       "callsiteCount": 25,
       "callsites": [
         {
@@ -36863,6 +38319,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36879,6 +38341,12 @@
         "BCS-Y-0446",
         "BCS-Y-0447"
       ],
+      "bindings": [
+        {
+          "class": "CutScene",
+          "script": "gamedata/cutscene_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36890,6 +38358,12 @@
     "_preloadItemSpreadSheetContainer": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -36931,6 +38405,7 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -36942,6 +38417,12 @@
     "_printDebugLog": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 5,
       "callsites": [
@@ -36971,6 +38452,12 @@
       "bcsIds": [
         "BCS-Y-0488",
         "BCS-Y-0489"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 122,
       "callsites": [
@@ -37468,6 +38955,7 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -37494,6 +38982,7 @@
         "BCS-Y-0459",
         "BCS-Y-0502"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -37505,6 +38994,12 @@
     "_randomFloat": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "Math",
+          "script": "system/math_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -37525,6 +39020,12 @@
     "_randomInteger": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "Math",
+          "script": "system/math_u"
+        }
       ],
       "callsiteCount": 10,
       "callsites": [
@@ -37574,6 +39075,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "Math",
+          "script": "system/math_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -37586,6 +39093,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -37597,6 +39110,12 @@
     "_releaseItemSpreadSheetContainer": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -37613,6 +39132,12 @@
     "_removeList": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -37646,6 +39171,7 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -37661,6 +39187,12 @@
         "BCS-Y-0445",
         "BCS-Y-0447"
       ],
+      "bindings": [
+        {
+          "class": "CutScene",
+          "script": "gamedata/cutscene_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -37672,6 +39204,12 @@
     "_resetFade": {
       "bcsIds": [
         "BCS-Y-0336"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -37693,6 +39231,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -37706,6 +39250,12 @@
         "BCS-Y-0337",
         "BCS-Y-0338",
         "BCS-Y-0339"
+      ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
       ],
       "callsiteCount": 25,
       "callsites": [
@@ -37815,6 +39365,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
+      ],
       "callsiteCount": 18,
       "callsites": [
         {
@@ -37896,6 +39452,12 @@
         "BCS-Y-0483",
         "BCS-Y-0493",
         "BCS-Y-0496"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 5230,
       "callsites": [
@@ -58825,6 +60387,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 9,
       "callsites": [
         {
@@ -58868,6 +60436,12 @@
     "_runCharaSchedulerTutorial": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
       ],
       "callsiteCount": 44,
       "callsites": [
@@ -59053,6 +60627,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -59077,6 +60657,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -59089,6 +60675,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -59100,6 +60692,12 @@
     "_sendStoryboardCommand": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 39,
       "callsites": [
@@ -59266,6 +60864,12 @@
         "BCS-Y-0211",
         "BCS-Y-0364"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -59290,6 +60894,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -59305,6 +60915,12 @@
     "_setCurrentTargetCursor": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -59326,6 +60942,7 @@
       "bcsIds": [
         "BCS-Y-0336"
       ],
+      "bindings": [],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -59349,6 +60966,20 @@
         "BCS-Y-0247",
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "CutScene",
+          "script": "gamedata/cutscene_u"
+        },
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        },
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -59371,6 +61002,12 @@
         "BCS-Y-0377",
         "BCS-Y-0378"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -59385,6 +61022,12 @@
         "BCS-Y-0339",
         "BCS-Y-0377",
         "BCS-Y-0378"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 105,
       "callsites": [
@@ -59817,6 +61460,12 @@
         "BCS-Y-0368",
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "AreaBaseClass",
+          "script": "area/areabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -59828,6 +61477,12 @@
     "_setKeyboardFocusedControl": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 10,
       "callsites": [
@@ -59877,6 +61532,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -59888,6 +61549,12 @@
     "_setListProperty": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 62,
       "callsites": [
@@ -60145,6 +61812,12 @@
       "bcsIds": [
         "BCS-Y-0225"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -60157,6 +61830,12 @@
       "bcsIds": [
         "BCS-Y-0211",
         "BCS-Y-0374"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 19,
       "callsites": [
@@ -60246,6 +61925,12 @@
         "BCS-Y-0501",
         "BCS-Y-0514"
       ],
+      "bindings": [
+        {
+          "class": "ActorBaseClass",
+          "script": "actorbaseclass_u"
+        }
+      ],
       "callsiteCount": 7,
       "callsites": [
         {
@@ -60281,6 +61966,12 @@
     "_setMapMarker": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 16,
       "callsites": [
@@ -60358,6 +62049,12 @@
         "BCS-Y-0338",
         "BCS-Y-0339"
       ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -60369,6 +62066,12 @@
     "_setMusic": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -60389,6 +62092,12 @@
     "_setNameplate": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 5,
       "callsites": [
@@ -60417,6 +62126,12 @@
     "_setNameplateColor": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 22,
       "callsites": [
@@ -60513,6 +62228,12 @@
     "_setNameplateIcon": {
       "bcsIds": [
         "BCS-Y-0210"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 23,
       "callsites": [
@@ -60614,6 +62335,12 @@
       "bcsIds": [
         "BCS-Y-0210"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 5,
       "callsites": [
         {
@@ -60642,6 +62369,12 @@
       "bcsIds": [
         "BCS-Y-0225"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -60654,6 +62387,7 @@
       "bcsIds": [
         "BCS-Y-0336"
       ],
+      "bindings": [],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -60674,6 +62408,7 @@
       "bcsIds": [
         "BCS-Y-0336"
       ],
+      "bindings": [],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -60685,6 +62420,12 @@
     "_setProperty": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 612,
       "callsites": [
@@ -63143,6 +64884,12 @@
         "BCS-Y-0212",
         "BCS-Y-0334"
       ],
+      "bindings": [
+        {
+          "class": "NpcBaseClass",
+          "script": "chara/npc/npcbaseclass_u"
+        }
+      ],
       "callsiteCount": 6,
       "callsites": [
         {
@@ -63177,6 +64924,12 @@
         "BCS-Y-0374",
         "BCS-Y-0382",
         "BCS-Y-0384"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 19,
       "callsites": [
@@ -63264,6 +65017,12 @@
         "BCS-Y-0382",
         "BCS-Y-0384"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -63277,6 +65036,12 @@
         "BCS-Y-0230",
         "BCS-Y-0382",
         "BCS-Y-0384"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 3,
       "callsites": [
@@ -63298,6 +65063,7 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [],
       "callsiteCount": 8,
       "callsites": [
         {
@@ -63338,6 +65104,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 3,
       "callsites": [
         {
@@ -63357,6 +65129,12 @@
     "_setTextProperty": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 5,
       "callsites": [
@@ -63386,6 +65164,12 @@
       "bcsIds": [
         "BCS-Y-0211",
         "BCS-Y-0414"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [
@@ -63418,6 +65202,12 @@
     "_setUICommandCondition": {
       "bcsIds": [
         "BCS-Y-0225"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 88,
       "callsites": [
@@ -63779,6 +65569,12 @@
       "bcsIds": [
         "BCS-Y-0225"
       ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
+      ],
       "callsiteCount": 9,
       "callsites": [
         {
@@ -63823,6 +65619,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 6,
       "callsites": [
         {
@@ -63855,6 +65657,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -63867,6 +65675,12 @@
       "bcsIds": [
         "BCS-Y-0230"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -63878,6 +65692,12 @@
     "_setUserMacroTitle": {
       "bcsIds": [
         "BCS-Y-0230"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 1,
       "callsites": [
@@ -63894,6 +65714,12 @@
         "BCS-Y-0379",
         "BCS-Y-0387"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -63905,6 +65731,12 @@
     "_setWeather": {
       "bcsIds": [
         "BCS-Y-0211"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -63947,6 +65779,12 @@
         "BCS-Y-0239",
         "BCS-Y-0246"
       ],
+      "bindings": [
+        {
+          "class": "CutScene",
+          "script": "gamedata/cutscene_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -63963,6 +65801,7 @@
       "bcsIds": [
         "BCS-Y-0490"
       ],
+      "bindings": [],
       "callsiteCount": 341,
       "callsites": [
         {
@@ -65335,6 +67174,7 @@
       "bcsIds": [
         "BCS-Y-0490"
       ],
+      "bindings": [],
       "callsiteCount": 93,
       "callsites": [
         {
@@ -65717,6 +67557,12 @@
         "BCS-Y-0493",
         "BCS-Y-0494"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 4,
       "callsites": [
         {
@@ -65741,6 +67587,12 @@
       "bcsIds": [
         "BCS-Y-0493"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -65753,6 +67605,12 @@
       "bcsIds": [
         "BCS-Y-0377",
         "BCS-Y-0378"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 2,
       "callsites": [
@@ -65771,6 +67629,7 @@
         "BCS-Y-0377",
         "BCS-Y-0378"
       ],
+      "bindings": [],
       "callsiteCount": 9,
       "callsites": [
         {
@@ -65814,6 +67673,12 @@
     "_unloadKey": {
       "bcsIds": [
         "BCS-Y-0493"
+      ],
+      "bindings": [
+        {
+          "class": "SpreadSheet",
+          "script": "gamedata/spreadsheet_u"
+        }
       ],
       "callsiteCount": 19,
       "callsites": [
@@ -65899,6 +67764,12 @@
       "bcsIds": [
         "BCS-Y-0492"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -65914,6 +67785,12 @@
     "_unlockCameraControl": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 12,
       "callsites": [
@@ -65972,6 +67849,12 @@
         "BCS-Y-0358",
         "BCS-Y-0360"
       ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -66028,6 +67911,12 @@
       "bcsIds": [
         "BCS-Y-0358",
         "BCS-Y-0360"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 14,
       "callsites": [
@@ -66093,6 +67982,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 12,
       "callsites": [
         {
@@ -66150,6 +68045,12 @@
         "BCS-Y-0382",
         "BCS-Y-0384"
       ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
+      ],
       "callsiteCount": 7,
       "callsites": [
         {
@@ -66185,6 +68086,12 @@
     "_updateList": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "WidgetBaseClass",
+          "script": "widget/widgetbaseclass_u"
+        }
       ],
       "callsiteCount": 13,
       "callsites": [
@@ -66250,6 +68157,12 @@
         "BCS-Y-0384",
         "BCS-Y-1554"
       ],
+      "bindings": [
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -66271,6 +68184,24 @@
         "BCS-Y-0384",
         "BCS-Y-0387",
         "BCS-Y-1554"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        },
+        {
+          "class": "DirectorBaseClass",
+          "script": "director/directorbaseclass_u"
+        },
+        {
+          "class": "GroupBaseClass",
+          "script": "group/groupbaseclass_u"
+        },
+        {
+          "class": "ItemBaseClass",
+          "script": "item/itembaseclass_u"
+        }
       ],
       "callsiteCount": 7,
       "callsites": [
@@ -66308,6 +68239,12 @@
       "bcsIds": [
         "BCS-Y-0485",
         "BCS-Y-0496"
+      ],
+      "bindings": [
+        {
+          "class": "ActorBaseClass",
+          "script": "actorbaseclass_u"
+        }
       ],
       "callsiteCount": 1218,
       "callsites": [
@@ -71189,6 +73126,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 6,
       "callsites": [
         {
@@ -71222,6 +73165,12 @@
         "BCS-Y-0483",
         "BCS-Y-0486",
         "BCS-Y-0496"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 159,
       "callsites": [
@@ -71867,6 +73816,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "WorldMaster",
+          "script": "world/worldmaster_u"
+        }
+      ],
       "callsiteCount": 2,
       "callsites": [
         {
@@ -71883,6 +73838,12 @@
       "bcsIds": [
         "BCS-Y-0492",
         "BCS-Y-0496"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 68,
       "callsites": [
@@ -72164,6 +74125,12 @@
       "bcsIds": [
         "BCS-Y-0371"
       ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
+      ],
       "callsiteCount": 1,
       "callsites": [
         {
@@ -72175,6 +74142,12 @@
     "_waitForMapLoaded": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "PlayerBaseClass",
+          "script": "chara/player/playerbaseclass_u"
+        }
       ],
       "callsiteCount": 8,
       "callsites": [
@@ -72215,6 +74188,12 @@
     "_waitForTargetTutorial": {
       "bcsIds": [
         "BCS-Y-0371"
+      ],
+      "bindings": [
+        {
+          "class": "DesktopWidget",
+          "script": "widget/desktopwidget_u"
+        }
       ],
       "callsiteCount": 9,
       "callsites": [
@@ -72259,6 +74238,12 @@
     "_waitForTurning": {
       "bcsIds": [
         "BCS-Y-0492"
+      ],
+      "bindings": [
+        {
+          "class": "CharaBaseClass",
+          "script": "chara/charabaseclass_u"
+        }
       ],
       "callsiteCount": 6,
       "callsites": [

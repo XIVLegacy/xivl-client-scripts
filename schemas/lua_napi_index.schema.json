@@ -25,12 +25,25 @@
       "description": "Keyed by N-API name (e.g. _getMyPlayer).",
       "additionalProperties": {
         "type": "object",
-        "required": ["bcsIds", "callsiteCount", "callsites"],
+        "required": ["bcsIds", "bindings", "callsiteCount", "callsites"],
         "additionalProperties": false,
         "properties": {
           "bcsIds": {
             "type": "array",
             "items": { "type": "string", "pattern": "^BCS-Y-\\d+$" }
+          },
+          "bindings": {
+            "type": "array",
+            "description": "Corpus-declared _cpp receiver bindings for this API.",
+            "items": {
+              "type": "object",
+              "required": ["class", "script"],
+              "additionalProperties": false,
+              "properties": {
+                "class": { "type": "string" },
+                "script": { "type": "string" }
+              }
+            }
           },
           "callsiteCount": { "type": "integer", "minimum": 0 },
           "callsites": {

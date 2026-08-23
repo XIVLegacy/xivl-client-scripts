@@ -13,7 +13,9 @@ tracked metadata derived from extraction `2012.09.19.0001`.
 - `registry.json` - tracked script tree metadata: ciphered-to-decoded mapping,
   class and method names, `require` dependencies, and line counts.
 - `napi_index.json` - tracked inverted N-API callsite index joined to the
-  vendored `data/vendor/client-structs/lua_api_index.json` bindings.
+  vendored `data/vendor/client-structs/lua_api_index.json` bindings. Each API
+  also records any receiver-class `_cpp` declarations recovered from the
+  corpus and the script that declared them.
 - `../manifests/scripts.json` - tracked per-script reproduction contract with
   canonical paths, byte sizes, line counts, and SHA-256 hashes.
 

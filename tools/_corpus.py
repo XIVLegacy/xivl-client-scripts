@@ -345,6 +345,28 @@ def scan_script(content: str, api_whitelist: set[str]) -> dict[str, list[int]]:
     return dict(hits)
 
 
+def scan_binding_declarations(content: str) -> dict[str, list[str]]:
+    """Return _cpp binding names and their declared receiver classes."""
+    bindings: dict[str, set[str]] = defaultdict(set)
+    receiver_class: str | None = None
+    for line in content.splitlines():
+        if line.startswith("L0_1 = "):
+            candidate = line[len("L0_1 = ") :]
+            if (
+                candidate.isascii()
+                and candidate[:1].isalpha()
+                and candidate.isidentifier()
+            ):
+                receiver_class = candidate
+            else:
+                receiver_class = None
+        if receiver_class is None or '_cpp"' not in line:
+            continue
+        for binding in re.findall(r'"(_[A-Za-z0-9]+)_cpp"', line):
+            bindings[binding].add(receiver_class)
+    return {name: sorted(classes) for name, classes in bindings.items()}
+
+
 def annotate_corpus(
     scripts_root: Path,
     registry_path: Path,
@@ -372,11 +394,16 @@ def annotate_corpus(
     api_bcs = load_api_index(api_index_path)
     whitelist = set(api_bcs)
     inverted: dict[str, list[dict]] = defaultdict(list)
+    binding_declarations: dict[str, set[tuple[str, str]]] = defaultdict(set)
     script_count = scripts_with_calls = 0
     for lua_path, decoded in iter_lua(scripts_root):
         registry_entry = registry["scripts"].get(decoded, {})
         content = lua_path.read_text(encoding="utf-8")
         hits = scan_script(content, whitelist)
+        for api, classes in scan_binding_declarations(content).items():
+            if api in whitelist:
+                for receiver_class in classes:
+                    binding_declarations[api].add((receiver_class, decoded))
         script_count += 1
         sidecar = {
             "decoded": decoded,
@@ -395,7 +422,7 @@ def annotate_corpus(
                     inverted[api].append({"script": decoded, "line": line_number})
 
     napi_index = {
-        "version": "1",
+        "version": "2",
         "gameVersion": "1.23b",
         "extraction": EXTRACTION_VERSION,
         "source": (
@@ -412,6 +439,10 @@ def annotate_corpus(
         sites = sorted(inverted[api], key=lambda site: (site["script"], site["line"]))
         napi_index["apis"][api] = {
             "bcsIds": api_bcs.get(api, []),
+            "bindings": [
+                {"class": receiver_class, "script": script}
+                for receiver_class, script in sorted(binding_declarations.get(api, set()))
+            ],
             "callsiteCount": len(sites),
             "callsites": sites,
         }

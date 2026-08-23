@@ -21,6 +21,7 @@ from _corpus import (  # noqa: E402
     copy_lua_lf,
     extract_signals,
     publish_corpus,
+    scan_binding_declarations,
 )
 
 
@@ -47,6 +48,69 @@ L4_1 = "//dev"
             extract_signals(content, "realclass"),
             (["RealClass"], ["realMethod"], ["/Base/Class"]),
         )
+
+    def test_binding_declarations_keep_receiver_class(self) -> None:
+        content = '''L0_1 = WidgetBaseClass
+function L1_1(A0_2)
+  L2_2 = "self"
+  L3_2 = "_getProperty_cpp"
+  return L2_2, L3_2
+end
+L0_1 = GroupBaseClass
+L1_1 = "_getProperty_cpp"
+L2_1 = "_notNative_lua"
+L0_1 = _G
+L1_1 = "_defineClass_cpp"
+'''
+
+        self.assertEqual(
+            scan_binding_declarations(content),
+            {"_getProperty": ["GroupBaseClass", "WidgetBaseClass"]},
+        )
+
+    def test_annotate_emits_binding_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            scripts = root / "scripts"
+            scripts.mkdir()
+            (scripts / "widget_u.lua").write_text(
+                'L0_1 = WidgetBaseClass\nL1_1 = "_getProperty_cpp"\n'
+                "L2_1 = _getProperty\n",
+                encoding="utf-8",
+            )
+            registry = root / "registry.json"
+            registry.write_text(
+                json.dumps({
+                    "scripts": {
+                        "widget_u": {
+                            "ciphered": "x.lua",
+                            "classes": ["WidgetBaseClass"],
+                            "lineCount": 3,
+                        }
+                    }
+                }),
+                encoding="utf-8",
+            )
+            api_index = root / "api-index.json"
+            api_index.write_text(
+                json.dumps({
+                    "apis": {"_getProperty": [{"bcsId": "BCS-Y-1"}]}
+                }),
+                encoding="utf-8",
+            )
+            output = root / "napi.json"
+
+            self.assertEqual(
+                annotate_corpus(scripts, registry, api_index, output),
+                0,
+            )
+            entry = json.loads(output.read_text(encoding="utf-8"))["apis"][
+                "_getProperty"
+            ]
+            self.assertEqual(
+                entry["bindings"],
+                [{"class": "WidgetBaseClass", "script": "widget_u"}],
+            )
 
     def test_text_reading_preserves_corpus_contract(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

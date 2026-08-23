@@ -11,7 +11,13 @@ import subprocess
 import sys
 from pathlib import Path
 
-from _corpus import decode_path, extract_signals, load_api_index, scan_script
+from _corpus import (
+    decode_path,
+    extract_signals,
+    load_api_index,
+    scan_binding_declarations,
+    scan_script,
+)
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCHEMAS = REPO_ROOT / "schemas"
@@ -553,6 +559,16 @@ def validate_napi_index(
     for key, sidecar in sidecars.items():
         for api, lines in sidecar.get("apis", {}).items():
             from_sidecars.setdefault(api, set()).update((key, line) for line in lines)
+    expected_bindings: dict[str, set[tuple[str, str]]] = {}
+    if not CORPUS_ABSENT:
+        scripts_root = LUA_DIR / "scripts"
+        for lua_path in scripts_root.rglob("*.lua"):
+            decoded = lua_path.relative_to(scripts_root).with_suffix("").as_posix()
+            content = lua_path.read_text(encoding="utf-8")
+            for name, classes in scan_binding_declarations(content).items():
+                expected_bindings.setdefault(name, set()).update(
+                    (receiver_class, decoded) for receiver_class in classes
+                )
     for api, entry in _load(napi_path).get("apis", {}).items():
         if api_bcs is not None:
             expected_bcs = api_bcs.get(api)
@@ -565,6 +581,16 @@ def validate_napi_index(
                 errors.append(
                     f"lua/napi_index.json: {api}: bcsIds disagree with the "
                     "vendored N-API catalog"
+                )
+        if not CORPUS_ABSENT:
+            expected = [
+                {"class": receiver_class, "script": script}
+                for receiver_class, script in sorted(expected_bindings.get(api, set()))
+            ]
+            if entry.get("bindings") != expected:
+                errors.append(
+                    f"lua/napi_index.json: {api}: bindings disagree with the "
+                    "published .lua"
                 )
         callsites = [(c["script"], c["line"]) for c in entry.get("callsites", [])]
         indexed = set(callsites)
