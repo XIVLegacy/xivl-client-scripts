@@ -1,11 +1,12 @@
 # Retail-input validation
 
-The normal asset-free corpus gate remains the merge gate. The retail-input
+The normal asset-free corpus checks remain the merge requirement. The
+retail-input
 workflow is an additional manual check for one bounded, already tracked Lua
 claim. It retains one sanitized attestation and never publishes LPB bytes,
 decoded chunks, decompiled source, or diagnostics.
 
-## Granted lane
+## Approved check
 
 | Item | Grant |
 |---|---|
@@ -18,6 +19,7 @@ decoded chunks, decompiled source, or diagnostics.
 | Passing attestation | `manifests/retail_evidence/battle-command-baseclass.json` |
 | Environment | `retail-evidence` |
 | Input coordinate | `XIVLegacy/xivl-private-assets` |
+| Shared actions | `XIVLegacy/xivl-tools` at `4920dece45e88fcb14424de1f5c4fdee94ae6d02` |
 
 The input grant pins `battle-command-baseclass-lpb-1.23b` to commit
 `aeb52f6dbde95a793ee6d52be28de9f28a885b15`, its exact repository-relative
@@ -28,26 +30,32 @@ The grant permits only `battle-command-baseclass-v1`.
 ## Trust boundary
 
 Credentialed execution is manual `workflow_dispatch` from protected `main`.
-The public preflight proves the dispatch event, branch, checked-out SHA, and
-current remote `main` SHA before the environment job can start. It rejects
+The public preflight proves the dispatch event, branch, and checked-out SHA.
+It also proves the current remote `main` SHA before the environment job can
+start. It rejects
 pull and merge refs and accepts no user-supplied input coordinate, revision,
 hash, check, or toolchain value.
 
-The environment variable `RETAIL_INPUTS_REPOSITORY` is fixed to
-`XIVLegacy/xivl-private-assets`; the environment secret is
-`RETAIL_INPUTS_TOKEN`. The token is used only for bounded commit, reachability,
+The environment secret is `RETAIL_INPUTS_TOKEN`. The pinned
+`fetch-retail-input` action fixes the input repository and API boundary; this
+check supplies only the token and four manifest-pinned declarations: commit,
+path, size, and SHA-256. The token is used only for bounded commit,
+reachability,
 tree metadata, and one manifest-pinned blob request. The downloaded object is
 checked for the declared size and SHA-256 before decoding.
 
 The workflow keeps all input, intermediate output, and tool logs below one
-mode-0700 temporary root. It removes that root on every outcome. Shell
+mode-0700 temporary root. The pinned `finalize-retail-attestation` action
+removes that root and checks the retained envelope on every outcome. Shell
 tracing is disabled, API errors are reduced to a fixed label, and Java output
 is captured rather than printed.
 
 ## Pinned toolchain and reproduction
 
-The redistributable unluac artifact is vendored at
-`tools/vendor/unluac/unluac_2025_12_23.jar`. The repository gate requires
+The shared `setup-retail-toolchain` action at the pinned `xivl-tools` commit
+installs the fixed Temurin JDK and no Ghidra for this Lua check. The
+redistributable unluac artifact is vendored at
+`tools/vendor/unluac/unluac_2025_12_23.jar`. Repository validation requires
 796,256 bytes and SHA-256
 `98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc`.
 `LICENSE.txt` is the embedded MIT notice and `PROVENANCE.json` records the
@@ -66,17 +74,18 @@ and its 144-byte CRLF reduction.
 
 ## Claim boundary
 
-The verifier compares only the named script's byte identity and safe metadata:
+The repository-specific verifier compares only the named script's byte identity and safe metadata:
 class `BattleCommandBaseClass`, its ten tracked method names, required base
-path `/Command/Game/GameCommandBaseClass`, `_defineBaseClass` at line 5, and
-`_getData` at lines 75, 81, and 87. It does not prove the other 2,670 scripts,
+path `/Command/Game/GameCommandBaseClass` and `_defineBaseClass` at line 5.
+It also checks `_getData` at lines 75, 81, and 87. It does not prove the other
+2,670 scripts,
 Lua runtime semantics, decompiler semantic correctness, or any untracked
 source interpretation.
 
 The workflow runs a deliberate one-byte script mutation and requires the
-verifier to reject it. Only the six-field schema-valid attestation can be
-uploaded as `retail-script-attestation/retail-evidence-attestation.json` with
-30-day retention. A failure attestation is not tracked.
+repository-specific verifier to reject it. The shared finalizer and the local
+retained-file/schema checks must both pass before the six-field attestation can
+be uploaded with 30-day retention. A failure attestation is not tracked.
 
 ## Reproduced result
 
@@ -93,8 +102,8 @@ reviews passed.
 
 ## Local checks
 
-The normal gate runs without the retail input. The focused retail contract and
-mutation suite is:
+The normal checks run without the retail input. The focused retail contract plus
+its mutation suite is:
 
 ```powershell
 python tools\test_retail_script.py

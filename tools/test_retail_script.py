@@ -31,6 +31,7 @@ PASS_KEYS = {
     "schemaVersion", "publicRepositoryCommit", "approvedInputSha256",
     "toolVersions", "check", "result",
 }
+SHARED_ACTION_SHA = "4920dece45e88fcb14424de1f5c4fdee94ae6d02"
 PASSED: list[str] = []
 FAILED: list[str] = []
 
@@ -72,13 +73,52 @@ def main() -> int:
     workflow = WORKFLOW.read_text(encoding="utf-8")
     checks_workflow = CHECKS_WORKFLOW.read_text(encoding="utf-8")
     check(
-        "artifact upload requires cleanup and allowlist success",
-        "steps.cleanup.outcome == 'success' && steps.allowlist.outcome == 'success'"
+        "artifact upload requires finalization and retention",
+        "if: always() && !cancelled() && steps.finalize.outcome == 'success'"
+        " && steps.retained.outcome == 'success'"
         in workflow,
     )
     check(
-        "retained-file allowlist scans the full tree",
-        "find _retail-staging -mindepth 1 -print" in workflow,
+        "final failure preserves every retail gate",
+        "steps.fetch.outcome != 'success' || steps.toolchain.outcome != 'success'"
+        " || steps.analysis.outcome != 'success' || steps.finalize.outcome != 'success'"
+        " || steps.retained.outcome != 'success'"
+        in workflow,
+    )
+    check(
+        "retained-file validation follows shared finalization",
+        "id: finalize" in workflow
+        and "id: retained" in workflow
+        and "if: always() && !cancelled() && steps.finalize.outcome == 'success'" in workflow
+        and "hashFiles" not in workflow
+        and "find _retail-staging -mindepth 1 -print" not in workflow,
+    )
+    check(
+        "shared retail actions are pinned",
+        workflow.count(
+            f"XIVLegacy/xivl-tools/.github/actions/fetch-retail-input@{SHARED_ACTION_SHA}"
+        ) == 1
+        and workflow.count(
+            f"XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@{SHARED_ACTION_SHA}"
+        ) == 1
+        and workflow.count(
+            f"XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@{SHARED_ACTION_SHA}"
+        ) == 1,
+    )
+    check(
+        "shared fetch locks the local LPB grant",
+        "commit: aeb52f6dbde95a793ee6d52be28de9f28a885b15" in workflow
+        and "path: client-scripts/ffxiv-1.23b/client/script/7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.le.lpb" in workflow
+        and 'size: "1507"' in workflow
+        and "sha256: 74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569" in workflow
+        and "token: ${{ secrets.RETAIL_INPUTS_TOKEN }}" in workflow
+        and "RETAIL_INPUTS_REPOSITORY" not in workflow,
+    )
+    check(
+        "shared toolchain omits Ghidra for scripts",
+        "include-ghidra: false" in workflow
+        and "https://github.com/adoptium/temurin21-binaries" not in workflow
+        and "https://github.com/NationalSecurityAgency/ghidra" not in workflow,
     )
     check(
         "preflight job and remote-main lookup are bounded",
@@ -104,12 +144,12 @@ def main() -> int:
         and 'java-version: "21.0.12.1+1"' in checks_workflow,
     )
     check(
-        "JDK download bound covers the pinned archive",
-        "--max-filesize 250000000" in workflow,
-    )
-    check(
-        "artifact upload relies on pinned action defaults",
-        "overwrite:" not in workflow and "include-hidden-files:" not in workflow,
+        "artifact upload relies on shared action defaults",
+        "if-no-files-found: error" in workflow
+        and "retention-days: 30" in workflow
+        and "compression-level:" not in workflow
+        and "overwrite:" not in workflow
+        and "include-hidden-files:" not in workflow,
     )
     python_commands = [
         line for line in workflow.splitlines()
