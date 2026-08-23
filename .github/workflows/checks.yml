@@ -55,11 +55,25 @@ jobs:
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
-      - name: Set up the pinned test JDK
-        uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a # v5.5.0
-        with:
-          distribution: temurin
-          java-version: "21.0.12.1+1"
+      - name: Install the pinned test JDK
+        shell: bash
+        run: |
+          set -euo pipefail
+          jdk_archive="${RUNNER_TEMP}/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz"
+          jdk_root="${RUNNER_TEMP}/test-jdk"
+          curl --silent --show-error --fail --location --max-time 600 \
+            --max-filesize 250000000 \
+            --output "${jdk_archive}" \
+            "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz"
+          echo "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94  ${jdk_archive}" | \
+            sha256sum --check --status
+          mkdir -p "${jdk_root}"
+          tar -xzf "${jdk_archive}" -C "${jdk_root}"
+          java_path="$(find "${jdk_root}" -type f -path '*/bin/java' -print -quit)"
+          test -x "${java_path}"
+          java_home="$(dirname "$(dirname "${java_path}")")"
+          echo "JAVA_HOME=${java_home}" >> "${GITHUB_ENV}"
+          echo "${java_home}/bin" >> "${GITHUB_PATH}"
       - name: Install jsonschema
         run: pip install jsonschema
       - name: Run retail script contract tests

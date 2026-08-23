@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Mutation and fixture tests for the retail BattleCommandBaseClass lane."""
+"""Mutation and fixture tests for retail BattleCommandBaseClass."""
 
 from __future__ import annotations
 
@@ -100,7 +100,7 @@ def main() -> int:
         ) == 1
         and workflow.count(
             f"XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@{SHARED_ACTION_SHA}"
-        ) == 1
+        ) == 2
         and workflow.count(
             f"XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@{SHARED_ACTION_SHA}"
         ) == 1,
@@ -137,11 +137,14 @@ def main() -> int:
         workflow.count('python-version: "3.12.14"') == 2,
     )
     check(
-        "real-JAR tests use the pinned JDK",
-        'uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a' in workflow
-        and 'java-version: "21.0.12.1+1"' in workflow
-        and 'uses: actions/setup-java@0f481fcb613427c0f801b606911222b5b6f3083a' in checks_workflow
-        and 'java-version: "21.0.12.1+1"' in checks_workflow,
+        "real-JAR tests use the exact pinned JDK",
+        "actions/setup-java" not in workflow
+        and "actions/setup-java" not in checks_workflow
+        and workflow.count("include-ghidra: false") == 2
+        and "jdk-21.0.12.1%2B1/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz"
+        in checks_workflow
+        and "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94"
+        in checks_workflow,
     )
     check(
         "artifact upload relies on shared action defaults",
