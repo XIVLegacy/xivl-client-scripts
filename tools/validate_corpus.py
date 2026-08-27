@@ -18,6 +18,11 @@ from _corpus import (
     scan_binding_declarations,
     scan_script,
 )
+from myplayer_timer_consumers import (
+    AnalysisError as TimerConsumerAnalysisError,
+    analyze as analyze_timer_consumers,
+    render_json as render_timer_consumers,
+)
 from retail_lua_coverage import (
     TOOLS_COMMIT,
     TOOLS_SOURCES,
@@ -211,6 +216,11 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
             "retail_lua_coverage.schema.json",
             "manifests/retail_lua_coverage.json",
         ),
+        (
+            MANIFESTS_DIR / "myplayer_timer_consumers.json",
+            "myplayer_timer_consumers.schema.json",
+            "manifests/myplayer_timer_consumers.json",
+        ),
     ]
     for inst_path, schema_name, label in pairs:
         schema_path = SCHEMAS / schema_name
@@ -308,6 +318,43 @@ def validate_retail_lua_coverage() -> None:
         errors.append(
             "manifests/retail_lua_coverage.json: xivl-tools pin disagrees with generator"
         )
+
+
+def validate_myplayer_timer_consumers() -> None:
+    """Verify the retained timer-consumer report and its corpus pins."""
+    report_path = MANIFESTS_DIR / "myplayer_timer_consumers.json"
+    if not report_path.is_file():
+        return
+    report = _load(report_path)
+    corpus = report.get("corpus", {})
+    expected_pins = {
+        "manifest": "manifests/scripts.json",
+        "manifestSha256": hashlib.sha256(
+            (MANIFESTS_DIR / "scripts.json").read_bytes()
+        ).hexdigest(),
+        "registry": "lua/registry.json",
+        "registrySha256": hashlib.sha256(
+            (LUA_DIR / "registry.json").read_bytes()
+        ).hexdigest(),
+        "napiIndex": "lua/napi_index.json",
+        "napiIndexSha256": hashlib.sha256(
+            (LUA_DIR / "napi_index.json").read_bytes()
+        ).hexdigest(),
+        "scriptCount": EXPECTED_SCRIPT_COUNT,
+    }
+    if corpus != expected_pins:
+        errors.append(
+            "manifests/myplayer_timer_consumers.json: corpus pins disagree with tracked inputs"
+        )
+    if CORPUS_ABSENT:
+        return
+    try:
+        rebuilt = analyze_timer_consumers()
+    except (OSError, UnicodeError, json.JSONDecodeError, TimerConsumerAnalysisError) as exc:
+        errors.append(f"manifests/myplayer_timer_consumers.json: analysis failed: {exc}")
+        return
+    if render_timer_consumers(rebuilt) != report_path.read_bytes():
+        errors.append("manifests/myplayer_timer_consumers.json: generated report is stale")
 
 
 def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
@@ -785,6 +832,7 @@ def main() -> int:
     validate_retail_vendor()
     validate_schemas(sidecars)
     validate_retail_lua_coverage()
+    validate_myplayer_timer_consumers()
     validate_reproduction_contract(sidecars)
     validate_lua_corpus(sidecars, api_bcs)
     validate_napi_index(sidecars, api_bcs)

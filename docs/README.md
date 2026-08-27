@@ -13,6 +13,7 @@ charter, and contribution policy.
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
+| MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
 | Retail Lua resource coverage | [retail-lua-coverage.md](retail-lua-coverage.md) |
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 
