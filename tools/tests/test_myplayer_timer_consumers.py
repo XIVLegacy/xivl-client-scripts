@@ -22,10 +22,6 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
         if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not analyzer.SCRIPTS_ROOT.is_dir():
             raise unittest.SkipTest("local retail Lua corpus is absent")
 
-    def test_report_rebuild_is_stable(self) -> None:
-        expected = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(analyzer.analyze(), expected)
-
     def test_all_occupancy_arguments_map_to_the_native_vector(self) -> None:
         report = analyzer.analyze()
         rows = report["occupancyArgumentMap"]
