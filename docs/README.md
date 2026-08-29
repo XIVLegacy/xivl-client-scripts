@@ -12,6 +12,7 @@ charter, and contribution policy.
 | Comments and prose | [ai_agents/comments-and-prose.md](ai_agents/comments-and-prose.md) |
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
+| Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
