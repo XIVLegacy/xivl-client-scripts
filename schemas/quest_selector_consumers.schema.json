@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.org/schemas/quest_selector_consumers.schema.json",
+  "title": "Quest selector consumer report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version", "gameVersion", "extraction", "corpus", "clientDataSources",
+    "summary", "namedRows", "controls", "messageConsumers",
+    "presentationContract", "requestContract", "unresolved"
+  ],
+  "properties": {
+    "version": { "const": "1" },
+    "gameVersion": { "const": "1.23b" },
+    "extraction": { "const": "2012.09.19.0001" },
+    "corpus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifest", "manifestSha256", "registry", "registrySha256", "napiIndex", "napiIndexSha256", "scriptCount"],
+      "properties": {
+        "manifest": { "const": "manifests/scripts.json" },
+        "manifestSha256": { "$ref": "#/$defs/sha256" },
+        "registry": { "const": "lua/registry.json" },
+        "registrySha256": { "$ref": "#/$defs/sha256" },
+        "napiIndex": { "const": "lua/napi_index.json" },
+        "napiIndexSha256": { "$ref": "#/$defs/sha256" },
+        "scriptCount": { "const": 2671 }
+      }
+    },
+    "clientDataSources": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "sha256"],
+        "properties": {
+          "source": { "type": "string", "pattern": "^xivl-client-data:csv/.+\\.csv$" },
+          "sha256": { "$ref": "#/$defs/sha256" }
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namedBoth", "disciplineSingle", "allNoSelector", "other", "twoLevelMessageConsumers", "activePrimaryAcceptConsumers", "activePrimaryAdvanceConsumers"],
+      "properties": {
+        "namedBoth": { "const": 42 },
+        "disciplineSingle": { "const": 126 },
+        "allNoSelector": { "const": 66 },
+        "other": { "const": 501 },
+        "twoLevelMessageConsumers": { "const": 7 },
+        "activePrimaryAcceptConsumers": { "const": 42 },
+        "activePrimaryAdvanceConsumers": { "const": 42 }
+      }
+    },
+    "namedRows": {
+      "type": "array",
+      "minItems": 42,
+      "maxItems": 42,
+      "items": { "$ref": "#/$defs/namedRow" }
+    },
+    "controls": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": { "$ref": "#/$defs/control" }
+    },
+    "messageConsumers": {
+      "type": "array",
+      "minItems": 91,
+      "maxItems": 91,
+      "items": { "$ref": "#/$defs/messageConsumer" }
+    },
+    "presentationContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["twoLevelMessage", "activeAcceptMessage", "activeAdvanceMessage", "sink", "sinkBcsId"],
+      "properties": {
+        "twoLevelMessage": { "type": "string", "minLength": 1 },
+        "activeAcceptMessage": { "type": "string", "minLength": 1 },
+        "activeAdvanceMessage": { "type": "string", "minLength": 1 },
+        "sink": { "const": "worldMaster.say -> DesktopWidget.showMessage -> DesktopWidget._appendMessagePool" },
+        "sinkBcsId": { "const": "BCS-Y-0492" }
+      }
+    },
+    "requestContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questInfoAsk", "selectorArguments"],
+      "properties": {
+        "questInfoAsk": { "type": "string", "minLength": 1 },
+        "selectorArguments": { "const": 0 }
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "namedRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questId", "questCsvLine", "xtxQuestCsvLine", "label", "primarySelector", "primarySelectorId", "primaryBaseClassId", "primaryLevel", "secondaryClass", "secondaryClassId", "secondaryLevel"],
+      "properties": {
+        "questId": { "type": "integer", "minimum": 111201, "maximum": 111326 },
+        "questCsvLine": { "type": "integer", "minimum": 1 },
+        "xtxQuestCsvLine": { "type": "integer", "minimum": 1 },
+        "label": { "type": "string", "pattern": " & " },
+        "primarySelector": { "type": "string", "minLength": 1 },
+        "primarySelectorId": { "type": "integer", "minimum": 1 },
+        "primaryBaseClassId": { "type": "integer", "minimum": 1 },
+        "primaryLevel": { "type": "integer", "minimum": 30, "maximum": 50 },
+        "secondaryClass": { "type": "string", "minLength": 1 },
+        "secondaryClassId": { "type": "integer", "minimum": 1 },
+        "secondaryLevel": { "type": ["integer", "null"], "enum": [15, null] }
+      }
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["questId", "xtxQuestCsvLine", "label", "shape"],
+      "properties": {
+        "questId": { "type": "integer" },
+        "xtxQuestCsvLine": { "type": "integer", "minimum": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "shape": { "enum": ["discipline selector", "no selector"] }
+      }
+    },
+    "messageConsumer": {
+      "type": "object",
+      "required": ["script", "line", "questId", "primarySelectorId", "messageId", "role"],
+      "properties": {
+        "script": { "type": "string", "pattern": "^lua/scripts/quest/scenario/.+\\.lua$" },
+        "line": { "type": "integer", "minimum": 1 },
+        "questId": { "type": "integer" },
+        "primarySelectorId": { "type": "integer", "minimum": 1 },
+        "primaryLevel": { "type": "integer", "minimum": 1 },
+        "secondarySelectorId": { "type": "integer", "minimum": 1 },
+        "secondaryLevel": { "type": "integer", "minimum": 1 },
+        "messageId": { "enum": [51130, 51131, 51132] },
+        "role": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "messageId": { "const": 51130 } } },
+          "then": { "required": ["primaryLevel", "secondarySelectorId", "secondaryLevel"] },
+          "else": {
+            "not": { "anyOf": [
+              { "required": ["primaryLevel"] },
+              { "required": ["secondarySelectorId"] },
+              { "required": ["secondaryLevel"] }
+            ] }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

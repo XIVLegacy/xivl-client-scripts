@@ -23,6 +23,11 @@ from myplayer_timer_consumers import (
     analyze as analyze_timer_consumers,
     render_json as render_timer_consumers,
 )
+from quest_selector_consumers import (
+    AnalysisError as QuestSelectorAnalysisError,
+    analyze_script_consumers,
+    validate_retained as validate_quest_selector_report,
+)
 from retail_lua_coverage import (
     TOOLS_COMMIT,
     TOOLS_SOURCES,
@@ -221,6 +226,11 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
             "myplayer_timer_consumers.schema.json",
             "manifests/myplayer_timer_consumers.json",
         ),
+        (
+            MANIFESTS_DIR / "quest_selector_consumers.json",
+            "quest_selector_consumers.schema.json",
+            "manifests/quest_selector_consumers.json",
+        ),
     ]
     for inst_path, schema_name, label in pairs:
         schema_path = SCHEMAS / schema_name
@@ -355,6 +365,29 @@ def validate_myplayer_timer_consumers() -> None:
         return
     if render_timer_consumers(rebuilt) != report_path.read_bytes():
         errors.append("manifests/myplayer_timer_consumers.json: generated report is stale")
+
+
+def validate_quest_selector_consumers() -> None:
+    """Verify retained selector evidence and local script callsites."""
+    report_path = MANIFESTS_DIR / "quest_selector_consumers.json"
+    if not report_path.is_file():
+        return
+    report = _load(report_path)
+    for problem in validate_quest_selector_report(report):
+        errors.append(f"manifests/quest_selector_consumers.json: {problem}")
+    if CORPUS_ABSENT:
+        return
+    try:
+        consumers = analyze_script_consumers()
+    except (OSError, UnicodeError, QuestSelectorAnalysisError) as exc:
+        errors.append(
+            f"manifests/quest_selector_consumers.json: analysis failed: {exc}"
+        )
+        return
+    if report.get("messageConsumers") != consumers:
+        errors.append(
+            "manifests/quest_selector_consumers.json: message consumers are stale"
+        )
 
 
 def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
@@ -833,6 +866,7 @@ def main() -> int:
     validate_schemas(sidecars)
     validate_retail_lua_coverage()
     validate_myplayer_timer_consumers()
+    validate_quest_selector_consumers()
     validate_reproduction_contract(sidecars)
     validate_lua_corpus(sidecars, api_bcs)
     validate_napi_index(sidecars, api_bcs)
