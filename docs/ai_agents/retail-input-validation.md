@@ -19,7 +19,7 @@ decoded chunks, decompiled source, or diagnostics.
 | Passing attestation | `manifests/retail_evidence/battle-command-baseclass.json` |
 | Environment | `retail-evidence` |
 | Input coordinate | `XIVLegacy/xivl-private-assets` |
-| Shared actions | `XIVLegacy/xivl-tools` at `4920dece45e88fcb14424de1f5c4fdee94ae6d02` |
+| Shared actions | Immutable revision from `XIVLegacy/xivl-tools` |
 
 The input grant pins `battle-command-baseclass-lpb-1.23b` to commit
 `aeb52f6dbde95a793ee6d52be28de9f28a885b15`, its exact repository-relative
