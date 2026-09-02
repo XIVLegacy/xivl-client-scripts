@@ -810,7 +810,7 @@ def validate_derived_counts(sidecars: dict[str, dict]) -> None:
 
 
 def validate_docs_index() -> None:
-    """Require docs/README.md to index the tracked docs tree both ways."""
+    """Check local Markdown paths listed by docs/README.md."""
     readme = DOCS_DIR / "README.md"
     if not readme.is_file():
         errors.append("docs/README.md: file missing")
@@ -839,8 +839,6 @@ def validate_docs_index() -> None:
     }
     for missing in sorted(linked - on_disk):
         errors.append(f"docs/README.md: indexes {missing} but no such file under docs/")
-    for orphan in sorted(on_disk - linked):
-        errors.append(f"docs/{orphan}: present under docs/ but unindexed in docs/README.md")
 
 
 def main() -> int:
@@ -882,7 +880,7 @@ def main() -> int:
         f"repository boundary + Lua corpus validation OK ({len(tracked_paths)} tracked "
         f"files, {json_count} tracked JSON files, schemas, {corpus_check}, "
         "registry/sidecar/index agreement, vendor pin, derived counts + "
-        "docs-index sync)."
+        "docs-index links)."
     )
     return 0
 

@@ -21,7 +21,5 @@ charter, and contribution policy.
 | Retail Lua resource coverage | [retail-lua-coverage.md](retail-lua-coverage.md) |
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 
-`tools/validate_corpus.py` checks this index against the Markdown tree under
-`docs/` in both directions, excluding the ignored `docs/ai_agents/local/`
-island. Add a row for each tracked page and remove its row when the page is
-removed.
+`tools/validate_corpus.py` checks that local Markdown paths listed here exist.
+The ignored `docs/ai_agents/local/` island is outside the public tree.

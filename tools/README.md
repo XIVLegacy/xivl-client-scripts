@@ -34,8 +34,8 @@ top-level groups and enforces required agent-tooling ignore lines, forbidden
 paths, PE magic, absolute maintainer paths, and private-reference tokens. It parses
 the tracked JSON, runs focused tests, validates schemas and referential
 integrity, checks the reproduction manifest, verifies vendored inputs, and
-enforces docs index coverage. With a locally supplied corpus it also verifies
-every script hash and re-derives registry and callsite data.
+checks paths listed by the docs index. With a locally supplied corpus it also
+verifies every script hash and re-derives registry and callsite data.
 It also validates the retained retail coverage census against its schema,
 internal inventory digest, corpus and sidecar pins, and independently anchored
 ciphered paths. Re-reading retail bytes is an explicit generator `--check`, not
