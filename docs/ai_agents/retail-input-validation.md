@@ -10,7 +10,7 @@ decoded chunks, decompiled source, or diagnostics.
 
 | Item | Grant |
 |---|---|
-| Branch | `retail-battle-command-script-ci` |
+| Branch | `main` |
 | Workflow | `.github/workflows/retail-checks.yml` |
 | Evidence job | `Battle Command Script Checks` |
 | Check | `battle-command-baseclass-v1` |
