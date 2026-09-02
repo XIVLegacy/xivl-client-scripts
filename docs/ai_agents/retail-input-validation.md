@@ -90,11 +90,9 @@ be uploaded with 30-day retention. A failure attestation is not tracked.
 ## Reproduced result
 
 [Retail Checks run 32518216861](https://github.com/XIVLegacy/xivl-client-scripts/actions/runs/32518216861)
-passed on 2026-08-21 for public commit
-`bc15b3547326c71764b08d699cb1b67d7f4e720b`. Its evidence job completed in
-13 seconds. The downloaded pass attestation was byte-identical to a local
-regeneration for the same commit and is tracked as
-[`battle-command-baseclass.json`](../../manifests/retail_evidence/battle-command-baseclass.json).
+reproduced the tracked
+[`battle-command-baseclass.json`](../../manifests/retail_evidence/battle-command-baseclass.json)
+attestation byte-for-byte.
 The retained file is 337 bytes with SHA-256
 `da4ee314b07c6a865e5e40e45006493eaf41c47f9e5b067145b5ec85fdf05eff`.
 Artifact allowlist, schema, cleanup, negative-control, and public-log leakage

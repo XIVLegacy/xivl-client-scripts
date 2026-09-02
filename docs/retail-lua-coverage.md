@@ -30,8 +30,9 @@ absolute paths. Its inventory digest is
 
 ## Evidence boundary
 
-The generator requires the exact read-only `XIVLegacy/xivl-tools` commit
-`d882f2d7432d6f7e569f9f5424af1a33a4938f83`. It also verifies the source hashes
+The generator requires
+[this exact xivl-tools revision](https://github.com/XIVLegacy/xivl-tools/commit/d882f2d7432d6f7e569f9f5424af1a33a4938f83).
+It also verifies the source hashes
 of `src/formats/src/lua_path.rs` and `src/formats/src/lpb.rs` before scanning.
 The census pins the tracked script manifest, registry, and a path/size/hash
 inventory of all 2,671 call sidecars.
