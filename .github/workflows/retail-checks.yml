@@ -210,6 +210,9 @@ jobs:
         with:
           python-version: "3.12.14"
 
+      - name: Install jsonschema
+        run: pip install jsonschema
+
       - name: Fetch the immutable Lua archive
         id: fetch
         continue-on-error: true

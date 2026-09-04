@@ -194,6 +194,10 @@ def workflow_tests() -> None:
         and "verify_retail_lua_corpus.py" in lua_job,
     )
     check(
+        "Lua corpus installs its schema validator",
+        lua_job.count("run: pip install jsonschema") == 1,
+    )
+    check(
         "normal checks stay asset-free",
         "XIVL_CORPUS_ABSENT" in checks
         and verifier.SOURCE_PATH not in checks
