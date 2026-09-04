@@ -217,7 +217,6 @@ def validate_all_json(paths: list[str]) -> int:
 def run_focused_tests() -> bool:
     """Run the focused tool tests as part of the single repository gate."""
     focused_env = dict(os.environ)
-    focused_env.pop("XIVL_LUA_SCRIPTS_DIR", None)
     result = subprocess.run(
         [
             sys.executable,

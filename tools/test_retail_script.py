@@ -103,12 +103,12 @@ def main() -> int:
     shared_revision = next(iter(shared_revisions), "")
     check(
         "shared retail actions use one immutable pin",
-        len(shared_actions) == 6
+        len(shared_actions) == 7
         and len(shared_revisions) == 1
         and len(shared_revision) == 40
         and all(char in "0123456789abcdef" for char in shared_revision)
         and sum("/fetch-retail-input@" in action for action in shared_actions) == 2
-        and sum("/setup-retail-toolchain@" in action for action in shared_actions) == 2
+        and sum("/setup-retail-toolchain@" in action for action in shared_actions) == 3
         and sum(
             "/finalize-retail-attestation@" in action for action in shared_actions
         ) == 2,
@@ -124,7 +124,7 @@ def main() -> int:
     )
     check(
         "shared toolchain omits Ghidra for scripts",
-        "include-ghidra: false" in workflow
+        workflow.count("include-ghidra: false") == 3
         and "https://github.com/adoptium/temurin21-binaries" not in workflow
         and "https://github.com/NationalSecurityAgency/ghidra" not in workflow,
     )
@@ -148,7 +148,7 @@ def main() -> int:
         "real-JAR tests use the exact pinned JDK",
         "actions/setup-java" not in workflow
         and "actions/setup-java" not in checks_workflow
-        and workflow.count("include-ghidra: false") == 2
+        and workflow.count("include-ghidra: false") == 3
         and "jdk-21.0.12.1%2B1/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz"
         in checks_workflow
         and "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94"

@@ -13,10 +13,13 @@ sys.path.insert(0, str(TOOLS_DIR))
 import general_parameter_18_consumers as analyzer  # noqa: E402
 
 
+SCRIPTS = analyzer.resolve_scripts_root(analyzer.SCRIPTS_ROOT)
+
+
 class GeneralParameter18ConsumerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not analyzer.SCRIPTS_ROOT.is_dir():
+        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
             raise unittest.SkipTest("local retail Lua corpus is absent")
 
     def test_complete_corpus_chain(self) -> None:
@@ -34,7 +37,7 @@ class GeneralParameter18ConsumerTests(unittest.TestCase):
         )
 
     def _mutated_file(self, relative: str, old: str, new: str) -> Path:
-        source = (analyzer.SCRIPTS_ROOT / relative).read_text(encoding="utf-8")
+        source = (SCRIPTS / relative).read_text(encoding="utf-8")
         self.assertEqual(source.count(old), 1)
         temp = tempfile.TemporaryDirectory()
         self.addCleanup(temp.cleanup)
@@ -79,7 +82,7 @@ class GeneralParameter18ConsumerTests(unittest.TestCase):
             if relative == "widget/equipwidget.lua":
                 target.write_bytes(path.read_bytes())
             else:
-                target.write_bytes((analyzer.SCRIPTS_ROOT / relative).read_bytes())
+                target.write_bytes((SCRIPTS / relative).read_bytes())
         with self.assertRaisesRegex(analyzer.AnalysisError, "argument domain"):
             analyzer._verify_physical_arguments(root)
 

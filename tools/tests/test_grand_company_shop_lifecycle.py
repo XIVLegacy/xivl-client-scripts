@@ -7,7 +7,10 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[2]
-SCRIPTS = REPO / "lua" / "scripts"
+LOCAL_SCRIPTS = REPO / "lua" / "scripts"
+SCRIPTS = Path(
+    os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(LOCAL_SCRIPTS))
+).expanduser().absolute()
 
 
 def compact(relative: str) -> str:
@@ -95,7 +98,7 @@ class GrandCompanyShopLifecycleCorpusTests(unittest.TestCase):
         }
         names: set[str] = set()
         for relative in relatives:
-            payload = json.loads((SCRIPTS / relative).read_text(encoding="utf-8"))
+            payload = json.loads((LOCAL_SCRIPTS / relative).read_text(encoding="utf-8"))
             names.update(payload["apis"].keys())
         self.assertIn("_getSpecialEventWork", names)
         self.assertIn("_getItemPackageCapacity", names)

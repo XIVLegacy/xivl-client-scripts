@@ -16,10 +16,13 @@ sys.path.insert(0, str(TOOLS_DIR))
 import myplayer_timer_consumers as analyzer  # noqa: E402
 
 
+SCRIPTS = analyzer.resolve_scripts_root(analyzer.SCRIPTS_ROOT)
+
+
 class MyPlayerTimerConsumerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not analyzer.SCRIPTS_ROOT.is_dir():
+        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
             raise unittest.SkipTest("local retail Lua corpus is absent")
 
     def test_all_occupancy_arguments_map_to_the_native_vector(self) -> None:
@@ -52,7 +55,7 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
         self.assertTrue(list(validator.iter_errors(occupancy_mutation)))
 
     def test_mutation_to_out_of_range_argument_is_rejected(self) -> None:
-        source_path = analyzer.SCRIPTS_ROOT / "widget" / "pcmatchingeditwidget.lua"
+        source_path = SCRIPTS / "widget" / "pcmatchingeditwidget.lua"
         source = source_path.read_text(encoding="utf-8")
         old = "  L8_2 = 16\n  L6_2 = L6_2(L7_2, L8_2)"
         self.assertEqual(source.count(old), 1)
@@ -64,7 +67,7 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
                 analyzer._verify_callsite_shape(mutated, 842, spec)
 
     def test_mutation_to_status_propagation_is_rejected(self) -> None:
-        source_path = analyzer.SCRIPTS_ROOT / "widget" / "statuswidget.lua"
+        source_path = SCRIPTS / "widget" / "statuswidget.lua"
         source = source_path.read_text(encoding="utf-8")
         old = "  L6_2 = 16\n  L7_2 = A1_2\n  L3_2 = L3_2(L4_2, L5_2, L6_2, L7_2)"
         self.assertEqual(source.count(old), 1)
@@ -77,7 +80,7 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
                 analyzer._verify_status_propagation(root)
 
     def test_mutation_to_hamlet_remap_is_rejected(self) -> None:
-        source_path = analyzer.SCRIPTS_ROOT / "widget" / "statuswidget.lua"
+        source_path = SCRIPTS / "widget" / "statuswidget.lua"
         source = source_path.read_text(encoding="utf-8")
         old = "  if L12_2 == 8 then\n    L11_2 = 2"
         self.assertEqual(source.count(old), 1)
@@ -100,7 +103,7 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             for relative in relatives:
-                source = (analyzer.SCRIPTS_ROOT / relative).read_text(encoding="utf-8")
+                source = (SCRIPTS / relative).read_text(encoding="utf-8")
                 if relative == "chara/player/playerbaseclass.lua":
                     source = source.replace("  L4_2 = L1_2 - L4_2", "  L4_2 = L1_2 + L4_2", 1)
                 target = root / relative

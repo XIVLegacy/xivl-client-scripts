@@ -16,10 +16,13 @@ sys.path.insert(0, str(TOOLS_DIR))
 import quest_selector_consumers as analyzer  # noqa: E402
 
 
+SCRIPTS = analyzer.resolve_scripts_root(analyzer.SCRIPTS_ROOT)
+
+
 class QuestSelectorConsumerTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not analyzer.SCRIPTS_ROOT.is_dir():
+        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
             raise unittest.SkipTest("local retail Lua corpus is absent")
 
     def test_complete_message_census(self) -> None:
@@ -76,7 +79,7 @@ class QuestSelectorConsumerTests(unittest.TestCase):
         )
 
     def test_non_worldmaster_sink_is_rejected(self) -> None:
-        source_path = analyzer.SCRIPTS_ROOT / "quest" / "scenario" / "war" / "war0j1.lua"
+        source_path = SCRIPTS / "quest" / "scenario" / "war" / "war0j1.lua"
         lines = source_path.read_text(encoding="utf-8").splitlines()
         index = next(i for i, line in enumerate(lines) if line.strip() == "L6_2 = 51130")
         lines[index - 4] = "  L3_2 = fakeMaster"

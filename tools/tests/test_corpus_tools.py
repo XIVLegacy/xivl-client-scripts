@@ -468,14 +468,17 @@ L1_1 = "_defineClass_cpp"
 
             previous = validator.LUA_DIR
             previous_absent = validator.CORPUS_ABSENT
+            previous_external = validator.EXTERNAL_SCRIPTS_ROOT
             validator.LUA_DIR = lua_dir
             validator.CORPUS_ABSENT = False
+            validator.EXTERNAL_SCRIPTS_ROOT = None
             try:
                 validator.errors.clear()
                 validator.validate_lua_corpus(sidecars, {"_api": []})
             finally:
                 validator.LUA_DIR = previous
                 validator.CORPUS_ABSENT = previous_absent
+                validator.EXTERNAL_SCRIPTS_ROOT = previous_external
 
         self.assertTrue(
             any("api callsites do not match" in error

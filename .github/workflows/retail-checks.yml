@@ -29,7 +29,7 @@ jobs:
           python-version: "3.12.14"
 
       - name: Install the pinned test JDK
-        uses: XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@43606fd7111140d70930810f02978d8a09c12efb
+        uses: XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@c15266b4be27ca7b60ad669921015e0746b2b162
         with:
           scratch-root: ${{ runner.temp }}/retail-preflight-toolchain
           include-ghidra: false
@@ -85,7 +85,7 @@ jobs:
       - name: Fetch the immutable LPB blob
         id: fetch
         continue-on-error: true
-        uses: XIVLegacy/xivl-tools/.github/actions/fetch-retail-input@43606fd7111140d70930810f02978d8a09c12efb
+        uses: XIVLegacy/xivl-tools/.github/actions/fetch-retail-input@c15266b4be27ca7b60ad669921015e0746b2b162
         with:
           token: ${{ secrets.RETAIL_INPUTS_TOKEN }}
           commit: aeb52f6dbde95a793ee6d52be28de9f28a885b15
@@ -98,7 +98,7 @@ jobs:
         id: toolchain
         if: steps.fetch.outcome == 'success'
         continue-on-error: true
-        uses: XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@43606fd7111140d70930810f02978d8a09c12efb
+        uses: XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@c15266b4be27ca7b60ad669921015e0746b2b162
         with:
           scratch-root: ${{ runner.temp }}/retail-script-private
           include-ghidra: false
@@ -161,7 +161,7 @@ jobs:
         id: finalize
         if: always()
         continue-on-error: true
-        uses: XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@43606fd7111140d70930810f02978d8a09c12efb
+        uses: XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@c15266b4be27ca7b60ad669921015e0746b2b162
         with:
           scratch-root: ${{ runner.temp }}/retail-script-private
           staging-root: ${{ github.workspace }}/_retail-staging
@@ -213,7 +213,7 @@ jobs:
       - name: Fetch the immutable Lua archive
         id: fetch
         continue-on-error: true
-        uses: XIVLegacy/xivl-tools/.github/actions/fetch-retail-input@43606fd7111140d70930810f02978d8a09c12efb
+        uses: XIVLegacy/xivl-tools/.github/actions/fetch-retail-input@c15266b4be27ca7b60ad669921015e0746b2b162
         with:
           token: ${{ secrets.RETAIL_INPUTS_TOKEN }}
           commit: 361cbed32b2d89f97dc6e40fcc5d9230a0412eaa
@@ -222,9 +222,18 @@ jobs:
           sha256: 0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31
           output-path: ${{ runner.temp }}/retail-lua-corpus/lua.zip
 
+      - name: Install the pinned test JDK
+        id: toolchain
+        if: steps.fetch.outcome == 'success'
+        continue-on-error: true
+        uses: XIVLegacy/xivl-tools/.github/actions/setup-retail-toolchain@c15266b4be27ca7b60ad669921015e0746b2b162
+        with:
+          scratch-root: ${{ runner.temp }}/retail-lua-corpus
+          include-ghidra: false
+
       - name: Verify and hydrate the complete Lua corpus
         id: analysis
-        if: steps.fetch.outcome == 'success'
+        if: steps.fetch.outcome == 'success' && steps.toolchain.outcome == 'success'
         continue-on-error: true
         shell: bash
         run: |
@@ -288,7 +297,7 @@ jobs:
         id: finalize
         if: always()
         continue-on-error: true
-        uses: XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@43606fd7111140d70930810f02978d8a09c12efb
+        uses: XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@c15266b4be27ca7b60ad669921015e0746b2b162
         with:
           scratch-root: ${{ runner.temp }}/retail-lua-corpus
           staging-root: ${{ github.workspace }}/_retail-staging
@@ -309,6 +318,6 @@ jobs:
           retention-days: 30
 
       - name: Preserve a failed evidence result
-        if: always() && !cancelled() && (steps.fetch.outcome != 'success' || steps.analysis.outcome != 'success' || steps.finalize.outcome != 'success' || steps.retained.outcome != 'success')
+        if: always() && !cancelled() && (steps.fetch.outcome != 'success' || steps.toolchain.outcome != 'success' || steps.analysis.outcome != 'success' || steps.finalize.outcome != 'success' || steps.retained.outcome != 'success')
         shell: bash
         run: exit 1

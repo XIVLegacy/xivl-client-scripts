@@ -6,7 +6,9 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[2]
-SCRIPTS = REPO / "lua" / "scripts"
+SCRIPTS = Path(
+    os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(REPO / "lua" / "scripts"))
+).expanduser().absolute()
 
 
 def compact(relative: str) -> str:
