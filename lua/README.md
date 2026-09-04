@@ -5,8 +5,9 @@ tracked metadata derived from extraction `2012.09.19.0001`.
 
 ## Tracked and local content
 
-- `scripts/<decoded-path>.lua` - local-only decompiled source supplied by the
-  user. Git ignores these files.
+- `scripts/<decoded-path>.lua` - decompiled source supplied by the user. These
+  files may remain in the Git-ignored local tree or in an explicit external
+  source root.
 - `scripts/<decoded-path>.calls.json` - tracked per-script metadata containing:
   N-API names and line locations, decoded and ciphered paths, class names, and counts.
   It does not contain script statements or reconstructive source data.
@@ -73,11 +74,19 @@ so every ciphered name maps deterministically to one canonical decoded name.
 3. Regenerate the tracked derived metadata:
 
    ```console
-   python tools/lua_corpus.py annotate
+   python tools/lua_corpus.py annotate --scripts-root <scripts-root>
+   python tools/lua_corpus.py manifest --scripts-root <scripts-root>
    ```
 
-4. Run `python tools/validate_corpus.py` to verify the local corpus against the
-   2,671 recorded rows.
+   Omit `--scripts-root` when using the repository-local default, or set
+   `XIVL_LUA_SCRIPTS_DIR` for a shared external default. Annotation reads the
+   external `.lua` files but writes `.calls.json` sidecars under the tracked
+   `lua/scripts/` tree and keeps `lua/napi_index.json` and
+   `manifests/scripts.json` repository-owned.
+
+4. Run `python tools/validate_corpus.py --scripts-root <scripts-root>` to
+   verify the external corpus against the 2,671 recorded rows. The option may
+   be omitted when using the repository-local default.
 
 Maintainers with access to the fixed restricted archive can instead hydrate it
 into an explicit absent or empty external directory:
@@ -88,8 +97,10 @@ XIVL_LUA_SCRIPTS_DIR=<scripts-root> python tools/validate_corpus.py
 ```
 
 Hydration does not replace `lua/scripts`, because tracked `.calls.json`
-sidecars remain interleaved there. The manifest is still the sole identity
-authority for the external `.lua` tree.
+sidecars remain there. Use the external-root option on annotation, manifest,
+validation, and the direct corpus analyzers; generated sidecars never enter
+the hydrated source tree. The manifest is still the sole identity authority
+for the external `.lua` tree.
 
 Maintainers can rebuild the reproduction contract after an intentional corpus
 version change with `python tools/lua_corpus.py manifest`. Hash changes require

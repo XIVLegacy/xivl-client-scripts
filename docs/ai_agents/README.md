@@ -13,8 +13,11 @@ tracked documentation or a generated product.
 - Treat `lua/` as published client evidence. Do not hand-edit scripts,
   sidecars, or generated indexes. Use the documented builders and run all
   repository checks.
-- Keep explicit external `--lua-root` inputs in research runs only. They have
-  no workspace-relative default and are not inputs to the normal checks.
+- Keep explicit external `--scripts-root` inputs (or the
+  `XIVL_LUA_SCRIPTS_DIR` setting) as research inputs. They are read-only Lua
+  sources; annotation writes generated `.calls.json` sidecars under the
+  repository's `lua/scripts/` tree and keeps the N-API index repository-owned.
+  Repository-local `lua/scripts` remains the default for compatibility.
 - Preserve source and evidence citations verbatim, including dates. Cite a
   promoted artifact by its own name and a sha256 of the promoted content.
 - Do not push unless the owner explicitly asks.

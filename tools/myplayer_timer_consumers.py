@@ -11,6 +11,8 @@ import sys
 from collections import defaultdict
 from pathlib import Path
 
+from _corpus import CorpusRootError, resolve_scripts_root, validate_scripts_root
+
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCRIPTS_ROOT = REPO_ROOT / "lua" / "scripts"
@@ -341,10 +343,13 @@ def _verify_scalar_chains(scripts_root: Path) -> None:
 
 
 def analyze(
-    scripts_root: Path = SCRIPTS_ROOT,
+    scripts_root: Path | None = None,
     sidecars_root: Path | None = None,
 ) -> dict:
     """Return the stable non-reconstructive report for one complete corpus."""
+    scripts_root = resolve_scripts_root(SCRIPTS_ROOT, scripts_root)
+    sidecars_root = SCRIPTS_ROOT if sidecars_root is None else sidecars_root
+    validate_scripts_root(scripts_root)
     if not scripts_root.is_dir():
         raise AnalysisError(f"Lua corpus not found: {scripts_root}")
     script_count = sum(1 for _ in scripts_root.rglob("*.lua"))
@@ -357,7 +362,7 @@ def analyze(
         missing = sorted(set(expected) - set(actual))
         extra = sorted(set(actual) - set(expected))
         raise AnalysisError(f"direct callsite set drifted ({len(missing)} missing, {len(extra)} extra)")
-    _verify_sidecars(sidecars_root or scripts_root, found)
+    _verify_sidecars(sidecars_root, found)
     declarations = _verify_declarations_and_registry(scripts_root)
     _verify_status_propagation(scripts_root)
     _verify_scalar_chains(scripts_root)
@@ -490,10 +495,24 @@ def render_json(value: object) -> bytes:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true")
+    parser.add_argument(
+        "--scripts-root",
+        type=Path,
+        help=(
+            "directory containing decoded .lua files (default: lua/scripts, "
+            "or XIVL_LUA_SCRIPTS_DIR)"
+        ),
+    )
     args = parser.parse_args()
     try:
-        report = analyze()
-    except (OSError, UnicodeError, json.JSONDecodeError, AnalysisError) as exc:
+        report = analyze(args.scripts_root, SCRIPTS_ROOT)
+    except (
+        OSError,
+        UnicodeError,
+        json.JSONDecodeError,
+        AnalysisError,
+        CorpusRootError,
+    ) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
     rendered = render_json(report)

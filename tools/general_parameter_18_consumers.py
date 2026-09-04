@@ -3,9 +3,12 @@
 
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 from pathlib import Path
+
+from _corpus import CorpusRootError, resolve_scripts_root, validate_scripts_root
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -126,8 +129,10 @@ def _verify_connector(path: Path) -> None:
     )
 
 
-def analyze(scripts_root: Path = SCRIPTS_ROOT) -> dict[str, object]:
+def analyze(scripts_root: Path | None = None) -> dict[str, object]:
     """Return the stable, non-reconstructive census summary."""
+    scripts_root = resolve_scripts_root(SCRIPTS_ROOT, scripts_root)
+    validate_scripts_root(scripts_root)
     if not scripts_root.is_dir():
         raise AnalysisError(f"Lua corpus not found: {scripts_root}")
     script_count = sum(1 for _ in scripts_root.rglob("*.lua"))
@@ -214,9 +219,19 @@ def analyze(scripts_root: Path = SCRIPTS_ROOT) -> dict[str, object]:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--scripts-root",
+        type=Path,
+        help=(
+            "directory containing decoded .lua files (default: lua/scripts, "
+            "or XIVL_LUA_SCRIPTS_DIR)"
+        ),
+    )
+    args = parser.parse_args()
     try:
-        report = analyze()
-    except (OSError, UnicodeError, AnalysisError) as exc:
+        report = analyze(args.scripts_root)
+    except (OSError, UnicodeError, AnalysisError, CorpusRootError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
     print(

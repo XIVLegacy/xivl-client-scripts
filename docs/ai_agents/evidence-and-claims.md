@@ -12,11 +12,18 @@ supports it.
 | Promoted N-API catalog | A pinned API name to `BCS-Y` binding relationship | Runtime semantics of the binding |
 | Generated registry, sidecars, and N-API index | Structural relationships derived from the committed corpus | New independent evidence |
 | Validation and regeneration results | Repository integrity, determinism, and cross-file agreement | Correctness of the original client extraction |
-| Explicit external `--lua-root` research input | Findings from a named decompile run when its provenance is recorded | A canonical repository fact before promotion |
+| Explicit external `--scripts-root` research input | Findings from a named decompile run when its provenance is recorded | A canonical repository fact before promotion |
 | `live_validated` | Behavior verified against the retail 1.23b client in a recorded live session with an identified session record | Behavior outside the recorded live session |
 
 `data/vendor/client-structs/PROVENANCE.json` is the authoritative source
 identity, source license, and byte pin for the promoted N-API input.
+
+An external `--scripts-root` is a read-only source for annotation, manifest,
+validation, and direct consumer analysis. `validate_corpus.py` checks the
+selected root as a plain directory before reading it; missing, linked,
+junction, and other reparse roots are not accepted. Generated sidecars and
+indexes remain repository-owned and do not make the external source
+independently citable.
 
 ## Generated field limits
 

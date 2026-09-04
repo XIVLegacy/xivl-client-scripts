@@ -9,19 +9,21 @@ indexes from their documented inputs.
 - Publish scripts and registry with
   `python tools/lua_corpus.py publish --lua-root <path>`. See [Corpus
   regeneration](../lua/README.md#regenerating-and-verifying).
-- Regenerate N-API annotations with `python tools/lua_corpus.py annotate`. See
-  [Corpus regeneration](../lua/README.md#regenerating-and-verifying).
-- Build the hash contract with `python tools/lua_corpus.py manifest`. See
-  [Corpus regeneration](../lua/README.md#regenerating-and-verifying).
+- Regenerate N-API annotations with `python tools/lua_corpus.py annotate
+  [--scripts-root <path>]`. See [Corpus
+  regeneration](../lua/README.md#regenerating-and-verifying).
+- Build the hash contract with `python tools/lua_corpus.py manifest
+  [--scripts-root <path>]`. See [Corpus
+  regeneration](../lua/README.md#regenerating-and-verifying).
 - Check MyPlayer timer consumers with
-  `python tools/myplayer_timer_consumers.py --check`. See [Consumer
-  report](../docs/myplayer-timer-consumers.md).
+  `python tools/myplayer_timer_consumers.py --check [--scripts-root <path>]`.
+  See [Consumer report](../docs/myplayer-timer-consumers.md).
 - Check quest selector consumers with
-  `python tools/quest_selector_consumers.py --check`. See [Consumer
-  report](../docs/quest-selector-consumers.md).
+  `python tools/quest_selector_consumers.py --check [--scripts-root <path>]`.
+  See [Consumer report](../docs/quest-selector-consumers.md).
 - Check general parameter 18 consumers with
-  `python tools/general_parameter_18_consumers.py`. See [Consumer
-  report](../docs/general-parameter-18-consumers.md).
+  `python tools/general_parameter_18_consumers.py [--scripts-root <path>]`.
+  See [Consumer report](../docs/general-parameter-18-consumers.md).
 - Census retail Lua resources with
   `python tools/retail_lua_coverage.py --client-root <retail-install> --tools-root <xivl-tools-checkout>`.
   See [Coverage census](../docs/retail-lua-coverage.md).
@@ -49,11 +51,18 @@ top-level groups and enforces required agent-tooling ignore lines, forbidden
 paths, PE magic, absolute maintainer paths, and private-reference tokens. It parses
 the tracked JSON, runs focused tests, validates schemas and referential
 integrity, checks the reproduction manifest, verifies vendored inputs, and
-checks paths listed by the docs index. With a locally supplied corpus it also
-verifies every script hash and re-derives registry and callsite data.
+checks paths listed by the docs index. With a supplied corpus it also verifies
+every script hash and re-derives registry and callsite data.
 Set `XIVL_LUA_SCRIPTS_DIR` to an explicit hydrated script root when the `.lua`
-files are outside `lua/scripts`; tracked sidecars remain repository-local.
-`XIVL_CORPUS_ABSENT=1` and `XIVL_LUA_SCRIPTS_DIR` are mutually exclusive.
+files are outside `lua/scripts`, or pass `--scripts-root <path>` to the
+maintenance command. The `lua_corpus.py annotate` command always writes
+`.calls.json` sidecars under the repository's `lua/scripts/` tree and writes
+`lua/napi_index.json` in the repository. `XIVL_CORPUS_ABSENT=1` and
+`XIVL_LUA_SCRIPTS_DIR` are mutually exclusive.
+An explicitly selected root must exist as a plain directory; validation checks
+that boundary before enumerating Lua files. The shared source-root validator
+also rejects symlink, junction, reparse-point, and non-regular descendants;
+the direct Lua analyzers apply the same check before reading or writing.
 It also validates the retained retail coverage census against its schema,
 internal inventory digest, corpus and sidecar pins, and independently anchored
 ciphered paths. Re-reading retail bytes is an explicit generator `--check`, not
@@ -67,20 +76,24 @@ Python with `jsonschema` is required.
 
 ## Lua corpus builder
 
-The local `lua/scripts/` corpus is a user-supplied input. `lua_corpus.py`
-exposes three independently runnable operations:
+The local `lua/scripts/` corpus is a user-supplied input and remains the
+default for compatibility. An external decoded source tree can be supplied
+with `--scripts-root <path>` or `XIVL_LUA_SCRIPTS_DIR`; it is read as input and
+is never populated with generated sidecars. `lua_corpus.py` exposes three
+independently runnable operations:
 
 - `publish`: builds `lua/registry.json` and publishes decoded scripts from an
   explicit `--lua-root <path>`. It stages both outputs and installs them
   together only after the full source tree succeeds. `--output-root` is the
   only publication destination override.
-- `annotate`: writes per-script `.calls.json` sidecars and `lua/napi_index.json`
-  from the canonical local corpus and vendored N-API
-  index. The N-API index also records `_cpp` receiver-class declarations and
-  their declaring scripts from the corpus.
-- `manifest`: writes `manifests/scripts.json`, the byte-for-byte reproduction
-  contract for the canonical local corpus. Annotation and manifest paths are
-  repository-owned and have no command-line overrides.
+- `annotate`: reads the selected decoded source tree, writes per-script
+  `.calls.json` sidecars under the repository's `lua/scripts/` tree, and writes
+  the repository-owned `lua/napi_index.json` using the vendored N-API index.
+  The N-API index also records `_cpp` receiver-class declarations and their
+  declaring scripts from the corpus.
+- `manifest`: reads the selected decoded source tree and writes the
+  repository-owned `manifests/scripts.json`, the byte-for-byte reproduction
+  contract for the canonical corpus.
 
 `_corpus.py` is the internal implementation shared by publication, annotation,
 validation, and focused tests. It is not a human entry point.
@@ -105,4 +118,7 @@ python tools/quest_selector_consumers.py --client-data-root <xivl-client-data-ch
 ```
 
 The portable `--check` mode verifies the retained source hashes, corpus pins,
-row counts, and local Lua callsites without requiring the sibling checkout.
+row counts, and Lua callsites from the selected scripts root without requiring
+the sibling checkout. When `--scripts-root` or `XIVL_LUA_SCRIPTS_DIR` selects an
+external root, a missing root fails the check instead of falling back to the
+retained report.

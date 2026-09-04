@@ -7,6 +7,7 @@ import hashlib
 import os
 import re
 import shutil
+import stat
 import sys
 import tempfile
 from collections import defaultdict
@@ -15,6 +16,79 @@ from typing import Callable, Iterator
 
 
 EXTRACTION_VERSION = "2012.09.19.0001"
+
+
+class CorpusRootError(ValueError):
+    """The selected Lua source root is missing or not a plain tree."""
+
+
+def _is_link_or_reparse(path: Path, result: os.stat_result) -> bool:
+    """Return whether a path is a link or Windows reparse point."""
+    is_junction = getattr(os.path, "isjunction", None)
+    return (
+        path.is_symlink()
+        or (is_junction is not None and is_junction(path))
+        or bool(getattr(result, "st_file_attributes", 0) & 0x0400)
+    )
+
+
+def validate_scripts_root(scripts_root: Path) -> Path:
+    """Validate a Lua source root before any enumeration or writes."""
+    scripts_root = Path(scripts_root)
+    try:
+        root_result = os.lstat(scripts_root)
+    except OSError as exc:
+        raise CorpusRootError(
+            f"Lua corpus not found or unreadable: {scripts_root}"
+        ) from exc
+    if _is_link_or_reparse(scripts_root, root_result):
+        raise CorpusRootError(
+            f"Lua scripts root must be a plain directory: {scripts_root}"
+        )
+    if not stat.S_ISDIR(root_result.st_mode):
+        raise CorpusRootError(
+            f"Lua scripts root must be a plain directory: {scripts_root}"
+        )
+
+    def onerror(exc: OSError) -> None:
+        raise CorpusRootError(
+            f"Lua scripts root cannot be inspected: {scripts_root}"
+        ) from exc
+
+    for current, directories, files in os.walk(
+        scripts_root, topdown=True, followlinks=False, onerror=onerror
+    ):
+        for name in (*directories, *files):
+            candidate = Path(current) / name
+            try:
+                result = os.lstat(candidate)
+            except OSError as exc:
+                raise CorpusRootError(
+                    f"Lua scripts root cannot inspect descendant: {candidate}"
+                ) from exc
+            if _is_link_or_reparse(candidate, result):
+                raise CorpusRootError(
+                    f"Lua scripts root contains linked or reparse path: {candidate}"
+                )
+            if name in directories and not stat.S_ISDIR(result.st_mode):
+                raise CorpusRootError(
+                    f"Lua scripts root contains non-directory path: {candidate}"
+                )
+            if name in files and not stat.S_ISREG(result.st_mode):
+                raise CorpusRootError(
+                    f"Lua scripts root contains non-regular file: {candidate}"
+                )
+    return scripts_root
+
+
+def resolve_scripts_root(default: Path, explicit: Path | None = None) -> Path:
+    """Resolve an explicit or environment-configured Lua source root."""
+    if explicit is None:
+        configured = os.environ.get("XIVL_LUA_SCRIPTS_DIR")
+        explicit = Path(configured) if configured else default
+    # Keep the final component intact so validation can reject a symlink,
+    # junction, or other reparse point instead of validating its target.
+    return explicit.expanduser().absolute()
 
 
 def write_json(path: Path, obj: object) -> None:
@@ -42,6 +116,7 @@ def line_count(content: str) -> int:
 
 def build_script_manifest(scripts_root: Path) -> dict:
     """Build the byte-for-byte reproduction contract for canonical scripts."""
+    validate_scripts_root(scripts_root)
     scripts = []
     total_bytes = 0
     for lua_path, decoded in iter_lua(scripts_root):
@@ -372,13 +447,18 @@ def annotate_corpus(
     registry_path: Path,
     api_index_path: Path,
     index_out: Path,
+    sidecars_root: Path | None = None,
 ) -> int:
-    """Regenerate N-API sidecars and the inverted index."""
-    if not scripts_root.is_dir():
-        print(
-            f"error: {scripts_root} not found - run lua_corpus.py publish first",
-            file=sys.stderr,
-        )
+    """Regenerate N-API sidecars and the inverted index.
+
+    ``scripts_root`` is read-only input when ``sidecars_root`` is supplied;
+    this keeps generated sidecars in the tracked repository tree while a
+    hydrated corpus can live elsewhere.
+    """
+    try:
+        validate_scripts_root(scripts_root)
+    except CorpusRootError as exc:
+        print(f"error: {exc}", file=sys.stderr)
         return 1
     if not registry_path.is_file():
         print(
@@ -396,6 +476,7 @@ def annotate_corpus(
     inverted: dict[str, list[dict]] = defaultdict(list)
     binding_declarations: dict[str, set[tuple[str, str]]] = defaultdict(set)
     script_count = scripts_with_calls = 0
+    sidecars_root = scripts_root if sidecars_root is None else sidecars_root
     for lua_path, decoded in iter_lua(scripts_root):
         registry_entry = registry["scripts"].get(decoded, {})
         content = lua_path.read_text(encoding="utf-8")
@@ -414,7 +495,10 @@ def annotate_corpus(
             "callsiteCount": sum(len(lines) for lines in hits.values()),
             "apis": {key: hits[key] for key in sorted(hits)},
         }
-        write_json(lua_path.with_suffix(".calls.json"), sidecar)
+        sidecar_path = (
+            sidecars_root / lua_path.relative_to(scripts_root)
+        ).with_suffix(".calls.json")
+        write_json(sidecar_path, sidecar)
         if hits:
             scripts_with_calls += 1
             for api, lines in hits.items():

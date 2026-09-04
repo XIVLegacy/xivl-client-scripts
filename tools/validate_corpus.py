@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 import os
@@ -528,6 +529,8 @@ def validate_reproduction_contract(
                 f"({len(missing)} manifest-only, {len(extra)} {label}-only)"
             )
 
+    if not scripts_tree_safe:
+        return
     scripts_root = _scripts_root()
     local_files = sorted(scripts_root.rglob("*.lua")) if scripts_root.is_dir() else []
     if CORPUS_ABSENT:
@@ -537,11 +540,10 @@ def validate_reproduction_contract(
                 "XIVL_CORPUS_ABSENT=1"
             )
         return
-    if not scripts_tree_safe:
-        return
     if not local_files:
         errors.append(
-            "local Lua corpus missing; supply lua/scripts/*.lua or set "
+            "Lua corpus missing; supply lua/scripts/*.lua, set "
+            "XIVL_LUA_SCRIPTS_DIR to an external source root, or set "
             "XIVL_CORPUS_ABSENT=1 for a public-tree-only gate"
         )
         return
@@ -691,7 +693,7 @@ def validate_lua_corpus(
     if not scripts_tree_safe:
         return
     if not scripts_root.is_dir():
-        errors.append("lua/scripts: directory missing")
+        errors.append("Lua scripts root: directory missing")
         return
     registry_scripts = _load(registry_path)["scripts"]
     registry_keys = set(registry_scripts)
@@ -931,10 +933,31 @@ def validate_docs_index() -> None:
         errors.append(f"docs/README.md: indexes {missing} but no such file under docs/")
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--scripts-root",
+        type=Path,
+        help=(
+            "directory containing decoded .lua files (default: lua/scripts, "
+            "or XIVL_LUA_SCRIPTS_DIR)"
+        ),
+    )
+    args = parser.parse_args(argv)
+    global CONFIGURED_SCRIPTS_ROOT, EXTERNAL_SCRIPTS_ROOT
+    if args.scripts_root is not None:
+        CONFIGURED_SCRIPTS_ROOT = str(args.scripts_root)
+        EXTERNAL_SCRIPTS_ROOT = args.scripts_root.expanduser().absolute()
     tracked_paths = validate_repository_boundary()
     json_count = validate_all_json(tracked_paths)
     if errors:
+        print(f"corpus validation FAILED ({len(errors)} problem(s)):", file=sys.stderr)
+        for err in errors:
+            print(f"  - {err}", file=sys.stderr)
+        return 1
+    # Approve the selected source tree before any operation can enumerate Lua.
+    scripts_tree_safe = validate_scripts_tree_boundary()
+    if not scripts_tree_safe:
         print(f"corpus validation FAILED ({len(errors)} problem(s)):", file=sys.stderr)
         for err in errors:
             print(f"  - {err}", file=sys.stderr)
@@ -949,7 +972,6 @@ def main() -> int:
         )
         return 1
     sidecars = load_sidecars()
-    scripts_tree_safe = validate_scripts_tree_boundary()
     api_bcs = validate_vendor()
     validate_retail_vendor()
     validate_schemas(sidecars)

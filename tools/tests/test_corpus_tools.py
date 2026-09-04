@@ -16,12 +16,17 @@ TOOLS_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS_DIR))
 
 import validate_corpus as validator  # noqa: E402
+import quest_selector_consumers as quest_analyzer  # noqa: E402
 from _corpus import (  # noqa: E402
+    CorpusRootError,
     annotate_corpus,
+    build_script_manifest,
     copy_lua_lf,
     extract_signals,
     publish_corpus,
+    resolve_scripts_root,
     scan_binding_declarations,
+    validate_scripts_root,
 )
 
 
@@ -95,6 +100,92 @@ L4_1 = "//dev"
             any("plain directory" in error for error in validator.errors)
         )
 
+    def test_missing_external_scripts_root_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            missing = Path(temp) / "missing"
+            previous_root = validator.EXTERNAL_SCRIPTS_ROOT
+            previous_absent = validator.CORPUS_ABSENT
+            validator.EXTERNAL_SCRIPTS_ROOT = missing
+            validator.CORPUS_ABSENT = False
+            try:
+                self.assertFalse(validator.validate_scripts_tree_boundary())
+            finally:
+                validator.EXTERNAL_SCRIPTS_ROOT = previous_root
+                validator.CORPUS_ABSENT = previous_absent
+        self.assertTrue(
+            any("missing or unreadable" in error for error in validator.errors)
+        )
+
+    def test_scripts_root_resolution_preserves_linked_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            linked = root / "linked"
+            with patch.object(
+                Path,
+                "resolve",
+                side_effect=AssertionError("root resolution followed a link"),
+            ):
+                self.assertEqual(
+                    resolve_scripts_root(root / "default", linked), linked.absolute()
+                )
+
+    def test_shared_scripts_root_rejects_linked_root_and_descendant(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp) / "scripts"
+            root.mkdir()
+            linked = root / "linked.lua"
+            linked.write_text("return nil\n", encoding="utf-8")
+
+            with patch.object(
+                sys.modules["_corpus"],
+                "_is_link_or_reparse",
+                side_effect=lambda path, _result: path in (root, linked),
+            ):
+                with self.assertRaisesRegex(CorpusRootError, "plain directory"):
+                    validate_scripts_root(root)
+
+            with patch.object(
+                sys.modules["_corpus"],
+                "_is_link_or_reparse",
+                side_effect=lambda path, _result: path == linked,
+            ):
+                with self.assertRaisesRegex(CorpusRootError, "linked or reparse"):
+                    validate_scripts_root(root)
+
+    def test_shared_scripts_root_rejects_missing_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            missing = Path(temp) / "missing"
+            with self.assertRaisesRegex(CorpusRootError, "corpus not found or unreadable"):
+                validate_scripts_root(missing)
+
+    def test_validate_approves_boundary_before_focused_tests(self) -> None:
+        validator.errors.clear()
+
+        def reject_boundary() -> bool:
+            validator.errors.append("synthetic unsafe root")
+            return False
+
+        with (
+            patch.object(validator, "validate_repository_boundary", return_value=[]),
+            patch.object(validator, "validate_all_json", return_value=0),
+            patch.object(validator, "validate_scripts_tree_boundary", side_effect=reject_boundary),
+            patch.object(validator, "run_focused_tests", side_effect=AssertionError("focused tests ran too early")) as focused,
+            redirect_stderr(io.StringIO()),
+        ):
+            self.assertEqual(validator.main([]), 1)
+        focused.assert_not_called()
+
+    def test_quest_check_rejects_missing_explicit_scripts_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            missing = Path(temp) / "missing"
+            with patch.object(
+                sys,
+                "argv",
+                ["quest_selector_consumers.py", "--check", "--scripts-root", str(missing)],
+            ), redirect_stderr(io.StringIO()) as stderr:
+                self.assertEqual(quest_analyzer.main(), 1)
+            self.assertIn("Lua corpus not found", stderr.getvalue())
+
     def test_binding_declarations_keep_receiver_class(self) -> None:
         content = '''L0_1 = WidgetBaseClass
 function L1_1(A0_2)
@@ -157,6 +248,67 @@ L1_1 = "_defineClass_cpp"
                 entry["bindings"],
                 [{"class": "WidgetBaseClass", "script": "widget_u"}],
             )
+
+    def test_annotate_external_source_keeps_sidecars_in_repository_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            external = root / "hydrated"
+            external.mkdir()
+            tracked_scripts = root / "repo" / "lua" / "scripts"
+            (external / "nested").mkdir()
+            (external / "nested" / "widget.lua").write_text(
+                'L0_1 = WidgetBaseClass\nL1_1 = "_getProperty_cpp"\n'
+                "L2_1 = _getProperty\n",
+                encoding="utf-8",
+            )
+            registry = root / "registry.json"
+            registry.write_text(
+                json.dumps({
+                    "scripts": {
+                        "nested/widget": {
+                            "ciphered": "x.lua",
+                            "classes": ["WidgetBaseClass"],
+                            "lineCount": 3,
+                        }
+                    }
+                }),
+                encoding="utf-8",
+            )
+            api_index = root / "api-index.json"
+            api_index.write_text(
+                json.dumps({
+                    "apis": {"_getProperty": [{"bcsId": "BCS-Y-1"}]}
+                }),
+                encoding="utf-8",
+            )
+            output = root / "napi.json"
+
+            self.assertEqual(
+                annotate_corpus(
+                    external,
+                    registry,
+                    api_index,
+                    output,
+                    tracked_scripts,
+                ),
+                0,
+            )
+            self.assertFalse((external / "nested" / "widget.calls.json").exists())
+            self.assertTrue(
+                (tracked_scripts / "nested" / "widget.calls.json").is_file()
+            )
+
+    def test_manifest_reads_external_source_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            source = Path(temp) / "hydrated"
+            source.mkdir()
+            (source / "widget.lua").write_bytes(b"return 'external'\n")
+
+            manifest = build_script_manifest(source)
+
+            self.assertEqual(manifest["scriptCount"], 1)
+            self.assertEqual(manifest["scripts"][0]["relativePath"], "lua/scripts/widget.lua")
+            self.assertEqual(manifest["scripts"][0]["bytes"], 18)
 
     def test_text_reading_preserves_corpus_contract(self) -> None:
         with tempfile.TemporaryDirectory() as temp:

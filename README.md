@@ -17,6 +17,10 @@ client Lua script corpus at extraction version `2012.09.19.0001`.
 The [corpus contract](lua/README.md) defines its supply, regeneration,
 provenance, and exact reproduction contract.
 
+Maintenance can read a decoded corpus from an external directory with
+`--scripts-root <path>` or `XIVL_LUA_SCRIPTS_DIR`; generated sidecars and
+indexes remain repository-owned.
+
 ## Documentation
 
 - [Documentation home](docs/README.md)

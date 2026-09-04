@@ -7,13 +7,33 @@ import argparse
 import sys
 from pathlib import Path
 
-from _corpus import annotate_corpus, build_script_manifest, publish_corpus, write_json
+from _corpus import (
+    CorpusRootError,
+    annotate_corpus,
+    build_script_manifest,
+    publish_corpus,
+    resolve_scripts_root,
+    validate_scripts_root,
+    write_json,
+)
 
-SCRIPTS_ROOT = Path("lua/scripts")
-REGISTRY_PATH = Path("lua/registry.json")
-API_INDEX_PATH = Path("data/vendor/client-structs/lua_api_index.json")
-NAPI_INDEX_PATH = Path("lua/napi_index.json")
-MANIFEST_PATH = Path("manifests/scripts.json")
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS_ROOT = REPO_ROOT / "lua" / "scripts"
+REGISTRY_PATH = REPO_ROOT / "lua" / "registry.json"
+API_INDEX_PATH = REPO_ROOT / "data" / "vendor" / "client-structs" / "lua_api_index.json"
+NAPI_INDEX_PATH = REPO_ROOT / "lua" / "napi_index.json"
+MANIFEST_PATH = REPO_ROOT / "manifests" / "scripts.json"
+
+
+def _add_scripts_root(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--scripts-root",
+        type=Path,
+        help=(
+            "directory containing decoded .lua files (default: lua/scripts, "
+            "or XIVL_LUA_SCRIPTS_DIR)"
+        ),
+    )
 
 
 def main() -> int:
@@ -41,11 +61,13 @@ def main() -> int:
         "annotate",
         help="Regenerate sidecars and the N-API inverted index.",
     )
+    _add_scripts_root(annotate)
 
     manifest = commands.add_parser(
         "manifest",
         help="Build the canonical script reproduction manifest.",
     )
+    _add_scripts_root(manifest)
 
     args = parser.parse_args()
     if args.command == "publish":
@@ -53,20 +75,24 @@ def main() -> int:
             args.lua_root,
             args.output_root,
         )
+    scripts_root = resolve_scripts_root(SCRIPTS_ROOT, args.scripts_root)
+    try:
+        validate_scripts_root(scripts_root)
+    except CorpusRootError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        return 1
     if args.command == "annotate":
         return annotate_corpus(
-            SCRIPTS_ROOT,
+            scripts_root,
             REGISTRY_PATH,
             API_INDEX_PATH,
             NAPI_INDEX_PATH,
+            SCRIPTS_ROOT,
         )
-    if not SCRIPTS_ROOT.is_dir():
-        print(f"error: {SCRIPTS_ROOT} not found", file=sys.stderr)
-        return 1
     try:
-        contract = build_script_manifest(SCRIPTS_ROOT)
+        contract = build_script_manifest(scripts_root)
         write_json(MANIFEST_PATH, contract)
-    except (OSError, UnicodeError) as exc:
+    except (OSError, UnicodeError, CorpusRootError) as exc:
         print(f"error: manifest generation failed: {exc}", file=sys.stderr)
         return 1
     print(f"wrote {contract['scriptCount']} script hashes to {MANIFEST_PATH}")

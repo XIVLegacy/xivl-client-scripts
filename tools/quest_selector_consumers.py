@@ -7,9 +7,12 @@ import argparse
 import csv
 import hashlib
 import json
+import os
 import re
 import sys
 from pathlib import Path
+
+from _corpus import CorpusRootError, resolve_scripts_root, validate_scripts_root
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -210,8 +213,10 @@ def _message_at(path: Path, line_index: int, message_id: int) -> dict:
     return row
 
 
-def analyze_script_consumers(scripts_root: Path = SCRIPTS_ROOT) -> list[dict]:
+def analyze_script_consumers(scripts_root: Path | None = None) -> list[dict]:
     """Enumerate every job-quest use of messages 51130 through 51132."""
+    scripts_root = resolve_scripts_root(SCRIPTS_ROOT, scripts_root)
+    validate_scripts_root(scripts_root)
     if not scripts_root.is_dir():
         raise AnalysisError(f"Lua corpus not found: {scripts_root}")
     rows = []
@@ -290,9 +295,9 @@ def validate_selector_alignment(named: list[dict], consumers: list[dict]) -> Non
             raise AnalysisError(f"quest {quest_id}: CSV and script selectors disagree")
 
 
-def build_report(client_data_root: Path) -> dict:
+def build_report(client_data_root: Path, scripts_root: Path | None = None) -> dict:
     named, counts, controls = census_rows(client_data_root)
-    consumers = analyze_script_consumers()
+    consumers = analyze_script_consumers(scripts_root)
     validate_selector_alignment(named, consumers)
     return {
         "version": "1",
@@ -367,11 +372,26 @@ def validate_retained(report: dict) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--client-data-root", type=Path)
+    parser.add_argument(
+        "--scripts-root",
+        type=Path,
+        help=(
+            "directory containing decoded .lua files (default: lua/scripts, "
+            "or XIVL_LUA_SCRIPTS_DIR)"
+        ),
+    )
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
+    scripts_root = resolve_scripts_root(SCRIPTS_ROOT, args.scripts_root)
+    explicit_scripts_root = (
+        args.scripts_root is not None
+        or bool(os.environ.get("XIVL_LUA_SCRIPTS_DIR"))
+    )
     try:
+        if explicit_scripts_root:
+            validate_scripts_root(scripts_root)
         if args.client_data_root is not None:
-            report = build_report(args.client_data_root.resolve())
+            report = build_report(args.client_data_root.resolve(), scripts_root)
             problems = validate_retained(report)
             if problems:
                 raise AnalysisError("; ".join(problems))
@@ -382,9 +402,15 @@ def main() -> int:
             problems = validate_retained(report)
             if problems:
                 raise AnalysisError("; ".join(problems))
-            if SCRIPTS_ROOT.is_dir() and report["messageConsumers"] != analyze_script_consumers():
+            if scripts_root.is_dir() and report["messageConsumers"] != analyze_script_consumers(scripts_root):
                 raise AnalysisError("message consumer report is stale")
-    except (OSError, UnicodeError, json.JSONDecodeError, AnalysisError) as exc:
+    except (
+        OSError,
+        UnicodeError,
+        json.JSONDecodeError,
+        AnalysisError,
+        CorpusRootError,
+    ) as exc:
         print(f"error: {exc}", file=sys.stderr)
         return 1
     rendered = render_json(report)
