@@ -25,6 +25,17 @@ indexes from their documented inputs.
 - Census retail Lua resources with
   `python tools/retail_lua_coverage.py --client-root <retail-install> --tools-root <xivl-tools-checkout>`.
   See [Coverage census](../docs/retail-lua-coverage.md).
+- Package the local private Lua corpus with
+  `python tools/private_lua_corpus.py package --output <archive.zip>`.
+  The command verifies `lua/scripts` against `manifests/scripts.json` and
+  writes a deterministic ZIP outside the source tree. Verify an existing
+  package with `python tools/private_lua_corpus.py verify --package
+  <archive.zip>`. Hydrate only an explicitly supplied absent or empty external
+  directory with `python tools/private_lua_corpus.py hydrate --package
+  <archive.zip> --destination <directory>`; hydration stages beside the target,
+  verifies the complete tree, and publishes it atomically. Each command reports
+  the file count, total bytes, and a tree SHA-256 over sorted member paths,
+  sizes, and per-file SHA-256 values.
 
 ## Validation
 
