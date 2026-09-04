@@ -338,7 +338,7 @@ def validate_report(report: dict, manifest: dict, registry: dict) -> list[str]:
         label = f"resources[{index}]"
         try:
             normalized = normalize_resource_path(row["resourcePath"])
-        except CoverageError as exc:
+        except CoverageError:
             normalized = ""
             if row.get("classification") != "unsupported-path":
                 errors.append(f"{label}: unsupported path claims another classification")
