@@ -2,8 +2,8 @@
 
 The normal asset-free corpus checks remain the merge requirement. The
 retail-input
-workflow is an additional manual check for one bounded, already tracked Lua
-claim. It retains one sanitized attestation and never publishes LPB bytes,
+workflow adds manual checks for bounded, already tracked Lua claims. Each job
+retains one sanitized attestation and never publishes LPB bytes, archives,
 decoded chunks, decompiled source, or diagnostics.
 
 ## Approved check
@@ -26,6 +26,16 @@ The input grant pins `battle-command-baseclass-lpb-1.23b` to commit
 path, 1,507 bytes, and SHA-256
 `74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569`.
 The grant permits only `battle-command-baseclass-v1`.
+
+The `Decoded Lua Corpus Checks` job is separately granted by
+`manifests/private_lua_corpus.json`. It pins
+`decoded-lua-corpus-1.23b` to commit
+`361cbed32b2d89f97dc6e40fcc5d9230a0412eaa`, path
+`extracted/ffxiv-1.23b/client-scripts/lua.zip`, 14,385,427 bytes, and SHA-256
+`0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31`.
+The archive expands to 2,671 manifest-matched scripts and 13,971,401 bytes
+with tree SHA-256
+`05edcf81aec7ad28007c059991b6858665680f860bd1ed2aa5100e7fc120da0d`.
 
 ## Trust boundary
 
@@ -87,6 +97,12 @@ repository-specific verifier to reject it. The shared finalizer and the local
 retained-file/schema checks must both pass before the six-field attestation can
 be uploaded with 30-day retention. A failure attestation is not tracked.
 
+The full-corpus job independently checks the archive identity, every member
+against `manifests/scripts.json`, and the aggregate tree identity. It hydrates
+only a disposable external directory, runs the complete corpus validator with
+`XIVL_LUA_SCRIPTS_DIR`, and rejects a mutated archive. Normal CI runs the same
+contract and mutation tests without fetching the archive.
+
 ## Reproduced result
 
 [Retail Checks run 32518216861](https://github.com/XIVLegacy/xivl-client-scripts/actions/runs/32518216861)
@@ -105,12 +121,14 @@ its mutation suite is:
 
 ```powershell
 python tools\test_retail_script.py
+python tools\test_private_lua_corpus.py
+python tools\test_retail_lua_corpus.py
 python tools\validate_corpus.py
 ```
 
-With the supplied corpus available, leave `XIVL_CORPUS_ABSENT` unset for the
-full hash and sidecar checks. For a clean public-tree check, set
-`XIVL_CORPUS_ABSENT=1`. Run `git diff --check`, an ASCII scan, actionlint when
+With the supplied corpus available, leave `XIVL_CORPUS_ABSENT` unset and set
+`XIVL_LUA_SCRIPTS_DIR` when it is hydrated outside the checkout. For a clean
+public-tree check, set `XIVL_CORPUS_ABSENT=1`. Run `git diff --check`, an ASCII scan, actionlint when
 available, vendor hash/license verification, and a staged tracked-file review
 before publication. The LPB and decompiled outputs belong only in ignored
 temporary storage during an owner-approved local rehearsal.

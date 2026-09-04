@@ -57,8 +57,11 @@ jobs:
         run: |
           set -euo pipefail
           timeout 120s python tools/test_retail_script.py
+          timeout 120s python tools/test_retail_lua_corpus.py
           timeout 30s python tools/verify_retail_script.py --contract-only > "${RUNNER_TEMP}/asset-free-attestation.json"
+          timeout 30s python tools/verify_retail_lua_corpus.py --check-contract > "${RUNNER_TEMP}/asset-free-lua-corpus-attestation.json"
           rm -f -- "${RUNNER_TEMP}/asset-free-attestation.json"
+          rm -f -- "${RUNNER_TEMP}/asset-free-lua-corpus-attestation.json"
 
   battle-command-baseclass:
     name: Battle Command Script Checks
@@ -185,5 +188,127 @@ jobs:
 
       - name: Preserve a failed evidence result
         if: always() && !cancelled() && (steps.fetch.outcome != 'success' || steps.toolchain.outcome != 'success' || steps.analysis.outcome != 'success' || steps.finalize.outcome != 'success' || steps.retained.outcome != 'success')
+        shell: bash
+        run: exit 1
+
+  lua-corpus:
+    name: Decoded Lua Corpus Checks
+    needs: retail-preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: retail-evidence
+    steps:
+      - name: Checkout approved public commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ needs.retail-preflight.outputs.public_commit }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12.14"
+
+      - name: Fetch the immutable Lua archive
+        id: fetch
+        continue-on-error: true
+        uses: XIVLegacy/xivl-tools/.github/actions/fetch-retail-input@43606fd7111140d70930810f02978d8a09c12efb
+        with:
+          token: ${{ secrets.RETAIL_INPUTS_TOKEN }}
+          commit: 361cbed32b2d89f97dc6e40fcc5d9230a0412eaa
+          path: extracted/ffxiv-1.23b/client-scripts/lua.zip
+          size: 14385427
+          sha256: 0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31
+          output-path: ${{ runner.temp }}/retail-lua-corpus/lua.zip
+
+      - name: Verify and hydrate the complete Lua corpus
+        id: analysis
+        if: steps.fetch.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -euo pipefail
+          umask 077
+          private_root="${RUNNER_TEMP}/retail-lua-corpus"
+          hydrated="${private_root}/scripts"
+          staging_root="${GITHUB_WORKSPACE}/_retail-staging"
+          rm -rf -- "${staging_root}"
+          mkdir -p "${staging_root}"
+
+          timeout 120s python tools/verify_retail_lua_corpus.py \
+            --archive "${private_root}/lua.zip" \
+            > "${staging_root}/retail-evidence-attestation.json" \
+            2> "${private_root}/verifier.log"
+          timeout 120s python tools/private_lua_corpus.py hydrate \
+            --package "${private_root}/lua.zip" \
+            --destination "${hydrated}" \
+            > "${private_root}/hydrate.log" 2>&1
+          XIVL_LUA_SCRIPTS_DIR="${hydrated}" timeout 180s python tools/validate_corpus.py \
+            > "${private_root}/validation.log" 2>&1
+
+          printf 'not-the-approved-archive' > "${private_root}/mutated.zip"
+          set +e
+          timeout 30s python tools/verify_retail_lua_corpus.py \
+            --archive "${private_root}/mutated.zip" \
+            > "${private_root}/negative-attestation.json" \
+            2> "${private_root}/negative-verifier.log"
+          negative_status=$?
+          set -e
+          test "${negative_status}" -ne 0
+          NEGATIVE="${private_root}/negative-attestation.json" timeout 30s python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          import tools.verify_retail_lua_corpus as verifier
+
+          document = json.loads(Path(os.environ["NEGATIVE"]).read_text(encoding="ascii"))
+          if document.get("result", {}).get("status") != "fail" or verifier.attestation_errors(document):
+              raise SystemExit("negative attestation failed schema check")
+          PY
+
+      - name: Create a sanitized failure attestation
+        if: always() && !cancelled() && steps.analysis.outcome != 'success'
+        shell: bash
+        run: |
+          set -euo pipefail
+          staging_root="${GITHUB_WORKSPACE}/_retail-staging"
+          rm -rf -- "${staging_root}"
+          mkdir -p "${staging_root}"
+          set +e
+          timeout 30s python tools/verify_retail_lua_corpus.py \
+            --archive "${RUNNER_TEMP}/retail-lua-corpus/missing.zip" \
+            > "${staging_root}/retail-evidence-attestation.json" 2> /dev/null
+          status=$?
+          set -e
+          test "${status}" -ne 0
+
+      - name: Finalize the retail attestation
+        id: finalize
+        if: always()
+        continue-on-error: true
+        uses: XIVLegacy/xivl-tools/.github/actions/finalize-retail-attestation@43606fd7111140d70930810f02978d8a09c12efb
+        with:
+          scratch-root: ${{ runner.temp }}/retail-lua-corpus
+          staging-root: ${{ github.workspace }}/_retail-staging
+
+      - name: Validate the only retained file
+        id: retained
+        if: always() && !cancelled() && steps.finalize.outcome == 'success'
+        shell: bash
+        run: timeout 30s python tools/verify_retail_lua_corpus.py --validate-retained-output _retail-staging
+
+      - name: Upload the sanitized attestation
+        if: always() && !cancelled() && steps.finalize.outcome == 'success' && steps.retained.outcome == 'success'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: retail-lua-corpus-attestation
+          path: _retail-staging/retail-evidence-attestation.json
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Preserve a failed evidence result
+        if: always() && !cancelled() && (steps.fetch.outcome != 'success' || steps.analysis.outcome != 'success' || steps.finalize.outcome != 'success' || steps.retained.outcome != 'success')
         shell: bash
         run: exit 1

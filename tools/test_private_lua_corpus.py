@@ -81,9 +81,33 @@ class PrivateLuaCorpusTests(unittest.TestCase):
             self.assertTrue(all(info.date_time == (1980, 1, 1, 0, 0, 0) for info in archive.infolist()))
 
     def test_source_overwrite_is_rejected(self) -> None:
+        output = self.root / "corpus.zip"
+        output.write_bytes(b"keep-existing-output")
         (self.source / "alpha.lua").write_bytes(b"return 'ALPHA'\n")
         with self.assertRaisesRegex(corpus.CorpusError, "mismatch"):
-            self._package()
+            corpus.package_corpus(self.source, output, self.manifest)
+        self.assertEqual(output.read_bytes(), b"keep-existing-output")
+
+    def test_source_change_during_packaging_is_rejected(self) -> None:
+        output = self.root / "corpus.zip"
+        original_writestr = zipfile.ZipFile.writestr
+        changed = False
+
+        def mutate_after_write(
+            archive: zipfile.ZipFile,
+            info: zipfile.ZipInfo,
+            data: bytes,
+        ) -> None:
+            nonlocal changed
+            original_writestr(archive, info, data)
+            if not changed:
+                changed = True
+                (self.source / "alpha.lua").write_bytes(b"changed\n")
+
+        with mock.patch.object(zipfile.ZipFile, "writestr", new=mutate_after_write):
+            with self.assertRaisesRegex(corpus.CorpusError, "changed"):
+                corpus.package_corpus(self.source, output, self.manifest)
+        self.assertFalse(output.exists())
 
     def test_package_output_inside_source_is_rejected(self) -> None:
         with self.assertRaisesRegex(corpus.CorpusError, "outside"):
@@ -205,6 +229,24 @@ class PrivateLuaCorpusTests(unittest.TestCase):
             [path.name for path in self.root.iterdir() if path.name.startswith(".private-lua-corpus-")],
             [],
         )
+
+    def test_destination_race_is_restored_without_data_loss(self) -> None:
+        package = self._package()
+        destination = self.root / "destination"
+        destination.mkdir()
+        real_replace = os.replace
+
+        def inject_before_backup(
+            source: str | os.PathLike[str], target: str | os.PathLike[str]
+        ) -> None:
+            if Path(source) == destination:
+                (destination / "late.txt").write_text("keep", encoding="ascii")
+            real_replace(source, target)
+
+        with mock.patch.object(corpus.os, "replace", side_effect=inject_before_backup):
+            with self.assertRaisesRegex(corpus.CorpusError, "changed"):
+                corpus.hydrate_package(package, destination, self.manifest)
+        self.assertEqual((destination / "late.txt").read_text(encoding="ascii"), "keep")
 
 
 if __name__ == "__main__":

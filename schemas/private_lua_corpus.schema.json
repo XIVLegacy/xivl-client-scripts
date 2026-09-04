@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/XIVLegacy/xivl-client-scripts/schemas/private_lua_corpus.schema.json",
+  "title": "Restricted decoded Lua corpus grant",
+  "description": "Fixed public contract for the restricted 1.23b Lua archive.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "inputId", "checkId", "target", "source", "archive", "expanded"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "inputId": {"const": "decoded-lua-corpus-1.23b"},
+    "checkId": {"const": "decoded-lua-corpus-v1"},
+    "target": {"const": "lua/scripts"},
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "path"],
+      "properties": {
+        "repository": {"const": "XIVLegacy/xivl-private-assets"},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "path": {"const": "extracted/ffxiv-1.23b/client-scripts/lua.zip"}
+      }
+    },
+    "archive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": {"const": "lua.zip"},
+        "bytes": {"const": 14385427},
+        "sha256": {"const": "0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31"}
+      }
+    },
+    "expanded": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fileCount", "totalBytes", "treeSha256"],
+      "properties": {
+        "fileCount": {"const": 2671},
+        "totalBytes": {"const": 13971401},
+        "treeSha256": {"const": "05edcf81aec7ad28007c059991b6858665680f860bd1ed2aa5100e7fc120da0d"}
+      }
+    }
+  }
+}

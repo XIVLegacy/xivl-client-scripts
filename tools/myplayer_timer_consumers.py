@@ -184,11 +184,16 @@ def _verify_callsite_shape(path: Path, line_number: int, spec: dict) -> None:
             raise AnalysisError(f"{path}:{line_number}: occupancy call arity drifted")
 
 
-def _verify_sidecars(scripts_root: Path, found: dict[str, list[tuple[str, int]]]) -> None:
+def _verify_sidecars(
+    sidecars_root: Path, found: dict[str, list[tuple[str, int]]]
+) -> None:
     indexed: dict[str, list[tuple[str, int]]] = defaultdict(list)
-    for path in sorted(scripts_root.rglob("*.calls.json")):
+    for path in sorted(sidecars_root.rglob("*.calls.json")):
         data = json.loads(path.read_text(encoding="utf-8"))
-        relative = path.relative_to(scripts_root).as_posix()[: -len(".calls.json")] + ".lua"
+        relative = (
+            path.relative_to(sidecars_root).as_posix()[: -len(".calls.json")]
+            + ".lua"
+        )
         for callback in CALLBACKS:
             for line in data.get("apis", {}).get(callback, []):
                 indexed[callback].append((relative, line))
@@ -335,7 +340,10 @@ def _verify_scalar_chains(scripts_root: Path) -> None:
                 raise AnalysisError(f"{relative}: scalar consumer chain missing {pattern}")
 
 
-def analyze(scripts_root: Path = SCRIPTS_ROOT) -> dict:
+def analyze(
+    scripts_root: Path = SCRIPTS_ROOT,
+    sidecars_root: Path | None = None,
+) -> dict:
     """Return the stable non-reconstructive report for one complete corpus."""
     if not scripts_root.is_dir():
         raise AnalysisError(f"Lua corpus not found: {scripts_root}")
@@ -349,7 +357,7 @@ def analyze(scripts_root: Path = SCRIPTS_ROOT) -> dict:
         missing = sorted(set(expected) - set(actual))
         extra = sorted(set(actual) - set(expected))
         raise AnalysisError(f"direct callsite set drifted ({len(missing)} missing, {len(extra)} extra)")
-    _verify_sidecars(scripts_root, found)
+    _verify_sidecars(sidecars_root or scripts_root, found)
     declarations = _verify_declarations_and_registry(scripts_root)
     _verify_status_propagation(scripts_root)
     _verify_scalar_chains(scripts_root)

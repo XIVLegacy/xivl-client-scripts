@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/XIVLegacy/xivl-client-scripts/schemas/retail_lua_corpus_attestation.schema.json",
+  "title": "Retail Lua corpus verification attestation, version 1",
+  "description": "Sanitized output of the restricted decoded Lua corpus check.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "publicRepositoryCommit", "approvedInputSha256", "toolVersions", "check", "result"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "publicRepositoryCommit": {"type": "string", "pattern": "^(?!0{40}$)[0-9a-f]{40}$"},
+    "approvedInputSha256": {"const": "0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31"},
+    "toolVersions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "verifier"],
+      "properties": {
+        "python": {"const": "3.12"},
+        "verifier": {"const": "1.0"}
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"const": "decoded-lua-corpus-v1"},
+        "version": {"const": 1}
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {"status": {"enum": ["pass", "fail"]}}
+    }
+  }
+}

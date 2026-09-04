@@ -79,6 +79,18 @@ so every ciphered name maps deterministically to one canonical decoded name.
 4. Run `python tools/validate_corpus.py` to verify the local corpus against the
    2,671 recorded rows.
 
+Maintainers with access to the fixed restricted archive can instead hydrate it
+into an explicit absent or empty external directory:
+
+```console
+python tools/private_lua_corpus.py hydrate --package <lua.zip> --destination <scripts-root>
+XIVL_LUA_SCRIPTS_DIR=<scripts-root> python tools/validate_corpus.py
+```
+
+Hydration does not replace `lua/scripts`, because tracked `.calls.json`
+sidecars remain interleaved there. The manifest is still the sole identity
+authority for the external `.lua` tree.
+
 Maintainers can rebuild the reproduction contract after an intentional corpus
 version change with `python tools/lua_corpus.py manifest`. Hash changes require
 source review. Do not alter a recorded hash to make validation pass.

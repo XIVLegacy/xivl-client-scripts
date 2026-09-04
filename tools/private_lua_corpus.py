@@ -344,15 +344,20 @@ def _read_verified_zip(package_path: Path, identities: Sequence[FileIdentity]) -
             folded[folded_key] = member
             if member not in expected:
                 raise _error(f"package: unexpected member: {member}")
+            item = expected[member]
+            if info.file_size != item.size:
+                raise _error(
+                    f"package: size mismatch for {member}: "
+                    f"{info.file_size} != {item.size}"
+                )
             try:
                 data = archive.read(info)
             except (OSError, RuntimeError, ValueError, zipfile.BadZipFile) as exc:
                 raise _error(f"package: cannot read member {member}: {exc}") from exc
-            item = expected[member]
             actual_digest = hashlib.sha256(data).hexdigest()
-            if len(data) != item.size or info.file_size != item.size:
+            if len(data) != item.size:
                 raise _error(
-                    f"package: size mismatch for {member}: {len(data)} / {info.file_size} != {item.size}"
+                    f"package: size mismatch for {member}: {len(data)} != {item.size}"
                 )
             if actual_digest != item.sha256:
                 raise _error(f"package: sha256 mismatch for {member}")
@@ -394,6 +399,12 @@ def package_corpus(
         ) as archive:
             archive.comment = b""
             for member, data in payloads:
+                source_path = source.joinpath(*member.split("/"))
+                source_st = _lstat(source_path, "source tree")
+                if not stat.S_ISREG(source_st.st_mode):
+                    raise _error(f"source tree: non-file path: {source_path}")
+                if source_path.read_bytes() != data:
+                    raise _error(f"source tree: changed during packaging: {member}")
                 info = zipfile.ZipInfo(member, date_time=(1980, 1, 1, 0, 0, 0))
                 info.compress_type = zipfile.ZIP_STORED
                 info.create_system = 0
@@ -405,6 +416,12 @@ def package_corpus(
                 info.extra = b""
                 info.comment = b""
                 archive.writestr(info, data)
+        try:
+            final_payloads, final_summary = _read_source(source, identities)
+        except CorpusError as exc:
+            raise _error("source tree: changed during packaging") from exc
+        if final_payloads != payloads or final_summary != summary:
+            raise _error("source tree: changed during packaging")
         os.replace(temp_path, output)
         temp_path = None
     finally:
@@ -520,9 +537,17 @@ def hydrate_package(
         if staged_summary != summary:
             raise _error("hydration staging: summary changed before publication")
 
+        current_exists, _ = _ensure_destination(destination_path)
+        if current_exists != existed:
+            raise _error("hydration destination changed before publication")
+
         if existed:
             backup = _unused_path(parent, ".private-lua-corpus-backup-")
             os.replace(destination_path, backup)
+            if next(backup.iterdir(), None) is not None:
+                os.replace(backup, destination_path)
+                backup = None
+                raise _error("hydration destination changed before publication")
             try:
                 os.replace(stage, destination_path)
                 published = True

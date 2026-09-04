@@ -103,15 +103,15 @@ def main() -> int:
     shared_revision = next(iter(shared_revisions), "")
     check(
         "shared retail actions use one immutable pin",
-        len(shared_actions) == 4
+        len(shared_actions) == 6
         and len(shared_revisions) == 1
         and len(shared_revision) == 40
         and all(char in "0123456789abcdef" for char in shared_revision)
-        and sum("/fetch-retail-input@" in action for action in shared_actions) == 1
+        and sum("/fetch-retail-input@" in action for action in shared_actions) == 2
         and sum("/setup-retail-toolchain@" in action for action in shared_actions) == 2
         and sum(
             "/finalize-retail-attestation@" in action for action in shared_actions
-        ) == 1,
+        ) == 2,
     )
     check(
         "shared fetch locks the local LPB grant",
@@ -142,7 +142,7 @@ def main() -> int:
     )
     check(
         "hosted Python patch is pinned",
-        workflow.count('python-version: "3.12.14"') == 2,
+        workflow.count('python-version: "3.12.14"') == 3,
     )
     check(
         "real-JAR tests use the exact pinned JDK",

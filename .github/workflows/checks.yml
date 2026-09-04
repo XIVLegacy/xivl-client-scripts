@@ -76,6 +76,10 @@ jobs:
           echo "${java_home}/bin" >> "${GITHUB_PATH}"
       - name: Install jsonschema
         run: pip install jsonschema
+      - name: Test restricted Lua archive tooling
+        run: python tools/test_private_lua_corpus.py
+      - name: Test retail Lua corpus contract
+        run: python tools/test_retail_lua_corpus.py
       - name: Run retail script contract tests
         run: python tools/test_retail_script.py
       - name: Run strict gate

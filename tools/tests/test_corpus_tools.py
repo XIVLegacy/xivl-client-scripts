@@ -49,6 +49,52 @@ L4_1 = "//dev"
             (["RealClass"], ["realMethod"], ["/Base/Class"]),
         )
 
+    def test_external_scripts_tree_rejects_linked_entries(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            scripts = Path(temp) / "scripts"
+            scripts.mkdir()
+            linked = scripts / "linked.lua"
+            linked.write_text("return nil\n", encoding="utf-8")
+            previous_root = validator.EXTERNAL_SCRIPTS_ROOT
+            previous_absent = validator.CORPUS_ABSENT
+            validator.EXTERNAL_SCRIPTS_ROOT = scripts
+            validator.CORPUS_ABSENT = False
+            try:
+                with patch.object(
+                    validator,
+                    "_is_link_or_reparse",
+                    side_effect=lambda path, result: path == linked,
+                ):
+                    self.assertFalse(validator.validate_scripts_tree_boundary())
+            finally:
+                validator.EXTERNAL_SCRIPTS_ROOT = previous_root
+                validator.CORPUS_ABSENT = previous_absent
+        self.assertTrue(
+            any("linked or invalid file" in error for error in validator.errors)
+        )
+
+    def test_external_scripts_tree_rejects_linked_root(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            scripts = Path(temp) / "scripts"
+            scripts.mkdir()
+            previous_root = validator.EXTERNAL_SCRIPTS_ROOT
+            previous_absent = validator.CORPUS_ABSENT
+            validator.EXTERNAL_SCRIPTS_ROOT = scripts
+            validator.CORPUS_ABSENT = False
+            try:
+                with patch.object(
+                    validator,
+                    "_is_link_or_reparse",
+                    side_effect=lambda path, result: path == scripts,
+                ):
+                    self.assertFalse(validator.validate_scripts_tree_boundary())
+            finally:
+                validator.EXTERNAL_SCRIPTS_ROOT = previous_root
+                validator.CORPUS_ABSENT = previous_absent
+        self.assertTrue(
+            any("plain directory" in error for error in validator.errors)
+        )
+
     def test_binding_declarations_keep_receiver_class(self) -> None:
         content = '''L0_1 = WidgetBaseClass
 function L1_1(A0_2)

@@ -36,6 +36,10 @@ indexes from their documented inputs.
   verifies the complete tree, and publishes it atomically. Each command reports
   the file count, total bytes, and a tree SHA-256 over sorted member paths,
   sizes, and per-file SHA-256 values.
+- Check the fixed restricted-archive grant with
+  `python tools/verify_retail_lua_corpus.py --check-contract`. Verify an
+  explicitly supplied archive with `--archive <archive.zip>`. The verifier
+  emits only a schema-limited attestation and never member paths or contents.
 
 ## Validation
 
@@ -47,6 +51,9 @@ the tracked JSON, runs focused tests, validates schemas and referential
 integrity, checks the reproduction manifest, verifies vendored inputs, and
 checks paths listed by the docs index. With a locally supplied corpus it also
 verifies every script hash and re-derives registry and callsite data.
+Set `XIVL_LUA_SCRIPTS_DIR` to an explicit hydrated script root when the `.lua`
+files are outside `lua/scripts`; tracked sidecars remain repository-local.
+`XIVL_CORPUS_ABSENT=1` and `XIVL_LUA_SCRIPTS_DIR` are mutually exclusive.
 It also validates the retained retail coverage census against its schema,
 internal inventory digest, corpus and sidecar pins, and independently anchored
 ciphered paths. Re-reading retail bytes is an explicit generator `--check`, not

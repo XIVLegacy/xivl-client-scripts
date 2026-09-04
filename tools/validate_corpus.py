@@ -7,6 +7,7 @@ import hashlib
 import json
 import os
 import re
+import stat
 import subprocess
 import sys
 from pathlib import Path
@@ -44,6 +45,12 @@ MANIFESTS_DIR = REPO_ROOT / "manifests"
 VENDOR_DIR = REPO_ROOT / "data" / "vendor" / "client-structs"
 RETAIL_VENDOR_DIR = REPO_ROOT / "tools" / "vendor" / "unluac"
 CORPUS_ABSENT = os.environ.get("XIVL_CORPUS_ABSENT") == "1"
+CONFIGURED_SCRIPTS_ROOT = os.environ.get("XIVL_LUA_SCRIPTS_DIR")
+EXTERNAL_SCRIPTS_ROOT = (
+    Path(CONFIGURED_SCRIPTS_ROOT).expanduser().absolute()
+    if CONFIGURED_SCRIPTS_ROOT
+    else None
+)
 PERMITTED_TOP_LEVEL_GROUPS = {
     "root",
     ".github",
@@ -85,6 +92,61 @@ except ImportError:
 errors: list[str] = []
 
 
+def _scripts_root() -> Path:
+    return EXTERNAL_SCRIPTS_ROOT or LUA_DIR / "scripts"
+
+
+def _is_link_or_reparse(path: Path, result: os.stat_result) -> bool:
+    is_junction = getattr(os.path, "isjunction", lambda value: False)
+    return (
+        path.is_symlink()
+        or is_junction(path)
+        or bool(getattr(result, "st_file_attributes", 0) & 0x0400)
+    )
+
+
+def validate_scripts_tree_boundary() -> bool:
+    """Reject links, reparse points, and non-files before reading scripts."""
+    if CORPUS_ABSENT:
+        return True
+    root = _scripts_root()
+    try:
+        root_st = os.lstat(root)
+    except OSError:
+        errors.append("Lua scripts root is missing or unreadable")
+        return False
+    if _is_link_or_reparse(root, root_st) or not stat.S_ISDIR(root_st.st_mode):
+        errors.append("Lua scripts root must be a plain directory")
+        return False
+
+    valid = True
+    try:
+        for current, directories, files in os.walk(
+            root, topdown=True, followlinks=False
+        ):
+            current_path = Path(current)
+            kept: list[str] = []
+            for name in sorted(directories):
+                path = current_path / name
+                result = os.lstat(path)
+                if _is_link_or_reparse(path, result) or not stat.S_ISDIR(result.st_mode):
+                    errors.append("Lua scripts tree contains a linked or invalid directory")
+                    valid = False
+                else:
+                    kept.append(name)
+            directories[:] = kept
+            for name in sorted(files):
+                path = current_path / name
+                result = os.lstat(path)
+                if _is_link_or_reparse(path, result) or not stat.S_ISREG(result.st_mode):
+                    errors.append("Lua scripts tree contains a linked or invalid file")
+                    valid = False
+    except OSError:
+        errors.append("Lua scripts tree changed or became unreadable")
+        return False
+    return valid
+
+
 def _tracked_paths() -> list[str]:
     result = subprocess.run(
         ["git", "ls-files", "-z", "--cached"],
@@ -98,6 +160,10 @@ def _tracked_paths() -> list[str]:
 def validate_repository_boundary() -> list[str]:
     """Enforce the public tree and reject restricted or local content."""
     paths = _tracked_paths()
+    if CORPUS_ABSENT and CONFIGURED_SCRIPTS_ROOT:
+        errors.append(
+            "XIVL_CORPUS_ABSENT=1 conflicts with XIVL_LUA_SCRIPTS_DIR"
+        )
     for path in paths:
         group = path.split("/", 1)[0] if "/" in path else "root"
         if group not in PERMITTED_TOP_LEVEL_GROUPS:
@@ -149,6 +215,8 @@ def validate_all_json(paths: list[str]) -> int:
 
 def run_focused_tests() -> bool:
     """Run the focused tool tests as part of the single repository gate."""
+    focused_env = dict(os.environ)
+    focused_env.pop("XIVL_LUA_SCRIPTS_DIR", None)
     result = subprocess.run(
         [
             sys.executable,
@@ -162,6 +230,7 @@ def run_focused_tests() -> bool:
         ],
         cwd=REPO_ROOT,
         check=False,
+        env=focused_env,
     )
     if result.returncode != 0:
         print(
@@ -169,17 +238,23 @@ def run_focused_tests() -> bool:
             file=sys.stderr,
         )
         return False
-    retail = subprocess.run(
-        [sys.executable, str(REPO_ROOT / "tools" / "test_retail_script.py")],
-        cwd=REPO_ROOT,
-        check=False,
-    )
-    if retail.returncode != 0:
-        print(
-            f"error: retail script contract tests failed (exit {retail.returncode})",
-            file=sys.stderr,
+    for test_name in (
+        "test_private_lua_corpus.py",
+        "test_retail_lua_corpus.py",
+        "test_retail_script.py",
+    ):
+        test = subprocess.run(
+            [sys.executable, str(REPO_ROOT / "tools" / test_name)],
+            cwd=REPO_ROOT,
+            check=False,
+            env=focused_env,
         )
-        return False
+        if test.returncode != 0:
+            print(
+                f"error: {test_name} failed (exit {test.returncode})",
+                file=sys.stderr,
+            )
+            return False
     return True
 
 
@@ -209,6 +284,11 @@ def load_sidecars() -> dict[str, dict]:
 
 def validate_schemas(sidecars: dict[str, dict]) -> None:
     pairs = [
+        (
+            MANIFESTS_DIR / "private_lua_corpus.json",
+            "private_lua_corpus.schema.json",
+            "manifests/private_lua_corpus.json",
+        ),
         (
             MANIFESTS_DIR / "scripts.json",
             "lua_scripts_manifest.schema.json",
@@ -330,7 +410,7 @@ def validate_retail_lua_coverage() -> None:
         )
 
 
-def validate_myplayer_timer_consumers() -> None:
+def validate_myplayer_timer_consumers(scripts_tree_safe: bool = True) -> None:
     """Verify the retained timer-consumer report and its corpus pins."""
     report_path = MANIFESTS_DIR / "myplayer_timer_consumers.json"
     if not report_path.is_file():
@@ -356,10 +436,10 @@ def validate_myplayer_timer_consumers() -> None:
         errors.append(
             "manifests/myplayer_timer_consumers.json: corpus pins disagree with tracked inputs"
         )
-    if CORPUS_ABSENT:
+    if CORPUS_ABSENT or not scripts_tree_safe:
         return
     try:
-        rebuilt = analyze_timer_consumers()
+        rebuilt = analyze_timer_consumers(_scripts_root(), LUA_DIR / "scripts")
     except (OSError, UnicodeError, json.JSONDecodeError, TimerConsumerAnalysisError) as exc:
         errors.append(f"manifests/myplayer_timer_consumers.json: analysis failed: {exc}")
         return
@@ -367,7 +447,7 @@ def validate_myplayer_timer_consumers() -> None:
         errors.append("manifests/myplayer_timer_consumers.json: generated report is stale")
 
 
-def validate_quest_selector_consumers() -> None:
+def validate_quest_selector_consumers(scripts_tree_safe: bool = True) -> None:
     """Verify retained selector evidence and local script callsites."""
     report_path = MANIFESTS_DIR / "quest_selector_consumers.json"
     if not report_path.is_file():
@@ -375,10 +455,10 @@ def validate_quest_selector_consumers() -> None:
     report = _load(report_path)
     for problem in validate_quest_selector_report(report):
         errors.append(f"manifests/quest_selector_consumers.json: {problem}")
-    if CORPUS_ABSENT:
+    if CORPUS_ABSENT or not scripts_tree_safe:
         return
     try:
-        consumers = analyze_script_consumers()
+        consumers = analyze_script_consumers(_scripts_root())
     except (OSError, UnicodeError, QuestSelectorAnalysisError) as exc:
         errors.append(
             f"manifests/quest_selector_consumers.json: analysis failed: {exc}"
@@ -390,7 +470,9 @@ def validate_quest_selector_consumers() -> None:
         )
 
 
-def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
+def validate_reproduction_contract(
+    sidecars: dict[str, dict], scripts_tree_safe: bool = True
+) -> None:
     """Validate manifest metadata and, when supplied, every corpus byte."""
     manifest_path = MANIFESTS_DIR / "scripts.json"
     registry_path = LUA_DIR / "registry.json"
@@ -446,7 +528,7 @@ def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
                 f"({len(missing)} manifest-only, {len(extra)} {label}-only)"
             )
 
-    scripts_root = LUA_DIR / "scripts"
+    scripts_root = _scripts_root()
     local_files = sorted(scripts_root.rglob("*.lua")) if scripts_root.is_dir() else []
     if CORPUS_ABSENT:
         if local_files:
@@ -454,6 +536,8 @@ def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
                 "corpus absence declaration: found local .lua files while "
                 "XIVL_CORPUS_ABSENT=1"
             )
+        return
+    if not scripts_tree_safe:
         return
     if not local_files:
         errors.append(
@@ -468,7 +552,8 @@ def validate_reproduction_contract(sidecars: dict[str, dict]) -> None:
         if isinstance(row, dict) and isinstance(row.get("relativePath"), str)
     }
     on_disk = {
-        path.relative_to(REPO_ROOT).as_posix(): path for path in local_files
+        "lua/scripts/" + path.relative_to(scripts_root).as_posix(): path
+        for path in local_files
     }
     for path in sorted(set(by_path) - set(on_disk)):
         errors.append(f"manifests/scripts.json: {path} listed but missing on disk")
@@ -593,14 +678,17 @@ def validate_retail_vendor() -> None:
 def validate_lua_corpus(
     sidecars: dict[str, dict],
     api_bcs: dict[str, list[str]] | None,
+    scripts_tree_safe: bool = True,
 ) -> None:
     """Require registry, scripts, and sidecars to share one key set."""
     registry_path = LUA_DIR / "registry.json"
-    scripts_root = LUA_DIR / "scripts"
+    scripts_root = _scripts_root()
     if not registry_path.is_file():
         errors.append("lua/registry.json: file missing")
         return
     if CORPUS_ABSENT:
+        return
+    if not scripts_tree_safe:
         return
     if not scripts_root.is_dir():
         errors.append("lua/scripts: directory missing")
@@ -689,6 +777,7 @@ def validate_lua_corpus(
 def validate_napi_index(
     sidecars: dict[str, dict],
     api_bcs: dict[str, list[str]] | None,
+    scripts_tree_safe: bool = True,
 ) -> None:
     """Require the inverted index to match sidecar callsites."""
     napi_path = LUA_DIR / "napi_index.json"
@@ -699,8 +788,9 @@ def validate_napi_index(
         for api, lines in sidecar.get("apis", {}).items():
             from_sidecars.setdefault(api, set()).update((key, line) for line in lines)
     expected_bindings: dict[str, set[tuple[str, str]]] = {}
-    if not CORPUS_ABSENT:
-        scripts_root = LUA_DIR / "scripts"
+    scan_scripts = not CORPUS_ABSENT and scripts_tree_safe
+    if scan_scripts:
+        scripts_root = _scripts_root()
         for lua_path in scripts_root.rglob("*.lua"):
             decoded = lua_path.relative_to(scripts_root).with_suffix("").as_posix()
             content = lua_path.read_text(encoding="utf-8")
@@ -721,7 +811,7 @@ def validate_napi_index(
                     f"lua/napi_index.json: {api}: bcsIds disagree with the "
                     "vendored N-API catalog"
                 )
-        if not CORPUS_ABSENT:
+        if scan_scripts:
             expected = [
                 {"class": receiver_class, "script": script}
                 for receiver_class, script in sorted(expected_bindings.get(api, set()))
@@ -859,15 +949,16 @@ def main() -> int:
         )
         return 1
     sidecars = load_sidecars()
+    scripts_tree_safe = validate_scripts_tree_boundary()
     api_bcs = validate_vendor()
     validate_retail_vendor()
     validate_schemas(sidecars)
     validate_retail_lua_coverage()
-    validate_myplayer_timer_consumers()
-    validate_quest_selector_consumers()
-    validate_reproduction_contract(sidecars)
-    validate_lua_corpus(sidecars, api_bcs)
-    validate_napi_index(sidecars, api_bcs)
+    validate_myplayer_timer_consumers(scripts_tree_safe)
+    validate_quest_selector_consumers(scripts_tree_safe)
+    validate_reproduction_contract(sidecars, scripts_tree_safe)
+    validate_lua_corpus(sidecars, api_bcs, scripts_tree_safe)
+    validate_napi_index(sidecars, api_bcs, scripts_tree_safe)
     validate_derived_counts(sidecars)
     validate_docs_index()
     if errors:

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "inputId": "decoded-lua-corpus-1.23b",
+  "checkId": "decoded-lua-corpus-v1",
+  "target": "lua/scripts",
+  "source": {
+    "repository": "XIVLegacy/xivl-private-assets",
+    "commit": "361cbed32b2d89f97dc6e40fcc5d9230a0412eaa",
+    "path": "extracted/ffxiv-1.23b/client-scripts/lua.zip"
+  },
+  "archive": {
+    "path": "lua.zip",
+    "bytes": 14385427,
+    "sha256": "0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31"
+  },
+  "expanded": {
+    "fileCount": 2671,
+    "totalBytes": 13971401,
+    "treeSha256": "05edcf81aec7ad28007c059991b6858665680f860bd1ed2aa5100e7fc120da0d"
+  }
+}
