@@ -30,7 +30,7 @@ The grant permits only `battle-command-baseclass-v1`.
 The `Decoded Lua Corpus Checks` job is separately granted by
 `manifests/private_lua_corpus.json`. It pins
 `decoded-lua-corpus-1.23b` to commit
-`361cbed32b2d89f97dc6e40fcc5d9230a0412eaa`, path
+`40006d5d716583d78690a6f3ef50ca1bc41dddee`, path
 `extracted/ffxiv-1.23b/client-scripts/lua.zip`, 14,385,427 bytes, and SHA-256
 `0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31`.
 The archive expands to 2,671 manifest-matched scripts and 13,971,401 bytes

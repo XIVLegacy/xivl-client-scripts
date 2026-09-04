@@ -5,7 +5,7 @@
   "target": "lua/scripts",
   "source": {
     "repository": "XIVLegacy/xivl-private-assets",
-    "commit": "361cbed32b2d89f97dc6e40fcc5d9230a0412eaa",
+    "commit": "40006d5d716583d78690a6f3ef50ca1bc41dddee",
     "path": "extracted/ffxiv-1.23b/client-scripts/lua.zip"
   },
   "archive": {
