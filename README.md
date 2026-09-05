@@ -31,12 +31,6 @@ indexes remain repository-owned.
 - [Tooling and regeneration](tools/README.md)
 - [Vendored N-API pin policy](data/vendor/client-structs/README.md)
 
-## Community
-
-Join the [project Discord](https://discord.gg/PxK5RJYQjm) for questions and
-community support. Use [Issues](https://github.com/XIVLegacy/xivl-client-scripts/issues)
-to report bugs and durable research findings.
-
 ## Contributing
 
 Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before you
