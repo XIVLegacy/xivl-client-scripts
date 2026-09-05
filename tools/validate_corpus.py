@@ -25,6 +25,12 @@ from myplayer_timer_consumers import (
     analyze as analyze_timer_consumers,
     render_json as render_timer_consumers,
 )
+from monster_attack_weapon_skill_profiles import (
+    AnalysisError as MonsterAttackProfileAnalysisError,
+    analyze as analyze_monster_attack_profile,
+    render_json as render_monster_attack_profile,
+    validate_retained as validate_monster_attack_profile,
+)
 from quest_selector_consumers import (
     AnalysisError as QuestSelectorAnalysisError,
     analyze_script_consumers,
@@ -311,6 +317,11 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
             "quest_selector_consumers.schema.json",
             "manifests/quest_selector_consumers.json",
         ),
+        (
+            MANIFESTS_DIR / "monster_attack_weapon_skill_profiles.json",
+            "monster_attack_weapon_skill_profiles.schema.json",
+            "manifests/monster_attack_weapon_skill_profiles.json",
+        ),
     ]
     for inst_path, schema_name, label in pairs:
         schema_path = SCHEMAS / schema_name
@@ -467,6 +478,39 @@ def validate_quest_selector_consumers(scripts_tree_safe: bool = True) -> None:
     if report.get("messageConsumers") != consumers:
         errors.append(
             "manifests/quest_selector_consumers.json: message consumers are stale"
+        )
+
+
+def validate_monster_attack_weapon_skill_profile(
+    scripts_tree_safe: bool = True,
+) -> None:
+    """Verify the retained getter profile and rebuild it with a corpus."""
+    report_path = MANIFESTS_DIR / "monster_attack_weapon_skill_profiles.json"
+    if not report_path.is_file():
+        return
+    report = _load(report_path)
+    for problem in validate_monster_attack_profile(report):
+        errors.append(
+            "manifests/monster_attack_weapon_skill_profiles.json: " + problem
+        )
+    if CORPUS_ABSENT or not scripts_tree_safe:
+        return
+    try:
+        rebuilt = analyze_monster_attack_profile(_scripts_root())
+    except (
+        OSError,
+        UnicodeError,
+        MonsterAttackProfileAnalysisError,
+        CorpusRootError,
+    ) as exc:
+        errors.append(
+            "manifests/monster_attack_weapon_skill_profiles.json: "
+            f"analysis failed: {exc}"
+        )
+        return
+    if render_monster_attack_profile(rebuilt) != report_path.read_bytes():
+        errors.append(
+            "manifests/monster_attack_weapon_skill_profiles.json: generated report is stale"
         )
 
 
@@ -977,6 +1021,7 @@ def main(argv: list[str] | None = None) -> int:
     validate_retail_lua_coverage()
     validate_myplayer_timer_consumers(scripts_tree_safe)
     validate_quest_selector_consumers(scripts_tree_safe)
+    validate_monster_attack_weapon_skill_profile(scripts_tree_safe)
     validate_reproduction_contract(sidecars, scripts_tree_safe)
     validate_lua_corpus(sidecars, api_bcs, scripts_tree_safe)
     validate_napi_index(sidecars, api_bcs, scripts_tree_safe)

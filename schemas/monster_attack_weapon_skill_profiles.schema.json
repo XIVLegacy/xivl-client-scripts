@@ -1,0 +1,193 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.org/schemas/monster_attack_weapon_skill_profiles.schema.json",
+  "title": "MonsterAttackWeaponSkill getter-rule profile",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "gameVersion",
+    "extraction",
+    "classPath",
+    "parentPath",
+    "getterRulesSha256",
+    "source",
+    "summary",
+    "getterRules",
+    "unresolved"
+  ],
+  "properties": {
+    "version": { "const": "1" },
+    "gameVersion": { "const": "1.23b" },
+    "extraction": { "const": "2012.09.19.0001" },
+    "classPath": {
+      "const": "/Command/Game/WeaponSkill/MonsterAttackWeaponSkill"
+    },
+    "parentPath": {
+      "const": "/Command/Game/WeaponSkill/WeaponSkillBaseClass"
+    },
+    "getterRulesSha256": {
+      "const": "446bb12571d90c6a5095feb49ed9f5056c2ccee84f902204e70ec985833e25f2"
+    },
+    "source": { "$ref": "#/$defs/source" },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["getterCount", "overrideGroupCount", "overrideCommandCount"],
+      "properties": {
+        "getterCount": { "const": 6 },
+        "overrideGroupCount": { "const": 12 },
+        "overrideCommandCount": { "const": 57 }
+      }
+    },
+    "getterRules": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "getCommandInformation",
+        "getFrequency",
+        "getRangeWidth",
+        "getRangeRotate",
+        "getCommandRangeHeight",
+        "getPartsDamageAdjust"
+      ],
+      "properties": {
+        "getCommandInformation": {
+          "$ref": "#/$defs/informationRule"
+        },
+        "getFrequency": { "$ref": "#/$defs/scalarRule" },
+        "getRangeWidth": { "$ref": "#/$defs/scalarRule" },
+        "getRangeRotate": { "$ref": "#/$defs/scalarRule" },
+        "getCommandRangeHeight": { "$ref": "#/$defs/scalarRule" },
+        "getPartsDamageAdjust": { "$ref": "#/$defs/pairRule" }
+      }
+    },
+    "unresolved": { "$ref": "#/$defs/nonemptyStrings" }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["script", "sha256", "bytes", "lineCount", "manifest"],
+      "properties": {
+        "script": {
+          "const": "lua/scripts/command/game/weaponskill/monsterattackweaponskill.lua"
+        },
+        "sha256": {
+          "const": "d5b8e884aad2ca2cfe5cfa96cf5e029d975a32bb0bc1742873ded2f3a78b668e"
+        },
+        "bytes": { "const": 59652 },
+        "lineCount": { "const": 3469 },
+        "manifest": { "const": "manifests/scripts.json" }
+      }
+    },
+    "nonemptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "commandIds": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "integer", "minimum": 10000 },
+      "uniqueItems": true
+    },
+    "scalarOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commandIds", "result", "sourceLines"],
+      "properties": {
+        "commandIds": { "$ref": "#/$defs/commandIds" },
+        "result": { "type": "integer" },
+        "sourceLines": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "pairOverride": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["commandIds", "result", "sourceLines"],
+      "properties": {
+        "commandIds": { "$ref": "#/$defs/commandIds" },
+        "result": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer" },
+            { "type": "integer" }
+          ],
+          "items": false
+        },
+        "sourceLines": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "scalarRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default", "overrides", "definitionLine"],
+      "properties": {
+        "default": { "type": "integer" },
+        "overrides": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/scalarOverride" }
+        },
+        "definitionLine": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "informationRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "default",
+        "selector",
+        "otherSelectors",
+        "overrides",
+        "definitionLine"
+      ],
+      "properties": {
+        "default": { "const": 1 },
+        "selector": { "const": 8 },
+        "otherSelectors": { "const": "nil" },
+        "overrides": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/scalarOverride" }
+        },
+        "definitionLine": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "pairRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["default", "returnArity", "overrides", "definitionLine"],
+      "properties": {
+        "default": {
+          "type": "array",
+          "prefixItems": [
+            { "type": "integer" },
+            { "type": "integer" }
+          ],
+          "items": false
+        },
+        "returnArity": { "const": 2 },
+        "overrides": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/pairOverride" }
+        },
+        "definitionLine": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

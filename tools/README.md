@@ -24,6 +24,10 @@ indexes from their documented inputs.
 - Check general parameter 18 consumers with
   `python tools/general_parameter_18_consumers.py [--scripts-root <path>]`.
   See [Consumer report](../docs/general-parameter-18-consumers.md).
+- Build or check the MonsterAttackWeaponSkill getter profile with
+  `python tools/monster_attack_weapon_skill_profiles.py --check
+  [--scripts-root <path>]`. Omit `--check` to regenerate the retained
+  manifest from the exact decoded Lua source. See [Getter profile](../docs/monster-attack-weapon-skill-profiles.md).
 - Census retail Lua resources with
   `python tools/retail_lua_coverage.py --client-root <retail-install> --tools-root <xivl-tools-checkout>`.
   See [Coverage census](../docs/retail-lua-coverage.md).
