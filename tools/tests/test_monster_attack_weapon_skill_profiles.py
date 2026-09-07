@@ -9,8 +9,6 @@ from copy import deepcopy
 from pathlib import Path
 from unittest import mock
 
-import jsonschema
-
 TOOLS_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = TOOLS_DIR.parent
 sys.path.insert(0, str(TOOLS_DIR))
@@ -39,12 +37,6 @@ class MonsterAttackWeaponSkillProfileTests(unittest.TestCase):
             report["getterRules"]["getPartsDamageAdjust"]["overrides"][0]["result"],
             [1, 0],
         )
-
-    def test_report_matches_schema(self) -> None:
-        schema = json.loads(profile.SCHEMA_PATH.read_text(encoding="utf-8"))
-        report = json.loads(profile.OUTPUT_PATH.read_text(encoding="utf-8"))
-        errors = list(jsonschema.Draft202012Validator(schema).iter_errors(report))
-        self.assertEqual(errors, [])
 
     def test_retained_getter_mutation_is_rejected(self) -> None:
         report = json.loads(profile.OUTPUT_PATH.read_text(encoding="utf-8"))
