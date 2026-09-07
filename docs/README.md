@@ -24,4 +24,3 @@ charter, and contribution policy.
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 
 `tools/validate_corpus.py` checks that local Markdown paths listed here exist.
-The ignored `docs/ai_agents/local/` island is outside the public tree.

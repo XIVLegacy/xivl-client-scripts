@@ -32,17 +32,12 @@ Use ASCII punctuation and repo-relative links. Keep paragraphs short. Use a
 list for a real sequence and a table for repeated mappings. Link the canonical
 page instead of repeating a changing fact.
 
-`docs/README.md` provides entry points into the public documentation. The
-ignored `docs/ai_agents/local/` island is outside the public tree.
+`docs/README.md` provides entry points into the public documentation.
 
-## Tracked and local boundaries
+## Public policy
 
 `docs/ai_agents/` is the tracked policy tier. Its pages define contribution,
 comment, and evidence rules for this repository.
-
-`docs/ai_agents/local/` is an ignored maintainer working area. It may contain
-working notes and review audits, but it is not public policy or evidence and
-must not be linked as a current contract.
 
 ## Reading order
 
