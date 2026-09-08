@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from _corpus import (
+    CorpusRootError,
     decode_path,
     extract_signals,
     load_api_index,
