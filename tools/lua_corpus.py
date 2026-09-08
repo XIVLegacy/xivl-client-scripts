@@ -13,7 +13,6 @@ from _corpus import (
     build_script_manifest,
     publish_corpus,
     resolve_scripts_root,
-    validate_scripts_root,
     write_json,
 )
 
@@ -76,11 +75,6 @@ def main() -> int:
             args.output_root,
         )
     scripts_root = resolve_scripts_root(SCRIPTS_ROOT, args.scripts_root)
-    try:
-        validate_scripts_root(scripts_root)
-    except CorpusRootError as exc:
-        print(f"error: {exc}", file=sys.stderr)
-        return 1
     if args.command == "annotate":
         return annotate_corpus(
             scripts_root,
