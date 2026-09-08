@@ -5,6 +5,8 @@ indexes from their documented inputs.
 
 ## Commands
 
+- Check Python lint and formatting with `ruff check --no-cache tools` and
+  `ruff format --check --no-cache tools`.
 - Validate the repository with `python tools/validate_corpus.py`.
 - Publish scripts and registry with
   `python tools/lua_corpus.py publish --lua-root <path>`. See [Corpus

@@ -32,6 +32,9 @@ citations, confidence, and provenance.
 - Raise or report specific failures instead of using broad exception handlers.
 - Add type annotations where they clarify annotation records, paths, or public
   helper contracts.
+- Use Ruff 0.15.21 as the Python formatter and linter. Run `ruff check
+  --no-cache tools` and `ruff format --check --no-cache tools` from the
+  repository root.
 
 ## Corpus and structured data
 
