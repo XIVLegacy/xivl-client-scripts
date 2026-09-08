@@ -22,9 +22,7 @@ OUTPUT_PATH = REPO_ROOT / "manifests" / "monster_attack_weapon_skill_profiles.js
 SCHEMA_PATH = REPO_ROOT / "schemas" / "monster_attack_weapon_skill_profiles.schema.json"
 SCRIPTS_MANIFEST_PATH = REPO_ROOT / "manifests" / "scripts.json"
 
-SOURCE_RELATIVE = Path(
-    "command/game/weaponskill/monsterattackweaponskill.lua"
-)
+SOURCE_RELATIVE = Path("command/game/weaponskill/monsterattackweaponskill.lua")
 SOURCE_PATH = "lua/scripts/command/game/weaponskill/monsterattackweaponskill.lua"
 SOURCE_SHA256 = "d5b8e884aad2ca2cfe5cfa96cf5e029d975a32bb0bc1742873ded2f3a78b668e"
 SOURCE_BYTES = 59652
@@ -159,7 +157,9 @@ def _condition_branches(
                 break
         ids = [
             int(value)
-            for value in re.findall(r"(?<![A-Za-z0-9_])(\d+)(?![A-Za-z0-9_])", match.group("expr"))
+            for value in re.findall(
+                r"(?<![A-Za-z0-9_])(\d+)(?![A-Za-z0-9_])", match.group("expr")
+            )
             if int(value) >= 10000
         ]
         if not ids:
@@ -277,7 +277,9 @@ def _group_overrides(
             {
                 "commandIds": command_ids,
                 "result": result,
-                "sourceLines": sorted({source_lines[command_id] for command_id in command_ids}),
+                "sourceLines": sorted(
+                    {source_lines[command_id] for command_id in command_ids}
+                ),
             }
         )
     return overrides
@@ -321,15 +323,18 @@ def _command_information_rule(block: list[str], line_offset: int) -> dict[str, A
         if value is None:
             value = _last_assignment(branch, "L21_2")
         if value is None:
-            raise AnalysisError(f"getCommandInformation: branch at line {line} has no result")
+            raise AnalysisError(
+                f"getCommandInformation: branch at line {line} has no result"
+            )
         for command_id in command_ids:
             if command_id in values:
-                raise AnalysisError(f"getCommandInformation: duplicate command id {command_id}")
+                raise AnalysisError(
+                    f"getCommandInformation: duplicate command id {command_id}"
+                )
             values[command_id] = value
             source_lines[command_id] = line
     selector_matches = [
-        re.match(r"^\s*if A1_2 == (\d+) then\s*$", line)
-        for line in block
+        re.match(r"^\s*if A1_2 == (\d+) then\s*$", line) for line in block
     ]
     selectors = [int(match.group(1)) for match in selector_matches if match]
     if selectors != [8]:
@@ -352,11 +357,15 @@ def _parts_rule(block: list[str], line_offset: int) -> dict[str, Any]:
             "\n".join(branch),
         )
         if match is None:
-            raise AnalysisError(f"getPartsDamageAdjust: branch at line {line} has no pair")
+            raise AnalysisError(
+                f"getPartsDamageAdjust: branch at line {line} has no pair"
+            )
         result = [int(match.group(1)), int(match.group(2))]
         for command_id in command_ids:
             if command_id in values:
-                raise AnalysisError(f"getPartsDamageAdjust: duplicate command id {command_id}")
+                raise AnalysisError(
+                    f"getPartsDamageAdjust: duplicate command id {command_id}"
+                )
             values[command_id] = result
             source_lines[command_id] = line
     default_match = re.search(
@@ -386,7 +395,11 @@ def _class_declaration(lines: list[str]) -> tuple[str, str]:
     class_name = class_match.group("class")
     base_name = class_match.group("base")
     expected_base = PARENT_PATH.rsplit("/", 1)[-1]
-    if parent != PARENT_PATH or base_name != expected_base or class_name != "MonsterAttackWeaponSkill":
+    if (
+        parent != PARENT_PATH
+        or base_name != expected_base
+        or class_name != "MonsterAttackWeaponSkill"
+    ):
         raise AnalysisError("class declaration does not match MonsterAttackWeaponSkill")
     return class_name, parent
 
@@ -412,7 +425,9 @@ def analyze(scripts_root: Path | None = None) -> dict[str, Any]:
         len(data) != source_manifest_row["bytes"]
         or len(lines) != source_manifest_row["lineCount"]
     ):
-        raise AnalysisError(f"{SOURCE_RELATIVE.as_posix()}: source size or line count drifted")
+        raise AnalysisError(
+            f"{SOURCE_RELATIVE.as_posix()}: source size or line count drifted"
+        )
     class_name, parent = _class_declaration(lines)
 
     starts: dict[str, int] = {}
@@ -538,7 +553,9 @@ def validate_retained(report: dict[str, Any]) -> list[str]:
 
 
 def _selected_root(args: argparse.Namespace) -> tuple[Path, bool]:
-    explicit = args.scripts_root is not None or bool(os.environ.get("XIVL_LUA_SCRIPTS_DIR"))
+    explicit = args.scripts_root is not None or bool(
+        os.environ.get("XIVL_LUA_SCRIPTS_DIR")
+    )
     return resolve_scripts_root(SCRIPTS_ROOT, args.scripts_root), explicit
 
 
@@ -576,7 +593,9 @@ def main() -> int:
     rendered = render_json(report)
     if args.check:
         if not OUTPUT_PATH.is_file() or OUTPUT_PATH.read_bytes() != rendered:
-            print(f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr)
+            print(
+                f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr
+            )
             return 1
         print("PASS: MonsterAttackWeaponSkill getter profile is current")
         return 0

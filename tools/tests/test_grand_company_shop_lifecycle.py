@@ -8,9 +8,11 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 LOCAL_SCRIPTS = REPO / "lua" / "scripts"
-SCRIPTS = Path(
-    os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(LOCAL_SCRIPTS))
-).expanduser().absolute()
+SCRIPTS = (
+    Path(os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(LOCAL_SCRIPTS)))
+    .expanduser()
+    .absolute()
+)
 
 
 def compact(relative: str) -> str:
@@ -33,8 +35,7 @@ class GrandCompanyShopLifecycleCorpusTests(unittest.TestCase):
         self.assertIn("if L1_2 == false then L2_2 = -1", actor)
         self.assertIn('L3_2 = "Ask/GrandCompanyShopWidget" L1_2(L2_2, L3_2)', actor)
         self.assertIn(
-            "L6_2 = L4_2.getAskResult L6_2, L7_2 = L6_2(L7_2) "
-            "return L5_2, L6_2, L7_2",
+            "L6_2 = L4_2.getAskResult L6_2, L7_2 = L6_2(L7_2) return L5_2, L6_2, L7_2",
             connector,
         )
 

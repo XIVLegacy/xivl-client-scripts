@@ -6,9 +6,11 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[2]
-SCRIPTS = Path(
-    os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(REPO / "lua" / "scripts"))
-).expanduser().absolute()
+SCRIPTS = (
+    Path(os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(REPO / "lua" / "scripts")))
+    .expanduser()
+    .absolute()
+)
 
 
 def compact(path: Path) -> str:
@@ -36,7 +38,12 @@ class GuildleveLifecycleCorpusTests(unittest.TestCase):
 
     def test_aetheryte_start_and_reward_argument_routes_are_stable(self) -> None:
         source = compact(
-            SCRIPTS / "chara" / "npc" / "object" / "aetheryte" / "aetherytebaseclass.lua"
+            SCRIPTS
+            / "chara"
+            / "npc"
+            / "object"
+            / "aetheryte"
+            / "aetherytebaseclass.lua"
         )
         self.assertIn(
             'L10_2 = L10_2.askEventModeWidgetYield L12_2 = "Ask/GuildleveStartWidget" '
@@ -53,8 +60,7 @@ class GuildleveLifecycleCorpusTests(unittest.TestCase):
                 source,
             )
         self.assertIn(
-            'L13_2 = L13_2.askEventModeWidgetYield '
-            'L15_2 = "Ask/ContentRewardWidget"',
+            'L13_2 = L13_2.askEventModeWidgetYield L15_2 = "Ask/ContentRewardWidget"',
             source,
         )
 

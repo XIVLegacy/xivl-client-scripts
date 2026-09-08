@@ -20,11 +20,14 @@ class MonsterAttackWeaponSkillProfileTests(unittest.TestCase):
     def test_retained_report_is_pinned_and_compact(self) -> None:
         report = json.loads(profile.OUTPUT_PATH.read_text(encoding="utf-8"))
         self.assertEqual(profile.validate_retained(report), [])
-        self.assertEqual(report["summary"], {
-            "getterCount": 6,
-            "overrideGroupCount": 12,
-            "overrideCommandCount": 57,
-        })
+        self.assertEqual(
+            report["summary"],
+            {
+                "getterCount": 6,
+                "overrideGroupCount": 12,
+                "overrideCommandCount": 57,
+            },
+        )
         self.assertEqual(
             report["getterRules"]["getCommandInformation"]["overrides"][0]["result"],
             -1,

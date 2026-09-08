@@ -33,9 +33,9 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
 
     def test_schema_rejects_inconsistent_callsite_shapes(self) -> None:
         schema = json.loads(
-            (analyzer.REPO_ROOT / "schemas" / "myplayer_timer_consumers.schema.json").read_text(
-                encoding="utf-8"
-            )
+            (
+                analyzer.REPO_ROOT / "schemas" / "myplayer_timer_consumers.schema.json"
+            ).read_text(encoding="utf-8")
         )
         validator = jsonschema.Draft202012Validator(schema)
         report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
@@ -61,7 +61,9 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
         self.assertEqual(source.count(old), 1)
         with tempfile.TemporaryDirectory() as temp:
             mutated = Path(temp) / source_path.name
-            mutated.write_text(source.replace(old, old.replace("16", "17")), encoding="utf-8")
+            mutated.write_text(
+                source.replace(old, old.replace("16", "17")), encoding="utf-8"
+            )
             spec = analyzer.CALLSITE_SPECS[("widget/pcmatchingeditwidget.lua", 842)]
             with self.assertRaisesRegex(analyzer.AnalysisError, "expected argument 16"):
                 analyzer._verify_callsite_shape(mutated, 842, spec)
@@ -75,7 +77,9 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
             root = Path(temp)
             target = root / "widget" / "statuswidget.lua"
             target.parent.mkdir(parents=True)
-            target.write_text(source.replace(old, old.replace("16", "17")), encoding="utf-8")
+            target.write_text(
+                source.replace(old, old.replace("16", "17")), encoding="utf-8"
+            )
             with self.assertRaisesRegex(analyzer.AnalysisError, "argument 16"):
                 analyzer._verify_status_propagation(root)
 
@@ -105,11 +109,15 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
             for relative in relatives:
                 source = (SCRIPTS / relative).read_text(encoding="utf-8")
                 if relative == "chara/player/playerbaseclass.lua":
-                    source = source.replace("  L4_2 = L1_2 - L4_2", "  L4_2 = L1_2 + L4_2", 1)
+                    source = source.replace(
+                        "  L4_2 = L1_2 - L4_2", "  L4_2 = L1_2 + L4_2", 1
+                    )
                 target = root / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
                 target.write_text(source, encoding="utf-8")
-            with self.assertRaisesRegex(analyzer.AnalysisError, "scalar consumer chain"):
+            with self.assertRaisesRegex(
+                analyzer.AnalysisError, "scalar consumer chain"
+            ):
                 analyzer._verify_scalar_chains(root)
 
 

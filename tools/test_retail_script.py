@@ -21,15 +21,21 @@ import verify_retail_script as verifier  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 JAR = REPO / "tools" / "vendor" / "unluac" / "unluac_2025_12_23.jar"
-LUAC_FIXTURE = Path(__file__).resolve().parent / "tests" / "fixtures" / "minimal.luac.base64"
+LUAC_FIXTURE = (
+    Path(__file__).resolve().parent / "tests" / "fixtures" / "minimal.luac.base64"
+)
 LICENSE = REPO / "tools" / "vendor" / "unluac" / "LICENSE.txt"
 INPUTS = REPO / "manifests" / "retail_inputs.json"
 CHECK = REPO / "manifests" / "retail_battle_command_check.json"
 WORKFLOW = REPO / ".github" / "workflows" / "retail-checks.yml"
 CHECKS_WORKFLOW = REPO / ".github" / "workflows" / "checks.yml"
 PASS_KEYS = {
-    "schemaVersion", "publicRepositoryCommit", "approvedInputSha256",
-    "toolVersions", "check", "result",
+    "schemaVersion",
+    "publicRepositoryCommit",
+    "approvedInputSha256",
+    "toolVersions",
+    "check",
+    "result",
 }
 PASSED: list[str] = []
 FAILED: list[str] = []
@@ -46,7 +52,10 @@ def _load(path: Path) -> object:
 def _run_cli(*args: str, text: bool = True) -> subprocess.CompletedProcess:
     return subprocess.run(
         [sys.executable, str(REPO / "tools" / "verify_retail_script.py"), *args],
-        cwd=REPO, capture_output=True, text=text, check=False,
+        cwd=REPO,
+        capture_output=True,
+        text=text,
+        check=False,
     )
 
 
@@ -74,30 +83,27 @@ def main() -> int:
     check(
         "artifact upload requires finalization and retention",
         "if: always() && !cancelled() && steps.finalize.outcome == 'success'"
-        " && steps.retained.outcome == 'success'"
-        in workflow,
+        " && steps.retained.outcome == 'success'" in workflow,
     )
     check(
         "final failure preserves every retail gate",
         "steps.fetch.outcome != 'success' || steps.toolchain.outcome != 'success'"
         " || steps.analysis.outcome != 'success' || steps.finalize.outcome != 'success'"
-        " || steps.retained.outcome != 'success'"
-        in workflow,
+        " || steps.retained.outcome != 'success'" in workflow,
     )
     check(
         "retained-file validation follows shared finalization",
         "id: finalize" in workflow
         and "id: retained" in workflow
-        and "if: always() && !cancelled() && steps.finalize.outcome == 'success'" in workflow
+        and "if: always() && !cancelled() && steps.finalize.outcome == 'success'"
+        in workflow
         and "hashFiles" not in workflow
         and "find _retail-staging -mindepth 1 -print" not in workflow,
     )
     shared_actions = [
         line.strip().removeprefix("uses: ")
         for line in workflow.splitlines()
-        if line.strip().startswith(
-            "uses: XIVLegacy/xivl-tools/.github/actions/"
-        )
+        if line.strip().startswith("uses: XIVLegacy/xivl-tools/.github/actions/")
     ]
     shared_revisions = {action.rsplit("@", 1)[-1] for action in shared_actions}
     shared_revision = next(iter(shared_revisions), "")
@@ -109,16 +115,17 @@ def main() -> int:
         and all(char in "0123456789abcdef" for char in shared_revision)
         and sum("/fetch-retail-input@" in action for action in shared_actions) == 2
         and sum("/setup-retail-toolchain@" in action for action in shared_actions) == 3
-        and sum(
-            "/finalize-retail-attestation@" in action for action in shared_actions
-        ) == 2,
+        and sum("/finalize-retail-attestation@" in action for action in shared_actions)
+        == 2,
     )
     check(
         "shared fetch locks the local LPB grant",
         "commit: aeb52f6dbde95a793ee6d52be28de9f28a885b15" in workflow
-        and "path: client-scripts/ffxiv-1.23b/client/script/7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.le.lpb" in workflow
+        and "path: client-scripts/ffxiv-1.23b/client/script/7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.le.lpb"
+        in workflow
         and 'size: "1507"' in workflow
-        and "sha256: 74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569" in workflow
+        and "sha256: 74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569"
+        in workflow
         and "token: ${{ secrets.RETAIL_INPUTS_TOKEN }}" in workflow
         and "RETAIL_INPUTS_REPOSITORY" not in workflow,
     )
@@ -138,7 +145,8 @@ def main() -> int:
         "fetch-depth: 0" in checks_workflow
         and 'git diff --check "${PR_BASE_SHA}...${PR_HEAD_SHA}"' in checks_workflow
         and 'git diff --check "${BEFORE_SHA}" "${CURRENT_SHA}"' in checks_workflow
-        and checks_workflow.count('git diff-tree --check --root -m -r "${CURRENT_SHA}"') == 2,
+        and checks_workflow.count('git diff-tree --check --root -m -r "${CURRENT_SHA}"')
+        == 2,
     )
     check(
         "hosted Python patch is pinned",
@@ -163,7 +171,8 @@ def main() -> int:
         and "include-hidden-files:" not in workflow,
     )
     python_commands = [
-        line for line in workflow.splitlines()
+        line
+        for line in workflow.splitlines()
         if "python" in line
         and "python-version" not in line
         and "setup-python" not in line
@@ -180,11 +189,17 @@ def main() -> int:
         == "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc",
     )
     license_bytes = LICENSE.read_bytes() if LICENSE.is_file() else b""
-    check("vendor license is the embedded MIT notice", license_bytes.startswith(b"Copyright (c) 2011-2020 tehtmi\r\n"))
+    check(
+        "vendor license is the embedded MIT notice",
+        license_bytes.startswith(b"Copyright (c) 2011-2020 tehtmi\r\n"),
+    )
     check("vendor license names both authors", b"Thomas Klaeger" in license_bytes)
 
     clear = b"\x1bLuaQ\x00\x01\x04\x04\x04\x08\x00"
-    check("rlu wrapper fixture decodes", retail_script.decode_lpb(b"rlu\x0b" + b"\x00" * 4 + clear) == clear)
+    check(
+        "rlu wrapper fixture decodes",
+        retail_script.decode_lpb(b"rlu\x0b" + b"\x00" * 4 + clear) == clear,
+    )
     encoded = bytes(value ^ 0x73 for value in clear[:3])
     encoded_body = bytes(value ^ 0x73 for value in clear[3:])
     check(
@@ -194,11 +209,20 @@ def main() -> int:
     )
     check("unknown wrapper fails closed", retail_script.decode_lpb(b"unknown") is None)
     canonical = b"a\r\nb\r\n"
-    check("CRLF canonicalization is exact", retail_script.canonicalize_unluac(canonical) == b"a\nb\n")
+    check(
+        "CRLF canonicalization is exact",
+        retail_script.canonicalize_unluac(canonical) == b"a\nb\n",
+    )
     regression = b"A" * 2389 + b"\n" * 144
     raw_windows = regression.replace(b"\n", b"\r\n")
-    check("Windows unluac regression sizes", len(raw_windows) == 2677 and len(regression) == 2533)
-    check("Windows unluac regression canonicalizes", retail_script.canonicalize_unluac(raw_windows) == regression)
+    check(
+        "Windows unluac regression sizes",
+        len(raw_windows) == 2677 and len(regression) == 2533,
+    )
+    check(
+        "Windows unluac regression canonicalizes",
+        retail_script.canonicalize_unluac(raw_windows) == regression,
+    )
 
     with tempfile.TemporaryDirectory(prefix="retail-script-pipeline-test-") as raw:
         root = Path(raw)
@@ -238,61 +262,118 @@ def main() -> int:
         script_path.write_bytes(script)
         expected_path = root / "expected.json"
         expected_path.write_text(
-            json.dumps(_fixture_check(len(decoded), decoded_hash, len(script), script_hash, 2)),
+            json.dumps(
+                _fixture_check(len(decoded), decoded_hash, len(script), script_hash, 2)
+            ),
             encoding="utf-8",
         )
-        with patch.object(verifier, "DECODED_BYTES", len(decoded)), \
-             patch.object(verifier, "DECODED_SHA256", decoded_hash), \
-             patch.object(verifier, "SCRIPT_BYTES", len(script)), \
-             patch.object(verifier, "SCRIPT_SHA256", script_hash), \
-             patch.object(verifier, "SCRIPT_LINES", 2), \
-             patch.object(verifier, "_tracked_metadata_errors", return_value=[]):
-            errors = verifier.verify(decoded_path, script_path, check_manifest_path=expected_path)
+        with (
+            patch.object(verifier, "DECODED_BYTES", len(decoded)),
+            patch.object(verifier, "DECODED_SHA256", decoded_hash),
+            patch.object(verifier, "SCRIPT_BYTES", len(script)),
+            patch.object(verifier, "SCRIPT_SHA256", script_hash),
+            patch.object(verifier, "SCRIPT_LINES", 2),
+            patch.object(verifier, "_tracked_metadata_errors", return_value=[]),
+        ):
+            errors = verifier.verify(
+                decoded_path, script_path, check_manifest_path=expected_path
+            )
             check("canonical synthetic reproduction passes", not errors)
 
             mutated = bytearray(decoded)
             mutated[-1] ^= 1
             decoded_path.write_bytes(mutated)
-            check("decoded byte mutation fails", bool(verifier.verify(decoded_path, script_path, check_manifest_path=expected_path)))
+            check(
+                "decoded byte mutation fails",
+                bool(
+                    verifier.verify(
+                        decoded_path, script_path, check_manifest_path=expected_path
+                    )
+                ),
+            )
             decoded_path.write_bytes(decoded)
 
             mutated_script = root / "mutated.lua"
             script_bytes = script_path.read_bytes()
-            mutated_script.write_bytes(script_bytes[:-1] + bytes([script_bytes[-1] ^ 1]))
-            check("canonical script byte mutation fails", bool(verifier.verify(decoded_path, mutated_script, check_manifest_path=expected_path)))
+            mutated_script.write_bytes(
+                script_bytes[:-1] + bytes([script_bytes[-1] ^ 1])
+            )
+            check(
+                "canonical script byte mutation fails",
+                bool(
+                    verifier.verify(
+                        decoded_path, mutated_script, check_manifest_path=expected_path
+                    )
+                ),
+            )
 
-            bad_check = _fixture_check(len(decoded), decoded_hash, len(script), script_hash, 2)
+            bad_check = _fixture_check(
+                len(decoded), decoded_hash, len(script), script_hash, 2
+            )
             bad_check["calls"]["_getData"] = [75, 81, 88]
             bad_path = root / "bad-check.json"
             bad_path.write_text(json.dumps(bad_check), encoding="utf-8")
-            check("expected call metadata mutation fails", bool(verifier.verify(decoded_path, script_path, check_manifest_path=bad_path)))
-            bad_hash = _fixture_check(len(decoded), decoded_hash, len(script), script_hash, 2)
+            check(
+                "expected call metadata mutation fails",
+                bool(
+                    verifier.verify(
+                        decoded_path, script_path, check_manifest_path=bad_path
+                    )
+                ),
+            )
+            bad_hash = _fixture_check(
+                len(decoded), decoded_hash, len(script), script_hash, 2
+            )
             bad_hash["script"]["sha256"] = "0" * 64
             bad_hash_path = root / "bad-hash-check.json"
             bad_hash_path.write_text(json.dumps(bad_hash), encoding="utf-8")
-            check("expected hash mutation fails", bool(verifier.verify(decoded_path, script_path, check_manifest_path=bad_hash_path)))
+            check(
+                "expected hash mutation fails",
+                bool(
+                    verifier.verify(
+                        decoded_path, script_path, check_manifest_path=bad_hash_path
+                    )
+                ),
+            )
 
         first = _run_cli("--contract-only", text=False)
         second = _run_cli("--contract-only", text=False)
-        check("contract-only invocation passes", first.returncode == second.returncode == 0)
-        check("repeated contract attestations are byte-identical", first.stdout == second.stdout)
+        check(
+            "contract-only invocation passes",
+            first.returncode == second.returncode == 0,
+        )
+        check(
+            "repeated contract attestations are byte-identical",
+            first.stdout == second.stdout,
+        )
         check(
             "contract attestation has a literal LF terminator",
-            first.stdout.endswith(b"\n")
-            and b"\r" not in first.stdout,
+            first.stdout.endswith(b"\n") and b"\r" not in first.stdout,
         )
         try:
             attestation = json.loads(first.stdout)
         except json.JSONDecodeError:
             attestation = {}
         check("attestation has only approved fields", set(attestation) == PASS_KEYS)
-        check("attestation records pass", attestation.get("result", {}).get("status") == "pass")
-        check("passing attestation satisfies schema", not verifier.attestation_errors(attestation))
+        check(
+            "attestation records pass",
+            attestation.get("result", {}).get("status") == "pass",
+        )
+        check(
+            "passing attestation satisfies schema",
+            not verifier.attestation_errors(attestation),
+        )
         zero_commit = copy.deepcopy(attestation)
         zero_commit["publicRepositoryCommit"] = "0" * 40
-        check("all-zero public commit is rejected", bool(verifier.attestation_errors(zero_commit)))
+        check(
+            "all-zero public commit is rejected",
+            bool(verifier.attestation_errors(zero_commit)),
+        )
         attestation["decoded"] = "not retained"
-        check("attestation extra body field is rejected", bool(verifier.attestation_errors(attestation)))
+        check(
+            "attestation extra body field is rejected",
+            bool(verifier.attestation_errors(attestation)),
+        )
 
         with patch.object(verifier.subprocess, "run", side_effect=OSError):
             try:
@@ -304,7 +385,10 @@ def main() -> int:
         check("git commit lookup fails closed", git_failed_closed)
 
         failed = _run_cli(
-            "--decoded", str(root / "missing.luac"), "--script", str(root / "missing.lua"),
+            "--decoded",
+            str(root / "missing.luac"),
+            "--script",
+            str(root / "missing.lua"),
             text=False,
         )
         try:
@@ -312,8 +396,15 @@ def main() -> int:
         except json.JSONDecodeError:
             failed_output = {}
         check("failure invocation exits nonzero", failed.returncode != 0)
-        check("failure attestation stays sanitized", set(failed_output) == PASS_KEYS and failed_output.get("result", {}).get("status") == "fail")
-        check("failure output contains no body marker", b"LuaQ" not in failed.stdout and b"observations" not in failed.stdout)
+        check(
+            "failure attestation stays sanitized",
+            set(failed_output) == PASS_KEYS
+            and failed_output.get("result", {}).get("status") == "fail",
+        )
+        check(
+            "failure output contains no body marker",
+            b"LuaQ" not in failed.stdout and b"observations" not in failed.stdout,
+        )
 
     if FAILED:
         print("FAIL: " + "; ".join(FAILED))

@@ -27,10 +27,13 @@ class GeneralParameter18ConsumerTests(unittest.TestCase):
         self.assertEqual(report["nativeIndex"], 18)
         self.assertEqual(report["luaIndex"], 19)
         self.assertEqual(report["accessor"], "CharaBaseClass.getNormalDefence")
-        self.assertEqual(report["directConsumers"], (
-            "StatusWidget.updateBattleParameter",
-            "EquipWidget.updateBattleParameter",
-        ))
+        self.assertEqual(
+            report["directConsumers"],
+            (
+                "StatusWidget.updateBattleParameter",
+                "EquipWidget.updateBattleParameter",
+            ),
+        )
         self.assertEqual(
             report["propertyCallbackBoundary"],
             "empty DesktopWidget battleParameter branch",
@@ -65,7 +68,9 @@ class GeneralParameter18ConsumerTests(unittest.TestCase):
                 'L5_2 = "Label_PhysicsDefense" L6_2 = "TextBlock_Title" '
                 "L3_2 = L3_2(L4_2, L5_2, L6_2) L4_2 = 214 L5_2 = 15019",
             )
-            analyzer._require_patterns("widget/statuswidget.lua", analyzer._compact(path), patterns)
+            analyzer._require_patterns(
+                "widget/statuswidget.lua", analyzer._compact(path), patterns
+            )
 
     def test_mutation_to_generic_argument_is_rejected(self) -> None:
         path = self._mutated_file(

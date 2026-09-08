@@ -17,7 +17,9 @@ REPO = Path(__file__).resolve().parents[1]
 INPUT_MANIFEST = REPO / "manifests" / "retail_inputs.json"
 CHECK_MANIFEST = REPO / "manifests" / "retail_battle_command_check.json"
 REGISTRY = REPO / "lua" / "registry.json"
-CALLS = REPO / "lua" / "scripts" / "command" / "game" / "battlecommandbaseclass.calls.json"
+CALLS = (
+    REPO / "lua" / "scripts" / "command" / "game" / "battlecommandbaseclass.calls.json"
+)
 
 CHECK_ID = "battle-command-baseclass-v1"
 INPUT_ID = "battle-command-baseclass-lpb-1.23b"
@@ -52,10 +54,16 @@ REGISTRY_FIELDS = {
     "requires": ["/Command/Game/GameCommandBaseClass"],
 }
 CALL_FIELDS = {"_defineBaseClass": [5], "_getData": [75, 81, 87]}
-ROOT_ATTESTATION_KEYS = frozenset({
-    "schemaVersion", "publicRepositoryCommit", "approvedInputSha256",
-    "toolVersions", "check", "result",
-})
+ROOT_ATTESTATION_KEYS = frozenset(
+    {
+        "schemaVersion",
+        "publicRepositoryCommit",
+        "approvedInputSha256",
+        "toolVersions",
+        "check",
+        "result",
+    }
+)
 
 
 class VerificationError(Exception):
@@ -72,18 +80,20 @@ def _read_json(path: Path) -> Any:
 def _expected_input_manifest() -> dict[str, Any]:
     return {
         "schemaVersion": 1,
-        "inputs": [{
-            "id": INPUT_ID,
-            "filename": INPUT_FILENAME,
-            "size": INPUT_SIZE,
-            "sha256": INPUT_SHA256,
-            "source": {
-                "repository": PRIVATE_REPOSITORY,
-                "commit": PRIVATE_COMMIT,
-                "path": PRIVATE_PATH,
-            },
-            "allowedChecks": [CHECK_ID],
-        }],
+        "inputs": [
+            {
+                "id": INPUT_ID,
+                "filename": INPUT_FILENAME,
+                "size": INPUT_SIZE,
+                "sha256": INPUT_SHA256,
+                "source": {
+                    "repository": PRIVATE_REPOSITORY,
+                    "commit": PRIVATE_COMMIT,
+                    "path": PRIVATE_PATH,
+                },
+                "allowedChecks": [CHECK_ID],
+            }
+        ],
     }
 
 
@@ -96,14 +106,19 @@ def _expected_check_manifest() -> dict[str, Any]:
         "sourceName": SOURCE_NAME,
         "cipheredPath": CIPHERED_PATH,
         "decoded": {"bytes": DECODED_BYTES, "sha256": DECODED_SHA256},
-        "script": {"bytes": SCRIPT_BYTES, "sha256": SCRIPT_SHA256, "lineCount": SCRIPT_LINES},
+        "script": {
+            "bytes": SCRIPT_BYTES,
+            "sha256": SCRIPT_SHA256,
+            "lineCount": SCRIPT_LINES,
+        },
         "registry": REGISTRY_FIELDS,
         "calls": CALL_FIELDS,
     }
 
 
 def _retail_contract_errors(
-    input_manifest: Any, check_manifest: Any,
+    input_manifest: Any,
+    check_manifest: Any,
 ) -> list[str]:
     errors: list[str] = []
     if input_manifest != _expected_input_manifest():
@@ -192,8 +207,12 @@ def verify(
 def _git_commit() -> str:
     try:
         result = subprocess.run(
-            ["git", "rev-parse", "HEAD"], cwd=REPO, check=True,
-            capture_output=True, text=True, timeout=10,
+            ["git", "rev-parse", "HEAD"],
+            cwd=REPO,
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=10,
         )
         commit = result.stdout.strip()
     except (OSError, subprocess.SubprocessError) as exc:
@@ -280,12 +299,18 @@ def main(argv: list[str] | None = None) -> int:
     except VerificationError:
         print("retail public commit unavailable", file=sys.stderr)
         return 1
-    payload = json.dumps(
-        attestation, ensure_ascii=True, sort_keys=True, separators=(",", ":")
-    ).encode("ascii") + b"\n"
+    payload = (
+        json.dumps(
+            attestation, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+        ).encode("ascii")
+        + b"\n"
+    )
     sys.stdout.buffer.write(payload)
     if errors:
-        print(f"retail script verification failed ({len(errors)} fixed checks)", file=sys.stderr)
+        print(
+            f"retail script verification failed ({len(errors)} fixed checks)",
+            file=sys.stderr,
+        )
     return 1 if errors else 0
 
 

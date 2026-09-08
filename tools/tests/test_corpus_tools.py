@@ -96,9 +96,7 @@ L4_1 = "//dev"
             finally:
                 validator.EXTERNAL_SCRIPTS_ROOT = previous_root
                 validator.CORPUS_ABSENT = previous_absent
-        self.assertTrue(
-            any("plain directory" in error for error in validator.errors)
-        )
+        self.assertTrue(any("plain directory" in error for error in validator.errors))
 
     def test_missing_external_scripts_root_is_rejected(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -155,7 +153,9 @@ L4_1 = "//dev"
     def test_shared_scripts_root_rejects_missing_root(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             missing = Path(temp) / "missing"
-            with self.assertRaisesRegex(CorpusRootError, "corpus not found or unreadable"):
+            with self.assertRaisesRegex(
+                CorpusRootError, "corpus not found or unreadable"
+            ):
                 validate_scripts_root(missing)
 
     def test_validate_approves_boundary_before_focused_tests(self) -> None:
@@ -168,8 +168,14 @@ L4_1 = "//dev"
         with (
             patch.object(validator, "validate_repository_boundary", return_value=[]),
             patch.object(validator, "validate_all_json", return_value=0),
-            patch.object(validator, "validate_scripts_tree_boundary", side_effect=reject_boundary),
-            patch.object(validator, "run_focused_tests", side_effect=AssertionError("focused tests ran too early")) as focused,
+            patch.object(
+                validator, "validate_scripts_tree_boundary", side_effect=reject_boundary
+            ),
+            patch.object(
+                validator,
+                "run_focused_tests",
+                side_effect=AssertionError("focused tests ran too early"),
+            ) as focused,
             redirect_stderr(io.StringIO()),
         ):
             self.assertEqual(validator.main([]), 1)
@@ -178,16 +184,24 @@ L4_1 = "//dev"
     def test_quest_check_rejects_missing_explicit_scripts_root(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             missing = Path(temp) / "missing"
-            with patch.object(
-                sys,
-                "argv",
-                ["quest_selector_consumers.py", "--check", "--scripts-root", str(missing)],
-            ), redirect_stderr(io.StringIO()) as stderr:
+            with (
+                patch.object(
+                    sys,
+                    "argv",
+                    [
+                        "quest_selector_consumers.py",
+                        "--check",
+                        "--scripts-root",
+                        str(missing),
+                    ],
+                ),
+                redirect_stderr(io.StringIO()) as stderr,
+            ):
                 self.assertEqual(quest_analyzer.main(), 1)
             self.assertIn("Lua corpus not found", stderr.getvalue())
 
     def test_binding_declarations_keep_receiver_class(self) -> None:
-        content = '''L0_1 = WidgetBaseClass
+        content = """L0_1 = WidgetBaseClass
 function L1_1(A0_2)
   L2_2 = "self"
   L3_2 = "_getProperty_cpp"
@@ -198,7 +212,7 @@ L1_1 = "_getProperty_cpp"
 L2_1 = "_notNative_lua"
 L0_1 = _G
 L1_1 = "_defineClass_cpp"
-'''
+"""
 
         self.assertEqual(
             scan_binding_declarations(content),
@@ -217,22 +231,22 @@ L1_1 = "_defineClass_cpp"
             )
             registry = root / "registry.json"
             registry.write_text(
-                json.dumps({
-                    "scripts": {
-                        "widget_u": {
-                            "ciphered": "x.lua",
-                            "classes": ["WidgetBaseClass"],
-                            "lineCount": 3,
+                json.dumps(
+                    {
+                        "scripts": {
+                            "widget_u": {
+                                "ciphered": "x.lua",
+                                "classes": ["WidgetBaseClass"],
+                                "lineCount": 3,
+                            }
                         }
                     }
-                }),
+                ),
                 encoding="utf-8",
             )
             api_index = root / "api-index.json"
             api_index.write_text(
-                json.dumps({
-                    "apis": {"_getProperty": [{"bcsId": "BCS-Y-1"}]}
-                }),
+                json.dumps({"apis": {"_getProperty": [{"bcsId": "BCS-Y-1"}]}}),
                 encoding="utf-8",
             )
             output = root / "napi.json"
@@ -263,22 +277,22 @@ L1_1 = "_defineClass_cpp"
             )
             registry = root / "registry.json"
             registry.write_text(
-                json.dumps({
-                    "scripts": {
-                        "nested/widget": {
-                            "ciphered": "x.lua",
-                            "classes": ["WidgetBaseClass"],
-                            "lineCount": 3,
+                json.dumps(
+                    {
+                        "scripts": {
+                            "nested/widget": {
+                                "ciphered": "x.lua",
+                                "classes": ["WidgetBaseClass"],
+                                "lineCount": 3,
+                            }
                         }
                     }
-                }),
+                ),
                 encoding="utf-8",
             )
             api_index = root / "api-index.json"
             api_index.write_text(
-                json.dumps({
-                    "apis": {"_getProperty": [{"bcsId": "BCS-Y-1"}]}
-                }),
+                json.dumps({"apis": {"_getProperty": [{"bcsId": "BCS-Y-1"}]}}),
                 encoding="utf-8",
             )
             output = root / "napi.json"
@@ -307,7 +321,9 @@ L1_1 = "_defineClass_cpp"
             manifest = build_script_manifest(source)
 
             self.assertEqual(manifest["scriptCount"], 1)
-            self.assertEqual(manifest["scripts"][0]["relativePath"], "lua/scripts/widget.lua")
+            self.assertEqual(
+                manifest["scripts"][0]["relativePath"], "lua/scripts/widget.lua"
+            )
             self.assertEqual(manifest["scripts"][0]["bytes"], 18)
 
     def test_text_reading_preserves_corpus_contract(self) -> None:
@@ -394,11 +410,12 @@ L1_1 = "_defineClass_cpp"
             existing_script.write_bytes(b"existing script\n")
             real_replace = os.replace
 
-            def fail_before_script_install(source_path: Path, destination: Path) -> None:
+            def fail_before_script_install(
+                source_path: Path, destination: Path
+            ) -> None:
                 staged = Path(source_path)
-                if (
-                    staged.name == "scripts"
-                    and staged.parent.name.startswith(".lua-publish-")
+                if staged.name == "scripts" and staged.parent.name.startswith(
+                    ".lua-publish-"
                 ):
                     raise OSError("deliberate install failure")
                 real_replace(source_path, destination)
@@ -430,8 +447,10 @@ L1_1 = "_defineClass_cpp"
                 validator.SCHEMAS = previous
 
         self.assertTrue(
-            any("lua_script_calls.schema.json missing" in error
-                for error in validator.errors)
+            any(
+                "lua_script_calls.schema.json missing" in error
+                for error in validator.errors
+            )
         )
 
     def test_sidecar_callsites_are_checked_against_lua(self) -> None:
@@ -481,8 +500,7 @@ L1_1 = "_defineClass_cpp"
                 validator.EXTERNAL_SCRIPTS_ROOT = previous_external
 
         self.assertTrue(
-            any("api callsites do not match" in error
-                for error in validator.errors)
+            any("api callsites do not match" in error for error in validator.errors)
         )
 
     def test_napi_bindings_are_checked_against_vendor(self) -> None:
@@ -497,24 +515,18 @@ L1_1 = "_defineClass_cpp"
                     }
                 }
             }
-            (lua_dir / "napi_index.json").write_text(
-                json.dumps(napi), encoding="utf-8"
-            )
+            (lua_dir / "napi_index.json").write_text(json.dumps(napi), encoding="utf-8")
             sidecars = {"x": {"apis": {"_api": [1]}}}
 
             previous = validator.LUA_DIR
             validator.LUA_DIR = lua_dir
             try:
                 validator.errors.clear()
-                validator.validate_napi_index(
-                    sidecars, {"_api": ["BCS-Y-000001"]}
-                )
+                validator.validate_napi_index(sidecars, {"_api": ["BCS-Y-000001"]})
             finally:
                 validator.LUA_DIR = previous
 
-        self.assertTrue(
-            any("bcsIds disagree" in error for error in validator.errors)
-        )
+        self.assertTrue(any("bcsIds disagree" in error for error in validator.errors))
 
     def test_vendor_hash_is_checked(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -523,14 +535,18 @@ L1_1 = "_defineClass_cpp"
                 json.dumps({"apis": {}}), encoding="utf-8"
             )
             (vendor_dir / "PROVENANCE.json").write_text(
-                json.dumps({
-                    "files": [{
-                        "file": "lua_api_index.json",
-                        "sourceLicense": "CC-BY-4.0",
-                        "sourceLicenseUrl": "https://creativecommons.org/licenses/by/4.0/",
-                        "sha256": "0" * 64,
-                    }]
-                }),
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file": "lua_api_index.json",
+                                "sourceLicense": "CC-BY-4.0",
+                                "sourceLicenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+                                "sha256": "0" * 64,
+                            }
+                        ]
+                    }
+                ),
                 encoding="utf-8",
             )
 
@@ -542,9 +558,7 @@ L1_1 = "_defineClass_cpp"
             finally:
                 validator.VENDOR_DIR = previous
 
-        self.assertTrue(
-            any("sha256" in error for error in validator.errors)
-        )
+        self.assertTrue(any("sha256" in error for error in validator.errors))
 
     def test_vendor_license_is_required(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -552,12 +566,18 @@ L1_1 = "_defineClass_cpp"
             api_path = vendor_dir / "lua_api_index.json"
             api_path.write_text(json.dumps({"apis": {}}), encoding="utf-8")
             (vendor_dir / "PROVENANCE.json").write_text(
-                json.dumps({
-                    "files": [{
-                        "file": api_path.name,
-                        "sha256": hashlib.sha256(api_path.read_bytes()).hexdigest(),
-                    }]
-                }),
+                json.dumps(
+                    {
+                        "files": [
+                            {
+                                "file": api_path.name,
+                                "sha256": hashlib.sha256(
+                                    api_path.read_bytes()
+                                ).hexdigest(),
+                            }
+                        ]
+                    }
+                ),
                 encoding="utf-8",
             )
 

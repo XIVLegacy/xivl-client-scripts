@@ -136,8 +136,12 @@ def validate_scripts_tree_boundary() -> bool:
             for name in sorted(directories):
                 path = current_path / name
                 result = os.lstat(path)
-                if _is_link_or_reparse(path, result) or not stat.S_ISDIR(result.st_mode):
-                    errors.append("Lua scripts tree contains a linked or invalid directory")
+                if _is_link_or_reparse(path, result) or not stat.S_ISDIR(
+                    result.st_mode
+                ):
+                    errors.append(
+                        "Lua scripts tree contains a linked or invalid directory"
+                    )
                     valid = False
                 else:
                     kept.append(name)
@@ -145,7 +149,9 @@ def validate_scripts_tree_boundary() -> bool:
             for name in sorted(files):
                 path = current_path / name
                 result = os.lstat(path)
-                if _is_link_or_reparse(path, result) or not stat.S_ISREG(result.st_mode):
+                if _is_link_or_reparse(path, result) or not stat.S_ISREG(
+                    result.st_mode
+                ):
                     errors.append("Lua scripts tree contains a linked or invalid file")
                     valid = False
     except OSError:
@@ -168,9 +174,7 @@ def validate_repository_boundary() -> list[str]:
     """Enforce the public tree and reject restricted or local content."""
     paths = _tracked_paths()
     if CORPUS_ABSENT and CONFIGURED_SCRIPTS_ROOT:
-        errors.append(
-            "XIVL_CORPUS_ABSENT=1 conflicts with XIVL_LUA_SCRIPTS_DIR"
-        )
+        errors.append("XIVL_CORPUS_ABSENT=1 conflicts with XIVL_LUA_SCRIPTS_DIR")
     for path in paths:
         group = path.split("/", 1)[0] if "/" in path else "root"
         if group not in PERMITTED_TOP_LEVEL_GROUPS:
@@ -189,8 +193,7 @@ def validate_repository_boundary() -> list[str]:
             errors.append(f"private-reference token in tracked file: {path}")
 
     ignore_text = (
-        (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
-        .replace("\r\n", "\n")
+        (REPO_ROOT / ".gitignore").read_text(encoding="utf-8").replace("\r\n", "\n")
     )
     ignore_lines = set(ignore_text.split("\n"))
     for required in sorted(REQUIRED_AGENT_TOOLING_IGNORE_LINES):
@@ -301,7 +304,11 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
             "manifests/scripts.json",
         ),
         (LUA_DIR / "registry.json", "lua_registry.schema.json", "lua/registry.json"),
-        (LUA_DIR / "napi_index.json", "lua_napi_index.schema.json", "lua/napi_index.json"),
+        (
+            LUA_DIR / "napi_index.json",
+            "lua_napi_index.schema.json",
+            "lua/napi_index.json",
+        ),
         (
             MANIFESTS_DIR / "retail_lua_coverage.json",
             "retail_lua_coverage.schema.json",
@@ -349,11 +356,13 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
         MANIFESTS_DIR / "retail_evidence" / "battle-command-baseclass.json"
     )
     if attestation_path.is_file():
-        retail_pairs.append((
-            attestation_path,
-            "retail-evidence-attestation.schema.json",
-            "manifests/retail_evidence/battle-command-baseclass.json",
-        ))
+        retail_pairs.append(
+            (
+                attestation_path,
+                "retail-evidence-attestation.schema.json",
+                "manifests/retail_evidence/battle-command-baseclass.json",
+            )
+        )
     for inst_path, schema_name, label in retail_pairs:
         schema_path = SCHEMAS / schema_name
         if not inst_path.is_file():
@@ -365,9 +374,7 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
 
     calls_schema = SCHEMAS / "lua_script_calls.schema.json"
     if not calls_schema.is_file():
-        errors.append(
-            "lua sidecars: schema lua_script_calls.schema.json missing"
-        )
+        errors.append("lua sidecars: schema lua_script_calls.schema.json missing")
     elif sidecars:
         validator = _validator_for(calls_schema)
         for key, sidecar in sidecars.items():
@@ -379,7 +386,9 @@ def validate_retail_lua_coverage() -> None:
     coverage_path = MANIFESTS_DIR / "retail_lua_coverage.json"
     manifest_path = MANIFESTS_DIR / "scripts.json"
     registry_path = LUA_DIR / "registry.json"
-    if not all(path.is_file() for path in (coverage_path, manifest_path, registry_path)):
+    if not all(
+        path.is_file() for path in (coverage_path, manifest_path, registry_path)
+    ):
         return
     coverage = _load(coverage_path)
     manifest = _load(manifest_path)
@@ -411,8 +420,7 @@ def validate_retail_lua_coverage() -> None:
         "repository": "XIVLegacy/xivl-tools",
         "commit": TOOLS_COMMIT,
         "sources": [
-            {"path": path, "sha256": digest}
-            for path, digest in TOOLS_SOURCES.items()
+            {"path": path, "sha256": digest} for path, digest in TOOLS_SOURCES.items()
         ],
     }
     if coverage.get("tool") != expected_tool:
@@ -451,11 +459,20 @@ def validate_myplayer_timer_consumers(scripts_tree_safe: bool = True) -> None:
         return
     try:
         rebuilt = analyze_timer_consumers(_scripts_root(), LUA_DIR / "scripts")
-    except (OSError, UnicodeError, json.JSONDecodeError, TimerConsumerAnalysisError) as exc:
-        errors.append(f"manifests/myplayer_timer_consumers.json: analysis failed: {exc}")
+    except (
+        OSError,
+        UnicodeError,
+        json.JSONDecodeError,
+        TimerConsumerAnalysisError,
+    ) as exc:
+        errors.append(
+            f"manifests/myplayer_timer_consumers.json: analysis failed: {exc}"
+        )
         return
     if render_timer_consumers(rebuilt) != report_path.read_bytes():
-        errors.append("manifests/myplayer_timer_consumers.json: generated report is stale")
+        errors.append(
+            "manifests/myplayer_timer_consumers.json: generated report is stale"
+        )
 
 
 def validate_quest_selector_consumers(scripts_tree_safe: bool = True) -> None:
@@ -490,9 +507,7 @@ def validate_monster_attack_weapon_skill_profile(
         return
     report = _load(report_path)
     for problem in validate_monster_attack_profile(report):
-        errors.append(
-            "manifests/monster_attack_weapon_skill_profiles.json: " + problem
-        )
+        errors.append("manifests/monster_attack_weapon_skill_profiles.json: " + problem)
     if CORPUS_ABSENT or not scripts_tree_safe:
         return
     try:
@@ -693,7 +708,9 @@ def validate_retail_vendor() -> None:
     if not all(path.is_file() for path in (jar, license_path, provenance_path)):
         return
     expected_jar = "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc"
-    expected_license = "37c47e72083e88b1c9b85c784298e93eee862c741a5f6f1210365bbe007975cf"
+    expected_license = (
+        "37c47e72083e88b1c9b85c784298e93eee862c741a5f6f1210365bbe007975cf"
+    )
     actual_jar = hashlib.sha256(jar.read_bytes()).hexdigest()
     actual_license = hashlib.sha256(license_path.read_bytes()).hexdigest()
     if jar.stat().st_size != 796256 or actual_jar != expected_jar:
@@ -745,7 +762,10 @@ def validate_lua_corpus(
         for p in scripts_root.rglob("*.lua")
     }
     sidecar_keys = set(sidecars)
-    for label, keys in (("published .lua", lua_keys), (".calls.json sidecar", sidecar_keys)):
+    for label, keys in (
+        ("published .lua", lua_keys),
+        (".calls.json sidecar", sidecar_keys),
+    ):
         for missing in sorted(registry_keys - keys):
             errors.append(f"lua corpus: {missing!r} in registry but no {label}")
         for extra in sorted(keys - registry_keys):
@@ -769,9 +789,7 @@ def validate_lua_corpus(
             )
         actual = len(script.splitlines())
         registry_entry = registry_scripts[key]
-        classes, methods, requires = extract_signals(
-            script, key.rsplit("/", 1)[-1]
-        )
+        classes, methods, requires = extract_signals(script, key.rsplit("/", 1)[-1])
         expected_registry = {
             "classes": classes,
             "methods": methods,

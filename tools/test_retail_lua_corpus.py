@@ -34,7 +34,9 @@ def check(label: str, condition: bool) -> None:
 
 def write_json(path: Path, value: object, *, canonical: bool = False) -> None:
     if canonical:
-        raw = json.dumps(value, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+        raw = json.dumps(
+            value, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+        )
     else:
         raw = json.dumps(value, ensure_ascii=True, indent=2)
     path.write_text(raw + "\n", encoding="ascii", newline="")
@@ -86,10 +88,15 @@ def contract_tests(root: Path) -> None:
     ):
         mutated = copy.deepcopy(manifest)
         value = mutated[field[0]][field[1]]
-        mutated[field[0]][field[1]] = value + 1 if isinstance(value, int) else "0" * len(value)
+        mutated[field[0]][field[1]] = (
+            value + 1 if isinstance(value, int) else "0" * len(value)
+        )
         path = root / ("mutated-" + "-".join(field) + ".json")
         write_json(path, mutated)
-        check("mutated " + "/".join(field) + " fails", bool(verifier.contract_errors(path)))
+        check(
+            "mutated " + "/".join(field) + " fails",
+            bool(verifier.contract_errors(path)),
+        )
 
 
 def archive_logic_tests(root: Path) -> None:
@@ -101,15 +108,33 @@ def archive_logic_tests(root: Path) -> None:
     check("canonical expanded shape passes", not verifier._shape_errors(expected))
     check(
         "mutated expanded count fails",
-        bool(verifier._shape_errors(corpus.CorpusSummary(expected.file_count + 1, expected.total_bytes, expected.tree_sha256))),
+        bool(
+            verifier._shape_errors(
+                corpus.CorpusSummary(
+                    expected.file_count + 1, expected.total_bytes, expected.tree_sha256
+                )
+            )
+        ),
     )
     check(
         "mutated expanded bytes fail",
-        bool(verifier._shape_errors(corpus.CorpusSummary(expected.file_count, expected.total_bytes + 1, expected.tree_sha256))),
+        bool(
+            verifier._shape_errors(
+                corpus.CorpusSummary(
+                    expected.file_count, expected.total_bytes + 1, expected.tree_sha256
+                )
+            )
+        ),
     )
     check(
         "mutated expanded tree fails",
-        bool(verifier._shape_errors(corpus.CorpusSummary(expected.file_count, expected.total_bytes, "0" * 64))),
+        bool(
+            verifier._shape_errors(
+                corpus.CorpusSummary(
+                    expected.file_count, expected.total_bytes, "0" * 64
+                )
+            )
+        ),
     )
     short = root / "short.zip"
     short.write_bytes(b"x")
@@ -130,10 +155,15 @@ def output_tests(root: Path) -> None:
         schema.get("properties", {}).get("approvedInputSha256", {}).get("const")
         == verifier.ARCHIVE_SHA256,
     )
-    check("pass attestation satisfies contract", not verifier.attestation_errors(attestation))
+    check(
+        "pass attestation satisfies contract",
+        not verifier.attestation_errors(attestation),
+    )
     extra = copy.deepcopy(attestation)
     extra["archive"] = "forbidden"
-    check("attestation additional field fails", bool(verifier.attestation_errors(extra)))
+    check(
+        "attestation additional field fails", bool(verifier.attestation_errors(extra))
+    )
     zero = copy.deepcopy(attestation)
     zero["publicRepositoryCommit"] = "0" * 40
     check("attestation zero commit fails", bool(verifier.attestation_errors(zero)))
@@ -165,14 +195,20 @@ def output_tests(root: Path) -> None:
         "contract attestations are deterministic",
         first.returncode == second.returncode == 0 and first.stdout == second.stdout,
     )
-    check("attestation uses LF", first.stdout.endswith("\n") and "\r" not in first.stdout)
+    check(
+        "attestation uses LF", first.stdout.endswith("\n") and "\r" not in first.stdout
+    )
 
     retained = root / "retained"
     retained.mkdir()
     write_json(retained / verifier.ATTESTATION_FILENAME, attestation, canonical=True)
-    check("one retained attestation passes", not verifier.retained_output_errors(retained))
+    check(
+        "one retained attestation passes", not verifier.retained_output_errors(retained)
+    )
     (retained / "extra.log").write_text("forbidden\n", encoding="ascii")
-    check("extra retained output fails", bool(verifier.retained_output_errors(retained)))
+    check(
+        "extra retained output fails", bool(verifier.retained_output_errors(retained))
+    )
 
 
 def workflow_tests() -> None:
@@ -207,7 +243,8 @@ def workflow_tests() -> None:
     check(
         "retail artifacts retain attestations only",
         lua_job.count("path: _retail-staging/retail-evidence-attestation.json") == 1
-        and "path: _retail-staging/" not in lua_job.replace(
+        and "path: _retail-staging/"
+        not in lua_job.replace(
             "path: _retail-staging/retail-evidence-attestation.json", ""
         ),
     )

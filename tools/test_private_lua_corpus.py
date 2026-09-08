@@ -57,7 +57,9 @@ class PrivateLuaCorpusTests(unittest.TestCase):
             "totalBytes": sum(int(row["bytes"]) for row in rows),
             "scripts": rows,
         }
-        self.manifest.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8")
+        self.manifest.write_text(
+            json.dumps(document, indent=2) + "\n", encoding="utf-8"
+        )
 
     def _package(self, name: str = "corpus.zip") -> Path:
         output = self.root / name
@@ -78,7 +80,12 @@ class PrivateLuaCorpusTests(unittest.TestCase):
         self.assertEqual(summary.total_bytes, sum(map(len, self.files.values())))
         with zipfile.ZipFile(first) as archive:
             self.assertEqual(archive.namelist(), sorted(self.files))
-            self.assertTrue(all(info.date_time == (1980, 1, 1, 0, 0, 0) for info in archive.infolist()))
+            self.assertTrue(
+                all(
+                    info.date_time == (1980, 1, 1, 0, 0, 0)
+                    for info in archive.infolist()
+                )
+            )
 
     def test_source_overwrite_is_rejected(self) -> None:
         output = self.root / "corpus.zip"
@@ -145,7 +152,10 @@ class PrivateLuaCorpusTests(unittest.TestCase):
 
     def test_archive_corrupt_missing_and_unexpected_members_are_rejected(self) -> None:
         corrupt = self.root / "corrupt.zip"
-        self._write_zip(corrupt, {"alpha.lua": b"bad", "nested/beta.lua": self.files["nested/beta.lua"]})
+        self._write_zip(
+            corrupt,
+            {"alpha.lua": b"bad", "nested/beta.lua": self.files["nested/beta.lua"]},
+        )
         with self.assertRaisesRegex(corpus.CorpusError, "mismatch"):
             corpus.verify_package(corrupt, self.manifest)
 
@@ -213,7 +223,9 @@ class PrivateLuaCorpusTests(unittest.TestCase):
         real_replace = os.replace
         calls = 0
 
-        def fail_stage_publish(source: str | os.PathLike[str], target: str | os.PathLike[str]) -> None:
+        def fail_stage_publish(
+            source: str | os.PathLike[str], target: str | os.PathLike[str]
+        ) -> None:
             nonlocal calls
             calls += 1
             if calls == 2:
@@ -226,7 +238,11 @@ class PrivateLuaCorpusTests(unittest.TestCase):
         self.assertTrue(destination.is_dir())
         self.assertEqual(list(destination.iterdir()), [])
         self.assertEqual(
-            [path.name for path in self.root.iterdir() if path.name.startswith(".private-lua-corpus-")],
+            [
+                path.name
+                for path in self.root.iterdir()
+                if path.name.startswith(".private-lua-corpus-")
+            ],
             [],
         )
 

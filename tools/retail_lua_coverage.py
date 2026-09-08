@@ -88,20 +88,26 @@ def extract_lpb(data: bytes) -> dict:
         raise CoverageError("unexpected-end", len(data), "LPB magic is truncated")
     if data[:4] == RAW_MAGIC:
         if len(data) < 8:
-            raise CoverageError("unexpected-end", len(data), "raw LPB header is truncated")
+            raise CoverageError(
+                "unexpected-end", len(data), "raw LPB header is truncated"
+            )
         variant = "raw"
         header_bytes = 8
         advisory_size = None
         decoded = data[8:]
     elif data[:4] == XOR_MAGIC:
         if len(data) < 16:
-            raise CoverageError("unexpected-end", len(data), "XOR LPB header is truncated")
+            raise CoverageError(
+                "unexpected-end", len(data), "XOR LPB header is truncated"
+            )
         variant = "xor-73"
         header_bytes = 16
         advisory_size = int.from_bytes(data[8:12], "little")
         decoded = bytes(byte ^ XOR_KEY for byte in data[13:])
     else:
-        raise CoverageError("unsupported-wrapper", 0, "LPB wrapper magic is unsupported")
+        raise CoverageError(
+            "unsupported-wrapper", 0, "LPB wrapper magic is unsupported"
+        )
     if len(decoded) < len(LUA_51_SIGNATURE):
         raise CoverageError(
             "unexpected-end", len(data), "decoded Lua 5.1 signature is truncated"
@@ -222,7 +228,9 @@ def analyze_resource_tree(
             base["wrapper"] = extract_lpb(data)
         except CoverageError as exc:
             base["classification"] = (
-                "unsupported-wrapper" if exc.kind == "unsupported-wrapper" else "extraction-failure"
+                "unsupported-wrapper"
+                if exc.kind == "unsupported-wrapper"
+                else "extraction-failure"
             )
             base["error"] = {"kind": exc.kind, "offset": exc.offset}
             rows.append(base)
@@ -234,7 +242,9 @@ def analyze_resource_tree(
             normalized_groups[normalized].append(base)
             continue
         ciphered_stem = normalized[: -len(".le.lpb")]
-        base["decodedScriptPath"] = f"lua/scripts/{transform_lua_path(ciphered_stem)}.lua"
+        base["decodedScriptPath"] = (
+            f"lua/scripts/{transform_lua_path(ciphered_stem)}.lua"
+        )
         rows.append(base)
         normalized_groups[normalized].append(base)
 
@@ -286,9 +296,15 @@ def analyze_resource_tree(
         {"scriptPath": path, "classification": "missing-retail-resource"}
         for path in sorted(manifest_scripts - covered)
     ]
-    classifications = dict(sorted(Counter(row["classification"] for row in rows).items()))
+    classifications = dict(
+        sorted(Counter(row["classification"] for row in rows).items())
+    )
     wrapper_variants = dict(
-        sorted(Counter(row["wrapper"]["variant"] for row in rows if "wrapper" in row).items())
+        sorted(
+            Counter(
+                row["wrapper"]["variant"] for row in rows if "wrapper" in row
+            ).items()
+        )
     )
     sidecar_count, sidecar_digest = sidecar_inventory()
     return {
@@ -341,7 +357,9 @@ def validate_report(report: dict, manifest: dict, registry: dict) -> list[str]:
         except CoverageError:
             normalized = ""
             if row.get("classification") != "unsupported-path":
-                errors.append(f"{label}: unsupported path claims another classification")
+                errors.append(
+                    f"{label}: unsupported path claims another classification"
+                )
         if normalized != row.get("normalizedResourcePath"):
             errors.append(f"{label}: normalized resource path disagrees")
         if normalized:
@@ -380,12 +398,16 @@ def validate_report(report: dict, manifest: dict, registry: dict) -> list[str]:
         if len(group) > 1 and any(
             row.get("classification") != "duplicate-alias" for row in group
         ):
-            errors.append(f"duplicate normalized resource is not classified: {normalized}")
+            errors.append(
+                f"duplicate normalized resource is not classified: {normalized}"
+            )
     for script, count in matched_by_script.items():
         if count > 1:
             errors.append(f"script has multiple matched resources: {script}")
 
-    counts = dict(sorted(Counter(row.get("classification") for row in resources).items()))
+    counts = dict(
+        sorted(Counter(row.get("classification") for row in resources).items())
+    )
     if report.get("summary", {}).get("classifications") != counts:
         errors.append("summary classifications disagree with resources")
     if report.get("source", {}).get("fileCount") != len(resources):
@@ -448,7 +470,9 @@ def main() -> int:
     args = parse_args()
     resource_root = args.client_root / "client" / "script"
     if not resource_root.is_dir():
-        print(f"error: client/script not found below {args.client_root}", file=sys.stderr)
+        print(
+            f"error: client/script not found below {args.client_root}", file=sys.stderr
+        )
         return 1
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
@@ -466,12 +490,18 @@ def main() -> int:
     rendered = render_json(report)
     if args.check:
         if not OUTPUT_PATH.is_file() or OUTPUT_PATH.read_bytes() != rendered:
-            print(f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr)
+            print(
+                f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr
+            )
             return 1
-        print(f"PASS: {len(report['resources'])} retail resources match the coverage census")
+        print(
+            f"PASS: {len(report['resources'])} retail resources match the coverage census"
+        )
         return 0
     OUTPUT_PATH.write_bytes(rendered)
-    print(f"Wrote {OUTPUT_PATH.relative_to(REPO_ROOT)} with {len(report['resources'])} resources")
+    print(
+        f"Wrote {OUTPUT_PATH.relative_to(REPO_ROOT)} with {len(report['resources'])} resources"
+    )
     return 0
 
 

@@ -36,13 +36,19 @@ class QuestSelectorConsumerTests(unittest.TestCase):
 
     def test_schema_rejects_secondary_fields_on_primary_only_message(self) -> None:
         schema = json.loads(
-            (analyzer.REPO_ROOT / "schemas" / "quest_selector_consumers.schema.json").read_text(encoding="utf-8")
+            (
+                analyzer.REPO_ROOT / "schemas" / "quest_selector_consumers.schema.json"
+            ).read_text(encoding="utf-8")
         )
         report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
         mutation = deepcopy(report)
-        row = next(item for item in mutation["messageConsumers"] if item["messageId"] == 51131)
+        row = next(
+            item for item in mutation["messageConsumers"] if item["messageId"] == 51131
+        )
         row["secondaryLevel"] = 15
-        self.assertTrue(list(jsonschema.Draft202012Validator(schema).iter_errors(mutation)))
+        self.assertTrue(
+            list(jsonschema.Draft202012Validator(schema).iter_errors(mutation))
+        )
 
     def test_selector_and_level_mutations_are_rejected(self) -> None:
         report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
@@ -50,26 +56,33 @@ class QuestSelectorConsumerTests(unittest.TestCase):
             mutation = deepcopy(report)
             mutation["namedRows"][0][field] = value
             with self.subTest(field=field):
-                self.assertTrue(any(
-                    problem.startswith("selector alignment disagrees:")
-                    for problem in analyzer.validate_retained(mutation)
-                ))
+                self.assertTrue(
+                    any(
+                        problem.startswith("selector alignment disagrees:")
+                        for problem in analyzer.validate_retained(mutation)
+                    )
+                )
 
         mutation = deepcopy(report)
         advance = next(
-            row for row in mutation["messageConsumers"]
+            row
+            for row in mutation["messageConsumers"]
             if row["messageId"] == 51132 and row["questId"] == 111201
         )
         advance["primarySelectorId"] = 8
-        self.assertTrue(any(
-            problem.startswith("selector alignment disagrees:")
-            for problem in analyzer.validate_retained(mutation)
-        ))
+        self.assertTrue(
+            any(
+                problem.startswith("selector alignment disagrees:")
+                for problem in analyzer.validate_retained(mutation)
+            )
+        )
 
     def test_duplicate_named_row_id_is_rejected(self) -> None:
         report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
         report["namedRows"][1]["questId"] = 111203
-        self.assertIn("named selector row set disagrees", analyzer.validate_retained(report))
+        self.assertIn(
+            "named selector row set disagrees", analyzer.validate_retained(report)
+        )
 
     def test_later_row_metadata_mutation_is_rejected(self) -> None:
         report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
@@ -81,7 +94,9 @@ class QuestSelectorConsumerTests(unittest.TestCase):
     def test_non_worldmaster_sink_is_rejected(self) -> None:
         source_path = SCRIPTS / "quest" / "scenario" / "war" / "war0j1.lua"
         lines = source_path.read_text(encoding="utf-8").splitlines()
-        index = next(i for i, line in enumerate(lines) if line.strip() == "L6_2 = 51130")
+        index = next(
+            i for i, line in enumerate(lines) if line.strip() == "L6_2 = 51130"
+        )
         lines[index - 4] = "  L3_2 = fakeMaster"
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "war0j1.lua"

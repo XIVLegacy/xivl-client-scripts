@@ -42,7 +42,9 @@ class RetailLuaCoverageTests(unittest.TestCase):
         with self.assertRaises(coverage.CoverageError):
             coverage.normalize_resource_path("a/../b.le.lpb")
         with self.assertRaises(coverage.CoverageError):
-            coverage.normalize_resource_path("lu\N{LATIN SMALL LETTER A WITH ACUTE}.le.lpb")
+            coverage.normalize_resource_path(
+                "lu\N{LATIN SMALL LETTER A WITH ACUTE}.le.lpb"
+            )
 
     def test_extracts_both_pinned_wrappers(self) -> None:
         raw = coverage.extract_lpb(raw_lpb())
@@ -147,7 +149,9 @@ class RetailLuaCoverageTests(unittest.TestCase):
             report["resources"]
         )
         problems = coverage.validate_report(report, manifest, registry)
-        self.assertTrue(any("duplicate normalized resource" in item for item in problems))
+        self.assertTrue(
+            any("duplicate normalized resource" in item for item in problems)
+        )
 
 
 if __name__ == "__main__":

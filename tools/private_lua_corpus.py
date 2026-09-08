@@ -64,7 +64,9 @@ def _is_link_or_reparse(path: Path, st: os.stat_result | None = None) -> bool:
     """Return whether *path* is a symlink or Windows reparse point."""
     if st is None:
         st = os.lstat(path)
-    return path.is_symlink() or bool(getattr(st, "st_file_attributes", 0) & _REPARSE_POINT)
+    return path.is_symlink() or bool(
+        getattr(st, "st_file_attributes", 0) & _REPARSE_POINT
+    )
 
 
 def _lstat(path: Path, label: str) -> os.stat_result:
@@ -129,7 +131,9 @@ def _manifest_identities(manifest: Mapping[str, object]) -> tuple[FileIdentity, 
             where=f"manifest scripts[{index}]",
         )
         if not relative.endswith(_LUA_SUFFIX):
-            raise _error(f"manifest scripts[{index}]: path is not a Lua file: {relative!r}")
+            raise _error(
+                f"manifest scripts[{index}]: path is not a Lua file: {relative!r}"
+            )
         if relative in exact:
             raise _error(f"manifest: duplicate path: {relative}")
         exact.add(relative)
@@ -144,7 +148,9 @@ def _manifest_identities(manifest: Mapping[str, object]) -> tuple[FileIdentity, 
             raise _error(f"manifest {relative}: bytes must be a non-negative integer")
         digest = row.get("sha256")
         if not isinstance(digest, str) or len(digest) != 64:
-            raise _error(f"manifest {relative}: sha256 must be 64 hexadecimal characters")
+            raise _error(
+                f"manifest {relative}: sha256 must be 64 hexadecimal characters"
+            )
         try:
             int(digest, 16)
         except ValueError:
@@ -157,14 +163,20 @@ def _manifest_identities(manifest: Mapping[str, object]) -> tuple[FileIdentity, 
         if isinstance(script_count, bool) or not isinstance(script_count, int):
             raise _error("manifest: scriptCount must be an integer")
         if script_count != len(identities):
-            raise _error(f"manifest: scriptCount {script_count!r} != {len(identities)} rows")
+            raise _error(
+                f"manifest: scriptCount {script_count!r} != {len(identities)} rows"
+            )
     manifest_bytes = manifest.get("totalBytes")
     if manifest_bytes is not None:
         if isinstance(manifest_bytes, bool) or not isinstance(manifest_bytes, int):
             raise _error("manifest: totalBytes must be an integer")
         if manifest_bytes != total_bytes:
-            raise _error(f"manifest: totalBytes {manifest_bytes!r} != {total_bytes} row bytes")
-    if [item.member_path for item in identities] != sorted(item.member_path for item in identities):
+            raise _error(
+                f"manifest: totalBytes {manifest_bytes!r} != {total_bytes} row bytes"
+            )
+    if [item.member_path for item in identities] != sorted(
+        item.member_path for item in identities
+    ):
         raise _error("manifest: scripts are not sorted by relativePath")
     return tuple(identities)
 
@@ -214,7 +226,9 @@ def _walk_source_lua(source_root: Path) -> dict[str, Path]:
         raise _error(f"source root is not a directory: {source_root}")
     found: dict[str, Path] = {}
     folded: dict[str, str] = {}
-    for current, directories, files in os.walk(source_root, topdown=True, followlinks=False):
+    for current, directories, files in os.walk(
+        source_root, topdown=True, followlinks=False
+    ):
         current_path = Path(current)
         kept_dirs: list[str] = []
         for name in sorted(directories):
@@ -238,7 +252,9 @@ def _walk_source_lua(source_root: Path) -> dict[str, Path]:
             folded_key = member.casefold()
             previous = folded.get(folded_key)
             if previous is not None:
-                raise _error(f"source tree: case-fold collision: {previous} and {member}")
+                raise _error(
+                    f"source tree: case-fold collision: {previous} and {member}"
+                )
             folded[folded_key] = member
             found[member] = path
     return found
@@ -312,7 +328,9 @@ def _zip_info_is_nonfile(info: zipfile.ZipInfo) -> bool:
     return False
 
 
-def _read_verified_zip(package_path: Path, identities: Sequence[FileIdentity]) -> tuple[list[tuple[str, bytes]], CorpusSummary]:
+def _read_verified_zip(
+    package_path: Path, identities: Sequence[FileIdentity]
+) -> tuple[list[tuple[str, bytes]], CorpusSummary]:
     _lstat(package_path, "package")
     package_st = os.stat(package_path)
     if not stat.S_ISREG(package_st.st_mode):
@@ -367,7 +385,9 @@ def _read_verified_zip(package_path: Path, identities: Sequence[FileIdentity]) -
         if missing:
             raise _error(f"package: missing member(s): {', '.join(missing)}")
         if len(payloads) != len(identities):
-            raise _error(f"package: file count mismatch: {len(payloads)} != {len(identities)}")
+            raise _error(
+                f"package: file count mismatch: {len(payloads)} != {len(identities)}"
+            )
         if member_order != sorted(member_order):
             raise _error("package: members are not sorted by POSIX path")
     return payloads, _summary(records)
@@ -455,7 +475,9 @@ def _ensure_destination(destination: Path) -> tuple[bool, Path]:
         except OSError as exc:
             raise _error(f"hydration destination cannot be read: {exc}") from exc
         if nonempty:
-            raise _error(f"hydration destination must be absent or empty: {destination}")
+            raise _error(
+                f"hydration destination must be absent or empty: {destination}"
+            )
         exists = True
     else:
         exists = False
@@ -466,7 +488,9 @@ def _ensure_destination(destination: Path) -> tuple[bool, Path]:
     return exists, parent
 
 
-def _verify_hydrated_tree(root: Path, identities: Sequence[FileIdentity]) -> CorpusSummary:
+def _verify_hydrated_tree(
+    root: Path, identities: Sequence[FileIdentity]
+) -> CorpusSummary:
     found: dict[str, Path] = {}
     root_st = _lstat(root, "hydration staging")
     if not stat.S_ISDIR(root_st.st_mode):
@@ -495,7 +519,9 @@ def _verify_hydrated_tree(root: Path, identities: Sequence[FileIdentity]) -> Cor
     if missing:
         raise _error(f"hydration staging: missing member(s): {', '.join(missing)}")
     if unexpected:
-        raise _error(f"hydration staging: unexpected member(s): {', '.join(unexpected)}")
+        raise _error(
+            f"hydration staging: unexpected member(s): {', '.join(unexpected)}"
+        )
     records: list[tuple[str, int, str]] = []
     for item in identities:
         data = found[item.member_path].read_bytes()
@@ -556,7 +582,9 @@ def hydrate_package(
                     os.replace(backup, destination_path)
                     backup = None
                 except BaseException as rollback_exc:
-                    raise _error(f"hydration publish failed and rollback failed: {rollback_exc}") from rollback_exc
+                    raise _error(
+                        f"hydration publish failed and rollback failed: {rollback_exc}"
+                    ) from rollback_exc
                 raise
         else:
             os.replace(stage, destination_path)

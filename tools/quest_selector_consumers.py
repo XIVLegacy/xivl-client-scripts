@@ -53,9 +53,7 @@ JOB_SCRIPT_FAMILIES = {
     111320: "drg",
 }
 EXPECTED_NAMED_IDS = [
-    base + offset
-    for base in JOB_SCRIPT_FAMILIES
-    for offset in range(1, 7)
+    base + offset for base in JOB_SCRIPT_FAMILIES for offset in range(1, 7)
 ]
 EXPECTED_NAMED_ROWS_SHA256 = (
     "72c8867c28d8836525e92308a2a1404aabadbdeaf446200cf51747921f5ebe64"
@@ -73,7 +71,13 @@ NAMED_RE = re.compile(
     r"^(?P<primary>[A-Za-z ]+), [Ll]evel (?P<level>\d+) & (?P<secondary>[A-Za-z]+)$"
 )
 MESSAGE_FIELDS = {
-    51130: ("questId", "primarySelectorId", "primaryLevel", "secondarySelectorId", "secondaryLevel"),
+    51130: (
+        "questId",
+        "primarySelectorId",
+        "primaryLevel",
+        "secondarySelectorId",
+        "secondaryLevel",
+    ),
     51131: ("questId", "primarySelectorId"),
     51132: ("questId", "primarySelectorId"),
 }
@@ -138,7 +142,11 @@ def census_rows(client_data_root: Path) -> tuple[list[dict], dict, list[dict]]:
             secondary = match.group("secondary")
             primary_base_id = JOB_BASE_CLASS_IDS.get(primary, CLASS_IDS.get(primary))
             primary_selector_id = JOB_SELECTOR_IDS.get(primary, CLASS_IDS.get(primary))
-            if primary_base_id is None or primary_selector_id is None or secondary not in CLASS_IDS:
+            if (
+                primary_base_id is None
+                or primary_selector_id is None
+                or secondary not in CLASS_IDS
+            ):
                 raise AnalysisError(f"xtx_quest row {quest_id}: unknown named selector")
             if quest_id not in quest_rows:
                 raise AnalysisError(f"quest row {quest_id}: numeric row missing")
@@ -147,19 +155,21 @@ def census_rows(client_data_root: Path) -> tuple[list[dict], dict, list[dict]]:
             label_level = int(match.group("level"))
             if level != label_level:
                 raise AnalysisError(f"quest row {quest_id}: level disagrees with label")
-            named.append({
-                "questId": quest_id,
-                "questCsvLine": quest_line,
-                "xtxQuestCsvLine": text_line,
-                "label": label,
-                "primarySelector": primary,
-                "primarySelectorId": primary_selector_id,
-                "primaryBaseClassId": primary_base_id,
-                "primaryLevel": level,
-                "secondaryClass": secondary,
-                "secondaryClassId": CLASS_IDS[secondary],
-                "secondaryLevel": 15 if quest_id % 20 == 1 else None,
-            })
+            named.append(
+                {
+                    "questId": quest_id,
+                    "questCsvLine": quest_line,
+                    "xtxQuestCsvLine": text_line,
+                    "label": label,
+                    "primarySelector": primary,
+                    "primarySelectorId": primary_selector_id,
+                    "primaryBaseClassId": primary_base_id,
+                    "primaryLevel": level,
+                    "secondaryClass": secondary,
+                    "secondaryClassId": CLASS_IDS[secondary],
+                    "secondaryLevel": 15 if quest_id % 20 == 1 else None,
+                }
+            )
         elif label.startswith("Disciples of "):
             counts["disciplineSingle"] += 1
         elif label == "All":
@@ -167,7 +177,12 @@ def census_rows(client_data_root: Path) -> tuple[list[dict], dict, list[dict]]:
         else:
             counts["other"] += 1
 
-    if counts != {"namedBoth": 42, "disciplineSingle": 126, "allNoSelector": 66, "other": 501}:
+    if counts != {
+        "namedBoth": 42,
+        "disciplineSingle": 126,
+        "allNoSelector": 66,
+        "other": 501,
+    }:
         raise AnalysisError(f"selector shape census drifted: {counts}")
     if [row["questId"] for row in named] != EXPECTED_NAMED_IDS:
         raise AnalysisError("named selector row set drifted")
@@ -176,31 +191,40 @@ def census_rows(client_data_root: Path) -> tuple[list[dict], dict, list[dict]]:
     controls = []
     for quest_id in control_ids:
         text_line, _ = text_rows[quest_id]
-        controls.append({
-            "questId": quest_id,
-            "xtxQuestCsvLine": text_line,
-            "label": labels[quest_id],
-            "shape": "no selector" if labels[quest_id] == "All" else "discipline selector",
-        })
+        controls.append(
+            {
+                "questId": quest_id,
+                "xtxQuestCsvLine": text_line,
+                "label": labels[quest_id],
+                "shape": "no selector"
+                if labels[quest_id] == "All"
+                else "discipline selector",
+            }
+        )
     return named, counts, controls
 
 
 def _message_at(path: Path, line_index: int, message_id: int) -> dict:
     lines = path.read_text(encoding="utf-8").splitlines()
-    setup = lines[line_index - 4:line_index]
-    receiver = re.fullmatch(r"\s*(L\d+_2) = worldMaster", setup[0]) if len(setup) == 4 else None
+    setup = lines[line_index - 4 : line_index]
+    receiver = (
+        re.fullmatch(r"\s*(L\d+_2) = worldMaster", setup[0])
+        if len(setup) == 4
+        else None
+    )
     if (
         receiver is None
         or re.fullmatch(rf"\s*L\d+_2 = {receiver.group(1)}", setup[1]) is None
-        or re.fullmatch(
-            rf"\s*{receiver.group(1)} = {receiver.group(1)}\.say", setup[2]
-        ) is None
+        or re.fullmatch(rf"\s*{receiver.group(1)} = {receiver.group(1)}\.say", setup[2])
+        is None
         or re.fullmatch(r"\s*L\d+_2 = worldMaster", setup[3]) is None
     ):
-        raise AnalysisError(f"{path}:{line_index + 1}: message sink is not worldMaster.say")
+        raise AnalysisError(
+            f"{path}:{line_index + 1}: message sink is not worldMaster.say"
+        )
     fields = MESSAGE_FIELDS[message_id]
     values = []
-    for line in lines[line_index + 1:line_index + 1 + len(fields)]:
+    for line in lines[line_index + 1 : line_index + 1 + len(fields)]:
         match = re.fullmatch(r"\s*L\d+_2 = (\d+)", line)
         if match is None:
             raise AnalysisError(f"{path}:{line_index + 1}: message arguments drifted")
@@ -236,12 +260,20 @@ def analyze_script_consumers(scripts_root: Path | None = None) -> list[dict]:
                 **_message_at(path, index, message_id),
             }
             rows.append(row)
-    counts = {message_id: sum(row["messageId"] == message_id for row in rows) for message_id in MESSAGE_FIELDS}
+    counts = {
+        message_id: sum(row["messageId"] == message_id for row in rows)
+        for message_id in MESSAGE_FIELDS
+    }
     if counts != {51130: 7, 51131: 42, 51132: 42}:
         raise AnalysisError(f"message consumer census drifted: {counts}")
     for row in rows:
-        if row["messageId"] == 51130 and (row["primaryLevel"], row["secondaryLevel"]) != (30, 15):
-            raise AnalysisError(f"{row['script']}:{row['line']}: two-level requirement drifted")
+        if row["messageId"] == 51130 and (
+            row["primaryLevel"],
+            row["secondaryLevel"],
+        ) != (30, 15):
+            raise AnalysisError(
+                f"{row['script']}:{row['line']}: two-level requirement drifted"
+            )
     return rows
 
 
@@ -260,8 +292,7 @@ def _corpus_pins() -> dict:
 def validate_selector_alignment(named: list[dict], consumers: list[dict]) -> None:
     """Require retained CSV selectors to agree with their script presentations."""
     by_script_message = {
-        (row.get("script"), row.get("messageId")): row
-        for row in consumers
+        (row.get("script"), row.get("messageId")): row for row in consumers
     }
     for row in named:
         quest_id = row["questId"]
@@ -271,26 +302,41 @@ def validate_selector_alignment(named: list[dict], consumers: list[dict]) -> Non
         script = f"lua/scripts/quest/scenario/{family}/{family}0j{offset}.lua"
         for message_id in (51131, 51132):
             consumer = by_script_message.get((script, message_id))
-            if consumer is None or consumer.get("primarySelectorId") != row["primarySelectorId"]:
+            if (
+                consumer is None
+                or consumer.get("primarySelectorId") != row["primarySelectorId"]
+            ):
                 raise AnalysisError(
                     f"quest {quest_id}: {message_id} active-primary selector disagrees"
                 )
-            expected_quest_id = 111304 if quest_id == 111324 and message_id == 51132 else quest_id
+            expected_quest_id = (
+                111304 if quest_id == 111324 and message_id == 51132 else quest_id
+            )
             if consumer.get("questId") != expected_quest_id:
-                raise AnalysisError(f"quest {quest_id}: {message_id} quest ID disagrees")
+                raise AnalysisError(
+                    f"quest {quest_id}: {message_id} quest ID disagrees"
+                )
         two_level = by_script_message.get((script, 51130))
         if row["secondaryLevel"] is None:
             if two_level is not None:
                 raise AnalysisError(f"quest {quest_id}: unexpected two-level consumer")
             continue
         expected = (
-            row["primarySelectorId"], row["primaryLevel"],
-            row["secondaryClassId"], row["secondaryLevel"],
+            row["primarySelectorId"],
+            row["primaryLevel"],
+            row["secondaryClassId"],
+            row["secondaryLevel"],
         )
         actual = (
-            two_level.get("primarySelectorId"), two_level.get("primaryLevel"),
-            two_level.get("secondarySelectorId"), two_level.get("secondaryLevel"),
-        ) if two_level is not None else None
+            (
+                two_level.get("primarySelectorId"),
+                two_level.get("primaryLevel"),
+                two_level.get("secondarySelectorId"),
+                two_level.get("secondaryLevel"),
+            )
+            if two_level is not None
+            else None
+        )
         if actual != expected:
             raise AnalysisError(f"quest {quest_id}: CSV and script selectors disagree")
 
@@ -359,7 +405,10 @@ def validate_retained(report: dict) -> list[str]:
     if _json_sha256(named) != EXPECTED_NAMED_ROWS_SHA256:
         problems.append("named selector row content disagrees")
     consumers = report.get("messageConsumers", [])
-    counts = {message_id: sum(row.get("messageId") == message_id for row in consumers) for message_id in MESSAGE_FIELDS}
+    counts = {
+        message_id: sum(row.get("messageId") == message_id for row in consumers)
+        for message_id in MESSAGE_FIELDS
+    }
     if counts != {51130: 7, 51131: 42, 51132: 42}:
         problems.append("message consumer counts disagree")
     try:
@@ -383,9 +432,8 @@ def main() -> int:
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
     scripts_root = resolve_scripts_root(SCRIPTS_ROOT, args.scripts_root)
-    explicit_scripts_root = (
-        args.scripts_root is not None
-        or bool(os.environ.get("XIVL_LUA_SCRIPTS_DIR"))
+    explicit_scripts_root = args.scripts_root is not None or bool(
+        os.environ.get("XIVL_LUA_SCRIPTS_DIR")
     )
     try:
         if explicit_scripts_root:
@@ -402,7 +450,9 @@ def main() -> int:
             problems = validate_retained(report)
             if problems:
                 raise AnalysisError("; ".join(problems))
-            if scripts_root.is_dir() and report["messageConsumers"] != analyze_script_consumers(scripts_root):
+            if scripts_root.is_dir() and report[
+                "messageConsumers"
+            ] != analyze_script_consumers(scripts_root):
                 raise AnalysisError("message consumer report is stale")
     except (
         OSError,
@@ -416,7 +466,9 @@ def main() -> int:
     rendered = render_json(report)
     if args.check:
         if OUTPUT_PATH.read_bytes() != rendered:
-            print(f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr)
+            print(
+                f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr
+            )
             return 1
         print("PASS: 42 named quest rows and 91 message consumers match")
         return 0

@@ -135,9 +135,7 @@ def build_script_manifest(scripts_root: Path) -> dict:
         "gameVersion": "1.23b",
         "extraction": EXTRACTION_VERSION,
         "pipeline": {
-            "orchestrator": (
-                "XIVLegacy/xivl-client-structs:tools/lpb_pipeline.py"
-            ),
+            "orchestrator": ("XIVLegacy/xivl-client-structs:tools/lpb_pipeline.py"),
             "decoder": "XIVLegacy/xivl-client-structs:tools/decode_lpb.py",
             "decompiler": "user-supplied unluac.jar",
             "canonicalization": "replace CRLF byte pairs with LF",
@@ -386,9 +384,7 @@ def publish_corpus(
         if stage_root.exists():
             shutil.rmtree(stage_root)
 
-    print(
-        f"published {registry['scriptCount']} scripts and registry to {output_root}"
-    )
+    print(f"published {registry['scriptCount']} scripts and registry to {output_root}")
     return 0
 
 
@@ -495,9 +491,9 @@ def annotate_corpus(
             "callsiteCount": sum(len(lines) for lines in hits.values()),
             "apis": {key: hits[key] for key in sorted(hits)},
         }
-        sidecar_path = (
-            sidecars_root / lua_path.relative_to(scripts_root)
-        ).with_suffix(".calls.json")
+        sidecar_path = (sidecars_root / lua_path.relative_to(scripts_root)).with_suffix(
+            ".calls.json"
+        )
         write_json(sidecar_path, sidecar)
         if hits:
             scripts_with_calls += 1
@@ -525,7 +521,9 @@ def annotate_corpus(
             "bcsIds": api_bcs.get(api, []),
             "bindings": [
                 {"class": receiver_class, "script": script}
-                for receiver_class, script in sorted(binding_declarations.get(api, set()))
+                for receiver_class, script in sorted(
+                    binding_declarations.get(api, set())
+                )
             ],
             "callsiteCount": len(sites),
             "callsites": sites,

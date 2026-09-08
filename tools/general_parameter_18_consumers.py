@@ -20,12 +20,25 @@ class AnalysisError(ValueError):
 
 
 EXPECTED_GENERAL_PARAMETER_REFS = {
-    "chara/charabaseclass_battle.lua": tuple(
-        [1456] + list(range(1547, 1737, 7))
-    ),
+    "chara/charabaseclass_battle.lua": tuple([1456] + list(range(1547, 1737, 7))),
     "chara/charabaseclass_ffxivbattle.lua": (
-        32, 451, 463, 475, 487, 499, 511, 523, 535,
-        547, 559, 571, 583, 595, 607, 619, 631,
+        32,
+        451,
+        463,
+        475,
+        487,
+        499,
+        511,
+        523,
+        535,
+        547,
+        559,
+        571,
+        583,
+        595,
+        607,
+        619,
+        631,
     ),
 }
 
@@ -100,13 +113,15 @@ def _physical_arguments(scripts_root: Path) -> dict[str, tuple[int, ...]]:
         lines = (scripts_root / relative).read_text(encoding="utf-8").splitlines()
         values = []
         for line_number in refs:
-            for line in lines[line_number:line_number + 3]:
+            for line in lines[line_number : line_number + 3]:
                 match = re.search(r"= (\d+)$", line)
                 if match is not None:
                     values.append(int(match.group(1)))
                     break
             else:
-                raise AnalysisError(f"{relative}:{line_number}: fixed argument is missing")
+                raise AnalysisError(
+                    f"{relative}:{line_number}: fixed argument is missing"
+                )
         arguments[relative] = tuple(values)
     return arguments
 
@@ -122,8 +137,7 @@ def _verify_connector(path: Path) -> None:
         _compact(path),
         (
             'L7_2 = A3_2 if L7_2 == "command"',
-            'elseif L7_2 == "battleParameter" then else end '
-            'if L7_2 == "gameParameter"',
+            'elseif L7_2 == "battleParameter" then else end if L7_2 == "gameParameter"',
             "L0_1.processCharacterParameterUpdated = L1_1",
         ),
     )

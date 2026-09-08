@@ -6,9 +6,11 @@ from pathlib import Path
 
 
 REPO = Path(__file__).resolve().parents[2]
-SCRIPTS = Path(
-    os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(REPO / "lua" / "scripts"))
-).expanduser().absolute()
+SCRIPTS = (
+    Path(os.environ.get("XIVL_LUA_SCRIPTS_DIR", str(REPO / "lua" / "scripts")))
+    .expanduser()
+    .absolute()
+)
 
 
 def compact(relative: str) -> str:
@@ -46,8 +48,7 @@ class PlayerTradeLifecycleCorpusTests(unittest.TestCase):
             relation,
         )
         self.assertIn(
-            'L3_2 = 200002 L4_2 = "work" L5_2 = "_globalTemp" '
-            'L6_2 = "variableCommand"',
+            'L3_2 = 200002 L4_2 = "work" L5_2 = "_globalTemp" L6_2 = "variableCommand"',
             relation,
         )
         self.assertIn("A1_2.getConfirmTradeCommandVariation", confirm)

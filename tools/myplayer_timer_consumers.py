@@ -162,10 +162,14 @@ def _verify_callsite_shape(path: Path, line_number: int, spec: dict) -> None:
         raise AnalysisError(f"{path}:{line_number}: callback expression drifted")
     function_var = callback_match.group(1)
     if spec["luaArityIncludingSelf"] == 1:
-        if index + 1 >= len(lines) or re.fullmatch(
-            rf"\s*{function_var} = {function_var}\(L\d+_2\)",
-            lines[index + 1],
-        ) is None:
+        if (
+            index + 1 >= len(lines)
+            or re.fullmatch(
+                rf"\s*{function_var} = {function_var}\(L\d+_2\)",
+                lines[index + 1],
+            )
+            is None
+        ):
             raise AnalysisError(f"{path}:{line_number}: scalar call arity drifted")
     else:
         if index + 2 >= len(lines):
@@ -179,10 +183,13 @@ def _verify_callsite_shape(path: Path, line_number: int, spec: dict) -> None:
         if argument_match is None:
             raise AnalysisError(f"{path}:{line_number}: expected argument {argument}")
         argument_var = argument_match.group(1)
-        if re.fullmatch(
-            rf"\s*{function_var} = {function_var}\(L\d+_2, {argument_var}\)",
-            lines[index + 2],
-        ) is None:
+        if (
+            re.fullmatch(
+                rf"\s*{function_var} = {function_var}\(L\d+_2, {argument_var}\)",
+                lines[index + 2],
+            )
+            is None
+        ):
             raise AnalysisError(f"{path}:{line_number}: occupancy call arity drifted")
 
 
@@ -193,8 +200,7 @@ def _verify_sidecars(
     for path in sorted(sidecars_root.rglob("*.calls.json")):
         data = json.loads(path.read_text(encoding="utf-8"))
         relative = (
-            path.relative_to(sidecars_root).as_posix()[: -len(".calls.json")]
-            + ".lua"
+            path.relative_to(sidecars_root).as_posix()[: -len(".calls.json")] + ".lua"
         )
         for callback in CALLBACKS:
             for line in data.get("apis", {}).get(callback, []):
@@ -203,7 +209,9 @@ def _verify_sidecars(
         if sorted(indexed[callback]) != sorted(found[callback]):
             raise AnalysisError(f"{callback}: sidecar callsites disagree with Lua")
 
-    napi = json.loads((REPO_ROOT / "lua" / "napi_index.json").read_text(encoding="utf-8"))
+    napi = json.loads(
+        (REPO_ROOT / "lua" / "napi_index.json").read_text(encoding="utf-8")
+    )
     for callback in CALLBACKS:
         rows = []
         for callsite in napi["apis"][callback]["callsites"]:
@@ -218,21 +226,29 @@ def _verify_declarations_and_registry(scripts_root: Path) -> list[dict]:
         needle = callback + "_cpp"
         matches = []
         for path in sorted(scripts_root.rglob("*.lua")):
-            for number, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+            for number, line in enumerate(
+                path.read_text(encoding="utf-8").splitlines(), 1
+            ):
                 if needle in line:
                     matches.append((path, number))
         if len(matches) != 1:
-            raise AnalysisError(f"{callback}: expected one receiver declaration, got {len(matches)}")
+            raise AnalysisError(
+                f"{callback}: expected one receiver declaration, got {len(matches)}"
+            )
         path, number = matches[0]
-        declarations.append({
-            "callback": callback,
-            "receiverClass": "PlayerBaseClass",
-            "script": "lua/scripts/" + path.relative_to(scripts_root).as_posix(),
-            "line": number,
-            "cppName": needle,
-        })
+        declarations.append(
+            {
+                "callback": callback,
+                "receiverClass": "PlayerBaseClass",
+                "script": "lua/scripts/" + path.relative_to(scripts_root).as_posix(),
+                "line": number,
+                "cppName": needle,
+            }
+        )
 
-    registry = json.loads((REPO_ROOT / "lua" / "registry.json").read_text(encoding="utf-8"))
+    registry = json.loads(
+        (REPO_ROOT / "lua" / "registry.json").read_text(encoding="utf-8")
+    )
     methods = registry["scripts"]["chara/player/playerbaseclass_u"]["methods"]
     for callback in CALLBACKS:
         inline = callback + "_inl"
@@ -250,7 +266,9 @@ def _verify_status_propagation(scripts_root: Path) -> None:
         pattern = f"A0_2.setContentsListItem L5_2 = L2_2 L6_2 = {value}"
         position = compact.find(pattern, cursor)
         if position < 0:
-            raise AnalysisError(f"StatusWidget.updateContents: missing ordered argument {value}")
+            raise AnalysisError(
+                f"StatusWidget.updateContents: missing ordered argument {value}"
+            )
         cursor = position + len(pattern)
     required = (
         "if 0 < L7_2 then",
@@ -289,7 +307,9 @@ def _verify_status_propagation(scripts_root: Path) -> None:
 
 def _verify_scalar_chains(scripts_root: Path) -> None:
     sources = {
-        relative: " ".join((scripts_root / relative).read_text(encoding="utf-8").split())
+        relative: " ".join(
+            (scripts_root / relative).read_text(encoding="utf-8").split()
+        )
         for relative in (
             "chara/player/playerbaseclass.lua",
             "command/system/teleportcommand.lua",
@@ -308,7 +328,7 @@ def _verify_scalar_chains(scripts_root: Path) -> None:
             "if 0 < L11_2 then L11_2 = false return L11_2",
         ),
         "widget/desktopwidget_connector.lua": (
-            "L1_1 = \"isNMRushEnable\"",
+            'L1_1 = "isNMRushEnable"',
             "L1_2._getNMRushUpdateTime",
             "if 0 < L2_2 then L2_2 = true return L2_2",
         ),
@@ -339,7 +359,9 @@ def _verify_scalar_chains(scripts_root: Path) -> None:
     for relative, patterns in required.items():
         for pattern in patterns:
             if pattern not in sources[relative]:
-                raise AnalysisError(f"{relative}: scalar consumer chain missing {pattern}")
+                raise AnalysisError(
+                    f"{relative}: scalar consumer chain missing {pattern}"
+                )
 
 
 def analyze(
@@ -361,7 +383,9 @@ def analyze(
     if actual != expected:
         missing = sorted(set(expected) - set(actual))
         extra = sorted(set(actual) - set(expected))
-        raise AnalysisError(f"direct callsite set drifted ({len(missing)} missing, {len(extra)} extra)")
+        raise AnalysisError(
+            f"direct callsite set drifted ({len(missing)} missing, {len(extra)} extra)"
+        )
     _verify_sidecars(sidecars_root, found)
     declarations = _verify_declarations_and_registry(scripts_root)
     _verify_status_propagation(scripts_root)
@@ -372,7 +396,9 @@ def analyze(
         spec = dict(base_spec)
         _verify_callsite_shape(scripts_root / relative, line, spec)
         row = {"script": f"lua/scripts/{relative}", "line": line, **spec}
-        if spec["callback"] == "_getOccupancyContentsTime" and isinstance(spec["argument"], int):
+        if spec["callback"] == "_getOccupancyContentsTime" and isinstance(
+            spec["argument"], int
+        ):
             row["nativeVectorIndex"] = spec["argument"] - 1
         callsites.append(row)
 
@@ -518,7 +544,9 @@ def main() -> int:
     rendered = render_json(report)
     if args.check:
         if not OUTPUT_PATH.is_file() or OUTPUT_PATH.read_bytes() != rendered:
-            print(f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr)
+            print(
+                f"error: {OUTPUT_PATH.relative_to(REPO_ROOT)} is stale", file=sys.stderr
+            )
             return 1
         print("PASS: 22 MyPlayer timer callsites match the semantic report")
         return 0

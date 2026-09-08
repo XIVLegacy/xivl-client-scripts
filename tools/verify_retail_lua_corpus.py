@@ -33,7 +33,9 @@ ARCHIVE_SIZE = 14385427
 ARCHIVE_SHA256 = "0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31"
 EXPANDED_FILE_COUNT = 2671
 EXPANDED_TOTAL_BYTES = 13971401
-EXPANDED_TREE_SHA256 = "05edcf81aec7ad28007c059991b6858665680f860bd1ed2aa5100e7fc120da0d"
+EXPANDED_TREE_SHA256 = (
+    "05edcf81aec7ad28007c059991b6858665680f860bd1ed2aa5100e7fc120da0d"
+)
 TARGET = "lua/scripts"
 SCHEMA_VERSION = 1
 TOOL_VERSIONS = {"python": "3.12", "verifier": "1.0"}
@@ -143,7 +145,9 @@ def archive_errors(archive_path: Path) -> list[str]:
     return _shape_errors(summary)
 
 
-def verify(archive_path: Path | None, manifest_path: Path = DEFAULT_MANIFEST) -> list[str]:
+def verify(
+    archive_path: Path | None, manifest_path: Path = DEFAULT_MANIFEST
+) -> list[str]:
     errors = contract_errors(manifest_path)
     if archive_path is not None:
         errors.extend(archive_errors(archive_path))
@@ -230,14 +234,20 @@ def retained_output_errors(directory: Path) -> list[str]:
         if len(entries) != 1 or entries[0].name != ATTESTATION_FILENAME:
             return ["retained output allowlist differs"]
         path = entries[0]
-        if _is_link_or_reparse(path) or not path.is_file() or path.stat().st_size > 4096:
+        if (
+            _is_link_or_reparse(path)
+            or not path.is_file()
+            or path.stat().st_size > 4096
+        ):
             return ["retained attestation file invalid"]
         raw = path.read_bytes()
         if b"\r" in raw:
             return ["retained attestation line ending invalid"]
         document = json.loads(raw.decode("ascii"))
         canonical = (
-            json.dumps(document, ensure_ascii=True, sort_keys=True, separators=(",", ":"))
+            json.dumps(
+                document, ensure_ascii=True, sort_keys=True, separators=(",", ":")
+            )
             + "\n"
         ).encode("ascii")
         if raw != canonical:
