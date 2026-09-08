@@ -16,6 +16,9 @@ Compress other survivors to about one line at the use site. Move a longer
 contract to this policy tier or the relevant corpus/tool page and leave a
 short pointer. When unsure, keep one line and flag it in review notes.
 
+Comment length and punctuation are style guidelines. Clarity, correctness,
+source quotations, licensing, and provenance justify exceptions.
+
 Source and evidence identifiers are exempt from shortening. Preserve them
 verbatim, including dates and content hashes.
 

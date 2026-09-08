@@ -54,8 +54,11 @@ Keep a figure when it carries the claim, including row counts, coverage
 ratios, byte sizes, hashes, offsets, and extraction diffs. Preserve figures
 inside quoted or transcribed source content verbatim.
 
-Remove incidental figures. Make approximate figures exact or omit them, and
-name the canonical artifact instead of duplicating a changing total.
+Remove incidental figures. Useful rounded figures and bounded estimates may
+remain when they carry the claim; state the measurement method, resolution, or
+bound. Use an exact value when precision affects correctness, and do not turn
+uncertain evidence into a precise value by inference. Name the canonical
+artifact instead of duplicating a changing total when the number is incidental.
 
 ## Citations
 
@@ -67,7 +70,7 @@ repository-name:path/to/file
 
 Add a stable row, symbol, or section locator when useful. When byte identity
 matters, record a sha256 in `PROVENANCE.json` rather than in the citation
-string. Commit hashes and date pins are not citations: repository histories
+string. Commit hashes and date pins do not replace source locators: repository histories
 are rewritten before publication, and dated "as of" claims rot. Branch names,
 working-tree paths, and sibling paths are not citations. Preserve the source
 fields in `PROVENANCE.json` verbatim, including dates.

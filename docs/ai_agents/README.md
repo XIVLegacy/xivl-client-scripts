@@ -19,7 +19,8 @@ tracked documentation or a generated product.
   repository's `lua/scripts/` tree and keeps the N-API index repository-owned.
   Repository-local `lua/scripts` remains the default for compatibility.
 - Preserve source and evidence citations verbatim, including dates. Cite a
-  promoted artifact by its own name and a sha256 of the promoted content.
+  promoted artifact by its own name, and record an immutable revision or
+  digest when exact version or byte identity matters.
 - Do not push unless the owner explicitly asks.
 
 ## Documentation policy

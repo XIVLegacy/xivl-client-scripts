@@ -116,19 +116,35 @@ reviews passed.
 
 ## Local checks
 
-The normal checks run without the retail input. The focused retail contract plus
-its mutation suite is:
+The normal checks run without the retail input. The focused retail contract and
+its mutation suite are:
 
 ```powershell
 python tools\test_retail_script.py
 python tools\test_private_lua_corpus.py
 python tools\test_retail_lua_corpus.py
-python tools\validate_corpus.py
 ```
 
-With the supplied corpus available, leave `XIVL_CORPUS_ABSENT` unset and set
-`XIVL_LUA_SCRIPTS_DIR` when it is hydrated outside the checkout. For a clean
-public-tree check, set `XIVL_CORPUS_ABSENT=1`. Run `git diff --check`, an ASCII scan, actionlint when
-available, vendor hash/license verification, and a staged tracked-file review
-before publication. The LPB and decompiled outputs belong only in ignored
-temporary storage during an owner-approved local rehearsal.
+For a public-tree-only check, do not provide a decoded Lua corpus. Set the
+absence flag before importing the validator:
+
+```powershell
+$env:XIVL_CORPUS_ABSENT = "1"
+python tools\validate_corpus.py
+Remove-Item Env:XIVL_CORPUS_ABSENT -ErrorAction SilentlyContinue
+```
+
+For a hydrated-corpus check, provide an explicit plain directory containing
+decoded `.lua` files. Leave the absence flag unset and select that directory
+with `XIVL_LUA_SCRIPTS_DIR`:
+
+```powershell
+$env:XIVL_LUA_SCRIPTS_DIR = "C:\path\to\lua\scripts"
+python tools\validate_corpus.py
+Remove-Item Env:XIVL_LUA_SCRIPTS_DIR -ErrorAction SilentlyContinue
+```
+
+Run `git diff --check`, an ASCII scan, actionlint when available, vendor
+hash/license verification, and a staged tracked-file review before publication.
+The LPB and decompiled outputs belong only in ignored temporary storage during
+an owner-approved local rehearsal.
