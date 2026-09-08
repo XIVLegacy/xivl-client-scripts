@@ -8,6 +8,7 @@ charter, and contribution policy.
 | Lua Script Corpus | [../lua/README.md](../lua/README.md) |
 | Tooling | [../tools/README.md](../tools/README.md) |
 | XIVLegacy Client Scripts | [../README.md](../README.md) |
+| Repository style | [style-guide.md](style-guide.md) |
 | AI-assisted contributions | [ai_agents/README.md](ai_agents/README.md) |
 | Comments and prose | [ai_agents/comments-and-prose.md](ai_agents/comments-and-prose.md) |
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |

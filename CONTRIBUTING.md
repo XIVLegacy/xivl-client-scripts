@@ -6,7 +6,8 @@ change focused, and open it only after all repository CI checks pass.
 ## Before contributing
 
 Read the [corpus contract](lua/README.md) and the
-[tooling reference](tools/README.md) before changing corpus metadata,
+[tooling reference](tools/README.md), then follow the
+[repository style guide](docs/style-guide.md) before changing corpus metadata,
 annotations, builders, schemas, or policy.
 
 The Lua corpus is immutable retail evidence. Do not hand-edit decompiled
