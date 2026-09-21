@@ -17,6 +17,7 @@ charter, and contribution policy.
 | General parameter 18 consumers | [general-parameter-18-consumers.md](general-parameter-18-consumers.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
+| Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |

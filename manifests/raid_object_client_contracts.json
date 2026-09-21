@@ -1,0 +1,115 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "evidenceClass": "explicit-external-decompile-research-input",
+  "canonicalCorpus": {
+    "manifest": "manifests/scripts.json",
+    "registry": "lua/registry.json",
+    "note": "Canonical script hashes differ because this finding pins an independent decompiler output."
+  },
+  "independentDecompile": {
+    "sourceRecord": "content_systems_20260612/manifest.json",
+    "sourceRecordSha256": "6670ec30d4ea65b2dd8a9476d96edcb9553d68b000edea2a7695e8ac292f5779",
+    "lpbIdentity": "The source record preserves decoded sizes and installed-client paths but does not preserve LPB hashes.",
+    "scripts": [
+      {
+        "decodedPath": "chara/npc/object/raiddungeonrect.lua",
+        "cipheredPath": "729s9/wu7/v8057q/s9166pw35vws57q.le.lpb",
+        "decodedBytes": 333,
+        "decompileSha256": "f9de8fe21f1e458bd4c4268e5fdb969a3d59adf6b40ccbd96233a30cc5ce2e94",
+        "canonicalScriptSha256": "8c8a6eefb4afbc2f0188a4a86cf8caa2fefa17193987d0337b0f1397404a0d4e",
+        "sourceLocator": "lines 1-8"
+      },
+      {
+        "decodedPath": "chara/npc/object/raiddungeontreasurebox.lua",
+        "cipheredPath": "729s9/wu7/v8057q/s9166pw35vwqs59rps58vm.le.lpb",
+        "decodedBytes": 4074,
+        "decompileSha256": "be6d403d8ed40f517ac1b034b2fc8fbd42fb70074f7ff35a9474bacb2b38d230",
+        "canonicalScriptSha256": "e5c15bf6184553b88e16e17ecbba434f3f68d565e6229e5c45f6033ff5290be9",
+        "sourceLocator": "lines 1-283"
+      },
+      {
+        "decodedPath": "chara/npc/object/raiddungeonwarp.lua",
+        "cipheredPath": "729s9/wu7/v8057q/s9166pw35vwn9su.le.lpb",
+        "decodedBytes": 667,
+        "decompileSha256": "b2ef27d7b6cbe17acb738fc8eff3a0c6c617c0d546e518f201a236e8e01aa96a",
+        "canonicalScriptSha256": "5fae14c71d0aa89683e8f6f545576a0034189f8b9935691f3dea8bad49ce08a2",
+        "sourceLocator": "lines 1-16"
+      },
+      {
+        "decodedPath": "gamedata/cutscene_common.lua",
+        "cipheredPath": "39x569q9/7pqr75w5_7vxxvw.le.lpb",
+        "decodedBytes": 9112,
+        "decompileSha256": "b4cac0ff7bb1c86071c532a44ea0a861e56347f79ebf1285348fa66cb9aa42af",
+        "canonicalScriptSha256": "f6db9559b3f805d2738c073c7db9dd102fd5c33a056e789ff2fb2f8aff395bd1",
+        "sourceLocator": "lines 1-913"
+      },
+      {
+        "decodedPath": "gamedata/cutscene_u.lua",
+        "cipheredPath": "39x569q9/7pqr75w5_p.le.lpb",
+        "decodedBytes": 595,
+        "decompileSha256": "3ead447af6f5bda0af8c77559b7f4407155fabe6c4dc5709ac6e19e1e01dc916",
+        "canonicalScriptSha256": "6115e860a9d927cf97447cd954966517fbbc091ecc9cc392b7edf26f255881a2",
+        "sourceLocator": "lines 1-38"
+      },
+      {
+        "decodedPath": "judge/preface/cutsceneoncebeaconprefacejudge.lua",
+        "cipheredPath": "0p635/us54975/7pqr75w5vw758597vwus549750p635.le.lpb",
+        "decodedBytes": 558,
+        "decompileSha256": "51ffb92245058ef0db70798e178aaad058fb4f61c97cc369aa21b5657ff2c9f2",
+        "canonicalScriptSha256": "92d9ba102b4584b3ddddccc362d0bedfc922f293b15453e9ad91e26deb2ae465",
+        "sourceLocator": "lines 1-10"
+      }
+    ]
+  },
+  "claims": [
+    {
+      "id": "raid-rect-empty-hooks",
+      "support": "RaidDungeonRect defines empty initForEvent and eventTalkStep0 bodies.",
+      "sources": [
+        "chara/npc/object/raiddungeonrect.lua:1-8",
+        "lua/registry.json:scripts/chara/npc/object/raiddungeonrect"
+      ]
+    },
+    {
+      "id": "raid-warp-presentation",
+      "support": "RaidDungeonWarp loads text sheet 6781 as raidDungeonWarp, invokes scheduler 67493888, and selects askExtendWidget or worldMaster:say from its boolean argument.",
+      "sources": [
+        "chara/npc/object/raiddungeonwarp.lua:1-16",
+        "lua/scripts/chara/npc/object/raiddungeonwarp.calls.json"
+      ]
+    },
+    {
+      "id": "dzemael-coffer-client-branch",
+      "support": "The client branch references quest 110868, isDropDzemael, item 10011244, system message 60027, and scheduler 67932160.",
+      "sources": [
+        "chara/npc/object/raiddungeontreasurebox.lua:3-43",
+        "lua/registry.json:scripts/chara/npc/object/raiddungeontreasurebox"
+      ],
+      "unresolved": "The independent decompiler did not preserve the temporary assignment around item 10011244 cleanly, so the exact item-test and success/failure branch association is unresolved."
+    },
+    {
+      "id": "raid-coffer-helper-surface",
+      "support": "The recovered helpers consume dropSheet, dropTableSheet, and dropQualitySheet, call item-capacity and item-add APIs, and expose mapMarkerVisible.",
+      "sources": [
+        "chara/npc/object/raiddungeontreasurebox.lua:45-283",
+        "lua/scripts/chara/npc/object/raiddungeontreasurebox.calls.json"
+      ]
+    },
+    {
+      "id": "beacon-preface-cutscene-sequence",
+      "support": "The preface judge fades out, waits, creates and starts a cutscene with literal arguments 1, 61, 1, deletes it, fades in, and waits again.",
+      "sources": [
+        "judge/preface/cutsceneoncebeaconprefacejudge.lua:1-10",
+        "lua/scripts/judge/preface/cutsceneoncebeaconprefacejudge.calls.json"
+      ]
+    }
+  ],
+  "rejectedInterpretations": [
+    "The finding does not establish a raid entry requirement, warp destination, terminal charge formula, or server-side warp.",
+    "The finding does not establish a retail drop table, probability, item grant, inventory policy, or reward.",
+    "The finding does not identify a scene resource, server trigger, actor roster, world transform, or duration.",
+    "The independent decompile outputs do not replace the canonical corpus."
+  ]
+}
