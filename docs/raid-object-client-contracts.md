@@ -74,6 +74,19 @@ installed script does not identify which server supplied the three
 sheet globals or bind a drop row to a particular original retail
 dungeon coffer actor.
 
+The installed game-sheet registry at `data/01/03/00/00.DAT` (SHA-256
+`860023878f9ad1e98fd1baa3e3380f971f86bf1f7747043cf0c3c7459cee2eb4`)
+names 133 sheets, none named for drop, loot, treasure, or quality. Its
+74 local infofiles and their block references reach 1,479 DAT files in
+`data/01/03`; 21 more DAT files in that directory are not reached by
+those references. A recursive scan of 2,671 installed `client/script/**/*.le.lpb`
+files found each of the three drop-global literals only in the treasure-box
+script above, and no script containing both a drop-global literal and
+`prepareSpreadSheet`. This is a bounded absence of a registered local
+sheet and a visible script initializer, not proof that the 21 unreferenced
+files lack relevant values or that retail never supplied the globals at
+runtime. The original drop rows and their provisioning path remain unknown.
+
 ## Cutscene bridge
 
 `CutSceneOnceBeaconPrefaceJudge.processEvent` performs this recovered client
