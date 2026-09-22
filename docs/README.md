@@ -22,6 +22,7 @@ charter, and contribution policy.
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |
 | MonsterAttackWeaponSkill getter profile | [monster-attack-weapon-skill-profiles.md](monster-attack-weapon-skill-profiles.md) |
+| Monster map-marker selection | [monster-map-marker-selection.md](monster-map-marker-selection.md) |
 | Retail Lua resource coverage | [retail-lua-coverage.md](retail-lua-coverage.md) |
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 

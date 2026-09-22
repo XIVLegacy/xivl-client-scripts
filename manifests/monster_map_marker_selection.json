@@ -1,0 +1,120 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "sourceRecord": {
+    "path": "decomp_further_20260617/combined_client_manifest.csv",
+    "sha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce",
+    "limitation": "The source record preserves installed-client paths and sizes but does not preserve LPB hashes."
+  },
+  "decompiler": {
+    "path": "tools/vendor/unluac/unluac_2025_12_23.jar",
+    "bytes": 796256,
+    "sha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc",
+    "canonicalization": "replace each CRLF byte pair with LF"
+  },
+  "scripts": [
+    {
+      "decodedPath": "chara/charabaseclass_battle.lua",
+      "cipheredPath": "729s9/729s989r57y9rr_89qqy5.le.lpb",
+      "decodedChunkBytes": 14525,
+      "decodedChunkSha256": "6d3f4bc0eb35827d3ced5e6a4c10cbd44ec0db9c729eed7075efe36e83982e9c",
+      "canonicalScriptBytes": 35086,
+      "canonicalScriptSha256": "ca7d9bd52320e8aa62ecd853a0ce8d9e2e0ddc76fc504729b501b14b9bfcd959",
+      "canonicalLineCount": 2027,
+      "locators": {
+        "isNotoriousMonster": "1110-1138",
+        "getPotencial": "1141-1149",
+        "calcPotencialMonsterFields": "1152-1197"
+      }
+    },
+    {
+      "decodedPath": "judge/depictionjudge.lua",
+      "cipheredPath": "0p635/65u17q1vw0p635.le.lpb",
+      "decodedChunkBytes": 4129,
+      "decodedChunkSha256": "756fa626bf9703afb5f97a36eb5bc3643eaf216cc602137dde5f034f678b9f19",
+      "canonicalScriptBytes": 22540,
+      "canonicalScriptSha256": "8db4d613d72ddf1921e3c9c4a961714371d2eac38fcc3b0211023105cb41a3e1",
+      "canonicalLineCount": 814,
+      "locators": {
+        "monsterMarkerBranch": "584-681"
+      }
+    }
+  ],
+  "potentialRankMap": [
+    {
+      "potential": -1,
+      "isNotoriousMonster": true,
+      "rank": 11
+    },
+    {
+      "potential": -2,
+      "isNotoriousMonster": true,
+      "rank": 12
+    },
+    {
+      "potential": -3,
+      "isNotoriousMonster": true,
+      "rank": 13
+    },
+    {
+      "potential": -4,
+      "isNotoriousMonster": true,
+      "rank": 14
+    }
+  ],
+  "defaultPotentialResult": {
+    "isNotoriousMonster": false,
+    "rank": 0
+  },
+  "monsterBaseInput": {
+    "primaryField": 132,
+    "numericMap": {
+      "1": -1,
+      "2": -2,
+      "3": -3,
+      "4": -4
+    },
+    "truthyNonNumber": -1,
+    "fallbackField": 87
+  },
+  "markerSelection": [
+    {
+      "hateType": [
+        1,
+        2
+      ],
+      "occupancyPartyMember": null,
+      "rank13Marker": 8,
+      "otherRankMarker": 5
+    },
+    {
+      "hateType": "other",
+      "occupancyPartyMember": true,
+      "rank13Marker": 9,
+      "otherRankMarker": 4
+    },
+    {
+      "hateType": "other",
+      "occupancyPartyMember": false,
+      "rank13Marker": 8,
+      "otherRankMarker": 5
+    }
+  ],
+  "overrides": [
+    {
+      "condition": "isNotoriousMonster returns true and rank 12",
+      "marker": 7
+    },
+    {
+      "condition": "isMapMarkerVisibleForTalkable returns false",
+      "marker": null
+    }
+  ],
+  "rejectedInterpretations": [
+    "Marker integers are not assigned artwork names by this evidence.",
+    "The branch does not identify an actor class ID or a specific notorious monster.",
+    "The local map-marker selection is not SetActorIcon or the s2c 0x018D full-map group marker.",
+    "The scripts do not establish server policy or the historical branch taken by an actor instance."
+  ]
+}
