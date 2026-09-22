@@ -1,0 +1,167 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "evidenceClass": "decoded-client-lua-reproducible-decompile",
+  "sourceRecord": {
+    "name": "combined_client_manifest.csv",
+    "sha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce"
+  },
+  "decompiler": {
+    "path": "tools/vendor/unluac/unluac_2025_12_23.jar",
+    "bytes": 796256,
+    "sha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc",
+    "canonicalization": "CRLF converted to LF"
+  },
+  "scripts": [
+    {
+      "decodedPath": "quest/scenario/man/man502.lua",
+      "decodedChunkBytes": 326,
+      "decodedChunkSha256": "a53b1d3628e9a8d6efb86335d1031e68a1c0dded70f102b97f3efdd4a56c072c",
+      "canonicalBytes": 374,
+      "canonicalLines": 20,
+      "canonicalSha256": "140143d4bfdb2cb130816fa9a26d1bb7600e8d92a6cbdd96a8ef77e862589caf",
+      "sourceLocator": "lines 1-20"
+    },
+    {
+      "decodedPath": "quest/scenario/man/man504.lua",
+      "decodedChunkBytes": 326,
+      "decodedChunkSha256": "aea53991a61ff8c5a6baa36ee1e2caa57154b8d0846823225e016d2dd748b9f2",
+      "canonicalBytes": 374,
+      "canonicalLines": 20,
+      "canonicalSha256": "5550f2a8671569be3566af4d6e1fb46c9a7e42a3b02506b548940379c8a96225",
+      "sourceLocator": "lines 1-20"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman50201.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "d700a829006f497616cda5a6604eb1e7760415d5ff0706aaa77e39250f29d721",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "db471bb5d101277bcefc513d16dd0c009f53ff7ca517d41a63f41f23bec6d915",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman50202.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "478eb664476fcdbb5ea449ff4fd5039ce5139842771ca7249999356b20cab165",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "5679b3201e70492362c0b3181806b64db0820fc0d76335c92bbb038d9f7d0238",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "quest/scenario/pgl/pgl200.lua",
+      "decodedChunkBytes": 9690,
+      "decodedChunkSha256": "22e1084e549ff2f8e87a3030079655a949cdac9f3416340e46785a23075af15b",
+      "canonicalBytes": 19060,
+      "canonicalLines": 1059,
+      "canonicalSha256": "52019bbde88285eca89b10c7ef74626536cffbb772961489bcad5927ae288bfa",
+      "sourceLocator": "lines 20-1059"
+    },
+    {
+      "decodedPath": "quest/scenario/war/war0j1.lua",
+      "decodedChunkBytes": 3988,
+      "decodedChunkSha256": "0c3f025718706962087fd18e7a9fd533ca4d7ef61a94c08b063ea92438701fae",
+      "canonicalBytes": 9297,
+      "canonicalLines": 511,
+      "canonicalSha256": "b6e555c344de588addeb3a5c58992d52c98f5c547395bc530792c8f830133351",
+      "sourceLocator": "lines 20-511"
+    },
+    {
+      "decodedPath": "quest/scenario/mnk/mnk0j6.lua",
+      "decodedChunkBytes": 5802,
+      "decodedChunkSha256": "6abf02dff4fd1406f816d9fbb585b5abd20fae41166f3fd26c801e8a74619de4",
+      "canonicalBytes": 13217,
+      "canonicalLines": 717,
+      "canonicalSha256": "875d773e291211a91912159bbd2ae5c83004364937a8198d08d8ea15f53100c5",
+      "sourceLocator": "lines 20-717"
+    },
+    {
+      "decodedPath": "quest/scenario/blm/blm0j3.lua",
+      "decodedChunkBytes": 5384,
+      "decodedChunkSha256": "cc5ab2641bec384539ead67c804208dc5ac671f731682c0db11e3a105c3aedff",
+      "canonicalBytes": 12250,
+      "canonicalLines": 674,
+      "canonicalSha256": "a931897c93dbb57a59602b45889983094729c10b51af9e997e6172ad47d5415e",
+      "sourceLocator": "lines 20-674"
+    },
+    {
+      "decodedPath": "quest/scenario/whm/whm0j6.lua",
+      "decodedChunkBytes": 6342,
+      "decodedChunkSha256": "58c4b46145b21abebbf8b6161bc56095699ded067b19a7629531b14c3edf9bbc",
+      "canonicalBytes": 13930,
+      "canonicalLines": 751,
+      "canonicalSha256": "894c00c20b7c6ad83cbc79aa44d32a1111c949ad6817a0f71e738d4c867dd959",
+      "sourceLocator": "lines 20-751"
+    },
+    {
+      "decodedPath": "quest/scenario/com/com0l1.lua",
+      "decodedChunkBytes": 3882,
+      "decodedChunkSha256": "f656804d0c90dc49ef6d05d713a117fcf7d0dad90a36c9381b823e6ccbc7e355",
+      "canonicalBytes": 8882,
+      "canonicalLines": 484,
+      "canonicalSha256": "9074d51b77c895376b0880d12488ee0d1773a2ac611363f4ad7aa02df8c6ebfe",
+      "sourceLocator": "lines 20-484"
+    },
+    {
+      "decodedPath": "quest/scenario/com/com5l0.lua",
+      "decodedChunkBytes": 7292,
+      "decodedChunkSha256": "967d64d9d3ce2cc5306b786c5435b9974077bbc018d684dd0ae54e74d1d1b485",
+      "canonicalBytes": 19222,
+      "canonicalLines": 1045,
+      "canonicalSha256": "b3647a5eba18e8f1e545e523ccd14198f7f5ca11d2351c635eef72a3dd4cb8f8",
+      "sourceLocator": "lines 20-1045"
+    },
+    {
+      "decodedPath": "quest/scenario/gcl/gcl101.lua",
+      "decodedChunkBytes": 12550,
+      "decodedChunkSha256": "b6575da42c43113f619c92abeff73be62ed449ae7002ef1e0f25015b69506cd5",
+      "canonicalBytes": 33647,
+      "canonicalLines": 1834,
+      "canonicalSha256": "9a1ed7c730abcf19d7c7c4a96ebd77a85e969f4162c381d387028fed9d27470a",
+      "sourceLocator": "lines 20-1834"
+    }
+  ],
+  "claims": [
+    {
+      "id": "man-empty-directors",
+      "support": "Man502 and Man504 initialize text, while their paired director scripts define empty classes.",
+      "sources": [
+        "quest/scenario/man/man502.lua:1-20",
+        "quest/scenario/man/man504.lua:1-20",
+        "director/quest/questdirectorman50201.lua:1-8",
+        "director/quest/questdirectorman50202.lua:1-8"
+      ]
+    },
+    {
+      "id": "pgl-event-presentation",
+      "support": "Pgl200 contains direct event dispatch, cutscene and fade calls, a post-warp fade-in path, and a duty-entry ask route.",
+      "sources": ["quest/scenario/pgl/pgl200.lua:111-1059"]
+    },
+    {
+      "id": "job-event-presentation",
+      "support": "War0j1, Mnk0j6, Blm0j3, and Whm0j6 contain direct event, hint, cutscene, dialog, clear, and item-presentation handlers.",
+      "sources": [
+        "quest/scenario/war/war0j1.lua:145-511",
+        "quest/scenario/mnk/mnk0j6.lua:20-717",
+        "quest/scenario/blm/blm0j3.lua:52-674",
+        "quest/scenario/whm/whm0j6.lua:20-751"
+      ]
+    },
+    {
+      "id": "grand-company-event-presentation",
+      "support": "Com0l1, Com5l0, and Gcl101 contain direct client event, dialog, ask, and cutscene flows; Com5l0 also consumes a member-count value.",
+      "sources": [
+        "quest/scenario/com/com0l1.lua:118-484",
+        "quest/scenario/com/com5l0.lua:20-1045",
+        "quest/scenario/gcl/gcl101.lua:164-1834"
+      ]
+    }
+  ],
+  "rejectedInterpretations": [
+    "The scripts do not establish server eligibility, objective completion, party formation, authoritative routing, or rewards.",
+    "The empty Man directors do not prove that the retail server had no corresponding behavior.",
+    "The scripts do not authenticate seasonal variants or server templates."
+  ]
+}
