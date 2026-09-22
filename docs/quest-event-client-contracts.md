@@ -70,6 +70,37 @@ NQ `man2l100`, and NQ `man2l110`. `Man2u0.processEvent005` chains NQ
 client presentation sequences, not evidence of server-side duty state,
 combat objectives, scene-trigger ownership, or reward timing.
 
+## SimpleQuestBattle client give-up hook
+
+The recovered `SimpleQuestBattleBaseClass.eventContentGiveUp` returns
+`worldMaster:ask(self, worldMaster, 25230, 2, argument)`; its
+`getOwnClientQuestId` delegates to `getOwnClientQuestIdAsSimple`.
+The base implementation of the latter has no recovered return value.
+Three recovered child overrides return exact client quest IDs:
+
+| Child class | `getOwnClientQuestIdAsSimple` return |
+| --- | ---: |
+| `QuestDirectorCom0l601` | `111406` |
+| `QuestDirectorCom0u501` | `111805` |
+| `QuestDirectorEtc3g201` | `110736` |
+
+The installed LPBs are under
+`client/script/61s57qvs/tp5rq/r1xuy5tp5rq89qqy5/`. Their file
+SHA-256 values, followed by the independent recovered-Lua SHA-256, are:
+
+| Class | LPB file | LPB SHA-256 | Recovered Lua SHA-256 |
+| --- | --- | --- | --- |
+| Base | `r1xuy5tp5rq89qqy589r57y9rr.le.lpb` | `cb4981bdeb1ecc4bbad4132896bc90b1eeb31eda35c244550304cfc60ff4e190` | `b4b352644bee4aed8936e0e86b7d17e9c2ab8f80b604f9a7c0058b9e9e3254ec` |
+| `Com0l601` | `tp5rq61s57qvs7vxjydji.le.lpb` | `3c2f349d571fb038d12b3b7199f28339bd533e1e4b0eb9d4fd5dd2832fb04b57` | `d5a0faf159fe00851482c08a304fe5cba64437984545d4f682e4496f64333de9` |
+| `Com0u501` | `tp5rq61s57qvs7vxjpeji.le.lpb` | `ed295a0c3d308a52003e63d67e36219979541cfafc9ef908f0d1b20ac69f0f4e9fe` | `1666578956a9d3eb8df42adb3a169ffdcb8e8d08d6568b76c84902184d8d74a5` |
+| `Etc3g201` | `tp5rq61s57qvs5q7g3hji.le.lpb` | `c88450a2d59bc94c81437a2e4bf149826bcabbfbf8c11f35d0d0765d90a6ad27` | `a563117f80b6cb686c65ff62afce8819fcad2b04e32dbaa03cb4ce05464673b3` |
+
+This authenticates a client ask route and three override constants. It
+does not establish a server give-up transaction, cancellation semantics,
+battle spawn, kill callback, cleanup, or reward policy. The recovered base
+does not define `eventContentCancel`; absence of that method in this file
+does not prove there was no other retail cancellation path.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint
