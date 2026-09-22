@@ -18,6 +18,7 @@ charter, and contribution policy.
 | Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
 | General parameter 18 consumers | [general-parameter-18-consumers.md](general-parameter-18-consumers.md) |
 | Gathering marker and fishing UI | [gathering-marker-fishing-ui.md](gathering-marker-fishing-ui.md) |
+| Garuda command range boundary | [garuda-command-range-boundary.md](garuda-command-range-boundary.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
