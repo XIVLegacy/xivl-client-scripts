@@ -127,6 +127,41 @@ These scripts identify presentation and delegation only. They do not
 authenticate the contributor server's content spawns, kill counts, return
 warps, quest replacement, or reward grants.
 
+## Com0 instanced cutscene calls
+
+The installed LPBs under `client/script/tp5rq/r75w9s1v/7vx/` match the
+corpus inventory. Their resource SHA-256 values and the separately recovered
+Lua SHA-256 values identify the six bodies used here:
+
+| Script | LPB file / SHA-256 | Recovered Lua SHA-256 |
+| --- | --- | --- |
+| `Com0l5` | `7vxjye.le.lpb` / `faebd6c76c4a01f50322d90f3f44e2ba05a7485e91893824a5f5bc7de88e558a` | `3be06e417323cbea89d1b42ec9ddcbb0e8c0fb02c6c258852d9d71b484e3552b` |
+| `Com0u5` | `7vxjpe.le.lpb` / `6b8b7b874c10f25703706a34a927d528c538cdeeecee06d1182b7bc09293ac86` | `f6b925d3230fa4731b2664b754f01c8e44ffc8284207ce1eeef7c184fa17c3ff` |
+| `Com0g6` | `7vxj3d.le.lpb` / `3400a351ec43fc8bbcb7b2c936a072b53db056858f12815cd820326d80307b45` | `e6cccde10118dffdf15cfe30a49650fd84e611e3a71b09f9b6f21b564692ed7c` |
+| `Com0l6` | `7vxjyd.le.lpb` / `59e7af49138f282a8764f8282ddf65169e39872c54c610679a8ca4b0435cc301` | `f8bd6cacdac222e0889867f83049fb2852dd5909783391ff2f8a856924789d32` |
+| `Com0u6` | `7vxjpd.le.lpb` / `52efcfcd3a8bb1c949654052efe00307ace4945a2d1de662e14367fba64881dd` | `ab508f6688aea592f236a1a1be4031c8a0f0c35a449bdaec51cfb25e738a5958` |
+| `Com0g4` | `7vxj3f.le.lpb` / `7d6af2a009754c16d5916a1e9eaaea5dfcf3b858ba6ac3837ce2d64cb3620a77` | `926430d8e0fa3e41bf541b1939b7266bccee7e2b389c0f37270904fb3cf17715` |
+
+`Com0l5.processEvent_010` calls NQ `COM0l110` and a post-warp fade-in.
+Its `processEvent_elevator_nq1` presents ask row 79, mode 2; the
+recovered answer-1 branch calls NQ `elv0l110` then `com0l610` and fades
+in after warp. The sibling `processEvent_elevator_nq2` calls only
+`elv0l110` in that branch. `processEventExit` asks world-master row
+51036, mode 2. Both elevator return expressions repeat `ask`; the
+decompiler output does not establish the runtime prompt count or returned
+value.
+
+`Com0u5.processEvent025` calls NQ `com0u610` with a post-warp fade-in.
+`Com0g6.processEventNq` calls NQ `COM0G510` with default fade-out and
+fade-in.
+`Com0l6.processEvent_010` passes its fourth method argument into NQ
+`com0l510` as the fourth scene argument. `Com0u6.processEvent_005_03`
+does the same for NQ `com0u510` and then fades in after warp.
+`Com0g4.processEventClear` calls NQ `com0g410` only when its fourth
+and fifth method arguments are both zero; the other recovered branch
+is dialogue. These direct calls do not identify the server-side event
+owner, instance start, quest sequence, clear condition, or reward.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint
