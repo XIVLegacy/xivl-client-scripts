@@ -101,6 +101,32 @@ battle spawn, kill callback, cleanup, or reward policy. The recovered base
 does not define `eventContentCancel`; absence of that method in this file
 does not prove there was no other retail cancellation path.
 
+## Man0 opening tutorial boundaries
+
+The installed scenario LPBs under `client/script/tp5rq/r75w9s1v/x9w/`
+match the corpus inventory. The exact resource and independent recovered-Lua
+SHA-256 identities are:
+
+| Script | LPB file / SHA-256 | Recovered Lua SHA-256 |
+| --- | --- | --- |
+| `Man0g0` | `x9wj3j.le.lpb` / `0180a8e3c55086b1b0c5cf2c17a7907846ce0b8854fb540bae57298b6f03a8e5` | `ababe7bb21455dbe2be5cd8abdb3e374a5366079b73de5f5829d209dba632836` |
+| `Man0l0` | `x9wjyj.le.lpb` / `30352866fca599cd199263e3e8253472c4230509c1e2b8c2755506690563f4ec` | `e28fe6ed28e7c3a8bbce3bae44285b173b5b612d0f0dcaaa1022836e152ee7ac` |
+| `Man0u0` | `x9wjpj.le.lpb` / `b954f9735da9ef38401872562074482ffeb510da44441febaa4fba959052f0cc` | `c7c1a3c51df28dac202bc4742349feb85b0d3a60dad376eb433645157dd700c6` |
+
+`Man0l0.processEvent000_2` cancels desktop-widget mode 16, closes the
+tutorial widget, and orders mode 16 again; it does not launch a scene.
+`processEvent020_9` presents ask row 84 with mode 2 and places a fade-out
+only in the recovered answer-1 branch. Its decompiled return expression
+repeats `ask`, so the number of runtime prompts and returned value remain
+unresolved. `Man0u0.processEvent000_3` delegates to
+`_getTutorialJudge():man0u0processEvent000_3`, while
+`processEvent020_8` returns the corresponding tutorial-judge method's
+result. `Man0g0.processTtrBlkNml002` has an empty recovered body.
+
+These scripts identify presentation and delegation only. They do not
+authenticate the contributor server's content spawns, kill counts, return
+warps, quest replacement, or reward grants.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint
