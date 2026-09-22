@@ -47,6 +47,33 @@ the temporary `mapMarkerVisible` value through
 presentation structure only. It does not authenticate a particular drop-table
 row, probability, item grant, inventory mutation policy, or server reward.
 
+## Treasure-box sheet structure
+
+The installed
+`client/script/729s9/wu7/v8057q/s9166pw35vwqs59rps58vm.le.lpb`
+is 4,087 bytes, SHA-256
+`9e8cdec96d2efae04b8b4c6cd3753a1dd0217689c85091263a344058409c42eb`.
+Its decoded Lua 5.1 bytecode is 4,074 bytes, SHA-256
+`f85d87ced22e9b2330571afdd4a93ff29fdb01f3e96d7a19a2a61937bfc11018`.
+That bytecode is byte-identical to the independently retained
+`RaidDungeonTreasureBox` research input. The decoded method and
+bytecode preserve these column accesses:
+
+| Method | Access or branch | Supported result |
+| --- | --- | --- |
+| `getDropItemDirect` / `getDropData` | `dropSheet` columns 0, 1, and 7 for a nonzero `dropID` | Three separately resolved drop-table references |
+| `getDropTable` | `dropTableSheet` column 0 | Type 0 takes the individual-slot path; type 1 takes the select-one path; other values return no list |
+| `getDropTableIndevidual` | Slots 1 through 8 | Each slot is considered separately with a random roll |
+| `getDropTableSelectOne` | Eight weights at slot base `+3`, stride 6 | One weighted slot is selected before its item is resolved |
+| `getDropTableData2` | Six columns per slot, base `(slot - 1) * 6`, fields `+2..+7` | Reads item, chance/weight, quality reference, grant mode, and quantity bounds |
+
+The quality resolver reads four values from `dropQualitySheet` and
+draws quantity between the slot's lower and upper bounds. These are
+client-side algorithm inputs, not preserved loot-table contents. The
+installed script does not identify which server supplied the three
+sheet globals or bind a drop row to a particular original retail
+dungeon coffer actor.
+
 ## Cutscene bridge
 
 `CutSceneOnceBeaconPrefaceJudge.processEvent` performs this recovered client
