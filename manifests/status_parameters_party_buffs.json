@@ -1,0 +1,50 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "sourceRecordSha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce",
+  "scripts": [
+    {
+      "decodedPath": "widget/statuswidget.lua",
+      "cipheredPath": "n1635q/rq9qprn1635q.le.lpb",
+      "decodedChunkBytes": 36422,
+      "decodedChunkSha256": "9668b0bc032dfcacc3f19f285bb5bd5673ad72c3da8d0fc68e893d087b27bb90",
+      "canonicalScriptSha256": "29a01e8dadae3a9dd57a42d453f21338bcf33aec436fe509f6e565f263151385",
+      "locators": ["1266-1306", "1793-1898"]
+    },
+    {
+      "decodedPath": "widget/desktopwidget_connector.lua",
+      "cipheredPath": "n1635q/65rzqvun1635q_7vww57qvs.le.lpb",
+      "decodedChunkBytes": 213474,
+      "decodedChunkSha256": "685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621",
+      "canonicalScriptSha256": "9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01",
+      "locators": ["5388-5441", "5477-5491", "8261-8267"]
+    },
+    {
+      "decodedPath": "widget/partybuffeffectwidget.lua",
+      "cipheredPath": "n1635q/u9sql8p4454457qn1635q.le.lpb",
+      "decodedChunkBytes": 433,
+      "decodedChunkSha256": "a5d74baa60544c57d801e79b8068c81b62691025e16f07e21ae1f138b124dd08",
+      "canonicalScriptSha256": "031be1edf67d45c6ad0ef87b4a9d9e38c32aee68da6553d3d6458018db5f1f86",
+      "locators": ["11-30"]
+    }
+  ],
+  "parameterPresentation": [
+    ["getCraftProcessing", "setCraftProcessing", "Label_PhysicalProcessing"],
+    ["getCraftProcessControl", "setCraftProcessControl", "Label_AlteredControl"],
+    ["getCraftMagicProcessing", "setCraftMagicProcessing", "Label_MagicProcessing"],
+    ["getHarvestPotency", "setHarvestPotency", "Label_GatheringAbility"],
+    ["getHarvestLimit", "setHarvestLimit", "Label_GatheringResistance"],
+    ["getHarvestRate", "setHarvestRate", "Label_GatheringInspiration"]
+  ],
+  "partyBuffs": {
+    "recognizedStatusIds": [223193, 223194],
+    "fullPartyEffectStatusId": 223194,
+    "falseCommand": "LightPartyEffect.Start",
+    "trueCommand": "FullPartyEffect.Start"
+  },
+  "rejectedInterpretations": [
+    "The setters do not establish numerical bonus formulas.",
+    "The party-buff route does not establish eligibility, recast, persistence, removal policy, server authority, or historical runtime state."
+  ]
+}

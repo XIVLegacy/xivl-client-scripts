@@ -21,6 +21,7 @@ charter, and contribution policy.
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
+| Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |
 | MonsterAttackWeaponSkill getter profile | [monster-attack-weapon-skill-profiles.md](monster-attack-weapon-skill-profiles.md) |
