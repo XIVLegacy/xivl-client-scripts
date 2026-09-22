@@ -13,15 +13,22 @@ charter, and contribution policy.
 | Comments and prose | [ai_agents/comments-and-prose.md](ai_agents/comments-and-prose.md) |
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
+| Content director UI contracts | [content-director-ui-contracts.md](content-director-ui-contracts.md) |
+| Craft command and progress contracts | [craft-command-progress-contracts.md](craft-command-progress-contracts.md) |
 | Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
-| Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
 | General parameter 18 consumers | [general-parameter-18-consumers.md](general-parameter-18-consumers.md) |
+| Gathering marker and fishing UI | [gathering-marker-fishing-ui.md](gathering-marker-fishing-ui.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
+| Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
+| Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
+| Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
+| Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
 | Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |
 | MonsterAttackWeaponSkill getter profile | [monster-attack-weapon-skill-profiles.md](monster-attack-weapon-skill-profiles.md) |
+| Monster map-marker selection | [monster-map-marker-selection.md](monster-map-marker-selection.md) |
 | Retail Lua resource coverage | [retail-lua-coverage.md](retail-lua-coverage.md) |
 | Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
 

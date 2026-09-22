@@ -1,0 +1,96 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "evidenceClass": "decoded-client-lua-reproducible-decompile",
+  "sourceRecord": {
+    "name": "combined_client_manifest.csv",
+    "sha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce"
+  },
+  "decompiler": {
+    "path": "tools/vendor/unluac/unluac_2025_12_23.jar",
+    "bytes": 796256,
+    "sha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc",
+    "canonicalization": "CRLF converted to LF"
+  },
+  "scripts": [
+    {
+      "decodedPath": "director/guildleve/guildlevebaseclass.lua",
+      "decodedChunkBytes": 13561,
+      "decodedChunkSha256": "bcad3160d16813502529467ce5da17bb3a9bc80c576cd71841708fe7859d7e84",
+      "canonicalBytes": 30822,
+      "canonicalLines": 1560,
+      "canonicalSha256": "0cd9f9853d1f91c07b583db2bb7facc4cb6a0c9c900dd8cf1953435cd19aca19",
+      "sourceLocator": "lines 1-1560"
+    },
+    {
+      "decodedPath": "director/guildleve/requestdirector.lua",
+      "decodedChunkBytes": 3516,
+      "decodedChunkSha256": "316b74872a85670f3cacf4e34b3966ab78221a9fa22a45a38022a71abbf8ff67",
+      "canonicalBytes": 10347,
+      "canonicalLines": 466,
+      "canonicalSha256": "4ef8cd76d83575fbe6d3657d81a6831bd973224aeba59757203f5a80200c7927",
+      "sourceLocator": "lines 1-466"
+    },
+    {
+      "decodedPath": "director/caravanguard/caravanguarddirector.lua",
+      "decodedChunkBytes": 4953,
+      "decodedChunkSha256": "6b4a3198115e785842f2932333a6815de833cf9fe6a9f6327027826085d9fe17",
+      "canonicalBytes": 18503,
+      "canonicalLines": 742,
+      "canonicalSha256": "f9c21e5dcd7376f9dd68f5a109e309d634bc4303f15b5cb888ae26595ac427cc",
+      "sourceLocator": "lines 1-742"
+    },
+    {
+      "decodedPath": "director/instanceraid/instanceraidhamletdefense.lua",
+      "decodedChunkBytes": 5792,
+      "decodedChunkSha256": "ff329e9dec60838a0d0fd5e2c42a27aba60365bf52b44bcb8d6d43c709eb1a00",
+      "canonicalBytes": 16556,
+      "canonicalLines": 823,
+      "canonicalSha256": "e9a1f5c2367152c1868a8ba2fac689a031017e801e0a8b06628d8d55a8bdf9db",
+      "sourceLocator": "lines 1-823"
+    }
+  ],
+  "claims": [
+    {
+      "id": "guildleve-retained-state",
+      "support": "GuildleveBaseClass retains identifiers, timing, aim counts, UI states, and marker coordinates; initialization reads guildleve sheet column 21 into timeLimit.",
+      "sources": [
+        "director/guildleve/guildlevebaseclass.lua:11-456",
+        "director/guildleve/guildlevebaseclass.lua:565-572"
+      ]
+    },
+    {
+      "id": "guildleve-client-ui",
+      "support": "GuildleveBaseClass exposes guildleve-information data and drives map and minimap marker calls from retained state.",
+      "sources": ["director/guildleve/guildlevebaseclass.lua:575-1560"]
+    },
+    {
+      "id": "request-time-and-ui",
+      "support": "RequestDirector derives from GuildleveBaseClass, returns literal 20 from getTimeLimit, and supplies request-specific UI and article methods.",
+      "sources": ["director/guildleve/requestdirector.lua:1-466"]
+    },
+    {
+      "id": "caravan-retained-ui-fields",
+      "support": "CaravanGuardDirector retains finishTime, progressPer, chocobo status and HP arrays, and marker coordinates, then exposes them through UI and map-widget methods.",
+      "sources": [
+        "director/caravanguard/caravanguarddirector.lua:11-212",
+        "director/caravanguard/caravanguarddirector.lua:215-742"
+      ]
+    },
+    {
+      "id": "hamlet-defense-widget-contract",
+      "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available.",
+      "sources": [
+        "director/instanceraid/instanceraidhamletdefense.lua:11-193",
+        "director/instanceraid/instanceraidhamletdefense.lua:247-570"
+      ]
+    }
+  ],
+  "rejectedInterpretations": [
+    "The directors do not establish server timers, acceptance rules, objective completion, rewards, or authoritative state ownership.",
+    "The caravan director does not establish escort movement, enemy waves, routes, or failure rules.",
+    "The Hamlet director does not establish wave composition, scoring formulas, victory conditions, or rewards.",
+    "No Behest or Skirmish mechanics may be inferred from these director contracts."
+  ]
+}
