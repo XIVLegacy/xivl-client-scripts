@@ -16,6 +16,7 @@ charter, and contribution policy.
 | Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
 | Craft command and progress contracts | [craft-command-progress-contracts.md](craft-command-progress-contracts.md) |
 | General parameter 18 consumers | [general-parameter-18-consumers.md](general-parameter-18-consumers.md) |
+| Gathering marker and fishing UI | [gathering-marker-fishing-ui.md](gathering-marker-fishing-ui.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
