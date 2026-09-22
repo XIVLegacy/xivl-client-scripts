@@ -21,6 +21,7 @@ charter, and contribution policy.
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
+| Job and Grand Company event contracts | [job-grand-company-event-contracts.md](job-grand-company-event-contracts.md) |
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
 | Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |

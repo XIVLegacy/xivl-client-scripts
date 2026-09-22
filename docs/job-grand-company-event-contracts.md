@@ -1,0 +1,149 @@
+# Job and Grand Company event contracts
+
+The recovered FFXIV 1.23b quest scripts preserve client-owned dialog,
+cutscene, fade, widget, and reward-presentation sequences. They are useful for
+assigning an event to the correct phase and speaker, but they do not contain
+the lost server dispatcher, combat AI, spawn rules, success conditions, or
+persistent return-point policy.
+
+Source identities for these scripts are recorded in `manifests/scripts.json`.
+Method names below are stable locators within the named canonical script.
+
+## Job quest phase ownership
+
+### Warrior
+
+`War0j1.processEventClear` runs the main clear conversation and closes its talk
+turn. `War0j1.processEventClearAfter` opens a new talk turn on its supplied
+event owner, runs scheduler `354234368`, speaks text rows 35 and 36, and closes
+that turn. The separate method proves a post-clear speaker-owned presentation;
+it must not be folded into whichever NPC happens to grant the reward.
+
+`War0j6.processEvent010` performs only the default fade-out/fade-in pair.
+`processEvent020` inserts scene `war0j620` between that pair.
+`processEventClear` owns the long information dialog, job ability 27189, and
+the supplied job item. The client sequence does not identify the server battle
+completion trigger or a post-battle world position.
+
+Sources:
+
+- `lua/scripts/quest/scenario/war/war0j1.lua`, methods
+  `processEventClear` and `processEventClearAfter`.
+- `lua/scripts/quest/scenario/war/war0j6.lua`, methods `processEvent010`,
+  `processEvent020`, and `processEventClear`.
+
+### Monk
+
+`Mnk0j6` preserves distinct Erik and Widargelt methods rather than one generic
+quest-giver flow. `processEvent020_ERIC_Follow` and
+`processEvent020_ERIC_PUB` are Erik-owned talk turns;
+`processEventWIDARGELT_PUB` is a separate Widargelt-owned turn.
+`processEventClear` owns information dialog 115 and job ability 27106.
+
+The separation proves dialog and presentation ownership. It does not prove
+which server actor advances the objective or which encounter state unlocks
+each method.
+
+Source: `lua/scripts/quest/scenario/mnk/mnk0j6.lua`, the three named speaker
+methods and `processEventClear`.
+
+### Black Mage
+
+`Blm0j3.processEvent000` is a closed talk turn with text rows 11 through 13.
+`processEvent005` is a longer introduction path: its fourth argument is passed
+to text row 14, followed by rows 15 through 19 and 42 around a one-second
+fade-out/fade-in pair. The argument is part of the client ABI and must not be
+dropped or synthesized from the method name.
+
+The two methods are distinct event phases. Finding both on the same quest
+class does not make them interchangeable or establish their server-side actor
+binding.
+
+Source: `lua/scripts/quest/scenario/blm/blm0j3.lua`, methods
+`processEvent000` and `processEvent005`.
+
+### Paladin
+
+`Pld0j1.processEvent010` and `processEvent015` both play scene `pld0j110`,
+show and notify public-information entry 25117 with item 11000558, and wait
+five seconds. Their finalizers differ:
+
+| Method | Finalizer |
+| --- | --- |
+| `processEvent010` | `startFadeInCutSceneAfterWarp` |
+| `processEvent015` | `startFadeInCutSceneDefault` |
+
+This is a real transition-ownership distinction. It does not identify the
+destination or authorize treating either method as a generic quest intro.
+
+Source: `lua/scripts/quest/scenario/pld/pld0j1.lua`, methods
+`processEvent010` and `processEvent015`.
+
+### White Mage
+
+`Whm0j1.processEventClear` opens a talk turn and deliberately leaves it open
+after text row 24. `processEventClearNQ` performs the default fade-out, closes
+that retained talk turn, waits one second, plays `whm0j110`, and performs the
+default fade-in. The methods form a paired handoff; inserting an independent
+event close between them changes the recovered client sequence.
+
+Source: `lua/scripts/quest/scenario/whm/whm0j1.lua`, methods
+`processEventClear` and `processEventClearNQ`.
+
+## Grand Company distinctions
+
+The three level-40 company scripts are separate scenario classes with
+different salutes, speakers, branches, and movie ownership. Similar quest
+roles do not justify sharing one client flow.
+
+| Script | Company-specific client contract |
+| --- | --- |
+| `Gcl102` | salute company 1; `processEventNQ` plays `gc01l210` and uses the after-warp finalizer |
+| `Gcg102` | salute company 2; `processEventPfrymloefNQ` plays `gc01g210`, uses the default finalizer, then emits text row 58 |
+| `Gcu102` | salute company 3; `processEvent015` plays `gc01u210` with the default finalizer; two additional elevator methods play `elv0u01a` and `elv0u02a` with after-warp finalizers |
+
+`Gcu102.processEvent000_3`, `_4`, and `_5` each call
+`isUpperRank(3, 11)` and choose different text rows for the true and false
+branches. This is client presentation evidence for a rank-dependent branch,
+not proof that the client is authoritative for promotion or quest admission.
+
+Several methods accept an extra argument that changes dialog. For example,
+`Gcg102.processEventQuinquerol` selects row 25 when its fourth argument equals
+1 and rows 22 through 24 otherwise; both branches then converge on the same
+remaining dialog. `Gcu102.processEvent005` similarly chooses row 19 or 20 from
+its fourth argument before converging. Preserve these parameters as distinct
+client inputs until their server producers are independently recovered.
+
+Sources:
+
+- `lua/scripts/quest/scenario/gcl/gcl102.lua`.
+- `lua/scripts/quest/scenario/gcg/gcg102.lua`.
+- `lua/scripts/quest/scenario/gcu/gcu102.lua`.
+
+## Shared cutscene boundary
+
+The scenario helpers make the client-side ownership model explicit:
+
+```text
+startNQCutScene(sceneKey, mode, ...)
+  -> createCutScene(sceneKey, quest)
+  -> startCutScene(1, 61, mode, ...)
+  -> delete the same scene object after completion
+```
+
+Default fade-in waits for map loading, fades in, and waits for fading.
+After-warp fade-in is a distinct native-facing finalizer; its script body does
+not contain a destination zone or coordinate. A consumer must preserve the
+distinction without inventing the missing server transition.
+
+Movie skipping acts on the same scene actor. It does not create a separate
+quest-level success path, reward grant, or destination contract.
+
+## Evidence boundary
+
+These scripts prove ordered client API calls, literal scene keys, method
+arguments, conditional branches, and talk-turn ownership. They do not prove
+objective completion, combat composition, authoritative rank checks, rewards,
+world placements, or the server event that chooses a method. Scene-local actor
+positions and native cutscene record layouts belong to separate client-data or
+decomp evidence and are not inferred here.
