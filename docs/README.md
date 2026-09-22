@@ -15,6 +15,7 @@ charter, and contribution policy.
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
 | Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
 | Craft command and progress contracts | [craft-command-progress-contracts.md](craft-command-progress-contracts.md) |
+| Content director UI contracts | [content-director-ui-contracts.md](content-director-ui-contracts.md) |
 | General parameter 18 consumers | [general-parameter-18-consumers.md](general-parameter-18-consumers.md) |
 | Gathering marker and fishing UI | [gathering-marker-fishing-ui.md](gathering-marker-fishing-ui.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
