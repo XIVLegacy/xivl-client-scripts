@@ -28,6 +28,7 @@ charter, and contribution policy.
 | Map-object door client contract | [map-object-door-client-contract.md](map-object-door-client-contract.md) |
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
+| Widget-open command boundary | [widget-open-command-boundary.md](widget-open-command-boundary.md) |
 | NPC Linkpearl client route | [npc-linkpearl-client-contract.md](npc-linkpearl-client-contract.md) |
 | Parley target gate | [parley-target-gate.md](parley-target-gate.md) |
 | Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
