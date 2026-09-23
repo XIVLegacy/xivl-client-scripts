@@ -30,3 +30,24 @@ It decoded byte-for-byte to the recovered LUAC, SHA256
 The recovered-source identity is
 `manifests/scripts.json:7652-7657`, SHA256
 `15589DC895FF29F148B0A5BA4B74B564537F422B170A67142B3826C7C762022C`.
+
+## RetainerNamingWidget ask result
+
+The installed resource
+`n1635q/9rz/s5q91w5sw9x1w3n1635q.le.lpb` (5,205 bytes, SHA-256
+`e3fe5db48c6eb5921681a0c86180e38bac19230157fce70711bd091b186bbf53`)
+has a 5,192-byte XOR-0x73 payload with SHA-256
+`53546cd0d0702e27ed30fd3c27b2faf92f87b4ed9b011d8b9d3813eb676d1dc3`.
+The payload decompiles with the pinned unluac JAR to the canonical
+`lua/scripts/widget/ask/retainernamingwidget.lua`: 13,017 bytes, 578 lines,
+SHA-256 `1c7483e0e54a93e8bc60c5e4a44158e31cf497983c927797015b7bc1308833c2`,
+matching `manifests/scripts.json`.
+
+In that chunk, `processUICommandClose` calls `setBaseAskResult(-3)` and sets
+`work.askAnswer` to `-3` (lines 229-239). `processUICommandCancel` does the
+same when its control is `Button_Cancel` (lines 242-259); the operation
+handler has the same cancel branch (lines 262-297). `getAskResult` returns
+numeric `-3` when `work.askAnswer == -3`; otherwise it returns the name data
+when present or nil (lines 481-499). These are widget-level client
+semantics. They do not prove that command 24228 historically opened this
+widget or identify a subsequent caller or server effect.

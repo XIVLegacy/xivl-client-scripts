@@ -24,6 +24,24 @@ and cutscene flows for their selected common and Grand Company scenarios.
 the server-side membership rule or identify the authoritative source of the
 value.
 
+`Com0g5.processEvent005` calls NQ scene `com0g610` in mode 1 between the
+default fade-out and after-warp fade-in. `processEventFulkeStart` calls
+`doSalute(2, 33)`, passes literal dialogue rows 2-5 to `say`, then branches
+on `showQuestInfomation() == 1` to pass rows 7 and 8, or otherwise row 6.
+The neighboring `processEvent010`, `processEvent020`, and `processEvent030`
+methods contain direct scheduler, dialogue-row, and argument branches. These
+are client method contents, not proof of quest ID 111605, NPC ownership, text
+meaning, historical invocation, or server behavior. The installed LPB
+`tp5rq/r75w9s1v/7vx/7vxj3e.le.lpb` (SHA-256
+`540a017a3640bf7a4ff7707a3489d0781cb019dd97c66ab0494080fb58982779`)
+decodes to payload SHA-256
+`7ca44395c1364281b0ed3f22c94271d4d3212bebeca810b3304c8b70e11ce580`.
+The pinned unluac decompile matches the canonical 14,917-byte, 818-line
+`Com0g5` source in `manifests/scripts.json` (SHA-256
+`7217c217b432346737096fce288651426c8029462905e9dfad52fa0f96e9a373`).
+Method locators are `lua/scripts/quest/scenario/com/com0g5.lua:72-175,
+215-233, 236-351, 552-818`.
+
 ## ETC1g4 Nicoliaux dialogue branch
 
 The installed
@@ -44,6 +62,46 @@ numeric 1, the same boolean comparison selects `say` arguments 14 and 32
 versus 13. These literal branches do not identify the third argument's
 producer or meaning, historical invocation, quest progression, or server
 behavior.
+
+## ETC1 scenario script method inventory
+
+The 19 `lua/scripts/quest/scenario/etc/etc1*.lua` chunks below are pinned by
+the installed-resource and decoded-payload hashes in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json). Their
+decoded donor chunks match those payload hashes, and pinned-unluac decompiles
+match the canonical source hashes in
+[`scripts.json`](../manifests/scripts.json).
+The `initText` keys are arguments to `_loadTextDataPermanently`; the listed
+`say` values are literal row arguments. They do not identify localized text.
+
+| Script | `initText` key | Direct method calls and literal `say` rows |
+| --- | ---: | --- |
+| `etc1l0` | 3369 | `processEventHaldberkStart` (23-99): 1, 2, 3, 5, 19, 7, 8, 6; `processEvent000` (102-144): 9-11; `processEvent010` (147-186): 12-14; empty `processEvent020` (189-192). |
+| `etc1l1` | 3385 | `processEventHihineStart` (23-92): 1-4, 16, 17 or 6; `processEvent005_2` (95-127): 9, 19; `processEvent010` (130-172): 12-15, 20. |
+| `etc1l3` | 3393 | `processEventChaunolletStart` (23-112): 1-5, 8, 9 or 6; `processEvent000Chaunollet` (115-148): 10, 11; `processEvent010Chaunollet` (151-183): 12, 13. |
+| `etc1l5` | 3415 | `processEventLahonoStart` (23-163): 1, 2; `askExtendWidget(3, 2, 0, 2)`; result 2 continues with rows 14-19 then `showQuestInfomation()` selects 21/22 or 20, otherwise row 6; `processEventAfter` (166-223): 30-35; `processEventFree` (226-260): 24, 36. |
+| `etc1l6` | 3407 | `processEventNanapiriStart` (23-119): 2-6, 20, then 9 or 7, then 10, 11; `processEvent005_2` (122-154): 14, 15; `processEvent010` (157-215): 17-19, with fade duration and wait 1. |
+| `etc1l7` | 3411 | `processEventImaniaStart` (23-88): 2-6, then 8 or 7; `processEventImaniaFree` (91-115): 9, 10; `processEventYuyubesuStart` (118-169): 11-14, 45; `processEventYuyubesuFree` (172-206): 16, 17; `processEventYuyubesuAfter` (209-238): 20, 22; `processEventYuyubesuAfterFree` (241-270): 23, 25; `processEventHildie` (273-346): 26, 27, 29, 30, 32, 36, 37, 39-41. |
+| `etc1g0` | 3357 | `processEventSandreStart` (23-123): 1-8, then 10 or 9; `processEvent000` (126-154): 11, 12; `processEvent010` (157-202): 13-16. |
+| `etc1g1` | 3361 | `processEventMaroileStart` (23-129): 1-5, 8-11, then 6 or 7; `processEvent000` (132-165): 12, 13; `processEvent010` (168-202): 14-16; empty `processBUSH` (205-213). |
+| `etc1g2` | 3377 | `processEventV_NabyanoStart` (23-153): rows 1, 2; ask `(3, 2)`; later rows 6-10, 12-14 or 11; `processEventV_NabyanoStart00` (156-184): 15, 16; `processEvent00` (187-259): 17, 18 then 22-24 or 19-21; `processEvent005`, `_1`, `_2` (262-348): 27-32; `processEvent05_3` (351-453): 33-36, fade/wait 1, ask `(37, 2)`, then 41-43 or 40. |
+| `etc1g4` | 3403 | `processEventNicoliauxStart` is detailed above; `processEvent010` (238-286): 17, 33, 16, 18; `processEvent020` (289-439): 21, 22, 19, 20, 23, 25, 28, 29 or 26, 27, then 30, 31; direct fade/wait durations 0.5, 0.5, 0.4, and 2. |
+| `etc1g5` | 3459 | `processEventLahonoStart` (23-115): 1-4, 6, 7, then 9 or 8; `processEventAfter` (118-225): 19-21, fade 1.5, then 24-27, 29-31; `processEventFree` (228-262): 15, 16. |
+| `etc1g6` | 3443 | `processEventNicoliauxStart` (23-122): 2, 3, 5, 6, then 8 or 7, fade 1/wait 2; `processEvent000` (125-258): 11, 13, 12, 14-21, 23, 24, 47, 22; `processEvent010` (261-334): 29, 28, 30, fade 1/wait 2; `processEvent020` (337-515): 33-35, 37-42, 44-46, fade 1/waits 1, 2, 3; `followEvent000` (518-542): 9, 10; `followEvent010` (545-593): 27, 48, 25, 26; `followEvent020` (596-624): 31, 32. |
+| `etc1g8` | 3451 | `processEventFrancisStart1g8` (23-111): 2-9, then 11 or 10; `processEventFrancisFree` (114-137): 17; `processEventFrancisAfter` (140-170): 23, 25, 26; `processEventFrancisAfterFree` (173-192): 27; `processEventImania` (195-232): 35-38. |
+| `etc1u0` | 3365 | `processEventEleanorStart` (23-105): 1-5, then 7 or 6; `processEvent000` (108-141): 9, 10; `processEvent010` (144-188): 11-14. |
+| `etc1u1` | 3373 | `processEventKukusiStart` (23-99): 1, 2, 15, then 5, 6 or 4; `processEvent000_2` (102-146): 11-14; `processEvent000_3` (149-189): 18, 20 or 19. |
+| `etc1u2` | 3381 | `processEventTutubukiStart` (23-146): 1-4, 6-14, then 5; `processEvent000_2` (149-183): 15-17; `processEvent010` (186-226): 18-21. |
+| `etc1u4` | 3389 | `processEventCahernautStart` (23-140): 1-8, 28, fade 1/waits 0.6 and 1.5; `processEventCahernautFollow` (143-173): 9-11; `processEvent005_1` (176-235): 12-18; `_1Follow` (238-262): 19, 20; `_2` (265-325): 12-15, 29-31, 37; `_2Follow` (328-352): 32, 33; `005Cahernaut` (355-383): 21, 22; `010_1` (386-432): 23-25, 35, 36; `010_2` (435-481): 26, 27, 34-36. |
+| `etc1u5` | 3463 | `processEventUbokhnStart` (23-168): 1-8, then 10, 11 or 9; also 12-15, then 17 or 16; `processEventUbokhnAfterOffer` (171-209): 18-20; `processEvent010` (212-275): 21, 23-29. |
+| `etc1u6` | 3427 | `processEventMohtfrydStart` (23-105): 2-8, then 10 or 9; `processEventAfter` (108-157): 19, 20, 22-25; `processEventFree` (160-190): 15, 16. |
+
+None of these 19 chunks contains a direct cutscene-launch call. This is a
+chunk-local observation only; it does not exclude calls from other client
+code or prove historical invocation. The method and event labels, row keys,
+scheduler integers, widget results, and timing literals do not identify
+quest ownership, NPC identity, localized dialogue, selector meaning,
+progression, rewards, activation, or server behavior.
 
 `Alc200` has two separate scene wrappers that branch on their fourth method
 argument. If it equals numeric 3, they pass 1 as the final scene argument;

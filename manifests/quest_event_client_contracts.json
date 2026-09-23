@@ -238,6 +238,186 @@
       "canonicalLines": 1412,
       "canonicalSha256": "cf61a5687dbc7b6accd26c8cd3a138decc0372fb72518ac6f2054f125bc1465e",
       "sourceLocator": "sqrwa lines 965-991"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/com/com0g5.lua",
+      "decodedChunkBytes": 6037,
+      "decodedChunkSha256": "7ca44395c1364281b0ed3f22c94271d4d3212bebeca810b3304c8b70e11ce580",
+      "canonicalBytes": 14917,
+      "canonicalLines": 818,
+      "canonicalSha256": "7217c217b432346737096fce288651426c8029462905e9dfad52fa0f96e9a373",
+      "sourceLocator": "processEventFulkeStart lines 72-175; processEvent005 215-233; processEvent010/020/030 236-351, 552-818"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1l0.lua",
+      "decodedChunkBytes": 1608,
+      "decodedChunkSha256": "09567e4a200f8c52bd9aeb39da20977b71bf268aa5748746f228347b3c16f6ac",
+      "canonicalBytes": 3564,
+      "canonicalLines": 192,
+      "canonicalSha256": "778f9a94565e8ce5b9d3334ef9d0bcee0a84f2abb7d5362a12a2cc9ec228dfff",
+      "sourceLocator": "processEventHaldberkStart lines 23-99; processEvent000 102-144; processEvent010 147-186; processEvent020 189-192; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1l1.lua",
+      "decodedChunkBytes": 1392,
+      "decodedChunkSha256": "b344ac4a7c54450d971e9c6f54e1e10f1bc3c4ec008f5418e0c643172d1ed135",
+      "canonicalBytes": 3182,
+      "canonicalLines": 172,
+      "canonicalSha256": "569470451022223095f5f632ede3c8e38a5a1b1f8801b5168d33236d5876133f",
+      "sourceLocator": "processEventHihineStart lines 23-92; processEvent005_2 95-127; processEvent010 130-172; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1l3.lua",
+      "decodedChunkBytes": 1532,
+      "decodedChunkSha256": "f8da9fcbb3cf0695df11ca242964457bebbd8d1efb3a6f9c42949f299bf86c7a",
+      "canonicalBytes": 3491,
+      "canonicalLines": 183,
+      "canonicalSha256": "0fe6058b6ff1d1d972f004a4410b5fcbd8134574425f1c7dc9cf4ba013285989",
+      "sourceLocator": "processEventChaunolletStart lines 23-112; processEvent000Chaunollet 115-148; processEvent010Chaunollet 151-183; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1l5.lua",
+      "decodedChunkBytes": 1887,
+      "decodedChunkSha256": "a909f0f08296d50bb5a8b4884d23e00acdc339bd9666b43a8a19a6f48c446de5",
+      "canonicalBytes": 5082,
+      "canonicalLines": 260,
+      "canonicalSha256": "dac3a22cd4948b79ac42274f0a34fc642ba91ee9567a185079bd31709da39fe2",
+      "sourceLocator": "processEventLahonoStart lines 23-163; processEventAfter 166-223; processEventFree 226-260; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1l6.lua",
+      "decodedChunkBytes": 1616,
+      "decodedChunkSha256": "15645a5e6b1d2748a164a32e11c271b3f1b61f9a87034b613c5237a591f7a074",
+      "canonicalBytes": 3983,
+      "canonicalLines": 215,
+      "canonicalSha256": "da7cc323ba032da0211c97212e2ba503b48e318cdcb3c49d65607c8f6126b773",
+      "sourceLocator": "processEventNanapiriStart lines 23-119; processEvent005_2 122-154; processEvent010 157-215; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1l7.lua",
+      "decodedChunkBytes": 2807,
+      "decodedChunkSha256": "0a832c83232ef1abdd2d7d48af48a89d59614757dd9afe6a1e1167be7a35902e",
+      "canonicalBytes": 6287,
+      "canonicalLines": 346,
+      "canonicalSha256": "903beb58f9118114e11358b56f66e481b58dc8c2ec893a61b5d266b81cd576f4",
+      "sourceLocator": "processEventImaniaStart lines 23-88; processEventImaniaFree 91-115; processEventYuyubesuStart 118-169; processEventYuyubesuFree 172-206; processEventYuyubesuAfter 209-238; processEventYuyubesuAfterFree 241-270; processEventHildie 273-346; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g0.lua",
+      "decodedChunkBytes": 1618,
+      "decodedChunkSha256": "9c1e33c154613b94cd26bb5387e5d4f1ed9c4534c93fed2da28527f8188353d6",
+      "canonicalBytes": 3722,
+      "canonicalLines": 202,
+      "canonicalSha256": "328e8efcd190b773949eaa9bdfb7e057e11c20dbeeccb1c386e5b093eaebe72d",
+      "sourceLocator": "processEventSandreStart lines 23-123; processEvent000 126-154; processEvent010 157-202; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g1.lua",
+      "decodedChunkBytes": 1715,
+      "decodedChunkSha256": "c1427aa975bede130eb071f4a39f0ddbabc734f883ffdf915eca495d7731969d",
+      "canonicalBytes": 3994,
+      "canonicalLines": 213,
+      "canonicalSha256": "e3e6dcd4483986cc8ee81def3350858ca12f8094c994cd745a5f8c4d96403e58",
+      "sourceLocator": "processEventMaroileStart lines 23-129; processEvent000 132-165; processEvent010 168-202; processBUSH 205-213; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g2.lua",
+      "decodedChunkBytes": 3360,
+      "decodedChunkSha256": "63ab2a24209a6fc6282067f935c6c4a21c0630b0c69e8d45bcb54841403fa0fc",
+      "canonicalBytes": 8678,
+      "canonicalLines": 453,
+      "canonicalSha256": "31331b3102e541832d833c23dc883a87a8e62cb83ba73fc0a0ec5b690a9f04db",
+      "sourceLocator": "processEventV_NabyanoStart lines 23-153; processEventV_NabyanoStart00 156-184; processEvent00 187-259; processEvent005/_1/_2 262-348; processEvent05_3 351-453; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g4.lua",
+      "decodedChunkBytes": 2715,
+      "decodedChunkSha256": "cc033492979e33e6152f91e704ee458ff02d93b12ea299785f04ad408b47b11c",
+      "canonicalBytes": 8477,
+      "canonicalLines": 439,
+      "canonicalSha256": "ed2bb4d9581a7d265aa3ee1f3b9779e2f65362a42f3ca158128cbeb443d4dd0f",
+      "sourceLocator": "processEventNicoliauxStart lines 23-237; processEvent010 238-286; processEvent020 289-439; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g5.lua",
+      "decodedChunkBytes": 1935,
+      "decodedChunkSha256": "2d5b76d0f91422cfbd27747b1c7c7fd1703415a548b41da84cd17bfbf9152879",
+      "canonicalBytes": 4874,
+      "canonicalLines": 262,
+      "canonicalSha256": "cd44a4ed0b7bc0001bf9cbd5f604e89add1cdf4848721f839392f91141e25f89",
+      "sourceLocator": "processEventLahonoStart lines 23-115; processEventAfter 118-225; processEventFree 228-262; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g6.lua",
+      "decodedChunkBytes": 4187,
+      "decodedChunkSha256": "e55413b7df4fa7daf37ee870610c442d097da0e0c6dd5177bd681cbd84069a00",
+      "canonicalBytes": 11488,
+      "canonicalLines": 624,
+      "canonicalSha256": "715c559e57e028b5af2dc9c340b2da4a9d6aa542eb5c381de88bd4a20ef0d245",
+      "sourceLocator": "processEventNicoliauxStart lines 23-122; processEvent000 125-258; processEvent010 261-334; processEvent020 337-515; followEvent000 518-542; followEvent010 545-593; followEvent020 596-624; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1g8.lua",
+      "decodedChunkBytes": 1926,
+      "decodedChunkSha256": "c6d2e17008167674ea627c4f9ddbf97618d299107353a960282c589f895e0495",
+      "canonicalBytes": 4244,
+      "canonicalLines": 232,
+      "canonicalSha256": "dd8923cca9583d9f671bd16e82de8347b132fe03d3cecef5604d26ab295ed171",
+      "sourceLocator": "processEventFrancisStart1g8 lines 23-111; processEventFrancisFree 114-137; processEventFrancisAfter 140-170; processEventFrancisAfterFree 173-192; processEventImania 195-232; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1u0.lua",
+      "decodedChunkBytes": 1539,
+      "decodedChunkSha256": "059a8262af6ad6ed050728270bc05a5530e4ad6f1e3990a4ac94f681193c18ad",
+      "canonicalBytes": 3525,
+      "canonicalLines": 188,
+      "canonicalSha256": "99d3f20b2f7b6a044e69c2823df64a51059266c92af19e0cab496af8bbc8aaa1",
+      "sourceLocator": "processEventEleanorStart lines 23-105; processEvent000 108-141; processEvent010 144-188; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1u1.lua",
+      "decodedChunkBytes": 1550,
+      "decodedChunkSha256": "500440aed75ba002d319304ad4532ab1b8a9fd9c850c8c575cd1678568fea9e5",
+      "canonicalBytes": 3561,
+      "canonicalLines": 189,
+      "canonicalSha256": "d5542387c8fc8ad0c77e6d26f40832c8efb10a2111be3f85ccfd07a4418c3baf",
+      "sourceLocator": "processEventKukusiStart lines 23-99; processEvent000_2 102-146; processEvent000_3 149-189; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1u2.lua",
+      "decodedChunkBytes": 1734,
+      "decodedChunkSha256": "82d83c23804518a9ccf8e47385a3c8ae299328c701381141728bbcc138b1d330",
+      "canonicalBytes": 4164,
+      "canonicalLines": 226,
+      "canonicalSha256": "fae4cf0bade3148cd7c4a392136bd193f77304db06f75d69afc04c171fbf2d73",
+      "sourceLocator": "processEventTutubukiStart lines 23-146; processEvent000_2 149-183; processEvent010 186-226; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1u4.lua",
+      "decodedChunkBytes": 3686,
+      "decodedChunkSha256": "765a58f639f550958d503312d334875936ad0bde2247914ed90fefe7bcaed68e",
+      "canonicalBytes": 8630,
+      "canonicalLines": 481,
+      "canonicalSha256": "0c470a8de89ab8202a6533ba06a790e35222419d564ebfb3ca05cf2e3dba7442",
+      "sourceLocator": "processEventCahernautStart lines 23-140; processEventCahernautFollow 143-173; processEvent005_1 176-235; _1Follow 238-262; _2 265-325; _2Follow 328-352; 005Cahernaut 355-383; 010_1 386-432; 010_2 435-481; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1u5.lua",
+      "decodedChunkBytes": 1878,
+      "decodedChunkSha256": "f9e60fd05b824aec26df25ed7530438fde844cdd6be983bea7c091864766fea0",
+      "canonicalBytes": 5210,
+      "canonicalLines": 275,
+      "canonicalSha256": "6da1daa63fa92b4a31cd1e08afce6532995564b2b9f69bd10540afc5b28fc224",
+      "sourceLocator": "processEventUbokhnStart lines 23-168; processEventUbokhnAfterOffer 171-209; processEvent010 212-275; initText 11-20"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/scenario/etc/etc1u6.lua",
+      "decodedChunkBytes": 1478,
+      "decodedChunkSha256": "318d649854fb161ba1dbb4960fc06b6ee3a678677ba6f560bada16827604ada3",
+      "canonicalBytes": 3465,
+      "canonicalLines": 190,
+      "canonicalSha256": "9dcda65a7deca0a4a4b78e7ba92e64e2df162a4a9f2baf25aab4179e1b78e7f4",
+      "sourceLocator": "processEventMohtfrydStart lines 23-105; processEventAfter 108-157; processEventFree 160-190; initText 11-20"
     }
   ],
   "claims": [
@@ -352,6 +532,41 @@
       "support": "The Man0l1 event-key 10002 path loads nil into the compared local before menu comparisons; the syntactic value-7 branch calling man0l420 is unreachable in this bytecode chunk.",
       "sources": [
         "quest/scenario/man/man0l1.lua:2729-2962"
+      ]
+    },
+    {
+      "id": "com0g5-scene-and-dialogue-calls",
+      "support": "Com0g5.processEvent005 directly calls com0g610 in mode 1 between default fade-out and after-warp fade-in. processEventFulkeStart calls doSalute(2, 33), passes literal say rows 2-5, and when showQuestInfomation() returns 1 passes rows 7 and 8; otherwise it passes row 6. Nearby event handlers also contain scheduler, dialogue-row, and argument branches. This does not bind the chunk to quest 111605 or identify an NPC/text meaning.",
+      "sources": [
+        "quest/scenario/com/com0g5.lua:72-175",
+        "quest/scenario/com/com0g5.lua:215-233",
+        "quest/scenario/com/com0g5.lua:236-351",
+        "quest/scenario/com/com0g5.lua:552-818"
+      ]
+    },
+    {
+      "id": "etc1-scenario-method-and-dialogue-row-inventory",
+      "support": "The 19 installed ETC1 scenario chunks contain the method calls, initText keys, and literal say/ask arguments inventoried in the public contract. No direct cutscene-launch call occurs within these chunks; this chunk-local absence does not establish historical invocation, quest ownership, NPC identity, localized text, progression, reward, or server behavior.",
+      "sources": [
+        "quest/scenario/etc/etc1l0.lua:11-192",
+        "quest/scenario/etc/etc1l1.lua:11-172",
+        "quest/scenario/etc/etc1l3.lua:11-183",
+        "quest/scenario/etc/etc1l5.lua:11-260",
+        "quest/scenario/etc/etc1l6.lua:11-215",
+        "quest/scenario/etc/etc1l7.lua:11-346",
+        "quest/scenario/etc/etc1g0.lua:11-202",
+        "quest/scenario/etc/etc1g1.lua:11-213",
+        "quest/scenario/etc/etc1g2.lua:11-453",
+        "quest/scenario/etc/etc1g4.lua:11-439",
+        "quest/scenario/etc/etc1g5.lua:11-262",
+        "quest/scenario/etc/etc1g6.lua:11-624",
+        "quest/scenario/etc/etc1g8.lua:11-232",
+        "quest/scenario/etc/etc1u0.lua:11-188",
+        "quest/scenario/etc/etc1u1.lua:11-189",
+        "quest/scenario/etc/etc1u2.lua:11-226",
+        "quest/scenario/etc/etc1u4.lua:11-481",
+        "quest/scenario/etc/etc1u5.lua:11-275",
+        "quest/scenario/etc/etc1u6.lua:11-190"
       ]
     }
   ],
