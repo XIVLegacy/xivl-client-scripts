@@ -62,7 +62,7 @@ methods plus `processEventClear`.
 The separate `lua/scripts/director/quest/questdirectormnk0j601.lua` chunk requires
 `QuestDirectorBaseClass` and declares itself directly on that base, with no
 child methods. It is not a declared `SimpleQuestBattle` subclass in this
-chunk. Installed
+chunk. The LPB at
 `client/script/61s57qvs/tp5rq/tp5rq61s57qvsxwzj0dji.le.lpb` decodes
 byte-for-byte to the recovered chunk (SHA-256
 `cb397ed9b9567e2d0b136c3c90a745440e898aa7b4c704545d404a525a941830`).
@@ -82,10 +82,10 @@ register R4 at PC 40 and returns the saved result at PC 159. This client
 branch does not identify the producer of the fourth argument or prove server
 quest admission.
 
-Source: `lua/scripts/quest/scenario/blm/blm0j1.lua`, installed
+Source: `lua/scripts/quest/scenario/blm/blm0j1.lua`, LPB
 `tp5rq/r75w9s1v/8yx/8yxj0i.le.lpb` (decoded SHA-256
 `5b32a81c2264a0dac4e0f9b56c45c1f06cc0e0d07fc8ddfa1f714e9d0523d3d5`).
-The donor raw chunk matches the installed decoded LPB exactly. Bytecode
+The donor raw chunk matches the decoded LPB exactly. Bytecode
 locators: `processEventYayakeStart` PCs 4-41 (`0x44E-0x4E2`) and 123-160
 (`0x62A-0x6BE`).
 
@@ -113,10 +113,10 @@ Its `ask` of row 29, mode 2, selects row 3 versus row 32 early in the talk
 selects row 15 versus row 14 (PCs 110-111, `0x5EC-0x5F0`); the saved offer
 result is returned after the talk. One choice cannot stand in for the other,
 and neither proves an authoritative quest gate. Source:
-`lua/scripts/quest/scenario/blm/blm0j4.lua`, installed
+`lua/scripts/quest/scenario/blm/blm0j4.lua`, LPB
 `tp5rq/r75w9s1v/8yx/8yxj0f.le.lpb` (decoded SHA-256
 `0e712e06d0b2fcc2185eb00a6a9d4614705155f6f7e21249dcccbb8158a0feb8`).
-The donor raw chunk matches the installed decoded LPB exactly.
+The donor raw chunk matches the decoded LPB exactly.
 
 ### Paladin
 
@@ -143,7 +143,7 @@ argument to Lua boolean `true`. Only `true` selects the default fade-in;
 numeric 1, nil, and other values select the after-warp fade-in. This is a
 client branch, not proof of the caller's argument, a warp, or a destination.
 
-| Method | Scene | Installed LPB | Decoded SHA-256 | Compare PC / offset |
+| Method | Scene | LPB | Decoded SHA-256 | Compare PC / offset |
 | --- | --- | --- | --- | --- |
 | `Mnk0j6.processEvent005` | `mnk0j610` | `xwz/xwzj0d.le.lpb` | `6abf02dff4fd1406f816d9fbb585b5abd20fae41166f3fd26c801e8a74619de4` | 7 / `0xD66` |
 | `Blm0j6.processEventNQ01` | `blm0j610` | `8yx/8yxj0d.le.lpb` | `3d834beabc4a653ab7d2b8cb5894724372d474031df1b7136c7e9deb23b80c31` | 7 / `0x1A49` |
@@ -152,12 +152,12 @@ client branch, not proof of the caller's argument, a warp, or a destination.
 | `Brd0j4.processEventNQ01` | `brd0j410` | `8s6/8s6j0f.le.lpb` | `93e55481f38c0846d7ac02428243d4e751dced596264273f1aa24fec70cd075e` | 7 / `0x8B8` |
 
 All LPBs are under `client/script/tp5rq/r75w9s1v/`. The five donor raw
-chunks match their installed decoded LPBs exactly. Canonical source locators
+chunks match their decoded LPB payloads exactly. Canonical source locators
 are the named methods in `lua/scripts/quest/scenario/mnk/mnk0j6.lua`,
 `blm/blm0j6.lua`,
 `pld/pld0j5.lua`, `pld/pld0j6.lua`, and `brd/brd0j4.lua`.
 
-The same installed `Blm0j6` and `Pld0j6` chunks also expose separate
+The same `Blm0j6` and `Pld0j6` chunks also expose separate
 presentation methods. `Blm0j6.processEventAfget` calls the ability widget
 with `(27316, 2)` at PC 12 (`0x1CDE`), then passes its fourth method argument
 to the item widget at PC 19 (`0x1CFA`). `Pld0j6.processEventKokuti` calls the
@@ -193,7 +193,7 @@ fade-in. `processEventLS` and `processEventLS2` separately call
 distinct available client surfaces; their retail dispatcher, serial order,
 fight trigger, and roster are not established by the script.
 
-The following four decoded chunks match their installed LPBs byte-for-byte.
+The following four decoded chunks match their LPBs byte-for-byte.
 Method locators are in the named scripts under `lua/scripts/quest/scenario/`;
 their `.calls.json` sidecars give the full ciphered LPB paths.
 
@@ -225,7 +225,7 @@ default fade-out and fade-in. `processEvent_ALBERIC_Guidance` is a distinct
 talk method. The scripts do not identify the destination actor or the
 server event that orders those methods.
 
-The recovered Lua for these eight scripts was checked against the installed
+The recovered Lua for these eight scripts was checked against the
 LPBs: each decoded chunk matched byte-for-byte. SHA-256 of each decoded chunk
 is the exact source identity; method locators are in the named scripts under
 `lua/scripts/quest/scenario/`, and their ciphered LPB paths are recorded in
@@ -252,7 +252,7 @@ quest-specific method, target roster, count, wave rule, or success callback.
 Inherited generic behavior is not thereby absent; these child chunks simply
 cannot establish those quest-specific facts.
 
-Each recovered chunk matched the decoded installed LPB byte-for-byte. Source
+Each recovered chunk matched the decoded LPB payload byte-for-byte. Source
 locators are the named scripts under
 `lua/scripts/director/quest/simplequestbattle/`, with LPB paths in their
 `.calls.json` sidecars. SHA-256 of the decoded chunks:
@@ -268,9 +268,9 @@ locators are the named scripts under
 The following additional quest director chunks follow the same two-line
 require-and-declare pattern, with no subclass methods. Their base classes
 vary; an empty child does not rule out inherited generic behavior. Each
-recovered chunk matched its decoded installed LPB byte-for-byte. The path
+recovered chunk matched its decoded LPB payload byte-for-byte. The path
 column is relative to `lua/scripts/director/quest/`, and the matching
-`.calls.json` sidecar records the installed LPB path.
+`.calls.json` sidecar records the LPB path.
 
 | Director script | Decoded chunk SHA-256 |
 | --- | --- |
@@ -302,7 +302,7 @@ column is relative to `lua/scripts/director/quest/`, and the matching
 | `questdirectorwvr30001.lua` | `50a5d148c5f0e2dc81cc2fa664bd00337414116791b30556c1707d6305ece132` |
 | `simplequestbattle/questdirectorwvr30601.lua` | `893495002371080ebea08294a4c3176e68a57b7e88aa44eeb02b09ad1ba0cb8d` |
 
-The installed `SpecterNormalPld0j1` chunk (decoded SHA-256
+The `SpecterNormalPld0j1` chunk (decoded SHA-256
 `590e5e1044e94876fb9cd8e90dd7cfd57d4552881d9b0978aa97f77b2bc7e120`)
 matched its recovered bytecode. Its entire body requires
 `SpecterBaseClass` and declares the subclass; it contains no actor-class ID
@@ -311,7 +311,7 @@ or quest target binding. The separate retail actor-class/display join for
 `xivl-client-data:docs/job-quest-combat-display-joins.md`. Class-file
 existence does not connect the two. Source locator:
 `lua/scripts/chara/npc/monster/specter/specternormalpld0j1.lua`, with the
-installed LPB path in its `.calls.json` sidecar.
+LPB path in its `.calls.json` sidecar.
 
 ## Grand Company distinctions
 
@@ -328,13 +328,13 @@ the status widget. The FAQ menu remains a separate repeatable client path.
 The end methods close the status presentation; neither method is a server
 membership or points transaction.
 
-| Script / start method | Company | Decoded chunk SHA-256 | Installed LPB leaf |
+| Script / start method | Company | Decoded chunk SHA-256 | LPB leaf |
 | --- | ---: | --- | --- |
 | `Com0l7.processEventGuincamStart` | 1 | `7fc28b2420c371d8148b99e2a8513b283adf12375d0ceb419b4b72bdb2373433` | `7vxjyc.le.lpb` |
 | `Com0g7.processEventFulkeStart` | 2 | `c33194551226d96ad6d1d416b744b2c211fbb3457d4c67f4f2c9ac30b6aa83e8` | `7vxj3c.le.lpb` |
 | `Com0u7.processEventAubreyStart` | 3 | `241134ea44074bf9855a3cefbd9dda50fd51fd39e5f04c2a533d78c513cfa8f9` | `7vxjpc.le.lpb` |
 
-Each decoded chunk was matched byte-for-byte to its installed LPB under
+Each decoded chunk was matched byte-for-byte to its LPB under
 `client/script/tp5rq/r75w9s1v/7vx/`. The corresponding canonical script
 locators are `lua/scripts/quest/scenario/com/com0l7.lua`, `com0g7.lua`, and
 `com0u7.lua`; their `.calls.json` sidecars provide full ciphered paths.
@@ -348,10 +348,10 @@ condition or a retail-observed acceptance.
 The separate `Com0*2` start methods open the Grand Company status widget
 with their company argument, then set its displayed points to 0. Their
 paired end/final methods set the displayed points to 250 and close the
-widget after a wait. The installed LPBs decode byte-for-byte to the
+widget after a wait. The LPBs decode byte-for-byte to the
 recovered chunks:
 
-| Script / installed LPB leaf | Start / open argument | End method | Decoded SHA-256 |
+| Script / LPB leaf | Start / open argument | End method | Decoded SHA-256 |
 | --- | --- | --- | --- |
 | `Com0l2` / `7vxjyh.le.lpb` | `processEventGUINCUMStart` / 1 | `processEventGUINCUMEnd` | `e73740a8efeecd5609e9ba47dd1404b58350350585dc0919c79b96c7f48629a1` |
 | `Com0g2` / `7vxj3h.le.lpb` | `processEventFulkeStart` / 2 | `processEventFulkeEnd` | `cd98f56dd6cc8b364537b6125be17ec67cc64f209a24e2520fab3a6a5a84bf57` |
@@ -373,13 +373,13 @@ At the earlier `101` phase, `Gcl101` itself defines
 `processEventGuincumStart`, `processEventFulkeStart`, and
 `processEventAubreyStart`. Its Aubrey method tests its fifth method argument
 against Lua boolean `true` at PC 21 (`0xBFE`), selecting different rows
-before reconverging. The separately installed `Gcg101` and `Gcu101` chunks
+before reconverging. The separate `Gcg101` and `Gcu101` chunks
 each define a class directly on `ScenarioBaseClass` and only an empty
 `initText`; neither chunk supplies inheritance or a dispatcher into
 `Gcl101`. Thus the three narrative methods exist, but these chunks do not
 establish which client or server owner selected them in retail.
 
-The decoded chunks match the installed LPBs exactly: `Gcl101` at
+The decoded chunks match the LPBs exactly: `Gcl101` at
 `tp5rq/r75w9s1v/37y/37yiji.le.lpb` (SHA-256
 `b6575da42c43113f619c92abeff73be62ed449ae7002ef1e0f25015b69506cd5`),
 `Gcg101` at `tp5rq/r75w9s1v/373/373iji.le.lpb` (SHA-256
@@ -418,7 +418,7 @@ The repeated `ask` in recovered Lua return expressions is a decompiler
 artifact, not a second prompt. No method-to-method transition or Echo
 acceptance condition is established by these scripts.
 
-The decoded `gcg102` and `gcu102` chunks match their installed LPBs exactly:
+The decoded `gcg102` and `gcu102` chunks match their LPBs exactly:
 `tp5rq/r75w9s1v/373/373ijh.le.lpb` has decoded SHA-256
 `1323f828a2592df94e5fbcec1db0c9de0b26154e40abd0f6c9bcdb7b5199f941d`;
 `tp5rq/r75w9s1v/37p/37pijh.le.lpb` has decoded SHA-256
@@ -439,10 +439,10 @@ ability 27268 and literal item 8032704 through job widgets after dialogue.
 Those widget calls do not establish an authoritative reward grant, event
 ordering, or a warp destination.
 
-Source: `lua/scripts/quest/scenario/drg/drg0j6.lua`, installed resource
+Source: `lua/scripts/quest/scenario/drg/drg0j6.lua`, LPB resource
 `tp5rq/r75w9s1v/6s3/6s3j0d.le.lpb` (decoded SHA-256
 `a6b34d7bcb9ec44a5c978d41ee05b1a9efd6dc5244935ca62bb0bbd5d607ddb`).
-The donor bytecode matches the installed decoded chunk exactly. Relevant
+The donor bytecode matches the decoded chunk exactly. Relevant
 locators are `processEvent020` PCs 3-9 (`0x78B-0x7A3`), `025` PCs 3-9
 (`0x84E-0x866`), and `030` PCs 30-41 (`0x97B-0x9A7`).
 

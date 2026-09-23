@@ -1,13 +1,13 @@
 # Seasonal quest client contracts
 
-The installed `client/script/tp5rq/r75w9s1v/ruy/` LPBs below decode
+The `client/script/tp5rq/r75w9s1v/ruy/` LPBs below decode
 byte-for-byte to the independently recovered Lua 5.1 chunks. The recovered
 Lua bodies are a separate decompile from the canonical corpus recorded in
 `manifests/scripts.json`; their text hashes do not match that manifest. The
-claims below therefore cite the installed resource, matching decoded chunk,
+claims below therefore cite the resource, matching decoded chunk,
 and recovered method body, not a supposed match to the canonical Lua text.
 
-| Decoded script | Installed LPB basename / SHA-256 | Recovered Lua SHA-256 |
+| Decoded script | LPB basename / SHA-256 | Recovered Lua SHA-256 |
 | --- | --- | --- |
 | `quest/scenario/spl/spl0i1` | `ruyj1i.le.lpb` / `0e1a9f82c23094e4f5a42506f5ddff47acb7c742c4e4739a9d4d9f426863f34b` | `60fdeb1da8e58debeac792b7d471d5a2929aa02e3b8e24e3dae3cdcf454eeed3` |
 | `quest/scenario/spl/spl0i2` | `ruyj1h.le.lpb` / `b30852b309ecb1f954dd220b7549ca5c22ec46f7091b3343e1e60d92a7c2caaa` | `f28563c147c15b2167d53f35c9b0782ddc43e6316c7f4080f2844b61c9f40482` |
@@ -53,7 +53,7 @@ decompile of these exact decoded chunks.
 | `Spl000.processEvent_PRINCESSDAY_*` | The Limsa Lominsa, Gridania, and Ul'dah dialogue methods use `say` and character schedulers; the three `*_JIJO` methods ask row `10` with `askExtendWidget`. | These methods do not establish historical actor spawns or event availability. |
 | `Spl000.processEventLINDLEADER`, `processEventELNAURE`, `processEventSOMBER` | The salute/dialogue paths condition on a caller-supplied count and present item IDs `3020614`, `3020615`, and `3020616` as `worldMaster:say` arguments. | Dialogue substitution is not an item grant or an entitlement rule. |
 
-The installed `spl0g3-5`, `spl0l3-5`, `spl0u3-5`, `spl0i5`, and `spl103`
+The `spl0g3-5`, `spl0l3-5`, `spl0u3-5`, `spl0i5`, and `spl103`
 chunks independently recovered as a class declaration with an empty
 `initText` method only. The same decoded paths have only `initText` in
 `lua/registry.json`. This is a boundary of these specific shipped chunks,

@@ -1,12 +1,12 @@
 # NPC Linkpearl client route
 
-Three decoded Lua 5.1 chunks matched the installed LPBs byte-for-byte
+Three decoded Lua 5.1 chunks matched the LPBs byte-for-byte
 after their 13-byte `rle` wrappers were decoded (payload XOR `0x73`).
 The shared DesktopWidget connector and MainMenuWidget identities are pinned
 in [Parley target gate](parley-target-gate.md). Recovered method names and
 line numbers below locate Lua decompiler output, not native executable code.
 
-| Recovered class | Installed LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
+| Recovered class | LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
 | --- | --- | --- | --- |
 | `widget/consoleicontraywidget` | `n1635q/7vwrvy517vwqs9ln1635q.le.lpb` | `892ac23eb20269dc847572c7a9877f31fb7766137d76b32f1a7e6ca671bd2af5` | `498b25c7365180cd1ecff32d099ebc3e38fae0c6b6cd9d1f6e3a0953a33e3a7e` |
 | `widget/npclinkshelllistwidget` | `n1635q/wu7y1wzr25yyy1rqn1635q.le.lpb` | `587178c19d85620750d2adbbc52f62f94ec705f7e5f4bc5f7f9b1364ad2e8a16` | `0021720833324e4d8a0bfc2aa8fbd25c863051c585028be754de13f4df354468` |

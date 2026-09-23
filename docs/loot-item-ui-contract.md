@@ -34,6 +34,6 @@ Evidence:
 - `lua/scripts/widget/itemsubwidget.lua:354-362`
 
 The canonical source bytes are pinned in `manifests/scripts.json`; the
-corresponding installed LPB paths, sizes, SHA-256 values, decoded payload
+corresponding LPB paths, sizes, SHA-256 values, decoded payload
 hashes, and `matched-script` classifications are in
 `manifests/retail_lua_coverage.json`.

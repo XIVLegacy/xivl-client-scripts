@@ -4,7 +4,7 @@ The recovered `Chara/Npc/MapObj/DoorServer.initForEvent` body comes from
 `tools/outputs/lpb/decomp_further_20260617/lua/chara/npc/mapobj/doorserver.lua`
 (SHA-256
 `5abf5ebdbaf8e628fd7b8aacfd36cb4e98921174bf17479f71d9217c45de4eec`).
-Its matching installed `client/script/729s9/wu7/x9uv80/6vvsr5so5s.le.lpb`
+Its matching `client/script/729s9/wu7/x9uv80/6vvsr5so5s.le.lpb`
 has SHA-256
 `4aeeb74b47fb1bee784d73abacc7f54f517f42c47282f9efbe156b39ddd009df`.
 The canonical class and method inventory is in
@@ -24,7 +24,7 @@ implementation evidence, not a retail-state observation.
 
 ## Beacon Fort status gate
 
-The installed `BeaconFortGateGimmick` chunk matched the recovered LUAC
+The `BeaconFortGateGimmick` chunk matched the recovered LUAC
 byte-for-byte (decoded SHA256
 `17635FDA7214B70895AFFA0AA978E333F53779AE87D762295048DCAC5BD09EED`).
 `initForGimmick` stores supplied show/hide scheduler names and an initial

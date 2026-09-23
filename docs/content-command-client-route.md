@@ -8,7 +8,7 @@ client-program getters read that mirror. `MainMenuWidget` renders command
 24302 from the retained values; the desktop connector reads the same values
 when dispatching the command.
 
-The installed static-actor class-path manifest maps 24302 to
+The static-actor class-path manifest maps 24302 to
 `/Command/System/ContentCommand` and separately maps 24301 to
 `/Command/System/PlaceDrivenCommand`
 (`xivl-client-data:manifests/staticactor_class_paths.json:3278-3284`). The
@@ -34,6 +34,6 @@ Evidence:
 - `lua/scripts/command/system/contentcommand.lua:11-84,103-180`
 
 The canonical source bytes are pinned in `manifests/scripts.json`; the
-corresponding installed LPB paths, sizes, SHA-256 values, decoded payload
+corresponding LPB paths, sizes, SHA-256 values, decoded payload
 hashes, and `matched-script` classifications are in
 `manifests/retail_lua_coverage.json`.

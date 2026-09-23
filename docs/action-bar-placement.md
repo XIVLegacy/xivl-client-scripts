@@ -82,7 +82,7 @@ individual action's equip eligibility. The source is
 `chara/charabaseclass_ffxivbattle.lua:60-163` (manifest
 `manifests/scripts.json:410-414`, SHA256
 `D1DB23D11F911EA3205CA72868CC9FCA22CEFE0D3F88A6706CBB035D92130BDA`).
-The installed LPB is `client/script/729s9/729s989r57y9rr_44m1o89qqy5.le.lpb`
+The LPB is `client/script/729s9/729s989r57y9rr_44m1o89qqy5.le.lpb`
 (SHA256 `E64BE9F43A2659E81FC93D3CD08BA58EA646A24F6B43C109B75B6F9E59F9CE3E`);
 its decoded LUAC SHA256 is
 `98DEEFF94BB4C526A6018F22379DDBE146B55394EB8FCF198B4B0E1D2D316976`.

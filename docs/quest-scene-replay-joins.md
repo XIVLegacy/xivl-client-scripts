@@ -8,7 +8,7 @@ playback, quest ownership, or historical activation. It is not a full-corpus
 absence audit.
 
 The canonical Lua source paths, byte counts, and SHA-256 values are pinned in
-[`scripts.json`](../manifests/scripts.json); installed resource paths and
+[`scripts.json`](../manifests/scripts.json); resource paths and
 decoded-payload identities are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json). The
 source line ranges below locate each key assignment and call in that canonical

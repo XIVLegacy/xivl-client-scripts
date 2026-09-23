@@ -17,7 +17,7 @@ and inherits `WeaponSkillBaseClass` then `BattleCommandBaseClass`;
 `BattleCommandBaseClass`. These class bodies supply no additional
 Garuda angle override.
 
-The five relevant installed `.le.lpb` files were decoded with
+The five relevant `.le.lpb` files were decoded with
 `xivl-client-structs/tools/decode_lpb.py`. Each resulting chunk matched
 the corresponding contributor `.luac` byte-for-byte:
 
@@ -32,7 +32,7 @@ the corresponding contributor `.luac` byte-for-byte:
 The empty methods are at decoded bytecode offsets `0x52E` and `0x55A`
 in `battlecommandbaseclass`, respectively. The contributor's
 `outputs/garuda-range-followup-20260907/findings.json` preserves the
-installed encoded paths, wrapper hashes, instruction offsets, and
+encoded paths, wrapper hashes, instruction offsets, and
 class-method census; `garuda-range-followup-2026-09-07.md` records the
 bounded interpretation. These are script facts, not a command-ID-to-class
 binding or proof of the client/server hit evaluator. The active range

@@ -2,7 +2,7 @@
 
 ## Valentione town-type selector
 
-The installed 1.23b
+The 1.23b LPB at
 `client/script/729s9/wu7/uvupy975/uvupy975o9y5wqx9rq5s.le.lpb`
 has SHA-256
 `cb03cf8f51b9ca0afff0f0e0c5def04d2870ac25adfcd606ac5b03ec954f83d8`.

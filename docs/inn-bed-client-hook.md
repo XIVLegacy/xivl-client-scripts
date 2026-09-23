@@ -9,5 +9,5 @@ screen cause.
 
 Evidence: `lua/scripts/chara/npc/object/objectbed.lua:11-54`. The canonical
 source bytes are pinned in `manifests/scripts.json`; the corresponding
-installed LPB path, size, SHA-256, decoded payload hash, and `matched-script`
+LPB path, size, SHA-256, decoded payload hash, and `matched-script`
 classification are in `manifests/retail_lua_coverage.json`.

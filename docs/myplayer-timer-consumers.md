@@ -78,7 +78,7 @@ renderer shows a row when its endpoint is positive
 for the positive retail server clock, the Levequests row does not require
 a nonzero MyPlayer timer value; this does not establish a server-side
 allowance grant or unlock rule. The recovered `StatusWidget` and
-`WorldMaster` chunks match their installed LPBs after wrapper decoding
+`WorldMaster` chunks match their LPBs after wrapper decoding
 (decoded SHA256 `9668B0BC032DFCACC3F19F285BB5BD5673AD72C3DA8D0FC68E893D087B27BB90`
 and `C7DB606357F8E5811809A6232157C2C9AC1DAF0055CFCAA01FBBC7051FD68BF5`;
 source identities `manifests/scripts.json:15890-15895,16028-16033`).
@@ -124,5 +124,5 @@ they do not independently type the native fields.
 
 Official patch-note announcements about selected 1.x timer rules and their
 limits are recorded in `xivl-captures:studies/lodestone-dev-patch/derived/timer-announcements.md`.
-Those announcements do not prove the installed client's runtime timer producer
+Those announcements do not prove the client's runtime timer producer
 or initialization state.

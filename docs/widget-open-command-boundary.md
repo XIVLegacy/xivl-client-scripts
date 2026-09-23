@@ -1,10 +1,10 @@
 # WidgetOpenCommand client boundary
 
-The installed static-actor registry maps low ID 24228 to
+The static-actor registry maps low ID 24228 to
 `/Command/System/WidgetOpenCommand`
 (`xivl-client-data:manifests/staticactor_class_paths.json:3213-3216`).
 The corresponding client command accepts a widget-path argument and
-varargs. Its installed bytecode performs these operations in order:
+varargs. Its bytecode performs these operations in order:
 
 1. Calls `_string.sub(arg, 1, 1)`; the returned character is not used by
    the remaining instructions (`command`, `0x0000F3-0x000107`).
@@ -22,7 +22,7 @@ dispatch gates, the behavior of the native actor factory, or which widget
 arguments a historical server actually sent. A widget class file's
 presence is not evidence that retail command 24228 opened it.
 
-The installed LPB is
+The LPB is
 `client/script/7vxx9w6/rlrq5x/n1635qvu5w7vxx9w6.le.lpb`, SHA256
 `F55ABE4E1388DBFB86BDD14AD27522855D8451AB014EAE1D0334C0B1018F5312`.
 It decoded byte-for-byte to the recovered LUAC, SHA256
@@ -33,7 +33,7 @@ The recovered-source identity is
 
 ## RetainerNamingWidget ask result
 
-The installed resource
+The resource
 `n1635q/9rz/s5q91w5sw9x1w3n1635q.le.lpb` (5,205 bytes, SHA-256
 `e3fe5db48c6eb5921681a0c86180e38bac19230157fce70711bd091b186bbf53`)
 has a 5,192-byte XOR-0x73 payload with SHA-256

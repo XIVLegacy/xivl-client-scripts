@@ -10,7 +10,7 @@ prior ID is zero. It then calls `setWeatherId(newWeatherId)` in either case
 `0x00024E-0x000292`). The transition literal 15 belongs to this director
 path, not every area-weather update or opcode `0x000D` packet.
 
-The installed
+The LPB at
 `client/script/61s57qvs/n59q25s/n59q25s61s57qvs89r57y9rr.le.lpb`
 has SHA256 `4630DA60FEB9E82AAEE95957848C4565D8FD7AFB387CF8DD53946568B7027AE6`.
 Its decoded LUAC matched the recovered chunk byte-for-byte, SHA256

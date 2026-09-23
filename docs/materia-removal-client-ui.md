@@ -26,6 +26,6 @@ Evidence:
 - `lua/scripts/widget/ask/materiadialogwidget.lua:152-176,211-234,399-519`
 
 The canonical source bytes are pinned in `manifests/scripts.json`; the
-corresponding installed LPB paths, sizes, SHA-256 values, decoded payload
+corresponding LPB paths, sizes, SHA-256 values, decoded payload
 hashes, and `matched-script` classifications are in
 `manifests/retail_lua_coverage.json`.

@@ -60,7 +60,7 @@ The recovered LUAC for `widget/cutsceneskipwidget`,
 `widget/cutsceneskipwarningwidget`, `widget/ask/journallistwidget`,
 `widget/ask/replaycutsceneselectwidget`, `area/areabaseclass`,
 `chara/npc/populace/populacecutsceneplayer`, and `gamedata/cutscene_common`
-matched the corresponding installed LPB payloads byte-for-byte after
+matched the corresponding LPB payloads byte-for-byte after
 wrapper decoding. The decoded SHA256 values for the skip widget, replay
 selector, replay owner, and common CutScene chunk are respectively
 `CEE2B2D522EF428D53F54A467DCAD75B9E5B1AB4B9DF52B99BD21272113741FC`,
@@ -68,6 +68,6 @@ selector, replay owner, and common CutScene chunk are respectively
 `18FBC24A732FEA85E4C43EA42CF6821B0550A4C312EA861C090B89867C0A7EC3`,
 and `7EF33408C579F2D1EDE120D9751851BD39B77DD1B6CA6A0AA821B413FE11B4FD`.
 Recovered-source identities and hashes are in `manifests/scripts.json` under
-the matching `lua/scripts/` paths. The installed client executable is the
-pinned 1.23b SHA256
+the matching `lua/scripts/` paths. The 1.23b client executable is pinned by
+SHA-256:
 `9341F2B4567440B310A4D494F5CC5599CA334BA51C8042247317FF466492F2E9`.

@@ -1,14 +1,14 @@
 # Dungeon exit client contracts
 
-The installed 1.23b Lua scripts preserve several different exit prompts. The
-source identities below join independently recovered Lua to installed
+The 1.23b Lua scripts preserve several different exit prompts. The
+source identities below join independently recovered Lua to
 `client/script/` LPBs. The `ciphered` path is the registry path with `.lua`
 replaced by `.le.lpb`; all hashes are SHA-256. Recovered Lua comes from the
 contributor's `tools/outputs/lpb/decomp_more_20260617/lua/` for the object
 classes and `decomp_further_20260617/lua/` for the gimmick classes. The
 canonical class and method inventory is in [`registry.json`](../lua/registry.json).
 
-| Class and registry key under `chara/npc/` | Installed LPB suffix / hash | Recovered Lua hash |
+| Class and registry key under `chara/npc/` | LPB suffix / hash | Recovered Lua hash |
 | --- | --- | --- |
 | `RaidDungeonExit`, `object/raiddungeonexit` | `729s9/wu7/v8057q/s9166pw35vw5m1q.le.lpb` / `ec628b2a1e72f70551309d21218a697b6ee46db0ffa04de1eee7190edbc36279` | `17010d68da5a1033ca10c919d25ce407f46d461f670c6bf2c1f623fd7d62aefc` |
 | `InstanceRaidExit`, `object/instanceraidexit` | `729s9/wu7/v8057q/1wrq9w75s9165m1q.le.lpb` / `cc1d7f58075f7c0ecace5049c68240fe3e04c46642fad0ecb5caeb333e440b96` | `8bf13b56cc7d4f0ab84187f77a63119d5f8905e2d05d08edda451b600ae7ec76` |

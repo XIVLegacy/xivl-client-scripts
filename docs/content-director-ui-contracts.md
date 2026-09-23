@@ -33,8 +33,8 @@ gate before the remaining update path (`processUpdateWork`, bytecode
 `aimNumNow` and `uiState` with their temporary copies and sends an `"update"`
 only if either changed (bytecode `0x001B01-0x001BAD`). This corrects the
 broken recovered-Lua control flow; it does not prove a historical server
-packet order, objective producer, or rendered widget appearance. The
-installed `client/script/61s57qvs/3p1y6y5o5/3p1y6y5o589r57y9rr.le.lpb`
+packet order, objective producer, or rendered widget appearance.
+The LPB at `client/script/61s57qvs/3p1y6y5o5/3p1y6y5o589r57y9rr.le.lpb`
 decoded byte-for-byte to the recovered LUAC (SHA256
 `BCAD3160D16813502529467CE5DA17BB3A9BC80C576CD71841708FE7859D7E84`);
 the recovered source identity is in `manifests/content_director_ui_contracts.json`.
@@ -51,7 +51,7 @@ values to size codes 2 and 1. Initialization stores its second argument as
 These details are in `guildlevebaseclass.lua:211,285-364,380,395-453,456,465-472,625-746,1260-1342,1516-1560`
 (30,822 bytes, SHA-256
 `0CD9F9853D1F91C07B583DB2BB7FACC4CB6A0C9C900DD8CF1953435CD19ACA19`,
-`manifests/scripts.json:7833-7836`). The installed LPB and its decoded
+`manifests/scripts.json:7833-7836`). The LPB and its decoded
 payload are pinned above.
 
 ## Caravan escort director
@@ -78,7 +78,7 @@ actor-attached `getMapMarkerRange` route is not evidence that these caravan
 markers follow an actor automatically. The script calls do not establish
 the server's active coordinates, update frequency, or historical escort path.
 
-These three recovered chunks match the installed LPBs byte-for-byte after
+These three recovered chunks match the LPBs byte-for-byte after
 wrapper decoding. Their decoded SHA256 values are `6B4A3198115E785842F2932333A6815DE833CF9FE6A9F6327027826085D9FE17`
 (`director/caravanguard/caravanguarddirector`), `DBC794E094EC052D537FA0DC32912C5DAFDC5FD0242DC775E8060BB0E8C994B4`
 (`widget/minimapwidget`), and `21CC7F2F9C6E2A56E02620E18748FA9DD70BF02DAB6A889FD6083826D60528C2`
@@ -99,7 +99,7 @@ turn, asks restricted choices, conditionally asks text ID 6 with three
 arguments, and returns the two results
 (`chocobocaravanguard.lua:3-23`). These are client presentation and ask
 surfaces, not evidence of the server's signup, route, reward, or pack-chocobo
-actor selection. The three installed LPBs matched the recovered LUACs
+actor selection. The three LPBs matched the recovered LUACs
 byte-for-byte; their decoded SHA256 values are respectively
 `2F553CD0595DBF6F38527B72BA3916416581CAE16E35BF036AB1CE10C175FDAA`,
 `97ECACFBCFC68AA2B2F1FCB6215E7966C5F553D8B16F83B8EC8CCB2DC5ACC483`,
@@ -124,7 +124,7 @@ The independent recovered
 `tools/outputs/lpb/decomp_more_20260617/lua/director/instanceraid/instanceraidbaseclass.lua`
 has SHA-256
 `2f6ea8cff45b471ed8ce05c8905af75bbe199e61a712cf6f0e96c9a653badeb9`.
-The corresponding installed
+The corresponding LPB at
 `client/script/61s57qvs/1wrq9w75s916/1wrq9w75s91689r57y9rr.le.lpb`
 has SHA-256
 `820f421aef68bdcb48c082a2c1b91521903d0e82956c273cabc462b6b3271f2f`.
@@ -144,7 +144,7 @@ widget only when its clear flag is false. The widget call is
 The separate `InstanceRaidGuideBaseClass.askEnterInstanceRaid(raidId)`
 calls `desktopWidget:askForEventMode` with prompt 52045, choices
 52046/52047, and the supplied raid ID. It returns true only for answer
-1. The installed
+1. The LPB at
 `client/script/729s9/wu7/uvupy975/1wrq9w75s9163p165/1wrq9w75s9163p16589r57y9rr.le.lpb`
 has SHA-256
 `b9be2c3b9f3d9e35f6aea60474e054f9690c1c17466c6bf0fb92791eca321894`;
@@ -180,10 +180,10 @@ expression in `executeCutScene` does not prove two runtime allocations.
 
 Five independently recovered scripts under
 `tools/outputs/lpb/decomp_more_20260617/lua/director/quest/` join the
-following installed `client/script/` LPBs. Hashes are SHA-256; class and
+following `client/script/` LPBs. Hashes are SHA-256; class and
 method inventories are in [`registry.json`](../lua/registry.json).
 
-| Class | Installed LPB suffix / hash | Recovered Lua hash |
+| Class | LPB suffix / hash | Recovered Lua hash |
 | --- | --- | --- |
 | `QuestDirectorGcg70101` | `61s57qvs/tp5rq/tp5rq61s57qvs373cjiji.le.lpb` / `10035dfb8289937f2b4350becc5e61f453f4fa77525346ad5849689adf9bc34d` | `fd20c2d7c98689983a0378fbdadf5c032854c734db8858f6723176cfad3d9d17` |
 | `QuestDirectorGcl70101` | `61s57qvs/tp5rq/tp5rq61s57qvs37ycjiji.le.lpb` / `e73b02ba4f98e11ce34dde7059222ae2a8cac96a735e2b36add33b14785de92d` | `fd5ccdaee7735c07e285da73cde7e3095a704baa79eb9a2a5fb86e768bd0fe75` |
@@ -218,8 +218,7 @@ finalization. Damaged control flow limits claims about exact fall-through.
 The independently recovered
 `tools/outputs/lpb/focused/widget/desktopwidget_connector.lua` (SHA-256
 `c5480f97a81c08f8640b4d250c0e20694b2a697c4dc9b1e0d343a230c8cbcbe0`)
-matches installed
-`client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (SHA-256
+matches `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (SHA-256
 `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425`).
 Its `processUpdateContentsInformation` checks the actor and dispatches
 kind 1 to `GuildleveExecutionWidget` and kind 2 to
@@ -234,10 +233,10 @@ server implementation, not retail observations.
 
 ## Raid dungeon occupancy widget
 
-Two recovered occupancy directors and their widget have these installed
-`client/script/` LPB and independent recovered-Lua SHA-256 identities:
+Two recovered occupancy directors and their widget have corresponding
+`client/script/` LPBs and independent recovered-Lua SHA-256 identities:
 
-| Class | Installed LPB path / SHA-256 | Recovered Lua SHA-256 |
+| Class | LPB path / SHA-256 | Recovered Lua SHA-256 |
 | --- | --- | --- |
 | `RaidFst0Dungeon03` | `61s57qvs/v77pu9w7l/s9164rqj6pw35vwjg.le.lpb` / `3fc7b9326942492a56c652ada5564b6eb9e528977a9d513ae1e794fa858f1652` | `5984f33d4328df277aa0accb8b310b9d18282423cb8c337646a73a0b3bd6d393` |
 | `RaidRoc0Dungeon01` | `61s57qvs/v77pu9w7l/s916sv7j6pw35vwji.le.lpb` / `3b7e73d556fc9016951cb4897a85fad7ff2b93e5ccd570e2c229414e6f0e4cf2` | `ec6e626a70d41a976da06a327663581cc1473e35adb4b73e67079529bbb6d7db` |
@@ -258,7 +257,7 @@ The director source is `director/occupancy/raidfst0dungeon03.lua:29-78,93-107`
 the common source is `gamedata/cutscene_common.lua:1064-1075,1316` (SHA-256
 `F6DB9559B3F805D2738C073C7DB9DD102FD5C33A056E789FF2FB2F8AFF395BD1`). Both
 are pinned in `manifests/scripts.json:8223-8226,9519-9522` and joined to
-installed retail resources by `manifests/retail_lua_coverage.json:5480-5492,815-826`.
+retail resources by `manifests/retail_lua_coverage.json:5480-5492,815-826`.
 No cited evidence joins `rad0f300` to native spawn types 16 or 21; their
 separate dispatcher branches establish capability, not a historical scene
 selection (`xivl-decomp:docs/actor/animation-bank-routing.md`).

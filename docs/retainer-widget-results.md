@@ -36,6 +36,6 @@ Evidence: `lua/scripts/widget/retainertradewidget.lua:3188-3294,3691-3763`,
 `lua/scripts/widget/retaineritemlistwidget.lua:9111-9132,9185-9207,9370-9444`,
 and `lua/scripts/widget/ask/retaineritemlistwidget.lua:6222-6263,6323-6350,6536-6620`.
 The canonical source bytes are pinned in `manifests/scripts.json`; the
-corresponding installed LPB paths, sizes, SHA-256 values, decoded payload
+corresponding LPB paths, sizes, SHA-256 values, decoded payload
 hashes, and `matched-script` classifications are in
 `manifests/retail_lua_coverage.json`.

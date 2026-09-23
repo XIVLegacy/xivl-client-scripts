@@ -1,7 +1,7 @@
 # Hamlet supply and score UI contract
 
 The recovered client has separate Hamlet supply dialogue, supply ranking,
-and defense score routes. Their installed LPBs matched the recovered LUACs
+and defense score routes. Their LPBs matched the recovered LUACs
 byte-for-byte; these calls describe client presentation, not a server-side
 supply, ranking, or reward policy.
 

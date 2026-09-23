@@ -6,7 +6,7 @@ decompile of the decoded chunks matched the canonical corpus byte-for-byte
 after CRLF-to-LF normalization. The machine-readable source identities,
 hashes, locators, and claim boundaries are in
 [`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json).
-Installed resource locators and their matching decoded-payload digests are in
+Resource locators and their matching decoded-payload digests are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
 The audited scenario-script literal scene-key and `cutReplay.csv` joins are
 cataloged separately in
@@ -30,14 +30,14 @@ value.
 Three additional class-quest scenario methods preserve distinct cutscene call
 shapes. `Arc200.processEvent030` calls `getNation` on its second method
 argument, passes the returned value after `true` to NQ scene `arc20030` in mode
-1, and uses default fade-out followed by after-warp fade-in. The installed
+1, and uses default fade-out followed by after-warp fade-in. The
 `Bsm200.processEvent010` passes its fourth method argument after `true` to NQ
 scene `bsm20010` in mode 1, between default fade-out and default fade-in.
 `Bsm306.processEvent030` waits with literal `4`, calls NQ scene `bsm30630` in
 mode 1, then uses after-warp fade-in; that method has no explicit fade-out
 call. These are method-body call shapes only. They do not identify callers,
 runtime argument values, quest ownership or state, localized scene text, or
-server behavior. The installed resource, decoded-payload, and canonical source
+server behavior. The resource, decoded-payload, and canonical source
 identities and method locators are recorded in
 [`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json)
 and [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
@@ -49,7 +49,7 @@ on `showQuestInfomation() == 1` to pass rows 7 and 8, or otherwise row 6.
 The neighboring `processEvent010`, `processEvent020`, and `processEvent030`
 methods contain direct scheduler, dialogue-row, and argument branches. These
 are client method contents, not proof of quest ID 111605, NPC ownership, text
-meaning, historical invocation, or server behavior. The installed LPB
+meaning, historical invocation, or server behavior. The LPB
 `tp5rq/r75w9s1v/7vx/7vxj3e.le.lpb` (SHA-256
 `540a017a3640bf7a4ff7707a3489d0781cb019dd97c66ab0494080fb58982779`)
 decodes to payload SHA-256
@@ -62,14 +62,13 @@ Method locators are `lua/scripts/quest/scenario/com/com0g5.lua:72-175,
 
 ## ETC1g4 Nicoliaux dialogue branch
 
-The installed
-`client/script/tp5rq/r75w9s1v/5q7/5q7i3f.le.lpb` (SHA-256
+The LPB at `client/script/tp5rq/r75w9s1v/5q7/5q7i3f.le.lpb` (SHA-256
 `901c7359e4477e8fa972d757025ec96a8c2842205e52a2bf78ad26d4903fb0b4`)
 decodes to a 2,715-byte payload (SHA-256
 `cc033492979e33e6152f91e704ee458ff02d93b12ea299785f04ad408b47b11c`),
 matching `Etc1g4` in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
-Decompiling that installed payload with the vendored unluac JAR reproduces
+Decompiling that payload with the vendored unluac JAR reproduces
 the `Etc1g4.processEventNicoliauxStart` method.
 
 The method takes four payload arguments after `self`. After an `ask` result
@@ -84,7 +83,7 @@ behavior.
 ## ETC1 scenario script method inventory
 
 The 19 `lua/scripts/quest/scenario/etc/etc1*.lua` chunks below are pinned by
-the installed-resource and decoded-payload hashes in
+the resource and decoded-payload hashes in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json). Their
 decoded donor chunks match those payload hashes, and pinned-unluac decompiles
 match the canonical source hashes in
@@ -131,7 +130,7 @@ selected value:
 | `processEvent020` | `alc20020` | after-warp |
 | `processEvent030` | `alc20030` | default |
 
-The installed `client/script/tp5rq/r75w9s1v/9y7/9y7hjj.le.lpb` decodes
+The `client/script/tp5rq/r75w9s1v/9y7/9y7hjj.le.lpb` decodes
 byte-for-byte to the recovered `Alc200` chunk (SHA-256
 `cd2c07c7d4aa6e3a289a26aff300ee48c197d3a8199d3c820d28a150eede2313`).
 The method locators are in `lua/scripts/quest/scenario/alc/alc200.lua`, with
@@ -143,11 +142,11 @@ or the historical event dispatcher.
 
 ## Man1 city scenario cutscene calls
 
-Three installed scenario LPBs match the corpus resource inventory. The
+Three scenario LPBs match the corpus resource inventory. The
 independently recovered Lua bodies have these SHA-256 identities and direct
 cutscene calls:
 
-| Script | Installed `client/script/` resource SHA-256 | Recovered Lua SHA-256 | Direct call boundary |
+| Script | `client/script/` resource SHA-256 | Recovered Lua SHA-256 | Direct call boundary |
 | --- | --- | --- | --- |
 | `Man1g0` | `tp5rq/r75w9s1v/x9w/x9wi3j.le.lpb` / `4c95deb83f772036b0900487a8cf87ac7a50e07f583091d97b1de18e5647ecde` | `c0eb238c1f5130bf79a199422bffec5d2d03776e8b7c641c33ed8d9f08ef5eaf` | `processEventMiounneStart` calls `man1g000`; `processEvent010` through `100` call the corresponding `man1g010` through `man1g100` scenes. |
 | `Man1l0` | `tp5rq/r75w9s1v/x9w/x9wiyj.le.lpb` / `f24c0974a756ec03519531fae4d73d54c2d691386bf37a137365b06ce791d228` | `3059770f183722e6a07b9b1f3d1d455cf425a41ac32728340b34d8c70ce183c1` | `processEvent200/210/215/400/410/420/600/610` call matching `man1l` scenes; `processEvent2000/2001/2002` call `man2l000/001/002`. |
@@ -163,7 +162,7 @@ area, progression gate, reward, or historical retail activation path.
 
 ## Man200 scenario presentation lead
 
-The installed `client/script/tp5rq/r75w9s1v/x9w/x9whjj.le.lpb` has SHA-256
+The `client/script/tp5rq/r75w9s1v/x9w/x9whjj.le.lpb` has SHA-256
 `dfb750ed666d1100b5940751c9d658c4537b3f6d51e44cbc153660c4500ffeaf`.
 Decoding its 13-byte `rle` wrapper and XOR `0x73` payload matches the
 recovered `quest/scenario/man/man200.luac` byte-for-byte (SHA-256
@@ -188,7 +187,7 @@ persistence, or a server-side class/personality mapping.
 
 ## Man2 city scenario composite scenes
 
-The following installed `client/script/tp5rq/r75w9s1v/x9w/` resources
+The following `client/script/tp5rq/r75w9s1v/x9w/` resources
 match the corpus inventory. Each independently recovered Lua body is
 identified separately so its decompiler output is not silently treated as
 canonical source:
@@ -202,7 +201,7 @@ canonical source:
 `Man2g0.processEvent007_2` presents ask row 240, and its recovered
 answer-1 branch plays HQ scene `man2g000`; the sibling
 `processEvent007_2_2` has the ask and fades but no scene call.
-The installed `Man2g0` LPB decodes byte-for-byte to the recovered chunk
+The `Man2g0` LPB decodes byte-for-byte to the recovered chunk
 (SHA-256 `b51e16fd99459eed9271d9f02396b3a2ec307b6d0a0846dd0d5219812c991645`).
 The bytecode calls `ask` once in each method (`0x0D83` and `0x0EFB`),
 branches on the saved answer, and returns it (`0x0DBF` and `0x0F27`).
@@ -216,7 +215,7 @@ fade-in; `processEvent020` plays NQ `man2g020` between default fades;
 `processEvent080` chains NQ `man2g080`, HQ `MAN2G090`, NQ `man2g095`,
 and NQ `man2g100` before a post-warp fade-in. These calls are at recovered
 `quest/scenario/man/man2g0.lua` lines 55-69 and 316-337, under the
-installed LPB and recovered-Lua identities above. They do not identify the
+LPB and recovered-Lua identities above. They do not identify the
 server event caller, prove which scene followed a retail combat result,
 or establish an instance or zone transition.
 
@@ -243,7 +242,7 @@ Three recovered child overrides return exact client quest IDs:
 | `QuestDirectorCom0u501` | `111805` |
 | `QuestDirectorEtc3g201` | `110736` |
 
-The installed LPBs are under
+The LPBs are under
 `client/script/61s57qvs/tp5rq/r1xuy5tp5rq89qqy5/`. Their file
 SHA-256 values, followed by the independent recovered-Lua SHA-256, are:
 
@@ -262,7 +261,7 @@ does not prove there was no other retail cancellation path.
 
 ## Man0 opening tutorial boundaries
 
-The installed scenario LPBs under `client/script/tp5rq/r75w9s1v/x9w/`
+The scenario LPBs under `client/script/tp5rq/r75w9s1v/x9w/`
 match the corpus inventory. The exact resource and independent recovered-Lua
 SHA-256 identities are:
 
@@ -275,7 +274,7 @@ SHA-256 identities are:
 `Man0l0.processEvent000_2` cancels desktop-widget mode 16, closes the
 tutorial widget, and orders mode 16 again; it does not launch a scene.
 `processEvent020_9` presents ask row 84 with mode 2 and places a fade-out
-only in the answer-1 branch. The installed `Man0l0` LPB decodes byte-for-byte
+only in the answer-1 branch. The `Man0l0` LPB decodes byte-for-byte
 to the recovered chunk (SHA-256
 `19a7ef9877a314ed296a918aea709c57b2cf89b6f46a543c17d51a8e29df17a1`).
 Its bytecode calls `ask` once at `0x1AF2`, branches on that saved result at
@@ -291,7 +290,7 @@ warps, quest replacement, or reward grants.
 
 ## Com0 instanced cutscene calls
 
-The installed LPBs under `client/script/tp5rq/r75w9s1v/7vx/` match the
+The LPBs under `client/script/tp5rq/r75w9s1v/7vx/` match the
 corpus inventory. Their resource SHA-256 values and the separately recovered
 Lua SHA-256 values identify the six bodies used here:
 
@@ -310,7 +309,7 @@ recovered answer-1 branch calls NQ `elv0l110` then `com0l610` and fades
 in after warp. The sibling `processEvent_elevator_nq2` calls only
 `elv0l110` in that branch. `processEventExit` asks world-master row
 51036, mode 2. Both elevator return expressions repeat `ask`. The
-installed `Com0l5` LPB decodes byte-for-byte to the recovered chunk
+`Com0l5` LPB decodes byte-for-byte to the recovered chunk
 (SHA-256 `aa2b2d66bb19ddcb881644506580c7f6becedc18a0d448fcd8a23e42ceaaa4d1`).
 The bytecode calls `ask` once in each elevator method (`0x14F8` and
 `0x16D8`), branches on that saved answer, and returns it (`0x1564` and
@@ -330,8 +329,7 @@ owner, instance start, quest sequence, clear condition, or reward.
 
 ## Man0l1 cutscene preview gap
 
-The installed
-`client/script/tp5rq/r75w9s1v/x9w/x9wjyi.le.lpb` has SHA-256
+The LPB at `client/script/tp5rq/r75w9s1v/x9w/x9wjyi.le.lpb` has SHA-256
 `0e6c6fd091123137d8b37dcb42f7f36b66de8acc73019cd6ac2c17884cedbe8a`.
 Its decoded payload has SHA-256
 `34791b21c1701fb3f549b9fc2f45834d28c180304f442b3ff631ad437cd62c15`.
@@ -345,11 +343,11 @@ that local in the path. The syntactic value-7 branch contains a call to
 `startNQCutScene("man0l420", 1)` between default fades, but that branch is
 unreachable in this chunk. Its intended route, if any, is unknown.
 
-The installed `client/cut/` tree has 690 immediate scene directories,
+The 1.23b `client/cut/` tree has 690 immediate scene directories,
 including other `man0l*` scenes but no `man0l420` directory. The freshly
 extracted canonical `cutReplay.csv` (SHA-256
 `2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`)
-also has no `man0l420` text match. These are bounded installed-asset and
+also has no `man0l420` text match. These are bounded 1.23b asset and
 replay-table absences. They do not identify an alternate reachable route,
 prove that another asset source was unavailable at runtime, or justify
 inventing a replacement scene.
@@ -359,7 +357,7 @@ The independently generated
 (SHA-256
 `4368f51e2e1e44d0ec71b6c7177b637e2bfa0ac7db79278fd33d4824ebfb5a91`)
 lists 31 direct-scene keys without a `cutReplay` row. A fresh text-match
-check against the canonical CSV found none of those keys; an installed
+check against the canonical CSV found none of those keys; a 1.23b
 `client/cut/` directory check found 30 matching scene directories and
 the one missing `man0l420` directory above. The 31 keys are:
 
@@ -389,14 +387,13 @@ with default fade-out and calls `startNQCutScene` in mode 1:
 `processEvent637` sends NPC-linkshell chat rows 161-164 with `_wait(2)`
 between the calls, then uses the after-warp fade-in helper. These wrappers
 establish client method bodies, not historical event ownership, invocation,
-or quest progression. The installed-resource and decoded-chunk pins are in
+or quest progression. The resource and decoded-chunk pins are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json); canonical
 source ranges are in the quest-event source manifest.
 
 ## Man0g1 event-scene calls
 
-The installed
-`client/script/tp5rq/r75w9s1v/x9w/x9wj3i.le.lpb` has SHA-256
+The LPB at `client/script/tp5rq/r75w9s1v/x9w/x9wj3i.le.lpb` has SHA-256
 `864b7f370b80393d747aaba0951aa91147c6b99a9720872d89d701615780a2db`;
 its decoded payload has SHA-256
 `8f7e7524bb64b5160adc4491909cc7fd9a39336ae3daf6f2bf88ecd39042dff4`.
@@ -415,13 +412,13 @@ mode 1 after default fade-out:
 
 These are direct client calls, not proof that the methods were invoked in a
 historical quest, or that the server followed a corresponding sequence.
-Installed byte and decoded payload identities are in
+LPB byte and decoded-payload identities are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json); source
 hashes and method locators are in the quest-event source manifest.
 
 ## Man206 scene and return branches
 
-The installed `client/script/tp5rq/r75w9s1v/x9w/x9whjd.le.lpb` has SHA-256
+The `client/script/tp5rq/r75w9s1v/x9w/x9whjd.le.lpb` has SHA-256
 `1f84e4a0948599dad65b06efca478b92ce9c62d8e3074dbd6cf3f7ec7b9552f9`.
 Its 13-byte wrapper and XOR `0x73` payload decode byte-for-byte to recovered
 `quest/scenario/man/man206.luac` (SHA-256
@@ -493,19 +490,19 @@ does not establish that tuple or an actor owner for any wrapper.
 
 ## Man304, Man308, Man402, and Man406 scene wrappers
 
-The installed LPBs for these four scenario classes were decoded through their
+The LPBs for these four scenario classes were decoded through their
 13-byte `rle` wrappers (XOR `0x73` payload); each decoded byte matched the
 corresponding recovered Lua 5.1 chunk. A bytecode trace executes scenario
 instructions against inert API result fixtures, not a retail runtime.
 
-| Class | Installed LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
+| Class | LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
 | --- | --- | --- | --- |
 | `Man304` | `tp5rq/r75w9s1v/x9w/x9wgjf.le.lpb` | `193f30b822c5beb9bf1652f38f29583da3e3a4e2551563f7874825e947c749a8` | `c8a0fbc6eeeafa1b1e148c73139f290e883ca86c2a413900d38cf4a9cd7d8280` |
 | `Man308` | `tp5rq/r75w9s1v/x9w/x9wgjb.le.lpb` | `1a2128960ac57b68c5030e6f98666fbd5347d1f1233b0912cb48dd89366c6730` | `3ccdc300df451ab52e45618cc2444ecdad0e0fd39062bcc1af82977929729e43` |
 | `Man402` | `tp5rq/r75w9s1v/x9w/x9wfjh.le.lpb` | `c3e31e692dbf988ed2937a6f2d6e3bba49f47b13c212c53a5ac6caf01a3c971d` | `8794fa034cb6b5e61f1af9ca387d55af88296b3231db748d230eec142f50f76b` |
 | `Man406` | `tp5rq/r75w9s1v/x9w/x9wfjd.le.lpb` | `a2ea85d17545a44a097145489dc80f164acf6b8c6e8644f19fcffe84d4dda289` | `c6415866f54ae206230f1d245b20c65b0146cae1ab3be99c37b2d1e314a129ad` |
 
-The installed scenario bodies make these additional selected `say` calls:
+The scenario bodies make these additional selected `say` calls:
 
 | Method group | Literal text row IDs passed to `say` |
 | --- | --- |
@@ -538,7 +535,7 @@ the hash in the table. The source view was produced with the bundled
 `98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc`).
 
 The independently decoded `quest/questbaseclass_common.luac` also matched
-installed `client/script/tp5rq/tp5rq89r57y9rr_7vxxvw.le.lpb`
+the LPB at `client/script/tp5rq/tp5rq89r57y9rr_7vxxvw.le.lpb`
 (`sha256=ecc3f7c6fb49df196431494aa5aece95ede1c24ca1325af11ddc993a3836322d`)
 byte-for-byte after wrapper decoding and has SHA-256
 `9379ee6832bdfa542273c7f43f065d7a15f9a730d9ef244be9a565a1faa53504`.
@@ -566,8 +563,7 @@ owners, quest sequence, battle orchestration, reward rules, or visible playback.
 
 ## DftSrt travel scene wrapper
 
-The installed
-`client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qrsq.le.lpb` has
+The LPB at `client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qrsq.le.lpb` has
 SHA-256
 `989d8f897dbe769090ef7d90eb35fbe4b061ef2314bba24be23d85c4bea729b6`.
 The independently recovered
@@ -579,7 +575,7 @@ its decoded bytecode has SHA-256
 The `eventDeparture` bytecode confirms this order: fade out the local
 player; call `startNQCutScene` on the method's fourth argument with mode
 1; call it again on the fifth argument only when that argument is nonnull;
-then fade in after warp. The method does not hardcode either installed
+then fade in after warp. The method does not hardcode either
 `vsl*` scene key, a route, destination, or server event owner. Its optional
 second scene argument is not proof of an arrival movie or of historical
 two-scene ferry playback.
@@ -606,7 +602,7 @@ client quest ID `110020`: its preview-index-1 branch and fallback both load
 `man50250` (decoded bytecode offsets `0x1D94..0x1DAC`). It converts the second
 scene payload with `getSnpcActorClassID`, then dispatches this key through
 `startSnpcHQCutScene` (offsets `0x1E0C..0x1E14`). The recovered method is at
-`quest/questbaseclass_common.lua:397-480`; its installed LPB and decoded-chunk
+`quest/questbaseclass_common.lua:397-480`; its LPB and decoded-chunk
 identities are given above. This is a common client preview route, not a
 `Man502` event method or proof of quest progression. It supplies no `Man504`
 preview route.
@@ -616,7 +612,7 @@ preview route.
 `Man0u1.processEvent035` fades out, calls `startNQCutScene("man0u135", 1)`,
 then fades in after warp (`quest/scenario/man/man0u1.lua:1097-1114`; decoded
 bytecode offsets `0x3033..0x305B`, scene-key load `0x3043`, call `0x304B`).
-The installed `client/script/tp5rq/r75w9s1v/x9w/x9wjpi.le.lpb` has SHA-256
+The `client/script/tp5rq/r75w9s1v/x9w/x9wjpi.le.lpb` has SHA-256
 `1b049927bc315982ab85edecf763a26f0242398de3986ad8252d26242a732bc4`;
 decoding its `rle\x0c` wrapper yields the byte-pinned chunk (SHA-256
 `955e51d95f942c1763a5e34c7d111380891ade2c7f34c2e7a50a68f47697a83d`).
@@ -640,19 +636,19 @@ separate talk methods, not part of the `080` scene wrapper; they say rows
 result. The prompt text is not verified because the pinned client-data CSV
 bytes are unavailable. The method does not identify an active instance-entry
 caller. Canonical source ranges and hashes are in the quest-event source
-manifest; the installed LPB and decoded-payload identities are given above.
+manifest; the LPB and decoded-payload identities are given above.
 These methods do not prove the retail caller, quest sequence, escort
 completion rule, historical private-area transfer, or timing of either
 scene.
 
 ## Man0 director chunk boundary
 
-Five installed director chunks decompile to a `require` of
+Five director LPB chunks decompile to a `require` of
 `/Director/Quest/QuestDirectorBaseClass` followed by `_defineClass` with the
 matching class name and base name. They contain no additional script-level
 handler in those chunks:
 
-| Class | Installed LPB | LPB SHA-256 | Decoded payload SHA-256 |
+| Class | LPB | LPB SHA-256 | Decoded payload SHA-256 |
 | --- | --- | --- | --- |
 | `QuestDirectorMan0l101` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wjyiji.le.lpb` | `02f8b886fc814915ee8d84be030e51796ce3562b0ed320f716f79ef6f3b8e954` | `ea8b698693189d46cb6f24d8cab86efd49f1ffbc2441638c51a6d80e42600fb4` |
 | `QuestDirectorMan0g101` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wj3iji.le.lpb` | `ce5225c7b6dcdd9a045443f26f501231c9e92fe712613f448a946d645a988a70` | `4215bfb503dc4610fe4d56b62d296ab2c531cfa01e4e24ff770fc6ab55fc0430` |
@@ -667,8 +663,8 @@ server script handled these quests.
 
 ## Quest journal and reward presentation widgets
 
-Three installed client scripts match the extracted corpus. Their installed
-resource identities, decoded payload hashes, and reproducible decompile
+Three 1.23b client scripts match the extracted corpus. Their resource
+identities, decoded payload hashes, and reproducible decompile
 hashes are recorded in
 [`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json)
 and [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).

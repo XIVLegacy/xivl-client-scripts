@@ -49,8 +49,7 @@ row, probability, item grant, inventory mutation policy, or server reward.
 
 ## Treasure-box sheet structure
 
-The installed
-`client/script/729s9/wu7/v8057q/s9166pw35vwqs59rps58vm.le.lpb`
+The LPB at `client/script/729s9/wu7/v8057q/s9166pw35vwqs59rps58vm.le.lpb`
 is 4,087 bytes, SHA-256
 `9e8cdec96d2efae04b8b4c6cd3753a1dd0217689c85091263a344058409c42eb`.
 Its decoded Lua 5.1 bytecode is 4,074 bytes, SHA-256
@@ -69,20 +68,20 @@ bytecode preserve these column accesses:
 
 The quality resolver reads four values from `dropQualitySheet` and
 draws quantity between the slot's lower and upper bounds. These are
-client-side algorithm inputs, not preserved loot-table contents. The
-installed script does not identify which server supplied the three
+client-side algorithm inputs, not preserved loot-table contents.
+The script does not identify which server supplied the three
 sheet globals or bind a drop row to a particular original retail
 dungeon coffer actor.
 
-The installed game-sheet registry at `data/01/03/00/00.DAT` (SHA-256
+The game-sheet registry at `data/01/03/00/00.DAT` (SHA-256
 `860023878f9ad1e98fd1baa3e3380f971f86bf1f7747043cf0c3c7459cee2eb4`)
 names 133 sheets, none named for drop, loot, treasure, or quality. Its
 74 local infofiles and their block references reach 1,479 DAT files in
 `data/01/03`; 21 more DAT files in that directory are not reached by
-those references. A recursive scan of 2,671 installed `client/script/**/*.le.lpb`
-files found each of the three drop-global literals only in the treasure-box
-script above, and no script containing both a drop-global literal and
-`prepareSpreadSheet`. This is a bounded absence of a registered local
+those references. A recursive scan of the 2,671 LPBs under the 1.23b
+`client/script/` tree found each of the three drop-global literals only in
+the treasure-box script above; no script contained both a drop-global literal
+and `prepareSpreadSheet`. This is a bounded absence of a registered local
 sheet and a visible script initializer, not proof that the 21 unreferenced
 files lack relevant values or that retail never supplied the globals at
 runtime. The original drop rows and their provisioning path remain unknown.
@@ -105,7 +104,7 @@ world transform, or duration.
 
 ## Evidence boundary
 
-The independent source manifest records decoded byte counts and installed
+The independent source manifest records decoded byte counts and 1.23b
 client paths but no LPB SHA-256 values. Its decompiled outputs are pinned in
 the retained finding, and their decoded/ciphered paths, classes, methods, and
 N-API calls agree with the separately produced canonical corpus metadata.
