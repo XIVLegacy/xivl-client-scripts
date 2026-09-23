@@ -14,6 +14,7 @@ charter, and contribution policy.
 | Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
 | Content director UI contracts | [content-director-ui-contracts.md](content-director-ui-contracts.md) |
+| Cutscene replay and skip contract | [cutscene-replay-skip-contract.md](cutscene-replay-skip-contract.md) |
 | Dungeon exit client contracts | [dungeon-exit-client-contracts.md](dungeon-exit-client-contracts.md) |
 | Craft command and progress contracts | [craft-command-progress-contracts.md](craft-command-progress-contracts.md) |
 | Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
