@@ -49,6 +49,40 @@
       "canonicalLines": 823,
       "canonicalSha256": "e9a1f5c2367152c1868a8ba2fac689a031017e801e0a8b06628d8d55a8bdf9db",
       "sourceLocator": "lines 1-823"
+    },
+    {
+      "decodedPath": "chara/player/playerbaseclass.lua",
+      "decodedChunkBytes": 25833,
+      "decodedChunkSha256": "1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a",
+      "canonicalBytes": 66466,
+      "canonicalLines": 3020,
+      "canonicalSha256": "6226b3fa15dfdbad279b7dba453f8a3b76fcb8b68bad6e14f5403d52987f76e4",
+      "sourceLocator": "lines 1-3020",
+      "retailLpb": {
+        "resourcePath": "729s9/uy9l5s/uy9l5s89r57y9rr.le.lpb",
+        "bytes": 25846,
+        "sha256": "32182274f3886d0cdf6329f8a82e6592790c9b3038e00bebe5b2b38702bbd53e",
+        "decodedPayloadBytes": 25833,
+        "decodedPayloadSha256": "1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a",
+        "coverageLocator": "manifests/retail_lua_coverage.json:5959-5972"
+      }
+    },
+    {
+      "decodedPath": "group/contentgroup/contentgroupbaseclass.lua",
+      "decodedChunkBytes": 3614,
+      "decodedChunkSha256": "c53c41b1036bb8c9a8ed1d0b92b866fdccd2e34099489e3427b8ee97287766b1",
+      "canonicalBytes": 8911,
+      "canonicalLines": 411,
+      "canonicalSha256": "2634147ca89c0191b138875f822a548fdb1a550f74e7a0a3298299b8c689e84c",
+      "sourceLocator": "lines 1-411",
+      "retailLpb": {
+        "resourcePath": "3svpu/7vwq5wq3svpu/7vwq5wq3svpu89r57y9rr.le.lpb",
+        "bytes": 3627,
+        "sha256": "ea328e1a27abda862a1e20588384ae2f8834745b6a3143b89d3ddb3757433a9",
+        "decodedPayloadBytes": 3614,
+        "decodedPayloadSha256": "c53c41b1036bb8c9a8ed1d0b92b866fdccd2e34099489e3427b8ee97287766b1",
+        "coverageLocator": "manifests/retail_lua_coverage.json:919-932"
+      }
     }
   ],
   "claims": [
@@ -88,12 +122,23 @@
         "director/instanceraid/instanceraidhamletdefense.lua:11-193",
         "director/instanceraid/instanceraidhamletdefense.lua:247-570"
       ]
+    },
+    {
+      "id": "content-group-map-open-dispatch",
+      "support": "PlayerBaseClass.postMapOpen enumerates the player's groups and calls processMapOpenMessage on each ContentGroupBaseClass whose getDirector() result is non-null.",
+      "sources": ["chara/player/playerbaseclass.lua:2699-2726"]
+    },
+    {
+      "id": "content-group-finalize-notification-request",
+      "support": "ContentGroupBaseClass._onFinalize requests worldMaster notification 50012 when the local player is a member and the group kind is 30001 or 30006.",
+      "sources": ["group/contentgroup/contentgroupbaseclass.lua:343-381"]
     }
   ],
   "rejectedInterpretations": [
     "The directors do not establish server timers, acceptance rules, objective completion, rewards, or authoritative state ownership.",
     "The caravan director does not establish escort movement, enemy waves, routes, or failure rules.",
     "The Hamlet director does not establish wave composition, scoring formulas, victory conditions, or rewards.",
+    "The content-group scripts do not identify the displayed text for notification 50012 or the event that caused finalization.",
     "No Behest or Skirmish mechanics may be inferred from these director contracts."
   ]
 }

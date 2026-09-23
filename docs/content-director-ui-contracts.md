@@ -54,6 +54,21 @@ These details are in `guildlevebaseclass.lua:211,285-364,380,395-453,456,465-472
 `manifests/scripts.json:7833-7836`). The LPB and its decoded
 payload are pinned above.
 
+## Content-group map-open and finalization
+
+`PlayerBaseClass.postMapOpen` enumerates the player's groups and calls
+`processMapOpenMessage()` for each `ContentGroupBaseClass` whose
+`getDirector()` result is non-null (`playerbaseclass.lua:2699-2726`). This
+establishes a client dispatch path, not which director or map marker was active
+in a particular retail session.
+
+`ContentGroupBaseClass._onFinalize` requests world-master notification 50012
+when the local player is a member and the group kind is 30001 or 30006
+(`contentgroupbaseclass.lua:343-381`). The Lua identifies the numeric client
+request; it does not identify the displayed text or establish what caused
+finalization. Both decoded sources and their retail LPBs are pinned in
+[`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json).
+
 ## Caravan escort director
 
 `CaravanGuardDirector` retains `finishTime`, `progressPer`, three chocobo status
