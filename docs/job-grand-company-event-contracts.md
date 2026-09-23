@@ -157,6 +157,16 @@ are the named methods in `lua/scripts/quest/scenario/mnk/mnk0j6.lua`,
 `blm/blm0j6.lua`,
 `pld/pld0j5.lua`, `pld/pld0j6.lua`, and `brd/brd0j4.lua`.
 
+The same installed `Blm0j6` and `Pld0j6` chunks also expose separate
+presentation methods. `Blm0j6.processEventAfget` calls the ability widget
+with `(27316, 2)` at PC 12 (`0x1CDE`), then passes its fourth method argument
+to the item widget at PC 19 (`0x1CFA`). `Pld0j6.processEventKokuti` calls the
+ability widget with `(27148, 1)` at PC 12 (`0xC7F`), then passes its fourth
+argument to the item widget at PC 19 (`0xC9B`). Pinned
+`xivl-client-data:derived/command_battle_params.csv` names 27316 Burst and
+27148 Hallowed Ground. The client methods do not choose the item argument
+or prove that either ability or item was granted by a server.
+
 ### White Mage
 
 `Whm0j2.processEvent005` is a self-contained presentation: its own talk
