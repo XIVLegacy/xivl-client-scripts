@@ -59,12 +59,12 @@ The canonical class and method inventory is in
 
 `InstanceRaidBaseClass.init` declares retained start and finish times,
 content ID, event type, countdown status, clear flag, and initialization
-flag. It sets a one-second loop interval. `startEvent` stores content ID and
-event type, sets the countdown from its time arguments, invokes login and
-start hooks, optionally executes a cutscene, opens the information widget,
-and marks initialization complete. `reloginEvent` restores the retained
-values and opens the widget only when its clear flag is false. The widget
-call is `openRaidDungeonExecutionWidget(nil, contentID, finishTime)`.
+flag. It sets a one-second loop interval. The ordered `startEvent` sequence
+and subclass-owned widget endpoint are recorded in
+`xivl-decomp:docs/event/instance-raid-widget-lifecycle.md` and are not
+redefined here. `reloginEvent` restores the retained values and opens the
+widget only when its clear flag is false. The widget call is
+`openRaidDungeonExecutionWidget(nil, contentID, finishTime)`.
 
 `clearEvent` stops countdown, orders desktop mode 126, closes the widget,
 and notifies world-master row 52021 with content ID. `failedEvent` closes
