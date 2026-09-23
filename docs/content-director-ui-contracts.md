@@ -22,6 +22,23 @@ update, article, state, and parameter methods. These scripts establish client
 state layout, sheet consumption, and widget calls. They do not establish
 server timers, objectives, acceptance rules, completion, or rewards.
 
+`GuildleveBaseClass.processUIInit` first copies all four `aimNumNow` and
+`uiState` entries into temporary comparison arrays. If `getStartTime()` is
+positive and `uiStep` is zero, it sets `uiStep` to one, sends
+`processUpdateContentsInformation(self, "start", guildleveId)`, and refreshes
+the minimap marker (`guildlevebaseclass.lua:263-273`; decoded bytecode
+`0x0018AE-0x001942`). A `guildleveWork/start` update takes the same one-time
+gate before the remaining update path (`processUpdateWork`, bytecode
+`0x001A7D-0x001AE1`). For each of four objective slots, that path compares
+`aimNumNow` and `uiState` with their temporary copies and sends an `"update"`
+only if either changed (bytecode `0x001B01-0x001BAD`). This corrects the
+broken recovered-Lua control flow; it does not prove a historical server
+packet order, objective producer, or rendered widget appearance. The
+installed `client/script/61s57qvs/3p1y6y5o5/3p1y6y5o589r57y9rr.le.lpb`
+decoded byte-for-byte to the recovered LUAC (SHA256
+`BCAD3160D16813502529467CE5DA17BB3A9BC80C576CD71841708FE7859D7E84`);
+the recovered source identity is in `manifests/content_director_ui_contracts.json`.
+
 ## Caravan escort director
 
 `CaravanGuardDirector` retains `finishTime`, `progressPer`, three chocobo status
