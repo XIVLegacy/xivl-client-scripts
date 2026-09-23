@@ -30,6 +30,12 @@ were active in a quest instance, give command 29497's EventStart payload,
 or establish a negotiation result or quest transition. Class-path existence
 and neighboring actor-class rows cannot close those joins.
 
+Canonical `man300.csv` row `67` contains localized text but does not name a
+specific NPC or provide an actor ID or class path. The member SHA-256 is
+`4ac67d7fc1a50a75f292ff7a995b4de0242f85eed5de42cb4b07de30cecc6c1b`, pinned
+at `xivl-client-data:manifests/tables.json:3790`. This row does not identify
+the historical Parley target.
+
 ## Negotiation widget boundary
 
 The decoded `NegotiationJudge` and `NegotiationWidget` chunks also matched
