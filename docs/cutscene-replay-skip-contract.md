@@ -44,8 +44,9 @@ direct-finish branch (`journallistwidget.lua:159-171`). The child scans
 scene filenames (`replaycutsceneselectwidget.lua:65-133`).
 
 `PopulaceCutScenePlayer.processCutScenePlay` opens this selector, reads the
-selected ID, loads its `cutReplay` row, resolves column 0 as the cutscene
-name and columns 8..15 as playback arguments, and selects NQ/HQ and SNPC
+selected ID, loads its `cutReplay` row, resolves sheet column 0, CSV field 1
+after the row ID, as the cutscene name and columns 8..15 as playback
+arguments, and selects NQ/HQ and SNPC
 playback branches (`populacecutsceneplayer.lua:39-141`). The script also
 unloads the row and closes the selector. This establishes a client-side
 replay route, not which book entries a historical player had unlocked,

@@ -41,6 +41,7 @@ charter, and contribution policy.
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Retainer widget results | [retainer-widget-results.md](retainer-widget-results.md) |
 | Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
+| Quest scene literal and replay-row joins | [quest-scene-replay-joins.md](quest-scene-replay-joins.md) |
 | Seasonal quest client contracts | [seasonal-quest-client-contracts.md](seasonal-quest-client-contracts.md) |
 | Seasonal event actor contracts | [seasonal-event-actor-contracts.md](seasonal-event-actor-contracts.md) |
 | Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |

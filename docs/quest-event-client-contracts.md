@@ -8,6 +8,9 @@ hashes, locators, and claim boundaries are in
 [`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json).
 Installed resource locators and their matching decoded-payload digests are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
+The audited scenario-script literal scene-key and `cutReplay.csv` joins are
+cataloged separately in
+[`quest-scene-replay-joins.md`](quest-scene-replay-joins.md).
 
 ## Scenario and class quest presentation
 
@@ -450,20 +453,20 @@ server rewards, or historical scene playback.
 
 ## Man300 SNPC cutscene arguments
 
-The installed
-`client/script/tp5rq/r75w9s1v/x9w/x9wgjj.le.lpb` has SHA-256
-`43f4e01434a77290ada4ccda6c259afe669af0ae39063a983e85c264e31e4d9b`.
-The independently recovered
-`tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/man/man300.lua`
-has SHA-256
-`5a82d35f669314e3e10631d01221561cc9bb007b5ab864a633d0f4deb373b608`.
-After its 13-byte wrapper and XOR `0x73` payload decoding, the installed LPB
-matches the recovered Lua 5.1 chunk byte-for-byte (decoded SHA-256
-`ccf8cd853c3aa6568e05ddfe702b42ac97a041783d5ec3b549203c7b6d7cf95f`).
+The canonical decoded source `lua/scripts/quest/scenario/man/man300.lua` is
+26,981 bytes with SHA-256
+`965E584C459535E6862F5534ECBEF2B12FAAF6963441DD3F90494D9286FAFECB` in
+`manifests/scripts.json`. Retail Lua coverage maps it as `matched-script` to
+`client/script/tp5rq/r75w9s1v/x9w/x9wgjj.le.lpb`, a 13,481-byte resource with
+SHA-256 `43F4E01434A77290ADA4CCDA6C259AFE669AF0AE39063A983E85C264E31E4D9B`.
+The coverage entry records an `xor-73` wrapper with 16 header bytes and a
+13,468-byte decoded payload with SHA-256
+`CCF8CD853C3AA6568E05DDFE702B42AC97A041783D5EC3B549203C7B6D7CF95F`
+in `manifests/retail_lua_coverage.json`.
 `processEvent000` calls NQ `man30000` with mode 1 between default fade-out
-and after-warp fade-in (recovered source lines 6-10; bytecode offsets
+and after-warp fade-in (canonical source lines 26-37; bytecode offsets
 `0x0866..0x088E`). `processEvent010` has the same shape for NQ `man30010`
-(source lines 102-106; offsets `0x1518..0x1540`). The extracted canonical
+(canonical source lines 446-457; offsets `0x1518..0x1540`). Canonical
 `cutReplay.csv` rows `11001501` through `11001507` name `man30000` through
 `man30060` in order; row `11001506` carries literal `10` in its replay
 payload (`xivl-client-data:manifests/tables.json`, `csv/cutReplay.csv`, SHA-256
