@@ -55,6 +55,19 @@ The matching installed
 the script does not bind the class to status ID 223258 or 223259, identify
 an Aurum room or area, or establish a server damage rule.
 
+## Part-break status predicate
+
+The independently recovered
+`tools/outputs/lpb/decomp_further_20260617/lua/status/partsbreakstatus.lua`
+has SHA-256
+`98b6c14d2dab97d1b68e85339d32e33883e7db68552b0ccb25935efda6f9bec2`.
+The matching installed
+`client/script/rq9qpr/u9sqr8s59zrq9qpr.le.lpb` has SHA-256
+`90c2c572c59301d77e3e4cf3077d71a7df154a639f21f7b226d1de26627c8b31`.
+`PartsBreakStatus.isBadStatus` returns true. This class-level predicate
+does not identify a status ID, monster, part index, breakage bit, damage
+threshold, or recovery rule.
+
 ## General evidence boundary
 
 The scripts do not define numerical party bonuses, application eligibility,
