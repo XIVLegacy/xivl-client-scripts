@@ -41,7 +41,21 @@ The separately maintained [MyPlayer timer consumer](myplayer-timer-consumers.md)
 report remains the canonical home for the `StatusWidget` content-timer paths.
 This finding does not duplicate those timer claims.
 
-## Evidence boundary
+## Aurum status predicates
+
+The independently recovered
+`tools/outputs/lpb/decomp_further_20260617/lua/status/dotaurumstatus.lua`
+has SHA-256
+`a27b3c7cd13dec091e1cb585a7b7f29c107ab3bc0567d8c9df22c88105778cc8`.
+The matching installed
+`client/script/rq9qpr/6vq9pspxrq9qpr.le.lpb` has SHA-256
+`7662408d2a5eb007f136e4f0bea13ae3b7651eaaf5cf7b25b8b6abc0e639182d`.
+`DotAurumStatus.isRemovedFromDeath` returns false and
+`canStartOnDead` returns true. These are class-level client predicates;
+the script does not bind the class to status ID 223258 or 223259, identify
+an Aurum room or area, or establish a server damage rule.
+
+## General evidence boundary
 
 The scripts do not define numerical party bonuses, application eligibility,
 recast time, persistence, removal policy, server authority, or historical
