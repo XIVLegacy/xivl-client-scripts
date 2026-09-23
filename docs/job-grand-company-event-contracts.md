@@ -59,6 +59,16 @@ Sources: `lua/scripts/quest/scenario/mnk/mnk0j1.lua`, method
 `processEventGAGARUNAStart`; `mnk/mnk0j6.lua`, the named `020` and speaker
 methods plus `processEventClear`.
 
+The separate `lua/scripts/director/quest/questdirectormnk0j601.lua` chunk requires
+`QuestDirectorBaseClass` and declares itself directly on that base, with no
+child methods. It is not a declared `SimpleQuestBattle` subclass in this
+chunk. Installed
+`client/script/61s57qvs/tp5rq/tp5rq61s57qvsxwzj0dji.le.lpb` decodes
+byte-for-byte to the recovered chunk (SHA-256
+`cb397ed9b9567e2d0b136c3c90a745440e898aa7b4c704545d404a525a941830`).
+This identity does not recover inherited behavior, encounter rules, or a
+server-side director owner.
+
 ### Black Mage
 
 `Blm0j1.processEventYayakeStart` checks its fourth argument against numeric
