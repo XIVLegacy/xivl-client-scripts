@@ -61,6 +61,24 @@ methods plus `processEventClear`.
 
 ### Black Mage
 
+`Blm0j1.processEventYayakeStart` checks its fourth argument against numeric
+zero. Only that value opens restricted choice row 52 after row 51. A nil
+answer or numeric 2 speaks refusal row 55 and closes the talk; other answers
+continue into the ordinary offer presentation. Nonzero fourth arguments skip
+the restricted choice and also continue. The later
+`showQuestInfomation` result is tested and returned once. The recovered Lua
+prints `if 0 == 0` and a repeated return call, but the bytecode tests retained
+register R4 at PC 40 and returns the saved result at PC 159. This client
+branch does not identify the producer of the fourth argument or prove server
+quest admission.
+
+Source: `lua/scripts/quest/scenario/blm/blm0j1.lua`, installed
+`tp5rq/r75w9s1v/8yx/8yxj0i.le.lpb` (decoded SHA-256
+`5b32a81c2264a0dac4e0f9b56c45c1f06cc0e0d07fc8ddfa1f714e9d0523d3d5`).
+The donor raw chunk matches the installed decoded LPB exactly. Bytecode
+locators: `processEventYayakeStart` PCs 4-41 (`0x44E-0x4E2`) and 123-160
+(`0x62A-0x6BE`).
+
 `Blm0j3.processEvent000` is a closed talk turn with text rows 11 through 13.
 `processEvent005` is a longer introduction path: its fourth argument is passed
 to text row 14, followed by rows 15 through 19 and 42 around a one-second
