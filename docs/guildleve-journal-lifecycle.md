@@ -142,6 +142,34 @@ Evidence: `lua/scripts/chara/npc/object/aetheryte/aetherytebaseclass.lua`,
 `lua/scripts/director/guildleve/guildlevebaseclass.lua`, and
 `lua/scripts/director/guildleve/privateglbattlesweepnormal.lua`.
 
+### Parent and child playing choices
+
+`AetheryteParent.processGuildlevePlaying` and
+`AetheryteChild.processGuildlevePlaying` each show a restricted-choice prompt.
+Their prompt text IDs and follow-up text/ask IDs differ:
+
+| Class | Restricted-choice text ID | Choice 2 say / ask IDs | Choice 3 say / ask IDs | Choice 6 say / ask IDs |
+|---|---:|---:|---:|---:|
+| `AetheryteParent` | 146 | 153 / 154 | 26 / 27 | 158 / 159 |
+| `AetheryteChild` | 35 | 42 / 43 | 15 / 16 | 47 / 48 |
+
+For choices 2, 3, and 6, the method returns that choice only when its follow-up
+ask returns 1; otherwise it repeats the restricted-choice prompt. Choice 4
+with the supplied eighth argument equal to 1 says text ID 164 on the parent or
+53 on the child, then repeats the prompt. Otherwise it says text ID 162 or 51
+and opens `Ask/GuildleveSelectLevelWidget` in mode 1 with the eighth argument
+minus one. It returns `(4, selectedLevel)` only when the widget succeeds and
+the level is between 1 and 5. These numeric text IDs and argument gates do
+not establish the meaning of the choices or the server-side start decision.
+
+Evidence: `lua/scripts/chara/npc/object/aetheryte/aetheryteparent.lua` and
+`lua/scripts/chara/npc/object/aetheryte/aetherytechild.lua`. Their decoded
+payload SHA-256 values are pinned in
+`manifests/retail_lua_coverage.json:8247-8251`
+(`4824C5921D56B262D47B40B82BC8366A795860B4DD9944ECDB41AC7FEE4E33E3`) and
+`manifests/retail_lua_coverage.json:8187-8191`
+(`453A18028DBC5D1883954EA33EA1494DE1D83947212EE96DDDADA9DB8232D252`).
+
 ## Completion and hand-in presentation
 
 `AetheryteBaseClass.eventGLReward` receives 12 arguments after self. It copies
