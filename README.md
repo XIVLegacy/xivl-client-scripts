@@ -31,11 +31,6 @@ indexes remain repository-owned.
 - [Tooling and regeneration](tools/README.md)
 - [Vendored N-API pin policy](data/vendor/client-structs/README.md)
 
-## Contributing
-
-Pull requests are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before you
-open one.
-
 ## License
 
 Project-authored material uses the [MIT License](LICENSE), including tools,
