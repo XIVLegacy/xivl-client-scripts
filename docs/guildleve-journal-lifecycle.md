@@ -52,6 +52,28 @@ succeeded, not that authoritative acceptance completed.
 Evidence: `lua/scripts/chara/npc/populace/populaceguildlevepublisher.lua` and
 `lua/scripts/widget/desktopwidget_connector.lua`.
 
+## Passive guildleve card selection
+
+`PopulacePassiveGLPublisher` exposes up to eight card slots. It maps slots 1-8
+to selector values `1, 2, 3, 4, 1, 2, 3, 4`; an out-of-range slot falls back
+to selector 1. For a selected nonzero guildleve ID, the publisher passes that
+selector to `askJournalDetailWidget` with mode 11 and returns the selected slot
+only when the widget result is true. Empty IDs are skipped, and an all-zero
+list returns `nil, 5`. This is the client's card-to-selector mapping; it does
+not establish the visual distinction represented by each selector or a
+server-side variant policy.
+
+Evidence: `lua/scripts/chara/npc/populace/populacepassiveglpublisher.lua:11-59,216-290`
+(11,836 bytes, SHA-256
+`F4D7AB96F3932E41A9B6AFB6D21EA0270FED945FE1DDA1211807963EC13265F1`,
+`manifests/scripts.json:6477-6480`). The retail resource census maps
+`client/script/729s9/wu7/uvupy975/uvupy975u9rr1o53yup8y1r25s.le.lpb`
+(5,122 bytes, SHA-256
+`DED83220DC9E8A73ECDC6F6BB4E95E35A2FD74C459C49A09D03205D5105781BE`)
+to this script and pins its 5,109-byte payload SHA-256 as
+`F1463D12D9658ED49CFD15C2766DE5982D33FAB0502D48311267FE5A8E71539E`
+(`manifests/retail_lua_coverage.json:7790-7801`).
+
 ## Journal state
 
 `JournalDetailWidget.checkGuildleveProcess` returns `checked`, `done`, and

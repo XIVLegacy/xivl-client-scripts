@@ -39,6 +39,21 @@ decoded byte-for-byte to the recovered LUAC (SHA256
 `BCAD3160D16813502529467CE5DA17BB3A9BC80C576CD71841708FE7859D7E84`);
 the recovered source identity is in `manifests/content_director_ui_contracts.json`.
 
+`GuildleveBaseClass` keeps three `markerX/Y/Z` slots. Marker coordinates use a
+separate `marker` work update from the `infoVariable` update used for aim counts
+and UI states. Marker updates refresh the minimap; the map-open path publishes
+the populated slots and may publish a separate extra marker when `signal` is
+positive. Marker size is selected from retained `aetheryteLocation`: value 6
+returns `normal` and every other value returns `small`; the setter maps those
+values to size codes 2 and 1. Initialization stores its second argument as
+`aetheryteLocation`; the source does not establish what value 6 means.
+
+These details are in `guildlevebaseclass.lua:211,285-364,380,395-453,456,465-472,625-746,1260-1342,1516-1560`
+(30,822 bytes, SHA-256
+`0CD9F9853D1F91C07B583DB2BB7FACC4CB6A0C9C900DD8CF1953435CD19ACA19`,
+`manifests/scripts.json:7833-7836`). The installed LPB and its decoded
+payload are pinned above.
+
 ## Caravan escort director
 
 `CaravanGuardDirector` retains `finishTime`, `progressPer`, three chocobo status

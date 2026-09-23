@@ -62,8 +62,11 @@
     },
     {
       "id": "guildleve-client-ui",
-      "support": "GuildleveBaseClass exposes guildleve-information data and drives map and minimap marker calls from retained state.",
-      "sources": ["director/guildleve/guildlevebaseclass.lua:575-1560"]
+      "support": "GuildleveBaseClass exposes guildleve-information data and routes retained marker slots. Marker work updates the minimap; marker size depends on the retained aetheryteLocation value.",
+      "sources": [
+        "director/guildleve/guildlevebaseclass.lua:285-472",
+        "director/guildleve/guildlevebaseclass.lua:575-1560"
+      ]
     },
     {
       "id": "request-time-and-ui",
