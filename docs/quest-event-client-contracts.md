@@ -62,6 +62,21 @@ script; they do not transfer quest ownership or establish a server sequence.
 Likewise, scene-call presence does not identify the invoking actor, private
 area, progression gate, reward, or historical retail activation path.
 
+## Man200 scenario presentation lead
+
+The installed `client/script/tp5rq/r75w9s1v/x9w/x9whjj.le.lpb` has SHA-256
+`dfb750ed666d1100b5940751c9d658c4537b3f6d51e44cbc153660c4500ffeaf`.
+Decoding its 13-byte `rle` wrapper and XOR `0x73` payload matches the
+recovered `quest/scenario/man/man200.luac` byte-for-byte (SHA-256
+`8b9d472804dbbff2a2fa4397cd91d9514593a991febccaf259e6fdbdf9101ca3`).
+The recovered `Man200.pE00` at
+`quest/scenario/man/man200.lua:6-15` calls SNPC NQ scene `man20100`
+between a default fade-out and an after-warp fade-in. `pE25` at lines
+236-250 shows an ask-gated `man20130` scene path, but its repeated `ask`
+in the decompiled return is not a verified second prompt. These client
+presentation leads do not identify the historical event caller or server
+progression.
+
 ## Man2 city scenario composite scenes
 
 The following installed `client/script/tp5rq/r75w9s1v/x9w/` resources
