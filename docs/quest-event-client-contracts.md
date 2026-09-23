@@ -77,6 +77,16 @@ in the decompiled return is not a verified second prompt. These client
 presentation leads do not identify the historical event caller or server
 progression.
 
+`Man200.processSnpcSelect` at recovered lines 329-470 maps ask row 77
+choices 1-5 to offsets 1, 17, 33, 49, and 65, adds 1070000, and passes
+the resulting base ID to `getSnpcCandidacyNumber`. The resulting bases
+are 1070001, 1070017, 1070033, 1070049, and 1070065. Other answers
+return `(-1, -1)` in the recovered method. Its decompiled scene-choice
+branch repeats `startNQCutScene("man20140", ...)`, so that text does not
+establish a repeated playback count or the exact candidate-selection
+algorithm. These IDs are client selection inputs, not proof of spawning,
+persistence, or a server-side class/personality mapping.
+
 ## Man2 city scenario composite scenes
 
 The following installed `client/script/tp5rq/r75w9s1v/x9w/` resources
