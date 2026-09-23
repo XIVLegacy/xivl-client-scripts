@@ -121,3 +121,8 @@ This finding does not infer a native timer unit, rename widget titles as server
 packet nouns, establish authoritative eligibility, describe setup or teardown,
 or assign server policy. The divisions used by the UI are presentation facts;
 they do not independently type the native fields.
+
+Official patch-note announcements about selected 1.x timer rules and their
+limits are recorded in `xivl-captures:studies/lodestone-dev-patch/derived/timer-announcements.md`.
+Those announcements do not prove the installed client's runtime timer producer
+or initialization state.
