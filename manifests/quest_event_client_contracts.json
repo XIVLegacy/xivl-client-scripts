@@ -121,6 +121,123 @@
       "canonicalLines": 1834,
       "canonicalSha256": "9a1ed7c730abcf19d7c7c4a96ebd77a85e969f4162c381d387028fed9d27470a",
       "sourceLocator": "lines 20-1834"
+    },
+    {
+      "decodedPath": "quest/scenario/man/man0l1.lua",
+      "decodedChunkBytes": 26366,
+      "decodedChunkSha256": "34791b21c1701fb3f549b9fc2f45834d28c180304f442b3ff631ad437cd62c15",
+      "canonicalBytes": 56179,
+      "canonicalLines": 2962,
+      "canonicalSha256": "fea9c9359ac610737be1b5910d473d98f5174512ddf01f0b730f9e0f608f8c67",
+      "sourceLocator": "Man0l1.processEventTalkMenuManCutPreview lines 2729-2962; processEvent604 1650-1667; processEvent605 1700-1717; processEvent610 1733-1750; processEvent615 1766-1783; processEvent620 1813-1830; processEvent637 2179-2227"
+    },
+    {
+      "decodedPath": "quest/scenario/man/man0g1.lua",
+      "decodedChunkBytes": 21280,
+      "decodedChunkSha256": "8f7e7524bb64b5160adc4491909cc7fd9a39336ae3daf6f2bf88ecd39042dff4",
+      "canonicalBytes": 41724,
+      "canonicalLines": 2279,
+      "canonicalSha256": "8b0988c285974162a150638156826605b75e093c9f6eb8f33b99b6d139a195b8",
+      "sourceLocator": "Man0g1.processEvent150 1408-1425; processEvent160 1481-1498; processEvent170 1501-1518; processEvent180 1521-1538; processEvent181 1562-1579; processEvent182 1582-1599; processEvent185 1629-1646"
+    },
+    {
+      "decodedPath": "quest/scenario/man/man0u1.lua",
+      "decodedChunkBytes": 27160,
+      "decodedChunkSha256": "955e51d95f942c1763a5e34c7d111380891ade2c7f34c2e7a50a68f47697a83d",
+      "canonicalBytes": 53155,
+      "canonicalLines": 2885,
+      "canonicalSha256": "31fc9ebf234b4945f3cbbe6b7c5f1493c659a2a584d508c778f9351089feb10a",
+      "sourceLocator": "Man0u1.processEvent030 725-742; processEvent035 1097-1114; processEvent040 1117-1134; processEvent045 1137-1166; processEvent075 2039-2056; processEvent080 2059-2076; processEvent090 2308-2334; processEvent1000_5 2803-2814"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman0l101.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "ea8b698693189d46cb6f24d8cab86efd49f1ffbc2441638c51a6d80e42600fb4",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "0b2d011c2aa6edb9dfd3189ae0da756ea0850d9e696ef5924d4470ff6c7cef16",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman0g101.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "4215bfb503dc4610fe4d56b62d296ab2c531cfa01e4e24ff770fc6ab55fc0430",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "32db20d11e7793aa584fc5153fd9a39c222151a63ad605ffd1ff088815cd170d",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman0g102.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "003bb14d7e77be51fcac40dfa7574763b13db14ce33ff0e73d1c30d5f75c448d",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "b36c565b018d5fe769b44b99c2145ce4551e18a1fba3b4a2aadba6283118f696",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman0u101.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "be4ea4e2ccc77da51c8bfedac5cd0a166c4902b11b599835cc1f03cb22415c6a",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "70d236b99f8a02e6e536d78072dd14e61bb0b402000d3461ff9d60f5c6d6daf0",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "director/quest/questdirectorman0u102.lua",
+      "decodedChunkBytes": 214,
+      "decodedChunkSha256": "76f80db161ed4cf3541122fb1812da3f4a372cd150e5e6d789062a79ae7388bf",
+      "canonicalBytes": 197,
+      "canonicalLines": 8,
+      "canonicalSha256": "5016e043380650ffadf67290d9fa9fa3aa9aad406881a506948c15292b60c07e",
+      "sourceLocator": "lines 1-8"
+    },
+    {
+      "decodedPath": "lua/scripts/widget/desktopwidget_connector.lua",
+      "decodedChunkBytes": 213474,
+      "decodedChunkSha256": "685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621",
+      "canonicalBytes": 660617,
+      "canonicalLines": 26564,
+      "canonicalSha256": "9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01",
+      "sourceLocator": "processRecievedRequestedDataForWidget lines 6652-6759; processUpdateJournalDetailWidget lines 10386-10414"
+    },
+    {
+      "decodedPath": "lua/scripts/widget/ask/journaldetailwidget.lua",
+      "decodedChunkBytes": 13769,
+      "decodedChunkSha256": "15e38590aa448b15055c6df3452464e96695f6310c6faa53aeeeadbeb65fda32",
+      "canonicalBytes": 44470,
+      "canonicalLines": 1826,
+      "canonicalSha256": "21b9f1b4900bbd3bd9826f852f6dd82beab914951a053cbc5a003ada2b38b32d",
+      "sourceLocator": "setDetailData lines 1043-1658"
+    },
+    {
+      "decodedPath": "lua/scripts/widget/ask/questrewardwidget.lua",
+      "decodedChunkBytes": 5344,
+      "decodedChunkSha256": "21f32f0fdbbbfcdd39100dfee22067cb6929f60685752f10b2bc7759f667cea4",
+      "canonicalBytes": 15288,
+      "canonicalLines": 655,
+      "canonicalSha256": "1f12737ea03fbdd931654e3b47fdd745889e86cef5e0793ef2a6c933b1d9a03d",
+      "sourceLocator": "initAsk lines 11-174; setRewardData lines 242-546"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/questbaseclass.lua",
+      "decodedChunkBytes": 4154,
+      "decodedChunkSha256": "6903eb4a86f200f5cd690cda2d4104476d72d1eeba86e3b03f3cd2631966ef88",
+      "canonicalBytes": 9525,
+      "canonicalLines": 466,
+      "canonicalSha256": "9c10eeefc10d1017cfec32930f8e3470cb89dba7f327f727063128b75c97f6b8",
+      "sourceLocator": "getQuestId lines 6-14"
+    },
+    {
+      "decodedPath": "lua/scripts/quest/questbaseclass_common.lua",
+      "decodedChunkBytes": 13059,
+      "decodedChunkSha256": "9379ee6832bdfa542273c7f43f065d7a15f9a730d9ef244be9a565a1faa53504",
+      "canonicalBytes": 35511,
+      "canonicalLines": 1412,
+      "canonicalSha256": "cf61a5687dbc7b6accd26c8cd3a138decc0372fb72518ac6f2054f125bc1465e",
+      "sourceLocator": "sqrwa lines 965-991"
     }
   ],
   "claims": [
@@ -157,11 +274,92 @@
         "quest/scenario/com/com5l0.lua:20-1045",
         "quest/scenario/gcl/gcl101.lua:164-1834"
       ]
+    },
+    {
+      "id": "man0l1-event-presentation",
+      "support": "Man0l1 methods call the listed NQ scenes with their fade paths; processEvent637 sends chat rows 161-164 and then uses the after-warp fade-in helper.",
+      "sources": [
+        "quest/scenario/man/man0l1.lua:1650-1667",
+        "quest/scenario/man/man0l1.lua:1700-1717",
+        "quest/scenario/man/man0l1.lua:1733-1750",
+        "quest/scenario/man/man0l1.lua:1766-1783",
+        "quest/scenario/man/man0l1.lua:1813-1830",
+        "quest/scenario/man/man0l1.lua:2179-2227"
+      ]
+    },
+    {
+      "id": "man0g1-event-presentation",
+      "support": "Man0g1 event methods call the matching NQ scene keys; methods 150, 160, 170, 180, and 182 use after-warp fade-in, while 181 and 185 use default fade-in.",
+      "sources": [
+        "quest/scenario/man/man0g1.lua:1408-1425",
+        "quest/scenario/man/man0g1.lua:1481-1498",
+        "quest/scenario/man/man0g1.lua:1501-1518",
+        "quest/scenario/man/man0g1.lua:1521-1538",
+        "quest/scenario/man/man0g1.lua:1562-1579",
+        "quest/scenario/man/man0g1.lua:1582-1599",
+        "quest/scenario/man/man0g1.lua:1629-1646"
+      ]
+    },
+    {
+      "id": "man0u1-entry-and-ask-presentation",
+      "support": "Man0u1 methods call man0u130 and man0u140 with after-warp fade-in; processEvent045 also says rows 395-396, and processEvent1000_5 asks with literal row 34112 and mode 2.",
+      "sources": [
+        "quest/scenario/man/man0u1.lua:725-742",
+        "quest/scenario/man/man0u1.lua:1117-1134",
+        "quest/scenario/man/man0u1.lua:1137-1166",
+        "quest/scenario/man/man0u1.lua:2803-2814"
+      ]
+    },
+    {
+      "id": "man0-director-chunk-boundary",
+      "support": "The five listed Man0 director chunks require QuestDirectorBaseClass and define the named class without additional script-level handlers in those chunks.",
+      "sources": [
+        "director/quest/questdirectorman0l101.lua:1-8",
+        "director/quest/questdirectorman0g101.lua:1-8",
+        "director/quest/questdirectorman0g102.lua:1-8",
+        "director/quest/questdirectorman0u101.lua:1-8",
+        "director/quest/questdirectorman0u102.lua:1-8"
+      ]
+    },
+    {
+      "id": "quest-journal-reward-widget-presentation",
+      "support": "The DesktopWidget connector forwards qtdata to journal detail widgets; JournalDetailWidget uses keys 5004 and 4001 with the supplied values; QuestRewardWidget uses a 13-column reward-row stride and key 5052 for type -13.",
+      "sources": [
+        "lua/scripts/widget/desktopwidget_connector.lua:6652-6759",
+        "lua/scripts/widget/desktopwidget_connector.lua:10386-10414",
+        "lua/scripts/widget/ask/journaldetailwidget.lua:1043-1658",
+        "lua/scripts/widget/ask/questrewardwidget.lua:242-546"
+      ]
+    },
+    {
+      "id": "quest-reward-same-key-row-selection",
+      "support": "QuestBaseClass.getQuestId returns the object's static actor ID; QuestBaseClassCommon.sqrwa passes it to Ask/QuestRewardWidget, whose initAsk forwards it to setRewardData. The canonical quest.csv and quest_new_reward.csv both contain rows keyed by each listed ETC1 quest ID; this is the client lookup path, not a reward grant or decoded reward meaning.",
+      "sources": [
+        "lua/scripts/quest/questbaseclass.lua:6-14",
+        "lua/scripts/quest/questbaseclass_common.lua:965-991",
+        "lua/scripts/widget/ask/questrewardwidget.lua:11-174",
+        "lua/scripts/widget/ask/questrewardwidget.lua:242-546",
+        "xivl-client-data:csv/quest.csv:172-175",
+        "xivl-client-data:csv/quest.csv:179-192",
+        "xivl-client-data:csv/quest.csv:219-220",
+        "xivl-client-data:csv/quest_new_reward.csv:172-175",
+        "xivl-client-data:csv/quest_new_reward.csv:179-192",
+        "xivl-client-data:csv/quest_new_reward.csv:219-220"
+      ]
+    },
+    {
+      "id": "man0l1-preview-selection-unreachable",
+      "support": "The Man0l1 event-key 10002 path loads nil into the compared local before menu comparisons; the syntactic value-7 branch calling man0l420 is unreachable in this bytecode chunk.",
+      "sources": [
+        "quest/scenario/man/man0l1.lua:2729-2962"
+      ]
     }
   ],
   "rejectedInterpretations": [
     "The scripts do not establish server eligibility, objective completion, party formation, authoritative routing, or rewards.",
     "The empty Man directors do not prove that the retail server had no corresponding behavior.",
-    "The scripts do not authenticate seasonal variants or server templates."
+    "The scripts do not authenticate seasonal variants or server templates.",
+    "Man0l1's syntactic man0l420 selection-7 branch is unreachable in the pinned event-key 10002 bytecode path.",
+    "QuestRewardWidget type -13 and text key 5052 do not establish an EXP label, numeric award, or server-side grant; the active variadic selectors and historical invocation remain unknown."
   ]
 }

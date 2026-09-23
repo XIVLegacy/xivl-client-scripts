@@ -257,22 +257,26 @@ owner, instance start, quest sequence, clear condition, or reward.
 The installed
 `client/script/tp5rq/r75w9s1v/x9w/x9wjyi.le.lpb` has SHA-256
 `0e6c6fd091123137d8b37dcb42f7f36b66de8acc73019cd6ac2c17884cedbe8a`.
-The independently recovered
-`tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/man/man0l1.lua`
-has SHA-256
-`24f486e6c9249e90397caad137665548e7219df9590344a6240d51a9140efeeb`.
-In `Man0l1.processEventTalkMenuManCutPreview`, the recovered selection-7
-branch calls `startNQCutScene("man0l420", 1)` between default fade-out
-and fade-in calls.
+Its decoded payload has SHA-256
+`34791b21c1701fb3f549b9fc2f45834d28c180304f442b3ff631ad437cd62c15`.
+The vendored unluac decompilation reproduces the canonical source hash in
+[`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json).
+`Man0l1.processEventTalkMenuManCutPreview`
+(`quest/scenario/man/man0l1.lua:2729-2962`) contains comparisons for menu
+values 1 through 17. For event key 10002, however, the pinned bytecode loads
+nil into the compared local before those comparisons, with no assignment to
+that local in the path. The syntactic value-7 branch contains a call to
+`startNQCutScene("man0l420", 1)` between default fades, but that branch is
+unreachable in this chunk. Its intended route, if any, is unknown.
 
 The installed `client/cut/` tree has 690 immediate scene directories,
 including other `man0l*` scenes but no `man0l420` directory. The freshly
 extracted canonical `cutReplay.csv` (SHA-256
 `2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`)
 also has no `man0l420` text match. These are bounded installed-asset and
-replay-table absences. They do not prove that the menu branch was reachable
-in retail, that another asset source was unavailable at runtime, or that a
-replacement scene should be invented.
+replay-table absences. They do not identify an alternate reachable route,
+prove that another asset source was unavailable at runtime, or justify
+inventing a replacement scene.
 
 The independently generated
 `tools/outputs/lpb/quest_cutscene_bridge_contract_20260619/quest_scene_key_gap_contract.csv`
@@ -294,6 +298,50 @@ and `wpn0f010`.
 This list is a bounded replay-table gap, not a claim that direct playback
 fails, that retail offered replay for those scenes, or that adding rows is
 safe without the original replay metadata.
+
+The same decoded `Man0l1` body has these direct event wrappers. Each starts
+with default fade-out and calls `startNQCutScene` in mode 1:
+
+| Method | Scene | Fade-in |
+| --- | --- | --- |
+| `processEvent604` | `man0l604` | after warp |
+| `processEvent605` | `man0l605` | after warp |
+| `processEvent610` | `man0l610` | default |
+| `processEvent615` | `man0l615` | after warp |
+| `processEvent620` | `man0l620` | default |
+
+`processEvent637` sends NPC-linkshell chat rows 161-164 with `_wait(2)`
+between the calls, then uses the after-warp fade-in helper. These wrappers
+establish client method bodies, not historical event ownership, invocation,
+or quest progression. The installed-resource and decoded-chunk pins are in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json); canonical
+source ranges are in the quest-event source manifest.
+
+## Man0g1 event-scene calls
+
+The installed
+`client/script/tp5rq/r75w9s1v/x9w/x9wj3i.le.lpb` has SHA-256
+`864b7f370b80393d747aaba0951aa91147c6b99a9720872d89d701615780a2db`;
+its decoded payload has SHA-256
+`8f7e7524bb64b5160adc4491909cc7fd9a39336ae3daf6f2bf88ecd39042dff4`.
+The pinned decompile maps these methods to matching NQ scene keys, all in
+mode 1 after default fade-out:
+
+| Method | Scene | Fade-in |
+| --- | --- | --- |
+| `processEvent150` | `man0g150` | after warp |
+| `processEvent160` | `man0g160` | after warp |
+| `processEvent170` | `man0g170` | after warp |
+| `processEvent180` | `man0g180` | after warp |
+| `processEvent181` | `man0g181` | default |
+| `processEvent182` | `man0g182` | after warp |
+| `processEvent185` | `man0g185` | default |
+
+These are direct client calls, not proof that the methods were invoked in a
+historical quest, or that the server followed a corresponding sequence.
+Installed byte and decoded payload identities are in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json); source
+hashes and method locators are in the quest-event source manifest.
 
 ## Man206 scene and return branches
 
@@ -490,12 +538,11 @@ preview route.
 ## Man0u1 scene and talk calls
 
 `Man0u1.processEvent035` fades out, calls `startNQCutScene("man0u135", 1)`,
-then fades in after warp (`quest/scenario/man/man0u1.lua:242-246`; decoded
+then fades in after warp (`quest/scenario/man/man0u1.lua:1097-1114`; decoded
 bytecode offsets `0x3033..0x305B`, scene-key load `0x3043`, call `0x304B`).
 The installed `client/script/tp5rq/r75w9s1v/x9w/x9wjpi.le.lpb` has SHA-256
 `1b049927bc315982ab85edecf763a26f0242398de3986ad8252d26242a732bc4`;
-after its 13-byte wrapper and XOR `0x73` payload decoding, it matches the
-recovered chunk byte-for-byte (SHA-256
+decoding its `rle\x0c` wrapper yields the byte-pinned chunk (SHA-256
 `955e51d95f942c1763a5e34c7d111380891ade2c7f34c2e7a50a68f47697a83d`).
 The extracted `cutReplay.csv` row `11001005` also names `man0u135`
 (`xivl-client-data:manifests/tables.json`, `csv/cutReplay.csv`, SHA-256
@@ -503,19 +550,94 @@ The extracted `cutReplay.csv` row `11001005` also names `man0u135`
 That replay row and this method do not establish a post-fight trigger,
 invoking actor, server event owner, or historical execution of the scene.
 
-The same recovered `Man0u1` body has separate `processEvent075` and
-`processEvent080` wrappers for NQ `man0u175` and `man0u180`. Each uses a
-default fade-out and post-warp fade-in around its scene call
-(`quest/scenario/man/man0u1.lua:474-483`). `processEvent080_2` through
-`processEvent080_12` are separate talk methods, not part of the `080`
-scene wrapper: they say rows `160-163`, `358-364`, and `377`
-(`man0u1.lua:484-537`). `processEvent090` then calls NQ `man0u190`,
-another default fade-out, NQ `man0u200`, and a post-warp fade-in
-(`man0u1.lua:538-544`). The recovered Lua SHA-256 is
-`db6e32d8c4ff849d02ea2ccdc12b14b24b8bdf40c50af5f75d8511f106603cec`;
-the installed LPB identity and decoded-chunk match are given above. These
-methods do not prove the retail caller, quest sequence, escort completion
-rule, historical private-area transfer, or timing of either scene.
+The same body has `processEvent030` call NQ `man0u130`, and `processEvent040`
+and `processEvent045` call NQ `man0u140`; all three use default fade-out,
+mode 1, and after-warp fade-in. `processEvent045` also says rows 395 and 396
+through `worldMaster`. `processEvent075` and `processEvent080` call NQ
+`man0u175` and `man0u180`, respectively, each with default fade-out and
+after-warp fade-in. `processEvent080_2` through `processEvent080_12` are
+separate talk methods, not part of the `080` scene wrapper; they say rows
+160-163, 358-364, and 377. `processEvent090` calls NQ `man0u190`, then NQ
+`man0u200`, between default fade-out and after-warp fade-in.
+
+`processEvent1000_5` calls `ask(worldMaster, 34112, 2)` and returns the ask
+result. The prompt text is not verified because the pinned client-data CSV
+bytes are unavailable. The method does not identify an active instance-entry
+caller. Canonical source ranges and hashes are in the quest-event source
+manifest; the installed LPB and decoded-payload identities are given above.
+These methods do not prove the retail caller, quest sequence, escort
+completion rule, historical private-area transfer, or timing of either
+scene.
+
+## Man0 director chunk boundary
+
+Five installed director chunks decompile to a `require` of
+`/Director/Quest/QuestDirectorBaseClass` followed by `_defineClass` with the
+matching class name and base name. They contain no additional script-level
+handler in those chunks:
+
+| Class | Installed LPB | LPB SHA-256 | Decoded payload SHA-256 |
+| --- | --- | --- | --- |
+| `QuestDirectorMan0l101` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wjyiji.le.lpb` | `02f8b886fc814915ee8d84be030e51796ce3562b0ed320f716f79ef6f3b8e954` | `ea8b698693189d46cb6f24d8cab86efd49f1ffbc2441638c51a6d80e42600fb4` |
+| `QuestDirectorMan0g101` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wj3iji.le.lpb` | `ce5225c7b6dcdd9a045443f26f501231c9e92fe712613f448a946d645a988a70` | `4215bfb503dc4610fe4d56b62d296ab2c531cfa01e4e24ff770fc6ab55fc0430` |
+| `QuestDirectorMan0g102` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wj3ijh.le.lpb` | `a8ec38439afb3005a5a4bb21cf43394c1ac61fa1c3ef9ae160ca31ba1b0c9405` | `003bb14d7e77be51fcac40dfa7574763b13db14ce33ff0e73d1c30d5f75c448d` |
+| `QuestDirectorMan0u101` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wjpiji.le.lpb` | `30e1df196ec6009678ca12bd167ec9221dc3ef239b8550934bbf9d725016d137` | `be4ea4e2ccc77da51c8bfedac5cd0a166c4902b11b599835cc1f03cb22415c6a` |
+| `QuestDirectorMan0u102` | `61s57qvs/tp5rq/tp5rq61s57qvsx9wjpijh.le.lpb` | `3c4d6fb9e945b72a5329156c84036c240b477dfc51fb98c70c796112e20e1d95` | `76f80db161ed4cf3541122fb1812da3f4a372cd150e5e6d789062a79ae7388bf` |
+
+The decoded paths, decompile hashes, and source locators are recorded in
+[`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json).
+This chunk-local boundary does not prove that no other client component or
+server script handled these quests.
+
+## Quest journal and reward presentation widgets
+
+Three installed client scripts match the extracted corpus. Their installed
+resource identities, decoded payload hashes, and reproducible decompile
+hashes are recorded in
+[`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json)
+and [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
+
+`DesktopWidget.processRecievedRequestedDataForWidget` routes `qtdata` to
+`processUpdateJournalDetailWidget`; that method forwards the received data to
+the `Ask/JournalDetailWidget` and `Ask/QuestDetailWidget` `setDetailData`
+methods. In `JournalDetailWidget.setDetailData`, the active-condition text
+uses text key 5004 and the held-item text uses key 4001. Both calls receive
+the widget's `journalID`, six numeric inputs, and a final string input. When
+the quest is incomplete, missing numeric inputs default to zero and the
+missing string defaults to one space. These client calls do not establish
+how a quest server produced those inputs.
+
+`QuestRewardWidget.setRewardData` iterates the variadic slot selectors and
+uses a 13-column stride for `questNewRewardSheet` lookups under its first
+data argument. For reward type -13, it calls `setText` with text key 5052
+and the method's second data argument. The shared client path obtains the
+quest key through `QuestBaseClass.getQuestId` (which returns the object's
+static actor ID), passes it from `QuestBaseClassCommon.sqrwa` to
+`Ask/QuestRewardWidget`, and forwards it from `initAsk` to `setRewardData`.
+The canonical `xivl-client-data` `quest.csv` and `quest_new_reward.csv` each
+contain one same-key row for IDs `110633`, `110634`, `110636`,
+`110640`-`110653`, and `110680`-`110681`. In both tables, those rows are on
+lines 172-175, 179-192, and 219-220. The table identities are pinned in
+`xivl-client-data:manifests/tables.json`: `quest.csv` SHA-256
+`BDADECE1907B7050AAEEE7C94A2A2D395FE76B504E47CBB1616B57BA380209DC` and
+`quest_new_reward.csv` SHA-256
+`496D5E7D2E5057852F990E18F404524426D456C52CBCBD95544652494350FF66`.
+
+Together these sources establish a client-side same-key reward-row lookup
+for the listed IDs. They do not establish historical invocation, the active
+variadic selectors, the meaning of text key 5052 or reward type -13, or a
+server-side reward grant. No EXP interpretation or reward amount is
+recorded here.
+
+The source ranges are
+`lua/scripts/widget/desktopwidget_connector.lua:6652-6759` and
+`:10386-10414`,
+`lua/scripts/widget/ask/journaldetailwidget.lua:1043-1658`, and
+`lua/scripts/quest/questbaseclass.lua:6-14`,
+`lua/scripts/quest/questbaseclass_common.lua:965-991`, and
+`lua/scripts/widget/ask/questrewardwidget.lua:11-174, 242-546`. The decoded
+inputs and canonical sources remain identified by their pinned hashes even
+when the extracted Lua corpus is not present in a checkout.
 
 ## Evidence boundary
 
