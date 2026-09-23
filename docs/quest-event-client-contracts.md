@@ -205,6 +205,38 @@ This list is a bounded replay-table gap, not a claim that direct playback
 fails, that retail offered replay for those scenes, or that adding rows is
 safe without the original replay metadata.
 
+## Man206 scene and return branches
+
+The installed `client/script/tp5rq/r75w9s1v/x9w/x9whjd.le.lpb` has SHA-256
+`1f84e4a0948599dad65b06efca478b92ce9c62d8e3074dbd6cf3f7ec7b9552f9`.
+Its 13-byte wrapper and XOR `0x73` payload decode byte-for-byte to recovered
+`quest/scenario/man/man206.luac` (SHA-256
+`0461fc2def0f392fa0e952a4557ab1421ba96302d1192f1ae4456ac929c9af71`);
+the recovered Lua rendering at `quest/scenario/man/man206.lua` has SHA-256
+`787e91bbb985c045682848151b70c20448f31f2601dd8814a6dbf0295ff5d067`.
+
+| Method / recovered-source lines | Direct client operation |
+| --- | --- |
+| `processEventUdowntownrectStart`, 6-10 | Calls NQ `man20600` in mode 1 and fades in after warp. |
+| `processEvent001`, 58-66 | Calls NQ `man20601` in mode 2; result 1 selects after-warp fade-in, other results default fade-in. The bytecode has one scene call at `0x0E7B`, then returns its saved result at `0x0EA3`. |
+| `pE12`, 133-138 | Converts its second scene payload through `getSnpcActorClassID`, calls SNPC NQ `man20602` in mode 1, then uses default fade-in. |
+| `pE13`, 173-183 | Converts its second scene payload, calls SNPC NQ `man20603` in mode 2; result 1 selects after-warp fade-in, other results default fade-in. The bytecode has one scene call at `0x1E0B` and returns its saved result at `0x1E23` or `0x1E37`. |
+| `processEvent016`, 184-188 | Calls HQ `MAN20610` in mode 1, then uses default fade-in. |
+| `pE20`, 204-209; `pE30`, 215-220 | Convert the second scene payload and call SNPC NQ `man20620` and `man20630` respectively in mode 1. `pE20` uses default fade-in; `pE30` uses after-warp fade-in. |
+| `processEvent040`, 262-266 | Calls NQ `man20640` in mode 1 and fades in after warp. |
+
+The decompiled return expressions in `processEvent001` and `pE13` repeat
+their cutscene calls, but the underlying Lua 5.1 instructions call each scene
+only once. The extracted canonical `cutReplay.csv` rows `11001401` through
+`11001408` name `man20600`, `man20601`, `man20602`, `man20603`, lowercase
+`man20610`, `man20620`, `man20630`, and `man20640` respectively
+(`xivl-client-data:manifests/tables.json`, `csv/cutReplay.csv`, SHA-256
+`2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`).
+The script's uppercase `MAN20610` key and replay row's lowercase key must
+not be silently normalized into a proven runtime alias. These methods and
+rows do not establish the invoking actors, duty lifecycle, quest sequences,
+server rewards, or historical scene playback.
+
 ## Man300 SNPC cutscene arguments
 
 The installed
