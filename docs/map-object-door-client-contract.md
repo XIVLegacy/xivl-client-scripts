@@ -21,3 +21,19 @@ door's retail initial Boolean, its actor placement, the producer of that
 argument, its later state transitions, or collision behavior. The
 contributor's Darkhold barrier correction and server Lua dispatch are
 implementation evidence, not a retail-state observation.
+
+## Beacon Fort status gate
+
+The installed `BeaconFortGateGimmick` chunk matched the recovered LUAC
+byte-for-byte (decoded SHA256
+`17635FDA7214B70895AFFA0AA978E333F53779AE87D762295048DCAC5BD09EED`).
+`initForGimmick` stores supplied show/hide scheduler names and an initial
+`currentStatus` of zero, and tags the synced `status` field as `mapStat`.
+`processUpdateWork` calls `executeScheduler` only when `status` differs from
+`currentStatus`. Status 1 selects the supplied show name; other values select
+the hide name. When the previous status is zero, `executeScheduler` calls
+`_runBgSchedulerFromMidstream(name, 5)`; otherwise it calls
+`_runBgScheduler(name)`, then retains the new status
+(`beaconfortgategimmick.lua:3-67`; source identity
+`manifests/scripts.json:572-577`). The script does not identify a retail
+actor class ID, placement, status producer, or observed gate appearance.

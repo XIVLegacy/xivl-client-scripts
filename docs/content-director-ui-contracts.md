@@ -70,6 +70,27 @@ wrapper decoding. Their decoded SHA256 values are `6B4A3198115E785842F2932333A68
 (`widget/mapnavigationwidget`). Recovered-source identities are in
 `manifests/scripts.json:7724-7729,15638-15643,15668-15673`.
 
+The separate `PopulaceCaravanManager` client script loads text bank 7520
+and exposes entry, question, join-success/failure, full/other-party, and
+cancel dialogue methods (`populacecaravanmanager.lua:3-266`). Its cancel
+method asks text ID 55 once and returns that saved result; direct bytecode
+`0x00133C-0x0013A8` corrects the repeated ask printed by the decompiler.
+`PopulaceCaravanGuide` loads bank 7552 and exposes offer, thanks, success,
+failure, reward/no-reward, and bonus-reward dialogue methods
+(`populacecaravanguide.lua:3-161`). Its reward method asks text ID 33 once
+and returns the saved result (bytecode `0x000613-0x00065B`).
+`ChocoboCaravanGuard.chocoboCommand` loads bank 7680, starts a client talk
+turn, asks restricted choices, conditionally asks text ID 6 with three
+arguments, and returns the two results
+(`chocobocaravanguard.lua:3-23`). These are client presentation and ask
+surfaces, not evidence of the server's signup, route, reward, or pack-chocobo
+actor selection. The three installed LPBs matched the recovered LUACs
+byte-for-byte; their decoded SHA256 values are respectively
+`2F553CD0595DBF6F38527B72BA3916416581CAE16E35BF036AB1CE10C175FDAA`,
+`97ECACFBCFC68AA2B2F1FCB6215E7966C5F553D8B16F83B8EC8CCB2DC5ACC483`,
+and `E1E8C253A8A20C9A1479772F53541EF1B471874A4B514710D04ACAE6655DDC27`.
+Recovered-source identities are in `manifests/scripts.json:6260-6271,1466-1471`.
+
 ## Hamlet defense director
 
 `InstanceRaidHamletDefense` derives from `InstanceRaidBaseClass`. It retains a
