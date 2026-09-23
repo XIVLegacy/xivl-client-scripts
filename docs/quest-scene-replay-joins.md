@@ -207,31 +207,51 @@ literals are recorded, with exact-key joins to the pinned table.
 
 ## HQ replay-key checks
 
-`Man0g0.processEvent000_0` calls `startHQCutScene("MAN0G000", 1)` at
-`man0g0.lua:31-40`. The canonical source SHA-256 is
-`BD367F6606CFF7EB4D43D76B15726B5075B3BF786E53C4B8EBF64D90DD65FD0B`
-(`manifests/scripts.json:12483-12486`); its retail LPB and decoded payload
-are pinned at `manifests/retail_lua_coverage.json:39670-39682`. The pinned
-`cutReplay.csv` has lowercase `man0g000` at row 11000501
-(`xivl-client-data:csv/cutReplay.csv:50`), but the casing differs, so this is
-not recorded as an exact-key join or runtime alias.
+The following inventory covers 23 direct `startHQCutScene` calls with literal
+string arguments in eight scenario modules. Each module and decoded Lua payload
+is pinned in `manifests/retail_lua_coverage.json`:
 
-`Man2u0.processEvent005` and `processEvent085` call
-`startHQCutScene` with uppercase literals `MAN2U020` and `MAN2U090`
-(`man2u0.lua:105-116,580-601`; source SHA-256
-`7EB43E5B29ACC9E9B76164C568A5EAB3049599F93FCBAB2A45F67C9F6859DEE7`,
-`manifests/scripts.json:12561-12564`). Neither uppercase literal has an
-exact-key row in the pinned `cutReplay.csv`. The differently cased keys
-`man2u020` and `man2u090` do occur as rows `11001203` and `11001211` at
-physical lines 130 and 138. Those lower-case rows are candidates only; the
-client artifacts do not establish case normalization or aliasing, so they are
-not mapped to the uppercase HQ calls. The table identity is pinned at
-`xivl-client-data:manifests/tables.json:1123-1127`.
-The generic `startHQCutScene` wrapper forwards its key unchanged to
-`worldMaster.createCutScene` (`quest-event-client-contracts.md`), but does not
-establish downstream key comparison or lookup. Neither casing-different row
-is joined.
+| Script module | Canonical decoded path | Decoded payload SHA-256 |
+| --- | --- | --- |
+| `man0g0` | `lua/scripts/quest/scenario/man/man0g0.lua` | `A6770C85F650B05B0993704E7EEB8BB3456BB59A77A113BA9BA0D6B1DE43D0EF` |
+| `man0l0` | `lua/scripts/quest/scenario/man/man0l0.lua` | `19A7EF9877A314ED296A918AEA709C57B2CF89B6F46A543C17D51A8E29DF17A1` |
+| `man0u0` | `lua/scripts/quest/scenario/man/man0u0.lua` | `850591E834AB2849DC8B53C949D5DB743E829264EA90CED0EA83C6EBBBFB1A4C` |
+| `man206` | `lua/scripts/quest/scenario/man/man206.lua` | `0461FC2DEF0F392FA0E952A4557AB1421BA96302D1192F1AE4456AC929C9AF71` |
+| `man2g0` | `lua/scripts/quest/scenario/man/man2g0.lua` | `B51E16FD99459EED9271D9F02396B3A2EC307B6D0A0846DD0D5219812C991645` |
+| `man2l0` | `lua/scripts/quest/scenario/man/man2l0.lua` | `F78870ADEED3F85B0C71758DA74EF47BB77B2D2AB99546C5F33C8A5D987BD65F` |
+| `man2u0` | `lua/scripts/quest/scenario/man/man2u0.lua` | `51AC82341B6FA0A2CCD6DF8F61CF32CC9793904FE44F1F4AED1E92A3F2A88228` |
+| `man406` | `lua/scripts/quest/scenario/man/man406.lua` | `C6415866F54AE206230F1D245B20C65B0146CAE1AB3BE99C37B2D1E314A129AD` |
 
-Across these additional source files, literal calls establish only source-level
-call presence and exact table joins. They do not establish reachability,
-dispatch, quest ownership, playback, reward, or historical runtime behavior.
+The decoded payload hashes above match the bytecode payloads used to read the
+literal calls. The `cutReplay.csv` bytes are pinned by
+`xivl-client-data:manifests/tables.json:1123-1128`, SHA-256
+`2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`.
+`exact` means the source literal equals the CSV scene key byte for byte;
+`case-only` means the literal differs only in letter case.
+
+| `cutReplay.csv` row (physical line) | Scene key | Module | Literal call argument and relation |
+| --- | --- | --- | --- |
+| `11000101` (3) | `man0l000` | `man0l0` | `man0l000` x2 (exact); `MAN0L000` (case-only) |
+| `11000103` (5) | `man0l010` | `man0l0` | `man0l010` x2 (exact); `MAN0L010` (case-only) |
+| `11000104` (6) | `man0l020` | `man0l0` | `man0l020` x2 (exact) |
+| `11000105` (7) | `man0l030` | `man0l0` | `man0l030` x2 (exact) |
+| `11000407` (40) | `man2l030` | `man2l0` | `man2l030` (exact); `MAN2L030` (case-only) |
+| `11000414` (47) | `man2l090` | `man2l0` | `man2l090` (exact); `MAN2L090` (case-only) |
+| `11000501` (50) | `man0g000` | `man0g0` | `MAN0G000` (case-only) |
+| `11000802` (84) | `man2g000` | `man2g0` | `man2g000` (exact) |
+| `11000811` (93) | `man2g090` | `man2g0` | `MAN2G090` (case-only) |
+| `11000901` (96) | `man0u000` | `man0u0` | `MAN0U000` x2 (case-only) |
+| `11001203` (130) | `man2u020` | `man2u0` | `MAN2U020` (case-only) |
+| `11001211` (138) | `man2u090` | `man2u0` | `MAN2U090` (case-only) |
+| `11001405` (151) | `man20610` | `man206` | `MAN20610` (case-only) |
+| `11001905` (183) | `man40625` | `man406` | `MAN40625` (case-only) |
+
+For four rows, the module contains both a lower-case exact call and a separate
+upper-case call. The exact lower-case occurrence does not change the spelling
+of the upper-case call. In particular, `Man0g0` and `Man2u0` have only the
+case-different literals listed above. The generic `startHQCutScene` wrapper
+forwards its key unchanged to `worldMaster.createCutScene`
+(`quest-event-client-contracts.md`), but the client artifacts do not establish
+downstream key comparison or lookup. These calls and rows do not establish
+reachability, dispatch, quest ownership, replay eligibility, playback, reward,
+or historical runtime behavior.
