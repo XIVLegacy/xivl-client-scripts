@@ -205,6 +205,33 @@ This list is a bounded replay-table gap, not a claim that direct playback
 fails, that retail offered replay for those scenes, or that adding rows is
 safe without the original replay metadata.
 
+## Man300 SNPC cutscene arguments
+
+The installed
+`client/script/tp5rq/r75w9s1v/x9w/x9wgjj.le.lpb` has SHA-256
+`43f4e01434a77290ada4ccda6c259afe669af0ae39063a983e85c264e31e4d9b`.
+The independently recovered
+`tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/man/man300.lua`
+has SHA-256
+`5a82d35f669314e3e10631d01221561cc9bb007b5ab864a633d0f4deb373b608`.
+The `Man300` class defines five `pE*` wrappers for SNPC NQ cutscenes:
+
+| Wrapper | Scene | Additional visible branch |
+| --- | --- | --- |
+| `pE20` | `man30020` | After-warp fade-in |
+| `pE30` | `man30030` | Sixth method payload selects default fade-in when true, otherwise after-warp |
+| `pE40` | `man30040` | Default fade-in |
+| `pE50` | `man30050` | Sixth method payload is forwarded to the scene call; after-warp fade-in |
+| `pE60` | `man30060` | After-warp fade-in |
+
+Each wrapper converts its second method payload through
+`getSnpcActorClassID` before forwarding it as the second scene payload.
+All five scene calls forward five method payloads, with `pE50` forwarding
+one more. Those are argument shapes, not recovered values or meanings for
+the other slots. The contributor's proposed nickname, skin, personality,
+coordinate, and town tuple is a server-side candidate; this client body
+does not establish that tuple or an actor owner for any wrapper.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint
