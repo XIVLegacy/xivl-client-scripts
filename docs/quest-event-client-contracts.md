@@ -6,6 +6,8 @@ decompile of the decoded chunks matched the canonical corpus byte-for-byte
 after CRLF-to-LF normalization. The machine-readable source identities,
 hashes, locators, and claim boundaries are in
 [`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json).
+Installed resource locators and their matching decoded-payload digests are in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
 
 ## Scenario and class quest presentation
 
@@ -21,6 +23,27 @@ and cutscene flows for their selected common and Grand Company scenarios.
 `Com5l0` also consumes a member-count value. That consumption does not prove
 the server-side membership rule or identify the authoritative source of the
 value.
+
+## ETC1g4 Nicoliaux dialogue branch
+
+The installed
+`client/script/tp5rq/r75w9s1v/5q7/5q7i3f.le.lpb` (SHA-256
+`901c7359e4477e8fa972d757025ec96a8c2842205e52a2bf78ad26d4903fb0b4`)
+decodes to a 2,715-byte payload (SHA-256
+`cc033492979e33e6152f91e704ee458ff02d93b12ea299785f04ad408b47b11c`),
+matching `Etc1g4` in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
+Decompiling that installed payload with the vendored unluac JAR reproduces
+the `Etc1g4.processEventNicoliauxStart` method.
+
+The method takes four payload arguments after `self`. After an `ask` result
+of numeric 1, it compares the third payload argument with boolean `true`:
+the true branch passes 10 to `say`; the other branch passes 8, runs scheduler
+67731456, then passes 9 to `say`. Later, when `showQuestInfomation()` returns
+numeric 1, the same boolean comparison selects `say` arguments 14 and 32
+versus 13. These literal branches do not identify the third argument's
+producer or meaning, historical invocation, quest progression, or server
+behavior.
 
 `Alc200` has two separate scene wrappers that branch on their fourth method
 argument. If it equals numeric 3, they pass 1 as the final scene argument;
