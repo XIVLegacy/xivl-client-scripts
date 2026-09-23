@@ -23,6 +23,7 @@ charter, and contribution policy.
 | Garuda command range boundary | [garuda-command-range-boundary.md](garuda-command-range-boundary.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
+| Hamlet supply and score UI | [hamlet-supply-ui-contract.md](hamlet-supply-ui-contract.md) |
 | Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
 | Job and Grand Company event contracts | [job-grand-company-event-contracts.md](job-grand-company-event-contracts.md) |
 | Map-object door client contract | [map-object-door-client-contract.md](map-object-door-client-contract.md) |
