@@ -308,6 +308,32 @@ director classes. This evidence contains no progression, objective, reward, or
 scene implementation for those directors. The empty bodies are a negative
 boundary, not evidence that the retail server had no corresponding behavior.
 
+The separate common `QuestBaseClass.snpcPreviw` method selects a scene for
+client quest ID `110020`: its preview-index-1 branch and fallback both load
+`man50250` (decoded bytecode offsets `0x1D94..0x1DAC`). It converts the second
+scene payload with `getSnpcActorClassID`, then dispatches this key through
+`startSnpcHQCutScene` (offsets `0x1E0C..0x1E14`). The recovered method is at
+`quest/questbaseclass_common.lua:397-480`; its installed LPB and decoded-chunk
+identities are given above. This is a common client preview route, not a
+`Man502` event method or proof of quest progression. It supplies no `Man504`
+preview route.
+
+## Man0u1 scene call
+
+`Man0u1.processEvent035` fades out, calls `startNQCutScene("man0u135", 1)`,
+then fades in after warp (`quest/scenario/man/man0u1.lua:242-246`; decoded
+bytecode offsets `0x3033..0x305B`, scene-key load `0x3043`, call `0x304B`).
+The installed `client/script/tp5rq/r75w9s1v/x9w/x9wjpi.le.lpb` has SHA-256
+`1b049927bc315982ab85edecf763a26f0242398de3986ad8252d26242a732bc4`;
+after its 13-byte wrapper and XOR `0x73` payload decoding, it matches the
+recovered chunk byte-for-byte (SHA-256
+`955e51d95f942c1763a5e34c7d111380891ade2c7f34c2e7a50a68f47697a83d`).
+The extracted `cutReplay.csv` row `11001005` also names `man0u135`
+(`xivl-client-data:manifests/tables.json`, `csv/cutReplay.csv`, SHA-256
+`2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`).
+That replay row and this method do not establish a post-fight trigger,
+invoking actor, server event owner, or historical execution of the scene.
+
 ## Evidence boundary
 
 The decoded chunks and the pinned decompiler establish the recovered client
