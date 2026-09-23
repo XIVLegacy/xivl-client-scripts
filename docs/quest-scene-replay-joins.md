@@ -1,10 +1,11 @@
 # Quest scene literal and replay-row joins
 
 This note records direct `startNQCutScene` calls from two bounded audits of
-125 recovered scenario scripts and their exact-key joins to the static
-`cutReplay.csv` table. It records call presence and table matches only; it does
-not establish dispatch, invocation, playback, quest ownership, or historical
-activation. It is not a full-corpus absence audit.
+125 recovered scenario scripts, plus a separate `Man2u0` HQ-key check, and
+their exact-key joins to the static `cutReplay.csv` table. It records call
+presence and table matches only; it does not establish dispatch, invocation,
+playback, quest ownership, or historical activation. It is not a full-corpus
+absence audit.
 
 The canonical Lua source paths, byte counts, and SHA-256 values are pinned in
 [`scripts.json`](../manifests/scripts.json); installed resource paths and
@@ -203,6 +204,20 @@ literals are recorded, with exact-key joins to the pinned table.
 | `man406` | `lua/scripts/quest/scenario/man/man406.lua`; `031BAE3D9927529A89A3540F8F0781F52B5A75FA566C705E42D50B9D6C5E389B` | `man40620` @ 746-749 -> 11001904; `man40645` @ 818-821 -> no row |
 | `min306` | `lua/scripts/quest/scenario/min/min306.lua`; `8DBF495BC661232737BE08031396C05DAE1FB0F33376258B9EEA46A57ED48D12` | `min30610` @ 102-105 -> 11046201; `min30620` @ 122-125 -> 11046202; `min30630` @ 142-145 -> 11046203; `min30640` @ 189-192 -> 11046204 |
 | `war0j6` | `lua/scripts/quest/scenario/war/war0j6.lua`; `45C1373FB1F69305D7B713B5418D1C5ED72F5EEA9E1ECC80552A91742D6C86F5` | `war0j610` @ 199-202 -> 11120601; `war0j620` @ 244-247 -> 11120602 |
+
+## Man2u0 HQ replay-key check
+
+`Man2u0.processEvent005` and `processEvent085` call
+`startHQCutScene` with uppercase literals `MAN2U020` and `MAN2U090`
+(`man2u0.lua:105-116,580-601`; source SHA-256
+`7EB43E5B29ACC9E9B76164C568A5EAB3049599F93FCBAB2A45F67C9F6859DEE7`,
+`manifests/scripts.json:12561-12564`). Neither uppercase literal has an
+exact-key row in the pinned `cutReplay.csv`. The differently cased keys
+`man2u020` and `man2u090` do occur as rows `11001203` and `11001211` at
+physical lines 130 and 138. Those lower-case rows are candidates only; the
+client artifacts do not establish case normalization or aliasing, so they are
+not mapped to the uppercase HQ calls. The table identity is pinned at
+`xivl-client-data:manifests/tables.json:1123-1127`.
 
 Across these additional source files, literal calls establish only source-level
 call presence and exact table joins. They do not establish reachability,
