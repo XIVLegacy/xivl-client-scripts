@@ -151,6 +151,17 @@ locators are the named scripts under
 | `QuestDirectorBrd0j101` | `bb8efebf21dc33e9d9d98bb2e48608a77ced2b4f3e99637699513971af6a5f35` |
 | `QuestDirectorDrg0j101` | `2eca62e4c45e1484f96187e53cee5c277c868ebe96f901d291235a1706fbf808` |
 
+The installed `SpecterNormalPld0j1` chunk (decoded SHA-256
+`590e5e1044e94876fb9cd8e90dd7cfd57d4552881d9b0978aa97f77b2bc7e120`)
+matched its recovered bytecode. Its entire body requires
+`SpecterBaseClass` and declares the subclass; it contains no actor-class ID
+or quest target binding. The separate retail actor-class/display join for
+`2206901` is recorded in
+`xivl-client-data:docs/job-quest-combat-display-joins.md`. Class-file
+existence does not connect the two. Source locator:
+`lua/scripts/chara/npc/monster/specter/specternormalpld0j1.lua`, with the
+installed LPB path in its `.calls.json` sidecar.
+
 ## Grand Company distinctions
 
 The three level-40 company scripts are separate scenario classes with
