@@ -227,6 +227,10 @@ physical lines 130 and 138. Those lower-case rows are candidates only; the
 client artifacts do not establish case normalization or aliasing, so they are
 not mapped to the uppercase HQ calls. The table identity is pinned at
 `xivl-client-data:manifests/tables.json:1123-1127`.
+The generic `startHQCutScene` wrapper forwards its key unchanged to
+`worldMaster.createCutScene` (`quest-event-client-contracts.md`), but does not
+establish downstream key comparison or lookup. Neither casing-different row
+is joined.
 
 Across these additional source files, literal calls establish only source-level
 call presence and exact table joins. They do not establish reachability,

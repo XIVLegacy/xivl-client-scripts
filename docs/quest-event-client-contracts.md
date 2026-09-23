@@ -543,6 +543,11 @@ Its `getSnpcActorClassID` bytecode adds `1070000` to the input at offset
 `0x1195`; its `startSnpcNQCutScene` forwards the scene's second payload
 through to `startNQCutScene` at offset `0x0CAD` without that conversion.
 These are client-side argument operations, not a server payload definition.
+`QuestBaseClass.startHQCutScene` forwards its scene key and owning quest
+object to `worldMaster.createCutScene`, calls `startCutScene(1, 62, mode, ...)`,
+deletes that object, and returns the second result from `startCutScene`. This
+wrapper contains no replay-sheet lookup or case conversion; behavior inside
+`createCutScene` and `startCutScene` is outside this finding.
 
 | Wrapper and bytecode locator | Direct client operation |
 | --- | --- |
