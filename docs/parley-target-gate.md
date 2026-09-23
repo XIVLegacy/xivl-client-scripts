@@ -29,3 +29,45 @@ the historical Man300 shaman target, prove which actor-class property flags
 were active in a quest instance, give command 29497's EventStart payload,
 or establish a negotiation result or quest transition. Class-path existence
 and neighboring actor-class rows cannot close those joins.
+
+## Negotiation widget boundary
+
+The decoded `NegotiationJudge` and `NegotiationWidget` chunks also matched
+their installed LPBs byte-for-byte after wrapper decoding:
+
+| Recovered class | Installed LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
+| --- | --- | --- | --- |
+| `judge/negotiation/negotiationjudge` | `0p635/w53vq19q1vw/w53vq19q1vw0p635.le.lpb` | `90823b625d2a41ee5d16b6d55aa9b85f03c178c91c8e9517155d713432c672a9` | `184d55b038ab4e5089af58ecd9037844a39d45b9b28ca01aa7d63fa8168d6ada` |
+| `widget/ask/negotiationwidget` | `n1635q/9rz/w53vq19q1vwn1635q.le.lpb` | `dafe05e99972fe0ae83d1dbdc590d98a560a2c8f4f214fb741c9ab685e7819e1` | `33c1a6e77080e763c22bfde6ddf1e4e8faf02c3ad457f524931c61932e26bedd` |
+
+The recovered `NegotiationJudge` body opens or selects
+`Ask/NegotiationListWidget` and `Ask/NegotiationAskWidget`, opens
+`Ask/NegotiationWidget`, selects input from it, sends updates to it, and
+closes it through DesktopWidget event-mode calls (methods
+`openListWidget`, `openAskWidget`, `openNegotiationWidget`,
+`inputNegotiationWidget`, `updateNegotiationWidget`, and
+`closeNegotiationWidget`). Each branch tests `isPlayer()` before the
+DesktopWidget call. Its separate `negotiationEmote` method calls
+`_runCharaScheduler` on the supplied actor. This is a client UI wrapper,
+not a turn, score, or outcome authority.
+
+`NegotiationWidget.updateAskParameter` has direct bytecode comparisons
+for update codes 1-29 (decoded chunk offsets beginning `0x227E`). The
+recovered body, lines 357-598, ties several of those values to explicit
+widget operations:
+
+| Update code | Direct recovered operation |
+| ---: | --- |
+| 1-12 | Set a numbered tile's data, icon, visibility, and count text. |
+| 14 | Set the negotiation gauge's `Maximum` and `Value` from the supplied inputs. |
+| 15 | Set the achievement gauge's `Maximum` and `Value` from the supplied inputs. |
+| 22 | Set the time gauge's `Maximum` from `work.time` and `Value` to zero. |
+| 23, 24, 25 | Send player-operation, enemy-operation, or time-up sound commands respectively. |
+| 27 | Traverse twelve tile records and double or halve their displayed numeric values according to the supplied flag. |
+| 28, 29 | Send `PauseLimitTimer` or `ResumeLimitTimer` to the time gauge. |
+
+The decompiler damages nested control flow elsewhere in this method.
+These operations do not by themselves establish valid server update
+sequences, widget acceptance, timer duration, Parley scoring, or a
+historical Man300 negotiation result. Codes 13 and 16-21 and 26 retain
+their raw method bodies as leads rather than published gameplay semantics.
