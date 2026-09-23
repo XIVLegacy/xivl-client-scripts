@@ -232,6 +232,45 @@ the other slots. The contributor's proposed nickname, skin, personality,
 coordinate, and town tuple is a server-side candidate; this client body
 does not establish that tuple or an actor owner for any wrapper.
 
+## Man304, Man308, Man402, and Man406 scene wrappers
+
+The installed LPBs for these four scenario classes were decoded through their
+13-byte `rle` wrappers (XOR `0x73` payload); each decoded byte matched the
+corresponding recovered Lua 5.1 chunk. A bytecode trace executes scenario
+instructions against inert API result fixtures, not a retail runtime.
+
+| Class | Installed LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
+| --- | --- | --- | --- |
+| `Man304` | `tp5rq/r75w9s1v/x9w/x9wgjf.le.lpb` | `193f30b822c5beb9bf1652f38f29583da3e3a4e2551563f7874825e947c749a8` | `c8a0fbc6eeeafa1b1e148c73139f290e883ca86c2a413900d38cf4a9cd7d8280` |
+| `Man308` | `tp5rq/r75w9s1v/x9w/x9wgjb.le.lpb` | `1a2128960ac57b68c5030e6f98666fbd5347d1f1233b0912cb48dd89366c6730` | `3ccdc300df451ab52e45618cc2444ecdad0e0fd39062bcc1af82977929729e43` |
+| `Man402` | `tp5rq/r75w9s1v/x9w/x9wfjh.le.lpb` | `c3e31e692dbf988ed2937a6f2d6e3bba49f47b13c212c53a5ac6caf01a3c971d` | `8794fa034cb6b5e61f1af9ca387d55af88296b3231db748d230eec142f50f76b` |
+| `Man406` | `tp5rq/r75w9s1v/x9w/x9wfjd.le.lpb` | `a2ea85d17545a44a097145489dc80f164acf6b8c6e8644f19fcffe84d4dda289` | `c6415866f54ae206230f1d245b20c65b0146cae1ab3be99c37b2d1e314a129ad` |
+
+The independently decoded `quest/questbaseclass_common.luac` also matched
+installed `client/script/tp5rq/tp5rq89r57y9rr_7vxxvw.le.lpb`
+(`sha256=ecc3f7c6fb49df196431494aa5aece95ede1c24ca1325af11ddc993a3836322d`)
+byte-for-byte after wrapper decoding and has SHA-256
+`9379ee6832bdfa542273c7f43f065d7a15f9a730d9ef244be9a565a1faa53504`.
+Its `getSnpcActorClassID` bytecode adds `1070000` to the input at offset
+`0x1195`; its `startSnpcNQCutScene` forwards the scene's second payload
+through to `startNQCutScene` at offset `0x0CAD` without that conversion.
+These are client-side argument operations, not a server payload definition.
+
+| Wrapper and bytecode locator | Direct client operation |
+| --- | --- |
+| `Man304.pES`, offsets `0x05A3..0x0697` | Converts its second payload, fades out twice, maps personality values 1-9 to `1,1,2,2,3,3,4,5,1`, calls SNPC NQ `man30400` in mode 2 with literal extra values 5 and 10, fades in, and returns the saved scene result. The two literals have no established gameplay meaning. |
+| `Man308.pE50`, `0x1862..0x18EA`; `pE80`, `0x1AED..0x1B5D` | The former calls SNPC HQ `man40640` before SNPC NQ `man30850`; the latter calls SNPC NQ `man30880` before `man30890`. A scene key crossing quest-name families is not an error to normalize away. |
+| `Man308.pE90`, `0x24D9..0x2515` | Calls SNPC NQ `man30900` and forwards incoming R4 to the scene's second payload without calling `getSnpcActorClassID`, then fades in after warp. An already-converted actor class is required if that scene slot is intended to hold one. |
+| `Man402.pES`, `0x0352..0x03FA` | A numeric offer result of 1 calls SNPC NQ `man40200` and returns the saved scene result; the decline branch returns the offer result. Both paths return before the trailing `finishCliantTalkTurn` instructions. The scene's second payload is forwarded without class conversion. |
+| `Man402.pE10`, `0x052C..0x0580` | Converts incoming R4 through `getSnpcActorClassID` and forwards incoming R8 twice at the end of the `man40210` scene call. |
+| `Man406.pE30`, `0x1D44..0x1DC4` | Calls SNPC NQ `man40630`, SNPC HQ `man40635`, and plain NQ `man40645` in that order before after-warp fade-in. |
+| `Man406.pE50`, `0x2231..0x2281`; `pE60`, `0x25AC..0x25F8` | `pE50` forwards incoming R7 twice to `man40650`. `pE60` calls `getSnpcSexualityToSkin` on incoming R5 and forwards R4 unchanged to `man40660`; it does not call the class-conversion helper. |
+
+The locators are decoded-chunk instruction offsets, not PE VAs. The direct
+wrappers establish scene keys, call order, conditional returns, and payload
+provenance only. The sampled trace domain does not establish original server
+owners, quest sequence, battle orchestration, reward rules, or visible playback.
+
 ## DftSrt travel scene wrapper
 
 The installed
