@@ -83,7 +83,12 @@ locators: `processEventYayakeStart` PCs 4-41 (`0x44E-0x4E2`) and 123-160
 `processEvent005` is a longer introduction path: its fourth argument is passed
 to text row 14, followed by rows 15 through 19 and 42 around a one-second
 fade-out/fade-in pair. The argument is part of the client ABI and must not be
-dropped or synthesized from the method name.
+dropped or synthesized from the method name. Canonical
+`xivl-client-data:csv/blm0j3.csv` row 14 (SHA-256
+`c8d5bca21020ca0330f4975cddc3e2cd5fa76fc13a701580f621db2e0a5b20d2`)
+uses that argument to select Hyur, Elezen, Lalafell, Miqo'te, or Roegadyn
+in English text. The row does not define the server's numeric encoding or
+the argument producer.
 
 The two methods are distinct event phases. Finding both on the same quest
 class does not make them interchangeable or establish their server-side actor
