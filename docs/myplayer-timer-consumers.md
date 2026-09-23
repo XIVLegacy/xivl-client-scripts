@@ -68,6 +68,21 @@ Evidence: `lua/scripts/widget/pcmatchingeditwidget.lua`,
 
 ## Scalar consumer map
 
+The first `StatusWidget.updateContents` entry is selector -1, the
+Levequests row (`statuswidget.lua:1237-1243`, `1285-1298`). Unlike the
+selectors below, it calls `WorldMaster.getGuildleveTime`, not a MyPlayer
+timer callback. That method computes the next 12-hour server-clock boundary
+from `_getServerTime` (`worldmaster_event.lua:14-38`). The shared status
+renderer shows a row when its endpoint is positive
+(`statuswidget.lua:1366-1405`). Thus
+for the positive retail server clock, the Levequests row does not require
+a nonzero MyPlayer timer value; this does not establish a server-side
+allowance grant or unlock rule. The recovered `StatusWidget` and
+`WorldMaster` chunks match their installed LPBs after wrapper decoding
+(decoded SHA256 `9668B0BC032DFCACC3F19F285BB5BD5673AD72C3DA8D0FC68E893D087B27BB90`
+and `C7DB606357F8E5811809A6232157C2C9AC1DAF0055CFCAA01FBBC7051FD68BF5`;
+source identities `manifests/scripts.json:15890-15895,16028-16033`).
+
 | Callback | Direct consumer | Deterministic downstream use | Exact presentation vocabulary |
 |---|---|---|---|
 | `_getNormalBehestTime` | `StatusWidget.setContentsListItem` | Selector -2 chooses the callback, then uses the shared endpoint comparison, subtraction, formatting, and row-visibility path. | Behests; Available in; Available |
