@@ -214,6 +214,19 @@ The independently recovered
 `tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/man/man300.lua`
 has SHA-256
 `5a82d35f669314e3e10631d01221561cc9bb007b5ab864a633d0f4deb373b608`.
+After its 13-byte wrapper and XOR `0x73` payload decoding, the installed LPB
+matches the recovered Lua 5.1 chunk byte-for-byte (decoded SHA-256
+`ccf8cd853c3aa6568e05ddfe702b42ac97a041783d5ec3b549203c7b6d7cf95f`).
+`processEvent000` calls NQ `man30000` with mode 1 between default fade-out
+and after-warp fade-in (recovered source lines 6-10; bytecode offsets
+`0x0866..0x088E`). `processEvent010` has the same shape for NQ `man30010`
+(source lines 102-106; offsets `0x1518..0x1540`). The extracted canonical
+`cutReplay.csv` rows `11001501` through `11001507` name `man30000` through
+`man30060` in order; row `11001506` carries literal `10` in its replay
+payload (`xivl-client-data:manifests/tables.json`, `csv/cutReplay.csv`, SHA-256
+`2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`).
+Replay-row order and method bodies do not establish the historical server
+event owners, invocation order, or zone-change lifetime.
 The `Man300` class defines five `pE*` wrappers for SNPC NQ cutscenes:
 
 | Wrapper | Scene | Additional visible branch |
