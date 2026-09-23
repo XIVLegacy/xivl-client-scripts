@@ -27,6 +27,7 @@ charter, and contribution policy.
 | Materia removal client UI | [materia-removal-client-ui.md](materia-removal-client-ui.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | Aetheryte list widget | [aetheryte-list-widget-contract.md](aetheryte-list-widget-contract.md) |
+| Aetheryte object events | [aetheryte-object-event-contracts.md](aetheryte-object-event-contracts.md) |
 | Hamlet supply and score UI | [hamlet-supply-ui-contract.md](hamlet-supply-ui-contract.md) |
 | Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
 | Job and Grand Company event contracts | [job-grand-company-event-contracts.md](job-grand-company-event-contracts.md) |
