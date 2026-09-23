@@ -162,6 +162,49 @@ and fifth method arguments are both zero; the other recovered branch
 is dialogue. These direct calls do not identify the server-side event
 owner, instance start, quest sequence, clear condition, or reward.
 
+## Man0l1 cutscene preview gap
+
+The installed
+`client/script/tp5rq/r75w9s1v/x9w/x9wjyi.le.lpb` has SHA-256
+`0e6c6fd091123137d8b37dcb42f7f36b66de8acc73019cd6ac2c17884cedbe8a`.
+The independently recovered
+`tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/man/man0l1.lua`
+has SHA-256
+`24f486e6c9249e90397caad137665548e7219df9590344a6240d51a9140efeeb`.
+In `Man0l1.processEventTalkMenuManCutPreview`, the recovered selection-7
+branch calls `startNQCutScene("man0l420", 1)` between default fade-out
+and fade-in calls.
+
+The installed `client/cut/` tree has 690 immediate scene directories,
+including other `man0l*` scenes but no `man0l420` directory. The freshly
+extracted canonical `cutReplay.csv` (SHA-256
+`2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`)
+also has no `man0l420` text match. These are bounded installed-asset and
+replay-table absences. They do not prove that the menu branch was reachable
+in retail, that another asset source was unavailable at runtime, or that a
+replacement scene should be invented.
+
+The independently generated
+`tools/outputs/lpb/quest_cutscene_bridge_contract_20260619/quest_scene_key_gap_contract.csv`
+(SHA-256
+`4368f51e2e1e44d0ec71b6c7177b637e2bfa0ac7db79278fd33d4824ebfb5a91`)
+lists 31 direct-scene keys without a `cutReplay` row. A fresh text-match
+check against the canonical CSV found none of those keys; an installed
+`client/cut/` directory check found 30 matching scene directories and
+the one missing `man0l420` directory above. The 31 keys are:
+
+`bsm40020`, `bsm40030`, `bsm40040`, `bsm40045`, `bsm40050`,
+`cul40010`, `cul40020`, `cul40025`, `cul40030`, `elv0l01a`,
+`elv0l02a`, `elv0l110`, `elv0u01a`, `elv0u02a`, `fsh40010`,
+`fsh40020`, `fsh40030`, `fsh40040`, `fsh40050`, `fsh40060`,
+`man0g225`, `man0g230`, `man0l420`, `man0l640`, `man0l650`,
+`man0u235`, `man0u240`, `man20140`, `man20155`, `man40645`,
+and `wpn0f010`.
+
+This list is a bounded replay-table gap, not a claim that direct playback
+fails, that retail offered replay for those scenes, or that adding rows is
+safe without the original replay metadata.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint
