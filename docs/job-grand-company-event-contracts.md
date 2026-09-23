@@ -90,6 +90,44 @@ event close between them changes the recovered client sequence.
 Source: `lua/scripts/quest/scenario/whm/whm0j1.lua`, methods
 `processEventClear` and `processEventClearNQ`.
 
+### AF item and stela presentations
+
+Seven job scenarios define `processEvent_getAF_info`: `War0j4`, `Mnk0j5`,
+`Whm0j5`, `Blm0j5`, `Pld0j4`, `Brd0j5`, and `Drg0j4`. Each takes an item
+argument, runs scheduler 67108910, and calls
+`showGetJobItemWidget(eventArgument, itemArgument, 0)`. `Whm0j5` first opens
+public-information dialog 25 and waits eight seconds. The method presents a
+supplied item; it neither chooses the item nor identifies a coffer, its
+location, the number or order of acquisitions, or the server grant.
+
+`Blm0j4.processEvent000_SEKIHI` presents world-master text row 33.
+`processEvent005` presents row 24 and free-display-name row 25 with display
+ID 4000257. Its separate completion methods open public-information dialog
+40 and present job ability 27317. These calls do not bind display 4000257
+to a unique stela actor or prove the interaction and reward transaction.
+
+`Drg0j4.processEvent_NQ_Drg0j410` plays NQ scene `Drg0j410` between
+default fade-out and fade-in. `processEvent_ALBERIC_Guidance` is a distinct
+talk method. The scripts do not identify the destination actor or the
+server event that orders those methods.
+
+The recovered Lua for these eight scripts was checked against the installed
+LPBs: each decoded chunk matched byte-for-byte. SHA-256 of each decoded chunk
+is the exact source identity; method locators are in the named scripts under
+`lua/scripts/quest/scenario/`, and their ciphered LPB paths are recorded in
+the matching `.calls.json` sidecars:
+
+| Script | Decoded chunk SHA-256 |
+| --- | --- |
+| `war/war0j4` | `995220bc430d0288476898a91d42bd91fac8370e202fa3b22dc38544e1196015` |
+| `mnk/mnk0j5` | `eecd2a9a3a7cc1371db345285428573743918a4018259704b677423cd6a14347` |
+| `whm/whm0j5` | `0645eb178aa78833c4a1b30561c6410ce1c6118d55dd56697f330616b78b4db7` |
+| `blm/blm0j4` | `0e712e06d0b2fcc2185eb00a6a9d4614705155f6f7e21249dcccbb8158a0feb8` |
+| `blm/blm0j5` | `0d2a3dc4a9e57cbe272a30956e639d8a631595e1a6c96a2081e5138a2f066911` |
+| `pld/pld0j4` | `0c12edeeb502f3d0a01b8a3c7c682445117d7860bd8a18fc436d5e70b9e68297` |
+| `brd/brd0j5` | `eda3af68bd1fc4e603a5f746cae78043449c8f908ca401f9fe8cceb8ad2257b9` |
+| `drg/drg0j4` | `9b11029faff35302b207c77e09af1603acd5d3e40a775a0d013b1b7b49f256a1` |
+
 ## Grand Company distinctions
 
 The three level-40 company scripts are separate scenario classes with
