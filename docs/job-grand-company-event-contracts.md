@@ -127,7 +127,7 @@ Source: `lua/scripts/quest/scenario/pld/pld0j1.lua`, methods
 
 ### Strict-boolean job scene finalizers
 
-Four other job-scene wrappers each play their fixed NQ scene in mode 1 after
+Five other job-scene wrappers each play their fixed NQ scene in mode 1 after
 default fade-out, then choose the finalizer by comparing the fourth method
 argument to Lua boolean `true`. Only `true` selects the default fade-in;
 numeric 1, nil, and other values select the after-warp fade-in. This is a
@@ -135,14 +135,16 @@ client branch, not proof of the caller's argument, a warp, or a destination.
 
 | Method | Scene | Installed LPB | Decoded SHA-256 | Compare PC / offset |
 | --- | --- | --- | --- | --- |
+| `Mnk0j6.processEvent005` | `mnk0j610` | `xwz/xwzj0d.le.lpb` | `6abf02dff4fd1406f816d9fbb585b5abd20fae41166f3fd26c801e8a74619de4` | 7 / `0xD66` |
 | `Blm0j6.processEventNQ01` | `blm0j610` | `8yx/8yxj0d.le.lpb` | `3d834beabc4a653ab7d2b8cb5894724372d474031df1b7136c7e9deb23b80c31` | 7 / `0x1A49` |
 | `Pld0j5.processEvent_005NQ_1` | `pld0j510` | `uy6/uy6j0e.le.lpb` | `ffae894c2bc7f83b4be9f988e7959bbd412a92f8e15667378d889e111c8fb4f` | 7 / `0x5BD` |
 | `Pld0j6.processEventNQ01` | `pld0j610` | `uy6/uy6j0d.le.lpb` | `c965a9223e8749f91092bf3a682398bc3f8fb526df7ce4919cccea75084743cf` | 7 / `0xD9B` |
 | `Brd0j4.processEventNQ01` | `brd0j410` | `8s6/8s6j0f.le.lpb` | `93e55481f38c0846d7ac02428243d4e751dced596264273f1aa24fec70cd075e` | 7 / `0x8B8` |
 
-All LPBs are under `client/script/tp5rq/r75w9s1v/`. The four donor raw
+All LPBs are under `client/script/tp5rq/r75w9s1v/`. The five donor raw
 chunks match their installed decoded LPBs exactly. Canonical source locators
-are the named methods in `lua/scripts/quest/scenario/blm/blm0j6.lua`,
+are the named methods in `lua/scripts/quest/scenario/mnk/mnk0j6.lua`,
+`blm/blm0j6.lua`,
 `pld/pld0j5.lua`, `pld/pld0j6.lua`, and `brd/brd0j4.lua`.
 
 ### White Mage
