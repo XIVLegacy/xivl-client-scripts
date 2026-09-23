@@ -289,11 +289,44 @@ remaining dialog. `Gcu102.processEvent005` similarly chooses row 19 or 20 from
 its fourth argument before converging. Preserve these parameters as distinct
 client inputs until their server producers are independently recovered.
 
+The Echo prompts are separate methods from those NQ presentations.
+`Gcg102.processEventPfrymloefNQF` and `Gcu102.processEvent010` each ask
+`worldMaster` row 51030, mode 2, exactly once. Only answer 1 calls
+`runCharaSchedulerPastAreaIn` with the player argument. The Gridanian method
+also says row 39 on the other branch; the Ul'dahn method returns without that
+extra line. Their decoded bytecode has one `ask` call at PC 11 (`0x1090` and
+`0x114A`) and the conditional scheduler call at PC 16 (`0x10A4` and `0x115E`).
+The repeated `ask` in recovered Lua return expressions is a decompiler
+artifact, not a second prompt. No method-to-method transition or Echo
+acceptance condition is established by these scripts.
+
+The decoded `gcg102` and `gcu102` chunks match their installed LPBs exactly:
+`tp5rq/r75w9s1v/373/373ijh.le.lpb` has decoded SHA-256
+`1323f828a2592df94e5fbcec1db0c9de0b26154e40abd0f6c9bcdb7b5199f941d`;
+`tp5rq/r75w9s1v/37p/37pijh.le.lpb` has decoded SHA-256
+`1aac5bff87ce91ebc0d68b423330d784b18da14c0f26d1f40e2375f06e0afbad`.
+
 Sources:
 
 - `lua/scripts/quest/scenario/gcl/gcl102.lua`.
 - `lua/scripts/quest/scenario/gcg/gcg102.lua`.
 - `lua/scripts/quest/scenario/gcu/gcu102.lua`.
+
+## Dragoon 60 presentation split
+
+`Drg0j6.processEvent020` and `processEvent025` both play scene `Drg0j620`
+in mode 1 after default fade-out. The former ends with the after-warp fade-in;
+the latter uses the default fade-in. A separate `processEvent030` presents
+ability 27268 and literal item 8032704 through job widgets after dialogue.
+Those widget calls do not establish an authoritative reward grant, event
+ordering, or a warp destination.
+
+Source: `lua/scripts/quest/scenario/drg/drg0j6.lua`, installed resource
+`tp5rq/r75w9s1v/6s3/6s3j0d.le.lpb` (decoded SHA-256
+`a6b34d7bcb9ec44a5c978d41ee05b1a9efd6dc5244935ca62bb0bbd5d607ddb`).
+The donor bytecode matches the installed decoded chunk exactly. Relevant
+locators are `processEvent020` PCs 3-9 (`0x78B-0x7A3`), `025` PCs 3-9
+(`0x84E-0x866`), and `030` PCs 30-41 (`0x97B-0x9A7`).
 
 ## Shared cutscene boundary
 
