@@ -43,6 +43,50 @@ These methods establish client UI consumption only. They do not establish
 enemy waves, routes, scoring formulas, victory conditions, server ownership,
 or rewards.
 
+## Generic instance-raid director
+
+The independent recovered
+`tools/outputs/lpb/decomp_more_20260617/lua/director/instanceraid/instanceraidbaseclass.lua`
+has SHA-256
+`2f6ea8cff45b471ed8ce05c8905af75bbe199e61a712cf6f0e96c9a653badeb9`.
+The corresponding installed
+`client/script/61s57qvs/1wrq9w75s916/1wrq9w75s91689r57y9rr.le.lpb`
+has SHA-256
+`820f421aef68bdcb48c082a2c1b91521903d0e82956c273cabc462b6b3271f2f`.
+The canonical class and method inventory is in
+[`registry.json`](../lua/registry.json) under
+`director/instanceraid/instanceraidbaseclass`.
+
+`InstanceRaidBaseClass.init` declares retained start and finish times,
+content ID, event type, countdown status, clear flag, and initialization
+flag. It sets a one-second loop interval. `startEvent` stores content ID and
+event type, sets the countdown from its time arguments, invokes login and
+start hooks, optionally executes a cutscene, opens the information widget,
+and marks initialization complete. `reloginEvent` restores the retained
+values and opens the widget only when its clear flag is false. The widget
+call is `openRaidDungeonExecutionWidget(nil, contentID, finishTime)`.
+
+`clearEvent` stops countdown, orders desktop mode 126, closes the widget,
+and notifies world-master row 52021 with content ID. `failedEvent` closes
+the widget and selects a notification from rows 52065, 52054, 52010, and
+52093 by its failure argument; non-first failure paths include fade and
+effect calls. The recovered data-packet handler ignores packets until the
+initialization flag is set. Its visible subtype 1 and 2 paths set the clear
+flag and close the widget; subtype 1 also accepts replacement start/finish
+times, while subtype 2 stops countdown. Subtype 3 delegates to
+`processUserMessage`. The decompiled handler contains invalid `break`
+statements, so this is a bounded branch reading, not a recovered packet
+wire format.
+
+The loop and `getRestTimeStatus` reference one-, three-, five-, ten-,
+twenty-, and thirty-minute thresholds and a half-time notification. Some
+temporary references in that decompile are damaged; the exact threshold
+ordering and notification arguments are not established here. The class
+proves a client presentation lifecycle, not server timer authority,
+content creation, participant management, clear/failure policy, exit
+movement, or rewards. In particular, the duplicate `createCutScene`
+expression in `executeCutScene` does not prove two runtime allocations.
+
 ## Raid dungeon occupancy widget
 
 Two recovered occupancy directors and their widget have these installed
