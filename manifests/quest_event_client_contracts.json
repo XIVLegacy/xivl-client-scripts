@@ -418,6 +418,33 @@
       "canonicalLines": 190,
       "canonicalSha256": "9dcda65a7deca0a4a4b78e7ba92e64e2df162a4a9f2baf25aab4179e1b78e7f4",
       "sourceLocator": "processEventMohtfrydStart lines 23-105; processEventAfter 108-157; processEventFree 160-190; initText 11-20"
+    },
+    {
+      "decodedPath": "quest/scenario/arc/arc200.lua",
+      "decodedChunkBytes": 6091,
+      "decodedChunkSha256": "d342cb2ed0e0ffd3cb4d28c16bb6fc221e5d12121c5d1bda4d9b59451d1f450f",
+      "canonicalBytes": 12200,
+      "canonicalLines": 671,
+      "canonicalSha256": "e72052136cc3a647276d715a9aa9afab7d152c538de06e419287ebcfc3ccd877",
+      "sourceLocator": "Arc200.processEvent030 lines 152-174"
+    },
+    {
+      "decodedPath": "quest/scenario/bsm/bsm200.lua",
+      "decodedChunkBytes": 9836,
+      "decodedChunkSha256": "1a366c007073a73d3be2bcc9db098e1314366eb24c37396589570b8d8cadc75b",
+      "canonicalBytes": 19926,
+      "canonicalLines": 1109,
+      "canonicalSha256": "aabe5f4a91722c0d8cf36351af1d9fb8bc551335f199387b288032ed11d8483c",
+      "sourceLocator": "Bsm200.processEvent010 lines 189-208"
+    },
+    {
+      "decodedPath": "quest/scenario/bsm/bsm306.lua",
+      "decodedChunkBytes": 13516,
+      "decodedChunkSha256": "a8d97eaa182c7474d72305f0c055e7bd3aa44865fadf58eb28d028ffd6b65610",
+      "canonicalBytes": 28301,
+      "canonicalLines": 1553,
+      "canonicalSha256": "7961dd8e5dcedee84fc9b47520a00d5bd4ede66e3810005b50b2f8a8f82bbb5f",
+      "sourceLocator": "Bsm306.processEvent030 lines 294-311"
     }
   ],
   "claims": [
@@ -568,6 +595,15 @@
         "quest/scenario/etc/etc1u5.lua:11-275",
         "quest/scenario/etc/etc1u6.lua:11-190"
       ]
+    },
+    {
+      "id": "class-quest-cutscene-argument-flows",
+      "support": "Arc200.processEvent030 passes the return of getNation on its second method argument as the final argument to arc20030 after true. Bsm200.processEvent010 passes its fourth method argument after true to bsm20010. Bsm306.processEvent030 waits 4, calls bsm30630, then fades in after warp without an explicit fade-out in that method. These source bodies do not establish callers, runtime argument values, quest ownership or state, localized scene text, or server behavior.",
+      "sources": [
+        "quest/scenario/arc/arc200.lua:152-174",
+        "quest/scenario/bsm/bsm200.lua:189-208",
+        "quest/scenario/bsm/bsm306.lua:294-311"
+      ]
     }
   ],
   "rejectedInterpretations": [
@@ -575,6 +611,7 @@
     "The empty Man directors do not prove that the retail server had no corresponding behavior.",
     "The scripts do not authenticate seasonal variants or server templates.",
     "Man0l1's syntactic man0l420 selection-7 branch is unreachable in the pinned event-key 10002 bytecode path.",
-    "QuestRewardWidget type -13 and text key 5052 do not establish an EXP label, numeric award, or server-side grant; the active variadic selectors and historical invocation remain unknown."
+    "QuestRewardWidget type -13 and text key 5052 do not establish an EXP label, numeric award, or server-side grant; the active variadic selectors and historical invocation remain unknown.",
+    "The Arc200 and Bsm scenario methods do not establish their caller, runtime argument values, quest-state ownership, localized scene text, or server behavior."
   ]
 }

@@ -24,6 +24,21 @@ and cutscene flows for their selected common and Grand Company scenarios.
 the server-side membership rule or identify the authoritative source of the
 value.
 
+Three additional class-quest scenario methods preserve distinct cutscene call
+shapes. `Arc200.processEvent030` calls `getNation` on its second method
+argument, passes the returned value after `true` to NQ scene `arc20030` in mode
+1, and uses default fade-out followed by after-warp fade-in. The installed
+`Bsm200.processEvent010` passes its fourth method argument after `true` to NQ
+scene `bsm20010` in mode 1, between default fade-out and default fade-in.
+`Bsm306.processEvent030` waits with literal `4`, calls NQ scene `bsm30630` in
+mode 1, then uses after-warp fade-in; that method has no explicit fade-out
+call. These are method-body call shapes only. They do not identify callers,
+runtime argument values, quest ownership or state, localized scene text, or
+server behavior. The installed resource, decoded-payload, and canonical source
+identities and method locators are recorded in
+[`quest_event_client_contracts.json`](../manifests/quest_event_client_contracts.json)
+and [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
+
 `Com0g5.processEvent005` calls NQ scene `com0g610` in mode 1 between the
 default fade-out and after-warp fade-in. `processEventFulkeStart` calls
 `doSalute(2, 33)`, passes literal dialogue rows 2-5 to `say`, then branches
