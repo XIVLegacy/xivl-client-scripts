@@ -31,6 +31,28 @@ navigation widgets. This authenticates client presentation fields and their
 widget routes, not escort movement, enemy waves, failure rules, rewards, or the
 server authority that updates the fields.
 
+The caravan director's minimap and full-map marker writes use group 2 and
+size 1 with retained `work.markerX/Y/Z` coordinates
+(`caravanguarddirector.lua:107-112`, `185-203`, `365-394`). During step 70,
+the status-update and map-open paths enumerate up to three entries and write
+only those whose `work.chocoboStatus[i]` is 4. The minimap path clears the
+group before rebuilding it; finalization clears it. The widget methods store
+group-2 entries in `GLMakerData`, reject slots outside 0..8, floor each
+coordinate, and map size 1/2/3 to stored `Radius` values 32/64/128
+(`minimapwidget.lua:14-60`, `mapnavigationwidget.lua:570-576`, `649-693`).
+Thus a caravan size-1 call writes `Radius=32`; this is the widget property
+value, not an independently measured world-space distance. The separate
+actor-attached `getMapMarkerRange` route is not evidence that these caravan
+markers follow an actor automatically. The script calls do not establish
+the server's active coordinates, update frequency, or historical escort path.
+
+These three recovered chunks match the installed LPBs byte-for-byte after
+wrapper decoding. Their decoded SHA256 values are `6B4A3198115E785842F2932333A6815DE833CF9FE6A9F6327027826085D9FE17`
+(`director/caravanguard/caravanguarddirector`), `DBC794E094EC052D537FA0DC32912C5DAFDC5FD0242DC775E8060BB0E8C994B4`
+(`widget/minimapwidget`), and `21CC7F2F9C6E2A56E02620E18748FA9DD70BF02DAB6A889FD6083826D60528C2`
+(`widget/mapnavigationwidget`). Recovered-source identities are in
+`manifests/scripts.json:7724-7729,15638-15643,15668-15673`.
+
 ## Hamlet defense director
 
 `InstanceRaidHamletDefense` derives from `InstanceRaidBaseClass`. It retains a
