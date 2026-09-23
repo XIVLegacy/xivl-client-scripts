@@ -1,8 +1,8 @@
 # Quest scene literal and replay-row joins
 
-This note records direct `startNQCutScene` calls from two bounded audits of
-125 recovered scenario scripts, plus a separate `Man2u0` HQ-key check, and
-their exact-key joins to the static `cutReplay.csv` table. It records call
+This note records direct scene-key calls from two bounded audits of 125
+recovered scenario scripts and separate HQ-key checks. Exact-key joins to the
+static `cutReplay.csv` table are recorded where established. It records call
 presence and table matches only; it does not establish dispatch, invocation,
 playback, quest ownership, or historical activation. It is not a full-corpus
 absence audit.
@@ -189,7 +189,7 @@ literals are recorded, with exact-key joins to the pinned table.
 
 | Module | Canonical source; SHA-256 | Direct source calls and row joins |
 | --- | --- | --- |
-| `man0g0` | `lua/scripts/quest/scenario/man/man0g0.lua`; `BD367F6606CFF7EB4D43D76B15726B5075B3BF786E53C4B8EBF64D90DD65FD0B` | `man0g005` @ 432-435 and 658-661 -> 11000502 |
+| `man0g0` | `lua/scripts/quest/scenario/man/man0g0.lua`; `BD367F6606CFF7EB4D43D76B15726B5075B3BF786E53C4B8EBF64D90DD65FD0B` | `MAN0G000` @ 31-33 -> no exact-key row; `man0g005` @ 432-435 and 658-661 -> 11000502 |
 | `man0l0` | `lua/scripts/quest/scenario/man/man0l0.lua`; `0F3165390756B2DAF960B978E3C05F094B1FF1A068E3468757A82A6AD3F25F39` | `man0l005` @ 970-973 and 1239-1242 -> 11000102 |
 | `man0u0` | `lua/scripts/quest/scenario/man/man0u0.lua`; `0CA29669ACAB5E7F5CCF12A5AE1F692552E51F308D9DC704E2B161E57907A71F` | `man0u005` @ 744-747 and 1015-1018 -> 11000902 |
 | `man200` | `lua/scripts/quest/scenario/man/man200.lua`; `42CE1C6D33E093E262A88EE9BECC294C4BF2E9DE40FF945EB4830DC3A598EDB6` | `man20140` @ 1393-1403 and 1542-1552 -> no row |
@@ -205,7 +205,16 @@ literals are recorded, with exact-key joins to the pinned table.
 | `min306` | `lua/scripts/quest/scenario/min/min306.lua`; `8DBF495BC661232737BE08031396C05DAE1FB0F33376258B9EEA46A57ED48D12` | `min30610` @ 102-105 -> 11046201; `min30620` @ 122-125 -> 11046202; `min30630` @ 142-145 -> 11046203; `min30640` @ 189-192 -> 11046204 |
 | `war0j6` | `lua/scripts/quest/scenario/war/war0j6.lua`; `45C1373FB1F69305D7B713B5418D1C5ED72F5EEA9E1ECC80552A91742D6C86F5` | `war0j610` @ 199-202 -> 11120601; `war0j620` @ 244-247 -> 11120602 |
 
-## Man2u0 HQ replay-key check
+## HQ replay-key checks
+
+`Man0g0.processEvent000_0` calls `startHQCutScene("MAN0G000", 1)` at
+`man0g0.lua:31-40`. The canonical source SHA-256 is
+`BD367F6606CFF7EB4D43D76B15726B5075B3BF786E53C4B8EBF64D90DD65FD0B`
+(`manifests/scripts.json:12483-12486`); its retail LPB and decoded payload
+are pinned at `manifests/retail_lua_coverage.json:39670-39682`. The pinned
+`cutReplay.csv` has lowercase `man0g000` at row 11000501
+(`xivl-client-data:csv/cutReplay.csv:50`), but the casing differs, so this is
+not recorded as an exact-key join or runtime alias.
 
 `Man2u0.processEvent005` and `processEvent085` call
 `startHQCutScene` with uppercase literals `MAN2U020` and `MAN2U090`
