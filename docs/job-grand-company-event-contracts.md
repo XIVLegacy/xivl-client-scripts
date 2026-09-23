@@ -34,6 +34,11 @@ Sources:
 
 ### Monk
 
+`Mnk0j1.processEventGAGARUNAStart` tests its two extra arguments separately
+against Lua boolean `true` and speaks row 42 if either matches; otherwise it
+speaks row 6. Numeric `1` is not the same input. This is a client greeting
+branch, not a recovered definition or producer for either argument.
+
 `Mnk0j6` preserves distinct Erik and Widargelt methods rather than one generic
 quest-giver flow. `processEvent020_ERIC_Follow` and
 `processEvent020_ERIC_PUB` are Erik-owned talk turns;
@@ -44,8 +49,15 @@ The separation proves dialog and presentation ownership. It does not prove
 which server actor advances the objective or which encounter state unlocks
 each method.
 
-Source: `lua/scripts/quest/scenario/mnk/mnk0j6.lua`, the three named speaker
-methods and `processEventClear`.
+`Mnk0j6.processEvent020` is the separate item-presentation talk: it speaks
+rows 41, 69-73, and 109-114 around `showGetJobItemWidget`, passing the
+method's fourth argument as the item. The client method does not choose that
+item or grant it. Its presence does not make the Erik-owned `020` methods
+aliases of this path.
+
+Sources: `lua/scripts/quest/scenario/mnk/mnk0j1.lua`, method
+`processEventGAGARUNAStart`; `mnk/mnk0j6.lua`, the named `020` and speaker
+methods plus `processEventClear`.
 
 ### Black Mage
 
@@ -81,6 +93,15 @@ Source: `lua/scripts/quest/scenario/pld/pld0j1.lua`, methods
 
 ### White Mage
 
+`Whm0j2.processEvent005` is a self-contained presentation: its own talk
+turn contains free-display-name speech for `2600009` on rows 42 and 43,
+public-information dialog 52, and `showGetJobAbilityWidget(..., 27358, 2)`.
+The shorter `onJobQuestCompleteFirst` and `onJobQuestCompleteSecond` hooks
+present dialog 52 and that same ability separately. The script contains no
+instruction to append both hooks to `processEvent005`; doing so would repeat
+the presentation. The script does not establish its retail trigger, and the
+free speaker does not establish a combat ally.
+
 `Whm0j1.processEventClear` opens a talk turn and deliberately leaves it open
 after text row 24. `processEventClearNQ` performs the default fade-out, closes
 that retained talk turn, waits one second, plays `whm0j110`, and performs the
@@ -89,6 +110,23 @@ event close between them changes the recovered client sequence.
 
 Source: `lua/scripts/quest/scenario/whm/whm0j1.lua`, methods
 `processEventClear` and `processEventClearNQ`.
+
+`Whm0j4.processEventNQ` plays `whm0j410` between default fade-out and
+fade-in. `processEventLS` and `processEventLS2` separately call
+`showEventBeforeNpsLS` with display `2700007` and rows 38 and 63. These are
+distinct available client surfaces; their retail dispatcher, serial order,
+fight trigger, and roster are not established by the script.
+
+The following four decoded chunks match their installed LPBs byte-for-byte.
+Method locators are in the named scripts under `lua/scripts/quest/scenario/`;
+their `.calls.json` sidecars give the full ciphered LPB paths.
+
+| Script | Decoded chunk SHA-256 |
+| --- | --- |
+| `mnk/mnk0j1` | `14a963f6efff83518fd7861706fecf7bf90f80207eea7d53ae3dbfa74b18a369` |
+| `mnk/mnk0j6` | `6abf02dff4fd1406f816d9fbb585b5abd20fae41166f3fd26c801e8a74619de4` |
+| `whm/whm0j2` | `74347fd33eefba6f5f718c977f114e7a5addafe406a03124c61f01bb782d1d56` |
+| `whm/whm0j4` | `819ba233c3f6faaa64ea1e5c78785d1f409d016e7c510a17c64d9aeb2e57bf18` |
 
 ### AF item and stela presentations
 
