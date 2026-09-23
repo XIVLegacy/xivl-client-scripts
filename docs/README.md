@@ -37,6 +37,7 @@ charter, and contribution policy.
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
 | Seasonal quest client contracts | [seasonal-quest-client-contracts.md](seasonal-quest-client-contracts.md) |
+| Seasonal event actor contracts | [seasonal-event-actor-contracts.md](seasonal-event-actor-contracts.md) |
 | Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |
 | MonsterAttackWeaponSkill getter profile | [monster-attack-weapon-skill-profiles.md](monster-attack-weapon-skill-profiles.md) |
 | Monster map-marker selection | [monster-map-marker-selection.md](monster-map-marker-selection.md) |
