@@ -126,6 +126,20 @@ redefined here. `reloginEvent` restores the retained values and opens the
 widget only when its clear flag is false. The widget call is
 `openRaidDungeonExecutionWidget(nil, contentID, finishTime)`.
 
+The separate `InstanceRaidGuideBaseClass.askEnterInstanceRaid(raidId)`
+calls `desktopWidget:askForEventMode` with prompt 52045, choices
+52046/52047, and the supplied raid ID. It returns true only for answer
+1. The installed
+`client/script/729s9/wu7/uvupy975/1wrq9w75s9163p165/1wrq9w75s9163p16589r57y9rr.le.lpb`
+has SHA-256
+`b9be2c3b9f3d9e35f6aea60474e054f9690c1c17466c6bf0fb92791eca321894`;
+its decoded Lua 5.1 chunk matches the independently recovered LUAC
+byte-for-byte (SHA-256
+`54467e44bd629033695c561e4bc0f2dbbcf898343641ee6dd415a3643020a9a4`).
+The method locator is `chara/npc/populace/instanceraidguide/instanceraidguidebaseclass.lua:10-17`.
+This is an entry prompt/result contract, not evidence that an answer
+starts a raid, scene, or HUD.
+
 `clearEvent` stops countdown, orders desktop mode 126, closes the widget,
 and notifies world-master row 52021 with content ID. `failedEvent` closes
 the widget and selects a notification from rows 52065, 52054, 52010, and
