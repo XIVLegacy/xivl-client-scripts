@@ -247,6 +247,21 @@ Two recovered occupancy directors and their widget have these installed
 scene and requests widget close for `rad0f306`, `rad0f307`, or `rad0f308`.
 It then requests a cutscene in mode 61 and passes content ID 2123, type 1,
 and the method's fifth argument to `openRaidDungeonExecutionWidget`.
+For `rad0f300`, the method sets its local branch flag instead of calling
+`_fadeOut`; after starting the cutscene and deleting its object, it calls
+`_fadeIn`. `relogin` calls
+`_fadeInNowLoadingForNoticeEventJustInArea`, as does
+`CutScene.startCutScene` immediately before `_loadCutScene`. These are
+recovered call sequences, not proof of visible loading or fade behavior.
+The director source is `director/occupancy/raidfst0dungeon03.lua:29-78,93-107`
+(SHA-256 `A01AF800CC925D858191AAC416EBDA2CA79DAF52F1148DA45CAB1F2A552D6C4C`);
+the common source is `gamedata/cutscene_common.lua:1064-1075,1316` (SHA-256
+`F6DB9559B3F805D2738C073C7DB9DD102FD5C33A056E789FF2FB2F8AFF395BD1`). Both
+are pinned in `manifests/scripts.json:8223-8226,9519-9522` and joined to
+installed retail resources by `manifests/retail_lua_coverage.json:5480-5492,815-826`.
+No cited evidence joins `rad0f300` to native spawn types 16 or 21; their
+separate dispatcher branches establish capability, not a historical scene
+selection (`xivl-decomp:docs/actor/animation-bank-routing.md`).
 `RaidRoc0Dungeon01` uses opening scene `rad0r100`, closes for
 `rad0r106`, and opens with content ID 4102, type 2, and its fifth
 argument. Both `relogin` methods request the same widget open when their
