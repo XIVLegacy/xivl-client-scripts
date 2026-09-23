@@ -126,6 +126,18 @@ row 51145. Their recovered bodies request content-information start for
 direct numbers 1 or 2 when the timer flag is false and cancel for 3 or
 finalization. Damaged control flow limits claims about exact fall-through.
 
+The independently recovered
+`tools/outputs/lpb/focused/widget/desktopwidget_connector.lua` (SHA-256
+`c5480f97a81c08f8640b4d250c0e20694b2a697c4dc9b1e0d343a230c8cbcbe0`)
+matches installed
+`client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (SHA-256
+`0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425`).
+Its `processUpdateContentsInformation` checks the actor and dispatches
+kind 1 to `GuildleveExecutionWidget` and kind 2 to
+`ChocoboCaravanWidget` before calling `updateContentsInformation`.
+Thus the five kind-1 directors request the guildleve execution widget
+route, not a separately identified quest-specific widget.
+
 These are client widget inputs, not proof of server score authority, timed
 encounter ownership, quest completion, or reward grant. The contributor's
 content-information adapter and widget-result security proposals are
