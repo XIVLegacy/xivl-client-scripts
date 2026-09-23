@@ -386,7 +386,7 @@ identities are given above. This is a common client preview route, not a
 `Man502` event method or proof of quest progression. It supplies no `Man504`
 preview route.
 
-## Man0u1 scene call
+## Man0u1 scene and talk calls
 
 `Man0u1.processEvent035` fades out, calls `startNQCutScene("man0u135", 1)`,
 then fades in after warp (`quest/scenario/man/man0u1.lua:242-246`; decoded
@@ -401,6 +401,20 @@ The extracted `cutReplay.csv` row `11001005` also names `man0u135`
 `2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`).
 That replay row and this method do not establish a post-fight trigger,
 invoking actor, server event owner, or historical execution of the scene.
+
+The same recovered `Man0u1` body has separate `processEvent075` and
+`processEvent080` wrappers for NQ `man0u175` and `man0u180`. Each uses a
+default fade-out and post-warp fade-in around its scene call
+(`quest/scenario/man/man0u1.lua:474-483`). `processEvent080_2` through
+`processEvent080_12` are separate talk methods, not part of the `080`
+scene wrapper: they say rows `160-163`, `358-364`, and `377`
+(`man0u1.lua:484-537`). `processEvent090` then calls NQ `man0u190`,
+another default fade-out, NQ `man0u200`, and a post-warp fade-in
+(`man0u1.lua:538-544`). The recovered Lua SHA-256 is
+`db6e32d8c4ff849d02ea2ccdc12b14b24b8bdf40c50af5f75d8511f106603cec`;
+the installed LPB identity and decoded-chunk match are given above. These
+methods do not prove the retail caller, quest sequence, escort completion
+rule, historical private-area transfer, or timing of either scene.
 
 ## Evidence boundary
 
