@@ -558,13 +558,50 @@ wrapper contains no replay-sheet lookup or case conversion; behavior inside
 | `Man402.pE10`, `0x052C..0x0580` | Converts incoming R4 through `getSnpcActorClassID` and forwards incoming R8 twice at the end of the `man40210` scene call. |
 | `Man402.pE20`, `0x0636..0x0682`; `pE30`, `0x0738..0x0784` | Both convert incoming R4 through `getSnpcActorClassID` and call SNPC NQ in mode 1 with incoming R3/R5/R6/R7 otherwise forwarded. `pE20` calls `man40220` and uses default fade-in; `pE30` calls `man40230` and uses after-warp fade-in. |
 | `Man406.pES`, `0x066B..0x06D3` | Converts incoming R4 through `getSnpcActorClassID` and calls SNPC NQ `man40600` once in mode 2. Saved scene result 1 selects after-warp fade; other results select default fade. It returns the saved scene result, not a second playback. |
+| `Man406.pE10`, prototype `main/f10` | Converts incoming R4 through `getSnpcActorClassID`, calls SNPC NQ `man40610` in mode 1, then uses default fade-in. |
+| `Man406.pE15`, prototype `main/f20` | Converts incoming R4 through `getSnpcActorClassID`, calls SNPC NQ `man40615` in mode 1, then uses after-warp fade-in. |
+| `Man406.processEvent020`, prototype `main/f26` | Calls plain NQ `man40620` in mode 1; incoming R3 equal to `true` selects default fade-in, otherwise after-warp fade-in. |
+| `Man406.processEvent025`, prototype `main/f27` | Calls plain HQ `MAN40625` in mode 1 between default fade-out and default fade-in. |
 | `Man406.pE30`, `0x1D44..0x1DC4` | Calls SNPC NQ `man40630`, SNPC HQ `man40635`, and plain NQ `man40645` in that order before after-warp fade-in. |
 | `Man406.pE50`, `0x2231..0x2281`; `pE60`, `0x25AC..0x25F8` | `pE50` forwards incoming R7 twice to `man40650`. `pE60` calls `getSnpcSexualityToSkin` on incoming R5, forwards R4 unchanged to `man40660`, and then fades in after warp; it does not call the class-conversion helper. |
+| `Man406.pE61`, prototype `main/f37` | Passes `getSnpcSexualityToSkin(R5)` as an extra argument to `say` row 271, then calls row 272 without that extra value. |
 
-The locators are decoded-chunk instruction offsets, not PE VAs. The direct
-wrappers establish scene keys, call order, conditional returns, and payload
-provenance only. The sampled trace domain does not establish original server
-owners, quest sequence, battle orchestration, reward rules, or visible playback.
+The Man406 dialogue wrappers also pass these literal IDs to `say`:
+
+| Method group | `say` row IDs, in method order |
+| --- | --- |
+| `processEvent000_1..processEvent000_7` | `240, 241`; `242`; `243, 244`; `245, 246`; `247, 248`; `249, 250`; `251` |
+| `processEvent010_1..processEvent010_9` | `19, 20`; `21`; `22`; `252, 253`; `254, 255`; `256, 257`; `356`; `370, 371`; `357` |
+| `pE16`, `pE17`, `pE18` | `33, 34`; `35`; `258, 259` |
+| `processEvent015_4`, `processEvent015_5` | `260, 261`; `33, 34` |
+| `processEvent045_1..processEvent045_5` | `38`; `39`; `40`; `41`; `42` |
+| `processEvent060_2..processEvent060_6` | `273, 274`; `275`; `276, 277`; `278, 279`; `280, 281` |
+
+`pE01` (prototype `main/f2`) and `pE52` (prototype `main/f35`) compare incoming R5 against integers 1 through 9 and pass
+these rows on the matching equality branch:
+
+| Incoming R5 | `pE01` row | `pE52` row |
+| --- | --- | --- |
+| 1 | `361` | `347` |
+| 2 | `362` | `348` |
+| 3 | `363` | `349` |
+| 4 | `364` | `350` |
+| 5 | `365` | `351` |
+| 6 | `366` | `352` |
+| 7 | `368` | `354` |
+| 8 | `367` | `353` |
+| 9 | `369` | `355` |
+
+These are literal client calls and equality branches in the pinned Man406
+chunk. The IDs identify `say` row arguments, not decoded text. They do not
+establish method reachability, server routing, the meaning of R5, or what text
+was displayed.
+
+Numeric locators are decoded-chunk instruction offsets, not PE VAs; named
+prototypes identify the corresponding bytecode functions. The direct wrappers
+establish scene keys, call order, conditional returns, and payload provenance
+only. The sampled trace domain does not establish original server owners,
+quest sequence, battle orchestration, reward rules, or visible playback.
 
 ## DftSrt travel scene wrapper
 

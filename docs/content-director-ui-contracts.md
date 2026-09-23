@@ -78,6 +78,13 @@ navigation widgets. This authenticates client presentation fields and their
 widget routes, not escort movement, enemy waves, failure rules, rewards, or the
 server authority that updates the fields.
 
+`getUIDataOpen` returns `finishTime`, `town`, `placeStart`, `placeEnd`, and
+`name1` through `name3` in that order. `getUIDataUpdate` selector 1 returns
+`progressPer`; selector 2 returns `chocoboStatus[1..3]`; selector 3 returns
+`chocoboHPStatus[1..3]` (`caravanguarddirector.lua:333-368`). The selector
+values and tuple order are client contracts; their server producers and the
+meanings of the numeric status values are not established here.
+
 The caravan director's minimap and full-map marker writes use group 2 and
 size 1 with retained `work.markerX/Y/Z` coordinates
 (`caravanguarddirector.lua:107-112`, `185-203`, `365-394`). During step 70,
@@ -93,33 +100,59 @@ actor-attached `getMapMarkerRange` route is not evidence that these caravan
 markers follow an actor automatically. The script calls do not establish
 the server's active coordinates, update frequency, or historical escort path.
 
-These three recovered chunks match the LPBs byte-for-byte after
-wrapper decoding. Their decoded SHA256 values are `6B4A3198115E785842F2932333A6815DE833CF9FE6A9F6327027826085D9FE17`
-(`director/caravanguard/caravanguarddirector`), `DBC794E094EC052D537FA0DC32912C5DAFDC5FD0242DC775E8060BB0E8C994B4`
+`ChocoboCaravanWidget` uses text banks 10051 and 204 for contents and place
+names. Its timer method subtracts `_getServerTime()` from the supplied time and
+writes literal `300` and `120` values to `CustomControl_TimerLabel` properties;
+the code alone does not assign display semantics to those fields. Company input
+values 1, 2, and 3 select icon IDs 833, 834, and 835. Movement values 1-5
+select command strings `ChocoboWalk`, `ChocoboStop`, `ChocoboFlight`,
+`ChocoboEscaped`, and `ChocoboReturn`; HP values 1-3 select `StatusNormal`,
+`StatusCaution`, and `StatusDanger` (`chocobocaravanwidget.lua:39-143`). The
+strings and icon IDs do not establish rendered wording or image identity.
+
+The caravan director, its dedicated widget, and the two map widgets match their
+LPBs byte-for-byte after wrapper decoding. Their decoded SHA256 values are
+`6B4A3198115E785842F2932333A6815DE833CF9FE6A9F6327027826085D9FE17`
+(`director/caravanguard/caravanguarddirector`), `6E85FA941A43B00C54809D6C00213C4E3249013FF5795AC1F2D99477B3713B2A`
+(`widget/chocobocaravanwidget`), `DBC794E094EC052D537FA0DC32912C5DAFDC5FD0242DC775E8060BB0E8C994B4`
 (`widget/minimapwidget`), and `21CC7F2F9C6E2A56E02620E18748FA9DD70BF02DAB6A889FD6083826D60528C2`
 (`widget/mapnavigationwidget`). Recovered-source identities are in
-`manifests/scripts.json:7724-7729,15638-15643,15668-15673`.
+[`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json)
+and `manifests/scripts.json:7724-7729,15237-15240,15638-15643,15668-15673`.
 
 The separate `PopulaceCaravanManager` client script loads text bank 7520
 and exposes entry, question, join-success/failure, full/other-party, and
 cancel dialogue methods (`populacecaravanmanager.lua:3-266`). Its cancel
 method asks text ID 55 once and returns that saved result; direct bytecode
 `0x00133C-0x0013A8` corrects the repeated ask printed by the decompiler.
+Its entry path calls `isUpperRank` with argument 25 and asks selector 16, then
+conditionally selector 23; its question path also calls `isUpperRank` with
+argument 25 and asks selector 4 (`populacecaravanmanager.lua:11-189`). The
+numeric arguments are not assigned meanings here.
 `PopulaceCaravanGuide` loads bank 7552 and exposes offer, thanks, success,
 failure, reward/no-reward, and bonus-reward dialogue methods
 (`populacecaravanguide.lua:3-161`). Its reward method asks text ID 33 once
-and returns the saved result (bytecode `0x000613-0x00065B`).
+and returns the saved result (bytecode `0x000613-0x00065B`). The same method
+branches on incoming R1 equal to 9, equal to 0, or in 1-5, with a separate
+other branch. It then branches on R5 greater than or equal to 50, or in the
+range 40 <= R5 < 50; these comparisons do not identify the argument semantics
+(`populacecaravanguide.lua:20-60`). `PopulaceCaravanAdviser.adviserSales`
+reads `getMoneyOnHand(1000001)`, passes the returned value to `say` row 53013,
+and asks selector 14 with literal 3011317 (`populacecaravanadviser.lua:48-72`).
 `ChocoboCaravanGuard.chocoboCommand` loads bank 7680, starts a client talk
-turn, asks restricted choices, conditionally asks text ID 6 with three
-arguments, and returns the two results
-(`chocobocaravanguard.lua:3-23`). These are client presentation and ask
-surfaces, not evidence of the server's signup, route, reward, or pack-chocobo
-actor selection. The three LPBs matched the recovered LUACs
-byte-for-byte; their decoded SHA256 values are respectively
+turn, asks restricted choices, and calls ask row 6 with three forwarded
+arguments only when the first result is 2; it returns both results.
+`getBattalion` returns 1 (`chocobocaravanguard.lua:3-23`). These are client
+presentation and ask surfaces, not evidence of the server's signup, route,
+reward, or pack-chocobo actor selection. The four NPC/guard LPBs matched the
+recovered LUACs byte-for-byte; their decoded SHA256 values are respectively
 `2F553CD0595DBF6F38527B72BA3916416581CAE16E35BF036AB1CE10C175FDAA`,
 `97ECACFBCFC68AA2B2F1FCB6215E7966C5F553D8B16F83B8EC8CCB2DC5ACC483`,
-and `E1E8C253A8A20C9A1479772F53541EF1B471874A4B514710D04ACAE6655DDC27`.
-Recovered-source identities are in `manifests/scripts.json:6260-6271,1466-1471`.
+`7992483C774BBD234ECF29F9F1F68A89252D66A1F5B8D84772AAD5FDEE9C8F37`, and
+`E1E8C253A8A20C9A1479772F53541EF1B471874A4B514710D04ACAE6655DDC27`.
+Recovered-source identities are in
+[`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json)
+and `manifests/scripts.json:6255-6271,1466-1471`.
 
 ## Hamlet defense director
 

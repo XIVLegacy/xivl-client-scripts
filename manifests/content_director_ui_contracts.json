@@ -39,7 +39,100 @@
       "canonicalBytes": 18503,
       "canonicalLines": 742,
       "canonicalSha256": "f9c21e5dcd7376f9dd68f5a109e309d634bc4303f15b5cb888ae26595ac427cc",
-      "sourceLocator": "lines 1-742"
+      "sourceLocator": "lines 1-742",
+      "retailLpb": {
+        "resourcePath": "61s57qvs/79s9o9w3p9s6/79s9o9w3p9s661s57qvs.le.lpb",
+        "bytes": 4966,
+        "sha256": "88070cf30c47368deb9f54cb6ae6ed2cdbbaeb410f50f700ec030b96364fd691",
+        "decodedPayloadBytes": 4953,
+        "decodedPayloadSha256": "6b4a3198115e785842f2932333a6815de833cf9fe6a9f6327027826085d9fe17",
+        "coverageLocator": "manifests/retail_lua_coverage.json:2265"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/monster/chocobo/chocobocaravanguard.lua",
+      "decodedChunkBytes": 831,
+      "decodedChunkSha256": "e1e8c253a8a20c9a1479772f53541ef1b471874a4b514710d04acae6655ddc27",
+      "canonicalBytes": 1624,
+      "canonicalLines": 77,
+      "canonicalSha256": "b3bb82478514322df268336d8d90a6a2cd66af3ed133923802c3181bdf37bb7e",
+      "sourceLocator": "lines 1-77",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/xvwrq5s/72v7v8v/72v7v8v79s9o9w3p9s6.le.lpb",
+        "bytes": 844,
+        "sha256": "1230331709ed7ac9deaba4705b802d905f72a8db7943e0cf2e880fe4bbce9c18",
+        "decodedPayloadBytes": 831,
+        "decodedPayloadSha256": "e1e8c253a8a20c9a1479772f53541ef1b471874a4b514710d04acae6655ddc27",
+        "coverageLocator": "manifests/retail_lua_coverage.json:14130"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/populace/populacecaravanadviser.lua",
+      "decodedChunkBytes": 2460,
+      "decodedChunkSha256": "7992483c774bbd234ecf29f9f1f68a89252d66a1f5b8d84772aad5fdee9c8f37",
+      "canonicalBytes": 5203,
+      "canonicalLines": 267,
+      "canonicalSha256": "1cbefc232584d07d9c6c922283fb79aacc2b47c9a28457a04b9b1a6142132952",
+      "sourceLocator": "lines 1-267",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/uvupy975/uvupy97579s9o9w96o1r5s.le.lpb",
+        "bytes": 2473,
+        "sha256": "8103f8607b4f5538aa1278660ca6ae2d4574a33383b68243cdfc3ccfd4c9a598",
+        "decodedPayloadBytes": 2460,
+        "decodedPayloadSha256": "7992483c774bbd234ecf29f9f1f68a89252d66a1f5b8d84772aad5fdee9c8f37",
+        "coverageLocator": "manifests/retail_lua_coverage.json:7290"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/populace/populacecaravanguide.lua",
+      "decodedChunkBytes": 4818,
+      "decodedChunkSha256": "97ecacfbcfc68aa2b2f1fcb6215e7966c5f553d8b16f83b8ec8ccb2dc5acc483",
+      "canonicalBytes": 10670,
+      "canonicalLines": 542,
+      "canonicalSha256": "a169e372fe7852a3e7bf7dd5158ae5c937338ef9a755d81d3617bb1a62f06e40",
+      "sourceLocator": "lines 1-542",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/uvupy975/uvupy97579s9o9w3p165.le.lpb",
+        "bytes": 4831,
+        "sha256": "f2e4d9f4d443644d689fc591ec25d46d129c40bf70462b2bb36107da24bcc48b",
+        "decodedPayloadBytes": 4818,
+        "decodedPayloadSha256": "97ecacfbcfc68aa2b2f1fcb6215e7966c5f553d8b16f83b8ec8ccb2dc5acc483",
+        "coverageLocator": "manifests/retail_lua_coverage.json:7275"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/populace/populacecaravanmanager.lua",
+      "decodedChunkBytes": 5202,
+      "decodedChunkSha256": "2f553cd0595dbf6f38527b72ba3916416581cae16e35bf036ab1ce10c175fdaa",
+      "canonicalBytes": 16550,
+      "canonicalLines": 773,
+      "canonicalSha256": "273917c5d3f51c47c74bf6a22fd33b5cf371bd76c970dc2cd6d432b5f4ce462e",
+      "sourceLocator": "lines 1-773",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/uvupy975/uvupy97579s9o9wx9w935s.le.lpb",
+        "bytes": 5215,
+        "sha256": "7885754b8648a4079c5f04c78fb96e048a34294a301df5b4f98acb2acaa30a6d",
+        "decodedPayloadBytes": 5202,
+        "decodedPayloadSha256": "2f553cd0595dbf6f38527b72ba3916416581cae16e35bf036ab1ce10c175fdaa",
+        "coverageLocator": "manifests/retail_lua_coverage.json:7305"
+      }
+    },
+    {
+      "decodedPath": "widget/chocobocaravanwidget.lua",
+      "decodedChunkBytes": 3357,
+      "decodedChunkSha256": "6e85fa941a43b00c54809d6c00213c4e3249013ff5795ac1f2d99477b3713b2a",
+      "canonicalBytes": 7429,
+      "canonicalLines": 369,
+      "canonicalSha256": "e4e09077f38fbde92f35e602d55ca499345cd33b33a7ca34afec558e990d0fb1",
+      "sourceLocator": "lines 1-369",
+      "retailLpb": {
+        "resourcePath": "n1635q/72v7v8v79s9o9wn1635q.le.lpb",
+        "bytes": 3370,
+        "sha256": "e30b5bfa70787daf3523156d3292e8e9a1fc2c7b26be07ad3edf99df947a6343",
+        "decodedPayloadBytes": 3357,
+        "decodedPayloadSha256": "6e85fa941a43b00c54809d6c00213c4e3249013ff5795ac1f2d99477b3713b2a",
+        "coverageLocator": "manifests/retail_lua_coverage.json:25529"
+      }
     },
     {
       "decodedPath": "director/instanceraid/instanceraidhamletdefense.lua",
@@ -116,6 +209,33 @@
       ]
     },
     {
+      "id": "caravan-ui-data-tuples",
+      "support": "getUIDataOpen returns finishTime, town, placeStart, placeEnd, name1, name2, and name3 in that order. getUIDataUpdate selector 1 returns progressPer; selector 2 returns chocoboStatus entries 1-3; selector 3 returns chocoboHPStatus entries 1-3.",
+      "sources": ["director/caravanguard/caravanguarddirector.lua:333-368"]
+    },
+    {
+      "id": "caravan-widget-values",
+      "support": "ChocoboCaravanWidget uses text banks 10051 and 204, writes timer properties including 300 and 120, maps company values 1-3 to icon IDs 833-835, maps movement values 1-5 to named UI commands, and maps HP values 1-3 to named status commands.",
+      "sources": [
+        "widget/chocobocaravanwidget.lua:39-80",
+        "widget/chocobocaravanwidget.lua:82-143"
+      ]
+    },
+    {
+      "id": "caravan-npc-selector-branches",
+      "support": "PopulaceCaravanManager entry and question paths call isUpperRank with argument 25, ask selector 16 and conditionally 23 in the entry path, and use selector 4 in the question path. PopulaceCaravanGuide.caravanGuardReward branches on raw argument 1 equal to 9, equal to 0, or in 1-5, then on argument 5 greater than or equal to 50 or in the range 40 <= argument 5 < 50. PopulaceCaravanAdviser.adviserSales passes getMoneyOnHand(1000001) to say row 53013 and asks selector 14 with literal 3011317.",
+      "sources": [
+        "chara/npc/populace/populacecaravanmanager.lua:11-189",
+        "chara/npc/populace/populacecaravanguide.lua:20-60",
+        "chara/npc/populace/populacecaravanadviser.lua:48-72"
+      ]
+    },
+    {
+      "id": "caravan-guard-choice-contract",
+      "support": "ChocoboCaravanGuard.getBattalion returns 1. chocoboCommand asks restricted choices, calls ask row 6 with three forwarded arguments only when the first result is 2, then returns both results.",
+      "sources": ["chara/npc/monster/chocobo/chocobocaravanguard.lua:3-23"]
+    },
+    {
       "id": "hamlet-defense-widget-contract",
       "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available.",
       "sources": [
@@ -137,6 +257,7 @@
   "rejectedInterpretations": [
     "The directors do not establish server timers, acceptance rules, objective completion, rewards, or authoritative state ownership.",
     "The caravan director does not establish escort movement, enemy waves, routes, or failure rules.",
+    "Caravan widget command strings, icon IDs, timer properties, and numeric NPC arguments do not establish their rendered meanings, owner payload semantics, or historical invocation.",
     "The Hamlet director does not establish wave composition, scoring formulas, victory conditions, or rewards.",
     "The content-group scripts do not identify the displayed text for notification 50012 or the event that caused finalization.",
     "No Behest or Skirmish mechanics may be inferred from these director contracts."
