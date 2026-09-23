@@ -289,6 +289,26 @@ The three level-40 company scripts are separate scenario classes with
 different salutes, speakers, branches, and movie ownership. Similar quest
 roles do not justify sharing one client flow.
 
+At the earlier `101` phase, `Gcl101` itself defines
+`processEventGuincumStart`, `processEventFulkeStart`, and
+`processEventAubreyStart`. Its Aubrey method tests its fifth method argument
+against Lua boolean `true` at PC 21 (`0xBFE`), selecting different rows
+before reconverging. The separately installed `Gcg101` and `Gcu101` chunks
+each define a class directly on `ScenarioBaseClass` and only an empty
+`initText`; neither chunk supplies inheritance or a dispatcher into
+`Gcl101`. Thus the three narrative methods exist, but these chunks do not
+establish which client or server owner selected them in retail.
+
+The decoded chunks match the installed LPBs exactly: `Gcl101` at
+`tp5rq/r75w9s1v/37y/37yiji.le.lpb` (SHA-256
+`b6575da42c43113f619c92abeff73be62ed449ae7002ef1e0f25015b69506cd5`),
+`Gcg101` at `tp5rq/r75w9s1v/373/373iji.le.lpb` (SHA-256
+`e8b460fccf04f74901e11fc934c8b55a3d2d97480656351f476d4f3f92960375`),
+and `Gcu101` at `tp5rq/r75w9s1v/37p/37piji.le.lpb` (SHA-256
+`756357ba5ebf12100641f5abaf47c35936f227f77e9efbca1a33245f7b908259`).
+Canonical method locators are `lua/scripts/quest/scenario/gcl/gcl101.lua`,
+`gcg/gcg101.lua`, and `gcu/gcu101.lua`.
+
 | Script | Company-specific client contract |
 | --- | --- |
 | `Gcl102` | salute company 1; `processEventNQ` plays `gc01l210` and uses the after-warp finalizer |
