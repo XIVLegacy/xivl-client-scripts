@@ -23,6 +23,12 @@ closes a child ask if present, clears the reference, and hides the widget
 hides on its animated-complete command
 (`cutsceneskipwarningwidget.lua:3-15`). These are client lifecycle calls,
 not proof of a particular retail cutscene's skip flag or server policy.
+The common `CutScene.startCutScene` play-mode-1 branch awaits the same
+`_play(...)` result after showing the skip widget, then hides the widget
+and returns that result (`cutscene_common.lua:886-910`). The skip action
+targets the bound actor's `_skip()` while that play call is in progress;
+there is no separate quest-level return branch in this method. This does
+not define the historical server's event-close or warp ordering.
 
 ## Inn replay selection
 

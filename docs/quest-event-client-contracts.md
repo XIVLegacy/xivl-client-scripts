@@ -376,8 +376,9 @@ These are client-side argument operations, not a server payload definition.
 | `Man402.pES`, `0x0352..0x03FA` | A numeric offer result of 1 calls SNPC NQ `man40200` and returns the saved scene result; the decline branch returns the offer result. Both paths return before the trailing `finishCliantTalkTurn` instructions. The scene's second payload is forwarded without class conversion. |
 | `Man402.pE10`, `0x052C..0x0580` | Converts incoming R4 through `getSnpcActorClassID` and forwards incoming R8 twice at the end of the `man40210` scene call. |
 | `Man402.pE20`, `0x0636..0x0682`; `pE30`, `0x0738..0x0784` | Both convert incoming R4 through `getSnpcActorClassID` and call SNPC NQ in mode 1 with incoming R3/R5/R6/R7 otherwise forwarded. `pE20` calls `man40220` and uses default fade-in; `pE30` calls `man40230` and uses after-warp fade-in. |
+| `Man406.pES`, `0x066B..0x06D3` | Converts incoming R4 through `getSnpcActorClassID` and calls SNPC NQ `man40600` once in mode 2. Saved scene result 1 selects after-warp fade; other results select default fade. It returns the saved scene result, not a second playback. |
 | `Man406.pE30`, `0x1D44..0x1DC4` | Calls SNPC NQ `man40630`, SNPC HQ `man40635`, and plain NQ `man40645` in that order before after-warp fade-in. |
-| `Man406.pE50`, `0x2231..0x2281`; `pE60`, `0x25AC..0x25F8` | `pE50` forwards incoming R7 twice to `man40650`. `pE60` calls `getSnpcSexualityToSkin` on incoming R5 and forwards R4 unchanged to `man40660`; it does not call the class-conversion helper. |
+| `Man406.pE50`, `0x2231..0x2281`; `pE60`, `0x25AC..0x25F8` | `pE50` forwards incoming R7 twice to `man40650`. `pE60` calls `getSnpcSexualityToSkin` on incoming R5, forwards R4 unchanged to `man40660`, and then fades in after warp; it does not call the class-conversion helper. |
 
 The locators are decoded-chunk instruction offsets, not PE VAs. The direct
 wrappers establish scene keys, call order, conditional returns, and payload
