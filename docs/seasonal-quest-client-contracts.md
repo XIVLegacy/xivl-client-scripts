@@ -22,6 +22,18 @@ and recovered method body, not a supposed match to the canonical Lua text.
 | `quest/scenario/spl/spl0u1` | `ruyjpi.le.lpb` / `df49007989ac4d1da9901af0cdbc1c7d8eaa28aa629249280379a22a1487ff63` | `da5bfa056b924f1eea4017e99407e58ba1c85ccde2eb24ebde7058e88e2dffed` |
 | `quest/scenario/spl/spl0u2` | `ruyjph.le.lpb` / `5dd1748ea28ff472fd3372771b1316f90c49f12ecf5a7942565e10eb918f55f1` | `219b23ed558d762a5e1b101a5ec1f9cca0b59fc4b8622f81119373dccdd3a4a4` |
 | `quest/scenario/spl/spl0i4` | `ruyj1f.le.lpb` / `e8b50d891cd63dbc03e394b4da543362ca0e1eeccc6fd09c60e1816b583b0777` | `b0d4014bedd3ef19b269ef252be1b83fe2a994137a10ad8b209404e06533c657` |
+| `quest/scenario/spl/spl000` | `ruyjjj.le.lpb` / `ffa8b4b30c9e8444c8f7fc251aafdc7f2b9c62f87807a942eead2d3c5b6edd5f` | `5ef519bf31b09e37a7848c55aa6b69eeb382cd36d060d9a851c9a54370cc7070` |
+| `quest/scenario/spl/spl0g3` | `ruyj3g.le.lpb` / `aa39836c95e95a7b3854fd5d75ca3e57d9a3abc3a68438a2f3ed3d76df7bf2c4` | `c8f091916e94fc2d2d523a59041227075a3f1155036ce7872d442c4041778d10` |
+| `quest/scenario/spl/spl0g4` | `ruyj3f.le.lpb` / `1c3ebd5e0e149629971ba90f6515fa58d882867ab2009ddc6d8b4454e45dbe66` | `df9091b72c5dffc977f3b74fb7f090b745fa126bb113946366c5183994d17c1c` |
+| `quest/scenario/spl/spl0g5` | `ruyj3e.le.lpb` / `dec9fb112267b509ed90b0a09db87a96257a0d6245322329fb08a62073155c47` | `c0c6b4ec4d9f22973400b64d7cfd9e13d00eac4e97362268e5345181cc61a20c` |
+| `quest/scenario/spl/spl0i5` | `ruyj1e.le.lpb` / `66acbdc0f5b5b589920f8a633518e6cb684521a9c4c834ddd7cd0908cfacf957` | `0126d74914a30051dc09699a3b9595f62c1673a725cba5b920e14a2c0b1308d6` |
+| `quest/scenario/spl/spl0l3` | `ruyjyg.le.lpb` / `5ba70863c9603cd745865c203dcf2dfcb9860ebf6fd7f01f64706995f9be4d33` | `3f68f77e7e3cbfa5caa3a578291dc9aea44bbdb1bea7607d9ec0777bb4342348` |
+| `quest/scenario/spl/spl0l4` | `ruyjyf.le.lpb` / `e52d4d2265b7279b873dd672f2b691c11348eb6e1a265fcb8790b73372aaf924` | `7c2f9b0fcd4c694dd893dd1d82d7f93d46afa6bd0776c8e0c3a5bbd693ead951` |
+| `quest/scenario/spl/spl0l5` | `ruyjye.le.lpb` / `c39b555489bd9111de6d9f43fa5cbe8f1e1cbb26c1474978135e07f42b5c528a` | `de6fb43f8e20e78f64f365d4fe8208bbf367421f543683fba90c164d64a0d24f` |
+| `quest/scenario/spl/spl0u3` | `ruyjpg.le.lpb` / `b700092f5c64e87ad9fe0baaae601ae32a7fdc6ee48453da0570b7170cf8a906` | `6470bc1eb4ba4ee2e4a3e808483201751afc1524eb49bf2da7f351e618f988de` |
+| `quest/scenario/spl/spl0u4` | `ruyjpf.le.lpb` / `2a74eaf45d4d594ddcc64e477d8219bd8686385e59a6e16ad40222eca850855a` | `ef7f5aad6fb05b29347569c4848f1e215923cde155f13456a87b80160eb5fa8a` |
+| `quest/scenario/spl/spl0u5` | `ruyjpe.le.lpb` / `8c05410b04f80aeb348fdad5b68866abf05cea9cdf37e0f8a87124309af2be8e` | `f9679b51657ef7372a2367d8f979df3cc92534a4e2eff56eed43fd534c61a2a1` |
+| `quest/scenario/spl/spl103` | `ruyijg.le.lpb` / `6402129ccf96c34e405b5482d86d206d7c83cd1d1c603ba937cf5e6a882d9d45` | `0fed95ce0eb594dfe16e130a4708a786db0d5f9fd7f25a2bf66170231892c4a3` |
 
 The `lua/registry.json` `quest/scenario/spl/` rows supply the decoded-to-ciphered
 name join. The recovered source locators below refer to the independent
@@ -38,6 +50,14 @@ decompile of these exact decoded chunks.
 | `Spl0g1`, `Spl0l1`, `Spl0u1` `processEventGirlStart` and `processEvent020` | The city variants present `showQuestInfomation()` dialogue and later a fade-out/fade-in talk sequence. | Method presence does not prove a seasonal schedule, actor binding, eligibility, or completion effect. |
 | `Spl0g2`, `Spl0l2`, `Spl0u2` `eventBricotExchange` | Each renders a five-option ask, tests choices 1-4 against four caller-supplied counts, and has a fifth-choice branch. | The decompile repeats `ask` calls and shows a `false == true` comparison; exact return/acceptance behavior and item recipes are not established. |
 | `Spl0i4.processEventNQ`, `processEventHin`, `processEventClear` | The first calls `startNQCutScene("spl0i410", 1)`; the hint method branches on two caller arguments, and the clear method presents dialogue and fades. | The client script does not identify the invoking world object, historical trigger, or a server-side reward. |
+| `Spl000.processEvent_PRINCESSDAY_*` | The Limsa Lominsa, Gridania, and Ul'dah dialogue methods use `say` and character schedulers; the three `*_JIJO` methods ask row `10` with `askExtendWidget`. | These methods do not establish historical actor spawns or event availability. |
+| `Spl000.processEventLINDLEADER`, `processEventELNAURE`, `processEventSOMBER` | The salute/dialogue paths condition on a caller-supplied count and present item IDs `3020614`, `3020615`, and `3020616` as `worldMaster:say` arguments. | Dialogue substitution is not an item grant or an entitlement rule. |
+
+The installed `spl0g3-5`, `spl0l3-5`, `spl0u3-5`, `spl0i5`, and `spl103`
+chunks independently recovered as a class declaration with an empty
+`initText` method only. The same decoded paths have only `initText` in
+`lua/registry.json`. This is a boundary of these specific shipped chunks,
+not proof that the historical seasonal event lacked other scripts or flows.
 
 These are client presentation contracts only. The recovered decompile includes
 unstable control-flow and register rendering (including repeated asks and
