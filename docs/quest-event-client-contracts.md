@@ -65,6 +65,17 @@ branches on the saved answer, and returns it (`0x0DBF` and `0x0F27`).
 The repeated `ask` in the decompiled return expressions is a rendering
 artifact, not a second prompt.
 
+The same recovered `Man2g0` body has these later direct presentation calls:
+`processEvent010` fades out, plays NQ `man2g010`, then uses the post-warp
+fade-in; `processEvent020` plays NQ `man2g020` between default fades;
+`processEvent070` plays NQ `man2g070` with a post-warp fade-in; and
+`processEvent080` chains NQ `man2g080`, HQ `MAN2G090`, NQ `man2g095`,
+and NQ `man2g100` before a post-warp fade-in. These calls are at recovered
+`quest/scenario/man/man2g0.lua` lines 55-69 and 316-337, under the
+installed LPB and recovered-Lua identities above. They do not identify the
+server event caller, prove which scene followed a retail combat result,
+or establish an instance or zone transition.
+
 `Man2l0.processEvent020` calls NQ `man2l020` with its fourth method
 argument, then HQ `MAN2L030`, then NQ `man2l040`, ending with a post-warp
 fade-in. `processEvent081` similarly chains NQ `man2l081`, HQ `MAN2L090`,
