@@ -151,6 +151,43 @@ locators are the named scripts under
 | `QuestDirectorBrd0j101` | `bb8efebf21dc33e9d9d98bb2e48608a77ced2b4f3e99637699513971af6a5f35` |
 | `QuestDirectorDrg0j101` | `2eca62e4c45e1484f96187e53cee5c277c868ebe96f901d291235a1706fbf808` |
 
+The following additional quest director chunks follow the same two-line
+require-and-declare pattern, with no subclass methods. Their base classes
+vary; an empty child does not rule out inherited generic behavior. Each
+recovered chunk matched its decoded installed LPB byte-for-byte. The path
+column is relative to `lua/scripts/director/quest/`, and the matching
+`.calls.json` sidecar records the installed LPB path.
+
+| Director script | Decoded chunk SHA-256 |
+| --- | --- |
+| `questdirectorarc30601.lua` | `ccabcb837e54332a6062e69d399d92ed74188ce8d688ac11f75a16472f20690c` |
+| `questdirectorarc30602.lua` | `bf4bc19307dcbbf1f7a94fa130b58a40d0e89150cc2ae5e35850bd657b889f64` |
+| `simplequestbattle/questdirectorblm0j101.lua` | `4b91dbf7f4f582d4ef48ce2502a4567a3f36fe8bf21235278ddb7dbf7dcda80f` |
+| `questdirectorblm0j601.lua` | `17e10b322d89cfeac65e1da12f5fba9741b23da7a83b51ba9cc323229cd4df45` |
+| `simplequestbattle/questdirectorbrd0j401.lua` | `140886a58e25c947cebd2d61a7f4e6f6aa563c05e6a4a42dce309a45a173c09a` |
+| `questdirectorbrd0j601.lua` | `3f0839f4d0071f1a22bd42af9764c62c1e7b0446263665474d85d25d823de9d3` |
+| `questdirectorcnj30601.lua` | `202f69f08434db2368cc144963bc2a53a0cf1141217af37213afe78befc25805` |
+| `questdirectorcnj30602.lua` | `34ec7c5ff7ef3ef1be62fbc6f3eae08d703d3708120b189a9e9ce60194996763` |
+| `simplequestbattle/questdirectordrg0j601.lua` | `929e7aef760ba27c6b0d4984a0805ed78b66de572e11257ab8fd2b43fac402eb` |
+| `questdirectorfsh30001.lua` | `3e0ff70fdc356baea768e99c7b5bb978fd866602f169ad6cf7766fe93a4faf33` |
+| `questdirectorfsh30601.lua` | `d4123e98569121217caebeffe50f3438c0b10e17db4d6cc2e05922ffbbad84de` |
+| `questdirectorgld20001.lua` | `0d22bf2e4d8ee4ff311444283ea141ba81a8e9d95fd4e20f6912727892b54cb2` |
+| `questdirectorgld30601.lua` | `015df5d9bb75f46bcb550f6f321a5a9611949b8ebdc0c714cc0a8ab39fda3ec4` |
+| `questdirectorhrv20001.lua` | `9dce66c981fea590473707d166c9b4cd38952cfe47101c29cc5fb43ea14d2c51` |
+| `questdirectorhrv30001.lua` | `77329b1051881b9bbdf2df90cdbf3b22dafe1aaa9203edf9439c4cdf094fc4e8` |
+| `questdirectorhrv30601.lua` | `da50f4b3e25cfad975a4e0a0ae75f3c6ddd9344ef4eabd7e6b49ea5bbed2b1e8` |
+| `questdirectorhrv30602.lua` | `14284ec82117fe4f7a82d10ffa15095b96ae838ea37b123c0ed43fdac3b0cce5` |
+| `questdirectorlnc30601.lua` | `e62dcaa1a7fea77f7a1d64d325cca7869546584e8bab9c5f60222a1fa5715c6f` |
+| `questdirectormin20001.lua` | `8aa094cccc1e02cae245dc2f138574600539897a12e4b167fea4454035866b61` |
+| `questdirectormin30001.lua` | `614c988cb4b18ca3574b561e72538a14d74badb86d989989d6de99a83188e8d6` |
+| `questdirectormin30601.lua` | `34211dca664c4a072f45adcbd395a9c6a49932bcb94c283e9ce2f7a450cb954e` |
+| `simplequestbattle/questdirectorwar0j301.lua` | `44d70dce639d63f52486318db546f20632216eaab9c1b6e4888cd66b944ac742` |
+| `questdirectorwar0j601.lua` | `b23bce487a8eb361295411b9e3ba6fa39ee8b090140a0c90def132bf33937132` |
+| `simplequestbattle/questdirectorwhm0j401.lua` | `dae9452f903ddcd61dee16ac3c0be229e7fe17b65c72e44ce6e4530578d905b1` |
+| `questdirectorwvr20001.lua` | `93f8edc95be8776ec57ebede46c878b36f305724999a75e5e9275f8987659cf3` |
+| `questdirectorwvr30001.lua` | `50a5d148c5f0e2dc81cc2fa664bd00337414116791b30556c1707d6305ece132` |
+| `simplequestbattle/questdirectorwvr30601.lua` | `893495002371080ebea08294a4c3176e68a57b7e88aa44eeb02b09ad1ba0cb8d` |
+
 The installed `SpecterNormalPld0j1` chunk (decoded SHA-256
 `590e5e1044e94876fb9cd8e90dd7cfd57d4552881d9b0978aa97f77b2bc7e120`)
 matched its recovered bytecode. Its entire body requires
