@@ -22,6 +22,26 @@ and cutscene flows for their selected common and Grand Company scenarios.
 the server-side membership rule or identify the authoritative source of the
 value.
 
+`Alc200` has two separate scene wrappers that branch on their fourth method
+argument. If it equals numeric 3, they pass 1 as the final scene argument;
+otherwise they pass 2. Both use NQ mode 1 and a literal `true` before that
+selected value:
+
+| Method | Scene | Final fade-in |
+| --- | --- | --- |
+| `processEvent020` | `alc20020` | after-warp |
+| `processEvent030` | `alc20030` | default |
+
+The installed `client/script/tp5rq/r75w9s1v/9y7/9y7hjj.le.lpb` decodes
+byte-for-byte to the recovered `Alc200` chunk (SHA-256
+`cd2c07c7d4aa6e3a289a26aff300ee48c197d3a8199d3c820d28a150eede2313`).
+The method locators are in `lua/scripts/quest/scenario/alc/alc200.lua`, with
+the ciphered path in its `.calls.json` sidecar. The separate static replay
+rows for these scene keys are recorded in
+`xivl-client-data:docs/quest-replay-rows.md`. Neither the scene call nor the
+replay rows identify the producer of the fourth argument, a quest objective,
+or the historical event dispatcher.
+
 ## Man1 city scenario cutscene calls
 
 Three installed scenario LPBs match the corpus resource inventory. The
