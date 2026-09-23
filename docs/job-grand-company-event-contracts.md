@@ -201,6 +201,34 @@ installed LPB path in its `.calls.json` sidecar.
 
 ## Grand Company distinctions
 
+### Official enlistment presentation
+
+The three `Com0*7` start methods each call
+`askEventModeWidgetYield("Ask/GrandCompanyOfficialJoinWidget", 1, company)`
+once, with company 1, 2, or 3, and consume its two return values separately.
+The recovered Lua text repeats the call in an `if`, but the decoded Lua 5.1
+bytecode has one `CALL` with two
+results. On the accepted branch, each method presents its own company number
+and literal rank 11 through `openGrandCompanyJoinEffectWidget`, then updates
+the status widget. The FAQ menu remains a separate repeatable client path.
+The end methods close the status presentation; neither method is a server
+membership or points transaction.
+
+| Script / start method | Company | Decoded chunk SHA-256 | Installed LPB leaf |
+| --- | ---: | --- | --- |
+| `Com0l7.processEventGuincamStart` | 1 | `7fc28b2420c371d8148b99e2a8513b283adf12375d0ceb419b4b72bdb2373433` | `7vxjyc.le.lpb` |
+| `Com0g7.processEventFulkeStart` | 2 | `c33194551226d96ad6d1d416b744b2c211fbb3457d4c67f4f2c9ac30b6aa83e8` | `7vxj3c.le.lpb` |
+| `Com0u7.processEventAubreyStart` | 3 | `241134ea44074bf9855a3cefbd9dda50fd51fd39e5f04c2a533d78c513cfa8f9` | `7vxjpc.le.lpb` |
+
+Each decoded chunk was matched byte-for-byte to its installed LPB under
+`client/script/tp5rq/r75w9s1v/7vx/`. The corresponding canonical script
+locators are `lua/scripts/quest/scenario/com/com0l7.lua`, `com0g7.lua`, and
+`com0u7.lua`; their `.calls.json` sidecars provide full ciphered paths.
+The two-result calls are at bytecode PCs 94, 99, and 86 respectively in the
+named start methods. Company/rank widget calls are at PCs 110, 115, and 102.
+These values describe client presentation, not an authoritative enlistment
+condition or a retail-observed acceptance.
+
 The three level-40 company scripts are separate scenario classes with
 different salutes, speakers, branches, and movie ownership. Similar quest
 roles do not justify sharing one client flow.
