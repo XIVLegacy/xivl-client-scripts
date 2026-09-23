@@ -27,6 +27,7 @@ charter, and contribution policy.
 | Map-object door client contract | [map-object-door-client-contract.md](map-object-door-client-contract.md) |
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
+| Parley target gate | [parley-target-gate.md](parley-target-gate.md) |
 | Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
