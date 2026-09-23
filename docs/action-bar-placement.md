@@ -62,6 +62,36 @@ Additional Action class chooser uses `checkClassCommandPermission`
 `isCommandAcquired`; in particular, neither list construction nor placement/removal
 calls it.
 
+The class chooser passes each class button's user-work integer 4 to
+`CharaBaseClass.checkClassCommandPermission` (`actionsettingwidget.lua:1181-1195`).
+The method accepts every class when `_getJob()` is zero. For the seven listed jobs,
+it accepts only the following class IDs; all other tested IDs return false:
+
+| Job ID and name | Accepted class IDs and names |
+| --- | --- |
+| 15 Monk | 2 Pugilist, 8 Lancer, 7 Archer |
+| 16 Paladin | 3 Gladiator, 4 Marauder, 23 Conjurer |
+| 17 Warrior | 4 Marauder, 3 Gladiator, 2 Pugilist |
+| 18 Bard | 7 Archer, 23 Conjurer, 22 Thaumaturge |
+| 19 Dragoon | 8 Lancer, 2 Pugilist, 7 Archer |
+| 26 Black Mage | 22 Thaumaturge, 2 Pugilist, 7 Archer |
+| 27 White Mage | 23 Conjurer, 3 Gladiator, 2 Pugilist |
+
+This is a client chooser visibility rule, not proof of server acceptance or of an
+individual action's equip eligibility. The source is
+`chara/charabaseclass_ffxivbattle.lua:60-163` (manifest
+`manifests/scripts.json:410-414`, SHA256
+`D1DB23D11F911EA3205CA72868CC9FCA22CEFE0D3F88A6706CBB035D92130BDA`).
+The installed LPB is `client/script/729s9/729s989r57y9rr_44m1o89qqy5.le.lpb`
+(SHA256 `E64BE9F43A2659E81FC93D3CD08BA58EA646A24F6B43C109B75B6F9E59F9CE3E`);
+its decoded LUAC SHA256 is
+`98DEEFF94BB4C526A6018F22379DDBE146B55394EB8FCF198B4B0E1D2D316976`.
+Bytecode method `checkClassCommandPermission` explicitly returns false at
+`0x0008B6-0x0008BA` and `0x0008C2-0x0008C6`, where the recovered Lua prints
+`_FOR_`. Names are from `xivl-client-data:csv/xtx_text_jobName.csv` (manifest
+`manifests/tables.json:6346-6351`, SHA256
+`61535798445DDB716CD16E8B68B06D9C6A67F76C321FE0DD5E9840C143DE8B57`).
+
 The removal button passes `(slot, 0, kind)` to `executePlayerEquipAction`
 (`actionequiplistwidget.lua:121-144`). That connector invokes the normal command path
 and does not update either acquisition array
