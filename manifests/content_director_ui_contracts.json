@@ -237,10 +237,14 @@
     },
     {
       "id": "hamlet-defense-widget-contract",
-      "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available.",
+      "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available. After the initialized base director receives packet selector 3, Hamlet processUserMessage selectors 1-10 update retained UI fields or call the popup; selector 5 maps numeric 0 to line status 3, numeric 1 to 2, and other values to 1. The HUD maps line/goods status 1/2/3 to normal/danger/fall-or-lost and receives battleValue with maximum 100. These are bytecode-backed client mechanics, not a server adapter or historical runtime packet contract.",
       "sources": [
         "director/instanceraid/instanceraidhamletdefense.lua:11-193",
-        "director/instanceraid/instanceraidhamletdefense.lua:247-570"
+        "director/instanceraid/instanceraidhamletdefense.lua:247-570",
+        "director/instanceraid/instanceraidbaseclass.lua#_onReceiveDataPacket@0x0016D3-0x001787; LPB SHA-256 820F421AEF68BDCB48C082A2C1B91521903D0E82956C273CABC462B6B3271F2F; payload SHA-256 697419B9ABE065C5B77E67938F7AB4188B0C61B61F4B0E87F2D0FC05A6083941",
+        "director/instanceraid/instanceraidhamletdefense.lua#processUserMessage@0x000A51-0x000E65; LPB SHA-256 2DDEDC8FAD4DAC5FAC4C800425DD8685F83E3DBF4CD8BD0AC996D265D540881E; payload SHA-256 FF329E9DEC60838A0D0FD5E2C42A27ABA60365BF52B44BCB8D6D43C709EB1A00",
+        "widget/hamletdefensewidget.lua#status-and-target-methods@0x000F5A-0x001621; LPB SHA-256 882B2B249B3DE84A593E4084E8CB7E49FBB00B3BF4CBD0FC911D1A2814964286; payload SHA-256 A564717080911218C718EA28F4A8B604A9850B3F2DB27BCD73ED9CEC93715D9E",
+        "widget/hamletdefensepopupwidget.lua#dispInformation@0x0000EC-0x0001D8; LPB SHA-256 49DC594F8AA976696D7C2B42A2D57BF11925F36A9075ADCC7D36D141AF92A754; payload SHA-256 EB49B7D2F956BA4F66ACF5DEB9DD86259154E716898C14C665145E5B05157066"
       ]
     },
     {

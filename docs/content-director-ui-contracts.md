@@ -166,6 +166,52 @@ These methods establish client UI consumption only. They do not establish
 enemy waves, routes, scoring formulas, victory conditions, server ownership,
 or rewards.
 
+The base director ignores data packets until its initialization flag is set;
+packet selector 3 then forwards the remaining arguments to
+`processUserMessage`. In `InstanceRaidHamletDefense.processUserMessage`, the
+first forwarded value selects these client-side updates:
+
+| Selector | Client-side update |
+| --- | --- |
+| 1 | When the execution widget exists, sets its title from the director content ID, sets its timer from the finish time, and shows it. |
+| 2 | Copies three values to `harvestTbl[1..3]`. |
+| 3 | Zeros `harvestTbl[1..3]` and asks the execution widget to reset its gathering display when present. |
+| 4 | Copies six values to `fieldBuffTbl[1..6]`. |
+| 5 | Normalizes three values into `lineStatusTbl[1..3]`: numeric 0 becomes 3, numeric 1 becomes 2, and every other value becomes 1. |
+| 6 | Copies four values to `goodsStatusTbl[1..4]`. |
+| 7 | Stores the first value as `cargoTarget`. |
+| 8 | Sets `bossFlag` to true. |
+| 9 | Stores the first value as `battleValue`; the HUD refresh passes it to `cmdSetWarPotentialValue` with maximum 100. |
+| 10 | Forwards the remaining values to the popup widget's `dispInformation` method, then returns. The values' notice-ID meanings are not established here. |
+
+The HUD maps line-status values 1/2/3 to normal, danger, and line-fall
+commands; goods-status values 1/2/3 map to normal, danger, and goods-lost
+commands. The update remaps goods slots in the order 1, 2, 4, 3, and maps a
+zero cargo target to no selected goods. These are client UI mappings, not a
+server scoring or state contract.
+
+The client code does not support a false-to-1 / true-to-3 line-status
+mapping. It maps numeric 0 to 3 and numeric 1 to 2, with all other values
+mapped to 1. Whether a historical server sent booleans, these numeric values,
+or any particular sequence is unknown.
+
+The decoded-chunk pins below are the inputs used for the bytecode checks. The
+instruction offsets locate the inspected methods within those decoded Lua 5.1
+chunks; they do not establish a runtime packet or its effects.
+
+| Method | LPB resource | LPB SHA-256 | Decoded payload SHA-256 | Inspected bytecode offsets |
+| --- | --- | --- | --- | --- |
+| `InstanceRaidBaseClass._onReceiveDataPacket` | `61s57qvs/1wrq9w75s916/1wrq9w75s91689r57y9rr.le.lpb` | `820F421AEF68BDCB48C082A2C1B91521903D0E82956C273CABC462B6B3271F2F` | `697419B9ABE065C5B77E67938F7AB4188B0C61B61F4B0E87F2D0FC05A6083941` | `0x0016D3-0x001787` |
+| `InstanceRaidHamletDefense.processUserMessage` | `61s57qvs/1wrq9w75s916/1wrq9w75s91629xy5q6545wr5.le.lpb` | `2DDEDC8FAD4DAC5FAC4C800425DD8685F83E3DBF4CD8BD0AC996D265D540881E` | `FF329E9DEC60838A0D0FD5E2C42A27ABA60365BF52B44BCB8D6D43C709EB1A00` | `0x000A51-0x000E65` |
+| `HamletDefenseWidget` status and target methods | `n1635q/29xy5q6545wr5n1635q.le.lpb` | `882B2B249B3DE84A593E4084E8CB7E49FBB00B3BF4CBD0FC911D1A2814964286` | `A564717080911218C718EA28F4A8B604A9850B3F2DB27BCD73ED9CEC93715D9E` | `cmdSetDefenseLineStatus: 0x000F5A-0x000FE6`; `cmdSetGoodsStatus: 0x001321-0x0013A9`; `cmdSetTargetGoods: 0x0015AD-0x001621` |
+| `HamletDefensePopupWidget.dispInformation` | `n1635q/29xy5q6545wr5uvupun1635q.le.lpb` | `49DC594F8AA976696D7C2B42A2D57BF11925F36A9075ADCC7D36D141AF92A754` | `EB49B7D2F956BA4F66ACF5DEB9DD86259154E716898C14C665145E5B05157066` | `0x0000EC-0x0001D8` |
+
+The resource paths and hashes are pinned in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json): the base
+director at rows 1355-1366, the Hamlet director at 1279-1290, and the Hamlet
+HUD and popup at 25218-25230 and 25233-25245. The recovered-source identities
+are pinned in `manifests/scripts.json` at rows 8061-8064 and 15483-15495.
+
 ## Generic instance-raid director
 
 The independent recovered
