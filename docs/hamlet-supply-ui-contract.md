@@ -32,10 +32,12 @@ craft-list count of 8 and gather-list count of 3. For actor class IDs
 12001, 11001, and 13001; the gather bases are 12009, 11009, and 13009.
 Each getter reads `itemHamletSupplySheet` at `base + requestedIndex - 1`
 and returns columns 0 and 2 (`populacehamletsupply.lua:79-173`; craft
-bytecode `0x0009A2-0x000A3A`). These are conditional client-sheet lookups,
-not proof that those actor IDs spawned with this class or accepted the
-listed items historically. The zero-base fallback for other actor IDs is
-not a verified supply association.
+bytecode `0x0009A2-0x000A3A`). The selected item IDs and quantities in the
+pinned table are cataloged in
+`xivl-client-data:docs/hamlet-supply-rows.md`. These are conditional
+client-sheet lookups, not proof that those actor IDs spawned with this class
+or accepted the listed items historically. The zero-base fallback for other
+actor IDs is not a verified supply association.
 
 Decoded LUAC SHA256 values: `Noc002`
 `1DA67252A10403AFF3C6391B2B6BFB1AF5B30EC9B29942690676B28F7B58C988`;

@@ -358,6 +358,38 @@ instructions against inert API result fixtures, not a retail runtime.
 | `Man402` | `tp5rq/r75w9s1v/x9w/x9wfjh.le.lpb` | `c3e31e692dbf988ed2937a6f2d6e3bba49f47b13c212c53a5ac6caf01a3c971d` | `8794fa034cb6b5e61f1af9ca387d55af88296b3231db748d230eec142f50f76b` |
 | `Man406` | `tp5rq/r75w9s1v/x9w/x9wfjd.le.lpb` | `a2ea85d17545a44a097145489dc80f164acf6b8c6e8644f19fcffe84d4dda289` | `c6415866f54ae206230f1d245b20c65b0146cae1ab3be99c37b2d1e314a129ad` |
 
+The installed scenario bodies make these additional selected `say` calls:
+
+| Method group | Literal text row IDs passed to `say` |
+| --- | --- |
+| `processEvent000_2..processEvent000_13` | `469..480` |
+| `processEvent001_2` | `304` |
+| `processEvent001_3..processEvent001_6` | `481..488` (two consecutive IDs per method) |
+| `processEvent005_1`, `processEvent005_2` | `505`, `504`, respectively |
+| `processEvent010_2..processEvent010_8` | `459..468` |
+
+In `Man308`, `pE00` passes rows `357..383` to `say`. The separate
+`processEvent090` method calls `startNQCutScene("man30890", 1)`;
+`processEvent090_1..processEvent090_14` pass rows `600..622` to `say`.
+In `Man402`, the methods `processEvent000_1`, `processEvent000_2`, and
+`pE03` pass rows `108..113`; `processEvent000_4..processEvent000_6`
+pass `114..119`; `processEvent020_1`, `processEvent020_2`, and `pE23`
+pass `120..125`; and `processEvent020_4..processEvent020_6` pass
+`126..131`. `processEvent000_7` separately passes row `250`.
+
+These are literal client method calls in the pinned chunks above. Their
+presence does not establish that a server route invokes them, that the rows
+are reachable in a historical quest, or what localized text was displayed.
+The 1.23b `cutReplay.csv` values for Hamlet are cataloged in
+`xivl-client-data:docs/quest-replay-rows.md`; the Hamlet item and quantity
+rows are cataloged in `xivl-client-data:docs/hamlet-supply-rows.md`.
+
+Verification: the three LPBs above were decoded with
+`xivl-client-structs:tools/decode_lpb.py`; each decoded chunk SHA-256 matched
+the hash in the table. The source view was produced with the bundled
+`unluac_2025_12_23.jar` (`tools/vendor/unluac/PROVENANCE.json`, SHA-256
+`98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc`).
+
 The independently decoded `quest/questbaseclass_common.luac` also matched
 installed `client/script/tp5rq/tp5rq89r57y9rr_7vxxvw.le.lpb`
 (`sha256=ecc3f7c6fb49df196431494aa5aece95ede1c24ca1325af11ddc993a3836322d`)
