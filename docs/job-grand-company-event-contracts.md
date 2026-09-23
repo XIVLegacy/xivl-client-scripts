@@ -128,6 +128,29 @@ the matching `.calls.json` sidecars:
 | `brd/brd0j5` | `eda3af68bd1fc4e603a5f746cae78043449c8f908ca401f9fe8cceb8ad2257b9` |
 | `drg/drg0j4` | `9b11029faff35302b207c77e09af1603acd5d3e40a775a0d013b1b7b49f256a1` |
 
+### Early job battle director shells
+
+The `QuestDirectorMnk0j101`, `QuestDirectorWhm0j101`,
+`QuestDirectorPld0j101`, `QuestDirectorBrd0j101`, and
+`QuestDirectorDrg0j101` chunks each contain only a requirement on
+`SimpleQuestBattleBaseClass` and a subclass declaration. They add no
+quest-specific method, target roster, count, wave rule, or success callback.
+Inherited generic behavior is not thereby absent; these child chunks simply
+cannot establish those quest-specific facts.
+
+Each recovered chunk matched the decoded installed LPB byte-for-byte. Source
+locators are the named scripts under
+`lua/scripts/director/quest/simplequestbattle/`, with LPB paths in their
+`.calls.json` sidecars. SHA-256 of the decoded chunks:
+
+| Director | SHA-256 |
+| --- | --- |
+| `QuestDirectorMnk0j101` | `ddcee2ed445592c8f117bc1d0ec5c95af1d92363041b993d4ae90fa126d507fe` |
+| `QuestDirectorWhm0j101` | `cef0d0218631f665d0254f5d147f5304d478be9f30d3cd3dea016fbd26f556b1` |
+| `QuestDirectorPld0j101` | `f5c54ebbe16528675e3e1d02572cd217fef08b8453bfdd0231e3eb23962c4f44` |
+| `QuestDirectorBrd0j101` | `bb8efebf21dc33e9d9d98bb2e48608a77ced2b4f3e99637699513971af6a5f35` |
+| `QuestDirectorDrg0j101` | `2eca62e4c45e1484f96187e53cee5c277c868ebe96f901d291235a1706fbf808` |
+
 ## Grand Company distinctions
 
 The three level-40 company scripts are separate scenario classes with
