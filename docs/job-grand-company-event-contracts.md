@@ -265,12 +265,36 @@ locators are the named scripts under
 | `QuestDirectorBrd0j101` | `bb8efebf21dc33e9d9d98bb2e48608a77ced2b4f3e99637699513971af6a5f35` |
 | `QuestDirectorDrg0j101` | `2eca62e4c45e1484f96187e53cee5c277c868ebe96f901d291235a1706fbf808` |
 
+The Grand Company `SimpleQuestBattle` director family has 11 additional
+chunks. Each requires `SimpleQuestBattleBaseClass` and declares its matching
+`QuestDirectorCom0...` class. Nine chunks contain no function declarations;
+`com0l601` and `com0u501` each contain one. These are static source facts only:
+they do not establish which quest loads a director, Lua inheritance semantics,
+or inherited/runtime behavior. `manifests/scripts.json` pins each source
+hash; `manifests/retail_lua_coverage.json` records each matched retail
+resource and its decoded-script path.
+
+| Director script | Source SHA-256 |
+| --- | --- |
+| `simplequestbattle/questdirectorcom0g101.lua` | `c0db42870ade6f0910a8c6c40a1c58a63f9dd68c95cb9babeadb564fbe444527` |
+| `simplequestbattle/questdirectorcom0g401.lua` | `4bd15ce50678cc6a9a0c2634d3b75e3e5fc09786c5f68342a21bbf2f447fed53` |
+| `simplequestbattle/questdirectorcom0g601.lua` | `05490823acf1f07d60cb942ce414df679d0158b3fdf783ebe225df063f96cb7e` |
+| `simplequestbattle/questdirectorcom0l101.lua` | `43dd8d023c887d8452bce3d46b73bfbf3d42fd7d128c51d45e85b626cf0d9f5c` |
+| `simplequestbattle/questdirectorcom0l401.lua` | `fdff69a501c69a1eecca1430b990528432c5f95aea9bad13f4133fa53ac3757a` |
+| `simplequestbattle/questdirectorcom0l501.lua` | `16f2fdcb492d2f1bc1adfd78a7673223d1a65c8fb9fd1507488cfc458c80c950` |
+| `simplequestbattle/questdirectorcom0l601.lua` | `9c7a37f1783256ee47af921565e00513f218188dd3e088b1052037a37ab43251` |
+| `simplequestbattle/questdirectorcom0u101.lua` | `056399b82077816f576c0625201519abbda04000aef533a7a0a5869a426f4eba` |
+| `simplequestbattle/questdirectorcom0u401.lua` | `e4ac9eefd644ed1ffb0ea2e0b44bab8ea34895eeabe392f73396251a5410ae7b` |
+| `simplequestbattle/questdirectorcom0u501.lua` | `23577037d2369c2794751a7291005b04deae5400e63cfc29a2a44ff711032863` |
+| `simplequestbattle/questdirectorcom0u601.lua` | `977f10ff4a16a89ff6ca16730e2955f5e26619087c3e61b197de79ce89369de5` |
+
 The following additional quest director chunks follow the same two-line
 require-and-declare pattern, with no subclass methods. Their base classes
 vary; an empty child does not rule out inherited generic behavior. Each
 recovered chunk matched its decoded LPB payload byte-for-byte. The path
-column is relative to `lua/scripts/director/quest/`, and the matching
-`.calls.json` sidecar records the LPB path.
+column is relative to `lua/scripts/director/quest/`. The matching retail LPB
+resource paths and decoded-script mappings are in
+`manifests/retail_lua_coverage.json`.
 
 | Director script | Decoded chunk SHA-256 |
 | --- | --- |
