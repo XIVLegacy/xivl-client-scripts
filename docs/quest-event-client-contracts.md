@@ -58,8 +58,12 @@ canonical source:
 `Man2g0.processEvent007_2` presents ask row 240, and its recovered
 answer-1 branch plays HQ scene `man2g000`; the sibling
 `processEvent007_2_2` has the ask and fades but no scene call.
-The decompiled return expressions repeat `ask`, so the exact number of
-runtime prompts and returned value should not be inferred from this output.
+The installed `Man2g0` LPB decodes byte-for-byte to the recovered chunk
+(SHA-256 `b51e16fd99459eed9271d9f02396b3a2ec307b6d0a0846dd0d5219812c991645`).
+The bytecode calls `ask` once in each method (`0x0D83` and `0x0EFB`),
+branches on the saved answer, and returns it (`0x0DBF` and `0x0F27`).
+The repeated `ask` in the decompiled return expressions is a rendering
+artifact, not a second prompt.
 
 `Man2l0.processEvent020` calls NQ `man2l020` with its fourth method
 argument, then HQ `MAN2L030`, then NQ `man2l040`, ending with a post-warp
@@ -116,10 +120,13 @@ SHA-256 identities are:
 `Man0l0.processEvent000_2` cancels desktop-widget mode 16, closes the
 tutorial widget, and orders mode 16 again; it does not launch a scene.
 `processEvent020_9` presents ask row 84 with mode 2 and places a fade-out
-only in the recovered answer-1 branch. Its decompiled return expression
-repeats `ask`, so the number of runtime prompts and returned value remain
-unresolved. `Man0u0.processEvent000_3` delegates to
-`_getTutorialJudge():man0u0processEvent000_3`, while
+only in the answer-1 branch. The installed `Man0l0` LPB decodes byte-for-byte
+to the recovered chunk (SHA-256
+`19a7ef9877a314ed296a918aea709c57b2cf89b6f46a543c17d51a8e29df17a1`).
+Its bytecode calls `ask` once at `0x1AF2`, branches on that saved result at
+`0x1AFE`, and returns it at `0x1B56`. The repeated `ask` in the decompiled
+return expression is a rendering artifact. `Man0u0.processEvent000_3`
+delegates to `_getTutorialJudge():man0u0processEvent000_3`, while
 `processEvent020_8` returns the corresponding tutorial-judge method's
 result. `Man0g0.processTtrBlkNml002` has an empty recovered body.
 
@@ -147,9 +154,13 @@ Its `processEvent_elevator_nq1` presents ask row 79, mode 2; the
 recovered answer-1 branch calls NQ `elv0l110` then `com0l610` and fades
 in after warp. The sibling `processEvent_elevator_nq2` calls only
 `elv0l110` in that branch. `processEventExit` asks world-master row
-51036, mode 2. Both elevator return expressions repeat `ask`; the
-decompiler output does not establish the runtime prompt count or returned
-value.
+51036, mode 2. Both elevator return expressions repeat `ask`. The
+installed `Com0l5` LPB decodes byte-for-byte to the recovered chunk
+(SHA-256 `aa2b2d66bb19ddcb881644506580c7f6becedc18a0d448fcd8a23e42ceaaa4d1`).
+The bytecode calls `ask` once in each elevator method (`0x14F8` and
+`0x16D8`), branches on that saved answer, and returns it (`0x1564` and
+`0x1730`). The repeated decompiled return expression is not a second
+prompt.
 
 `Com0u5.processEvent025` calls NQ `com0u610` with a post-warp fade-in.
 `Com0g6.processEventNq` calls NQ `COM0G510` with default fade-out and
