@@ -1,7 +1,7 @@
 # Quest scene literal and replay-row joins
 
-This note records direct `startNQCutScene` calls in an audited set of 49
-recovered scenario scripts and their exact-key joins to the static
+This note records direct `startNQCutScene` calls from two bounded audits of
+125 recovered scenario scripts and their exact-key joins to the static
 `cutReplay.csv` table. It records call presence and table matches only; it does
 not establish dispatch, invocation, playback, quest ownership, or historical
 activation. It is not a full-corpus absence audit.
@@ -12,7 +12,10 @@ decoded-payload identities are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json). The
 source line ranges below locate each key assignment and call in that canonical
 Lua source. Each join compares the literal scene key with `cutReplay.csv` sheet
-column 0, which is CSV field 1 after the row ID. The table has SHA-256
+column 0, which is CSV field 1 after the row ID, using case-sensitive exact
+string equality. Similar keys that differ only in letter case are not treated
+as matches; the available evidence does not establish runtime aliasing or
+normalization. The table has SHA-256
 `2553b82e1f983025e0e23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`, pinned
 at `xivl-client-data:manifests/tables.json:1123-1127`. The data table and its
 row/key convention are described in
@@ -47,6 +50,8 @@ An entry with `and` combines multiple call sites that use the same key.
 | `exc300` | `lua/scripts/quest/scenario/exc/exc300.lua`; `5F0CDDD8DDBC1AC27E57C32749FE1DB99C6DD5BC3D82098FEF2CB7C7E84D2D8D` | `exc30010` @ 30-33 -> 11010101; `exc30020` @ 58-61 -> 11010102; `exc30030` @ 168-171 -> 11010103 |
 | `exc306` | `lua/scripts/quest/scenario/exc/exc306.lua`; `9CA53959191CF4C409C54DBA100DBA960043DD3F720B308C4A58B2842AFC5632` | `exc30610` @ 94-97 -> 11010201; `exc30620` @ 114-117 -> 11010202; `exc30630` @ 134-137 -> 11010203; `exc30640` @ 208-211 -> 11010204; `exc30650` @ 228-231 -> 11010205; `exc30660` @ 255-258 -> 11010206; `exc30670` @ 288-291 -> 11010207 |
 | `fsh200` | `lua/scripts/quest/scenario/fsh/fsh200.lua`; `FC7CA4ED65AED15B81986FF7C328626AB07307CE2C69E89ABA0AB8DC0EEB2870` | `fsh20010` @ 135-138 -> 11050001; `fsh20020` @ 155-158 -> 11050002 |
+| `fsh300` | `lua/scripts/quest/scenario/fsh/fsh300.lua`; `5F42576DC6DF7B28C0E635DBB6DA514237B890284A86F41591A3A7B44F7185AA` | `fsh30010` @ 102-106 -> 11050101; `fsh30020` @ 348-351 -> 11050102; `fsh30025` @ 395-398 -> 11050103; `fsh30030` @ 823-826 -> 11050104; `fsh30040` @ 870-873 -> 11050105; `fsh30050` @ 890-893 -> 11050106; `fsh30060` @ 1090-1093 -> 11050107; `fsh30070` @ 1119-1122 -> 11050108 |
+| `fsh306` | `lua/scripts/quest/scenario/fsh/fsh306.lua`; `0C9E9D5DCCEEF511540E1C39AD8CE721B8C8A8A2EB587C7A2EFD7A20C955C93A` | `fsh30610` @ 187-190 -> 11050201; `fsh30620` @ 537-540 -> 11050202; `fsh30630` @ 788-791 -> 11050203; `fsh30640` @ 821-824 -> 11050204; `fsh30650` @ 865-868 -> 11050205; `fsh30660` @ 930-933 -> 11050206 |
 | `gla200` | `lua/scripts/quest/scenario/gla/gla200.lua`; `AC3018F18FB763B9F30797E328382DB8981F678022C8536EB8E24EEAED01E71A` | `gla20010` @ 140-143 -> 11008001; `gla20020` @ 160-163 -> 11008002; `gla20030` @ 180-183 -> 11008003 |
 | `gla300` | `lua/scripts/quest/scenario/gla/gla300.lua`; `CBF6D4E26390A5BD7E532FB725F2335D2CCB6E52C6AB9A50B35E52E44EDEFB82` | `gla30010` @ 35-38 -> 11008101; `gla30020` @ 66-69 -> 11008102; `gla30030` @ 129-132 -> 11008103; `gla30040` @ 149-152 -> 11008104; `gla30050` @ 192-195 -> 11008105; `gla30060` @ 242-245 -> 11008106; `gla30070` @ 303-306 -> 11008107; `gla30080` @ 323-326 -> 11008108 |
 | `gla306` | `lua/scripts/quest/scenario/gla/gla306.lua`; `B3089EDB8FF203C43F9B86554299641490FAAB51470042F21A2D6AAFCC81DCD4` | `gla30610` @ 161-164 -> 11008201; `gla30620` @ 181-184 -> 11008203; `gla30615` @ 201-204 -> 11008202; `gla30630` @ 321-324 -> 11008204; `gla30640` @ 341-344 -> 11008205; `gla30650` @ 419-422 -> 11008206 |
@@ -66,7 +71,7 @@ An entry with `and` combines multiple call sites that use the same key.
 | `wdk300` | `lua/scripts/quest/scenario/wdk/wdk300.lua`; `C619545A31D7D6B39288CC9C3ABC5CD2BE0164A4238EA1DE25F8C32BC40BA90E` | `wdk30010` @ 88-91 -> 11030101; `wdk30020` @ 108-111 -> 11030102; `wdk30030` @ 149-152 -> 11030103; `wdk30040` @ 169-172 -> 11030104; `wdk30050` @ 189-192 -> 11030105; `wdk30060` @ 320-323 -> 11030106 |
 | `wdk306` | `lua/scripts/quest/scenario/wdk/wdk306.lua`; `723E60FFD6F22D9962363CA718ECE6C8E6B7DA1B0E56EC7DD3809D21CEAF3EEF` | `wdk30610` @ 123-126 -> 11030201; `wdk30620` @ 143-146 -> 11030202; `wdk30630` @ 243-246 -> 11030203; `wdk30640` @ 263-266 -> 11030204; `wdk30650` @ 283-286 -> 11030205; `wdk30660` @ 303-306 -> 11030206 |
 
-Across these 39 modules, the inventory contains 162 literal calls and 159
+Across these 41 modules, the inventory contains 176 literal calls and 173
 unique keys. Every listed key joins at least one row in the pinned table.
 Repeated calls and multiple table rows are preserved as observed; they do not
 prove repeated playback or shared runtime interpretation.
@@ -95,3 +100,110 @@ The caller and table join alone do not establish why a key crosses module
 families, whether any call was reached, or what the corresponding row means
 at runtime. No quest ownership, server route, activation condition, or
 historical playback conclusion is inferred.
+
+## Additional bounded module selection
+
+A second bounded set adds 74 modules beyond the 51 above. The source files and
+line locators below use the same `scripts.json` identities and exact
+`cutReplay.csv` field-1 join described above. The 74 files contain 331 direct
+literal references; `fsh300` and `fsh306` were rechecked as controls with 14
+more references. Across those 76 files there are 345 calls and 289
+unique literal keys: 269 keys join one or more rows, while 20 keys have no
+exact row. This produces 319 row-bearing call sites, 26 no-row call sites,
+and 273 distinct replay-row IDs. Ten case-only spelling differences affect
+12 calls; absent runtime alias evidence, those source literals remain
+unmatched. Only source-literal calls are recorded below. Two
+files, `man304` and `man402`, have no direct `startNQCutScene` field
+references; the other 72 contain at least one. This bounded selection is not
+a full-corpus absence audit.
+
+Each entry is `literal-key @ inclusive-source-lines -> replay-row-ID(s)`;
+`no row` means no exact-key match in the pinned table. Repeated source calls
+are preserved.
+
+| Module | Canonical source; SHA-256 | Direct literal calls and row joins |
+| --- | --- | --- |
+| `alc200` | `lua/scripts/quest/scenario/alc/alc200.lua`; `1DF269E26B25CF240A7D5C0AC6E27E13C60FEB649E62BED2EC31879ADACD08B5` | `alc20010` @ 60-63 -> 11042001; `alc20020` @ 164-169 -> 11042002; `alc20030` @ 191-196 -> 11042003 |
+| `arc200` | `lua/scripts/quest/scenario/arc/arc200.lua`; `E72052136CC3A647276D715A9AA9AFAB7D152C538DE06E419287EBCFC3CCD877` | `arc20010` @ 118-121 -> 11016001; `arc20020` @ 138-141 -> 11016002; `arc20030` @ 162-167 -> 11016003; `arc20040` @ 184-187 -> 11016004 |
+| `arc306` | `lua/scripts/quest/scenario/arc/arc306.lua`; `E0AFEC8EF21AB82564E68D803AF87677021197A3992FA5A89A1C308430EDBA8E` | `arc30610` @ 100-103 -> 11016201; `arc30620` @ 120-123 -> 11016202; `arc30630` @ 140-143 -> 11016203; `arc30640` @ 160-163 -> 11016204; `arc30650` @ 180-183 -> 11016205 |
+| `blm0j1` | `lua/scripts/quest/scenario/blm/blm0j1.lua`; `0BA832CCFD467C31C09EF4B023C0BE3921BD5A4154E4574A9E75902BE8BE82C3` | `blm0j110` @ 386-389 -> 11126101; `blm0j120` @ 526-529 -> 11126102 |
+| `blm0j6` | `lua/scripts/quest/scenario/blm/blm0j6.lua`; `AEB8D06AA492D5BF8A597005DA955AEB55DF072067209728210F987FC739BC27` | `blm0j610` @ 827-830 -> 11126601; `blm0j620` @ 854-857 and 874-877 -> 11126602 |
+| `brd0j4` | `lua/scripts/quest/scenario/brd/brd0j4.lua`; `26A81B9A83D9299284FAEF28D658A5D33F1C207036DC16572D30778BD6DA04FB` | `brd0j410` @ 287-290 and 314-317 -> 11130401; `brd0j420` @ 334-337 -> 11130402 |
+| `brd0j6` | `lua/scripts/quest/scenario/brd/brd0j6.lua`; `99B986C51617C80B22471D35B2AD2BF7DD88587730CC215BD6BDC9F94596C8B3` | `brd0j610` @ 397-400 -> 11130601 |
+| `bsm200` | `lua/scripts/quest/scenario/bsm/bsm200.lua`; `AABE5F4A91722C0D8CF36351AF1D9FB8BC551335F199387B288032ED11D8483C` | `bsm20010` @ 196-201 -> 11032001, 11032002; `bsm20020` @ 218-221 -> 11032003 |
+| `bsm306` | `lua/scripts/quest/scenario/bsm/bsm306.lua`; `7961DD8E5DCEDEE84FC9B47520A00D5BD4EDE66E3810005B50B2F8A8F82BBB5F` | `bsm30610` @ 263-268 -> 11032201, 11032202; `bsm30620` @ 285-288 -> 11032203; `bsm30630` @ 301-304 -> 11032204; `bsm30640` @ 321-324 -> 11032205 |
+| `cnj306` | `lua/scripts/quest/scenario/cnj/cnj306.lua`; `DBF1B35B62117FDBFC90A082DC71472C5ACDDF5347603A8DDB06751A4ADB811A` | `cnj30610` @ 392-395 -> 11026201; `cnj30620` @ 499-502 -> 11026202; `cnj30630` @ 562-565 -> 11026203; `cnj30640` @ 636-639 -> 11026204; `cnj30650` @ 681-684 -> 11026205; `cnj30660` @ 701-704 -> 11026206; `cnj30670` @ 721-724 -> 11026207; `cnj30680` @ 978-981 -> 11026208; `cnj30690` @ 998-1001 and 1018-1021 -> 11026209 |
+| `com0g1` | `lua/scripts/quest/scenario/com/com0g1.lua`; `A8F8FFC69BE96E99E16ECED6AC6C8FAE7FD702EA5E4B78CBD99C60980F926AEF` | `COM0G105` @ 292-295 -> no row; `COM0G110` @ 320-325 -> no row |
+| `com0g4` | `lua/scripts/quest/scenario/com/com0g4.lua`; `B5FEEE327FBE8B03F474A5DA9DBA303520D28CCAA724FC4463B65438FE910F7E` | `com0g410` @ 551-554 -> 11160401 |
+| `com0g5` | `lua/scripts/quest/scenario/com/com0g5.lua`; `7217C217B432346737096FCE288651426C8029462905E9DFAD52FA0F96E9A373` | `com0g610` @ 222-225 -> 11160501 |
+| `com0g6` | `lua/scripts/quest/scenario/com/com0g6.lua`; `5378A3764D799F21DE962D0FAFD451A29C5539D26A443D1AFEA63FC573C4A644` | `COM0G510` @ 954-957 -> no row |
+| `com0l1` | `lua/scripts/quest/scenario/com/com0l1.lua`; `9074D51B77C895376B0880D12488EE0D1773A2AC611363F4AD7AA02DF8C6EBFE` | `COM0L105` @ 293-296 -> no row; `COM0l110` @ 471-476 -> no row |
+| `com0l4` | `lua/scripts/quest/scenario/com/com0l4.lua`; `B986AFF3363BF9C5916AB2E096B2343528278FB91D37265825C36190E35E680D` | `com0l410` @ 619-622 -> 11140401 |
+| `com0l5` | `lua/scripts/quest/scenario/com/com0l5.lua`; `D250DE2089F898219B19318D268D24AD1222C8C24577009BE4B782461CBED3D3` | `COM0l110` @ 390-394 -> no row; `elv0l110` @ 676-680 -> no row; `com0l610` @ 682-686 -> 11140501; `elv0l110` @ 733-737 -> no row |
+| `com0l6` | `lua/scripts/quest/scenario/com/com0l6.lua`; `B491A913CCB6323FD06F33AD914DBA84EBCDA6C095C2685025CDD62B847BF893` | `com0l510` @ 487-492 -> 11140601; `elv0l01a` @ 1001-1005 -> no row; `elv0l02a` @ 1023-1027 -> no row |
+| `com0u1` | `lua/scripts/quest/scenario/com/com0u1.lua`; `4B70ABC5299BC1F2B816AE46B933DFA513EF262A4DD369F4196211B550059CA9` | `COM0U105` @ 263-266 -> no row; `COM0U110` @ 290-295 -> no row |
+| `com0u4` | `lua/scripts/quest/scenario/com/com0u4.lua`; `8CE38A9BDEBA006F146F5D281CC21C45B58DEACACA2A508631216BCF45583CBA` | `com0u410` @ 524-527 -> 11180401 |
+| `com0u5` | `lua/scripts/quest/scenario/com/com0u5.lua`; `A00382D68B8DC0198E4F244D461F678A2D0B97DCC485CCE113A4D4F1DE91F22E` | `com0u610` @ 681-684 -> 11180501 |
+| `com0u6` | `lua/scripts/quest/scenario/com/com0u6.lua`; `C7310059A36EF32D2A5DB013FBD94D41907995CEAC8EF1B71C22A8BAC57F5B7C` | `com0u510` @ 423-428 -> 11180601; `elv0u01a` @ 890-894 -> no row; `elv0u02a` @ 912-916 -> no row |
+| `drg0j1` | `lua/scripts/quest/scenario/drg/drg0j1.lua`; `FA02792E6F1EB30FDB0F969EE93D0297277D75765F2E0EF3A4DE649F5B5C869E` | `drg0j110` @ 603-606 -> 11132101 |
+| `drg0j4` | `lua/scripts/quest/scenario/drg/drg0j4.lua`; `F704B33562D944A1DD1F1449FAFC14BEA353678E9ED004E6EE8E351AD7A630CF` | `Drg0j410` @ 168-171 -> no row |
+| `drg0j6` | `lua/scripts/quest/scenario/drg/drg0j6.lua`; `529D76BBD4830921D4211EF405E08B2881A0B7249BFFDC5EDF6EBA6942972733` | `Drg0j610` @ 159-162 -> no row; `Drg0j620` @ 194-197 and 214-217 -> no row |
+| `etc304` | `lua/scripts/quest/scenario/etc/etc304.lua`; `470B87D0ECBAB44CA86F5D073082ED8EF98096A77A9EC3F6A046284F3DEFC03B` | `gc010810` @ 308-313 -> 11086901; `gc010820` @ 381-385 -> 11086902; `gc010830` @ 399-403 -> 11086903; `gc010840` @ 417-421 -> 11086905; `gc010850` @ 435-440 -> 11086904; `gc010860` @ 467-471 -> 11086906 |
+| `etc3g2` | `lua/scripts/quest/scenario/etc/etc3g2.lua`; `CB2EDD30C6FFEC1FFF42D34F934CE3158AC27FAC5C2943D7FE010DEDC868364E` | `etc3g210` @ 421-424 -> 11073601 |
+| `gcg102` | `lua/scripts/quest/scenario/gcg/gcg102.lua`; `3BB5A88A88D28E7D302DE934836F294F0342C99272D14A4BEB756AB8B7837495` | `gc01g210` @ 495-498 -> 11162701 |
+| `gcl102` | `lua/scripts/quest/scenario/gcl/gcl102.lua`; `89DEF899D0E3CD992C6B660D344AC661A0837E5E69745B16576A481F7953CF27` | `gc01l210` @ 456-459 -> 11142701 |
+| `gcu102` | `lua/scripts/quest/scenario/gcu/gcu102.lua`; `D89B813B4713021BA5A0EAD4F9AAD90F9D5868168549A57503E6E16B48175E11` | `gc01u210` @ 532-535 -> 11182701; `elv0u01a` @ 995-999 -> no row; `elv0u02a` @ 1017-1021 -> no row |
+| `gld200` | `lua/scripts/quest/scenario/gld/gld200.lua`; `497ECDCA1F9A2CE287060183A6254C141ED6D5F7CFC1454F689603FCE3901F33` | `gld20020` @ 184-187 -> 11036001; `gld20030` @ 204-207 -> 11036002; `gld20040` @ 224-227 -> 11036003; `gld20050` @ 287-290 -> 11036004 |
+| `gld306` | `lua/scripts/quest/scenario/gld/gld306.lua`; `12376F2B7FE8AAD0E80422D2B91C0620D5A986D5D27FCC0D2DF3F5510357FDB0` | `gld30610` @ 30-33 -> 11036201; `gld30615` @ 111-114 -> 11036202; `gld30620` @ 131-134 -> 11036203; `gld30630` @ 194-197 -> 11036204 |
+| `hrv200` | `lua/scripts/quest/scenario/hrv/hrv200.lua`; `8D7C922D5DA254B5D151041F48FA184FBD583E8C3E50A17FF2B3B169F4D3457B` | `hrv20010` @ 128-131 -> 11048001; `hrv20020` @ 148-151 and 168-171 -> 11048002; `hrv20030` @ 188-191 -> 11048003 |
+| `hrv300` | `lua/scripts/quest/scenario/hrv/hrv300.lua`; `D6C61E5C5FCD01F5A02DBCE42FED2473E00BB81D256BE665B828E8C98E75949B` | `hrv30010` @ 106-109 -> 11048101; `hrv30020` @ 354-357 -> 11048102; `hrv30030` @ 467-470 -> 11048103; `hrv30040` @ 508-511 -> 11048104 |
+| `hrv306` | `lua/scripts/quest/scenario/hrv/hrv306.lua`; `27D5E6360FABE9FFE462D9818F32EB5A4E21B591E6E644103D0A913E330BA090` | `hrv30610` @ 88-91 -> 11048201; `hrv30620` @ 116-119 -> 11048202; `hrv30630` @ 136-140 -> 11048203, 11048204; `hrv30640` @ 314-317 -> 11048205; `hrv30650` @ 385-388 -> 11048206; `hrv30660` @ 405-408 -> 11048207; `hrv30670` @ 425-428 -> 11048208 |
+| `lnc306` | `lua/scripts/quest/scenario/lnc/lnc306.lua`; `3DA0281274E9B9700D9700E47EC197736DAB92D39D9585F2CAA39AD3DB03C626` | `lnc30610` @ 82-85 -> 11018201; `lnc30620` @ 102-105 -> 11018202; `lnc30630` @ 122-125 -> 11018203; `lnc30640` @ 182-185 -> 11018204; `lnc30650` @ 202-205 -> 11018205 |
+| `man0g1` | `lua/scripts/quest/scenario/man/man0g1.lua`; `8B0988C285974162A150638156826605B75E093C9F6EB8F33B99B6D139A195B8` | `man0g100` @ 30-33 -> 11000601; `man0g110` @ 303-306 -> 11000602; `man0g120` @ 571-574 -> 11000603; `man0g130` @ 697-700 -> 11000604; `man0g135` @ 926-929 and 946-949 -> 11000605; `man0g140` @ 1038-1041 -> 11000606; `man0g150` @ 1415-1418 -> 11000607; `man0g160` @ 1488-1491 -> 11000608; `man0g170` @ 1508-1511 -> 11000609; `man0g180` @ 1528-1531 -> 11000610; `man0g181` @ 1569-1572 -> 11000611; `man0g182` @ 1589-1592 -> 11000612; `man0g185` @ 1636-1639 -> 11000613; `man0g190` @ 1689-1692 -> 11000614; `man0g200` @ 1730-1733 -> 11000615; `man0g210` @ 1918-1921 -> 11000616; `man0g220` @ 1959-1962 -> 11000617 |
+| `man0l1` | `lua/scripts/quest/scenario/man/man0l1.lua`; `FEA9C9359AC610737BE1B5910D473D98F5174512DDF01F0B730F9E0F608F8C67` | `man0l110` @ 30-33 and 2740-2743 -> 11000201; `man0l120` @ 253-256 and 2754-2757 -> 11000202; `man0l130` @ 581-584 and 2768-2771 -> 11000203; `man0l140` @ 701-704 and 2782-2785 -> 11000204; `man0l150` @ 748-751 and 2796-2799 -> 11000205; `man0l160` @ 1130-1133 and 1150-1153 -> 11000206; `man0l600` @ 1236-1239 and 2824-2827 -> 11000207; `man0l604` @ 1657-1660 and 2838-2841 -> 11000208; `man0l605` @ 1707-1710 and 2852-2855 -> 11000209; `man0l610` @ 1740-1743 and 2866-2869 -> 11000210; `man0l615` @ 1773-1776 and 2880-2883 -> 11000211; `man0l620` @ 1820-1823 and 2894-2897 -> 11000212; `man0l630` @ 1890-1893 and 2908-2911 -> 11000213; `man0l635` @ 2166-2169 and 2922-2925 -> 11000214; `man0l420` @ 2810-2813 -> no row; `man0l640` @ 2936-2939 -> no row; `man0l650` @ 2950-2953 -> no row |
+| `man0u1` | `lua/scripts/quest/scenario/man/man0u1.lua`; `31FC9EBF234B4945F3CBBE6B7C5F1493C659A2A584D508C778F9351089FEB10A` | `man0u100` @ 30-35 -> 11001001; `man0u110` @ 332-335 -> 11001002; `man0u120` @ 666-669 -> 11001003; `man0u130` @ 732-735 -> 11001004; `man0u135` @ 1104-1107 -> 11001005; `man0u140` @ 1124-1127 and 1144-1147 -> 11001006; `man0u150` @ 1209-1212 -> 11001007; `man0u160` @ 1880-1883 -> 11001008; `man0u170` @ 2026-2029 -> 11001009; `man0u175` @ 2046-2049 -> 11001010; `man0u180` @ 2066-2069 -> 11001011; `man0u190` @ 2315-2318 -> 11001012; `man0u200` @ 2324-2327 and 2344-2347 -> 11001013; `man0u205` @ 2391-2394 -> 11001014; `man0u210` @ 2471-2474 -> 11001015; `man0u220` @ 2644-2647 -> 11001016; `man0u230` @ 2664-2667 -> 11001017 |
+| `man1g0` | `lua/scripts/quest/scenario/man/man1g0.lua`; `9AD456BE9D6CCA4219EC3DCCB0A9ECA1DA7017BFAF0CE166276CA214AC91E6AA` | `man1g000` @ 30-33 -> 11000701; `man1g010` @ 77-80 -> 11000702; `man1g020` @ 262-265 -> 11000703; `man1g030` @ 345-348 -> 11000704; `man1g040` @ 365-368 -> 11000705; `man1g050` @ 412-415 -> 11000706; `man1g060` @ 459-462 -> 11000707; `man1g070` @ 500-503 -> 11000708; `man1g080` @ 520-523 -> 11000709; `man1g090` @ 582-585 -> 11000710; `man1g100` @ 692-695 -> 11000711 |
+| `man1l0` | `lua/scripts/quest/scenario/man/man1l0.lua`; `DB1FAE3A325BF813F8DC872A1985B421657FA85303C07F6633B2ECF1C2D8E131` | `man1l200` @ 30-33 and 1116-1119 -> 11000301; `man1l210` @ 201-204 and 1130-1133 -> 11000302; `man1l215` @ 221-224 -> 11000303; `man1l400` @ 268-271 and 1144-1147 -> 11000304; `man1l410` @ 392-395 and 1158-1161 -> 11000305; `man1l420` @ 492-495 -> 11000306; `man1l600` @ 539-542 and 1172-1175 -> 11000307; `man1l610` @ 605-610 and 1186-1189 -> 11000308; `man2l000` @ 654-659 -> 11000309; `man2l001` @ 943-946 -> 11000310; `man2l002` @ 963-966 -> 11000311 |
+| `man1u0` | `lua/scripts/quest/scenario/man/man1u0.lua`; `67233F2A2EF5F81EBCEF30F197950666132DD950BF09265C0765C5ED06A577B6` | `man1u000` @ 30-33 -> 11001101; `man1u010` @ 200-203 -> 11001102; `man1u020` @ 523-526 -> 11001103; `man1u021` @ 690-693 -> 11001104; `man1u030` @ 830-833 -> 11001105; `man1u040` @ 850-853 -> 11001106; `man1u050` @ 897-900 -> 11001107; `man1u060` @ 950-953 -> 11001108; `man1u070` @ 970-973 -> 11001109; `man1u080` @ 1146-1149 -> 11001110; `man1u090` @ 1187-1190 -> 11001111 |
+| `min200` | `lua/scripts/quest/scenario/min/min200.lua`; `A8FCFC80E18FA5BD0B6CC257499FA4B09F9A4895ACE3E8138085725E39B5F44D` | `min20010` @ 135-138 -> 11046001; `min20020` @ 302-305 -> 11046002; `min20030` @ 322-325 -> 11046003; `min20035` @ 416-419 -> 11046004 |
+| `min300` | `lua/scripts/quest/scenario/min/min300.lua`; `6C655557F1E3528EB7C89E18450BA435C1A2AB8791C37D3E0DFE57529DE906BB` | `min30010` @ 82-85 -> 11046101; `min30020` @ 150-153 -> 11046102; `min30030` @ 197-200 -> 11046103; `min30040` @ 217-220 -> 11046104; `min30050` @ 237-240 -> 11046105; `min30060` @ 270-273 -> 11046106; `min30070` @ 316-319 -> 11046107 |
+| `mnk0j1` | `lua/scripts/quest/scenario/mnk/mnk0j1.lua`; `05BD79480BBDDE017B8AB37E4054136046F9814B95E9353DF8744B78F1846779` | `mnk0j110` @ 360-363 -> 11122101 |
+| `mnk0j6` | `lua/scripts/quest/scenario/mnk/mnk0j6.lua`; `875D773E291211A91912159BBD2AE5C83004364937A8198D08D8EA15F53100C5` | `mnk0j610` @ 408-411 -> 11122601; `mnk0j620` @ 435-438 -> 11122602 |
+| `pgl200` | `lua/scripts/quest/scenario/pgl/pgl200.lua`; `52019BBDE88285ECA89B10C7EF74626536CFFBB772961489BCAD5927AE288BFA` | `pgl20010` @ 121-124 -> 11006001; `pgl20020` @ 153-156 -> 11006002; `pgl20030` @ 178-181 -> 11006003; `pgl20040` @ 224-227 -> 11006004; `pgl20050` @ 255-258 -> 11006005; `pgl20060` @ 275-278 -> 11006006; `pgl20070` @ 295-298 -> 11006007 |
+| `pld0j1` | `lua/scripts/quest/scenario/pld/pld0j1.lua`; `6E623C417E2D317606F82A2CF1EBE481E3474C06199EAC106D5EC082AC74EAAF` | `pld0j110` @ 330-333 and 370-373 -> 11128101 |
+| `pld0j5` | `lua/scripts/quest/scenario/pld/pld0j5.lua`; `5D51DE1AF192A8A5BEAC939F5186D13BDC0F9C26340E6C372A299DB8117C5107` | `pld0j510` @ 147-150 -> 11128501; `pld0j520` @ 174-177 -> 11128502 |
+| `pld0j6` | `lua/scripts/quest/scenario/pld/pld0j6.lua`; `BF21AD4B8303C27F02CCE4BD43ED296C493AC39C22F608D46C9830B09FCBE7F0` | `pld0j610` @ 459-462 -> 11128601; `pld0j620` @ 486-489 and 506-509 -> 11128602 |
+| `spl0i4` | `lua/scripts/quest/scenario/spl/spl0i4.lua`; `E7F5417070562D687851EDBC0B873B3DC86EBEA88B4586BC22B4B432DF088FC2` | `spl0i410` @ 251-254 -> 11080201 |
+| `war0j3` | `lua/scripts/quest/scenario/war/war0j3.lua`; `B4DDEC6CF017B82B82FA10E85602D79D447A6C4DA6BB903B91FBEE6F2C88525D` | `war0j310` @ 217-222 -> 11120301 |
+| `whm0j1` | `lua/scripts/quest/scenario/whm/whm0j1.lua`; `8DCD654151A97E05DA0A502AA78E37D9C4374A5B57A984A5FB093AD2528455CB` | `whm0j110` @ 437-440 -> 11124101 |
+| `whm0j2` | `lua/scripts/quest/scenario/whm/whm0j2.lua`; `0706DCB5E5DE02900F5D197348667AEF679E93B3F95EAAACCCAC934DC0740912` | `whm0j210` @ 35-38 -> 11124201 |
+| `whm0j4` | `lua/scripts/quest/scenario/whm/whm0j4.lua`; `7A3048873BCAFED7A159FD5811119EFBA5A1EC3C54D8065FDCB225AA8833B9EA` | `whm0j410` @ 379-382 -> 11124401 |
+| `whm0j6` | `lua/scripts/quest/scenario/whm/whm0j6.lua`; `894C00C20B7C6AD83CBC79AA44D32A1111C949AD6817A0F71E738D4C867DD959` | `whm0j605` @ 280-283 -> 11124601; `whm0j610` @ 447-450 and 741-744 -> 11124602 |
+| `wvr200` | `lua/scripts/quest/scenario/wvr/wvr200.lua`; `386D3E89234978AC21294904094227668A094D09FF1B8904434A981852EC5ACD` | `wvr20010` @ 134-137 -> 11040001; `wvr20020` @ 154-157 -> 11040002; `wvr20030` @ 174-177 -> 11040003 |
+| `wvr300` | `lua/scripts/quest/scenario/wvr/wvr300.lua`; `5D762A20B51564D11CACC9A03EF344D3636F7CB51C2E86FCC3CBB0559C67450C` | `wvr30010` @ 30-33 -> 11040101; `wvr30020` @ 300-303 -> 11040102 |
+| `wvr306` | `lua/scripts/quest/scenario/wvr/wvr306.lua`; `B7F9F53BB0D868048D652D8F91ED14AFF50927514B9BB1C1AAE8A73F9446F9D0` | `wvr30610` @ 156-159 -> 11040201; `wvr30620` @ 176-179 -> 11040202; `wvr30630` @ 196-199 -> 11040203 |
+
+The remaining 15 modules in this bounded set are listed below. Only direct Lua
+literals are recorded, with exact-key joins to the pinned table.
+
+| Module | Canonical source; SHA-256 | Direct source calls and row joins |
+| --- | --- | --- |
+| `man0g0` | `lua/scripts/quest/scenario/man/man0g0.lua`; `BD367F6606CFF7EB4D43D76B15726B5075B3BF786E53C4B8EBF64D90DD65FD0B` | `man0g005` @ 432-435 and 658-661 -> 11000502 |
+| `man0l0` | `lua/scripts/quest/scenario/man/man0l0.lua`; `0F3165390756B2DAF960B978E3C05F094B1FF1A068E3468757A82A6AD3F25F39` | `man0l005` @ 970-973 and 1239-1242 -> 11000102 |
+| `man0u0` | `lua/scripts/quest/scenario/man/man0u0.lua`; `0CA29669ACAB5E7F5CCF12A5AE1F692552E51F308D9DC704E2B161E57907A71F` | `man0u005` @ 744-747 and 1015-1018 -> 11000902 |
+| `man200` | `lua/scripts/quest/scenario/man/man200.lua`; `42CE1C6D33E093E262A88EE9BECC294C4BF2E9DE40FF945EB4830DC3A598EDB6` | `man20140` @ 1393-1403 and 1542-1552 -> no row |
+| `man206` | `lua/scripts/quest/scenario/man/man206.lua`; `C353741B99093F8A3414D2CD3A668FF356C21EF72F2E01F366184E9BDF934256` | `man20600` @ 30-33 -> 11001401; `man20601` @ 254-257 -> 11001402; `man20640` @ 1149-1152 -> 11001408 |
+| `man2g0` | `lua/scripts/quest/scenario/man/man2g0.lua`; `52421271441FF2B253C4150EC5154601D0013EAB9ECD1F75200F6FD14F55B90A` | `man1g900` @ 110-113 -> 11000801; `man2g010` @ 238-241 -> 11000803; `man2g020` @ 279-282 -> 11000804; `man2g030` @ 373-376 -> 11000805; `man2g040` @ 567-570 -> 11000806; `man2g050` @ 742-745 -> 11000807; `man2g060` @ 789-792 -> 11000808; `man2g070` @ 1352-1355 -> 11000809; `man2g080` @ 1414-1417 -> 11000810; `man2g095` @ 1424-1427 -> 11000812; `man2g100` @ 1429-1432 -> 11000813 |
+| `man2l0` | `lua/scripts/quest/scenario/man/man2l0.lua`; `307F73A32656EB7ED65BF3B6F57184A9AB8CEAFF063C10800D6AE52F3AC67966` | `man2l030` @ 808-811 -> 11000407; `man2l090` @ 906-909 -> 11000414 |
+| `man2u0` | `lua/scripts/quest/scenario/man/man2u0.lua`; `7EB43E5B29ACC9E9B76164C568A5EAB3049599F93FCBAB2A45F67C9F6859DEE7` | `man2u000` @ 96-99 -> 11001201; `man2u010` @ 101-104 -> 11001202; `man2u030` @ 258-261 -> 11001204; `man2u040` @ 311-314 -> 11001205; `man2u050` @ 415-418 -> 11001206; `man2u060` @ 456-459 -> 11001207; `man2u070` @ 509-512 -> 11001208; `man2u080` @ 556-559 -> 11001209; `man2u085` @ 576-579 -> 11001210; `man2u100` @ 586-589 -> 11001212; `man2u110` @ 591-594 -> 11001213 |
+| `man300` | `lua/scripts/quest/scenario/man/man300.lua`; `965E584C459535E6862F5534ECBEF2B12FAAF6963441DD3F90494D9286FAFECB` | `man30000` @ 30-33 -> 11001501; `man30010` @ 450-453 -> 11001502 |
+| `man304` | `lua/scripts/quest/scenario/man/man304.lua`; `1967477F272DFC1E474382C67AAAE2128F61C7D5CCB1BA999DF7B6938B6DBD03` | No direct `startNQCutScene` field references or calls found |
+| `man308` | `lua/scripts/quest/scenario/man/man308.lua`; `9A63E78A281C233783C8E18BA280FE88CE664E14DCE01D36125CF36FC6DF7E9B` | `man30890` @ 1030-1033 -> 11001708 |
+| `man402` | `lua/scripts/quest/scenario/man/man402.lua`; `8EEC243C2F79A4F3D557963A905FFB0380C3AD3817487DC7F7C386F365ED0FBB` | No direct `startNQCutScene` field references or calls found |
+| `man406` | `lua/scripts/quest/scenario/man/man406.lua`; `031BAE3D9927529A89A3540F8F0781F52B5A75FA566C705E42D50B9D6C5E389B` | `man40620` @ 746-749 -> 11001904; `man40645` @ 818-821 -> no row |
+| `min306` | `lua/scripts/quest/scenario/min/min306.lua`; `8DBF495BC661232737BE08031396C05DAE1FB0F33376258B9EEA46A57ED48D12` | `min30610` @ 102-105 -> 11046201; `min30620` @ 122-125 -> 11046202; `min30630` @ 142-145 -> 11046203; `min30640` @ 189-192 -> 11046204 |
+| `war0j6` | `lua/scripts/quest/scenario/war/war0j6.lua`; `45C1373FB1F69305D7B713B5418D1C5ED72F5EEA9E1ECC80552A91742D6C86F5` | `war0j610` @ 199-202 -> 11120601; `war0j620` @ 244-247 -> 11120602 |
+
+Across these additional source files, literal calls establish only source-level
+call presence and exact table joins. They do not establish reachability,
+dispatch, quest ownership, playback, reward, or historical runtime behavior.
