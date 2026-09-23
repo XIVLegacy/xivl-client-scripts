@@ -97,6 +97,17 @@ binding.
 Source: `lua/scripts/quest/scenario/blm/blm0j3.lua`, methods
 `processEvent000` and `processEvent005`.
 
+`Blm0j4.processEventDOZOLMELOCStart` has two independent client choices.
+Its `ask` of row 29, mode 2, selects row 3 versus row 32 early in the talk
+(PCs 16-17, `0x474-0x478`). A later `showQuestInfomation` call independently
+selects row 15 versus row 14 (PCs 110-111, `0x5EC-0x5F0`); the saved offer
+result is returned after the talk. One choice cannot stand in for the other,
+and neither proves an authoritative quest gate. Source:
+`lua/scripts/quest/scenario/blm/blm0j4.lua`, installed
+`tp5rq/r75w9s1v/8yx/8yxj0f.le.lpb` (decoded SHA-256
+`0e712e06d0b2fcc2185eb00a6a9d4614705155f6f7e21249dcccbb8158a0feb8`).
+The donor raw chunk matches the installed decoded LPB exactly.
+
 ### Paladin
 
 `Pld0j1.processEvent010` and `processEvent015` both play scene `pld0j110`,
