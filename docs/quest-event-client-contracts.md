@@ -232,6 +232,26 @@ the other slots. The contributor's proposed nickname, skin, personality,
 coordinate, and town tuple is a server-side candidate; this client body
 does not establish that tuple or an actor owner for any wrapper.
 
+## DftSrt travel scene wrapper
+
+The installed
+`client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qrsq.le.lpb` has
+SHA-256
+`989d8f897dbe769090ef7d90eb35fbe4b061ef2314bba24be23d85c4bea729b6`.
+The independently recovered
+`tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/defaulttalk/dftsrt.lua`
+has SHA-256
+`9607626c04f19ad4be53ee433872b43adf3ee0f52789a94d83dac4db30cbaa0a`;
+its decoded bytecode has SHA-256
+`72762bfbe567a34af198bcf342f42581e2ce83abb65a46a034a5472fe35a17e7`.
+The `eventDeparture` bytecode confirms this order: fade out the local
+player; call `startNQCutScene` on the method's fourth argument with mode
+1; call it again on the fifth argument only when that argument is nonnull;
+then fade in after warp. The method does not hardcode either installed
+`vsl*` scene key, a route, destination, or server event owner. Its optional
+second scene argument is not proof of an arrival movie or of historical
+two-scene ferry playback.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint
