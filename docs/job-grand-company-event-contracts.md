@@ -343,6 +343,28 @@ named start methods. Company/rank widget calls are at PCs 110, 115, and 102.
 These values describe client presentation, not an authoritative enlistment
 condition or a retail-observed acceptance.
 
+### Seal tutorial status widget
+
+The separate `Com0*2` start methods open the Grand Company status widget
+with their company argument, then set its displayed points to 0. Their
+paired end/final methods set the displayed points to 250 and close the
+widget after a wait. The installed LPBs decode byte-for-byte to the
+recovered chunks:
+
+| Script / installed LPB leaf | Start / open argument | End method | Decoded SHA-256 |
+| --- | --- | --- | --- |
+| `Com0l2` / `7vxjyh.le.lpb` | `processEventGUINCUMStart` / 1 | `processEventGUINCUMEnd` | `e73740a8efeecd5609e9ba47dd1404b58350350585dc0919c79b96c7f48629a1` |
+| `Com0g2` / `7vxj3h.le.lpb` | `processEventFulkeStart` / 2 | `processEventFulkeEnd` | `cd98f56dd6cc8b364537b6125be17ec67cc64f209a24e2520fab3a6a5a84bf57` |
+| `Com0u2` / `7vxjph.le.lpb` | `processEventAUBREYStart` / 3 | `processEventAUBREYFinal` | `80c320cafa8fc3448dc5d99ab4db6fc889630e5155aa5d18ee260ba0e80371ec` |
+
+The source locators are `lua/scripts/quest/scenario/com/com0l2.lua`,
+`com0g2.lua`, and `com0u2.lua`; their `.calls.json` sidecars give the
+full ciphered paths. In the decoded bytecode, the start open/set calls
+are at PCs 58/62, 53/57, and 56/60, respectively. The paired set/close
+calls are at PCs 4/11, 4/11, and 1/8. These values are client UI
+operations, not evidence that 250 seals were granted or that a failed
+server transaction closed the widget.
+
 The three level-40 company scripts are separate scenario classes with
 different salutes, speakers, branches, and movie ownership. Similar quest
 roles do not justify sharing one client flow.
