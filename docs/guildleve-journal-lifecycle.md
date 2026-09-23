@@ -170,6 +170,26 @@ payload SHA-256 values are pinned in
 `manifests/retail_lua_coverage.json:8187-8191`
 (`453A18028DBC5D1883954EA33EA1494DE1D83947212EE96DDDADA9DB8232D252`).
 
+### Level-selection widget
+
+The parent and child choice-4 branches pass their eighth argument minus one
+to `Ask/GuildleveSelectLevelWidget` in mode 1. Its `initAsk` argument defaults
+to 5 when nil. Level 1 is always confirmable; levels 2 through 5 are
+confirmable only when the preceding integer is less than that argument, and
+otherwise are hidden. The widget sets the title from text ID 50015, uses IDs
+50016 through 50020 for the five level labels, and sets the cancel control
+from ID 50021. Operating a level control sets the base ask result to its
+number from 1 through 5; both the cancel control and cancel handler set it to
+-1.
+
+This identifies the level-selection control and result values, not the
+semantic scale of the argument or a guildleve difficulty formula.
+
+Evidence: `lua/scripts/widget/ask/guildleveselectlevelwidget.lua`; its decoded
+payload SHA-256 is
+`6172439C2F0C9EB2ABF7833452EC4BF36B60C13CE971EF02F0389EE19CE3F986`, pinned
+at `manifests/retail_lua_coverage.json:26348-26355`.
+
 ## Completion and hand-in presentation
 
 `AetheryteBaseClass.eventGLReward` receives 12 arguments after self. It copies
