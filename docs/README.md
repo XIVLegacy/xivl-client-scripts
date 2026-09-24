@@ -16,6 +16,7 @@ charter, and contribution policy.
 | Content director UI contracts | [content-director-ui-contracts.md](content-director-ui-contracts.md) |
 | Content command client route | [content-command-client-route.md](content-command-client-route.md) |
 | Player command event routes | [player-command-event-routes.md](player-command-event-routes.md) |
+| TalkCommand client contract | [talk-command-client-contract.md](talk-command-client-contract.md) |
 | Chocobo mount script contracts | [chocobo-mount-script-contracts.md](chocobo-mount-script-contracts.md) |
 | Area-base client initialization | [area-base-client-initialization.md](area-base-client-initialization.md) |
 | Cutscene replay and skip contract | [cutscene-replay-skip-contract.md](cutscene-replay-skip-contract.md) |
