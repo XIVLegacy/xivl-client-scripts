@@ -102,6 +102,19 @@ skip, UI, widget, and finalization methods used by that bridge. The sequence
 does not identify a particular scene resource, server trigger, actor roster,
 world transform, or duration.
 
+In the independently decompiled `gamedata/cutscene_common.lua`,
+`startCutScene` (lines 737-912) orders the requested desktop-widget mode only
+when `A1 == 1` and its translated `L5` flag is false. The literal
+`(1, 61, 1)` call above meets that gate: `A3 == 1` sets `L5` false. Skip is
+shown only on the play path when `A1 == 1` and the normalized `A3 == 1`, also
+true for that call; the wrapper then dispatches `_play` or `_replay`. The
+reviewed body contains no explicit first-view-state or party-size lookup. Its
+`_play` shim in `gamedata/cutscene_u.lua` delegates to `_play_cpp`; a
+caller-supplied argument could still encode state, and native playback or
+server policy is not established by this Lua boundary. Exact decompile and
+canonical script hashes are recorded in
+[`raid_object_client_contracts.json`](../manifests/raid_object_client_contracts.json).
+
 ## Evidence boundary
 
 The independent source manifest records decoded byte counts and 1.23b

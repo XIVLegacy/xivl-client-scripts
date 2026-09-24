@@ -104,6 +104,15 @@
         "judge/preface/cutsceneoncebeaconprefacejudge.lua:1-10",
         "lua/scripts/judge/preface/cutsceneoncebeaconprefacejudge.calls.json"
       ]
+    },
+    {
+      "id": "cutscene-start-wrapper-boundary",
+      "support": "startCutScene orders desktop-widget mode only when A1 == 1 and translated L5 == false; A3 == 1 sets L5 false, so the literal (1, 61, 1) call satisfies this gate. Skip is shown only on the play path when A1 == 1 and normalized A3 == 1, also satisfied by that call; the wrapper dispatches _play or _replay. Its recovered Lua body contains no explicit first-view-state or party-size lookup.",
+      "sources": [
+        "gamedata/cutscene_common.lua:737-912 (decompile SHA-256 b4cac0ff7bb1c86071c532a44ea0a861e56347f79ebf1285348fa66cb9aa42af; canonical script SHA-256 f6db9559b3f805d2738c073c7db9dd102fd5c33a056e789ff2fb2f8aff395bd1)",
+        "gamedata/cutscene_u.lua:16-22 (decompile SHA-256 3ead447af6f5bda0af8c77559b7f4407155fabe6c4dc5709ac6e19e1e01dc916; canonical script SHA-256 6115e860a9d927cf97447cd954966517fbbc091ecc9cc392b7edf26f255881a2)"
+      ],
+      "unresolved": "A caller-supplied argument may encode state. The _play_cpp implementation and original server dispatch policy are not recovered here; this Lua-only absence does not establish the absence of first-view or party-size rules in another layer."
     }
   ],
   "rejectedInterpretations": [
