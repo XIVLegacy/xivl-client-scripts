@@ -48,6 +48,7 @@ charter, and contribution policy.
 | Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Retainer widget results | [retainer-widget-results.md](retainer-widget-results.md) |
+| Reward and delivery widget results | [reward-widget-result-contracts.md](reward-widget-result-contracts.md) |
 | Market search and bazaar client contracts | [market-search-bazaar-client-contracts.md](market-search-bazaar-client-contracts.md) |
 | Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
 | Quest scene literal and replay-row joins | [quest-scene-replay-joins.md](quest-scene-replay-joins.md) |
