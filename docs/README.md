@@ -34,6 +34,7 @@ charter, and contribution policy.
 | Aetheryte object events | [aetheryte-object-event-contracts.md](aetheryte-object-event-contracts.md) |
 | Hamlet supply and score UI | [hamlet-supply-ui-contract.md](hamlet-supply-ui-contract.md) |
 | Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
+| Item-storage widget contracts | [item-storage-widget-contracts.md](item-storage-widget-contracts.md) |
 | Job and Grand Company event contracts | [job-grand-company-event-contracts.md](job-grand-company-event-contracts.md) |
 | Map-object door client contract | [map-object-door-client-contract.md](map-object-door-client-contract.md) |
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
@@ -47,6 +48,7 @@ charter, and contribution policy.
 | Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
 | Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
 | Retainer widget results | [retainer-widget-results.md](retainer-widget-results.md) |
+| Market search and bazaar client contracts | [market-search-bazaar-client-contracts.md](market-search-bazaar-client-contracts.md) |
 | Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
 | Quest scene literal and replay-row joins | [quest-scene-replay-joins.md](quest-scene-replay-joins.md) |
 | Seasonal quest client contracts | [seasonal-quest-client-contracts.md](seasonal-quest-client-contracts.md) |
