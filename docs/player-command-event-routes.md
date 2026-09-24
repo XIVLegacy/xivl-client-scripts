@@ -18,6 +18,10 @@ The static-actor class-path manifest maps `12014` and `12015` to
 client dispatch path, not the server meaning of `26005`, a historical command
 invocation, or the runtime effect of executing `12015`.
 
+The static actor `320013` predicates and `ChocoboRideCommand.canFireDetail`
+gates are documented with their LPB identities in
+[`chocobo-mount-script-contracts.md`](chocobo-mount-script-contracts.md).
+
 Evidence:
 
 - `lua/scripts/chara/player/playerbaseclass.lua:1823-1881,3011-3020`; source
