@@ -237,7 +237,7 @@
     },
     {
       "id": "hamlet-defense-widget-contract",
-      "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available. After the initialized base director receives packet selector 3, Hamlet processUserMessage selectors 1-10 update retained UI fields or call the popup; selector 5 maps numeric 0 to line status 3, numeric 1 to 2, and other values to 1. The HUD maps line/goods status 1/2/3 to normal/danger/fall-or-lost and receives battleValue with maximum 100. These are bytecode-backed client mechanics, not a server adapter or historical runtime packet contract.",
+      "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available. After the initialized base director receives packet selector 3, Hamlet processUserMessage selectors 1-10 update retained UI fields or route through the director's popup/notification helper; selector 5 maps numeric 0 to line status 3, numeric 1 to 2, and other values to 1. The HUD maps line/goods status 1/2/3 to normal/danger/fall-or-lost and receives battleValue with maximum 100. These are bytecode-backed client mechanics, not a server adapter or historical runtime packet contract.",
       "sources": [
         "director/instanceraid/instanceraidhamletdefense.lua:11-193",
         "director/instanceraid/instanceraidhamletdefense.lua:247-570",

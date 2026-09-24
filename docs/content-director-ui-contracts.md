@@ -182,7 +182,7 @@ first forwarded value selects these client-side updates:
 | 7 | Stores the first value as `cargoTarget`. |
 | 8 | Sets `bossFlag` to true. |
 | 9 | Stores the first value as `battleValue`; the HUD refresh passes it to `cmdSetWarPotentialValue` with maximum 100. |
-| 10 | Forwards the remaining values to the popup widget's `dispInformation` method, then returns. The values' notice-ID meanings are not established here. |
+| 10 | Calls the director's `dispInformation` helper with the remaining values, then returns. The helper sends a `worldMaster:notify` call and, when the popup widget exists, calls its `dispInformation` using a lookup-table entry and the Hamlet ID. The notice-ID meanings are not established here. |
 
 The HUD maps line-status values 1/2/3 to normal, danger, and line-fall
 commands; goods-status values 1/2/3 map to normal, danger, and goods-lost

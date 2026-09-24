@@ -15,6 +15,7 @@ charter, and contribution policy.
 | Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
 | Content director UI contracts | [content-director-ui-contracts.md](content-director-ui-contracts.md) |
 | Content command client route | [content-command-client-route.md](content-command-client-route.md) |
+| Player command event routes | [player-command-event-routes.md](player-command-event-routes.md) |
 | Cutscene replay and skip contract | [cutscene-replay-skip-contract.md](cutscene-replay-skip-contract.md) |
 | Inn bed client hook | [inn-bed-client-hook.md](inn-bed-client-hook.md) |
 | Dungeon exit client contracts | [dungeon-exit-client-contracts.md](dungeon-exit-client-contracts.md) |
