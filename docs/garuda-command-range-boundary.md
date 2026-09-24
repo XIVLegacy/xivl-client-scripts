@@ -18,8 +18,12 @@ and inherits `WeaponSkillBaseClass` then `BattleCommandBaseClass`;
 Garuda angle override.
 
 The five relevant `.le.lpb` files were decoded with
-`xivl-client-structs/tools/decode_lpb.py`. Each resulting chunk matched
-the corresponding contributor `.luac` byte-for-byte:
+`xivl-client-structs/tools/decode_lpb.py`. Their encoded paths, raw hashes,
+and decoded-chunk hashes are recorded at
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json)
+(source rows 21690, 21855, 21870, 22335, and 22410). The canonical
+source identities are in [`scripts.json`](../manifests/scripts.json)
+(rows 6867, 6903, 6981, 7251, and 7299):
 
 | Decoded script | Decoded SHA-256 |
 | --- | --- |
@@ -31,10 +35,9 @@ the corresponding contributor `.luac` byte-for-byte:
 
 The empty methods are at decoded bytecode offsets `0x52E` and `0x55A`
 in `battlecommandbaseclass`, respectively. The contributor's
-`outputs/garuda-range-followup-20260907/findings.json` preserves the
-encoded paths, wrapper hashes, instruction offsets, and
-class-method census; `garuda-range-followup-2026-09-07.md` records the
-bounded interpretation. These are script facts, not a command-ID-to-class
+bytecode pass supplied the instruction offsets and class-method census;
+the pinned LPBs and canonical scripts above identify the inspected inputs.
+These are script facts, not a command-ID-to-class
 binding or proof of the client/server hit evaluator. The active range
 selector, angle unit, radius/diameter convention, and retail damaging
 geometry remain unresolved.

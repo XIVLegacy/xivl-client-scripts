@@ -167,23 +167,26 @@ The `client/script/tp5rq/r75w9s1v/x9w/x9whjj.le.lpb` has SHA-256
 Decoding its 13-byte `rle` wrapper and XOR `0x73` payload matches the
 recovered `quest/scenario/man/man200.luac` byte-for-byte (SHA-256
 `8b9d472804dbbff2a2fa4397cd91d9514593a991febccaf259e6fdbdf9101ca3`).
-The recovered `Man200.pE00` at
-`quest/scenario/man/man200.lua:6-15` calls SNPC NQ scene `man20100`
+The canonical `lua/scripts/quest/scenario/man/man200.lua` has SHA-256
+`42ce1c6d33e093e262a88ee9becc294c4bf2e9de40ff945eb4830dc3a598edb6`
+(`manifests/scripts.json`). Its `Man200.pE00` at lines 23-49 calls SNPC
+NQ scene `man20100`
 between a default fade-out and an after-warp fade-in. `pE25` at lines
-236-250 shows an ask-gated `man20130` scene path, but its repeated `ask`
-in the decompiled return is not a verified second prompt. These client
+996-1054 shows an ask-gated `man20130` scene path. Its decoded bytecode
+has one `ask(430, 2)` call and one gated scene call; repeated expressions
+in the readable decompile are not additional prompts. These client
 presentation leads do not identify the historical event caller or server
 progression.
 
-`Man200.processSnpcSelect` at recovered lines 329-470 maps ask row 77
+`Man200.processSnpcSelect` at canonical lines 1304-1478 maps ask row 77
 choices 1-5 to offsets 1, 17, 33, 49, and 65, adds 1070000, and passes
 the resulting base ID to `getSnpcCandidacyNumber`. The resulting bases
 are 1070001, 1070017, 1070033, 1070049, and 1070065. Other answers
-return `(-1, -1)` in the recovered method. Its decompiled scene-choice
-branch repeats `startNQCutScene("man20140", ...)`, so that text does not
-establish a repeated playback count or the exact candidate-selection
-algorithm. These IDs are client selection inputs, not proof of spawning,
-persistence, or a server-side class/personality mapping.
+return `(-1, -1)` in the method. The decoded bytecode has one
+`ask(77, 6)` and one `startNQCutScene("man20140", ...)` call in that
+branch. It does not establish the internals of `getSnpcCandidacyNumber`
+or historical candidate selection. These IDs are client selection inputs,
+not proof of spawning, persistence, or a server-side class/personality mapping.
 
 ## Man2 city scenario composite scenes
 
@@ -352,11 +355,9 @@ replay-table absences. They do not identify an alternate reachable route,
 prove that another asset source was unavailable at runtime, or justify
 inventing a replacement scene.
 
-The independently generated
-`tools/outputs/lpb/quest_cutscene_bridge_contract_20260619/quest_scene_key_gap_contract.csv`
-(SHA-256
+A saved 31-key direct-scene candidate list (SHA-256
 `4368f51e2e1e44d0ec71b6c7177b637e2bfa0ac7db79278fd33d4824ebfb5a91`)
-lists 31 direct-scene keys without a `cutReplay` row. A fresh text-match
+was rechecked against the pinned client data. A fresh text-match
 check against the canonical CSV found none of those keys; a 1.23b
 `client/cut/` directory check found 30 matching scene directories and
 the one missing `man0l420` directory above. The 31 keys are:
@@ -608,11 +609,11 @@ quest sequence, battle orchestration, reward rules, or visible playback.
 The LPB at `client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qrsq.le.lpb` has
 SHA-256
 `989d8f897dbe769090ef7d90eb35fbe4b061ef2314bba24be23d85c4bea729b6`.
-The independently recovered
-`tools/outputs/lpb/decomp_more_20260617/lua/quest/scenario/defaulttalk/dftsrt.lua`
+The canonical `lua/scripts/quest/scenario/defaulttalk/dftsrt.lua` member
 has SHA-256
-`9607626c04f19ad4be53ee433872b43adf3ee0f52789a94d83dac4db30cbaa0a`;
-its decoded bytecode has SHA-256
+`a8ed70ef14ae6eebce5c403c4982c72b3fbe84f0916409ca052274e97f685d48`
+(`manifests/scripts.json`); its `eventDeparture` body is at lines 36-64.
+The decoded LPB bytecode has SHA-256
 `72762bfbe567a34af198bcf342f42581e2ce83abb65a46a034a5472fe35a17e7`.
 The `eventDeparture` bytecode confirms this order: fade out the local
 player; call `startNQCutScene` on the method's fourth argument with mode
@@ -675,8 +676,10 @@ separate talk methods, not part of the `080` scene wrapper; they say rows
 `man0u200`, between default fade-out and after-warp fade-in.
 
 `processEvent1000_5` calls `ask(worldMaster, 34112, 2)` and returns the ask
-result. The prompt text is not verified because the pinned client-data CSV
-bytes are unavailable. The method does not identify an active instance-entry
+result. Canonical `csv/worldMaster.csv` row 34112 (physical line 1309,
+SHA-256 `2e2e2dd5cd9651388f6fa575b4229081ad0452165e78b725df0a5b5b7cf7c643`;
+`xivl-client-data:manifests/tables.json:5891-5895`) has English prompt text
+`Enter this instance?`. The method does not identify an active instance-entry
 caller. Canonical source ranges and hashes are in the quest-event source
 manifest; the LPB and decoded-payload identities are given above.
 These methods do not prove the retail caller, quest sequence, escort

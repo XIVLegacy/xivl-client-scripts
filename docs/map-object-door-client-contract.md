@@ -1,9 +1,10 @@
 # Map-object door client contract
 
-The recovered `Chara/Npc/MapObj/DoorServer.initForEvent` body comes from
-`tools/outputs/lpb/decomp_further_20260617/lua/chara/npc/mapobj/doorserver.lua`
+The canonical `Chara/Npc/MapObj/DoorServer.initForEvent` body is at
+`lua/scripts/chara/npc/mapobj/doorserver.lua:11-62`
 (SHA-256
-`5abf5ebdbaf8e628fd7b8aacfd36cb4e98921174bf17479f71d9217c45de4eec`).
+`7cbd05f45800e60a21c7b59a728b42bc8115d97c88ce4a91703b37bbe784540c`;
+`manifests/scripts.json`).
 Its matching `client/script/729s9/wu7/x9uv80/6vvsr5so5s.le.lpb`
 has SHA-256
 `4aeeb74b47fb1bee784d73abacc7f54f517f42c47282f9efbe156b39ddd009df`.

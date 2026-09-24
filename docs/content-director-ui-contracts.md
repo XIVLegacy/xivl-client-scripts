@@ -2,10 +2,14 @@
 
 The recovered 1.23b Lua corpus preserves client-side director state and UI
 contracts for guildleves, request leves, caravan escort, and Hamlet defense.
-A reproducible decompile of the decoded chunks matched the canonical corpus
-byte-for-byte after CRLF-to-LF normalization. The source identities, hashes,
-locators, and claim boundaries are in
+A reproducible decompile of the manifest-listed canonical subset matched the
+published corpus byte-for-byte after CRLF-to-LF normalization. Other
+independent decompiles below have different text hashes. That subset's
+source identities, locators, and claim boundaries are in
 [`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json).
+The other canonical source identities below are pinned in
+[`scripts.json`](../manifests/scripts.json) and
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
 
 ## Guildleve and request directors
 
@@ -214,10 +218,10 @@ are pinned in `manifests/scripts.json` at rows 8061-8064 and 15483-15495.
 
 ## Generic instance-raid director
 
-The independent recovered
-`tools/outputs/lpb/decomp_more_20260617/lua/director/instanceraid/instanceraidbaseclass.lua`
+The canonical
+`lua/scripts/director/instanceraid/instanceraidbaseclass.lua`
 has SHA-256
-`2f6ea8cff45b471ed8ce05c8905af75bbe199e61a712cf6f0e96c9a653badeb9`.
+`f172046b273fd0e41a5fd9c9002c36563945e885820f5e73ea3c0a6de4c42adc`.
 The corresponding LPB at
 `client/script/61s57qvs/1wrq9w75s916/1wrq9w75s91689r57y9rr.le.lpb`
 has SHA-256
@@ -272,18 +276,18 @@ expression in `executeCutScene` does not prove two runtime allocations.
 
 ## Quest content-information directors
 
-Five independently recovered scripts under
-`tools/outputs/lpb/decomp_more_20260617/lua/director/quest/` join the
+Five canonical scripts under `lua/scripts/director/quest/` join the
 following `client/script/` LPBs. Hashes are SHA-256; class and
-method inventories are in [`registry.json`](../lua/registry.json).
+method inventories are in [`registry.json`](../lua/registry.json), and source
+hashes are in [`scripts.json`](../manifests/scripts.json).
 
-| Class | LPB suffix / hash | Recovered Lua hash |
+| Class | LPB suffix / hash | Canonical Lua hash |
 | --- | --- | --- |
-| `QuestDirectorGcg70101` | `61s57qvs/tp5rq/tp5rq61s57qvs373cjiji.le.lpb` / `10035dfb8289937f2b4350becc5e61f453f4fa77525346ad5849689adf9bc34d` | `fd20c2d7c98689983a0378fbdadf5c032854c734db8858f6723176cfad3d9d17` |
-| `QuestDirectorGcl70101` | `61s57qvs/tp5rq/tp5rq61s57qvs37ycjiji.le.lpb` / `e73b02ba4f98e11ce34dde7059222ae2a8cac96a735e2b36add33b14785de92d` | `fd5ccdaee7735c07e285da73cde7e3095a704baa79eb9a2a5fb86e768bd0fe75` |
-| `QuestDirectorGcu70101` | `61s57qvs/tp5rq/tp5rq61s57qvs37pcjiji.le.lpb` / `4922c5bf4e904e3194f066502add6ee1570e2971b7e62373c2cd7b75cfc7d046` | `660d558a25d78d10cfc3b26132fb9423f3083242d060aafbf15f8cc5170d6ec5` |
-| `QuestDirectorNMRush01` | `61s57qvs/tp5rq/tp5rq61s57qvswxspr2ji.le.lpb` / `5a0b0b7524e0a6b0b9fa1dadb5fb1d7a0708dc8864aa1fe1be9ab9248437d04e` | `a8031ff68c5883bab600a0696055c14da4906a1fb442d5b55cd321e71685b35f` |
-| `QuestDirectorNMRush02` | `61s57qvs/tp5rq/tp5rq61s57qvswxspr2jh.le.lpb` / `c65739da2cb6817c6333b9d5d69a4db3b7118649304d0f461e8319bc9dab3491` | `3825849ba435251849abd112c6b6ebfc6be654d749cd91db021625eb5ee6cf57` |
+| `QuestDirectorGcg70101` | `61s57qvs/tp5rq/tp5rq61s57qvs373cjiji.le.lpb` / `10035dfb8289937f2b4350becc5e61f453f4fa77525346ad5849689adf9bc34d` | `2c799db73a5a079d2bc38f6ed60b5af6cd9bc2461a166c3f76ae8f67755c59b0` |
+| `QuestDirectorGcl70101` | `61s57qvs/tp5rq/tp5rq61s57qvs37ycjiji.le.lpb` / `e73b02ba4f98e11ce34dde7059222ae2a8cac96a735e2b36add33b14785de92d` | `359ab5472f4ba9a84c923926f7c58360aba049a8731991f9900c7fa51b210c2c` |
+| `QuestDirectorGcu70101` | `61s57qvs/tp5rq/tp5rq61s57qvs37pcjiji.le.lpb` / `4922c5bf4e904e3194f066502add6ee1570e2971b7e62373c2cd7b75cfc7d046` | `19ecf0bc38622f18ce040dfeba9357cf06988203e65f77dfb3cb844569b6d6e7` |
+| `QuestDirectorNMRush01` | `61s57qvs/tp5rq/tp5rq61s57qvswxspr2ji.le.lpb` / `5a0b0b7524e0a6b0b9fa1dadb5fb1d7a0708dc8864aa1fe1be9ab9248437d04e` | `e73abd30092591d113b0ef002a77417d5dfaaef13b4a0c106facfc16864ae24e` |
+| `QuestDirectorNMRush02` | `61s57qvs/tp5rq/tp5rq61s57qvswxspr2jh.le.lpb` / `c65739da2cb6817c6333b9d5d69a4db3b7118649304d0f461e8319bc9dab3491` | `8753c016df079227adb24f55538095ef63164953bfce5f051e9107127071c083` |
 
 The three `Gc*70101` directors synchronize `directNumber` (int8), `point`
 (int16), and `limitTime` (int32). Each reports content-information kind 1,
@@ -309,9 +313,9 @@ row 51145. Their recovered bodies request content-information start for
 direct numbers 1 or 2 when the timer flag is false and cancel for 3 or
 finalization. Damaged control flow limits claims about exact fall-through.
 
-The independently recovered
-`tools/outputs/lpb/focused/widget/desktopwidget_connector.lua` (SHA-256
-`c5480f97a81c08f8640b4d250c0e20694b2a697c4dc9b1e0d343a230c8cbcbe0`)
+The canonical
+`lua/scripts/widget/desktopwidget_connector.lua` (SHA-256
+`9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01`)
 matches `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (SHA-256
 `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425`).
 Its `processUpdateContentsInformation` checks the actor and dispatches

@@ -34,11 +34,16 @@ establish a destination, entry requirement, server-side warp, or terminal
 charge rule.
 
 `RaidDungeonTreasureBox.processOpenDzemaelEpicQuestType` references offered
-quest 110868, calls the quest object's `isDropDzemael` method, contains item
-identifier 10011244, and uses system message 60027. It reaches character
-scheduler 67932160 after the branch. The independent decompiler did not
-recover the temporary assignment around item 10011244 cleanly, so the exact
-item-test and success/failure branch association is unresolved.
+quest 110868 and calls the quest object's `isDropDzemael` method. In the
+original LPB's decoded `main/f0` prototype, zero-based instruction PCs
+16-23 form item tuple
+`{{10011244, 1}}` and call `_hasItem(1, tuple)`. PCs 24-25 skip the
+`getDropItem` and `addDropItemForPlayer` path when that test is true;
+PCs 26-35 take that path and clear the flag when it is not true. PCs 42-46
+send system message 60027 only while the flag remains true, and PCs 47-50
+run character scheduler 67932160. The canonical Lua method is at
+`chara/npc/object/raiddungeontreasurebox.lua:11-75`. This establishes the
+client branch, without proving a server item grant or inventory result.
 
 The remaining treasure-box helpers read `dropSheet`, `dropTableSheet`, and
 `dropQualitySheet`, build candidate item tuples, call `_canAddItem`, and expose

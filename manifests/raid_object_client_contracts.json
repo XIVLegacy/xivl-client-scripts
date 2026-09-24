@@ -82,12 +82,12 @@
     },
     {
       "id": "dzemael-coffer-client-branch",
-      "support": "The client branch references quest 110868, isDropDzemael, item 10011244, system message 60027, and scheduler 67932160.",
+      "support": "The client branch references quest 110868 and isDropDzemael. The decoded original LPB main/f0 prototype calls _hasItem(1, {{10011244, 1}}) at zero-based instruction PCs 20-23; on a non-true result PCs 26-35 call getDropItem and addDropItemForPlayer and clear the flag. PCs 42-46 send message 60027 only while the flag remains true; PCs 47-50 run scheduler 67932160. This establishes client control flow, not a server grant or inventory result.",
       "sources": [
         "chara/npc/object/raiddungeontreasurebox.lua:3-43",
+        "lua/scripts/chara/npc/object/raiddungeontreasurebox.lua:11-75",
         "lua/registry.json:scripts/chara/npc/object/raiddungeontreasurebox"
-      ],
-      "unresolved": "The independent decompiler did not preserve the temporary assignment around item 10011244 cleanly, so the exact item-test and success/failure branch association is unresolved."
+      ]
     },
     {
       "id": "raid-coffer-helper-surface",

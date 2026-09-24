@@ -1,22 +1,22 @@
 # Dungeon exit client contracts
 
 The 1.23b Lua scripts preserve several different exit prompts. The
-source identities below join independently recovered Lua to
+source identities below join canonical Lua to
 `client/script/` LPBs. The `ciphered` path is the registry path with `.lua`
-replaced by `.le.lpb`; all hashes are SHA-256. Recovered Lua comes from the
-contributor's `tools/outputs/lpb/decomp_more_20260617/lua/` for the object
-classes and `decomp_further_20260617/lua/` for the gimmick classes. The
-canonical class and method inventory is in [`registry.json`](../lua/registry.json).
+replaced by `.le.lpb`; all hashes are SHA-256. Canonical source members are
+under `lua/scripts/chara/npc/` in the pinned Lua corpus. The class and
+method inventory is in [`registry.json`](../lua/registry.json), and the
+source hashes are in [`scripts.json`](../manifests/scripts.json).
 
-| Class and registry key under `chara/npc/` | LPB suffix / hash | Recovered Lua hash |
+| Class and registry key under `chara/npc/` | LPB suffix / hash | Canonical Lua hash |
 | --- | --- | --- |
-| `RaidDungeonExit`, `object/raiddungeonexit` | `729s9/wu7/v8057q/s9166pw35vw5m1q.le.lpb` / `ec628b2a1e72f70551309d21218a697b6ee46db0ffa04de1eee7190edbc36279` | `17010d68da5a1033ca10c919d25ce407f46d461f670c6bf2c1f623fd7d62aefc` |
-| `InstanceRaidExit`, `object/instanceraidexit` | `729s9/wu7/v8057q/1wrq9w75s9165m1q.le.lpb` / `cc1d7f58075f7c0ecace5049c68240fe3e04c46642fad0ecb5caeb333e440b96` | `8bf13b56cc7d4f0ab84187f77a63119d5f8905e2d05d08edda451b600ae7ec76` |
-| `PrivateAreaPastExit`, `object/privateareapastexit` | `729s9/wu7/v8057q/us1o9q59s59u9rq5m1q.le.lpb` / `254f738b1aa6401ed9bd1bf0bbac463017089d5ce249b03211860b5b338be400` | `92e753226bfab0c1c58e1981c2dcbe3f643ac34b8fbed92d807b9961a9d79258` |
-| `GimmickNpcBaseClass`, `gimmick/gimmicknpcbaseclass` | `729s9/wu7/31xx17z/31xx17zwu789r57y9rr.le.lpb` / `d685e404923bf98b945ab2d6dbf92b66d358c45051ab5d37da4d159c00319f87` | `ce52e980797e5a8dc3449b1580c18ce96db622353f9122d25e0429d0412ca8bc` |
-| `GimmickExitRect`, `gimmick/gimmickexitrect` | `729s9/wu7/31xx17z/31xx17z5m1qs57q.le.lpb` / `e394496682df9274616fa2710947f8dd16c96bbe2d7959d546aba49bb95e265e` | `14a51814151875536761301944d96db1785e136a27aa03c82630c7c239fec301` |
-| `GimmickTerminal`, `gimmick/gimmickterminal` | `729s9/wu7/31xx17z/31xx17zq5sx1w9y.le.lpb` / `c35f7ff4f40a8558d62d6a440a22bdc175db71c0c41cf5f8042b03ecb893137e` | `64c5280f6b179415a38144fecb4046122c773af3d38960eb823852938119cfad` |
-| `GimmickWarp`, `gimmick/gimmickwarp` | `729s9/wu7/31xx17z/31xx17zn9su.le.lpb` / `228f3debb77bfd75d665f17f338fddac5417c954c74b9375b3638be68c589456` | `084c1a3d6f41a70161efce3f339e41452ef754487fa8551b4633e79303a709af` |
+| `RaidDungeonExit`, `object/raiddungeonexit` | `729s9/wu7/v8057q/s9166pw35vw5m1q.le.lpb` / `ec628b2a1e72f70551309d21218a697b6ee46db0ffa04de1eee7190edbc36279` | `70f5656b605db6ebbcf4b97742beefd7dd47754f1419ea3c2b93f469c12de399` |
+| `InstanceRaidExit`, `object/instanceraidexit` | `729s9/wu7/v8057q/1wrq9w75s9165m1q.le.lpb` / `cc1d7f58075f7c0ecace5049c68240fe3e04c46642fad0ecb5caeb333e440b96` | `8075c364de5bf4916d51b25224dba05c22df2af2911839b29a9f81ef421cb62b` |
+| `PrivateAreaPastExit`, `object/privateareapastexit` | `729s9/wu7/v8057q/us1o9q59s59u9rq5m1q.le.lpb` / `254f738b1aa6401ed9bd1bf0bbac463017089d5ce249b03211860b5b338be400` | `49fe7971d5db608fb508671a14d189da35ce666c2f1aa757a5c3401c070d5a19` |
+| `GimmickNpcBaseClass`, `gimmick/gimmicknpcbaseclass` | `729s9/wu7/31xx17z/31xx17zwu789r57y9rr.le.lpb` / `d685e404923bf98b945ab2d6dbf92b66d358c45051ab5d37da4d159c00319f87` | `2e442c47948ad0858ddf7ee5e9c8828124b2fab39cb83bf7507ccacc0c3e431a` |
+| `GimmickExitRect`, `gimmick/gimmickexitrect` | `729s9/wu7/31xx17z/31xx17z5m1qs57q.le.lpb` / `e394496682df9274616fa2710947f8dd16c96bbe2d7959d546aba49bb95e265e` | `ec1ddb1001a063b00a7ee8983271433eb5d3f193a47f6d93f9ddd23f9cb1d23c` |
+| `GimmickTerminal`, `gimmick/gimmickterminal` | `729s9/wu7/31xx17z/31xx17zq5sx1w9y.le.lpb` / `c35f7ff4f40a8558d62d6a440a22bdc175db71c0c41cf5f8042b03ecb893137e` | `5bc7f7758127643c8ff5828eb3d7bee52023179ee1491e95c43dfa9822eb9d79` |
+| `GimmickWarp`, `gimmick/gimmickwarp` | `729s9/wu7/31xx17z/31xx17zn9su.le.lpb` / `228f3debb77bfd75d665f17f338fddac5417c954c74b9375b3638be68c589456` | `204bd81b4889d2310c3a7f9bee0f3fc874f33a5da6296edacf0fbd4883e845b0` |
 
 ## Prompt and marker behavior
 

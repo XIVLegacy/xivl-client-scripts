@@ -12,15 +12,15 @@ names and source lines, not native executable addresses.
 | `widget/desktopwidget_connector` | `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` | `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425` | `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
 | `widget/mainmenuwidget` | `n1635q/x91wx5wpn1635q.le.lpb` | `c0e1782a3ca183fcaa520a16320946f62d3fc861c74978cde19ea20fcd064b0a` | `185d856d406d46ba7416444ddc2212b68036f7d56d0ee62148be2567630c90b2` |
 
-The recovered `CharaBaseClass.isNegotiatable` body, lines 93-95 of
+The canonical `CharaBaseClass.isNegotiatable` body, lines 177-185 of
 `chara/charabaseclass_parameter.lua`, returns `isPropertyEnabled(4)`.
-`DesktopWidget.canTargetNegotiation`, lines 8909-8927 of
+`DesktopWidget.canTargetNegotiation`, lines 16573-16621 of
 `widget/desktopwidget_connector.lua`, returns false unless ready-command
 slot 16 is nonnull, the local player reports `enableNegotiation()`, the
 current target exists, that target is not a player, and the target reports
 `isNegotiatable()`. Only after those checks does it return true.
 
-`MainMenuWidget.updateReadyCommand`, lines 689-716 of
+`MainMenuWidget.updateReadyCommand`, lines 1720-1795 of
 `widget/mainmenuwidget.lua`, scans equipped ready commands. For command ID
 29497 it additionally calls `canTargetNegotiation()` before adding a
 ready-command menu entry with text ID 1104 and icon ID 30232. These are
@@ -59,7 +59,7 @@ not a turn, score, or outcome authority.
 
 `NegotiationWidget.updateAskParameter` has direct bytecode comparisons
 for update codes 1-29 (decoded chunk offsets beginning `0x227E`). The
-recovered body, lines 357-598, ties several of those values to explicit
+canonical body, lines 1147-1632, ties several of those values to explicit
 widget operations:
 
 | Update code | Direct recovered operation |
