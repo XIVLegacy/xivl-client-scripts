@@ -42,10 +42,16 @@ a binding or destination inferred from the class name.
 `GimmickTerminal.initForGimmick` loads bank 10096 as `gimmickTerminal`;
 `eventTalkTerminal` forwards its argument to `worldMaster:say`.
 `GimmickWarp.initForGimmick` loads bank 10112 as `gimmickWarp` and disables
-ground. `askWarp` has prompt-row groups 1/2/3, 4/5/6, and 7/8/9 in the
-recovered body, but damaged control flow prevents assigning every selector
-and optional argument to a reliable branch. The visible method asks through
-`desktopWidget:askForEventMode` and returns true for response 1.
+ground. Its matched decoded payload confirms the `askWarp` mode branches:
+mode 1 passes prompt row 1 and choices 2/3, mode 2 passes row 4 and choices
+5/6, and mode 3 passes row 7 and choices 8/9 to
+`desktopWidget:askForEventMode`. Mode 1 clears a nonzero second argument
+before the call. Modes 2 and 3 pass a nonzero second argument as the optional
+last argument; zero omits it. The method returns true only when the prompt
+result is 1. This branch structure is supported by the matched payload
+`1ce2926a5fc353f58eaafe6012a88a39c9965b5918e5d2f52af85c2bf7f8681d`
+(`manifests/retail_lua_coverage.json`); the second argument's meaning and any
+destination or actor binding are not established by this method.
 
 `PrivateAreaPastExit` only disables ground in `initForEvent` and returns the
 marker-range names `exit` and `caution`. Its retail client body does not
