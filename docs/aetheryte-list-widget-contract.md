@@ -44,6 +44,22 @@ that value to nil and otherwise returns the base result unchanged. No client
 state mutation, destination eligibility, anima calculation, or server
 teleport outcome follows from this widget contract.
 
+## Teleport confirmation result
+
+`TeleportCommand.eventConfirm` waits one second, then obtains a confirmation
+result through `worldMaster.ask` or `worldMaster.askMultipleTextMacro`, using
+message IDs 34117, 34138, or 34120 according to its inputs. For an accepted
+result, it calls `isRiding` on StaticActor 320013 with the supplied actor. If
+true, it prompts through `worldMaster.ask` with the ID returned by that static
+actor's `getRidingErrorTextId`, passing 26010 as fallback, then replaces the
+local result with that answer. If the countdown input is true and the result
+remains accepted, it opens `Ask/WaitingCountdownWidget` with
+`(1, 15, worldMaster, 34137)` when `A2_2` is true, or
+`(1, 15, worldMaster, 34136)` otherwise. A false widget-open result or widget
+result 2 changes the local result to 2. The method returns that result and an
+optional boolean. It contains no zone-transition call; this method alone does
+not establish how a caller uses the return values or what the server does.
+
 ## Evidence
 
 The widget's decoded payload is SHA-256
@@ -57,3 +73,9 @@ The caller payload is SHA-256
 at `manifests/retail_lua_coverage.json:23555-23566` for
 `lua/scripts/command/system/teleportcommand.lua`. Its source entry is pinned
 at `manifests/scripts.json:7629-7632`.
+
+The `eventConfirm` method was decompiled from that caller payload with the
+repository-pinned unluac JAR at `tools/vendor/unluac/PROVENANCE.json`, SHA-256
+`98BE0FA84AC73CA66DCE2842A2E4512226F4C611B6500DC96415571FC5538FCC`. The
+source-form entry in `manifests/scripts.json` is a separate representation,
+not the byte input used for this decompilation.
