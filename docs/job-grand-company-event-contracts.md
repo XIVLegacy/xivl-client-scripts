@@ -389,6 +389,34 @@ calls are at PCs 4/11, 4/11, and 1/8. These values are client UI
 operations, not evidence that 250 seals were granted or that a failed
 server transaction closed the widget.
 
+### Post-event widget cleanup
+
+The generic `PlayerBaseClass._onPostEvent` method calls
+`DesktopWidget.closeAllEventModeWidget` after canceling desktop mode 16.
+The widget method then calls `closeWidget(4, nil)` and
+`closeWidget(5, nil)`. The separate
+`DesktopWidget.closeGrandCompanyStatusWidget` helper targets
+`closeWidget(5, "GrandCompanyStatusWidget")`, identifying the company
+status presentation as a tier-5 widget. These are static client method
+calls; the historical event callback and any enlistment-decline dispatch
+into `_onPostEvent` remain unverified.
+
+The canonical source locators are
+`lua/scripts/chara/player/playerbaseclass.lua:2084-2107` (SHA-256
+`6226b3fa15dfdbad279b7dba453f8a3b76fcb8b68bad6e14f5403d52987f76e4`)
+and `lua/scripts/widget/desktopwidget_connector.lua:11019-11036,19672-19683`
+(SHA-256 `9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01`),
+pinned by `manifests/scripts.json`. Their original LPBs are
+`client/script/729s9/uy9l5s/uy9l5s89r57y9rr.le.lpb` (SHA-256
+`32182274f3886d0cdf6329f8a82e6592790c9b3038e00bebe5b2b38702bbd53e`)
+and `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (SHA-256
+`0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425`),
+as mapped by `manifests/retail_lua_coverage.json`. In decoded Lua 5.1
+bytecode, the call is at zero-based PCs 4-6 (`0x487A-0x4882`) in
+`_onPostEvent`; the two tier closes are at PCs 2-9
+(`0x1A164-0x1A180`) in `closeAllEventModeWidget`, and the named tier-5
+close is at PCs 0-3 (`0x2939C-0x293A8`).
+
 The three level-40 company scripts are separate scenario classes with
 different salutes, speakers, branches, and movie ownership. Similar quest
 roles do not justify sharing one client flow.
