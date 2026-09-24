@@ -205,6 +205,98 @@ literals are recorded, with exact-key joins to the pinned table.
 | `min306` | `lua/scripts/quest/scenario/min/min306.lua`; `8DBF495BC661232737BE08031396C05DAE1FB0F33376258B9EEA46A57ED48D12` | `min30610` @ 102-105 -> 11046201; `min30620` @ 122-125 -> 11046202; `min30630` @ 142-145 -> 11046203; `min30640` @ 189-192 -> 11046204 |
 | `war0j6` | `lua/scripts/quest/scenario/war/war0j6.lua`; `45C1373FB1F69305D7B713B5418D1C5ED72F5EEA9E1ECC80552A91742D6C86F5` | `war0j610` @ 199-202 -> 11120601; `war0j620` @ 244-247 -> 11120602 |
 
+## SNPC launcher and replay-row joins
+
+This supplement records direct Lua 5.1 bytecode calls through `startSnpcNQCutScene`,
+`startSnpcHQCutScene`, or `startNQCutScene` whose exact replay-key joins were
+established in the decoded scenario chunks. The eight source paths below are
+classified `matched-script` in `manifests/retail_lua_coverage.json`. Their
+`decodedPayloadSha256` values identify the pinned payloads; the examined Lua
+chunks matched those hashes. Each PC tuple is `SELF / LOADK / CALL` within the
+named prototype. The `LOADK` contains the literal scene key; `SELF` selects
+the launcher method.
+
+| Decoded script path | Decoded payload SHA-256; coverage locator |
+| --- | --- |
+| `lua/scripts/quest/scenario/man/man200.lua` | `8B9D472804DBBFF2A2FA4397CD91D9514593A991FEBCCAF259E6FDBDF9101CA3`; `retail_lua_coverage.json:39568-39576` |
+| `lua/scripts/quest/scenario/man/man206.lua` | `0461FC2DEF0F392FA0E952A4557AB1421BA96302D1192F1AE4456AC929C9AF71`; `retail_lua_coverage.json:39553-39561` |
+| `lua/scripts/quest/scenario/man/man2l0.lua` | `F78870ADEED3F85B0C71758DA74EF47BB77B2D2AB99546C5F33C8A5D987BD65F`; `retail_lua_coverage.json:39598-39606` |
+| `lua/scripts/quest/scenario/man/man300.lua` | `CCF8CD853C3AA6568E05DDFE702B42AC97A041783D5EC3B549203C7B6D7CF95F`; `retail_lua_coverage.json:39523-39531` |
+| `lua/scripts/quest/scenario/man/man304.lua` | `C8A0FBC6EEEAFA1B1E148C73139F290E883CA86C2A413900D38CF4A9CD7D8280`; `retail_lua_coverage.json:39508-39516` |
+| `lua/scripts/quest/scenario/man/man308.lua` | `3CCDC300DF451AB52E45618CC2444ECDAD0E0FD39062BCC1AF82977929729E43`; `retail_lua_coverage.json:39493-39501` |
+| `lua/scripts/quest/scenario/man/man402.lua` | `8794FA034CB6B5E61F1AF9CA387D55AF88296B3231DB748D230EEC142F50F76B`; `retail_lua_coverage.json:39478-39486` |
+| `lua/scripts/quest/scenario/man/man406.lua` | `C6415866F54AE206230F1D245B20C65B0146CAE1AB3BE99C37B2D1E314A129AD`; `retail_lua_coverage.json:39463-39471` |
+
+| Prototype and launcher | `SELF / LOADK / CALL` PCs | Literal key | `cutReplay.csv` row (physical line) |
+| --- | --- | --- | --- |
+| `man200.pE00`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20100` | `11001301` (141) |
+| `man200.pE10`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20110` | `11001302` (142) |
+| `man200.pE20`, `startSnpcNQCutScene` | `019 / 020 / 027` | `man20120` | `11001303` (143) |
+| `man200.pE25`, `startSnpcNQCutScene` | `019 / 020 / 027` | `man20130` | `11001304` (144) |
+| `man200.pE050`, `startSnpcNQCutScene` | `016 / 017 / 024` | `man20150` | `11001305` (145) |
+| `man200.pE060`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20160` | `11001306` (146) |
+| `man206.pE12`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20602` | `11001403` (149) |
+| `man206.pE13`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20603` | `11001404` (150) |
+| `man206.pE20`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20620` | `11001406` (152) |
+| `man206.pE30`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man20630` | `11001407` (153) |
+| `man2l0.processEvent010`, `startNQCutScene` | `003 / 004 / 006` | `man2l010` | `11000401` (34) |
+| `man2l0.processEvent010`, `startNQCutScene` | `007 / 008 / 010` | `man2l011` | `11000402` (35) |
+| `man2l0.processEvent012`, `startNQCutScene` | `003 / 004 / 006` | `man2l012` | `11000403` (36) |
+| `man2l0.processEvent013`, `startNQCutScene` | `003 / 004 / 006` | `man2l013` | `11000404` (37) |
+| `man2l0.processEvent020` and `processEventTalkMenuManCutPreview`, `startNQCutScene` | `003 / 004 / 008`; `141 / 142 / 144` | `man2l020` | `11000405` (38), `11000406` (39); call-site-to-row assignment unresolved |
+| `man2l0.processEvent020`, `startNQCutScene` | `013 / 014 / 016` | `man2l040` | `11000408` (41) |
+| `man2l0.processEvent060`, `startNQCutScene` | `003 / 004 / 006` | `man2l060` | `11000409` (42) |
+| `man2l0.processEvent070`, `startNQCutScene` | `003 / 004 / 006` | `man2l070` | `11000410` (43) |
+| `man2l0.processEvent075`, `startNQCutScene` | `000 / 001 / 003` | `man2l075` | `11000411` (44) |
+| `man2l0.processEvent080`, `startNQCutScene` | `003 / 004 / 006` | `man2l080` | `11000412` (45) |
+| `man2l0.processEvent081`, `startNQCutScene` | `003 / 004 / 006` | `man2l081` | `11000413` (46) |
+| `man2l0.processEvent081`, `startNQCutScene` | `011 / 012 / 014` | `man2l100` | `11000415` (48) |
+| `man2l0.processEvent081`, `startNQCutScene` | `015 / 016 / 018` | `man2l110` | `11000416` (49) |
+| `man300.pE20`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30020` | `11001503` (157) |
+| `man300.pE30`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30030` | `11001504` (158) |
+| `man300.pE40`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30040` | `11001505` (159) |
+| `man300.pE50`, `startSnpcNQCutScene` | `007 / 008 / 016` | `man30050` | `11001506` (160) |
+| `man300.pE60`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30060` | `11001507` (161) |
+| `man304.pES`, `startSnpcNQCutScene` | `046 / 047 / 057` | `man30400` | `11001601` (162) |
+| `man304.pE10`, `startSnpcNQCutScene` | `016 / 017 / 024` | `man30410` | `11001602` (163) |
+| `man304.pE20`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30420` | `11001603` (164) |
+| `man304.pE30`, `startSnpcNQCutScene` | `134 / 135 / 142` | `man30430` | `11001604` (165) |
+| `man308.pE01`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30800` | `11001701` (166) |
+| `man308.pE10`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30810` | `11001702` (167) |
+| `man308.pE30`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30830` | `11001703` (168) |
+| `man308.pE50`, `startSnpcHQCutScene` | `007 / 008 / 015` | `man40640` | `11001704` (169) |
+| `man308.pE50`, `startSnpcNQCutScene` | `016 / 017 / 024` | `man30850` | `11001705` (170) |
+| `man308.pE60`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30860` | `11001706` (171) |
+| `man308.pE80`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man30880` | `11001707` (172) |
+| `man308.pE90`, `startSnpcNQCutScene` | `003 / 004 / 011` | `man30900` | `11001709` (174) |
+| `man402.pES`, `startSnpcNQCutScene` | `019 / 020 / 028` | `man40200` | `11001801` (175) |
+| `man402.pE10`, `startSnpcNQCutScene` | `007 / 008 / 017` | `man40210` | `11001802` (176) |
+| `man402.pE20`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man40220` | `11001803` (177) |
+| `man402.pE30`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man40230` | `11001804` (178) |
+| `man406.pES`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man40600` | `11001901` (179) |
+| `man406.pE10`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man40610` | `11001902` (180) |
+| `man406.pE15`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man40615` | `11001903` (181) |
+| `man406.pE30`, `startSnpcNQCutScene` | `007 / 008 / 015` | `man40630` | `11001906` (184) |
+| `man406.pE30`, `startSnpcHQCutScene` | `016 / 017 / 024` | `man40635` | `11001907` (185) |
+| `man406.pE50`, `startSnpcNQCutScene` | `007 / 008 / 016` | `man40650` | `11001908` (186) |
+| `man406.pE60`, `startSnpcNQCutScene` | `006 / 007 / 015` | `man40660` | `11001909` (187) |
+
+The replay table is pinned at `xivl-client-data:manifests/tables.json:1123-1128`
+with SHA-256 `2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37`.
+Every listed key equals the corresponding replay row's scene key exactly.
+This establishes a static call/key/table association only, not invocation, row
+selection, unlock, playback, or quest ownership. The two `man2l020` bytecode
+calls share the same exact key as both listed rows; the available key equality
+does not assign either row to a particular call site.
+
+`man200.processSnpcSelect` (`SELF / LOADK / CALL` PCs `080 / 081 / 090`)
+and `man200.processSnpcReselect` (`053 / 054 / 063`) each call the literal
+key `man20140`, and `man200.pE055` (`089 / 090 / 098`) calls `man20155`.
+Neither key has an exact row in the pinned replay table; no replay ID is
+assigned. In `man206.pE13`, the decompiled return expression repeats the
+scene call across a condition and two branches, but the pinned bytecode has
+one `SELF / LOADK / CALL` sequence for `man20603`.
+
 ## HQ replay-key checks
 
 The following inventory covers 23 direct `startHQCutScene` calls with literal
