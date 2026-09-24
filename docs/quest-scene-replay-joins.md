@@ -112,8 +112,11 @@ more references. Across those 76 files there are 345 calls and 289
 unique literal keys: 269 keys join one or more rows, while 20 keys have no
 exact row. This produces 319 row-bearing call sites, 26 no-row call sites,
 and 273 distinct replay-row IDs. Ten case-only spelling differences affect
-12 calls; absent runtime alias evidence, those source literals remain
-unmatched. Only source-literal calls are recorded below. Two
+12 calls. Their case-insensitive counterpart keys are identified below, but
+remain unmatched because the available client evidence does not establish
+runtime case normalization. The listed key, row ID, and physical CSV line
+identify case-insensitive counterparts in `cutReplay.csv`; they do not
+establish a call-to-row join. Only source-literal calls are recorded below. Two
 files, `man304` and `man402`, have no direct `startNQCutScene` field
 references; the other 72 contain at least one. This bounded selection is not
 a full-corpus absence audit.
@@ -134,21 +137,21 @@ are preserved.
 | `bsm200` | `lua/scripts/quest/scenario/bsm/bsm200.lua`; `AABE5F4A91722C0D8CF36351AF1D9FB8BC551335F199387B288032ED11D8483C` | `bsm20010` @ 196-201 -> 11032001, 11032002; `bsm20020` @ 218-221 -> 11032003 |
 | `bsm306` | `lua/scripts/quest/scenario/bsm/bsm306.lua`; `7961DD8E5DCEDEE84FC9B47520A00D5BD4EDE66E3810005B50B2F8A8F82BBB5F` | `bsm30610` @ 263-268 -> 11032201, 11032202; `bsm30620` @ 285-288 -> 11032203; `bsm30630` @ 301-304 -> 11032204; `bsm30640` @ 321-324 -> 11032205 |
 | `cnj306` | `lua/scripts/quest/scenario/cnj/cnj306.lua`; `DBF1B35B62117FDBFC90A082DC71472C5ACDDF5347603A8DDB06751A4ADB811A` | `cnj30610` @ 392-395 -> 11026201; `cnj30620` @ 499-502 -> 11026202; `cnj30630` @ 562-565 -> 11026203; `cnj30640` @ 636-639 -> 11026204; `cnj30650` @ 681-684 -> 11026205; `cnj30660` @ 701-704 -> 11026206; `cnj30670` @ 721-724 -> 11026207; `cnj30680` @ 978-981 -> 11026208; `cnj30690` @ 998-1001 and 1018-1021 -> 11026209 |
-| `com0g1` | `lua/scripts/quest/scenario/com/com0g1.lua`; `A8F8FFC69BE96E99E16ECED6AC6C8FAE7FD702EA5E4B78CBD99C60980F926AEF` | `COM0G105` @ 292-295 -> no row; `COM0G110` @ 320-325 -> no row |
+| `com0g1` | `lua/scripts/quest/scenario/com/com0g1.lua`; `A8F8FFC69BE96E99E16ECED6AC6C8FAE7FD702EA5E4B78CBD99C60980F926AEF` | `COM0G105` @ 292-295 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `com0g105`, row ID 11160101, physical line 561; `COM0G110` @ 320-325 -> no exact-key row; counterpart: `com0g110`, row ID 11160102, physical line 562 |
 | `com0g4` | `lua/scripts/quest/scenario/com/com0g4.lua`; `B5FEEE327FBE8B03F474A5DA9DBA303520D28CCAA724FC4463B65438FE910F7E` | `com0g410` @ 551-554 -> 11160401 |
 | `com0g5` | `lua/scripts/quest/scenario/com/com0g5.lua`; `7217C217B432346737096FCE288651426C8029462905E9DFAD52FA0F96E9A373` | `com0g610` @ 222-225 -> 11160501 |
-| `com0g6` | `lua/scripts/quest/scenario/com/com0g6.lua`; `5378A3764D799F21DE962D0FAFD451A29C5539D26A443D1AFEA63FC573C4A644` | `COM0G510` @ 954-957 -> no row |
-| `com0l1` | `lua/scripts/quest/scenario/com/com0l1.lua`; `9074D51B77C895376B0880D12488EE0D1773A2AC611363F4AD7AA02DF8C6EBFE` | `COM0L105` @ 293-296 -> no row; `COM0l110` @ 471-476 -> no row |
+| `com0g6` | `lua/scripts/quest/scenario/com/com0g6.lua`; `5378A3764D799F21DE962D0FAFD451A29C5539D26A443D1AFEA63FC573C4A644` | `COM0G510` @ 954-957 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `com0g510`, row ID 11160601, physical line 565 |
+| `com0l1` | `lua/scripts/quest/scenario/com/com0l1.lua`; `9074D51B77C895376B0880D12488EE0D1773A2AC611363F4AD7AA02DF8C6EBFE` | `COM0L105` @ 293-296 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `com0l105`, row ID 11140101, physical line 533; `COM0l110` @ 471-476 -> no exact-key row; counterpart: `com0l110`, row ID 11140102, physical line 534 |
 | `com0l4` | `lua/scripts/quest/scenario/com/com0l4.lua`; `B986AFF3363BF9C5916AB2E096B2343528278FB91D37265825C36190E35E680D` | `com0l410` @ 619-622 -> 11140401 |
-| `com0l5` | `lua/scripts/quest/scenario/com/com0l5.lua`; `D250DE2089F898219B19318D268D24AD1222C8C24577009BE4B782461CBED3D3` | `COM0l110` @ 390-394 -> no row; `elv0l110` @ 676-680 -> no row; `com0l610` @ 682-686 -> 11140501; `elv0l110` @ 733-737 -> no row |
+| `com0l5` | `lua/scripts/quest/scenario/com/com0l5.lua`; `D250DE2089F898219B19318D268D24AD1222C8C24577009BE4B782461CBED3D3` | `COM0l110` @ 390-394 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `com0l110`, row ID 11140102, physical line 534; `elv0l110` @ 676-680 -> no row; `com0l610` @ 682-686 -> 11140501; `elv0l110` @ 733-737 -> no row |
 | `com0l6` | `lua/scripts/quest/scenario/com/com0l6.lua`; `B491A913CCB6323FD06F33AD914DBA84EBCDA6C095C2685025CDD62B847BF893` | `com0l510` @ 487-492 -> 11140601; `elv0l01a` @ 1001-1005 -> no row; `elv0l02a` @ 1023-1027 -> no row |
-| `com0u1` | `lua/scripts/quest/scenario/com/com0u1.lua`; `4B70ABC5299BC1F2B816AE46B933DFA513EF262A4DD369F4196211B550059CA9` | `COM0U105` @ 263-266 -> no row; `COM0U110` @ 290-295 -> no row |
+| `com0u1` | `lua/scripts/quest/scenario/com/com0u1.lua`; `4B70ABC5299BC1F2B816AE46B933DFA513EF262A4DD369F4196211B550059CA9` | `COM0U105` @ 263-266 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `com0u105`, row ID 11180101, physical line 589; `COM0U110` @ 290-295 -> no exact-key row; counterpart: `com0u110`, row ID 11180102, physical line 590 |
 | `com0u4` | `lua/scripts/quest/scenario/com/com0u4.lua`; `8CE38A9BDEBA006F146F5D281CC21C45B58DEACACA2A508631216BCF45583CBA` | `com0u410` @ 524-527 -> 11180401 |
 | `com0u5` | `lua/scripts/quest/scenario/com/com0u5.lua`; `A00382D68B8DC0198E4F244D461F678A2D0B97DCC485CCE113A4D4F1DE91F22E` | `com0u610` @ 681-684 -> 11180501 |
 | `com0u6` | `lua/scripts/quest/scenario/com/com0u6.lua`; `C7310059A36EF32D2A5DB013FBD94D41907995CEAC8EF1B71C22A8BAC57F5B7C` | `com0u510` @ 423-428 -> 11180601; `elv0u01a` @ 890-894 -> no row; `elv0u02a` @ 912-916 -> no row |
 | `drg0j1` | `lua/scripts/quest/scenario/drg/drg0j1.lua`; `FA02792E6F1EB30FDB0F969EE93D0297277D75765F2E0EF3A4DE649F5B5C869E` | `drg0j110` @ 603-606 -> 11132101 |
-| `drg0j4` | `lua/scripts/quest/scenario/drg/drg0j4.lua`; `F704B33562D944A1DD1F1449FAFC14BEA353678E9ED004E6EE8E351AD7A630CF` | `Drg0j410` @ 168-171 -> no row |
-| `drg0j6` | `lua/scripts/quest/scenario/drg/drg0j6.lua`; `529D76BBD4830921D4211EF405E08B2881A0B7249BFFDC5EDF6EBA6942972733` | `Drg0j610` @ 159-162 -> no row; `Drg0j620` @ 194-197 and 214-217 -> no row |
+| `drg0j4` | `lua/scripts/quest/scenario/drg/drg0j4.lua`; `F704B33562D944A1DD1F1449FAFC14BEA353678E9ED004E6EE8E351AD7A630CF` | `Drg0j410` @ 168-171 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `drg0j410`, row ID 11132401, physical line 530 |
+| `drg0j6` | `lua/scripts/quest/scenario/drg/drg0j6.lua`; `529D76BBD4830921D4211EF405E08B2881A0B7249BFFDC5EDF6EBA6942972733` | `Drg0j610` @ 159-162 -> no exact-key row; case-insensitive counterpart in `cutReplay.csv`: `drg0j610`, row ID 11132601, physical line 531; `Drg0j620` @ 194-197 and 214-217 -> no exact-key row; counterpart: `drg0j620`, row ID 11132602, physical line 532 |
 | `etc304` | `lua/scripts/quest/scenario/etc/etc304.lua`; `470B87D0ECBAB44CA86F5D073082ED8EF98096A77A9EC3F6A046284F3DEFC03B` | `gc010810` @ 308-313 -> 11086901; `gc010820` @ 381-385 -> 11086902; `gc010830` @ 399-403 -> 11086903; `gc010840` @ 417-421 -> 11086905; `gc010850` @ 435-440 -> 11086904; `gc010860` @ 467-471 -> 11086906 |
 | `etc3g2` | `lua/scripts/quest/scenario/etc/etc3g2.lua`; `CB2EDD30C6FFEC1FFF42D34F934CE3158AC27FAC5C2943D7FE010DEDC868364E` | `etc3g210` @ 421-424 -> 11073601 |
 | `gcg102` | `lua/scripts/quest/scenario/gcg/gcg102.lua`; `3BB5A88A88D28E7D302DE934836F294F0342C99272D14A4BEB756AB8B7837495` | `gc01g210` @ 495-498 -> 11162701 |
