@@ -37,6 +37,7 @@ charter, and contribution policy.
 | Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
 | Loot item UI contract | [loot-item-ui-contract.md](loot-item-ui-contract.md) |
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
+| Party matching client contract | [party-matching-client-contract.md](party-matching-client-contract.md) |
 | Widget-open command boundary | [widget-open-command-boundary.md](widget-open-command-boundary.md) |
 | Weather director client contract | [weather-director-client-contract.md](weather-director-client-contract.md) |
 | NPC Linkpearl client route | [npc-linkpearl-client-contract.md](npc-linkpearl-client-contract.md) |

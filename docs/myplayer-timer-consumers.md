@@ -97,7 +97,9 @@ Main-menu item 15 uses `DataTemplate_ListBoxItem_Return` and `_text_ui` row
 `StatusWidget.setContentsListItem` has exactly 20 recovered callers, all in
 `StatusWidget.updateContents`: -1 through -4 and 1 through 16.
 `PcMatchingEditWidget` reaches its fixed occupancy calls through its named list
-builders when the matching view branches are selected.
+builders when the matching view branches are selected. Additional purpose,
+list-builder, and party-control literals are recorded in the
+[Party matching client contract](party-matching-client-contract.md).
 
 Evidence: `lua/scripts/chara/player/playerbaseclass.lua`,
 `lua/scripts/command/system/teleportcommand.lua`,
