@@ -56,9 +56,33 @@ contract in `content-director-ui-contracts.md`.
 deletes it on inn finalization (`areabaseclass.lua:185-192`, `215-220`).
 `DesktopWidget.openCutSceneReplaySelectWidget` opens
 `Ask/JournalListWidget` in mode 7 (`desktopwidget_connector.lua:5093-5098`).
-For an ordinary replay quest, that journal opens
-`Ask/ReplayCutsceneSelectWidget` as a child; quest 110820 has a separate
-direct-finish branch (`journallistwidget.lua:159-171`). The child scans
+`JournalListWidget.initAsk` sets `work.questType` to 2 and
+`work.requestResult` to true on its mode-7 path (`root/proto0` PCs 55-60,
+offsets `0x0495`-`0x04A9`). Its `createList` method calls
+`addQuestCompleteListForCutsceneReplay` for mode 7 (`root/proto10` PCs 79-84,
+offsets
+`0x1ED0`-`0x1EE4`). The row builder uses the numeric range returned by
+`getQuestCompleteID`. For the `(110820, 20)` range returned by numeric
+`questType` 32 (`root/proto20` PCs 183-188, offsets
+`0x3823`-`0x3837`), it checks `cutReplaySheet` keys
+`110820 * 100 + i` for `i` from 1 through 20. It adds a row only when the
+key exists and `_isCompletedCutSceneReplayQuest(ID)` is not exactly true; the
+row has `JournalType` 3, `JournalIndex` 0, and text key 5108
+(`root/proto16` PCs 3-38, offsets `0x2A53`-`0x2ADF`).
+
+For other returned ranges, the row builder tests IDs from the first value plus
+1 through the second value minus 1, applies the same completion predicate,
+and uses text key 5106. When the first value is 110600, it excludes IDs 110821
+through 110824 (`root/proto16` PCs 41-73, offsets `0x2AEB`-`0x2B6B`).
+These numeric values and text keys are not assigned category or wording
+meanings.
+
+In mode 7, selection calls `finish(JournalID)` when
+`floor(JournalID / 100) == 110820`; otherwise it opens
+`Ask/ReplayCutsceneSelectWidget` as a child with that ID
+(`root/proto3` PCs 123-141, offsets `0x0B6D`-`0x0BB5`). This is a
+numeric predicate on the journal ID, not a direct equality check with
+110820. The child scans
 `questId * 100 + 1` through `questId * 100 + 30` for existing
 `cutReplaySheet` keys and stores selected cutscene IDs, not arbitrary
 scene filenames (`replaycutsceneselectwidget.lua:65-133`).

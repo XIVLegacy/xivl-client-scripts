@@ -743,6 +743,17 @@ the quest is incomplete, missing numeric inputs default to zero and the
 missing string defaults to one space. These client calls do not establish
 how a quest server produced those inputs.
 
+In the type-3 branch of `JournalDetailWidget.setDetailData` (root/proto10),
+the incomplete-quest path also calls `setText` for `TextBlock_OldCondition`
+with text key 5005, the journal ID, six numeric arguments, and the final string
+(PCs 500-512, offsets `0x0027CE`-`0x0027FE`). When
+`work.questCompleted` is not false, the widget hides `Label_Now` and
+`Label_QuestItem`, then calls `setText` for `TextBlock_OldCondition` with
+key 5024 and the journal ID (PCs 514-527, offsets `0x002806`-`0x00283A`).
+The bytecode establishes these property and text-key arguments, not the
+displayed wording or meanings for the six inputs; A8 is not consumed in this
+type-3 path.
+
 `QuestRewardWidget.setRewardData` iterates the variadic slot selectors and
 uses a 13-column stride for `questNewRewardSheet` lookups under its first
 data argument. For reward type -13, it calls `setText` with text key 5052

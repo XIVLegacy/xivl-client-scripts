@@ -41,7 +41,7 @@ arguments 1 through 8 and returns the selected card index. The publisher's
 | 8 | complete flag |
 | 9 | optional presentation variant; not forwarded to the detail widget |
 
-The function calls `DesktopWidget.askJournalDetailWidget` with mode 9 and
+The function calls `DesktopWidget.askJournalDetailWidget` with selector 9 and
 arguments 1 through 8 in order. A non-nil result copies those values into the
 publisher's presentation work and the result is returned unchanged. The widget
 returns true only when its ask result is 1. No branch in this path inserts
@@ -57,9 +57,9 @@ Evidence: `lua/scripts/chara/npc/populace/populaceguildlevepublisher.lua` and
 `PopulacePassiveGLPublisher` exposes up to eight card slots. It maps slots 1-8
 to selector values `1, 2, 3, 4, 1, 2, 3, 4`; an out-of-range slot falls back
 to selector 1. For a selected nonzero guildleve ID, the publisher passes that
-selector to `askJournalDetailWidget` with mode 11 and returns the selected slot
-only when the widget result is true. Empty IDs are skipped, and an all-zero
-list returns `nil, 5`. This is the client's card-to-selector mapping; it does
+selector to `askJournalDetailWidget` with selector 11 and returns the selected
+slot only when the widget result is true. Empty IDs are skipped, and an
+all-zero list returns `nil, 5`. This is the client's card-to-selector mapping; it does
 not establish the visual distinction represented by each selector or a
 server-side variant policy.
 
@@ -121,6 +121,25 @@ Bytecode identity is pinned at `manifests/retail_lua_coverage.json:26192-26205`:
 `0EB5C1F6B56AF27AE5CE02DE116A69602A6A60A009FCC92D3DDE3938CEA3EB2F`, decoded
 payload SHA-256 `15E38590AA448B15055C6DF3452464E96695F6310C6FAA53AEEEADBEB65FDA32`.
 
+### Type-2 detail payload
+
+`JournalDetailWidget.setDetailData` selects type 2 at root/proto10 PCs 216-217
+(offsets `0x00235E`-`0x002362`). In this branch, A1 is passed with
+`work.journalID` to the employer text blocks using text keys 4226 and 4227
+(PCs 336-351, offsets `0x00253E`-`0x00257A`), and to `Item_RewardText`
+with key 4231 and `Item_DetailText` with key 4229 (PCs 373-389, offsets
+`0x0025D2`-`0x002612`).
+
+A3 and A4 are stringified for `TextBlock_NumberOfSuccessesValue` and
+`TextBlock_NumberRemainingValue` (PCs 238-256, offsets
+`0x0023B6`-`0x0023FE`). A5 controls `Item_Status`: nil or a nonpositive
+value takes the hidden path, while a positive value populates the row (PCs
+224-227 and 258-262, offsets `0x00237E`-`0x002416`). A7 is stored as
+`work.offerLimit` and enables `Button_Localleve_Retry` only when
+`work.guildleveFailed` is true and A7 is positive (PCs 394-408, offsets
+`0x002626`-`0x00265E`). A2, A6, and A8 do not supply another use in this
+branch. These positions and UI calls do not assign server-field meanings.
+
 ### Journal list entry points and history
 
 `MainMenuWidget.init` assigns text ID 2104 and help ID 75726 to entry index 5.
@@ -134,14 +153,97 @@ widget receives `UILuaCommands.Shown`. `DesktopWidget.executeCommandJournalHisto
 obtains system command 24212 and calls it with the `glHist` tag.
 `GuildleveHistoryWidget.setDetailData` accepts eight positional IDs and writes
 each nonzero value to the matching `Button_Leve` user-work entry; zero values
-are not written by this method. `JournalListWidget.processUICommandSelection`
-in mode 4 calls `selectGuildleveChangeBonus` with the selected `JournalIndex`.
-`DesktopWidget.askNextGuildleveJournal` forwards its journal ID and trailing
-arguments to `askJournalDetailWidget` with selector 10.
+are not written by this method. `DesktopWidget.askNextGuildleveJournal`
+forwards its journal ID and trailing arguments to
+`askJournalDetailWidget` with selector 10.
 
-These are static client routes and arguments. They do not establish a server
-meaning for `glHist` or selector 10, a successful response, or historical
-runtime invocation.
+### JournalListWidget modes and row arguments
+
+`JournalListWidget.createList` (root/proto10 PCs 35-77, offsets
+`0x1E20`-`0x1EC8`) calls these row builders. Selection behavior is in
+`processUICommandSelection` (root/proto3 PCs 83-121, offsets
+`0x0ACD`-`0x0B65`):
+
+| Mode | List builder calls | Selection behavior |
+|---:|---|---|
+| 2 | `addActiveGuildleveList` | Calls `finish(JournalID)`. |
+| 3 | `addQuestList`, then `addPassiveGuildleveList` | Sets `work.guildleveFlag` only when `JournalType == 2`, then calls `finish(JournalIndex)`. |
+| 4 | `addActiveGuildleveList` | Calls `actor:selectGuildleveChangeBonus(JournalIndex)`, then `finish(JournalID)`; `finish` sets `resultSelectFlag` true in mode 4 (root/proto7 PCs 10-26, offsets `0x1269`-`0x12A9`). |
+| 5 | `addQuestList` | Calls `finish(JournalID)`. |
+| 6 | `addPassiveGuildleveList` | Calls `finish(JournalIndex)`. |
+
+The active-list builder skips ID 0, reads each remaining ID from its player
+slot, queries `isDoneGuildleveById` and `isCheckedGuildleveById`, and writes
+type 1, the ID, and the slot as `JournalType`, `JournalID`, and
+`JournalIndex` (root/proto12 PCs 7-42, offsets `0x2235`-`0x22C1`;
+root/proto17 PCs 83-94, offsets `0x2E2A`-`0x2E56`). The passive-list
+builder skips nil entries, gets each ID through `getQuestId`, queries
+`isDoneLocalleveById` and `isCheckedLocalleveById`, and writes type 2 and the
+slot index (root/proto13 PCs 7-44, offsets `0x2476`-`0x250A`). The quest
+builder includes nonnil entries whose `_isAlive()` result is true, gets their
+IDs through `getQuestId`, and writes type 3 and the scenario slot index
+(root/proto14 PCs 7-39, offsets `0x26CD`-`0x274D`).
+
+`addQuestCompleteList` writes type-3 rows with `JournalIndex` 0 for IDs where
+`isQuestComplete(ID)` is not exactly true (root/proto15 PCs 3-29, offsets
+`0x28D7`-`0x293F`). This records the method's predicate without assigning
+the CSV candidate's `completed quest` label. `setListItem` writes `Name`
+from its text-key argument and stores `JournalType` and `JournalID`
+(root/proto17 PCs 0-94, offsets `0x2CDE`-`0x2E56`). In mode 3, when an actor
+is present, it calls `actor:canUseGuildleve(player, JournalID)`; only a result
+exactly false sets `ItemColor` to `tostring(0.5)` and `JournalType` to 0
+(root/proto17 PCs 164-215, offsets `0x2F6E`-`0x303A`). These calls and row
+values do not establish category labels, text-key meanings, or the meaning of
+the color value.
+
+### Detail selectors and map navigation
+
+`DesktopWidget.askJournalDetailWidget` (root/proto368, PCs 0-42, offsets
+`0x02425F`-`0x02430B`) selects values in R5 and R6, then passes R6, R5, the
+journal ID, R7, and R8 to `openWidgetYield` at PCs 151-161 (offsets
+`0x0244BB`-`0x0244E3`). R7 and R8 default to false at PCs 0-2; selector 10
+sets R7 to literal true at PC 18. The dispatcher branches on these selector
+values:
+
+| Selector | R5 value | R6 value | R7 value | R8 value | Branch PCs |
+|---:|---:|---:|---:|---:|---|
+| 1 | 3 | 2 | false | false | 38-41 |
+| 6 | 1 | 4 | false | false | 9-12 |
+| 7 | 2 | 2 | false | false | 21-24 |
+| 9 | 1 | 3 | false | false | 4-6 |
+| 10 | 1 | 3 | true | false | 15-18 |
+| 11 | 2 | 3 | false | false | 27-30 |
+| 13 | 2 | 4 | false | false | 32-35 |
+
+The values are opener arguments; these chunks do not prove how the native
+widget-creation path maps them to `JournalDetailWidget.initAsk` parameters.
+Selector 10's literal true and the separate `initAsk` branch where formal A6
+sets `work.questCompleted` (root/proto0 PCs 148-151, offsets
+`0x0580`-`0x058C`) are not joined by a Lua call in the recovered chunks.
+
+`JournalDetailWidget.processUICommandOperate` opens child
+`MapNavigationWidget` with mode 1, `work.questIndex`, and
+`work.journalID` (root/proto1 PCs 20-32, offsets `0x0C82`-`0x0CAA`). The
+map widget initializer separately stores its first three formals as mode
+(root/proto2 PC 54, offset `0x08C2`), quest index (PCs 64-67, offsets
+`0x08EA`-`0x08F6`), and journal ID (PCs 68-71, offsets
+`0x08FA`-`0x0906`). On Activated in mode 1,
+`MapNavigationWidget.processUICommandEvent` (root/proto3 PCs 79-96, offsets
+`0x0EDE`-`0x0F22`) calls
+`DesktopWidget.executeCommandJournalDetailInfo(3, journalID, questIndex, 2)`;
+when that call returns false, the widget opens failure widget 5211.
+
+The connector's `executeCommandJournalDetailInfo` type-3 branch (root/proto188
+PCs 24-36, offsets `0x01876C`-`0x01879C`) obtains system command 24211 and
+calls its `command` method with the journal ID, literal 2, and three nil
+values. It does not forward `questIndex`. The connector's `qtmap`
+requested-data branch is a separate route; these Lua chunks do not connect it
+to command 24211. These calls do not establish server response semantics or
+historical runtime invocation.
+
+The `glHist`, selector-10, detail, and map calls above are static client routes
+and arguments. They do not establish server semantics, a successful response,
+or historical runtime invocation.
 
 Source identity is pinned in `manifests/retail_lua_coverage.json`:
 
@@ -163,11 +265,18 @@ Source identity is pinned in `manifests/retail_lua_coverage.json`:
   payload SHA-256 `F520CD90F18BDAD9314648CDEB053A0F109E9BE6E4617B9E6A9E706D468EAE87`
   (`retail_lua_coverage.json:25248-25260`).
 - `lua/scripts/widget/desktopwidget_connector.lua`
-  (`executeCommandJournalHistoryInfo`, `askNextGuildleveJournal`):
+  (`executeCommandJournalHistoryInfo`, `askNextGuildleveJournal`,
+  `askJournalDetailWidget`, `executeCommandJournalDetailInfo`):
   `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb`, LPB SHA-256
   `0F8CA1585BB97C40D36CBF120DD3F6FA6351927C4530E3FAD76A71582AF95425`, decoded
   payload SHA-256 `685A0A6DDA2D4AE6FE06A9C684E57EFD7E819938E145CB1A4A65DF56555BD621`
   (`retail_lua_coverage.json:25443-25455`).
+- `lua/scripts/widget/mapnavigationwidget.lua`
+  (`init`, `processUICommandEvent`): `client/script/n1635q/x9uw9o139q1vwn1635q.le.lpb`,
+  LPB SHA-256 `873EE821C979B9C0959743BC619444EC01BD39C96F71235235278BB602B4D0BB`,
+  decoded payload SHA-256
+  `21CC7F2F9C6E2A56E02620E18748FA9DD70BF02DAB6A889FD6083826D60528C2`
+  (`retail_lua_coverage.json:27889-27900`).
 
 Acceptance first becomes client-visible when synchronized player work contains
 the nonzero ID. `AetheryteBaseClass.canUseGuildleve(player, guildleveID)` then
