@@ -98,6 +98,54 @@ Evidence: `lua/scripts/widget/ask/journaldetailwidget.lua`,
 `lua/scripts/chara/player/player_work.lua`, and
 `lua/scripts/chara/player/playerbaseclass_work.lua`.
 
+### Journal list entry points and history
+
+`MainMenuWidget.init` assigns text ID 2104 and help ID 75726 to entry index 5.
+`MainMenuWidget.processUICommandSelectionChanged` opens
+`Ask/JournalListWidget` in mode 1 when that entry is selected.
+`JournalListWidget.processUICommandOperate` opens `GuildleveHistoryWidget`
+for `Button_History`.
+
+`GuildleveHistoryWidget.processUICommandDefault` requests history when the
+widget receives `UILuaCommands.Shown`. `DesktopWidget.executeCommandJournalHistoryInfo`
+obtains system command 24212 and calls it with the `glHist` tag.
+`GuildleveHistoryWidget.setDetailData` accepts eight positional IDs and writes
+each nonzero value to the matching `Button_Leve` user-work entry; zero values
+are not written by this method. `JournalListWidget.processUICommandSelection`
+in mode 4 calls `selectGuildleveChangeBonus` with the selected `JournalIndex`.
+`DesktopWidget.askNextGuildleveJournal` forwards its journal ID and trailing
+arguments to `askJournalDetailWidget` with selector 10.
+
+These are static client routes and arguments. They do not establish a server
+meaning for `glHist` or selector 10, a successful response, or historical
+runtime invocation.
+
+Source identity is pinned in `manifests/retail_lua_coverage.json`:
+
+- `lua/scripts/widget/mainmenuwidget.lua` (`init`, `processUICommandSelectionChanged`):
+  `client/script/n1635q/x91wx5wpn1635q.le.lpb`, LPB SHA-256
+  `C0E1782A3CA183FCAA520A16320946F62D3FC861C74978CDE19EA20FCD064B0A`, decoded
+  payload SHA-256 `185D856D406D46BA7416444DDC2212B68036F7D56D0EE62148BE2567630C90B2`
+  (`retail_lua_coverage.json:27813-27825`).
+- `lua/scripts/widget/ask/journallistwidget.lua` (`processUICommandOperate`,
+  `processUICommandSelection`):
+  `client/script/n1635q/9rz/0vpsw9yy1rqn1635q.le.lpb`, LPB SHA-256
+  `A15C8BF36E8124C5C4F5BE2EF189037894C98342C7C7EEF5889ADE16D975E6F3`, decoded
+  payload SHA-256 `549BC61FE3C206F1DD080057948A201F2824A785D039FB9F97878D8A31491D33`
+  (`retail_lua_coverage.json:26208-26220`).
+- `lua/scripts/widget/guildlevehistorywidget.lua` (`processUICommandDefault`,
+  `setDetailData`):
+  `client/script/n1635q/3p1y6y5o521rqvsln1635q.le.lpb`, LPB SHA-256
+  `A4A341F5653F1EA2EBC06EC59BF885F437E4855A2F2E6023B9F99D939C59BC66`, decoded
+  payload SHA-256 `F520CD90F18BDAD9314648CDEB053A0F109E9BE6E4617B9E6A9E706D468EAE87`
+  (`retail_lua_coverage.json:25248-25260`).
+- `lua/scripts/widget/desktopwidget_connector.lua`
+  (`executeCommandJournalHistoryInfo`, `askNextGuildleveJournal`):
+  `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb`, LPB SHA-256
+  `0F8CA1585BB97C40D36CBF120DD3F6FA6351927C4530E3FAD76A71582AF95425`, decoded
+  payload SHA-256 `685A0A6DDA2D4AE6FE06A9C684E57EFD7E819938E145CB1A4A65DF56555BD621`
+  (`retail_lua_coverage.json:25443-25455`).
+
 Acceptance first becomes client-visible when synchronized player work contains
 the nonzero ID. `AetheryteBaseClass.canUseGuildleve(player, guildleveID)` then
 requires `player:isUnusedGuildleveById(guildleveID)`, loads field 78 from

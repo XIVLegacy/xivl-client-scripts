@@ -34,3 +34,17 @@ or a completed quest or Hamlet mutation.
 
 Canonical source hashes are pinned in `manifests/scripts.json`; LPB identities
 and decoded payload hashes are pinned in `manifests/retail_lua_coverage.json`.
+
+## ContentRewardWidget caller routes
+
+Each method below calls `askEventModeWidgetYield` for
+`Ask/ContentRewardWidget` in mode `1`, passing its own actor instance and a
+trailing `1`. These call sites establish a widget open request; they do not
+prove that a reward was granted.
+
+| Caller method | Decoded script | LPB resource and pinned identity |
+| --- | --- | --- |
+| `GuildleveWarpPoint.eventGuildleveReward` | `lua/scripts/chara/npc/object/guildlevewarppoint.lua` | `729s9/wu7/v8057q/3p1y6y5o5n9suuv1wq.le.lpb`; LPB SHA-256 `AAF4816A2542A8365F2738C9958083C07EDD9052ABA4E069CB29C830E63FF7A4`; decoded payload SHA-256 `1C6EEAC00FB31DCA16E9CF6064DC2EE37A64942B9707D8676305CE887D812186` (`retail_lua_coverage.json:8001-8011`) |
+| `PopulaceGuildleveTester.eventGuildleveReward` | `lua/scripts/chara/npc/populace/populaceguildlevetester.lua` | `729s9/wu7/uvupy975/uvupy9753p1y6y5o5q5rq5s.le.lpb`; LPB SHA-256 `1682C91087183D0C248681DA9235C667C382ECCAF13EB2452AB771A23EB3194C`; decoded payload SHA-256 `E742FA6CA31E61BFBF647B5FBF4941A72FB7E83B588DF3CE6024052F27190993` (`retail_lua_coverage.json:7056-7066`) |
+| `PopulaceCompanyGLPublisher.eventGLReward` | `lua/scripts/chara/npc/populace/populacecompanyglpublisher.lua` | `729s9/wu7/uvupy975/uvupy9757vxu9wl3yup8y1r25s.le.lpb`; LPB SHA-256 `0874F59A069F7A6F87B7A01B93D7D91D8D5DD14F749CFF02B05F7BCBCD15EFDF`; decoded payload SHA-256 `0AE20217500C331EC82F660A0A3762523CBC168B3DBCB37B995D2225934FC43C` (`retail_lua_coverage.json:7371-7381`) |
+| `PopulaceFactionGLWorker.eventGuildleveReward` | `lua/scripts/chara/npc/populace/populacefactionglworker.lua` | `729s9/wu7/uvupy975/uvupy975497q1vw3ynvsz5s.le.lpb`; LPB SHA-256 `7B71CEC14520C737F79404B6B15DE7996BED6EEE7BAF0970E5D79F0495455883`; decoded payload SHA-256 `93DC837772665914D81C04993645B1CC90020084BF5F3E687DC49ED7DFB16E2D` (`retail_lua_coverage.json:7221-7231`) |

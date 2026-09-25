@@ -41,3 +41,50 @@ predicate. That decompiler ambiguity prevents assigning a second underlying
 flag or a historical calling/extra state to each icon from these bodies
 alone. No Man206-specific NPC LS ID, message pack, sequence transition,
 or successful retail call follows from this UI code.
+
+## Linkshell management UI and local command checks
+
+`PopulaceLinkshellManager.eventTalkStep22` sets the second of five choice
+flags to `false` when `countCommunityGroup(20002) >= 8`, before passing the
+flags to `askRestrictChoices`. This is a local UI gate; it does not establish
+group capacity or server authorization.
+
+`LinkshellListWidget.initAsk` iterates from 1 through 8, forms each
+`ListBoxItem_Linkshell_<n>` name, and writes `n` into its
+`TextBlock_LinkshellNumber` child. This establishes eight named row slots that
+the script addresses, not that native layout creates or displays them.
+
+`LinkshellKickCommand.canFire` obtains the caller's current group of type
+`20002`, checks caller and target membership, requires caller rank at least
+`7`, and compares caller rank as greater than target rank. This local command
+predicate does not establish server authorization or group capacity.
+
+`PopulaceLinkshellManager.checkLinkshellName` marks its local result false
+when the string length is outside `3`-`31`, `_string.match` finds
+`[^a-zA-Z0-9 ]` or `[^a-zA-Z0-9][^a-zA-Z0-9]`, or the string begins or ends
+with a space. These are the visible checks in this method; they do not define
+the accepted-name policy.
+
+`PopulaceLinkshellManager.eventTalkStep2` has visible return triples with
+first values `3`, `4`, and `5`. The `3` branch returns the values from the
+name and icon steps; the `4` branch returns the first then second result from
+`eventTalkStep24`; and the `5` branch returns the `eventTalkStep25` result
+and literal `0`. Other exits return accumulated local values, including the
+visible first value `10`, or `-1` with those values. These are method-level
+tuple shapes; they are not assigned create, change, disband, or
+server-operation meanings.
+
+Lua 5.1 instruction PCs cross-check the tuple order: `eventTalkStep2`
+(`root/proto5`) returns status 3 at PC 149, status 4 at PC 169 after copying
+the first and second `eventTalkStep24` results into that order, status 5 with
+the `eventTalkStep25` result and zero at PC 184, and status 10 or -1 with the
+current two values at PCs 202 and 214. The payload identity is pinned in the
+table below.
+
+The decoded script and retail resource identities are pinned here:
+
+| Script and method | Decoded source | LPB and payload identity |
+| --- | --- | --- |
+| `lua/scripts/chara/npc/populace/populacelinkshellmanager.lua` (`eventTalkStep2`, `eventTalkStep22`, `checkLinkshellName`) | `manifests/scripts.json:6453-6456` | `manifests/retail_lua_coverage.json:7849-7861` |
+| `lua/scripts/widget/ask/linkshelllistwidget.lua` (`LinkshellListWidget.initAsk`) | `manifests/scripts.json:15021-15024` | `manifests/retail_lua_coverage.json:26973-26985` |
+| `lua/scripts/command/system/linkshellkickcommand.lua` (`LinkshellKickCommand.canFire`) | `manifests/scripts.json:7491-7494` | `manifests/retail_lua_coverage.json:23974-23986` |

@@ -26,6 +26,21 @@ update, article, state, and parameter methods. These scripts establish client
 state layout, sheet consumption, and widget calls. They do not establish
 server timers, objectives, acceptance rules, completion, or rewards.
 
+`GuildleveExecutionWidget.setArticleType` handles render type 6 by writing its
+first value argument to `TextBlock_Bunshi_<row>` and
+`ProgressBar_<row>.Value`, and its second value argument to
+`TextBlock_Bunbo_<row>` and `ProgressBar_<row>.Maximum`. This records widget
+writes only; render type 6 and the values have no assigned objective or server
+meaning here.
+
+Source identity: `lua/scripts/widget/guildleveexecutionwidget.lua`, method
+`setArticleType`, maps to
+`client/script/n1635q/3p1y6y5o55m57pq1vwn1635q.le.lpb` (LPB SHA-256
+`8EED436E9058CBA2BC7EA92603A1A493CF10BE7ACE8B676EA66B5F384326C8CD`, decoded
+payload SHA-256
+`58812BFCCC48E5D651569F55382DE88C55A365EC91D0A9171FFE93E751EFCE13`;
+`retail_lua_coverage.json:25263-25275`).
+
 `GuildleveBaseClass.processUIInit` first copies all four `aimNumNow` and
 `uiState` entries into temporary comparison arrays. If `getStartTime()` is
 positive and `uiStep` is zero, it sets `uiStep` to one, sends
@@ -72,6 +87,55 @@ when the local player is a member and the group kind is 30001 or 30006
 request; it does not identify the displayed text or establish what caused
 finalization. Both decoded sources and their retail LPBs are pinned in
 [`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json).
+
+## Map navigation widget
+
+`MapNavigationWidget.init` stores its mode on `CustomControl_MapNavigation`.
+For mode 2 it sets the widget nonmodal and disables focus, widget input, and hit
+testing on both the widget and map control. `DesktopWidget.openMapForCutScene`
+opens `MapNavigationWidget` on layer 11 in mode 2 with the supplied map argument
+when cutscene mode is active and the desktop cutscene-map flag is clear. This is
+a static client configuration and open route; no historical invocation or
+visible map is established here.
+
+The piece-menu path calls `getAchieveAetheryteID(regionId, false)` before
+requesting `aetheryte2DmapSheet`. Its piece-list helper reads positive values
+from columns 17 through 20, and `updateAetheryteList` makes a row visible only
+when the player's `getAchieveAetheryte(rowID)` returns true.
+`mapNaviDataSheetLoaded` reads columns 1 and 2 for the selected row and passes
+them to `setDisplayLocation`, which writes them to the map control's `Layout`
+and `Rect` properties. The selected row and column values are not assigned
+domain meanings here.
+
+`DesktopWidget.setMapNavigationWidgetMarkerData` looks up a layer-3
+`MapNavigationWidget`, forwards six supplied values to its marker-data method,
+and returns true when the widget exists. `MapNavigationWidget` routes selector
+value 2 to `setActiveGuildleveMarker`. The available Lua does not assign
+meanings to those positional values. Separately, when its menu category is 1,
+`addMarkerList` stores a value as list-item data; `setQuestMarker` writes a
+value to `ssd_marker_data.Row`, and
+`dispMarker` writes a value to `CustomControl_MapNavigation.QuestMapIndex`. These
+properties and values remain uninterpreted; no server field meaning or
+historical response/invocation is established here.
+
+Source identities are pinned in `manifests/retail_lua_coverage.json`:
+
+- `lua/scripts/widget/mapnavigationwidget.lua` (`init`,
+  `callbackSelectRegionMenuList`, `setSelectPieceMenuList`,
+  `pushSelectPieceMenuListItem`, `updateAetheryteList`,
+  `mapNaviDataSheetLoaded`, `setDisplayLocation`,
+  `setMapNavigationWidgetMarkerData`, `setActiveGuildleveMarker`,
+  `addMarkerList`, `setQuestMarker`, `dispMarker`):
+  `client/script/n1635q/x9uw9o139q1vwn1635q.le.lpb`, LPB SHA-256
+  `873EE821C979B9C0959743BC619444EC01BD39C96F71235235278BB602B4D0BB`, decoded
+  payload SHA-256 `21CC7F2F9C6E2A56E02620E18748FA9DD70BF02DAB6A889FD6083826D60528C2`
+  (`retail_lua_coverage.json:27888-27900`).
+- `lua/scripts/widget/desktopwidget_connector.lua`
+  (`setMapNavigationWidgetMarkerData`, `openMapForCutScene`):
+  `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb`, LPB SHA-256
+  `0F8CA1585BB97C40D36CBF120DD3F6FA6351927C4530E3FAD76A71582AF95425`, decoded
+  payload SHA-256 `685A0A6DDA2D4AE6FE06A9C684E57EFD7E819938E145CB1A4A65DF56555BD621`
+  (`retail_lua_coverage.json:25443-25455`).
 
 ## Caravan escort director
 

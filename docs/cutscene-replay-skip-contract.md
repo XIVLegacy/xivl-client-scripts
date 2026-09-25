@@ -30,6 +30,22 @@ targets the bound actor's `_skip()` while that play call is in progress;
 there is no separate quest-level return branch in this method. This does
 not define the historical server's event-close or warp ordering.
 
+## PlaneMap cutscene hook
+
+`CutScene._onShowUIClip` passes its third argument to
+`DesktopWidget.openMapForCutScene`; `_onHideUIClip` calls
+`closeMapForCutScene` for PlaneMap (`cutscene_common.lua:622-638`). The
+desktop open path rejects a second open while its cutscene-map flag is set
+and acts only in cutscene mode; it opens root widget 11 as
+`MapNavigationWidget` in mode 2 and sets the flag only when that open call
+succeeds. The close path acts when the flag is set and cutscene mode is
+active; it uses the same root and widget name, asks the desktop to cancel a
+widget command if close returns false, and then clears the flag
+(`desktopwidget_connector.lua:5017-5056`). These are static local client
+calls; they do not establish runtime rendering or input behavior. The
+mode-2 widget properties are documented with the MapNavigationWidget
+contract in `content-director-ui-contracts.md`.
+
 ## Inn replay selection
 
 `AreaBaseClass` creates `cutReplaySheet` only when `_isInn()` is true and
@@ -101,3 +117,11 @@ Recovered-source identities and hashes are in `manifests/scripts.json` under
 the matching `lua/scripts/` paths. The 1.23b client executable is pinned by
 SHA-256:
 `9341F2B4567440B310A4D494F5CC5599CA334BA51C8042247317FF466492F2E9`.
+The PlaneMap hook also uses `gamedata/cutscene_common` resource
+`39x569q9/7pqr75w5_7vxxvw.le.lpb` (LPB SHA256
+`A5279136C0EE8F6EF2342FD22AF2B9CD12F9B6AFF5A4FEFF4BC0FC21367F5321`)
+and `widget/desktopwidget_connector` resource
+`n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (LPB SHA256
+`0F8CA1585BB97C40D36CBF120DD3F6FA6351927C4530E3FAD76A71582AF95425`).
+Both rows are pinned in `manifests/retail_lua_coverage.json` with their
+decoded payload hashes (`retail_lua_coverage.json:814-827,25443-25456`).
