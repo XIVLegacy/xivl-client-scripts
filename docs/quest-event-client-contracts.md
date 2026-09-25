@@ -623,6 +623,19 @@ then fade in after warp. The method does not hardcode either
 second scene argument is not proof of an arrival movie or of historical
 two-scene ferry playback.
 
+A case-insensitive substring scan of the pinned decoded Lua corpus finds
+`DftSrt` and `eventDeparture` only in `dftsrt.lua`, and `delegateEvent` only
+in `director/directorbaseclass.lua` and `chara/npc/npcbaseclass.lua`. The
+archive identity and expanded tree are pinned in
+[`private_lua_corpus.json`](../manifests/private_lua_corpus.json): 2,671
+scripts, archive SHA-256
+`0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31`, and
+tree SHA-256
+`05edcf81aec7ad28007c059991b6858665680f860bd1ed2aa5100e7fc120da0d`.
+This is a text-search result. It does not exclude computed names, aliases, or
+indirect dispatch, establish a complete bytecode call graph, or identify an
+event owner.
+
 ## PopulaceFlyingShip event-in return
 
 The LPB at
