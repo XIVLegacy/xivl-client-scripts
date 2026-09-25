@@ -21,10 +21,14 @@ source hashes are in [`scripts.json`](../manifests/scripts.json).
 ## Prompt and marker behavior
 
 `RaidDungeonExit.initForEvent` loads text bank 6736 as `raidDungeonExit`.
-Its `askYesNo` calls `askExtendWidget` with prompt rows selected by a type
-argument. The recovered type-3 branch contains an invalid `break`, so its
-relationship to the subsequent row-1 and row-4 calls is not settled by this
-decompile. The class contains no proven destination or exit movement.
+Its `askYesNo` selector 3 calls
+`askExtendWidget(self, 7, 2, 1, 2, A2)`, saves its one result, and jumps to
+the shared return. In prototype code offset `0x1DA`, zero-based PCs 4-15
+establish this branch and show that it bypasses the later prompt-row 1 and
+row 4 calls. The matched decoded payload SHA-256 is
+`5871e982bb1139fc396d81fecaa45ff7fcb5b9ee9af6eebfd4b90cf3b52fa490` in
+`manifests/retail_lua_coverage.json`. This is a prompt-result contract; it
+does not establish an exit destination or movement.
 
 `InstanceRaidExit.initForEvent` disables ground. `askExit` passes world-master
 text row 52042, response rows 52043 and 52044, and its argument to

@@ -370,6 +370,69 @@ content creation, participant management, clear/failure policy, exit
 movement, or rewards. In particular, the duplicate `createCutScene`
 expression in `executeCutScene` does not prove two runtime allocations.
 
+## Instance-raid guide and event methods
+
+The following client contracts are pinned by their LPB and decoded payload
+hashes. The canonical decoded-script paths and payload digests are recorded
+in `manifests/retail_lua_coverage.json`; canonical Lua source hashes are in
+`manifests/scripts.json`.
+
+| Script | LPB path / SHA-256 | Decoded payload SHA-256 |
+| --- | --- | --- |
+| `chara/npc/populace/instanceraidguide/noquestguidebaseclass.lua` | `729s9/wu7/uvupy975/1wrq9w75s9163p165/wvtp5rq3p16589r57y9rr.le.lpb` / `7856f1aeaeccaddc9962404542d5aa934837b2817a4da3eb910303eb8a771487` | `b2a9c1df037d9cc8af191db06dfd262342407ceda92a092b883106a15c08e788` |
+| `chara/npc/populace/instanceraidguide/instanceraidguideaurumvale.lua` | `729s9/wu7/uvupy975/1wrq9w75s9163p165/1wrq9w75s9163p1659pspxo9y5.le.lpb` / `f86bad44fca4b253223a639f8806d57ca24582d819a8b20471a1c2be612de1f4` | `80e49a71894d6745e2ae5c63f522c7ac94925f6e0666606ab9a9b4e738c8e1c9` |
+| `chara/npc/populace/instanceraidguide/instanceraidguidecutterscry.lua` | `729s9/wu7/uvupy975/1wrq9w75s9163p165/1wrq9w75s9163p1657pqq5sr7sl.le.lpb` / `48f066b5a25749c1d0fc39ac0ad78c93b7d0b099ec73ddb8535dffb11b4b6f1a` | `5e9d5aeff9035c499d7f3f960ae666b97de40289ae5d7b171c46371eac281ee2` |
+| `chara/npc/populace/occupancyguide/raidfst0dungeon03guide.lua` | `729s9/wu7/uvupy975/v77pu9w7l3p165/s9164rqj6pw35vwjg3p165.le.lpb` / `85314278a3c09261bd567826016723dfbaff2720ff42f4d8cf1d7191dd1b62ef` | `e1e6398cee8d2af33a8fb9d97ca6adf2acffc19ee6eccba345cadff779ca4a77` |
+| `chara/npc/populace/occupancyguide/raidroc0dungeon01guide.lua` | `729s9/wu7/uvupy975/v77pu9w7l3p165/s916sv7j6pw35vwji3p165.le.lpb` / `6a647ecc1a4d925a1b72f29659a669d9aa61840d6b7c193aeb719f138d0ac50a` | `0646209eddf7d31d1c804da74ad1d11fe136e5e906b1fc2ec8c122057587581d` |
+| `director/instanceraid/instanceraidlesserwhitegeneral.lua` | `61s57qvs/1wrq9w75s916/1wrq9w75s916y5rr5sn21q535w5s9y.le.lpb` / `f6e5631947f42562dcb6b865f45c9122c4e50bc002235c28a04846e174e272e7` | `5f5d1b3e8dfe776d208803166eed1b92c987817a43112a26d5ba50c7290433d4` |
+
+`NoQuestGuideBaseClass.askExplainInstanceRaid` (prototype `0x17A`, zero-based
+PCs 0-55) obtains its choices from `createExplainSelection_` and repeatedly
+passes the selected value to `processExplainSelected_`. When the packed
+return table has length zero, it finishes client talk and returns false.
+After a selection, a false callback result continues the loop. A true result
+finishes and returns true; nil finishes and returns false. The method
+finishes client talk after the loop. This is a
+client prompt flow; it does not prove a server launch or instance result.
+
+`InstanceRaidGuideAurumVale.createExplainSelection_` says row 2 and returns
+prompt row 3, choices 4-7, and three copies of its input argument
+(prototype `0x214`, zero-based PCs 0-17). Its `processExplainSelected_`
+(prototype `0x2CC`, zero-based PCs 0-99) returns false for choices 1 and 2, true for
+choice 3 after self say row 22, and nil for choice 4 or other values.
+Choice 1 says self rows 8-11. Choice 2 says self row 12, calls
+world-master row 13 or 19 according to an argument comparison, then calls
+world-master rows 18, 15, and 17 and self rows 14 and 16 before returning
+false. These row IDs do not assign text meaning or server outcome.
+
+`InstanceRaidGuideCuttersCry.createExplainSelection_` calls
+`doSalute(3, 17)`, conditionally schedules `353959936` when that call returns
+zero, waits 1, and calls `sayText_(2, 22)` before returning prompt row 3,
+choices 4-7, and three copies of its input (prototype `0x230`, zero-based
+PCs 0-28). Its `processExplainSelected_` (prototype `0x36E`, zero-based
+PCs 0-90) makes
+choice-specific say-text and world-master calls; choices 1 and 2 return
+false, choice 3 calls `sayText_(19, 31)` and returns true, and choice 4 or
+other values return nil. `sayText_` selects between its two row arguments
+using `isUpperRank(3, 17)` (prototype `0x614`, zero-based PCs 0-17). The scheduler ID
+and row values are client literals, not proven text or action semantics.
+
+Both `RaidFst0Dungeon03Guide.askMainMenu` and
+`RaidRoc0Dungeon01Guide.askMainMenu` (prototype `0x228`, zero-based PCs
+0-129 in each
+payload) first call `askExtendWidget` with leading arguments `(2, 4)`. When
+that call returns 3, they call it again with leading arguments `(17, 2)`.
+Each call also receives the method's final parameter. Both methods return the
+first call's selected value. These literal arguments do not establish their
+prompt or choice semantics, an instance launch, or a server result.
+
+`InstanceRaidLesserWhiteGeneral.processCutSceneEvent` (prototype `0x1B6`,
+zero-based PCs 0-23) calls `worldMaster:_getMyPlayer()`, fades out and waits for
+fading, passes its weather argument to `_setWeather` with a second argument
+of 0, calls `executeCutScene` with its two supplied arguments and `true`,
+fades in, and waits 1. This is call order in the client method; it does not
+establish a successful scene or weather effect.
+
 ## Quest content-information directors
 
 Five canonical scripts under `lua/scripts/director/quest/` join the

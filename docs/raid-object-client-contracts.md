@@ -33,6 +33,26 @@ These calls identify the client prompt and presentation route. They do not
 establish a destination, entry requirement, server-side warp, or terminal
 charge rule.
 
+Three more object scripts have bytecode-pinned contracts:
+
+| Script | LPB path / SHA-256 | Decoded payload SHA-256 |
+| --- | --- | --- |
+| `chara/npc/object/raiddungeonbarrier.lua` | `729s9/wu7/v8057q/s9166pw35vw89ss15s.le.lpb` / `f53dee0add40ae0d02d5a50a8a173b605f91ea2da5bb5f9e0f73ca0e0794a14b` | `868a9bac75167e17556ef4636dc4991d0d6f36f47cc57beb00fc52044f1dec50` |
+| `chara/npc/object/raiddungeonlight.lua` | `729s9/wu7/v8057q/s9166pw35vwy132q.le.lpb` / `67c8430c08bef090b0d78b3aa2d94ce1a67ac1a28948d2150c72ec3857afc85c` | `f551fc4389b8317ace02a9de710c86a798d306db63163b21ab0b973e731ac5b5` |
+| `chara/npc/object/raiddungeonposter.lua` | `729s9/wu7/v8057q/s9166pw35vwuvrq5s.le.lpb` / `a5b5560d71f8e25dcc98e5a84645533792d7498a11d50e03698c86d10cc0d0be` | `9cf144ce7fcaab42bcc30bcd525f57b1180062db93917d9df044432db4b1060c` |
+
+`RaidDungeonBarrier.eventTalkRead` calls `worldMaster:say(self, 5)` in
+prototype `0x1B2`, PCs 0-5. Its `askYesNo` calls
+`askExtendWidget(self, 2, 2, 1, 1)` and returns the one result
+(prototype `0x215`, PCs 0-9). `RaidDungeonLight.askYesNo` calls
+`askExtendWidget(self, 1, 2, 1, 1)` and returns the one result
+(prototype `0x1F2`, PCs 0-9).
+
+`RaidDungeonPoster.eventTalkRead` maps selectors 1-7 to self say rows 1-7
+and selectors 8-10 to world-master say rows 14-16 (prototype `0x196`,
+PCs 0-85). The row numbers are literal client calls; their text meanings
+and any resulting world action are not established.
+
 `RaidDungeonTreasureBox.processOpenDzemaelEpicQuestType` references offered
 quest 110868 and calls the quest object's `isDropDzemael` method. In the
 original LPB's decoded `main/f0` prototype, zero-based instruction PCs
