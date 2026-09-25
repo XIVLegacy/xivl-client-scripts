@@ -9,11 +9,15 @@ static `cutReplay` rows. Neither path is a generic widget-open entitlement.
 `DesktopWidget` creates `CutSceneSkipWidget` and
 `CutSceneSkipWarningWidget` as static slots 12 and 13
 (`desktopwidget_connector.lua:4198-4202`). In the common CutScene method,
-only play mode 1 with skip argument 1 passes the CutScene actor to
-`showCutSceneSkip` before `_play`; the method calls `hideCutSceneSkip` after
-playback (`cutscene_common.lua:886-902`). The desktop bridge stores that
-actor as slot 12's `argActor`, and its hide path calls the widget's `clear`
-(`desktopwidget_connector.lua:5760-5775`).
+the third argument's raw values 1, 3, 5, and 7 normalize to selector 1, while
+2, 4, 6, and 8 normalize to selector 2 (`startCutScene`, bytecode PCs 15-84,
+offsets `0x001D4D`-`0x001E61`); this block does not normalize other raw values.
+Only play mode 1 with normalized selector 1 passes the CutScene actor to
+`showCutSceneSkip` before `_play`; the method
+calls `hideCutSceneSkip` after the playback result path (PCs 225-235 and
+251-272, offsets `0x002095`-`0x0020C1` and `0x002101`-`0x002151`). The desktop
+bridge stores that actor as slot 12's `argActor`, and its hide path calls the
+widget's `clear` (`desktopwidget_connector.lua:5760-5775`).
 
 `CutSceneSkipWidget` opens a `CommonAskWidget` with text IDs 1022/1023/1024
 for the skip button. Only ask result 1 with a nonnull `argActor` calls that

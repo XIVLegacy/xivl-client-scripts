@@ -88,6 +88,22 @@ request; it does not identify the displayed text or establish what caused
 finalization. Both decoded sources and their retail LPBs are pinned in
 [`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json).
 
+### Owned content-widget slots
+
+`DesktopWidget.getFreeContentsIndex` scans slots 1 through 4 for an empty
+owner, and `getContentsIndex` searches the same range for a valid owner and
+matching content type. `getContentsWidgetIndex` returns `slot + 5`, so slots
+1 through 4 produce values 6 through 9. `openContentsWidget` passes that
+result to `openWidget`; when that call does not return false and the
+slot had no owner, it stores the actor and content type at that slot. Bytecode
+locators: `getFreeContentsIndex` root/proto202 PCs 3-15, offsets
+`0x019E00`-`0x019E30`;
+`getContentsIndex` root/proto203 PCs 3-21, offsets `0x019EA3`-`0x019EEB`;
+`getContentsWidgetIndex` root/proto548 PCs 0-2, offsets `0x0335B2`-`0x0335BA`;
+`openContentsWidget` root/proto546 PCs 30-54, offsets `0x03338E`-`0x0333EE`.
+These are static slot and ownership operations; they do not establish a
+historical open or visible widget.
+
 ## Map navigation widget
 
 `MapNavigationWidget.init` stores its mode on `CustomControl_MapNavigation`.
@@ -118,6 +134,20 @@ value to `ssd_marker_data.Row`, and
 properties and values remain uninterpreted; no server field meaning or
 historical response/invocation is established here.
 
+`DesktopWidget.processRecievedRequestedDataForWidget` also handles the `qtmap`
+vararg branch (bytecode PC `009`-`065`, offsets `0x01225F`-`0x01233F`). It looks
+up `MapNavigationWidget` on layer 3 and stops if the widget is absent or there
+are no varargs. It calls `initMarkerList` with the vararg count, then passes
+each `(index, value)` pair to `addMarkerList`. It builds a comma-separated row
+from `tostring` of every vararg and passes it to `setQuestMarker`; `dispMarker`
+receives `tostring` of the first vararg. `MapNavigationWidget.initMarkerList`
+has no Lua instructions beyond return. `addMarkerList` writes the item text
+with key `5208`, stores the selected value, and shows the item only when
+`getMenuCategory() == 1` (bytecode offsets `0x003B90`-`0x003BD4`). This is a
+client-side argument route. It does not establish what the varargs represent,
+whether the route is reached historically, or whether the property writes
+produce visible markers.
+
 Source identities are pinned in `manifests/retail_lua_coverage.json`:
 
 - `lua/scripts/widget/mapnavigationwidget.lua` (`init`,
@@ -131,7 +161,9 @@ Source identities are pinned in `manifests/retail_lua_coverage.json`:
   payload SHA-256 `21CC7F2F9C6E2A56E02620E18748FA9DD70BF02DAB6A889FD6083826D60528C2`
   (`retail_lua_coverage.json:27888-27900`).
 - `lua/scripts/widget/desktopwidget_connector.lua`
-  (`setMapNavigationWidgetMarkerData`, `openMapForCutScene`):
+  (`setMapNavigationWidgetMarkerData`, `openMapForCutScene`,
+  `getFreeContentsIndex`, `getContentsIndex`, `getContentsWidgetIndex`,
+  `openContentsWidget`):
   `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb`, LPB SHA-256
   `0F8CA1585BB97C40D36CBF120DD3F6FA6351927C4530E3FAD76A71582AF95425`, decoded
   payload SHA-256 `685A0A6DDA2D4AE6FE06A9C684E57EFD7E819938E145CB1A4A65DF56555BD621`

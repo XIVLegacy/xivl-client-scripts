@@ -98,6 +98,29 @@ Evidence: `lua/scripts/widget/ask/journaldetailwidget.lua`,
 `lua/scripts/chara/player/player_work.lua`, and
 `lua/scripts/chara/player/playerbaseclass_work.lua`.
 
+### Type-1 detail payload
+
+`JournalDetailWidget.setDetailData` (root/proto10) branches on
+`work.journalType == 1`
+(bytecode PC `000`-`003`, offsets `0x001FFE`-`0x00200A`). In this branch,
+arguments A3/A4 go to `setRewardData("Item_RewardText", ...)` and A5/A6 go to
+`setRewardData("Item_RewardText2", ...)` (PC `132`-`141`, offsets
+`0x00220E`-`0x002232`). A7 at least 1 displays the evaluation title and calls
+`setItemText` with text key `4236`; a lower A7 hides the evaluation title,
+borders, and evaluation text (PC `142`-`175`, offsets `0x002236`-`0x0022BA`).
+A8 controls `IconControl_StageIcon` visibility (PC `123`-`126`, offsets
+`0x0021EA`-`0x0021F6`). In `setRewardData` root/proto12, a zero item value
+hides the item text (PCs `000`-`001` and `016`-`020`, offsets
+`0x003110`-`0x003114` and `0x003150`-`0x003160`); otherwise first value
+`1000001` selects text key `4172`, and other values select `4182` (PCs
+`003`-`014`, offsets `0x00311C`-`0x003148`). These are positional
+presentation uses and do not assign server-field or item meanings.
+
+Bytecode identity is pinned at `manifests/retail_lua_coverage.json:26192-26205`:
+`client/script/n1635q/9rz/0vpsw9y65q91yn1635q.le.lpb`, LPB SHA-256
+`0EB5C1F6B56AF27AE5CE02DE116A69602A6A60A009FCC92D3DDE3938CEA3EB2F`, decoded
+payload SHA-256 `15E38590AA448B15055C6DF3452464E96695F6310C6FAA53AEEEADBEB65FDA32`.
+
 ### Journal list entry points and history
 
 `MainMenuWidget.init` assigns text ID 2104 and help ID 75726 to entry index 5.
@@ -185,6 +208,29 @@ an authored director outside this corpus, but those names are not recovered
 retail Lua contracts. The retail sheet access shown here is
 `guildleveSheet:_loadKeyTemporarily` plus `_getData`, not
 `GetGuildleveGamedata`.
+
+### Objective article tuple routing
+
+`GuildleveExecutionWidget.updateArticle` calls
+`GuildleveBaseClass.getArticleFullDataOnGuildleveInfo` for ten result slots.
+It passes the article index and results 2, 4, 5, and 6 to `setArticleType`,
+then the index and results 3, 1, and 7 through 10 to `setArticleState`
+(widget `updateArticle` root/proto3 PCs 0-18, offsets `0x0006C9`-`0x000715`;
+base-class provider root/proto39 PCs 0-32, offsets `0x002290`-`0x002310`).
+This records the client's positional routing only; generated article-type,
+condition, state, and text-field meanings are not assigned here.
+
+The widget LPB is pinned as
+`n1635q/3p1y6y5o55m57pq1vwn1635q.le.lpb`, SHA-256
+`8EED436E9058CBA2BC7EA92603A1A493CF10BE7ACE8B676EA66B5F384326C8CD`, with
+decoded payload SHA-256
+`58812BFCCC48E5D651569F55382DE88C55A365EC91D0A9171FFE93E751EFCE13`
+(`manifests/retail_lua_coverage.json:25274`). The base-class LPB is
+`61s57qvs/3p1y6y5o5/3p1y6y5o589r57y9rr.le.lpb`, SHA-256
+`73559543D4E2192180C28AC8F8F6F3FB69EBF8BCBB47B2C11A69C837CFE8F303`, with
+decoded payload SHA-256
+`BCAD3160D16813502529467CE5DA17BB3A9BC80C576CD71841708FE7859D7E84`
+(`manifests/retail_lua_coverage.json:1620`).
 
 Evidence: `lua/scripts/chara/npc/object/aetheryte/aetherytebaseclass.lua`,
 `lua/scripts/director/guildleve/guildlevebaseclass.lua`, and

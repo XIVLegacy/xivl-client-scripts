@@ -48,3 +48,15 @@ prove that a reward was granted.
 | `PopulaceGuildleveTester.eventGuildleveReward` | `lua/scripts/chara/npc/populace/populaceguildlevetester.lua` | `729s9/wu7/uvupy975/uvupy9753p1y6y5o5q5rq5s.le.lpb`; LPB SHA-256 `1682C91087183D0C248681DA9235C667C382ECCAF13EB2452AB771A23EB3194C`; decoded payload SHA-256 `E742FA6CA31E61BFBF647B5FBF4941A72FB7E83B588DF3CE6024052F27190993` (`retail_lua_coverage.json:7056-7066`) |
 | `PopulaceCompanyGLPublisher.eventGLReward` | `lua/scripts/chara/npc/populace/populacecompanyglpublisher.lua` | `729s9/wu7/uvupy975/uvupy9757vxu9wl3yup8y1r25s.le.lpb`; LPB SHA-256 `0874F59A069F7A6F87B7A01B93D7D91D8D5DD14F749CFF02B05F7BCBCD15EFDF`; decoded payload SHA-256 `0AE20217500C331EC82F660A0A3762523CBC168B3DBCB37B995D2225934FC43C` (`retail_lua_coverage.json:7371-7381`) |
 | `PopulaceFactionGLWorker.eventGuildleveReward` | `lua/scripts/chara/npc/populace/populacefactionglworker.lua` | `729s9/wu7/uvupy975/uvupy975497q1vw3ynvsz5s.le.lpb`; LPB SHA-256 `7B71CEC14520C737F79404B6B15DE7996BED6EEE7BAF0970E5D79F0495455883`; decoded payload SHA-256 `93DC837772665914D81C04993645B1CC90020084BF5F3E687DC49ED7DFB16E2D` (`retail_lua_coverage.json:7221-7231`) |
+
+`GuildleveWarpPoint` also defines `getContentRewardItem` in the same pinned
+payload (`root/proto8`). The lookup is gated on `work.glRewardItem > 0`
+(PCs `006`-`007`, byte offsets `0xA5E`-`0xA62`). For selector arguments
+`R1=1`, `R2=1`, `R3=2`, it loads `work.glRewardItem` through
+`itemDataSheet:_getData` with field ID `36` (PCs `016`-`028`, byte offsets
+`0xA86`-`0xAB6`). It compares the item ID with numeric constant `1000001` at
+PC `031` (`0xAC2`). Equality returns the field-36 result, `nil`, `4405`, and
+`work.glRewardNumber` at PC `038` (`0xADE`). Otherwise it returns the field-36
+result, `nil`, `4406`, `work.glRewardItem`, and `work.glRewardNumber` at
+PC `047` (`0xB02`). This is a client-side getter tuple. The constant's domain
+meaning and any server-side grant or inventory effect are not established.
