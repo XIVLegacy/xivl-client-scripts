@@ -734,14 +734,23 @@ hashes are recorded in
 and [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
 
 `DesktopWidget.processRecievedRequestedDataForWidget` routes `qtdata` to
-`processUpdateJournalDetailWidget`; that method forwards the received data to
-the `Ask/JournalDetailWidget` and `Ask/QuestDetailWidget` `setDetailData`
-methods. In `JournalDetailWidget.setDetailData`, the active-condition text
-uses text key 5004 and the held-item text uses key 4001. Both calls receive
-the widget's `journalID`, six numeric inputs, and a final string input. When
-the quest is incomplete, missing numeric inputs default to zero and the
-missing string defaults to one space. These client calls do not establish
-how a quest server produced those inputs.
+`processUpdateJournalDetailWidget`, setting its local update value to literal
+1 before the common forwarding tail (root/proto102, PCs 4-7, offsets
+`0x1224B`-`0x12257`; PCs 88-93, offsets `0x1239B`-`0x123AF`). The handler
+does not read its `updateType` argument. It finds open
+`Ask/JournalDetailWidget` and `Ask/QuestDetailWidget` instances and calls
+`setDetailData` with the received varargs for each non-nil instance
+(`root/proto191`, PCs 0-20, offsets `0x18A2D`-`0x18A7D`). The distinct
+`activegl` tag sets the local update value to literal 2 before that same
+forwarding tail (`root/proto102`, PCs 67-70, offsets `0x12347`-`0x12353`).
+Neither raw update value is assigned server meaning.
+
+In `JournalDetailWidget.setDetailData`, the active-condition text uses text
+key 5004 and the held-item text uses key 4001. Both calls receive the
+widget's `journalID`, six numeric inputs, and a final string input. When the
+quest is incomplete, missing numeric inputs default to zero and the missing
+string defaults to one space. These client calls do not establish how a
+quest server produced those inputs.
 
 In the type-3 branch of `JournalDetailWidget.setDetailData` (root/proto10),
 the incomplete-quest path also calls `setText` for `TextBlock_OldCondition`

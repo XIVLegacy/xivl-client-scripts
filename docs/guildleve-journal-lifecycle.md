@@ -58,10 +58,12 @@ Evidence: `lua/scripts/chara/npc/populace/populaceguildlevepublisher.lua` and
 to selector values `1, 2, 3, 4, 1, 2, 3, 4`; an out-of-range slot falls back
 to selector 1. For a selected nonzero guildleve ID, the publisher passes that
 selector to `askJournalDetailWidget` with selector 11 and returns the selected
-slot only when the widget result is true. Empty IDs are skipped, and an
-all-zero list returns `nil, 5`. This is the client's card-to-selector mapping; it does
-not establish the visual distinction represented by each selector or a
-server-side variant policy.
+slot only when the widget result is true. Its third argument is the return of
+`getPassiveGuildleveVariation(selectedQuestId, selectedSlot)`
+(`askOfferQuest`, root/proto9 PCs 58-67, offsets `0x0A28`-`0x0A4C`). Empty
+IDs are skipped, and an all-zero list returns `nil, 5`. This is the client's
+card-to-selector mapping; it does not establish the visual distinction
+represented by each selector or a server-side variant policy.
 
 Evidence: `lua/scripts/chara/npc/populace/populacepassiveglpublisher.lua:11-59,216-290`
 (11,836 bytes, SHA-256
@@ -157,6 +159,12 @@ are not written by this method. `DesktopWidget.askNextGuildleveJournal`
 forwards its journal ID and trailing arguments to
 `askJournalDetailWidget` with selector 10.
 
+The connector's type-1 `executeCommandJournalDetailInfo` branch obtains
+system command 24212 and calls `command("activegl",A3,nil,nil,nil)`
+(`root/proto188`, PCs 4-18, offsets `0x1871C`-`0x18754`). This records the
+client command arguments; it does not identify a server-side history or
+detail operation.
+
 ### JournalListWidget modes and row arguments
 
 `JournalListWidget.createList` (root/proto10 PCs 35-77, offsets
@@ -196,6 +204,68 @@ exactly false sets `ItemColor` to `tostring(0.5)` and `JournalType` to 0
 values do not establish category labels, text-key meanings, or the meaning of
 the color value.
 
+`JournalListWidget.initAsk` declares `resultSelectFlag`, `requestResult`, and
+`guildleveFlag` as booleans; `mode` and `questType` as `integer8`; and
+`resultJournalID` as `integer32`. It initializes `mode` from A1, `questType`
+to 1, `resultJournalID` to 0, and the three flags to false. Mode 7 sets
+`work.questType=2` and `work.requestResult=true` (`root/proto0`, PCs 0-60,
+offsets `0x03B9`-`0x04A9`). It calls `createList` before mode-specific combo
+setup, passing non-nil A2 to `setArgActor` first (PCs 61-67, offsets
+`0x04AD`-`0x04C5`); mode 1 then calls
+`createCategoryComboBox()` (PCs 68-72, offsets `0x04C9`-`0x04D9`). Mode 7
+calls `createCategoryComboBox(2,true)`, hides `Button_History`, and sets the
+`Title` property from the raw string parts `"@"`, `tostring(7304)`, `"/i"`,
+and `tostring(4010013)` (PCs 73-94, offsets `0x04DD`-`0x0531`). Other modes
+hide `Grid_ComboBoxQuest` and `Button_History` (PCs 96-103, offsets
+`0x0539`-`0x0555`). In mode 1, `createList` calls `addQuestList`,
+`addActiveGuildleveList`, and then
+`addPassiveGuildleveList` when `work.questType==1`; another `questType` calls
+`addQuestCompleteList` (root/proto10 PCs 10-34, offsets `0x1DBC`-`0x1E1C`).
+Mode 7's `addQuestCompleteListForCutsceneReplay` route is documented in the
+[cutscene replay contract](cutscene-replay-skip-contract.md).
+
+In `processUICommandSelection`, a row with `JournalType==0` returns. In mode
+1, the method reads `JournalType`, `JournalID`, and `JournalIndex`. It opens
+`Ask/QuestDetailWidget` with `(self,true,1,JournalID)` only when the row type
+is 3, `work.questType==1`, and the ID is within one of these raw ranges:
+`110001-110059`, `110600-110971`, `111401-111599`, `111601-111799`,
+`111801-111999`, or `111200-111339`. The other mode-1 path opens
+`Ask/JournalDetailWidget` with
+`(self,true,1,JournalType,JournalID,false,JournalIndex,isCompletedCategory)`
+(root/proto3 PCs 9-80, offsets `0x09A5`-`0x0AC1`). The raw ranges are not
+assigned quest-family names.
+
+When the selected category changes,
+`processUICommandSelectionChanged` rebuilds the list in mode 7 or when the new
+`work.questType==1`. For another new value it calls `requestQuestComplete`
+and hides `ListBox_JournalList`. When the selected value is unchanged and is
+not 1, it calls `requestQuestComplete` only if `work.requestResult==false`.
+Every path writes `QuestItemName` to `ComboBox_Category_Quest`
+(`root/proto4`, PCs 9-50, offsets `0x0E5B`-`0x0EFF`). This records the
+client refresh calls, not the meaning of the category values.
+
+`JournalListWidget.getQuestCompleteID` maps raw `work.questType` values to
+returned `(startID,endID)` pairs. Unrecognized values return `(0,0)`.
+No category names are assigned.
+
+| `work.questType` | Returned pair | `work.questType` | Returned pair | `work.questType` | Returned pair |
+|---:|---:|---:|---:|---:|---:|
+| 2 | `(110001,110059)` | 3 | `(110600,110971)` | 4 | `(111401,111599)` |
+| 5 | `(111601,111799)` | 6 | `(111801,111999)` | 7 | `(111200,111219)` |
+| 8 | `(111220,111239)` | 9 | `(111240,111259)` | 10 | `(111260,111279)` |
+| 11 | `(111280,111299)` | 12 | `(111300,111319)` | 13 | `(111320,111339)` |
+| 14 | `(110080,110099)` | 15 | `(110060,110079)` | 16 | `(110100,110119)` |
+| 17 | `(110180,110199)` | 18 | `(110160,110179)` | 19 | `(110260,110279)` |
+| 20 | `(110240,110259)` | 21 | `(110300,110319)` | 22 | `(110320,110339)` |
+| 23 | `(110360,110379)` | 24 | `(110380,110399)` | 25 | `(110400,110419)` |
+| 26 | `(110420,110439)` | 27 | `(110440,110459)` | 28 | `(110460,110479)` |
+| 29 | `(110480,110499)` | 30 | `(110500,110519)` | 31 | `(110821,110824)` |
+| 32 | `(110820,20)` | | | | |
+
+The pairs are the method's returned values, not a join to CSV rows or proof of
+the labels used by the category control (root/proto20 PCs 0-193, offsets
+`0x3547`-`0x384B`).
+
 ### Detail selectors and map navigation
 
 `DesktopWidget.askJournalDetailWidget` (root/proto368, PCs 0-42, offsets
@@ -220,6 +290,39 @@ widget-creation path maps them to `JournalDetailWidget.initAsk` parameters.
 Selector 10's literal true and the separate `initAsk` branch where formal A6
 sets `work.questCompleted` (root/proto0 PCs 148-151, offsets
 `0x0580`-`0x058C`) are not joined by a Lua call in the recovered chunks.
+
+The callers below preserve their raw selector and formal-argument order:
+
+| Caller | Direct call and gate |
+|---|---|
+| `CraftJudge.cfmQst` (`root/proto25`, PCs 3-9, offsets `0x2060`-`0x2078`) | When A3 is non-nil, calls `askJournalDetailWidget(1,A3,...)` and forwards the varargs. |
+| `PopulaceGuildlevePublisher.eventGLChangeDetail` (`root/proto8`, PCs 0-12, offsets `0x1C2A`-`0x1C5A`) | Calls selector 6 with `A2,A8,A4,A5,A6,A7,A3,A9`. |
+| `CraftJudge.confirmLeve` (`root/proto26`, PCs 3-13, offsets `0x20ED`-`0x2115`) | When A3 is non-nil, calls selector 7 with `A3,A4,A6,A7,A8,A9`. |
+| `PopulaceCompanyGLPublisher.askLeveDetail` (`root/proto4`, PCs 21-33, offsets `0x0C3C`-`0x0C6C`) | Calls selector 9 with A1 through A8 in order. |
+| `PopulacePassiveGLPublisher.confirmJournal` (`root/proto17`, PCs 3-18, offsets `0x113C`-`0x1178`) | Returns without a call when A2 is outside 1-4; otherwise calls selector 13 with `A1,A2,A4,A5,A6,A7`, skipping A3. |
+
+`DesktopWidget.askQuestDetailWidget` makes one
+`askEventModeWidgetYield("Ask/QuestDetailWidget",1,3,questID)` call. It
+returns nil unless the first result is exactly true; otherwise it returns the
+second result (`root/proto186`, PCs 0-10, offsets `0x18239`-`0x18261`). For a
+`QuestInfoAsk` clip, `CutScene._onOpenUIClip` calls this helper for quest IDs
+in `110001-110021` or equal to `110839`, `110829`, `110849`, `110841`, or
+`110869`; it returns 1 on a true result and 2 otherwise. Its fallback opens
+`Ask/QuestAskWidget` (`root/proto2`, PCs 397-443, offsets `0x0976`-`0x0A2E`).
+`QuestBaseClass.showQuestInfomation` calls the helper for IDs in
+`110600-119999` or `110001-110021`, returning 1 for true and 2 otherwise;
+the fallback opens `Ask/QuestAskWidget` in mode 1 with the ID
+(`root/proto27`, PCs 0-34, offsets `0x1ABE`-`0x1B46`). These are static
+client detail routes and do not establish why the raw ID ranges were selected.
+
+`DesktopWidget.askActiveGuildleveDetailWidget` opens
+`Ask/JournalDetailWidget` with
+`(4,"Ask/JournalDetailWidget",nil,rootWidget[4],false,2,1,journalID)`. If
+`openWidgetYield` returns a widget, it calls
+`setDetailData(nil,A2,A3,A4,A5,A6,A7,A8)`; a nil result skips that call and
+returns the default false values (`root/proto182`, PCs 5-14 and 17-26, offsets
+`0x17ED9`-`0x17EFD` and `0x17F09`-`0x17F2D`). These positions are not
+assigned packet or server-field meanings.
 
 `JournalDetailWidget.processUICommandOperate` opens child
 `MapNavigationWidget` with mode 1, `work.questIndex`, and
@@ -271,6 +374,41 @@ Source identity is pinned in `manifests/retail_lua_coverage.json`:
   `0F8CA1585BB97C40D36CBF120DD3F6FA6351927C4530E3FAD76A71582AF95425`, decoded
   payload SHA-256 `685A0A6DDA2D4AE6FE06A9C684E57EFD7E819938E145CB1A4A65DF56555BD621`
   (`retail_lua_coverage.json:25443-25455`).
+- `lua/scripts/judge/craft/craftjudge.lua` (`cfmQst`, `confirmLeve`): LPB SHA-256
+  `FDA277D6626FD0C381100CADD75628CAE7BE508F150BB2558364FE647BA07147`,
+  decoded payload SHA-256
+  `0DFF8463D2B685FF65A23AFCF5E52E451E531E6FAC194FD088ADBA3D05DBD0FF`
+  (`retail_lua_coverage.json:199-211`).
+- `lua/scripts/chara/npc/populace/populaceguildlevepublisher.lua`
+  (`eventGLChangeDetail`): LPB SHA-256
+  `7B05C7F7508C7883FCEDF5C576D3E865408DB04C79FC4FDC67627E864C1050D5`,
+  decoded payload SHA-256
+  `FB2F2CF01F6DE72C526F0C21AF88D4CEC35B82B1DC78C1B0A82F07A66C9E1B75`
+  (`retail_lua_coverage.json:7069-7081`).
+- `lua/scripts/chara/npc/populace/populacecompanyglpublisher.lua`
+  (`askLeveDetail`): LPB SHA-256
+  `0874F59A069F7A6F87B7A01B93D7D91D8D5DD14F749CFF02B05F7BCBCD15EFDF`,
+  decoded payload SHA-256
+  `0AE20217500C331EC82F660A0A3762523CBC168B3DBCB37B995D2225934FC43C`
+  (`retail_lua_coverage.json:7369-7381`).
+- `lua/scripts/gamedata/cutscene_common.lua` (`_onOpenUIClip`): LPB SHA-256
+  `A5279136C0EE8F6EF2342FD22AF2B9CD12F9B6AFF5A4FEFF4BC0FC21367F5321`,
+  decoded payload SHA-256
+  `7EF33408C579F2D1EDE120D9751851BD39B77DD1B6CA6A0AA821B413FE11B4FD`
+  (`retail_lua_coverage.json:814-826`).
+- `lua/scripts/quest/questbaseclass_common.lua` (`showQuestInfomation`): LPB
+  SHA-256 `ECC3F7C6FB49DF196431494AA5AECE95EDE1C24CA1325AF11DDC993A3836322D`,
+  decoded payload SHA-256
+  `9379EE6832BDFA542273C7F43F065D7A15F9A730D9EF244BE9A565A1FAA53504`
+  (`retail_lua_coverage.json:40000-40012`).
+- `lua/scripts/command/system/journalcommand.lua` and
+  `requestquestjournalcommand.lua` (`canFire`): LPB SHA-256 values
+  `6F67201F9F885CC13E5CCC56F272139EF6CCE6FAE5CC2A4DB500C01E0611D9E9` and
+  `430B637B502B773A59D5D5C2880E097C540E612C75A18C3ACAC6D44F1A47E50A`,
+  decoded payload SHA-256 values
+  `C4D3A6336AB9D8DDFB31BF989A2BCFCD4AC762463054F24A9AE73858EBAB9758` and
+  `0621CD122BFF8D1C0F988A51FAC5ABBF8B701F4A6ED987A7C1F81CF72626B5C9`
+  (`retail_lua_coverage.json:23164-23176,23689-23701`).
 - `lua/scripts/widget/mapnavigationwidget.lua`
   (`init`, `processUICommandEvent`): `client/script/n1635q/x9uw9o139q1vwn1635q.le.lpb`,
   LPB SHA-256 `873EE821C979B9C0959743BC619444EC01BD39C96F71235235278BB602B4D0BB`,
@@ -419,8 +557,9 @@ refreshes the desktop widget. This is a request and callback for the
 For requested journal detail data, `_onReceiveDataPacket("requestedData", ...)`
 forwards the payload to `DesktopWidget.processRecievedRequestedDataForWidget`.
 The `activegl` discriminator selects journal-detail presentation and forwards
-the supplied ID and remaining values. This is another presentation update,
-not evidence of a state mutation.
+the supplied ID and remaining values. Its raw local update value is recorded
+with the `qtdata` route in [Quest journal and reward presentation widgets](quest-event-client-contracts.md#quest-journal-and-reward-presentation-widgets).
+This is another presentation update, not evidence of a state mutation.
 
 The bounded order is therefore synchronized retained ID -> aetheryte selection
 and start confirmation -> director start/objective updates -> director finish
@@ -455,6 +594,11 @@ Direct Lua 5.1 bytecode control flow establishes that valid journal types 1,
 route but is not forwarded. Invalid types and a missing command object return
 false. The caller closes the detail widget only when the forwarded result is
 exactly true; that result is not proof that a server mutation completed.
+
+`JournalCommand.canFire` and `RequestQuestJournalCommand.canFire` each
+tail-call `self:canRequestInformation()` (`root/proto0`, PCs 0-1, offsets
+`0x00F0`-`0x00F4` and `0x00FC`-`0x0100`). This identifies the local guard
+delegation only; it does not establish what the delegated check permits.
 
 Evidence: `lua/scripts/widget/ask/journaldetailwidget.lua`,
 `lua/scripts/widget/desktopwidget_connector.lua`, and
