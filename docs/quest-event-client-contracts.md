@@ -623,6 +623,25 @@ then fade in after warp. The method does not hardcode either
 second scene argument is not proof of an arrival movie or of historical
 two-scene ferry playback.
 
+## PopulaceFlyingShip event-in return
+
+The LPB at
+`729s9/wu7/uvupy975/uvupy9754yl1w3r21u.le.lpb` has SHA-256
+`371f2397e2dca81f6de424f568c66dd35e7c09a44e899addd5c5a02a962c4b43`.
+Its 2,181-byte decoded chunk has SHA-256
+`702d5b7f4b3f4f5674fc6e525a442c5843b1f8edbaa30295a80ec28776a62aea` and
+matches `lua/scripts/chara/npc/populace/populaceflyingship.lua` in
+`manifests/retail_lua_coverage.json`.
+
+In `PopulaceFlyingShip.eventIn` (`root/proto1`), bytecode PCs 71-79 call
+`worldMaster:askRestrictChoices` and retain its result in R8. PCs 101-116
+call `worldMaster:askMultipleTextMacro` and retain that separate result in
+R9. When R9 equals 1, PCs 119-125 say text 21 and call
+`finishCliantTalkTurn`; PC 126 returns the saved R8 value. The returned
+value on this branch is therefore the earlier `askRestrictChoices` result,
+not the `askMultipleTextMacro` result. This records a client return path; it
+does not establish server acceptance, event completion, or a caller.
+
 ## Job quest presentation
 
 `War0j1`, `Mnk0j6`, `Blm0j3`, and `Whm0j6` define client event and hint

@@ -54,6 +54,36 @@ whether a contributor's completion-bit packet is retail-equivalent, or a
 safe direct open outside the inn owner path. No runtime playback or music
 restoration is inferred from the static calls.
 
+## Quest replay argument helper
+
+`QuestBaseClass.getCutSceneReplayData` (`main/f12` in the decoded chunk)
+resolves several argument values through the local player object. Instruction
+indexes below are one-based within that prototype.
+
+| Input value | Instruction indexes | Client operation |
+| ---: | --- | --- |
+| `-201` | `4`, `6`-`8` | Call `_getCutSceneReplaySnpcNickname`. |
+| `-202` | `10`, `12`-`14` | Call `_getCutSceneReplaySnpcCoordinate`. |
+| `-203` | `16`, `18`-`20` | Call `_getCutSceneReplaySnpcSkin`. |
+| `-204` | `22`, `24`-`26` | Call `_getCutSceneReplaySnpcPersonality`. |
+| `-205` | `28`, `30`-`32` | Call `getInitialTown`. |
+| `-217` | `180`, `182`-`187` | Call `_getCutSceneReplaySnpcSkin`, then pass its result to `getSnpcSexualityToSkin`. |
+| `-200` | `197`, `199`-`200` | Return the literal value `0`. |
+
+The method first obtains the player through `worldMaster:_getMyPlayer()`.
+These branches establish only the client helper operations and literal
+return. They do not assign field meanings to the values or establish replay
+eligibility or runtime playback.
+
+The LPB `tp5rq/tp5rq89r57y9rr.le.lpb` has SHA-256
+`35293157c6bfd1edfc973bc0bd1986e83401d69e5cac39df2616041caff58674`.
+Its 4,154-byte decoded payload has SHA-256
+`6903eb4a86f200f5cd690cda2d4104476d72d1eeba86e3b03f3cd2631966ef88` and
+matches `lua/scripts/quest/questbaseclass.lua` in
+`manifests/retail_lua_coverage.json`. The method is listed in
+`lua/registry.json` and the canonical script identity is in
+`manifests/scripts.json`.
+
 ## Provenance
 
 The recovered LUAC for `widget/cutsceneskipwidget`,
