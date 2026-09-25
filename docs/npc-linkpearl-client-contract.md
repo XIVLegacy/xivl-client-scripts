@@ -46,18 +46,31 @@ or successful retail call follows from this UI code.
 
 `PopulaceLinkshellManager.eventTalkStep22` sets the second of five choice
 flags to `false` when `countCommunityGroup(20002) >= 8`, before passing the
-flags to `askRestrictChoices`. This is a local UI gate; it does not establish
-group capacity or server authorization.
+flags to `askRestrictChoices`. Its actor-class branches select keys 128 for
+1001183, 122 for 1001182, and 116 on the shared residual path; the selected
+key is passed to `askRestrictChoices` (`root/proto7`, selection PCs 6-20,
+offsets `0x1151`-`0x1189`, and call PCs 35-43, `0x11C5`-`0x11E5`). The
+1000078 comparison also uses that residual key. These are local UI facts;
+they do not establish text meanings, group capacity, or server authorization.
 
 `LinkshellListWidget.initAsk` iterates from 1 through 8, forms each
 `ListBoxItem_Linkshell_<n>` name, and writes `n` into its
 `TextBlock_LinkshellNumber` child. This establishes eight named row slots that
 the script addresses, not that native layout creates or displays them.
 
-`LinkshellKickCommand.canFire` obtains the caller's current group of type
-`20002`, checks caller and target membership, requires caller rank at least
-`7`, and compares caller rank as greater than target rank. This local command
-predicate does not establish server authorization or group capacity.
+`LinkshellKickCommand.canFire` requires a non-nil alive caller for which
+`isPlayer()` is true and a string group ID in argument 2. With target actor
+argument 6 present, that actor must also be alive and pass `isPlayer()`;
+otherwise it uses argument 3 to find a matching member unique identifier in
+the group. It obtains the caller's current group of type `20002`, matches its
+unique ID to argument 2, checks caller and target membership, requires the
+caller's raw member rank to be at least `7`, and returns false unless that
+rank is greater than the target's raw rank
+(`root/proto0`, PCs 0-135, offsets `0xF6`-`0x312`; caller `isPlayer` PCs
+12-14 or 35-38, offsets `0x126`-`0x12E` or `0x182`-`0x18E`; target
+`_isAlive` PCs 29-32, `0x16A`-`0x176`, and target `isPlayer` PCs 39-42,
+`0x192`-`0x19E`). These local command predicates do not establish server
+authorization or group capacity.
 
 `PopulaceLinkshellManager.checkLinkshellName` marks its local result false
 when the string length is outside `3`-`31`, `_string.match` finds
@@ -125,30 +138,52 @@ are raw actor-class and text-key comparisons;
 they do not identify an actor, location, or text meaning. The residual text
 branch also serves the `1000078` comparison and is not exclusive to it.
 
-`eventTalkStep21` selects ask key 89, 51, or 13, calls `ask` with mode 2,
-and returns that call's result (`root/proto6`, PCs 1-25, offsets `0x1043`-
-`0x10A3`). `eventTalkStep231` calls `askLinkshellNamingWidget` for three
-results and returns the third only when result 1 is true and result 2 equals
-1; otherwise it returns an empty string (`root/proto8`, PCs 23-33, offsets
-`0x137E`-`0x13A6`). `eventTalkStep232` calls
-`askLinkshellSelectIconWidget(1, nil)` and returns result 3 for `(true, 1)`,
-0 for `(true, 2)`, or -1 otherwise (`root/proto9`, PCs 23-42, offsets
-`0x14D1`-`0x151D`). `eventTalkStep233` calls
-`askLinkshellConfirmWidget(1, name, icon)` and returns result 2 for
-`(true, 1)`, 0 for `(true, 2)`, or -1 otherwise (`root/proto10`, PCs 29-50,
-offsets `0x1670`-`0x16C4`). These raw result values are not assigned create,
-modify, cancel, or server-operation meanings.
+`eventTalkStep21` selects ask key 89 for actor class 1001183, key 51 for
+1001182, and key 13 on the residual path; the comparison with 1000078 does
+not change that fallback. It calls `ask` with mode 2 and returns that call's
+result (`root/proto6`, selection PCs 3-16, offsets `0x104B`-`0x107F`, and
+ask/return PCs 19-25, offsets `0x108B`-`0x10A3`).
+`eventTalkStep231` selects keys 97, 59, and 21 for those respective actor
+branches, passes the selected key to `say`, then calls
+`askLinkshellNamingWidget` for three results and returns the third only when
+result 1 is true and result 2 equals 1; otherwise it returns an empty string
+(`root/proto8`, key selection and `say` PCs 3-22, offsets `0x132E`-`0x137A`,
+and widget result PCs 23-33, `0x137E`-`0x13A6`). `eventTalkStep232` selects
+keys 98, 60, or 22 and passes the selected key to `say` before it calls
+`askLinkshellSelectIconWidget(1, nil)`; it returns result 3 for `(true, 1)`,
+0 for `(true, 2)`, or -1 otherwise (`root/proto9`, key selection and `say`
+PCs 3-22, offsets `0x1481`-`0x14CD`, and widget result PCs 23-42,
+`0x14D1`-`0x151D`). `eventTalkStep233` loads key pairs 100/101, 62/63, or
+24/25; it passes the first key to `say`, while the second key is not consumed
+later in the method. It then calls `askLinkshellConfirmWidget(1, name, icon)`
+and returns result 2 for `(true, 1)`, 0 for `(true, 2)`, or -1 otherwise
+(`root/proto10`, pair selection PCs 4-21, `0x160C`-`0x1650`, `say` PCs
+22-26, `0x1654`-`0x1664`, and widget result PCs 29-50, `0x1670`-`0x16C4`).
+These raw keys and result values do not assign text meanings or create,
+modify, cancel, or server-operation semantics.
 
-`eventTalkStep24` asks `LinkshellListWidget` in mode 2, checks the selected
-group and its alive state, reads its unique ID and crest icon, then asks
-`LinkshellSelectIconWidget` in mode 2 and returns the ID with the selected
-icon, 0, or -1 (`root/proto11`, PCs 33-101, offsets `0x1843`-`0x1953`).
-`eventTalkStep25` asks the list in mode 3, reads the selected group, calls
-`askLinkshellConfirmWidget(3, uniqueID, crest)`, then calls
-`askExtendWidget(actor, textID, 2, 0, 2)`; it returns the stored string or
-an empty string (`root/proto12`, PCs 35-124, offsets `0x1B59`-`0x1CBD`).
-The widget modes and result tuples do not identify a server-side crest or
-group operation.
+`eventTalkStep24` first selects keys 99, 61, or 23 for the respective actor
+branches and passes the selected key to `say` (`root/proto11`, PCs 13-32,
+offsets `0x17F3`-`0x183F`). It then asks `LinkshellListWidget` in mode 2,
+checks the selected group and its alive state, reads its unique ID and crest
+icon, then asks `LinkshellSelectIconWidget` in mode 2 and returns the ID with
+the selected icon, 0, or -1 (`root/proto11`, PCs 33-101, offsets
+`0x1843`-`0x1953`).
+`eventTalkStep25` first selects keys 111, 73, or 35 for the respective actor
+branches and passes the selected key to `say`; keys 112, 74, or 36 are also
+loaded but not consumed later in the method (`root/proto12`, PCs 12-34,
+offsets `0x1AFD`-`0x1B55`). The subsequent path asks the list in mode 3,
+reads the selected group's unique ID and crest icon, passes those values to
+`askLinkshellConfirmWidget(3, ...)`, then calls
+`askExtendWidget(actor, textID, 2, 0, 2)`. A later text branch selects keys
+115, 77, or 39 and passes the selected key to `say` (`root/proto12`, PCs
+97-118, offsets `0x1C51`-`0x1CA5`). When the post-dialog result branch
+retains the group getter result, that value is returned; the other paths load
+the literal empty string. The getter result type is not established
+(`root/proto12`, PCs 35-124, offsets `0x1B59`-`0x1CBD`; getter result at
+PCs 55-58, `0x1BA9`-`0x1BB5`, return at PC 123, `0x1CB9`, and empty-string
+loads at PCs 95, 120, and 122). The widget modes and result tuples do not
+identify a server-side crest or group operation.
 
 `checkLinkshellNameChinese` rejects strings with length below 3 or above 31
 and strings with a leading or trailing ASCII space
@@ -158,19 +193,32 @@ does not define the complete accepted-name policy.
 
 `eventTalkStepMakeupDone`, `eventTalkStepModifyDone`, and
 `eventTalkStepBreakDone` call `updateGroupMemberRank` and
-`finishCliantTalkTurn`; the first two also select and call a `say` text
-(`root/proto13`, PCs 4-30, offsets `0x1E8B`-`0x1EF3`; `root/proto14`, PCs
-4-30, offsets `0x1FE4`-`0x204C`; `root/proto15`, PCs 0-7, offsets
-`0x212D`-`0x2149`). Their method names do not prove how they are registered
-or what operation result invokes them. `updateGroupMemberRank` loops group
+`finishCliantTalkTurn`; the first two also select and call a `say` text.
+`eventTalkStepMakeupDone` uses keys 104 for actor class 1001183, 66 for
+1001182, and 28 on the residual path. `eventTalkStepModifyDone` uses 109,
+71, and 33 on those same respective paths. In both methods the comparison
+with 1000078 shares the residual branch, so that key is not exclusive to that
+ID (`root/proto13`, selection PCs 8-22, offsets `0x1E9B`-`0x1ED3`, `say`
+PCs 23-27, `0x1ED7`-`0x1EE7`; `root/proto14`, selection PCs 8-22,
+`0x1FF4`-`0x202C`, `say` PCs 23-27, `0x2030`-`0x2040`). Their method names
+do not prove how they are registered or what operation result invokes them.
+The text-key branches in `eventTalkStep22`, `eventTalkStep231`-
+`eventTalkStep25`, `eventTalkStepMakeupDone`, and
+`eventTalkStepModifyDone` compare actor classes 1001183 and 1001182, then
+use the third key on the shared residual path; comparisons with 1000078 do
+not make that fallback exclusive to that ID.
+`updateGroupMemberRank` loops group
 indices for type 20002 and calls `updateMemberInformation` and
 `updateRankInGroup` for each non-nil alive group (`root/proto19`, PCs 3-24,
 offsets `0x248C`-`0x24E0`).
 
 ### Desktop command bridge and local command checks
 
-The DesktopWidget current-group wrapper makes one local command 24236 call
-with `(uniqueID-or-nil, nil, 1)` at PC 15. On a true result with a
+The DesktopWidget current-group wrapper returns false before command 24236
+when a supplied non-nil group has no unique ID; a nil group takes the
+separate nil-ID command path (`root/proto319`, PCs 0-9, offsets
+`0x21165`-`0x21189`). It then makes one local command 24236 call with
+`(uniqueID-or-nil, nil, 1)` at PC 15. On a true result with a
 non-nil group, it refreshes member information, then returns the saved result
 at PC 23 (`root/proto319`, PCs 0-24, offsets `0x21165`-`0x211C5`; command
 call offset `0x211A1`, refresh PCs 20-22, return offset `0x211C1`). The
@@ -179,27 +227,46 @@ in-order wrapper selects the first type
 it passes nil when the current group is last and does not wrap
 (`root/proto320`, PCs 0-54, offsets `0x2126D`-`0x21345`).
 
-The invite wrappers call local command 24232: actor invite passes
-`(uniqueID, nil, nil, nil, targetActor)`, the current-target wrapper first
-checks `isInviteCurrnetLinkshellByTarget`, and name invite passes
-`(uniqueID, name)` (`root/proto321`, PCs 0-21, offsets `0x2145F`-`0x214B3`;
-`root/proto322`, PCs 0-19, offsets `0x2153A`-`0x21586`;
-`root/proto323`, PCs 0-20, offsets `0x21665`-`0x216B5`). Actor and name
-cancellation wrappers call local command 24233 with
+The invite wrappers call local command 24232: actor invite returns false
+before the command when `checkActor(target)` or the resolved unique ID is
+nil, otherwise passing `(uniqueID, nil, nil, nil, targetActor)`; the
+current-target wrapper first checks `isInviteCurrnetLinkshellByTarget`, and
+name invite returns false unless `type(name) == "string"` and the resolved
+unique ID is non-nil, otherwise passing `(uniqueID, name)`
+(`root/proto321`, PCs 0-13, offsets `0x2145F`-`0x21493`, and call PCs 14-21,
+`0x21497`-`0x214B3`; `root/proto322`, PCs 0-19, offsets `0x2153A`-`0x21586`;
+`root/proto323`, PCs 0-13, offsets `0x21665`-`0x21699`, and call PCs 14-20,
+`0x2169D`-`0x216B5`). Actor and name cancellation wrappers call local
+command 24233 with
 `(nil, nil, nil, targetActor)` or `(name)`; the current-target wrapper
-delegates with the current target actor (`root/proto324`, PCs 0-13, offsets
-`0x21742`-`0x21776`; `root/proto325`, PCs 0-12, offsets `0x217DB`-
-`0x2180B`; `root/proto326`, PCs 0-6, offsets `0x21875`-`0x2188D`).
+delegates with the current target actor. The actor wrapper returns false when
+`checkActor(target)` is nil, and the name wrapper returns false unless
+`type(name) == "string"` (`root/proto324`, guard PCs 0-6, offsets
+`0x21742`-`0x2175A`, and full span PCs 0-13, `0x21742`-`0x21776`;
+`root/proto325`, guard PCs 0-6, offsets `0x217DB`-`0x217F3`, and full span
+PCs 0-12, `0x217DB`-`0x2180B`; `root/proto326`, PCs 0-6, offsets
+`0x21875`-`0x2188D`).
 
-The resign wrapper rejects the current group owner before calling local
-command 24235 with `(uniqueID)` (`root/proto327`, PCs 0-35, offsets
-`0x21900`-`0x2198C`). The kick wrapper calls command 24234 once after its
-group and member-name checks, with `(uniqueID, name)`; it refreshes member
-information on success and returns the stored call result
-(`root/proto328`, PCs 0-44, offsets `0x21A6C`-`0x21B1C`). The appoint
-wrapper calls command 24231 once with `(uniqueID, name, rank)` and refreshes
-rank information on success
-(`root/proto329`, PCs 0-45, offsets `0x21C2F`-`0x21CE3`).
+The resign wrapper returns false for a missing checked current-group actor,
+an owner result of true, or a nil unique ID, before calling local command
+24235 with `(uniqueID)` (`root/proto327`, guard PCs 9-29, offsets
+`0x21924`-`0x21974`; PCs 16-22 are the owner check). The kick wrapper
+resolves a supplied group or falls back to the current
+type-20002 group; it returns false when that fallback is absent or when the
+group's unique ID is nil (`root/proto328`, PCs 0-20, offsets
+`0x21A6C`-`0x21ABC`). It then gets the localized member name. A nil or empty
+name refreshes member information and returns false without command 24234.
+If the group/ID and name checks pass, it calls command 24234 once with
+`(uniqueID, name)`, refreshes member information on success, and returns the
+stored call result (`root/proto328`, name check PCs 21-32,
+`0x21AC0`-`0x21AEC`, and full span PCs 0-44, `0x21A6C`-`0x21B1C`). The
+appoint wrapper uses the same provided-group/current-group and unique-ID
+gates (`root/proto329`, PCs 0-20, offsets `0x21C2F`-`0x21C7F`). A nil or
+empty localized member name refreshes member information and returns false
+without command 24231. If the earlier checks and name check pass, it calls
+command 24231 once with `(uniqueID, name, rank)` and refreshes rank
+information on success (`root/proto329`, name check PCs 21-32,
+`0x21C83`-`0x21CAF`, and full span PCs 0-45, `0x21C2F`-`0x21CE3`).
 
 DesktopWidget helper methods show these additional local contracts:
 
@@ -256,20 +323,42 @@ DesktopWidget helper methods show these additional local contracts:
   `root/proto451`, PCs 0-6, offsets `0x29160`-`0x29178`).
 
 The `canFire` methods for linkshell change, resign, invite, invite cancel,
-and appoint contain local argument checks. Change requires a non-nil alive
-player, argument 4 equal to 1, and argument 2 nil or a string
-(`root/proto0`, PCs 0-41, offsets `0xF8`-`0x19C`). Resign requires a
-non-nil alive player and a string in argument 2 (`root/proto0`, PCs 0-25,
-offsets `0xF8`-`0x15C`). Invite requires argument 2 to be a string; when
-argument 6 is nil, argument 3 must be a string, and when argument 6 is
-present, that target must pass alive/player checks (`root/proto0`, PCs 0-61,
-offsets `0xF8`-`0x1EC`). Invite cancel validates
-actor argument 6 when present, otherwise it requires a string argument 2
-(`root/proto0`, PCs 0-54, offsets `0xFE`-`0x1D6`). Appoint requires a
-string group ID, numeric argument 4 in range 1-10, matching current type-20002
-group, and its local membership/rank checks (`root/proto0`, PCs 0-161,
-offsets `0xF9`-`0x37D`). These are command guards, not server authorization
-rules.
+and appoint check that argument 1 is non-nil, alive, and passes `isPlayer()`.
+Change returns true when argument 4 is nil after those player checks. When
+argument 4 equals 1, it also requires argument 2 to be nil or a string;
+other argument-4 values return false (`root/proto0`, PCs 0-41, offsets
+`0xF8`-`0x19C`; `isPlayer` PCs 10-12, `0x120`-`0x128`; argument-4 nil
+branch PCs 16-22, `0x138`-`0x150`; argument-4 and argument-2 checks PCs
+23-38, `0x154`-`0x190`). Resign requires a string in argument 2
+(`root/proto0`, PCs 0-25, offsets `0xF8`-`0x15C`; `isPlayer` PCs 10-12,
+`0x120`-`0x128`). Invite requires argument 2 to be a string; when actor
+argument 6 is absent, argument 3 must be a string, and when it is present,
+that target must be alive and pass `isPlayer()` (`root/proto0`, PCs 0-61,
+offsets `0xF8`-`0x1EC`; caller `isPlayer` PCs 12-14, `0x128`-`0x130`,
+and actor-path caller `isPlayer` PCs 42-45, `0x1A0`-`0x1AC`; target
+`_isAlive` PCs 36-39, `0x188`-`0x194`, and target `isPlayer` PCs 46-49,
+`0x1B0`-`0x1BC`). Invite cancel uses the same
+name/actor split without requiring argument 2: when actor argument 6 is
+present it must be alive and pass `isPlayer()`, otherwise argument 2 must be
+a string (`root/proto0`, PCs 0-54, offsets `0xFE`-`0x1D6`; caller
+`isPlayer` PCs 12-14, `0x12E`-`0x136`, and actor-path caller `isPlayer`
+PCs 42-45, `0x1A6`-`0x1B2`; target `_isAlive` PCs 36-39,
+`0x18E`-`0x19A`, and target `isPlayer` PCs 46-49, `0x1B6`-`0x1C2`).
+
+Appoint requires a string group ID in argument 2 and compares argument 4
+against numeric bounds 1 and 10, returning false for values outside that
+inclusive range. With actor argument 6 present, the target must be
+alive and pass `isPlayer()`; otherwise argument 3 must be a string. It checks
+the current alive type-20002 group and its unique ID, requires the caller to
+be a member with raw rank at least 7, requires the target to be a member, and
+returns false unless the caller's raw rank is greater than the target's
+(`root/proto0`, PCs 0-161, offsets `0xF9`-`0x37D`; caller `isPlayer` PCs
+12-14 and 55-58, `0x129`-`0x131` and `0x1D5`-`0x1E1`; target actor alive
+check PCs 49-52, `0x1BD`-`0x1C9`, and target `isPlayer` PCs 59-62,
+`0x1E5`-`0x1F1`; argument-3 type check on the no-actor branch PCs 25-31,
+`0x15D`-`0x175`; membership/rank checks PCs 97-110 and 131-158,
+`0x27D`-`0x2B1` and `0x305`-`0x371`). These are client command guards, not
+server authorization rules.
 
 ### Linkshell widgets and member rows
 
@@ -331,14 +420,21 @@ about any other tab-order behavior.
 `LinkshellConfirmWidget.initAsk` configures Making result 1 and Back result
 2; Quit result -1 is configured only in mode 1 and is hidden in the other
 branch (`root/proto0`, PCs 0-85, offsets `0x131`-`0x285`). Its text IDs do
-not establish prompt meanings.
+not establish prompt meanings. The emblem path passes its icon argument to
+`getLinkshellIconID` and then `IconControl_Emblem` (`root/proto0`, PCs 67-73,
+offsets `0x23D`-`0x255`).
 
 `LinkshellSelectIconWidget.initAsk` configures named Button_Icon controls
-1-58; it does not create those controls. A nil old icon selects base/color
-1/1; otherwise base is `floor((oldIconID - 1) / 10) + 1` and color is
+1-58; it does not create those controls. It declares `_temp` fields
+`iconBaseID`, `selectBaseID`, and `oldIconID` as `integer32`, and `iconColor`
+as `integer8` (`root/proto0`, PCs 0-19, offsets `0x1AC`-`0x1F8`). A nil old
+icon selects base/color 1/1; otherwise base is
+`floor((oldIconID - 1) / 10) + 1` and color is
 `((oldIconID - 1) % 10) + 1`
 (`root/proto0`, PCs 34-57 and 122-143, offsets `0x234`-`0x290` and
-`0x394`-`0x3E8`). Its operate handler routes base buttons to the parent and
+`0x394`-`0x3E8`). In both cases it initializes the child
+`LinkshellIconListWidget` with `false` (`root/proto0`, PCs 146-149, offsets
+`0x3F4`-`0x400`). Its operate handler routes base buttons to the parent and
 other parameters to the child icon list (`root/proto1`, PCs 0-26, offsets
 `0x6D4`-`0x73C`). `getIconID` returns
 `getLinkshellBaseIconID(base) + color - 1` (`root/proto5`, PCs 0-6, offsets
