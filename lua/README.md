@@ -43,7 +43,10 @@ The required decoder and orchestrator are cross-repository research tools:
 - https://github.com/XIVLegacy/xivl-client-structs/blob/main/tools/decode_lpb.py
 - https://github.com/XIVLegacy/xivl-client-structs/blob/main/tools/lpb_pipeline.py
 
-`unluac.jar` is user-supplied and is not distributed by either repository.
+The research pipeline requires an explicit `unluac.jar` path. This repository
+also retains a pinned JAR for its retail reproduction checks; its source,
+license, size, and SHA-256 are recorded in
+[tools/vendor/unluac/PROVENANCE.json](../tools/vendor/unluac/PROVENANCE.json).
 The pipeline is:
 
 ```text

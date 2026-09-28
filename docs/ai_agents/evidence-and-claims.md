@@ -70,7 +70,6 @@ repository-name:path/to/file
 
 Add a stable row, symbol, or section locator when useful. When byte identity
 matters, record a sha256 in `PROVENANCE.json` rather than in the citation
-string. Commit hashes and date pins do not replace source locators: repository histories
-are rewritten before publication, and dated "as of" claims rot. Branch names,
+string. Commit hashes and date pins do not replace source locators. Branch names,
 working-tree paths, and sibling paths are not citations. Preserve the source
 fields in `PROVENANCE.json` verbatim, including dates.

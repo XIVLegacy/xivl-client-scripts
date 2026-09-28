@@ -45,6 +45,9 @@ comment, and evidence rules for this repository.
 1. [Evidence and claims](evidence-and-claims.md)
 2. [Comments and prose](comments-and-prose.md)
 
-The repository surfaces remain canonical for their subjects: [the repo
-charter](../../README.md), [the Lua corpus contract](../../lua/README.md), [the
-tool reference](../../tools/README.md), and [the docs index](../README.md).
+The repository surfaces remain canonical for their subjects:
+
+- [the repo charter](../../README.md)
+- [the Lua corpus contract](../../lua/README.md)
+- [the tool reference](../../tools/README.md)
+- [the docs index](../README.md)

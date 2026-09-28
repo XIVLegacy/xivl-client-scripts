@@ -174,7 +174,6 @@ def decode_path(ciphered_path: str) -> str:
     return "/".join(decode_filename_segment(part) for part in parts)
 
 
-_RESERVED_RHS = {"_G", "require", "_defineClass", "_defineBaseClass"}
 CLASS_ASSIGN_RE = re.compile(
     r"^L\d+_\d+\s*=\s*(?![AL]\d+_\d+\s*$)([A-Z][A-Za-z0-9_]+)\s*$",
     re.MULTILINE,
@@ -202,7 +201,7 @@ def extract_signals(
     seen_classes = set()
     for match in CLASS_ASSIGN_RE.finditer(content):
         name = match.group(1)
-        if name in _RESERVED_RHS or name in seen_classes:
+        if name in seen_classes:
             continue
         seen_classes.add(name)
         classes.append(name)
@@ -210,8 +209,7 @@ def extract_signals(
     if not classes:
         for match in STRING_LITERAL_RE.finditer(content):
             literal = match.group(1)
-            if literal.lower() == decoded_basename and literal not in seen_classes:
-                seen_classes.add(literal)
+            if literal.lower() == decoded_basename:
                 classes.append(literal)
                 break
 
