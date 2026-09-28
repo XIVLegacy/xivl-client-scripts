@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectorgcg30101",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvs373gjiji.lua",
+  "classes": [
+    "QuestDirectorGcg30101"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

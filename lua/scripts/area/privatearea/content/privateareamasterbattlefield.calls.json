@@ -1,0 +1,15 @@
+{
+  "decoded": "area/privatearea/content/privateareamasterbattlefield",
+  "ciphered": "9s59/us1o9q59s59/7vwq5wq/us1o9q59s59x9rq5s89qqy5415y6.lua",
+  "classes": [
+    "PrivateAreaMasterBattleField"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

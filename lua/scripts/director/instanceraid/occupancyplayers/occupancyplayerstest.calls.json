@@ -1,0 +1,24 @@
+{
+  "decoded": "director/instanceraid/occupancyplayers/occupancyplayerstest",
+  "ciphered": "61s57qvs/1wrq9w75s916/v77pu9w7luy9l5sr/v77pu9w7luy9l5srq5rq.lua",
+  "classes": [
+    "OccupancyPlayersTest"
+  ],
+  "lineCount": 29,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      2
+    ],
+    "_fadeIn": [
+      21
+    ],
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      25
+    ],
+    "_onInit": [
+      15
+    ]
+  }
+}

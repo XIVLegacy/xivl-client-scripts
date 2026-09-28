@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/gargoyle/gargoylenormaljobarm",
+  "ciphered": "729s9/wu7/xvwrq5s/39s3vly5/39s3vly5wvsx9y0v89sx.lua",
+  "classes": [
+    "GargoyleNormalJobArm"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

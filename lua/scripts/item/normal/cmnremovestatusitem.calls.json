@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/cmnremovestatusitem",
+  "ciphered": "1q5x/wvsx9y/7xws5xvo5rq9qpr1q5x.lua",
+  "classes": [
+    "CmnRemoveStatusItem"
+  ],
+  "lineCount": 29,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

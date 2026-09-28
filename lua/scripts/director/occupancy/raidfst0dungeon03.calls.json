@@ -1,0 +1,30 @@
+{
+  "decoded": "director/occupancy/raidfst0dungeon03",
+  "ciphered": "61s57qvs/v77pu9w7l/s9164rqj6pw35vwjg.lua",
+  "classes": [
+    "RaidFst0Dungeon03"
+  ],
+  "lineCount": 134,
+  "apiCount": 6,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      65
+    ],
+    "_fadeIn": [
+      68
+    ],
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      96
+    ],
+    "_fadeOut": [
+      37
+    ],
+    "_waitForFading": [
+      47
+    ]
+  }
+}

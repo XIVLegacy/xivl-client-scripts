@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/war/war0j7",
+  "ciphered": "tp5rq/r75w9s1v/n9s/n9sj0c.lua",
+  "classes": [
+    "War0j7"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

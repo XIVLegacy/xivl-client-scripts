@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/guildleveareaorderwidget",
+  "ciphered": "n1635q/9rz/3p1y6y5o59s59vs65sn1635q.lua",
+  "classes": [
+    "GuildleveAreaOrderWidget"
+  ],
+  "lineCount": 187,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/ferocitystatus",
+  "ciphered": "rq9qpr/981y1ql/45sv71qlrq9qpr.lua",
+  "classes": [
+    "FerocityStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/etc/etc5g4",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7e3f.lua",
+  "classes": [
+    "Etc5g4"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

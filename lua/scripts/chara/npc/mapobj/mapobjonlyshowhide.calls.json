@@ -1,0 +1,22 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjonlyshowhide",
+  "ciphered": "729s9/wu7/x9uv80/x9uv80vwylr2vn2165.lua",
+  "classes": [
+    "MapObjOnlyShowHide"
+  ],
+  "lineCount": 33,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runBgScheduler": [
+      22,
+      27
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/vengencestatus",
+  "ciphered": "rq9qpr/981y1ql/o5w35w75rq9qpr.lua",
+  "classes": [
+    "VengenceStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

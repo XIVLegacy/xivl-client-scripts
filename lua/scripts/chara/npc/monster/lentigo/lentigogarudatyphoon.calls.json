@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lentigo/lentigogarudatyphoon",
+  "ciphered": "729s9/wu7/xvwrq5s/y5wq13v/y5wq13v39sp69qlu2vvw.lua",
+  "classes": [
+    "LentigoGarudaTyphoon"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

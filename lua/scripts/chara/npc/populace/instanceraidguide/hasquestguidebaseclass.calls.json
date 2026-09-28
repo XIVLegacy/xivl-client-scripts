@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/instanceraidguide/hasquestguidebaseclass",
+  "ciphered": "729s9/wu7/uvupy975/1wrq9w75s9163p165/29rtp5rq3p16589r57y9rr.lua",
+  "classes": [
+    "HasQuestGuideBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

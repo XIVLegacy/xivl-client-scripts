@@ -1,0 +1,35 @@
+{
+  "decoded": "quest/scenario/etc/etc3l3",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7gyg.lua",
+  "classes": [
+    "Etc3l3"
+  ],
+  "lineCount": 309,
+  "apiCount": 4,
+  "callsiteCount": 15,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      53,
+      87,
+      98,
+      134,
+      159,
+      181,
+      203,
+      234,
+      259,
+      275,
+      295
+    ],
+    "_wait": [
+      279
+    ]
+  }
+}

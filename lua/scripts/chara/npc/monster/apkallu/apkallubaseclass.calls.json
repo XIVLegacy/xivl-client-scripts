@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/apkallu/apkallubaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/9uz9yyp/9uz9yyp89r57y9rr.lua",
+  "classes": [
+    "ApkalluBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

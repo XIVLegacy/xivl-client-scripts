@@ -1,0 +1,52 @@
+{
+  "decoded": "widget/bonuspointreductionwidget",
+  "ciphered": "n1635q/8vwpruv1wqs56p7q1vwn1635q.lua",
+  "classes": [
+    "BonusPointReductionWidget"
+  ],
+  "lineCount": 833,
+  "apiCount": 3,
+  "callsiteCount": 34,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      102,
+      295,
+      700,
+      731
+    ],
+    "_setProperty": [
+      204,
+      301,
+      310,
+      326,
+      341,
+      355,
+      370,
+      384,
+      399,
+      413,
+      428,
+      442,
+      457,
+      471,
+      486,
+      498,
+      507,
+      523,
+      538,
+      552,
+      567,
+      581,
+      596,
+      610,
+      625,
+      639,
+      654,
+      668,
+      683
+    ]
+  }
+}

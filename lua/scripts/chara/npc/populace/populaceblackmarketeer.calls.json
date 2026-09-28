@@ -1,0 +1,47 @@
+{
+  "decoded": "chara/npc/populace/populaceblackmarketeer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9758y97zx9sz5q55s.lua",
+  "classes": [
+    "PopulaceBlackMarketeer"
+  ],
+  "lineCount": 700,
+  "apiCount": 9,
+  "callsiteCount": 17,
+  "apis": {
+    "_callSuperClassFunc": [
+      157
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      209,
+      463
+    ],
+    "_getData": [
+      572,
+      578,
+      584,
+      590,
+      597
+    ],
+    "_getMyPlayer": [
+      460
+    ],
+    "_loadKeyTemporarily": [
+      566
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_onFinalize": [
+      158,
+      162
+    ],
+    "_runCharaScheduler": [
+      191,
+      242,
+      343
+    ]
+  }
+}

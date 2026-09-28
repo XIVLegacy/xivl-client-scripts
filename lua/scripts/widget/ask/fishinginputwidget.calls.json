@@ -1,0 +1,40 @@
+{
+  "decoded": "widget/ask/fishinginputwidget",
+  "ciphered": "n1635q/9rz/41r21w31wupqn1635q.lua",
+  "classes": [
+    "FishingInputWidget"
+  ],
+  "lineCount": 1135,
+  "apiCount": 9,
+  "callsiteCount": 10,
+  "apis": {
+    "_addItem": [
+      115
+    ],
+    "_countStack": [
+      1128
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1111
+    ],
+    "_getEquippingItem": [
+      1089
+    ],
+    "_getKeyboardFocusedWidget": [
+      216
+    ],
+    "_getMyPlayer": [
+      1086
+    ],
+    "_getNameIndex": [
+      1114
+    ],
+    "_math": [
+      707,
+      714
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "decoded": "widget/ask/materiaattachaskwidget",
+  "ciphered": "n1635q/9rz/x9q5s199qq9729rzn1635q.lua",
+  "classes": [
+    "MateriaAttachAskWidget"
+  ],
+  "lineCount": 1044,
+  "apiCount": 6,
+  "callsiteCount": 20,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      218,
+      224,
+      266,
+      272,
+      331,
+      337,
+      396
+    ],
+    "_getItem": [
+      14,
+      21,
+      58,
+      102,
+      193,
+      198
+    ],
+    "_getKeyboardFocusedWidget": [
+      704,
+      988
+    ],
+    "_getMyPlayer": [
+      117,
+      540,
+      834
+    ],
+    "_getParentWidget": [
+      1008
+    ]
+  }
+}

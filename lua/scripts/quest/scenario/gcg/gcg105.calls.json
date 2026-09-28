@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/gcg/gcg105",
+  "ciphered": "tp5rq/r75w9s1v/373/373ije.lua",
+  "classes": [
+    "Gcg105"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

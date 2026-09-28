@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/popuphelpwidget",
+  "ciphered": "n1635q/uvupu25yun1635q.lua",
+  "classes": [
+    "PopupHelpWidget"
+  ],
+  "lineCount": 296,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_onHoverHelp": [
+      99
+    ]
+  }
+}

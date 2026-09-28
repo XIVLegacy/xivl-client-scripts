@@ -1,0 +1,50 @@
+{
+  "decoded": "quest/scenario/gcu/gcu302",
+  "ciphered": "tp5rq/r75w9s1v/37p/37pgjh.lua",
+  "classes": [
+    "Gcu302"
+  ],
+  "lineCount": 766,
+  "apiCount": 4,
+  "callsiteCount": 30,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      60,
+      82,
+      114,
+      125,
+      166,
+      209,
+      225,
+      254,
+      270,
+      299,
+      339,
+      384,
+      432,
+      459,
+      503,
+      530,
+      562,
+      608,
+      654,
+      713,
+      735
+    ],
+    "_wait": [
+      36,
+      144,
+      389,
+      428,
+      499,
+      699,
+      753
+    ]
+  }
+}

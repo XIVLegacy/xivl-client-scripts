@@ -1,0 +1,45 @@
+{
+  "decoded": "chara/npc/populace/populacecaravanmanager",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97579s9o9wx9w935s.lua",
+  "classes": [
+    "PopulaceCaravanManager"
+  ],
+  "lineCount": 773,
+  "apiCount": 5,
+  "callsiteCount": 23,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      37,
+      239,
+      501,
+      573,
+      614,
+      655,
+      685,
+      703
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      198,
+      318,
+      335,
+      347,
+      364,
+      383,
+      408,
+      434,
+      459,
+      663,
+      688,
+      706
+    ],
+    "_setGroundOn": [
+      25
+    ]
+  }
+}

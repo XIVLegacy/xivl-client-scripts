@@ -1,0 +1,122 @@
+{
+  "decoded": "chara/npc/object/retainerfurniture",
+  "ciphered": "729s9/wu7/v8057q/s5q91w5s4psw1qps5.lua",
+  "classes": [
+    "RetainerFurniture"
+  ],
+  "lineCount": 1102,
+  "apiCount": 19,
+  "callsiteCount": 72,
+  "apis": {
+    "_countMember": [
+      39,
+      100
+    ],
+    "_countStack": [
+      635,
+      670,
+      705,
+      736,
+      812,
+      878,
+      891
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      450,
+      478,
+      639,
+      674,
+      709,
+      769,
+      788,
+      825,
+      844,
+      895
+    ],
+    "_getDealingAttached": [
+      870
+    ],
+    "_getGroup": [
+      34,
+      92
+    ],
+    "_getItem": [
+      433,
+      461,
+      614,
+      649,
+      684,
+      719,
+      743,
+      763,
+      796,
+      857
+    ],
+    "_getItemPackageCapacity": [
+      753
+    ],
+    "_getMember": [
+      57
+    ],
+    "_getMyPlayer": [
+      31,
+      88,
+      179,
+      354,
+      523,
+      1092
+    ],
+    "_getNameIndex": [
+      453,
+      481,
+      642,
+      677,
+      712,
+      791,
+      828,
+      847,
+      898
+    ],
+    "_getPackage": [
+      631,
+      666,
+      701,
+      887
+    ],
+    "_hasItemPackage": [
+      748
+    ],
+    "_isAlive": [
+      62,
+      218,
+      362,
+      441,
+      469,
+      536,
+      622,
+      657,
+      692,
+      727,
+      803,
+      865
+    ],
+    "_isExistInClientMember": [
+      52
+    ],
+    "_isExistInWorldMember": [
+      47
+    ],
+    "_isInstanceOf": [
+      872
+    ],
+    "_runCharaScheduler": [
+      163
+    ],
+    "_turnDir": [
+      1096
+    ]
+  }
+}

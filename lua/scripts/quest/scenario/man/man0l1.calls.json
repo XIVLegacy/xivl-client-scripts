@@ -1,0 +1,78 @@
+{
+  "decoded": "quest/scenario/man/man0l1",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wjyi.lua",
+  "classes": [
+    "Man0l1"
+  ],
+  "lineCount": 2962,
+  "apiCount": 10,
+  "callsiteCount": 46,
+  "apis": {
+    "_aimCameraTutorial": [
+      2445,
+      2516
+    ],
+    "_cancelAimCameraTutorial": [
+      2494,
+      2565
+    ],
+    "_cancelLookAtPlayerTutorial": [
+      2473,
+      2544
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_lookAtPlayerTutorial": [
+      2450,
+      2521
+    ],
+    "_runCharaScheduler": [
+      883,
+      968,
+      1335,
+      1367,
+      1399,
+      1431,
+      1463,
+      1495,
+      2099,
+      2115,
+      2250,
+      2581,
+      2591,
+      2616,
+      2641
+    ],
+    "_runCharaSchedulerTutorial": [
+      2455,
+      2461,
+      2526,
+      2532
+    ],
+    "_wait": [
+      332,
+      342,
+      352,
+      362,
+      385,
+      395,
+      1842,
+      2188,
+      2198,
+      2208,
+      2218
+    ],
+    "_waitForCharaSchedulerFinished": [
+      1345,
+      1377,
+      1409,
+      1441,
+      1473,
+      1505
+    ]
+  }
+}

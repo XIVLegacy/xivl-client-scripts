@@ -1,0 +1,22 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjonewaydoor",
+  "ciphered": "729s9/wu7/x9uv80/x9uv80vw5n9l6vvs.lua",
+  "classes": [
+    "MapObjOnewayDoor"
+  ],
+  "lineCount": 62,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runBgSchedulerFromMidstream": [
+      44,
+      50
+    ],
+    "_setGroundOn": [
+      57
+    ]
+  }
+}

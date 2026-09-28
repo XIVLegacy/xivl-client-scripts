@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/sprite/spritebrownlessernm",
+  "ciphered": "729s9/wu7/xvwrq5s/rus1q5/rus1q58svnwy5rr5swx.lua",
+  "classes": [
+    "SpriteBrownLesserNM"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

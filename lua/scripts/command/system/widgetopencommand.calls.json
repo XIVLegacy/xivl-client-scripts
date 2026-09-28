@@ -1,0 +1,22 @@
+{
+  "decoded": "command/system/widgetopencommand",
+  "ciphered": "7vxx9w6/rlrq5x/n1635qvu5w7vxx9w6.lua",
+  "classes": [
+    "WidgetOpenCommand"
+  ],
+  "lineCount": 39,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_createActor": [
+      24
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_string": [
+      13,
+      26
+    ]
+  }
+}

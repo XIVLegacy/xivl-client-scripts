@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/partybuffeffectwidget",
+  "ciphered": "n1635q/u9sql8p4454457qn1635q.lua",
+  "classes": [
+    "PartyBuffEffectWidget"
+  ],
+  "lineCount": 30,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

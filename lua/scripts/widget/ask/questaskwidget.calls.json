@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/questaskwidget",
+  "ciphered": "n1635q/9rz/tp5rq9rzn1635q.lua",
+  "classes": [
+    "QuestAskWidget"
+  ],
+  "lineCount": 274,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

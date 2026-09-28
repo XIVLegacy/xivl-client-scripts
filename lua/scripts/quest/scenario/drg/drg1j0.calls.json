@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/drg/drg1j0",
+  "ciphered": "tp5rq/r75w9s1v/6s3/6s3i0j.lua",
+  "classes": [
+    "Drg1j0"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

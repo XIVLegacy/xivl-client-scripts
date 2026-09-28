@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/heavystatus",
+  "ciphered": "rq9qpr/x9317/259olrq9qpr.lua",
+  "classes": [
+    "HeavyStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

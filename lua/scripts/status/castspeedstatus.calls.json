@@ -1,0 +1,15 @@
+{
+  "decoded": "status/castspeedstatus",
+  "ciphered": "rq9qpr/79rqru556rq9qpr.lua",
+  "classes": [
+    "CastSpeedStatus"
+  ],
+  "lineCount": 50,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

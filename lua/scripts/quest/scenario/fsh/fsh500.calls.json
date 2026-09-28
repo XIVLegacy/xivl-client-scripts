@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/fsh/fsh500",
+  "ciphered": "tp5rq/r75w9s1v/4r2/4r2ejj.lua",
+  "classes": [
+    "Fsh500"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

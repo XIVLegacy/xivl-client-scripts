@@ -1,0 +1,62 @@
+{
+  "decoded": "widget/debugdispwidget",
+  "ciphered": "n1635q/658p361run1635q.lua",
+  "classes": [
+    "DebugDispWidget"
+  ],
+  "lineCount": 532,
+  "apiCount": 7,
+  "callsiteCount": 36,
+  "apis": {
+    "_addItem": [
+      52
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getLowResolutionTime": [
+      106,
+      381
+    ],
+    "_getProperty": [
+      115,
+      174,
+      252,
+      395,
+      404,
+      427,
+      436,
+      455,
+      471,
+      487,
+      503
+    ],
+    "_math": [
+      102,
+      377
+    ],
+    "_printLog": [
+      354
+    ],
+    "_setProperty": [
+      39,
+      61,
+      72,
+      122,
+      202,
+      211,
+      225,
+      261,
+      270,
+      279,
+      306,
+      316,
+      326,
+      336,
+      448,
+      464,
+      480,
+      496
+    ]
+  }
+}

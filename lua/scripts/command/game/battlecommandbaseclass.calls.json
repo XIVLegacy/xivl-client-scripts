@@ -1,0 +1,20 @@
+{
+  "decoded": "command/game/battlecommandbaseclass",
+  "ciphered": "7vxx9w6/39x5/89qqy57vxx9w689r57y9rr.lua",
+  "classes": [
+    "BattleCommandBaseClass"
+  ],
+  "lineCount": 144,
+  "apiCount": 2,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ],
+    "_getData": [
+      75,
+      81,
+      87
+    ]
+  }
+}

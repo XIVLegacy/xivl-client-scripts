@@ -1,0 +1,54 @@
+{
+  "decoded": "quest/scenario/gcg/gcg701",
+  "ciphered": "tp5rq/r75w9s1v/373/373cji.lua",
+  "classes": [
+    "Gcg701"
+  ],
+  "lineCount": 713,
+  "apiCount": 5,
+  "callsiteCount": 32,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      641
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      58,
+      74,
+      94,
+      109,
+      136,
+      161,
+      192,
+      219,
+      235,
+      257,
+      274,
+      304,
+      342,
+      367,
+      426,
+      486,
+      502,
+      527,
+      552,
+      580,
+      612,
+      688
+    ],
+    "_wait": [
+      42,
+      197,
+      655,
+      669,
+      678,
+      693
+    ]
+  }
+}

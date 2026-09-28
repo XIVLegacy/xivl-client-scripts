@@ -1,0 +1,39 @@
+{
+  "decoded": "chara/charabaseclass_battle",
+  "ciphered": "729s9/729s989r57y9rr_89qqy5.lua",
+  "classes": [
+    "CharaBaseClass"
+  ],
+  "lineCount": 2027,
+  "apiCount": 8,
+  "callsiteCount": 11,
+  "apis": {
+    "_getDir": [
+      970
+    ],
+    "_getEquippingItem": [
+      204,
+      248,
+      262
+    ],
+    "_getOrientation": [
+      981
+    ],
+    "_getPos": [
+      978
+    ],
+    "_getSubStatBreakage": [
+      947
+    ],
+    "_isAlive": [
+      10
+    ],
+    "_isMember": [
+      1024
+    ],
+    "_math": [
+      1328,
+      1338
+    ]
+  }
+}

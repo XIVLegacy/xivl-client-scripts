@@ -1,0 +1,29 @@
+{
+  "decoded": "item/normal/normalitembaseclass",
+  "ciphered": "1q5x/wvsx9y/wvsx9y1q5x89r57y9rr.lua",
+  "classes": [
+    "NormalItemBaseClass"
+  ],
+  "lineCount": 61,
+  "apiCount": 5,
+  "callsiteCount": 7,
+  "apis": {
+    "_callSuperClassFunc": [
+      10
+    ],
+    "_getMyPlayer": [
+      25,
+      36
+    ],
+    "_onInit": [
+      11,
+      18
+    ],
+    "_onUpdateWork": [
+      61
+    ],
+    "_updateWork": [
+      32
+    ]
+  }
+}

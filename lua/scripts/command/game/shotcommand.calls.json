@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/shotcommand",
+  "ciphered": "7vxx9w6/39x5/r2vq7vxx9w6.lua",
+  "classes": [
+    "ShotCommand"
+  ],
+  "lineCount": 45,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

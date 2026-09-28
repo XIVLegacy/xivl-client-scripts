@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/gnole/gnolethmattackhamletnm",
+  "ciphered": "729s9/wu7/xvwrq5s/3wvy5/3wvy5q2x9qq97z29xy5qwx.lua",
+  "classes": [
+    "GnoleThmAttackHamletNM"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

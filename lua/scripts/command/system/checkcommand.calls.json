@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/checkcommand",
+  "ciphered": "7vxx9w6/rlrq5x/7257z7vxx9w6.lua",
+  "classes": [
+    "CheckCommand"
+  ],
+  "lineCount": 32,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isInstanceOf": [
+      13
+    ]
+  }
+}

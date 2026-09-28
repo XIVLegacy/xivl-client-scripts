@@ -1,0 +1,195 @@
+{
+  "decoded": "chara/charabaseclass",
+  "ciphered": "729s9/729s989r57y9rr.lua",
+  "classes": [
+    "CharaBaseClass"
+  ],
+  "lineCount": 1734,
+  "apiCount": 42,
+  "callsiteCount": 99,
+  "apis": {
+    "_countMember": [
+      211,
+      241,
+      277
+    ],
+    "_countStack": [
+      1705
+    ],
+    "_getActorMainStat": [
+      303
+    ],
+    "_getAllExtendedTemporaryGroup": [
+      1645
+    ],
+    "_getAllGroup": [
+      25,
+      524
+    ],
+    "_getCatalogID": [
+      1701
+    ],
+    "_getCurrentAreaMaster": [
+      320
+    ],
+    "_getEquippingItem": [
+      111
+    ],
+    "_getExtendedTemporaryGroup": [
+      55,
+      66,
+      71,
+      99,
+      152,
+      176
+    ],
+    "_getGroup": [
+      188,
+      236,
+      272,
+      1216
+    ],
+    "_getItem": [
+      1695
+    ],
+    "_getItemPackageCapacity": [
+      1661,
+      1723
+    ],
+    "_getItemPackageFreeSpace": [
+      1665,
+      1727
+    ],
+    "_getMember": [
+      251,
+      256
+    ],
+    "_getMemberDisplayName": [
+      216
+    ],
+    "_getMyPlayer": [
+      1149,
+      1227,
+      1249,
+      1262,
+      1282,
+      1294,
+      1369,
+      1424,
+      1453,
+      1482,
+      1518,
+      1538,
+      1553
+    ],
+    "_getSubStatStatus": [
+      1585,
+      1620,
+      1625
+    ],
+    "_isActorMainStatMode": [
+      502,
+      513
+    ],
+    "_isAlive": [
+      295
+    ],
+    "_isInn": [
+      323
+    ],
+    "_isInstanceOf": [
+      31,
+      419,
+      453,
+      466,
+      473,
+      481,
+      1220
+    ],
+    "_isMember": [
+      200
+    ],
+    "_onChangeAccessibleInServer": [
+      1529
+    ],
+    "_onChangeActorMainStat": [
+      1393
+    ],
+    "_onChangeJob": [
+      1508
+    ],
+    "_onChangeNetStatSystem": [
+      1443
+    ],
+    "_onChangeNetStatUser": [
+      1472
+    ],
+    "_onChangeSubStatMode": [
+      1399
+    ],
+    "_onChangeSubStatStatus": [
+      1414
+    ],
+    "_onChangeSystemFlag": [
+      1493
+    ],
+    "_onInit": [
+      1126
+    ],
+    "_onReceiveDataPacket": [
+      1353
+    ],
+    "_onUpdateDisplayName": [
+      1139
+    ],
+    "_onUpdateGroupCurrent": [
+      1242
+    ],
+    "_onUpdateItemPackage": [
+      1324
+    ],
+    "_onUpdateTradingItem": [
+      1340
+    ],
+    "_onUpdateWork": [
+      1201
+    ],
+    "_setNameplate": [
+      1063,
+      1132
+    ],
+    "_setNameplateVisible": [
+      1069,
+      1168
+    ],
+    "_table": [
+      687,
+      705,
+      801,
+      811,
+      839,
+      849,
+      866,
+      876,
+      892,
+      902,
+      919,
+      929,
+      942,
+      948,
+      971,
+      984,
+      999,
+      1014,
+      1031,
+      1045
+    ],
+    "_updateItemPackage": [
+      1289
+    ],
+    "_updateWork": [
+      1256,
+      1545
+    ]
+  }
+}

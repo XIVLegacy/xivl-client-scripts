@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/bewarecommand",
+  "ciphered": "7vxx9w6/39x5/85n9s57vxx9w6.lua",
+  "classes": [
+    "BewareCommand"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

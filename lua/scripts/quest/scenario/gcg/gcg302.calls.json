@@ -1,0 +1,43 @@
+{
+  "decoded": "quest/scenario/gcg/gcg302",
+  "ciphered": "tp5rq/r75w9s1v/373/373gjh.lua",
+  "classes": [
+    "Gcg302"
+  ],
+  "lineCount": 453,
+  "apiCount": 4,
+  "callsiteCount": 23,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      46,
+      68,
+      78,
+      94,
+      108,
+      123,
+      205,
+      227,
+      249,
+      253,
+      342,
+      358,
+      374,
+      378,
+      404,
+      426
+    ],
+    "_wait": [
+      257,
+      316,
+      382,
+      430,
+      442
+    ]
+  }
+}

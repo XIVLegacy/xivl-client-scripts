@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/constance/constancebaseclass",
+  "ciphered": "7vxx9w6/39x5/7vwrq9w75/7vwrq9w7589r57y9rr.lua",
+  "classes": [
+    "ConstanceBaseClass"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

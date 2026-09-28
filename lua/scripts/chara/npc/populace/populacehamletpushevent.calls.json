@@ -1,0 +1,24 @@
+{
+  "decoded": "chara/npc/populace/populacehamletpushevent",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97529xy5qupr25o5wq.lua",
+  "classes": [
+    "PopulaceHamletPushEvent"
+  ],
+  "lineCount": 609,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      79
+    ],
+    "_runCharaScheduler": [
+      597
+    ],
+    "_setGroundOn": [
+      75
+    ]
+  }
+}

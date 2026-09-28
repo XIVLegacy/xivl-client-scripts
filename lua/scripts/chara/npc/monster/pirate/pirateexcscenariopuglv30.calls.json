@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/pirate/pirateexcscenariopuglv30",
+  "ciphered": "729s9/wu7/xvwrq5s/u1s9q5/u1s9q55m7r75w9s1vup3yogj.lua",
+  "classes": [
+    "PirateExcScenarioPugLv30"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

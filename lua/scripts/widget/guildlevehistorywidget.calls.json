@@ -1,0 +1,21 @@
+{
+  "decoded": "widget/guildlevehistorywidget",
+  "ciphered": "n1635q/3p1y6y5o521rqvsln1635q.lua",
+  "classes": [
+    "GuildleveHistoryWidget"
+  ],
+  "lineCount": 650,
+  "apiCount": 2,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      360,
+      365,
+      370,
+      420
+    ]
+  }
+}

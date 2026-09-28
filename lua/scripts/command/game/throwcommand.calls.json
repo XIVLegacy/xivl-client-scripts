@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/throwcommand",
+  "ciphered": "7vxx9w6/39x5/q2svn7vxx9w6.lua",
+  "classes": [
+    "ThrowCommand"
+  ],
+  "lineCount": 53,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

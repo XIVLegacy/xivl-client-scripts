@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/populace/shop/populaceguildshop",
+  "ciphered": "729s9/wu7/uvupy975/r2vu/uvupy9753p1y6r2vu.lua",
+  "classes": [
+    "PopulaceGuildShop"
+  ],
+  "lineCount": 1163,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      162
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

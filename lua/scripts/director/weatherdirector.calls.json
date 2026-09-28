@@ -1,0 +1,25 @@
+{
+  "decoded": "director/weatherdirector",
+  "ciphered": "61s57qvs/n59q25s61s57qvs.lua",
+  "classes": [
+    "WeatherDirector"
+  ],
+  "lineCount": 112,
+  "apiCount": 3,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      51,
+      85
+    ],
+    "_setWeather": [
+      58,
+      65,
+      92,
+      99
+    ]
+  }
+}

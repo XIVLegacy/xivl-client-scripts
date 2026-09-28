@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/whitegeneral/monsterwhitegeneralbaseclass",
+  "ciphered": "61s57qvs/xvwrq5s/n21q535w5s9y/xvwrq5sn21q535w5s9y89r57y9rr.lua",
+  "classes": [
+    "MonsterWhiteGeneralBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

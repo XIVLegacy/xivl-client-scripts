@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/raptor/raptorforestquestcom0u1",
+  "ciphered": "729s9/wu7/xvwrq5s/s9uqvs/s9uqvs4vs5rqtp5rq7vxjpi.lua",
+  "classes": [
+    "RaptorForestQuestCom0u1"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

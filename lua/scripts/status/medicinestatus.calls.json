@@ -1,0 +1,15 @@
+{
+  "decoded": "status/medicinestatus",
+  "ciphered": "rq9qpr/x56171w5rq9qpr.lua",
+  "classes": [
+    "MedicineStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

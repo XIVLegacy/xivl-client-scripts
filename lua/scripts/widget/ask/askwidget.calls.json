@@ -1,0 +1,40 @@
+{
+  "decoded": "widget/ask/askwidget",
+  "ciphered": "n1635q/9rz/9rzn1635q.lua",
+  "classes": [
+    "AskWidget"
+  ],
+  "lineCount": 615,
+  "apiCount": 6,
+  "callsiteCount": 16,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_math": [
+      121,
+      331
+    ],
+    "_setKeyboardFocusedControl": [
+      97
+    ],
+    "_setProperty": [
+      173,
+      186,
+      200,
+      272,
+      285,
+      306,
+      517,
+      524,
+      559
+    ],
+    "_setUICommandCondition": [
+      53,
+      59
+    ],
+    "_setUICommandTemplateCondition": [
+      68
+    ]
+  }
+}

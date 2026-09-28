@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/qiqirn/qiqirnbarehandsgcl303",
+  "ciphered": "729s9/wu7/xvwrq5s/t1t1sw/t1t1sw89s529w6r37ygjg.lua",
+  "classes": [
+    "QiqirnBarehandsGcl303"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

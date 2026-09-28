@@ -1,0 +1,30 @@
+{
+  "decoded": "chara/npc/populace/populacenmrushguide",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975wxspr23p165.lua",
+  "classes": [
+    "PopulaceNMRushGuide"
+  ],
+  "lineCount": 355,
+  "apiCount": 4,
+  "callsiteCount": 10,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      35,
+      97,
+      142,
+      196,
+      249,
+      295,
+      341
+    ],
+    "_setGroundOn": [
+      19
+    ]
+  }
+}

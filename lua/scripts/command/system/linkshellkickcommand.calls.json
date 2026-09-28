@@ -1,0 +1,28 @@
+{
+  "decoded": "command/system/linkshellkickcommand",
+  "ciphered": "7vxx9w6/rlrq5x/y1wzr25yyz17z7vxx9w6.lua",
+  "classes": [
+    "LinkshellKickCommand"
+  ],
+  "lineCount": 170,
+  "apiCount": 4,
+  "callsiteCount": 8,
+  "apis": {
+    "_countMember": [
+      115
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      19,
+      38,
+      42,
+      82
+    ],
+    "_isMember": [
+      96,
+      146
+    ]
+  }
+}

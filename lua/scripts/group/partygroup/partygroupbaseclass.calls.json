@@ -1,0 +1,38 @@
+{
+  "decoded": "group/partygroup/partygroupbaseclass",
+  "ciphered": "3svpu/u9sql3svpu/u9sql3svpu89r57y9rr.lua",
+  "classes": [
+    "PartyGroupBaseClass"
+  ],
+  "lineCount": 125,
+  "apiCount": 8,
+  "callsiteCount": 10,
+  "apis": {
+    "_assignForChild": [
+      63
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getKind": [
+      117
+    ],
+    "_getMyPlayer": [
+      105,
+      114
+    ],
+    "_globalTemp": [
+      72
+    ],
+    "_isAlive": [
+      21
+    ],
+    "_isMember": [
+      44,
+      102
+    ],
+    "_onUpdateWork": [
+      125
+    ]
+  }
+}

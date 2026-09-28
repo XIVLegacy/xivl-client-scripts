@@ -1,0 +1,15 @@
+{
+  "decoded": "status/targetcontrolstatus",
+  "ciphered": "rq9qpr/q9s35q7vwqsvyrq9qpr.lua",
+  "classes": [
+    "TargetControlStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

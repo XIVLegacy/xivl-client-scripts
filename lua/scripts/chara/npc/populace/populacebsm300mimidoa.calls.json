@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/populace/populacebsm300mimidoa",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9758rxgjjx1x16v9.lua",
+  "classes": [
+    "PopulaceBsm300Mimidoa"
+  ],
+  "lineCount": 19,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "director/firefallfairedirector",
+  "ciphered": "61s57qvs/41s549yy491s561s57qvs.lua",
+  "classes": [
+    "FirefallFaireDirector"
+  ],
+  "lineCount": 28,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      20
+    ],
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineClass": [
+      5
+    ]
+  }
+}

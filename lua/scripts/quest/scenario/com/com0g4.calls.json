@@ -1,0 +1,59 @@
+{
+  "decoded": "quest/scenario/com/com0g4",
+  "ciphered": "tp5rq/r75w9s1v/7vx/7vxj3f.lua",
+  "classes": [
+    "Com0g4"
+  ],
+  "lineCount": 591,
+  "apiCount": 5,
+  "callsiteCount": 37,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      76,
+      96,
+      111,
+      144,
+      171,
+      203,
+      230,
+      234,
+      262,
+      284,
+      322,
+      371,
+      375,
+      415,
+      443,
+      459,
+      463,
+      493,
+      525
+    ],
+    "_wait": [
+      42,
+      149,
+      208,
+      238,
+      253,
+      327,
+      379,
+      394,
+      467,
+      530
+    ],
+    "_waitForCharaSchedulerFinished": [
+      71,
+      166,
+      225,
+      344,
+      541
+    ]
+  }
+}

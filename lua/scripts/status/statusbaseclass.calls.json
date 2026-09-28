@@ -1,0 +1,50 @@
+{
+  "decoded": "status/statusbaseclass",
+  "ciphered": "rq9qpr/rq9qpr89r57y9rr.lua",
+  "classes": [
+    "StatusBaseClass"
+  ],
+  "lineCount": 875,
+  "apiCount": 9,
+  "callsiteCount": 20,
+  "apis": {
+    "_callSuperClassFunc": [
+      826,
+      846
+    ],
+    "_getData": [
+      18,
+      867
+    ],
+    "_getStaticActorID": [
+      7,
+      830,
+      850
+    ],
+    "_isAlive": [
+      506,
+      571,
+      636,
+      701,
+      766
+    ],
+    "_loadKeySemipermanently": [
+      834
+    ],
+    "_math": [
+      251,
+      261
+    ],
+    "_onFinalize": [
+      847,
+      860
+    ],
+    "_onInit": [
+      827,
+      840
+    ],
+    "_unloadKey": [
+      854
+    ]
+  }
+}

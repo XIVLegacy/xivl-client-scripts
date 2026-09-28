@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/empire/empirethaumaturgepublicfort",
+  "ciphered": "729s9/wu7/xvwrq5s/5xu1s5/5xu1s5q29px9qps35up8y174vsq.lua",
+  "classes": [
+    "EmpireThaumaturgePublicFort"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

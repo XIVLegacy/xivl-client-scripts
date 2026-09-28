@@ -1,0 +1,57 @@
+{
+  "decoded": "chara/charabaseclass_parameter",
+  "ciphered": "729s9/729s989r57y9rr_u9s9x5q5s.lua",
+  "classes": [
+    "CharaBaseClass"
+  ],
+  "lineCount": 1867,
+  "apiCount": 7,
+  "callsiteCount": 31,
+  "apis": {
+    "_countMember": [
+      221,
+      339
+    ],
+    "_getEquippingItem": [
+      686,
+      714,
+      738,
+      764,
+      794,
+      820,
+      850,
+      876,
+      906,
+      932
+    ],
+    "_getOrientation": [
+      463,
+      488
+    ],
+    "_getPos": [
+      465,
+      490
+    ],
+    "_getServerTime": [
+      670
+    ],
+    "_isAlive": [
+      230,
+      271,
+      1381
+    ],
+    "_math": [
+      358,
+      360,
+      376,
+      378,
+      394,
+      396,
+      469,
+      473,
+      494,
+      498,
+      500
+    ]
+  }
+}

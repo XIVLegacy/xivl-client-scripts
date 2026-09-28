@@ -1,0 +1,28 @@
+{
+  "decoded": "widget/emotelistwidget",
+  "ciphered": "n1635q/5xvq5y1rqn1635q.lua",
+  "classes": [
+    "EmoteListWidget"
+  ],
+  "lineCount": 1220,
+  "apiCount": 4,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      1036
+    ],
+    "_getMyPlayer": [
+      893,
+      994,
+      1033,
+      1094,
+      1147
+    ],
+    "_getSpecialEventWork": [
+      945
+    ]
+  }
+}

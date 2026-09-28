@@ -1,0 +1,54 @@
+{
+  "decoded": "quest/scenario/gcu/gcu102",
+  "ciphered": "tp5rq/r75w9s1v/37p/37pijh.lua",
+  "classes": [
+    "Gcu102"
+  ],
+  "lineCount": 1029,
+  "apiCount": 4,
+  "callsiteCount": 34,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      64,
+      90,
+      130,
+      241,
+      264,
+      357,
+      373,
+      389,
+      432,
+      572,
+      594,
+      619,
+      650,
+      675,
+      706,
+      731,
+      756,
+      787,
+      823,
+      853,
+      869,
+      885,
+      901,
+      923,
+      933,
+      955,
+      971
+    ],
+    "_wait": [
+      42,
+      135,
+      792,
+      844
+    ]
+  }
+}

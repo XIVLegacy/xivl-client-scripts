@@ -1,0 +1,18 @@
+{
+  "decoded": "area/zone/zonemasterjointest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s0v1wq5rq.lua",
+  "classes": [
+    "ZoneMasterJoinTest"
+  ],
+  "lineCount": 28,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_randomInteger": [
+      15
+    ]
+  }
+}

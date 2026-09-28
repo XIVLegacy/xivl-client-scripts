@@ -1,0 +1,15 @@
+{
+  "decoded": "status/partybonusstatus",
+  "ciphered": "rq9qpr/u9sql8vwprrq9qpr.lua",
+  "classes": [
+    "PartyBonusStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/questobjectman0l1",
+  "ciphered": "729s9/wu7/v8057q/tp5rqv8057qx9wjyi.lua",
+  "classes": [
+    "QuestObjectMan0l1"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/errordialogwidget",
+  "ciphered": "n1635q/5ssvs619yv3n1635q.lua",
+  "classes": [
+    "ErrorDialogWidget"
+  ],
+  "lineCount": 94,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

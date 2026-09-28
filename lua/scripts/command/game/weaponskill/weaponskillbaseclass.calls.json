@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/weaponskillbaseclass",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/n59uvwrz1yy89r57y9rr.lua",
+  "classes": [
+    "WeaponSkillBaseClass"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

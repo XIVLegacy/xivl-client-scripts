@@ -1,0 +1,15 @@
+{
+  "decoded": "status/dummystatus",
+  "ciphered": "rq9qpr/6pxxlrq9qpr.lua",
+  "classes": [
+    "DummyStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

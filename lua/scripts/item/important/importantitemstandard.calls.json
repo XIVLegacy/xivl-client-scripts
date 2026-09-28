@@ -1,0 +1,15 @@
+{
+  "decoded": "item/important/importantitemstandard",
+  "ciphered": "1q5x/1xuvsq9wq/1xuvsq9wq1q5xrq9w69s6.lua",
+  "classes": [
+    "ImportantItemStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

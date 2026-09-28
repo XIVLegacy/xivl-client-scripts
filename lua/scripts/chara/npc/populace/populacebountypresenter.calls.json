@@ -1,0 +1,96 @@
+{
+  "decoded": "chara/npc/populace/populacebountypresenter",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9758vpwqlus5r5wq5s.lua",
+  "classes": [
+    "PopulaceBountyPresenter"
+  ],
+  "lineCount": 560,
+  "apiCount": 8,
+  "callsiteCount": 68,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_fadeInAfterWarp": [
+      556
+    ],
+    "_fadeOut": [
+      542
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      35,
+      43,
+      57,
+      86,
+      94,
+      108,
+      122,
+      136,
+      171,
+      179,
+      193,
+      207,
+      221,
+      235,
+      249,
+      263,
+      277,
+      291,
+      305,
+      320,
+      361,
+      396,
+      410,
+      430,
+      444,
+      458,
+      472,
+      492,
+      506,
+      516,
+      524,
+      534
+    ],
+    "_setGroundOn": [
+      19
+    ],
+    "_wait": [
+      538,
+      546
+    ],
+    "_waitForCharaSchedulerFinished": [
+      39,
+      53,
+      67,
+      90,
+      104,
+      118,
+      132,
+      146,
+      175,
+      189,
+      203,
+      217,
+      231,
+      245,
+      259,
+      273,
+      287,
+      301,
+      309,
+      330,
+      392,
+      406,
+      426,
+      440,
+      454,
+      468,
+      488,
+      502,
+      520
+    ]
+  }
+}

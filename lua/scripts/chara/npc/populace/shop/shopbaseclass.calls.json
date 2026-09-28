@@ -1,0 +1,35 @@
+{
+  "decoded": "chara/npc/populace/shop/shopbaseclass",
+  "ciphered": "729s9/wu7/uvupy975/r2vu/r2vu89r57y9rr.lua",
+  "classes": [
+    "ShopBaseClass"
+  ],
+  "lineCount": 308,
+  "apiCount": 6,
+  "callsiteCount": 11,
+  "apis": {
+    "_assignForChild": [
+      62
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getData": [
+      21,
+      27,
+      286,
+      292,
+      298
+    ],
+    "_getItem": [
+      177
+    ],
+    "_loadKeyTemporarily": [
+      15,
+      280
+    ],
+    "_setGroundOn": [
+      69
+    ]
+  }
+}

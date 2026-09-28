@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/cyclops/cyclopsnormalraidw0d5",
+  "ciphered": "729s9/wu7/xvwrq5s/7l7yvur/7l7yvurwvsx9ys916nj6e.lua",
+  "classes": [
+    "CyclopsNormalRaidW0D5"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

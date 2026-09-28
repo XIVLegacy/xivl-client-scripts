@@ -1,0 +1,15 @@
+{
+  "decoded": "status/skillpointbooststatus",
+  "ciphered": "rq9qpr/rz1yyuv1wq8vvrqrq9qpr.lua",
+  "classes": [
+    "SkillPointBoostStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

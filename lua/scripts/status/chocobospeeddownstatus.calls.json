@@ -1,0 +1,15 @@
+{
+  "decoded": "status/chocobospeeddownstatus",
+  "ciphered": "rq9qpr/72v7v8vru5566vnwrq9qpr.lua",
+  "classes": [
+    "ChocoboSpeedDownStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

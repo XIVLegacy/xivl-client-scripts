@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/quicksongstatus",
+  "ciphered": "rq9qpr/x9317/tp17zrvw3rq9qpr.lua",
+  "classes": [
+    "QuickSongStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

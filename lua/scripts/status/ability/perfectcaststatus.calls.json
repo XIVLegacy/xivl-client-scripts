@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/perfectcaststatus",
+  "ciphered": "rq9qpr/981y1ql/u5s457q79rqrq9qpr.lua",
+  "classes": [
+    "PerfectCastStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

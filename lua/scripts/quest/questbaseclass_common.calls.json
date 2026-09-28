@@ -1,0 +1,85 @@
+{
+  "decoded": "quest/questbaseclass_common",
+  "ciphered": "tp5rq/tp5rq89r57y9rr_7vxxvw.lua",
+  "classes": [
+    "QuestBaseClass"
+  ],
+  "lineCount": 1412,
+  "apiCount": 19,
+  "callsiteCount": 35,
+  "apis": {
+    "_delete": [
+      40,
+      66,
+      70,
+      97
+    ],
+    "_fadeIn": [
+      356,
+      384
+    ],
+    "_fadeInAfterWarp": [
+      411
+    ],
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      1022
+    ],
+    "_fadeOut": [
+      337,
+      370
+    ],
+    "_getCurrentAreaMaster": [
+      398,
+      621
+    ],
+    "_getDir": [
+      530
+    ],
+    "_getOrientation": [
+      533
+    ],
+    "_getPendingCutSceneActor": [
+      54
+    ],
+    "_getPos": [
+      527
+    ],
+    "_getZoneName": [
+      401,
+      624
+    ],
+    "_randomInteger": [
+      730
+    ],
+    "_runCharaScheduler": [
+      554,
+      968,
+      1146,
+      1226
+    ],
+    "_setMusic": [
+      667
+    ],
+    "_turnDir": [
+      540
+    ],
+    "_wait": [
+      1029,
+      1053,
+      1057
+    ],
+    "_waitForFading": [
+      341,
+      360,
+      374,
+      388,
+      642
+    ],
+    "_waitForMapLoaded": [
+      352
+    ],
+    "_waitForTurning": [
+      544
+    ]
+  }
+}

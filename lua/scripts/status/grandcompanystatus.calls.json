@@ -1,0 +1,15 @@
+{
+  "decoded": "status/grandcompanystatus",
+  "ciphered": "rq9qpr/3s9w67vxu9wlrq9qpr.lua",
+  "classes": [
+    "GrandCompanyStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

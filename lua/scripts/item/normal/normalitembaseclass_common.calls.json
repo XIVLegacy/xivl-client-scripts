@@ -1,0 +1,33 @@
+{
+  "decoded": "item/normal/normalitembaseclass_common",
+  "ciphered": "1q5x/wvsx9y/wvsx9y1q5x89r57y9rr_7vxxvw.lua",
+  "classes": [
+    "NormalItemBaseClass"
+  ],
+  "lineCount": 805,
+  "apiCount": 4,
+  "callsiteCount": 13,
+  "apis": {
+    "_assignForChild": [
+      601
+    ],
+    "_getCatalogID": [
+      671,
+      744
+    ],
+    "_getData": [
+      475,
+      681,
+      701,
+      707,
+      713,
+      719,
+      748
+    ],
+    "_math": [
+      6,
+      188,
+      506
+    ]
+  }
+}

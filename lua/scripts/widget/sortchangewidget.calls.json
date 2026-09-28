@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/sortchangewidget",
+  "ciphered": "n1635q/rvsq729w35n1635q.lua",
+  "classes": [
+    "SortChangeWidget"
+  ],
+  "lineCount": 338,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      248
+    ],
+    "_getParentWidget": [
+      265
+    ],
+    "_getProperty": [
+      215
+    ]
+  }
+}

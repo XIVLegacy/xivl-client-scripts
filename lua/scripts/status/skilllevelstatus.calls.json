@@ -1,0 +1,15 @@
+{
+  "decoded": "status/skilllevelstatus",
+  "ciphered": "rq9qpr/rz1yyy5o5yrq9qpr.lua",
+  "classes": [
+    "SkillLevelStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

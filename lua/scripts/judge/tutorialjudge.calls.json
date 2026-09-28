@@ -1,0 +1,18 @@
+{
+  "decoded": "judge/tutorialjudge",
+  "ciphered": "0p635/qpqvs19y0p635.lua",
+  "classes": [
+    "TutorialJudge"
+  ],
+  "lineCount": 62,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      2
+    ],
+    "_onInit": [
+      12
+    ]
+  }
+}

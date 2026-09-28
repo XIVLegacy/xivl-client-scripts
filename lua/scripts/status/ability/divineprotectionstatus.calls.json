@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/divineprotectionstatus",
+  "ciphered": "rq9qpr/981y1ql/61o1w5usvq57q1vwrq9qpr.lua",
+  "classes": [
+    "DivineProtectionStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

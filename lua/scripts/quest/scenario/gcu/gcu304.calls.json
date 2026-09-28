@@ -1,0 +1,43 @@
+{
+  "decoded": "quest/scenario/gcu/gcu304",
+  "ciphered": "tp5rq/r75w9s1v/37p/37pgjf.lua",
+  "classes": [
+    "Gcu304"
+  ],
+  "lineCount": 630,
+  "apiCount": 4,
+  "callsiteCount": 23,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      48,
+      70,
+      96,
+      113,
+      140,
+      177,
+      204,
+      220,
+      255,
+      271,
+      315,
+      416,
+      447,
+      472,
+      529,
+      545,
+      574,
+      597
+    ],
+    "_wait": [
+      182,
+      601
+    ]
+  }
+}

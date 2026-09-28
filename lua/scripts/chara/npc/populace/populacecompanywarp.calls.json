@@ -1,0 +1,44 @@
+{
+  "decoded": "chara/npc/populace/populacecompanywarp",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wln9su.lua",
+  "classes": [
+    "PopulaceCompanyWarp"
+  ],
+  "lineCount": 390,
+  "apiCount": 9,
+  "callsiteCount": 14,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_fadeInAfterWarp": [
+      374
+    ],
+    "_fadeOut": [
+      367
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      176,
+      202,
+      292,
+      296,
+      331,
+      335
+    ],
+    "_setGroundOn": [
+      112
+    ],
+    "_wait": [
+      351
+    ],
+    "_waitForCharaSchedulerFinished": [
+      347
+    ],
+    "_waitForFading": [
+      371
+    ]
+  }
+}

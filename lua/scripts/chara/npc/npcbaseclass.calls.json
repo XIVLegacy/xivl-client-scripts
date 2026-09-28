@@ -1,0 +1,95 @@
+{
+  "decoded": "chara/npc/npcbaseclass",
+  "ciphered": "729s9/wu7/wu789r57y9rr.lua",
+  "classes": [
+    "NpcBaseClass"
+  ],
+  "lineCount": 623,
+  "apiCount": 23,
+  "callsiteCount": 37,
+  "apis": {
+    "_assignForChild": [
+      143,
+      175
+    ],
+    "_callFunction": [
+      568
+    ],
+    "_callServerOnEmote": [
+      465,
+      487
+    ],
+    "_callServerOnPush": [
+      519
+    ],
+    "_callServerOnTalk": [
+      410,
+      432
+    ],
+    "_callSuperClassFunc": [
+      113,
+      287,
+      362
+    ],
+    "_doServerOnEmote": [
+      507
+    ],
+    "_doServerOnPush": [
+      556
+    ],
+    "_doServerOnTalk": [
+      452
+    ],
+    "_getExtendedTemporaryGroup": [
+      50
+    ],
+    "_onEmoteEvent": [
+      501
+    ],
+    "_onEmoteRequest": [
+      513
+    ],
+    "_onEventCancel": [
+      599
+    ],
+    "_onInit": [
+      114,
+      281
+    ],
+    "_onPushEvent": [
+      525
+    ],
+    "_onPushRequest": [
+      562
+    ],
+    "_onReaction": [
+      623
+    ],
+    "_onTalkEvent": [
+      446
+    ],
+    "_onTalkRequest": [
+      458
+    ],
+    "_onTimer": [
+      288,
+      302
+    ],
+    "_onUpdateWork": [
+      363,
+      380
+    ],
+    "_resetFade": [
+      594
+    ],
+    "_setLockonTarget": [
+      422,
+      427,
+      437,
+      477,
+      482,
+      492,
+      585
+    ]
+  }
+}

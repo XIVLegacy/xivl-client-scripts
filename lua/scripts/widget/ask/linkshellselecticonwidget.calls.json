@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/ask/linkshellselecticonwidget",
+  "ciphered": "n1635q/9rz/y1wzr25yyr5y57q17vwn1635q.lua",
+  "classes": [
+    "LinkshellSelectIconWidget"
+  ],
+  "lineCount": 326,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_math": [
+      177
+    ]
+  }
+}

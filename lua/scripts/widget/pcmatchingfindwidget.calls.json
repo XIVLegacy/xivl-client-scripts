@@ -1,0 +1,37 @@
+{
+  "decoded": "widget/pcmatchingfindwidget",
+  "ciphered": "n1635q/u7x9q721w341w6n1635q.lua",
+  "classes": [
+    "PcMatchingFindWidget"
+  ],
+  "lineCount": 2508,
+  "apiCount": 4,
+  "callsiteCount": 17,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      1310
+    ],
+    "_getMyPlayer": [
+      754,
+      1093,
+      2039
+    ],
+    "_getParentWidget": [
+      226,
+      1344,
+      1562,
+      1582,
+      1607,
+      1626,
+      1715,
+      1727,
+      1827,
+      2335,
+      2347,
+      2363
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterseas0",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sr59rj.lua",
+  "classes": [
+    "ZoneMasterSeaS0"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

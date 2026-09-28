@@ -1,0 +1,79 @@
+{
+  "decoded": "widget/itemselectwidget",
+  "ciphered": "n1635q/1q5xr5y57qn1635q.lua",
+  "classes": [
+    "ItemSelectWidget"
+  ],
+  "lineCount": 3535,
+  "apiCount": 13,
+  "callsiteCount": 41,
+  "apis": {
+    "_countStack": [
+      449,
+      1521
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      444,
+      1509
+    ],
+    "_getEquippingItem": [
+      2510,
+      2517,
+      2524,
+      2531
+    ],
+    "_getItem": [
+      1077,
+      1130,
+      1497,
+      1864,
+      2225,
+      2436,
+      3255
+    ],
+    "_getItemPackageCapacity": [
+      356,
+      362,
+      1992,
+      2087
+    ],
+    "_getKeyboardFocusedWidget": [
+      1016
+    ],
+    "_getMyPlayer": [
+      352,
+      1074,
+      1127,
+      1482,
+      1861,
+      1928,
+      1988,
+      2083,
+      2431,
+      3252
+    ],
+    "_getNameIndex": [
+      454,
+      1525
+    ],
+    "_getParentWidget": [
+      2606,
+      2652,
+      2783,
+      3303
+    ],
+    "_getProperty": [
+      1246
+    ],
+    "_isEquipping": [
+      1642,
+      3271
+    ],
+    "_isStackable": [
+      1517
+    ]
+  }
+}

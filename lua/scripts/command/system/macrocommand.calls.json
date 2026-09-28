@@ -1,0 +1,21 @@
+{
+  "decoded": "command/system/macrocommand",
+  "ciphered": "7vxx9w6/rlrq5x/x97sv7vxx9w6.lua",
+  "classes": [
+    "MacroCommand"
+  ],
+  "lineCount": 68,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getUserMacroData": [
+      45
+    ],
+    "_math": [
+      28
+    ]
+  }
+}

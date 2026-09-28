@@ -1,0 +1,15 @@
+{
+  "decoded": "director/gmevent/waveattackdirector1",
+  "ciphered": "61s57qvs/3x5o5wq/n9o59qq97z61s57qvsi.lua",
+  "classes": [
+    "WaveAttackDirector1"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

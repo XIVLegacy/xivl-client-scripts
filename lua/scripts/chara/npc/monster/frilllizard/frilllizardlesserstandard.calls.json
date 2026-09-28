@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/frilllizard/frilllizardlesserstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/4s1yyy1k9s6/4s1yyy1k9s6y5rr5srq9w69s6.lua",
+  "classes": [
+    "FrillLizardLesserStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

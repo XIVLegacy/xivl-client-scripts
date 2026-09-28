@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/elementalassimilatestatus",
+  "ciphered": "rq9qpr/981y1ql/5y5x5wq9y9rr1x1y9q5rq9qpr.lua",
+  "classes": [
+    "ElementalAssimilateStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

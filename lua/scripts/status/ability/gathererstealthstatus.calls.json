@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/gathererstealthstatus",
+  "ciphered": "rq9qpr/981y1ql/39q25s5srq59yq2rq9qpr.lua",
+  "classes": [
+    "GathererStealthStatus"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

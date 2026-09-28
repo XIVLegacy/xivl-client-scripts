@@ -1,0 +1,25 @@
+{
+  "decoded": "widget/addresslistnamingwidget",
+  "ciphered": "n1635q/966s5rry1rqw9x1w3n1635q.lua",
+  "classes": [
+    "AddressListNamingWidget"
+  ],
+  "lineCount": 1008,
+  "apiCount": 3,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      340
+    ],
+    "_getParentWidget": [
+      457,
+      485,
+      527,
+      589,
+      981
+    ]
+  }
+}

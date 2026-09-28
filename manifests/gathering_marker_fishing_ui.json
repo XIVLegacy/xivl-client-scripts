@@ -1,0 +1,43 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "sourceRecordSha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce",
+  "scripts": [
+    {
+      "decodedPath": "chara/npc/object/miningpoint.lua",
+      "cipheredPath": "729s9/wu7/v8057q/x1w1w3uv1wq.le.lpb",
+      "decodedChunkBytes": 731,
+      "decodedChunkSha256": "ca299c1addc79d3f02d5bbe7e170481d9e4bf068dea2a9b11fcb2c887658c531",
+      "canonicalScriptSha256": "211af8b1fc0dbb83cdc1a2deab08f0e466577cc4945cd8cfe46aae68338909c6",
+      "locators": ["11-67"]
+    },
+    {
+      "decodedPath": "widget/ask/fishinginputwidget.lua",
+      "cipheredPath": "n1635q/9rz/41r21w31wupqn1635q.le.lpb",
+      "decodedChunkBytes": 10135,
+      "decodedChunkSha256": "2a02da4e53def0c798f93d952471ea6959e0bfe49c8f3c05f8f4b4bf2095f8e9",
+      "canonicalScriptSha256": "89c780d8f680438b58bb920257303bdcd5366ac211baaa7da573b5faee3fc14a",
+      "locators": ["11-201", "669-968"]
+    }
+  ],
+  "miningPointMarkerMap": {
+    "1200053": 10,
+    "1200055": 11,
+    "1200057": 12,
+    "default": 6
+  },
+  "miningPointVisibleActorClasses": [1200057],
+  "fishingInput": {
+    "hpRange": [0, 100],
+    "initialHp": 100,
+    "initialPhaseASlider": 50,
+    "phase1Result": ["chosenCommand", "phaseASliderValue"],
+    "otherPhaseResult": ["chosenCommand", "currentAngle"],
+    "gaugeCommands": ["Start_PowerGauge", "Stop_PowerGauge"]
+  },
+  "rejectedInterpretations": [
+    "The mining mapping does not assign names, positions, gathering tables, yields, or probabilities.",
+    "The fishing widget does not establish bite, fish, yield, fatigue, probability, success, or server behavior."
+  ]
+}

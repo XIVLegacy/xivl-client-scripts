@@ -1,0 +1,85 @@
+{
+  "decoded": "chara/npc/npcbaseclass_event",
+  "ciphered": "729s9/wu7/wu789r57y9rr_5o5wq.lua",
+  "classes": [
+    "NpcBaseClass"
+  ],
+  "lineCount": 921,
+  "apiCount": 14,
+  "callsiteCount": 45,
+  "apis": {
+    "_cancelLookAt": [
+      233
+    ],
+    "_getDir": [
+      72,
+      183
+    ],
+    "_getGrandCompanyRank": [
+      890
+    ],
+    "_getGrandOnExtraStat": [
+      22
+    ],
+    "_getMyPlayer": [
+      843,
+      887
+    ],
+    "_getOrientation": [
+      75,
+      186
+    ],
+    "_getPos": [
+      39,
+      53,
+      59,
+      180
+    ],
+    "_lookAtCharacter": [
+      83,
+      89,
+      98,
+      133,
+      193,
+      206
+    ],
+    "_lookAtPosition": [
+      105,
+      113,
+      148,
+      165,
+      810
+    ],
+    "_runCharaScheduler": [
+      251,
+      257,
+      262,
+      267,
+      272,
+      277,
+      282,
+      287,
+      292,
+      297,
+      873
+    ],
+    "_setGroundOn": [
+      26
+    ],
+    "_turnBack": [
+      230
+    ],
+    "_turnDir": [
+      124,
+      140,
+      157,
+      200
+    ],
+    "_waitForTurning": [
+      128,
+      144,
+      161,
+      220
+    ]
+  }
+}

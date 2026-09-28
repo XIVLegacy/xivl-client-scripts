@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemastercruiseocno2",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s7sp1r5v7wvh.lua",
+  "classes": [
+    "ZoneMasterCruiseOcnO2"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

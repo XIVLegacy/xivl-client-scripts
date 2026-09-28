@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/chigoe/chigoelesserscenariolimsalv10",
+  "ciphered": "729s9/wu7/xvwrq5s/7213v5/7213v5y5rr5sr75w9s1vy1xr9yoij.lua",
+  "classes": [
+    "ChigoeLesserScenarioLimsaLv10"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

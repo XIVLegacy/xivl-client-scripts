@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/debug/sensechecker",
+  "ciphered": "729s9/wu7/658p3/r5wr57257z5s.lua",
+  "classes": [
+    "SenseChecker"
+  ],
+  "lineCount": 22,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/wolf/wolfgmeventbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/nvy4/nvy43x5o5wq89r57y9rr.lua",
+  "classes": [
+    "WolfGMEventBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

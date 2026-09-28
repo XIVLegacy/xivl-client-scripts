@@ -1,0 +1,24 @@
+{
+  "decoded": "command/system/teleportcommand",
+  "ciphered": "7vxx9w6/rlrq5x/q5y5uvsq7vxx9w6.lua",
+  "classes": [
+    "TeleportCommand"
+  ],
+  "lineCount": 581,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getSpecialEventWork": [
+      538
+    ],
+    "_getStaticActor": [
+      100
+    ],
+    "_wait": [
+      47
+    ]
+  }
+}

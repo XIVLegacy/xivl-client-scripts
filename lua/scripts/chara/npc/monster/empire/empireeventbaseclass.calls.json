@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/empire/empireeventbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/5xu1s5/5xu1s55o5wq89r57y9rr.lua",
+  "classes": [
+    "EmpireEventBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

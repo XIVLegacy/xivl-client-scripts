@@ -1,0 +1,69 @@
+{
+  "decoded": "widget/actionequiplistwidget",
+  "ciphered": "n1635q/97q1vw5tp1uy1rqn1635q.lua",
+  "classes": [
+    "ActionEquipListWidget"
+  ],
+  "lineCount": 902,
+  "apiCount": 6,
+  "callsiteCount": 45,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      283
+    ],
+    "_getProperty": [
+      838,
+      853
+    ],
+    "_setKeyboardFocusedControl": [
+      236
+    ],
+    "_setProperty": [
+      81,
+      418,
+      425,
+      433,
+      440,
+      448,
+      455,
+      463,
+      477,
+      495,
+      516,
+      530,
+      553,
+      567,
+      582,
+      595,
+      608,
+      621,
+      634,
+      647,
+      660,
+      673,
+      697,
+      711,
+      725,
+      739,
+      753,
+      767,
+      781,
+      795,
+      816,
+      823,
+      831,
+      846
+    ],
+    "_setUICommandCondition": [
+      29,
+      35,
+      41,
+      47,
+      53,
+      63
+    ]
+  }
+}

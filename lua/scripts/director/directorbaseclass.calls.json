@@ -1,0 +1,50 @@
+{
+  "decoded": "director/directorbaseclass",
+  "ciphered": "61s57qvs/61s57qvs89r57y9rr.lua",
+  "classes": [
+    "DirectorBaseClass"
+  ],
+  "lineCount": 412,
+  "apiCount": 10,
+  "callsiteCount": 18,
+  "apis": {
+    "_assignForChild": [
+      68,
+      97
+    ],
+    "_callFunction": [
+      253
+    ],
+    "_callSuperClassFunc": [
+      57
+    ],
+    "_getMyPlayer": [
+      160,
+      221,
+      234,
+      298,
+      306,
+      328,
+      339
+    ],
+    "_onEventCancel": [
+      278
+    ],
+    "_onFinalize": [
+      169
+    ],
+    "_onInit": [
+      58,
+      135
+    ],
+    "_onUpdateWork": [
+      363
+    ],
+    "_resetFade": [
+      273
+    ],
+    "_updateWork": [
+      228
+    ]
+  }
+}

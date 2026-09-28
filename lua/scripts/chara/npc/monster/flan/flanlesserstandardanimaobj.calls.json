@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/flan/flanlesserstandardanimaobj",
+  "ciphered": "729s9/wu7/xvwrq5s/4y9w/4y9wy5rr5srq9w69s69w1x9v80.lua",
+  "classes": [
+    "FlanLesserStandardAnimaobj"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

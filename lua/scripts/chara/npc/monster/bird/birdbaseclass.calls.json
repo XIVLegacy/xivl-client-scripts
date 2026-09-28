@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/bird/birdbaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/81s6/81s689r57y9rr.lua",
+  "classes": [
+    "BirdBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

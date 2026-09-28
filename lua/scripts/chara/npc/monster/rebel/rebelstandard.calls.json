@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/rebel/rebelstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/s585y/s585yrq9w69s6.lua",
+  "classes": [
+    "RebelStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

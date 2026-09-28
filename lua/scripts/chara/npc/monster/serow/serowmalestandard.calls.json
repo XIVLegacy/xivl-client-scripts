@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/serow/serowmalestandard",
+  "ciphered": "729s9/wu7/xvwrq5s/r5svn/r5svnx9y5rq9w69s6.lua",
+  "classes": [
+    "SerowMaleStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

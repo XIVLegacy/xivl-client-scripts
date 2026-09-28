@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lemming/lemmingscenariomrdlv20",
+  "ciphered": "729s9/wu7/xvwrq5s/y5xx1w3/y5xx1w3r75w9s1vxs6yohj.lua",
+  "classes": [
+    "LemmingScenarioMrdLv20"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

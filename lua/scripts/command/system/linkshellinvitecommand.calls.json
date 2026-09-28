@@ -1,0 +1,20 @@
+{
+  "decoded": "command/system/linkshellinvitecommand",
+  "ciphered": "7vxx9w6/rlrq5x/y1wzr25yy1wo1q57vxx9w6.lua",
+  "classes": [
+    "LinkshellInviteCommand"
+  ],
+  "lineCount": 84,
+  "apiCount": 2,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      19,
+      45,
+      49
+    ]
+  }
+}

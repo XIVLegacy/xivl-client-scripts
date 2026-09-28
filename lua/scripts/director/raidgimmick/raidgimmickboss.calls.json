@@ -1,0 +1,15 @@
+{
+  "decoded": "director/raidgimmick/raidgimmickboss",
+  "ciphered": "61s57qvs/s91631xx17z/s91631xx17z8vrr.lua",
+  "classes": [
+    "RaidGimmickBoss"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

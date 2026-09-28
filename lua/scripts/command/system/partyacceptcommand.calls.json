@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/partyacceptcommand",
+  "ciphered": "7vxx9w6/rlrq5x/u9sql9775uq7vxx9w6.lua",
+  "classes": [
+    "PartyAcceptCommand"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

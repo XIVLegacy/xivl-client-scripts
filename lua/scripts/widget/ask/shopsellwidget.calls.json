@@ -1,0 +1,88 @@
+{
+  "decoded": "widget/ask/shopsellwidget",
+  "ciphered": "n1635q/9rz/r2vur5yyn1635q.lua",
+  "classes": [
+    "ShopSellWidget"
+  ],
+  "lineCount": 3161,
+  "apiCount": 13,
+  "callsiteCount": 50,
+  "apis": {
+    "_countStack": [
+      1190
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1178,
+      2877,
+      2903,
+      3024
+    ],
+    "_getEquippingItem": [
+      1817,
+      1824,
+      1831,
+      1838
+    ],
+    "_getItem": [
+      833,
+      1167,
+      1401,
+      1634,
+      1749,
+      2073,
+      2669,
+      2701,
+      2872,
+      3019,
+      3069
+    ],
+    "_getItemPackageCapacity": [
+      806,
+      1477,
+      1546
+    ],
+    "_getItemPackageFreeSpace": [
+      810,
+      1482
+    ],
+    "_getKeyboardFocusedWidget": [
+      776
+    ],
+    "_getMyPlayer": [
+      794,
+      830,
+      1161,
+      1398,
+      1455,
+      1744,
+      2070,
+      2666,
+      2698,
+      2869,
+      3016,
+      3066
+    ],
+    "_getNameIndex": [
+      1194,
+      2880,
+      3028
+    ],
+    "_getServerTime": [
+      1983,
+      2123,
+      2435,
+      2610,
+      2925,
+      2951
+    ],
+    "_isEquipping": [
+      2709
+    ],
+    "_isStackable": [
+      1186
+    ]
+  }
+}

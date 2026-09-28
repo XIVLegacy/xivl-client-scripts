@@ -1,0 +1,24 @@
+{
+  "decoded": "director/instanceraid/instanceraidhamletdefense",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s91629xy5q6545wr5.lua",
+  "classes": [
+    "InstanceRaidHamletDefense"
+  ],
+  "lineCount": 823,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_countHamletDefenseScore": [
+      258
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      255
+    ],
+    "_loadTextDataPermanently": [
+      147
+    ]
+  }
+}

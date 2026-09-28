@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/livingdead/livingdeadlancerpld0j1",
+  "ciphered": "729s9/wu7/xvwrq5s/y1o1w36596/y1o1w36596y9w75suy6j0i.lua",
+  "classes": [
+    "LivingdeadLancerPld0j1"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

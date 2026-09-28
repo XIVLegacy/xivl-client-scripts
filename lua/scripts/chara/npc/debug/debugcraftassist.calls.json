@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/debug/debugcraftassist",
+  "ciphered": "729s9/wu7/658p3/658p37s94q9rr1rq.lua",
+  "classes": [
+    "DebugCraftAssist"
+  ],
+  "lineCount": 113,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_printLog": [
+      101
+    ]
+  }
+}

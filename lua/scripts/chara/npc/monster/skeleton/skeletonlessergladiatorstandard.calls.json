@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/skeleton/skeletonlessergladiatorstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/rz5y5qvw/rz5y5qvwy5rr5s3y9619qvsrq9w69s6.lua",
+  "classes": [
+    "SkeletonLesserGladiatorStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

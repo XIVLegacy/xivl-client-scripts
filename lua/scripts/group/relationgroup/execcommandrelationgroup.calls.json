@@ -1,0 +1,35 @@
+{
+  "decoded": "group/relationgroup/execcommandrelationgroup",
+  "ciphered": "3svpu/s5y9q1vw3svpu/5m577vxx9w6s5y9q1vw3svpu.lua",
+  "classes": [
+    "ExecCommandRelationGroup"
+  ],
+  "lineCount": 87,
+  "apiCount": 6,
+  "callsiteCount": 11,
+  "apis": {
+    "_callSuperClassFunc": [
+      60,
+      73
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_globalTemp": [
+      14,
+      28,
+      37
+    ],
+    "_onFinalize": [
+      87
+    ],
+    "_onUpdateMember": [
+      74,
+      80
+    ],
+    "_onUpdateWork": [
+      61,
+      67
+    ]
+  }
+}

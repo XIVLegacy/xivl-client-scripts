@@ -1,0 +1,15 @@
+{
+  "decoded": "area/privatearea/occupancy/raiddungeonsimple",
+  "ciphered": "9s59/us1o9q59s59/v77pu9w7l/s9166pw35vwr1xuy5.lua",
+  "classes": [
+    "RaidDungeonSimple"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/gcu/gcu106",
+  "ciphered": "tp5rq/r75w9s1v/37p/37pijd.lua",
+  "classes": [
+    "Gcu106"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

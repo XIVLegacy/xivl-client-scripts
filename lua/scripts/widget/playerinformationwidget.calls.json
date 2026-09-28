@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/playerinformationwidget",
+  "ciphered": "n1635q/uy9l5s1w4vsx9q1vwn1635q.lua",
+  "classes": [
+    "PlayerInformationWidget"
+  ],
+  "lineCount": 44,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

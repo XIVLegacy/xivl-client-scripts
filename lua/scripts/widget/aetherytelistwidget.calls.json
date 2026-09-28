@@ -1,0 +1,41 @@
+{
+  "decoded": "widget/aetherytelistwidget",
+  "ciphered": "n1635q/95q25slq5y1rqn1635q.lua",
+  "classes": [
+    "AetheryteListWidget"
+  ],
+  "lineCount": 483,
+  "apiCount": 8,
+  "callsiteCount": 13,
+  "apis": {
+    "_clearAllList": [
+      344
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCurrentAreaMaster": [
+      357
+    ],
+    "_getMyPlayer": [
+      349
+    ],
+    "_getRegion": [
+      360
+    ],
+    "_setListProperty": [
+      437,
+      448,
+      460
+    ],
+    "_setUICommandCondition": [
+      25,
+      33,
+      42
+    ],
+    "_updateList": [
+      294,
+      406
+    ]
+  }
+}

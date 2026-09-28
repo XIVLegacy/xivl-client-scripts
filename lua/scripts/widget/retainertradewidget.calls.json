@@ -1,0 +1,90 @@
+{
+  "decoded": "widget/retainertradewidget",
+  "ciphered": "n1635q/s5q91w5sqs965n1635q.lua",
+  "classes": [
+    "RetainerTradeWidget"
+  ],
+  "lineCount": 3836,
+  "apiCount": 16,
+  "callsiteCount": 46,
+  "apis": {
+    "_countStack": [
+      1337,
+      2154,
+      2248
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1325,
+      2144,
+      2212
+    ],
+    "_getItem": [
+      1307,
+      1503,
+      1883,
+      2124,
+      2192,
+      2603
+    ],
+    "_getItemPackageCapacity": [
+      426,
+      432,
+      1660,
+      1765,
+      1976
+    ],
+    "_getItemPackageFreeSpace": [
+      2386
+    ],
+    "_getKeyboardFocusedWidget": [
+      987
+    ],
+    "_getMyPlayer": [
+      422,
+      1304,
+      1500,
+      1656,
+      1761,
+      1880,
+      1972,
+      2121,
+      2189,
+      2381,
+      2600
+    ],
+    "_getNameIndex": [
+      1341,
+      2149,
+      2221
+    ],
+    "_getServerTime": [
+      3790
+    ],
+    "_isAlive": [
+      1315,
+      1511,
+      2134,
+      2200,
+      2619
+    ],
+    "_isAttached": [
+      1382
+    ],
+    "_isDealing": [
+      1378
+    ],
+    "_isEquipping": [
+      1349,
+      1386
+    ],
+    "_isStackable": [
+      1333
+    ],
+    "_math": [
+      2316
+    ]
+  }
+}

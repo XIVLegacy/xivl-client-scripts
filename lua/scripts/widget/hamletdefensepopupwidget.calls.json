@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/hamletdefensepopupwidget",
+  "ciphered": "n1635q/29xy5q6545wr5uvupun1635q.lua",
+  "classes": [
+    "HamletDefensePopupWidget"
+  ],
+  "lineCount": 87,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/ask/askbaseclass",
+  "ciphered": "n1635q/9rz/9rz89r57y9rr.lua",
+  "classes": [
+    "AskBaseClass"
+  ],
+  "lineCount": 154,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_assignForChild": [
+      26
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

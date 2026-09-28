@@ -1,0 +1,25 @@
+{
+  "decoded": "quest/scenario/wld/wld0u2",
+  "ciphered": "tp5rq/r75w9s1v/ny6/ny6jph.lua",
+  "classes": [
+    "Wld0u2"
+  ],
+  "lineCount": 200,
+  "apiCount": 3,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      37,
+      75,
+      109,
+      146,
+      180
+    ]
+  }
+}

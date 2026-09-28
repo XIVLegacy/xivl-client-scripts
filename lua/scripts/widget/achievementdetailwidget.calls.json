@@ -1,0 +1,37 @@
+{
+  "decoded": "widget/achievementdetailwidget",
+  "ciphered": "n1635q/97215o5x5wq65q91yn1635q.lua",
+  "classes": [
+    "AchievementDetailWidget"
+  ],
+  "lineCount": 370,
+  "apiCount": 7,
+  "callsiteCount": 11,
+  "apis": {
+    "_countAchievementRateList": [
+      172
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getAchievementRateList": [
+      324
+    ],
+    "_getMyPlayer": [
+      169,
+      286,
+      321
+    ],
+    "_getParentWidget": [
+      98,
+      120
+    ],
+    "_isDoneAchievementRateList": [
+      289
+    ],
+    "_math": [
+      213,
+      338
+    ]
+  }
+}

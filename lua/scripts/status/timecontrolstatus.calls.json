@@ -1,0 +1,15 @@
+{
+  "decoded": "status/timecontrolstatus",
+  "ciphered": "rq9qpr/q1x57vwqsvyrq9qpr.lua",
+  "classes": [
+    "TimeControlStatus"
+  ],
+  "lineCount": 50,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "decoded": "judge/negotiation/negotiationjudge",
+  "ciphered": "0p635/w53vq19q1vw/w53vq19q1vw0p635.lua",
+  "classes": [
+    "NegotiationJudge"
+  ],
+  "lineCount": 198,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runCharaScheduler": [
+      193
+    ]
+  }
+}

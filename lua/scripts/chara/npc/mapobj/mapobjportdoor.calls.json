@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjportdoor",
+  "ciphered": "729s9/wu7/x9uv80/x9uv80uvsq6vvs.lua",
+  "classes": [
+    "MapObjPortDoor"
+  ],
+  "lineCount": 97,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      43
+    ],
+    "_setGroundOn": [
+      39
+    ]
+  }
+}

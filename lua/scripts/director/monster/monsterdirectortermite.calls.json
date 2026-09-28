@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/monsterdirectortermite",
+  "ciphered": "61s57qvs/xvwrq5s/xvwrq5s61s57qvsq5sx1q5.lua",
+  "classes": [
+    "MonsterDirectorTermite"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

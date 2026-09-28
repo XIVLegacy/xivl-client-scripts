@@ -1,0 +1,33 @@
+{
+  "decoded": "director/instanceraid/instanceraidlesserwhitegeneral",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s916y5rr5sn21q535w5s9y.lua",
+  "classes": [
+    "InstanceRaidLesserWhiteGeneral"
+  ],
+  "lineCount": 65,
+  "apiCount": 7,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      49
+    ],
+    "_fadeOut": [
+      31
+    ],
+    "_getMyPlayer": [
+      28
+    ],
+    "_setWeather": [
+      38
+    ],
+    "_wait": [
+      53
+    ],
+    "_waitForFading": [
+      35
+    ]
+  }
+}

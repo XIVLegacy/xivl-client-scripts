@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/coverstatus",
+  "ciphered": "rq9qpr/981y1ql/7vo5srq9qpr.lua",
+  "classes": [
+    "CoverStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

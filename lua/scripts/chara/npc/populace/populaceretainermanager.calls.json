@@ -1,0 +1,61 @@
+{
+  "decoded": "chara/npc/populace/populaceretainermanager",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975s5q91w5sx9w935s.lua",
+  "classes": [
+    "PopulaceRetainerManager"
+  ],
+  "lineCount": 1477,
+  "apiCount": 14,
+  "callsiteCount": 21,
+  "apis": {
+    "_countMember": [
+      767
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      1015
+    ],
+    "_fadeIn": [
+      1018
+    ],
+    "_fadeOut": [
+      975
+    ],
+    "_getGroup": [
+      759
+    ],
+    "_getMember": [
+      777,
+      782
+    ],
+    "_getMyPlayer": [
+      34,
+      756,
+      972,
+      1039,
+      1125,
+      1214
+    ],
+    "_isAlive": [
+      792
+    ],
+    "_isExistInClientMember": [
+      772
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_setGroundOn": [
+      19
+    ],
+    "_wait": [
+      751
+    ],
+    "_waitForFading": [
+      979,
+      1022
+    ]
+  }
+}

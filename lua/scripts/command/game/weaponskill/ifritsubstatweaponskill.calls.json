@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/ifritsubstatweaponskill",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/14s1qrp8rq9qn59uvwrz1yy.lua",
+  "classes": [
+    "IfritSubStatWeaponSkill"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

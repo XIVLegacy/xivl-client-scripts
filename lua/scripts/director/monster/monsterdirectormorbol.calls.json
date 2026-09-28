@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/monsterdirectormorbol",
+  "ciphered": "61s57qvs/xvwrq5s/xvwrq5s61s57qvsxvs8vy.lua",
+  "classes": [
+    "MonsterDirectorMorbol"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

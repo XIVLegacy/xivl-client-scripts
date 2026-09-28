@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/populace/populacepassiveglpublisher",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975u9rr1o53yup8y1r25s.lua",
+  "classes": [
+    "PopulacePassiveGLPublisher"
+  ],
+  "lineCount": 622,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      82
+    ],
+    "_setGroundOn": [
+      87
+    ]
+  }
+}

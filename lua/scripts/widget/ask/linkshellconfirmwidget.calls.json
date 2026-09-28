@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/linkshellconfirmwidget",
+  "ciphered": "n1635q/9rz/y1wzr25yy7vw41sxn1635q.lua",
+  "classes": [
+    "LinkshellConfirmWidget"
+  ],
+  "lineCount": 145,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

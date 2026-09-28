@@ -1,0 +1,18 @@
+{
+  "decoded": "command/game/activatecommand",
+  "ciphered": "7vxx9w6/39x5/97q1o9q57vxx9w6.lua",
+  "classes": [
+    "ActivateCommand"
+  ],
+  "lineCount": 72,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getActorMainStat": [
+      32
+    ]
+  }
+}

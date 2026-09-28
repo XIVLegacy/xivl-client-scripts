@@ -1,0 +1,19 @@
+{
+  "decoded": "system/systembaseclass",
+  "ciphered": "rlrq5x/rlrq5x89r57y9rr.lua",
+  "classes": [
+    "SystemBaseClass"
+  ],
+  "lineCount": 12,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      12
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "decoded": "chara/npc/gimmick/gimmicktreasurebox",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zqs59rps58vm.lua",
+  "classes": [
+    "GimmickTreasureBox"
+  ],
+  "lineCount": 71,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setGroundOn": [
+      25
+    ]
+  }
+}

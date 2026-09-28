@@ -1,0 +1,34 @@
+{
+  "decoded": "quest/scenario/pld/pld0j5",
+  "ciphered": "tp5rq/r75w9s1v/uy6/uy6j0e.lua",
+  "classes": [
+    "Pld0j5"
+  ],
+  "lineCount": 248,
+  "apiCount": 5,
+  "callsiteCount": 12,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      53,
+      67,
+      88,
+      119
+    ],
+    "_wait": [
+      203,
+      213
+    ],
+    "_waitForCharaSchedulerFinished": [
+      83,
+      98,
+      129
+    ]
+  }
+}

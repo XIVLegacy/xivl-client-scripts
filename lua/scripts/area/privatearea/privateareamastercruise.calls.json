@@ -1,0 +1,15 @@
+{
+  "decoded": "area/privatearea/privateareamastercruise",
+  "ciphered": "9s59/us1o9q59s59/us1o9q59s59x9rq5s7sp1r5.lua",
+  "classes": [
+    "PrivateAreaMasterCruise"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

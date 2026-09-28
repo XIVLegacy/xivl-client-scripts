@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/highsensecommand",
+  "ciphered": "7vxx9w6/39x5/2132r5wr57vxx9w6.lua",
+  "classes": [
+    "HighsenseCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

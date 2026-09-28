@@ -1,0 +1,39 @@
+{
+  "decoded": "chara/npc/populace/populacehamletsupply",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97529xy5qrpuuyl.lua",
+  "classes": [
+    "PopulaceHamletSupply"
+  ],
+  "lineCount": 339,
+  "apiCount": 7,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      244,
+      250,
+      314,
+      320
+    ],
+    "_getItem": [
+      76,
+      154
+    ],
+    "_getMyPlayer": [
+      73,
+      151
+    ],
+    "_loadKeyTemporarily": [
+      238,
+      308
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

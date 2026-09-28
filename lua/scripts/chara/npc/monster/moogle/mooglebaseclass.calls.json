@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/moogle/mooglebaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/xvv3y5/xvv3y589r57y9rr.lua",
+  "classes": [
+    "MoogleBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

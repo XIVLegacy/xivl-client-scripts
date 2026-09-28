@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/rampagestatus",
+  "ciphered": "rq9qpr/981y1ql/s9xu935rq9qpr.lua",
+  "classes": [
+    "RampageStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

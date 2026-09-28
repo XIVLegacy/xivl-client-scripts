@@ -1,0 +1,39 @@
+{
+  "decoded": "quest/scenario/gcg/gcg301",
+  "ciphered": "tp5rq/r75w9s1v/373/373gji.lua",
+  "classes": [
+    "Gcg301"
+  ],
+  "lineCount": 325,
+  "apiCount": 5,
+  "callsiteCount": 17,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      40,
+      80,
+      118,
+      129,
+      170,
+      215,
+      237,
+      265,
+      281,
+      297
+    ],
+    "_wait": [
+      36,
+      148,
+      206,
+      315
+    ],
+    "_waitForCharaSchedulerFinished": [
+      55
+    ]
+  }
+}

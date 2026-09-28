@@ -1,0 +1,86 @@
+{
+  "decoded": "widget/bazaareditwidget",
+  "ciphered": "n1635q/89k99s561qn1635q.lua",
+  "classes": [
+    "BazaarEditWidget"
+  ],
+  "lineCount": 4041,
+  "apiCount": 12,
+  "callsiteCount": 50,
+  "apis": {
+    "_countStack": [
+      583,
+      1805,
+      3626,
+      3999
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      599,
+      1800,
+      3614,
+      3884,
+      3888,
+      3981
+    ],
+    "_getItem": [
+      345,
+      2348,
+      2458,
+      2552,
+      2590,
+      2673,
+      2767,
+      2805,
+      3641,
+      3938
+    ],
+    "_getKeyboardFocusedWidget": [
+      1852
+    ],
+    "_getMyPlayer": [
+      338,
+      1746,
+      2067,
+      3597,
+      3935
+    ],
+    "_getNameIndex": [
+      589,
+      3829,
+      3990
+    ],
+    "_getParentWidget": [
+      1587,
+      2056,
+      3397,
+      3515,
+      3916,
+      4033
+    ],
+    "_isAlive": [
+      416,
+      430,
+      452,
+      665,
+      3880
+    ],
+    "_isStackable": [
+      594,
+      3622
+    ],
+    "_math": [
+      1250,
+      1880,
+      1897,
+      3166,
+      3312,
+      3350
+    ],
+    "_setProperty": [
+      2128
+    ]
+  }
+}

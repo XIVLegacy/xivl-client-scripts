@@ -1,0 +1,32 @@
+{
+  "decoded": "widget/desktopwidget_materia",
+  "ciphered": "n1635q/65rzqvun1635q_x9q5s19.lua",
+  "classes": [
+    "DesktopWidget"
+  ],
+  "lineCount": 410,
+  "apiCount": 4,
+  "callsiteCount": 12,
+  "apis": {
+    "_getData": [
+      216,
+      223,
+      230,
+      237,
+      266,
+      287
+    ],
+    "_getItem": [
+      46,
+      304
+    ],
+    "_getMyPlayer": [
+      43,
+      301,
+      320
+    ],
+    "_math": [
+      281
+    ]
+  }
+}

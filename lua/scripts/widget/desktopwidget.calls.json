@@ -1,0 +1,82 @@
+{
+  "decoded": "widget/desktopwidget",
+  "ciphered": "n1635q/65rzqvun1635q.lua",
+  "classes": [
+    "DesktopWidget"
+  ],
+  "lineCount": 402,
+  "apiCount": 17,
+  "callsiteCount": 36,
+  "apis": {
+    "_appendLogPool": [
+      393
+    ],
+    "_appendMessagePool": [
+      375
+    ],
+    "_callSuperClassFunc": [
+      20,
+      29
+    ],
+    "_createActor": [
+      35,
+      79
+    ],
+    "_getCurrentAreaMaster": [
+      282
+    ],
+    "_getMyPlayer": [
+      94,
+      109,
+      123,
+      129,
+      148,
+      154,
+      170,
+      176,
+      194,
+      200,
+      216,
+      222,
+      245
+    ],
+    "_isInstanceOf": [
+      284,
+      289
+    ],
+    "_onCreatedWidgetInWidgetContainer": [
+      366
+    ],
+    "_onInit": [
+      21,
+      30,
+      45
+    ],
+    "_onLoop": [
+      58
+    ],
+    "_onPostCutSceneCancel": [
+      360
+    ],
+    "_onPostWarp": [
+      336
+    ],
+    "_onPreCutSceneCancel": [
+      348
+    ],
+    "_onPreWarp": [
+      256
+    ],
+    "_setLockonTarget": [
+      248
+    ],
+    "_setLoopInterval": [
+      40
+    ],
+    "_string": [
+      63,
+      65,
+      81
+    ]
+  }
+}

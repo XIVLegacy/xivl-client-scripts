@@ -1,0 +1,106 @@
+{
+  "decoded": "quest/questbaseclass",
+  "ciphered": "tp5rq/tp5rq89r57y9rr.lua",
+  "classes": [
+    "QuestBaseClass"
+  ],
+  "lineCount": 466,
+  "apiCount": 25,
+  "callsiteCount": 44,
+  "apis": {
+    "_callSuperClassFunc": [
+      35
+    ],
+    "_createActor": [
+      42
+    ],
+    "_getBelongGrandCompany": [
+      413
+    ],
+    "_getCutSceneReplaySnpcCoordinate": [
+      245
+    ],
+    "_getCutSceneReplaySnpcNickname": [
+      240
+    ],
+    "_getCutSceneReplaySnpcPersonality": [
+      255
+    ],
+    "_getCutSceneReplaySnpcSkin": [
+      250,
+      357,
+      389
+    ],
+    "_getData": [
+      21
+    ],
+    "_getMyPlayer": [
+      125,
+      140,
+      182,
+      236
+    ],
+    "_getStaticActorID": [
+      10,
+      50,
+      77
+    ],
+    "_isCompletedCutSceneReplayQuest": [
+      270,
+      280,
+      295,
+      310,
+      325,
+      330,
+      341,
+      346,
+      421,
+      431,
+      436,
+      441
+    ],
+    "_isExistActor": [
+      38
+    ],
+    "_loadKeySemipermanently": [
+      54
+    ],
+    "_loadWord": [
+      63
+    ],
+    "_onCancelJobQuestCompleteFirst": [
+      215
+    ],
+    "_onCancelJobQuestCompleteSecond": [
+      222
+    ],
+    "_onCancelJobQuestCompleteThird": [
+      229
+    ],
+    "_onFinalize": [
+      95
+    ],
+    "_onInit": [
+      36,
+      71
+    ],
+    "_onJobQuestCompleteFirst": [
+      133
+    ],
+    "_onJobQuestCompleteSecond": [
+      148
+    ],
+    "_onJobQuestCompleteThird": [
+      208
+    ],
+    "_runCharaScheduler": [
+      185
+    ],
+    "_unloadKey": [
+      81
+    ],
+    "_unloadWord": [
+      87
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "decoded": "group/relationgroup/relationgroupbaseclass",
+  "ciphered": "3svpu/s5y9q1vw3svpu/s5y9q1vw3svpu89r57y9rr.lua",
+  "classes": [
+    "RelationGroupBaseClass"
+  ],
+  "lineCount": 43,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      16,
+      25
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

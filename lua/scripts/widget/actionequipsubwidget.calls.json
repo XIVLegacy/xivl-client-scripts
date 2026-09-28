@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/actionequipsubwidget",
+  "ciphered": "n1635q/97q1vw5tp1urp8n1635q.lua",
+  "classes": [
+    "ActionEquipSubWidget"
+  ],
+  "lineCount": 85,
+  "apiCount": 3,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      57
+    ],
+    "_setUICommandCondition": [
+      15,
+      22,
+      29,
+      38
+    ]
+  }
+}

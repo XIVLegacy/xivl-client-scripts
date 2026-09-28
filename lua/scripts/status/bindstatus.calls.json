@@ -1,0 +1,15 @@
+{
+  "decoded": "status/bindstatus",
+  "ciphered": "rq9qpr/81w6rq9qpr.lua",
+  "classes": [
+    "BindStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

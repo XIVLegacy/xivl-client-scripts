@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/object/aetheryte/aetherytechild",
+  "ciphered": "729s9/wu7/v8057q/95q25slq5/95q25slq5721y6.lua",
+  "classes": [
+    "AetheryteChild"
+  ],
+  "lineCount": 340,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      216
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

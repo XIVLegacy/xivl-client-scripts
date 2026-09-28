@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/popmonsterdirectorfortnm01",
+  "ciphered": "61s57qvs/xvwrq5s/uvuxvwrq5s61s57qvs4vsqwxji.lua",
+  "classes": [
+    "PopMonsterDirectorFortNM01"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

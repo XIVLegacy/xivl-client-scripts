@@ -1,0 +1,15 @@
+{
+  "decoded": "status/commandcontrolstatus",
+  "ciphered": "rq9qpr/7vxx9w67vwqsvyrq9qpr.lua",
+  "classes": [
+    "CommandControlStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

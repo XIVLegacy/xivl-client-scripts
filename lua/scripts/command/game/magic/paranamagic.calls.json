@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/paranamagic",
+  "ciphered": "7vxx9w6/39x5/x9317/u9s9w9x9317.lua",
+  "classes": [
+    "ParanaMagic"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

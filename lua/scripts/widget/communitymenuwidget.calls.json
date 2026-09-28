@@ -1,0 +1,19 @@
+{
+  "decoded": "widget/communitymenuwidget",
+  "ciphered": "n1635q/7vxxpw1qlx5wpn1635q.lua",
+  "classes": [
+    "CommunityMenuWidget"
+  ],
+  "lineCount": 107,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setUICommandCondition": [
+      23,
+      29
+    ]
+  }
+}

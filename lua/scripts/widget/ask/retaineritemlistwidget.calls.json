@@ -1,0 +1,81 @@
+{
+  "decoded": "widget/ask/retaineritemlistwidget",
+  "ciphered": "n1635q/9rz/s5q91w5s1q5xy1rqn1635q.lua",
+  "classes": [
+    "RetainerItemListWidget"
+  ],
+  "lineCount": 6813,
+  "apiCount": 13,
+  "callsiteCount": 43,
+  "apis": {
+    "_countStack": [
+      1597,
+      2392,
+      2462,
+      2532,
+      3056,
+      3158
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1585,
+      2388,
+      2458,
+      2528,
+      3046,
+      3122
+    ],
+    "_getEquippingItem": [
+      4123,
+      4130,
+      4137,
+      4144
+    ],
+    "_getItem": [
+      1145,
+      1198,
+      2346,
+      2383,
+      2574
+    ],
+    "_getItemPackageCapacity": [
+      2352
+    ],
+    "_getKeyboardFocusedWidget": [
+      1097
+    ],
+    "_getMyPlayer": [
+      1142,
+      1195,
+      1557,
+      2343,
+      2565,
+      4089
+    ],
+    "_getNameIndex": [
+      1607,
+      3051,
+      3131
+    ],
+    "_getServerTime": [
+      4564,
+      6628
+    ],
+    "_isAlive": [
+      1578,
+      3113,
+      4056,
+      6438
+    ],
+    "_isEquipping": [
+      3375,
+      5624,
+      5661
+    ],
+    "_isStackable": [
+      1593
+    ]
+  }
+}

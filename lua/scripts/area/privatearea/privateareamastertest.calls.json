@@ -1,0 +1,15 @@
+{
+  "decoded": "area/privatearea/privateareamastertest",
+  "ciphered": "9s59/us1o9q59s59/us1o9q59s59x9rq5sq5rq.lua",
+  "classes": [
+    "PrivateAreaMasterTest"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

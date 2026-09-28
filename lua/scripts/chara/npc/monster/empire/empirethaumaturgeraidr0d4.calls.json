@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/empire/empirethaumaturgeraidr0d4",
+  "ciphered": "729s9/wu7/xvwrq5s/5xu1s5/5xu1s5q29px9qps35s916sj6f.lua",
+  "classes": [
+    "EmpireThaumaturgeRaidR0D4"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

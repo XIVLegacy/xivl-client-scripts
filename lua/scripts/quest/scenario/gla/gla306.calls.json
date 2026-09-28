@@ -1,0 +1,27 @@
+{
+  "decoded": "quest/scenario/gla/gla306",
+  "ciphered": "tp5rq/r75w9s1v/3y9/3y9gjd.lua",
+  "classes": [
+    "Gla306"
+  ],
+  "lineCount": 1236,
+  "apiCount": 4,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      572,
+      618,
+      703
+    ],
+    "_wait": [
+      228,
+      390
+    ]
+  }
+}

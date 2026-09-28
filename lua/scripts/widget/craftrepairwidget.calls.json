@@ -1,0 +1,32 @@
+{
+  "decoded": "widget/craftrepairwidget",
+  "ciphered": "n1635q/7s94qs5u91sn1635q.lua",
+  "classes": [
+    "CraftRepairWidget"
+  ],
+  "lineCount": 1628,
+  "apiCount": 6,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getEquippingItem": [
+      275
+    ],
+    "_getKeyboardFocusedWidget": [
+      729
+    ],
+    "_getMyPlayer": [
+      272,
+      376
+    ],
+    "_getProperty": [
+      696
+    ],
+    "_setProperty": [
+      583,
+      935
+    ]
+  }
+}

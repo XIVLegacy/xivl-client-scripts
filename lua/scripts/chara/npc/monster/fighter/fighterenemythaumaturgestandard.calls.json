@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterenemythaumaturgestandard",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s5w5xlq29px9qps35rq9w69s6.lua",
+  "classes": [
+    "FighterEnemyThaumaturgeStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

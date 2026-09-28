@@ -1,0 +1,24 @@
+{
+  "decoded": "chara/npc/populace/populacehamletcaptain",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97529xy5q79uq91w.lua",
+  "classes": [
+    "PopulaceHamletCaptain"
+  ],
+  "lineCount": 410,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_runCharaScheduler": [
+      257
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

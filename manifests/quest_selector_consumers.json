@@ -1,0 +1,1379 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "corpus": {
+    "manifest": "manifests/scripts.json",
+    "manifestSha256": "86798306f71336ee494f12d395db3b8ea571a21224fbd99e2ef87ecd18c61300",
+    "registry": "lua/registry.json",
+    "registrySha256": "957060c79fcce34f90b1840251c889ef8ee354f8380000518b1feb96f65dd78f",
+    "napiIndex": "lua/napi_index.json",
+    "napiIndexSha256": "8167f5f9fbc9cc8938334bc5502cbec7ab89311843c95dee34aa811b0afcd4b9",
+    "scriptCount": 2671
+  },
+  "clientDataSources": [
+    {
+      "source": "xivl-client-data:csv/quest.csv",
+      "sha256": "bdadece1907b7050aaeee7c94a2a2d395fe76b504e47cbb1616b57ba380209dc"
+    },
+    {
+      "source": "xivl-client-data:csv/xtx_quest.csv",
+      "sha256": "938640466b314242916f1f8877a90154c4f4db7aa63de6223e6af4aa194e6719"
+    },
+    {
+      "source": "xivl-client-data:csv/worldMaster.csv",
+      "sha256": "2e2e2dd5cd9651388f6fa575b4229081ad0452165e78b725df0a5b5b7cf7c643"
+    }
+  ],
+  "summary": {
+    "namedBoth": 42,
+    "disciplineSingle": 126,
+    "allNoSelector": 66,
+    "other": 501,
+    "twoLevelMessageConsumers": 7,
+    "activePrimaryAcceptConsumers": 42,
+    "activePrimaryAdvanceConsumers": 42
+  },
+  "namedRows": [
+    {
+      "questId": 111201,
+      "questCsvLine": 384,
+      "xtxQuestCsvLine": 384,
+      "label": "Marauder, level 30 & Gladiator",
+      "primarySelector": "Marauder",
+      "primarySelectorId": 4,
+      "primaryBaseClassId": 4,
+      "primaryLevel": 30,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111202,
+      "questCsvLine": 385,
+      "xtxQuestCsvLine": 385,
+      "label": "Warrior, Level 35 & Gladiator",
+      "primarySelector": "Warrior",
+      "primarySelectorId": 17,
+      "primaryBaseClassId": 4,
+      "primaryLevel": 35,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111203,
+      "questCsvLine": 386,
+      "xtxQuestCsvLine": 386,
+      "label": "Warrior, Level 40 & Gladiator",
+      "primarySelector": "Warrior",
+      "primarySelectorId": 17,
+      "primaryBaseClassId": 4,
+      "primaryLevel": 40,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111204,
+      "questCsvLine": 387,
+      "xtxQuestCsvLine": 387,
+      "label": "Warrior, Level 45 & Gladiator",
+      "primarySelector": "Warrior",
+      "primarySelectorId": 17,
+      "primaryBaseClassId": 4,
+      "primaryLevel": 45,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111205,
+      "questCsvLine": 388,
+      "xtxQuestCsvLine": 388,
+      "label": "Warrior, Level 45 & Gladiator",
+      "primarySelector": "Warrior",
+      "primarySelectorId": 17,
+      "primaryBaseClassId": 4,
+      "primaryLevel": 45,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111206,
+      "questCsvLine": 389,
+      "xtxQuestCsvLine": 389,
+      "label": "Warrior, Level 50 & Gladiator",
+      "primarySelector": "Warrior",
+      "primarySelectorId": 17,
+      "primaryBaseClassId": 4,
+      "primaryLevel": 50,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111221,
+      "questCsvLine": 390,
+      "xtxQuestCsvLine": 390,
+      "label": "Pugilist, Level 30 & Lancer",
+      "primarySelector": "Pugilist",
+      "primarySelectorId": 2,
+      "primaryBaseClassId": 2,
+      "primaryLevel": 30,
+      "secondaryClass": "Lancer",
+      "secondaryClassId": 8,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111222,
+      "questCsvLine": 391,
+      "xtxQuestCsvLine": 391,
+      "label": "Monk, Level 35 & Lancer",
+      "primarySelector": "Monk",
+      "primarySelectorId": 15,
+      "primaryBaseClassId": 2,
+      "primaryLevel": 35,
+      "secondaryClass": "Lancer",
+      "secondaryClassId": 8,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111223,
+      "questCsvLine": 392,
+      "xtxQuestCsvLine": 392,
+      "label": "Monk, Level 40 & Lancer",
+      "primarySelector": "Monk",
+      "primarySelectorId": 15,
+      "primaryBaseClassId": 2,
+      "primaryLevel": 40,
+      "secondaryClass": "Lancer",
+      "secondaryClassId": 8,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111224,
+      "questCsvLine": 393,
+      "xtxQuestCsvLine": 393,
+      "label": "Monk, Level 45 & Lancer",
+      "primarySelector": "Monk",
+      "primarySelectorId": 15,
+      "primaryBaseClassId": 2,
+      "primaryLevel": 45,
+      "secondaryClass": "Lancer",
+      "secondaryClassId": 8,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111225,
+      "questCsvLine": 394,
+      "xtxQuestCsvLine": 394,
+      "label": "Monk, Level 45 & Lancer",
+      "primarySelector": "Monk",
+      "primarySelectorId": 15,
+      "primaryBaseClassId": 2,
+      "primaryLevel": 45,
+      "secondaryClass": "Lancer",
+      "secondaryClassId": 8,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111226,
+      "questCsvLine": 395,
+      "xtxQuestCsvLine": 395,
+      "label": "Monk, Level 50 & Lancer",
+      "primarySelector": "Monk",
+      "primarySelectorId": 15,
+      "primaryBaseClassId": 2,
+      "primaryLevel": 50,
+      "secondaryClass": "Lancer",
+      "secondaryClassId": 8,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111241,
+      "questCsvLine": 396,
+      "xtxQuestCsvLine": 396,
+      "label": "Conjurer, Level 30 & Gladiator",
+      "primarySelector": "Conjurer",
+      "primarySelectorId": 23,
+      "primaryBaseClassId": 23,
+      "primaryLevel": 30,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111242,
+      "questCsvLine": 397,
+      "xtxQuestCsvLine": 397,
+      "label": "White Mage, Level 35 & Gladiator",
+      "primarySelector": "White Mage",
+      "primarySelectorId": 27,
+      "primaryBaseClassId": 23,
+      "primaryLevel": 35,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111243,
+      "questCsvLine": 398,
+      "xtxQuestCsvLine": 398,
+      "label": "White Mage, Level 40 & Gladiator",
+      "primarySelector": "White Mage",
+      "primarySelectorId": 27,
+      "primaryBaseClassId": 23,
+      "primaryLevel": 40,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111244,
+      "questCsvLine": 399,
+      "xtxQuestCsvLine": 399,
+      "label": "White Mage, Level 45 & Gladiator",
+      "primarySelector": "White Mage",
+      "primarySelectorId": 27,
+      "primaryBaseClassId": 23,
+      "primaryLevel": 45,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111245,
+      "questCsvLine": 400,
+      "xtxQuestCsvLine": 400,
+      "label": "White Mage, Level 45 & Gladiator",
+      "primarySelector": "White Mage",
+      "primarySelectorId": 27,
+      "primaryBaseClassId": 23,
+      "primaryLevel": 45,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111246,
+      "questCsvLine": 401,
+      "xtxQuestCsvLine": 401,
+      "label": "White Mage, Level 50 & Gladiator",
+      "primarySelector": "White Mage",
+      "primarySelectorId": 27,
+      "primaryBaseClassId": 23,
+      "primaryLevel": 50,
+      "secondaryClass": "Gladiator",
+      "secondaryClassId": 3,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111261,
+      "questCsvLine": 402,
+      "xtxQuestCsvLine": 402,
+      "label": "Thaumaturge, Level 30 & Pugilist",
+      "primarySelector": "Thaumaturge",
+      "primarySelectorId": 22,
+      "primaryBaseClassId": 22,
+      "primaryLevel": 30,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111262,
+      "questCsvLine": 403,
+      "xtxQuestCsvLine": 403,
+      "label": "Black Mage, Level 35 & Pugilist",
+      "primarySelector": "Black Mage",
+      "primarySelectorId": 26,
+      "primaryBaseClassId": 22,
+      "primaryLevel": 35,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111263,
+      "questCsvLine": 404,
+      "xtxQuestCsvLine": 404,
+      "label": "Black Mage, Level 40 & Pugilist",
+      "primarySelector": "Black Mage",
+      "primarySelectorId": 26,
+      "primaryBaseClassId": 22,
+      "primaryLevel": 40,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111264,
+      "questCsvLine": 405,
+      "xtxQuestCsvLine": 405,
+      "label": "Black Mage, Level 45 & Pugilist",
+      "primarySelector": "Black Mage",
+      "primarySelectorId": 26,
+      "primaryBaseClassId": 22,
+      "primaryLevel": 45,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111265,
+      "questCsvLine": 406,
+      "xtxQuestCsvLine": 406,
+      "label": "Black Mage, Level 45 & Pugilist",
+      "primarySelector": "Black Mage",
+      "primarySelectorId": 26,
+      "primaryBaseClassId": 22,
+      "primaryLevel": 45,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111266,
+      "questCsvLine": 407,
+      "xtxQuestCsvLine": 407,
+      "label": "Black Mage, Level 50 & Pugilist",
+      "primarySelector": "Black Mage",
+      "primarySelectorId": 26,
+      "primaryBaseClassId": 22,
+      "primaryLevel": 50,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111281,
+      "questCsvLine": 408,
+      "xtxQuestCsvLine": 408,
+      "label": "Gladiator, Level 30 & Conjurer",
+      "primarySelector": "Gladiator",
+      "primarySelectorId": 3,
+      "primaryBaseClassId": 3,
+      "primaryLevel": 30,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111282,
+      "questCsvLine": 409,
+      "xtxQuestCsvLine": 409,
+      "label": "Paladin, Level 35 & Conjurer",
+      "primarySelector": "Paladin",
+      "primarySelectorId": 16,
+      "primaryBaseClassId": 3,
+      "primaryLevel": 35,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111283,
+      "questCsvLine": 410,
+      "xtxQuestCsvLine": 410,
+      "label": "Paladin, Level 40 & Conjurer",
+      "primarySelector": "Paladin",
+      "primarySelectorId": 16,
+      "primaryBaseClassId": 3,
+      "primaryLevel": 40,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111284,
+      "questCsvLine": 411,
+      "xtxQuestCsvLine": 411,
+      "label": "Paladin, Level 45 & Conjurer",
+      "primarySelector": "Paladin",
+      "primarySelectorId": 16,
+      "primaryBaseClassId": 3,
+      "primaryLevel": 45,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111285,
+      "questCsvLine": 412,
+      "xtxQuestCsvLine": 412,
+      "label": "Paladin, Level 45 & Conjurer",
+      "primarySelector": "Paladin",
+      "primarySelectorId": 16,
+      "primaryBaseClassId": 3,
+      "primaryLevel": 45,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111286,
+      "questCsvLine": 413,
+      "xtxQuestCsvLine": 413,
+      "label": "Paladin, Level 50 & Conjurer",
+      "primarySelector": "Paladin",
+      "primarySelectorId": 16,
+      "primaryBaseClassId": 3,
+      "primaryLevel": 50,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111301,
+      "questCsvLine": 414,
+      "xtxQuestCsvLine": 414,
+      "label": "Archer, Level 30 & Conjurer",
+      "primarySelector": "Archer",
+      "primarySelectorId": 7,
+      "primaryBaseClassId": 7,
+      "primaryLevel": 30,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111302,
+      "questCsvLine": 415,
+      "xtxQuestCsvLine": 415,
+      "label": "Bard, Level 35 & Conjurer",
+      "primarySelector": "Bard",
+      "primarySelectorId": 18,
+      "primaryBaseClassId": 7,
+      "primaryLevel": 35,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111303,
+      "questCsvLine": 416,
+      "xtxQuestCsvLine": 416,
+      "label": "Bard, Level 40 & Conjurer",
+      "primarySelector": "Bard",
+      "primarySelectorId": 18,
+      "primaryBaseClassId": 7,
+      "primaryLevel": 40,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111304,
+      "questCsvLine": 417,
+      "xtxQuestCsvLine": 417,
+      "label": "Bard, Level 45 & Conjurer",
+      "primarySelector": "Bard",
+      "primarySelectorId": 18,
+      "primaryBaseClassId": 7,
+      "primaryLevel": 45,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111305,
+      "questCsvLine": 418,
+      "xtxQuestCsvLine": 418,
+      "label": "Bard, Level 45 & Conjurer",
+      "primarySelector": "Bard",
+      "primarySelectorId": 18,
+      "primaryBaseClassId": 7,
+      "primaryLevel": 45,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111306,
+      "questCsvLine": 419,
+      "xtxQuestCsvLine": 419,
+      "label": "Bard, Level 50 & Conjurer",
+      "primarySelector": "Bard",
+      "primarySelectorId": 18,
+      "primaryBaseClassId": 7,
+      "primaryLevel": 50,
+      "secondaryClass": "Conjurer",
+      "secondaryClassId": 23,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111321,
+      "questCsvLine": 420,
+      "xtxQuestCsvLine": 420,
+      "label": "Lancer, Level 30 & Pugilist",
+      "primarySelector": "Lancer",
+      "primarySelectorId": 8,
+      "primaryBaseClassId": 8,
+      "primaryLevel": 30,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": 15
+    },
+    {
+      "questId": 111322,
+      "questCsvLine": 421,
+      "xtxQuestCsvLine": 421,
+      "label": "Dragoon, Level 35 & Pugilist",
+      "primarySelector": "Dragoon",
+      "primarySelectorId": 19,
+      "primaryBaseClassId": 8,
+      "primaryLevel": 35,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111323,
+      "questCsvLine": 422,
+      "xtxQuestCsvLine": 422,
+      "label": "Dragoon, Level 40 & Pugilist",
+      "primarySelector": "Dragoon",
+      "primarySelectorId": 19,
+      "primaryBaseClassId": 8,
+      "primaryLevel": 40,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111324,
+      "questCsvLine": 423,
+      "xtxQuestCsvLine": 423,
+      "label": "Dragoon, Level 45 & Pugilist",
+      "primarySelector": "Dragoon",
+      "primarySelectorId": 19,
+      "primaryBaseClassId": 8,
+      "primaryLevel": 45,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111325,
+      "questCsvLine": 424,
+      "xtxQuestCsvLine": 424,
+      "label": "Dragoon, Level 45 & Pugilist",
+      "primarySelector": "Dragoon",
+      "primarySelectorId": 19,
+      "primaryBaseClassId": 8,
+      "primaryLevel": 45,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    },
+    {
+      "questId": 111326,
+      "questCsvLine": 425,
+      "xtxQuestCsvLine": 425,
+      "label": "Dragoon, Level 50 & Pugilist",
+      "primarySelector": "Dragoon",
+      "primarySelectorId": 19,
+      "primaryBaseClassId": 8,
+      "primaryLevel": 50,
+      "secondaryClass": "Pugilist",
+      "secondaryClassId": 2,
+      "secondaryLevel": null
+    }
+  ],
+  "controls": [
+    {
+      "questId": 110627,
+      "xtxQuestCsvLine": 166,
+      "label": "Disciples of War or Magic",
+      "shape": "discipline selector"
+    },
+    {
+      "questId": 110813,
+      "xtxQuestCsvLine": 352,
+      "label": "Disciples of the Land",
+      "shape": "discipline selector"
+    },
+    {
+      "questId": 110814,
+      "xtxQuestCsvLine": 353,
+      "label": "Disciples of the Hand (Excluding Culinarians)",
+      "shape": "discipline selector"
+    },
+    {
+      "questId": 110001,
+      "xtxQuestCsvLine": 4,
+      "label": "All",
+      "shape": "no selector"
+    }
+  ],
+  "messageConsumers": [
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j1.lua",
+      "line": 626,
+      "questId": 111261,
+      "primarySelectorId": 22,
+      "primaryLevel": 30,
+      "secondarySelectorId": 2,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j1.lua",
+      "line": 644,
+      "questId": 111261,
+      "primarySelectorId": 22,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j1.lua",
+      "line": 659,
+      "questId": 111261,
+      "primarySelectorId": 22,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j2.lua",
+      "line": 353,
+      "questId": 111262,
+      "primarySelectorId": 26,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j2.lua",
+      "line": 368,
+      "questId": 111262,
+      "primarySelectorId": 26,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j3.lua",
+      "line": 653,
+      "questId": 111263,
+      "primarySelectorId": 26,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j3.lua",
+      "line": 668,
+      "questId": 111263,
+      "primarySelectorId": 26,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j4.lua",
+      "line": 432,
+      "questId": 111264,
+      "primarySelectorId": 26,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j4.lua",
+      "line": 447,
+      "questId": 111264,
+      "primarySelectorId": 26,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j5.lua",
+      "line": 322,
+      "questId": 111265,
+      "primarySelectorId": 26,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j5.lua",
+      "line": 337,
+      "questId": 111265,
+      "primarySelectorId": 26,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j6.lua",
+      "line": 929,
+      "questId": 111266,
+      "primarySelectorId": 26,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/blm/blm0j6.lua",
+      "line": 944,
+      "questId": 111266,
+      "primarySelectorId": 26,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j1.lua",
+      "line": 735,
+      "questId": 111301,
+      "primarySelectorId": 7,
+      "primaryLevel": 30,
+      "secondarySelectorId": 23,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j1.lua",
+      "line": 753,
+      "questId": 111301,
+      "primarySelectorId": 7,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j1.lua",
+      "line": 768,
+      "questId": 111301,
+      "primarySelectorId": 7,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j2.lua",
+      "line": 410,
+      "questId": 111302,
+      "primarySelectorId": 18,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j2.lua",
+      "line": 425,
+      "questId": 111302,
+      "primarySelectorId": 18,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j3.lua",
+      "line": 366,
+      "questId": 111303,
+      "primarySelectorId": 18,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j3.lua",
+      "line": 381,
+      "questId": 111303,
+      "primarySelectorId": 18,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j4.lua",
+      "line": 414,
+      "questId": 111304,
+      "primarySelectorId": 18,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j4.lua",
+      "line": 429,
+      "questId": 111304,
+      "primarySelectorId": 18,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j5.lua",
+      "line": 355,
+      "questId": 111305,
+      "primarySelectorId": 18,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j5.lua",
+      "line": 370,
+      "questId": 111305,
+      "primarySelectorId": 18,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j6.lua",
+      "line": 485,
+      "questId": 111306,
+      "primarySelectorId": 18,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/brd/brd0j6.lua",
+      "line": 500,
+      "questId": 111306,
+      "primarySelectorId": 18,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j1.lua",
+      "line": 622,
+      "questId": 111321,
+      "primarySelectorId": 8,
+      "primaryLevel": 30,
+      "secondarySelectorId": 2,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j1.lua",
+      "line": 640,
+      "questId": 111321,
+      "primarySelectorId": 8,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j1.lua",
+      "line": 655,
+      "questId": 111321,
+      "primarySelectorId": 8,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j2.lua",
+      "line": 316,
+      "questId": 111322,
+      "primarySelectorId": 19,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j2.lua",
+      "line": 331,
+      "questId": 111322,
+      "primarySelectorId": 19,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j3.lua",
+      "line": 346,
+      "questId": 111323,
+      "primarySelectorId": 19,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j3.lua",
+      "line": 361,
+      "questId": 111323,
+      "primarySelectorId": 19,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j4.lua",
+      "line": 283,
+      "questId": 111324,
+      "primarySelectorId": 19,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j4.lua",
+      "line": 298,
+      "questId": 111304,
+      "primarySelectorId": 19,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j5.lua",
+      "line": 356,
+      "questId": 111325,
+      "primarySelectorId": 19,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j5.lua",
+      "line": 371,
+      "questId": 111325,
+      "primarySelectorId": 19,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j6.lua",
+      "line": 388,
+      "questId": 111326,
+      "primarySelectorId": 19,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/drg/drg0j6.lua",
+      "line": 403,
+      "questId": 111326,
+      "primarySelectorId": 19,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j1.lua",
+      "line": 428,
+      "questId": 111221,
+      "primarySelectorId": 2,
+      "primaryLevel": 30,
+      "secondarySelectorId": 8,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j1.lua",
+      "line": 446,
+      "questId": 111221,
+      "primarySelectorId": 2,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j1.lua",
+      "line": 461,
+      "questId": 111221,
+      "primarySelectorId": 2,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j2.lua",
+      "line": 436,
+      "questId": 111222,
+      "primarySelectorId": 15,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j2.lua",
+      "line": 451,
+      "questId": 111222,
+      "primarySelectorId": 15,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j3.lua",
+      "line": 525,
+      "questId": 111223,
+      "primarySelectorId": 15,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j3.lua",
+      "line": 540,
+      "questId": 111223,
+      "primarySelectorId": 15,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j4.lua",
+      "line": 460,
+      "questId": 111224,
+      "primarySelectorId": 15,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j4.lua",
+      "line": 475,
+      "questId": 111224,
+      "primarySelectorId": 15,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j5.lua",
+      "line": 414,
+      "questId": 111225,
+      "primarySelectorId": 15,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j5.lua",
+      "line": 429,
+      "questId": 111225,
+      "primarySelectorId": 15,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j6.lua",
+      "line": 696,
+      "questId": 111226,
+      "primarySelectorId": 15,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/mnk/mnk0j6.lua",
+      "line": 711,
+      "questId": 111226,
+      "primarySelectorId": 15,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j1.lua",
+      "line": 662,
+      "questId": 111281,
+      "primarySelectorId": 3,
+      "primaryLevel": 30,
+      "secondarySelectorId": 23,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j1.lua",
+      "line": 680,
+      "questId": 111281,
+      "primarySelectorId": 3,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j1.lua",
+      "line": 695,
+      "questId": 111281,
+      "primarySelectorId": 3,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j2.lua",
+      "line": 320,
+      "questId": 111282,
+      "primarySelectorId": 16,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j2.lua",
+      "line": 335,
+      "questId": 111282,
+      "primarySelectorId": 16,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j3.lua",
+      "line": 290,
+      "questId": 111283,
+      "primarySelectorId": 16,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j3.lua",
+      "line": 305,
+      "questId": 111283,
+      "primarySelectorId": 16,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j4.lua",
+      "line": 221,
+      "questId": 111284,
+      "primarySelectorId": 16,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j4.lua",
+      "line": 236,
+      "questId": 111284,
+      "primarySelectorId": 16,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j5.lua",
+      "line": 227,
+      "questId": 111285,
+      "primarySelectorId": 16,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j5.lua",
+      "line": 242,
+      "questId": 111285,
+      "primarySelectorId": 16,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j6.lua",
+      "line": 535,
+      "questId": 111286,
+      "primarySelectorId": 16,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/pld/pld0j6.lua",
+      "line": 550,
+      "questId": 111286,
+      "primarySelectorId": 16,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j1.lua",
+      "line": 472,
+      "questId": 111201,
+      "primarySelectorId": 4,
+      "primaryLevel": 30,
+      "secondarySelectorId": 3,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j1.lua",
+      "line": 490,
+      "questId": 111201,
+      "primarySelectorId": 4,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j1.lua",
+      "line": 505,
+      "questId": 111201,
+      "primarySelectorId": 4,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j2.lua",
+      "line": 293,
+      "questId": 111202,
+      "primarySelectorId": 17,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j2.lua",
+      "line": 308,
+      "questId": 111202,
+      "primarySelectorId": 17,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j3.lua",
+      "line": 365,
+      "questId": 111203,
+      "primarySelectorId": 17,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j3.lua",
+      "line": 380,
+      "questId": 111203,
+      "primarySelectorId": 17,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j4.lua",
+      "line": 217,
+      "questId": 111204,
+      "primarySelectorId": 17,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j4.lua",
+      "line": 232,
+      "questId": 111204,
+      "primarySelectorId": 17,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j5.lua",
+      "line": 259,
+      "questId": 111205,
+      "primarySelectorId": 17,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j5.lua",
+      "line": 274,
+      "questId": 111205,
+      "primarySelectorId": 17,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j6.lua",
+      "line": 299,
+      "questId": 111206,
+      "primarySelectorId": 17,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/war/war0j6.lua",
+      "line": 314,
+      "questId": 111206,
+      "primarySelectorId": 17,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j1.lua",
+      "line": 556,
+      "questId": 111241,
+      "primarySelectorId": 23,
+      "primaryLevel": 30,
+      "secondarySelectorId": 3,
+      "secondaryLevel": 15,
+      "messageId": 51130,
+      "role": "two-level requirement presentation"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j1.lua",
+      "line": 574,
+      "questId": 111241,
+      "primarySelectorId": 23,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j1.lua",
+      "line": 589,
+      "questId": 111241,
+      "primarySelectorId": 23,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j2.lua",
+      "line": 548,
+      "questId": 111242,
+      "primarySelectorId": 27,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j2.lua",
+      "line": 563,
+      "questId": 111242,
+      "primarySelectorId": 27,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j3.lua",
+      "line": 462,
+      "questId": 111243,
+      "primarySelectorId": 27,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j3.lua",
+      "line": 477,
+      "questId": 111243,
+      "primarySelectorId": 27,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j4.lua",
+      "line": 708,
+      "questId": 111244,
+      "primarySelectorId": 27,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j4.lua",
+      "line": 723,
+      "questId": 111244,
+      "primarySelectorId": 27,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j5.lua",
+      "line": 571,
+      "questId": 111245,
+      "primarySelectorId": 27,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j5.lua",
+      "line": 586,
+      "questId": 111245,
+      "primarySelectorId": 27,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j6.lua",
+      "line": 710,
+      "questId": 111246,
+      "primarySelectorId": 27,
+      "messageId": 51131,
+      "role": "active primary class or job required to accept"
+    },
+    {
+      "script": "lua/scripts/quest/scenario/whm/whm0j6.lua",
+      "line": 725,
+      "questId": 111246,
+      "primarySelectorId": 27,
+      "messageId": 51132,
+      "role": "active primary class or job required to advance"
+    }
+  ],
+  "presentationContract": {
+    "twoLevelMessage": "51130 formats primary level 30 and secondary level 15",
+    "activeAcceptMessage": "51131 formats only the required active primary class or job",
+    "activeAdvanceMessage": "51132 formats only the required active primary class or job",
+    "sink": "worldMaster.say -> DesktopWidget.showMessage -> DesktopWidget._appendMessagePool",
+    "sinkBcsId": "BCS-Y-0492"
+  },
+  "requestContract": {
+    "questInfoAsk": "approval returns 1 and refusal returns 2",
+    "selectorArguments": 0
+  },
+  "unresolved": [
+    "The recovered client scripts do not choose which named job-quest error event the server dispatches.",
+    "No retained retail acceptance capture establishes whether the authoritative server checks the primary selector, the secondary selector, both selectors, or only prior job unlock state.",
+    "Rows 2 through 6 in each job family retain the secondary class in localized eligibility text but have no recovered 51130 two-level message consumer.",
+    "The Dragoon row 111324 advance consumer passes quest ID 111304 while retaining Dragoon selector 19; the report preserves the shipped arguments."
+  ]
+}

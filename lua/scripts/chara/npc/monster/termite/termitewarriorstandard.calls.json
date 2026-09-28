@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/termite/termitewarriorstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/q5sx1q5/q5sx1q5n9ss1vsrq9w69s6.lua",
+  "classes": [
+    "TermiteWarriorStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

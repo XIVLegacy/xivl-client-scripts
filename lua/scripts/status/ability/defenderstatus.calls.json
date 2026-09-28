@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/defenderstatus",
+  "ciphered": "rq9qpr/981y1ql/6545w65srq9qpr.lua",
+  "classes": [
+    "DefenderStatus"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "widget/logcolorsettingwidget",
+  "ciphered": "n1635q/yv37vyvsr5qq1w3n1635q.lua",
+  "classes": [
+    "LogColorSettingWidget"
+  ],
+  "lineCount": 762,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getUserConfig": [
+      727
+    ],
+    "_setUserConfig": [
+      407
+    ]
+  }
+}

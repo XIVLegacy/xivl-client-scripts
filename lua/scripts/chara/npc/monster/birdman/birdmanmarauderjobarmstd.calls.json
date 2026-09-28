@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/birdman/birdmanmarauderjobarmstd",
+  "ciphered": "729s9/wu7/xvwrq5s/81s6x9w/81s6x9wx9s9p65s0v89sxrq6.lua",
+  "classes": [
+    "BirdmanMarauderJobArmStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

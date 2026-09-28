@@ -1,0 +1,48 @@
+{
+  "decoded": "widget/ask/questrewardwidget",
+  "ciphered": "n1635q/9rz/tp5rqs5n9s6n1635q.lua",
+  "classes": [
+    "QuestRewardWidget"
+  ],
+  "lineCount": 655,
+  "apiCount": 7,
+  "callsiteCount": 22,
+  "apis": {
+    "_addItem": [
+      338
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      433,
+      586
+    ],
+    "_getData": [
+      252,
+      258,
+      264,
+      290,
+      296,
+      302,
+      311,
+      383,
+      505,
+      525,
+      559,
+      595
+    ],
+    "_getMyPlayer": [
+      430,
+      583
+    ],
+    "_getSpecialEventWork": [
+      645
+    ],
+    "_loadKeyTemporarily": [
+      246,
+      270,
+      553
+    ]
+  }
+}

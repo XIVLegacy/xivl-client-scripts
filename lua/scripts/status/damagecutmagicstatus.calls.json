@@ -1,0 +1,15 @@
+{
+  "decoded": "status/damagecutmagicstatus",
+  "ciphered": "rq9qpr/69x9357pqx9317rq9qpr.lua",
+  "classes": [
+    "DamageCutMagicStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

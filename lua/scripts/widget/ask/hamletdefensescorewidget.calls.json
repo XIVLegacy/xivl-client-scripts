@@ -1,0 +1,27 @@
+{
+  "decoded": "widget/ask/hamletdefensescorewidget",
+  "ciphered": "n1635q/9rz/29xy5q6545wr5r7vs5n1635q.lua",
+  "classes": [
+    "HamletDefenseScoreWidget"
+  ],
+  "lineCount": 128,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_countHamletDefenseScore": [
+      26
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getHamletDefenseScore": [
+      32
+    ],
+    "_getHamletDefenseScoreAll": [
+      65
+    ],
+    "_getMyPlayer": [
+      22
+    ]
+  }
+}

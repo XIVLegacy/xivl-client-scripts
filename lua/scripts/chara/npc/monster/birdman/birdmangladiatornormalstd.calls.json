@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/birdman/birdmangladiatornormalstd",
+  "ciphered": "729s9/wu7/xvwrq5s/81s6x9w/81s6x9w3y9619qvswvsx9yrq6.lua",
+  "classes": [
+    "BirdmanGladiatorNormalStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

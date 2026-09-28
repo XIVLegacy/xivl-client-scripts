@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/configsoundwidget",
+  "ciphered": "n1635q/7vw413rvpw6n1635q.lua",
+  "classes": [
+    "ConfigSoundWidget"
+  ],
+  "lineCount": 320,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

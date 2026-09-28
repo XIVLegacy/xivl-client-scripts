@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/effectmagic",
+  "ciphered": "7vxx9w6/39x5/x9317/54457qx9317.lua",
+  "classes": [
+    "EffectMagic"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

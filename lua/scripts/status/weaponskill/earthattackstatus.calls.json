@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/earthattackstatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/59sq29qq97zrq9qpr.lua",
+  "classes": [
+    "EarthAttackStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

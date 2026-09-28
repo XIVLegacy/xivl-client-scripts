@@ -1,0 +1,34 @@
+{
+  "decoded": "judge/chocobojudge",
+  "ciphered": "0p635/72v7v8v0p635.lua",
+  "classes": [
+    "ChocoboJudge"
+  ],
+  "lineCount": 138,
+  "apiCount": 6,
+  "callsiteCount": 10,
+  "apis": {
+    "_defineClass": [
+      2
+    ],
+    "_getActorMainStat": [
+      11,
+      27,
+      48
+    ],
+    "_getChocoboGrade": [
+      112
+    ],
+    "_getChocoboRidingGrade": [
+      31,
+      52,
+      72
+    ],
+    "_isEnabledGoobbue": [
+      128
+    ],
+    "_onInit": [
+      106
+    ]
+  }
+}

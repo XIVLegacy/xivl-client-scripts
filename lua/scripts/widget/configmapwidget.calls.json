@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/configmapwidget",
+  "ciphered": "n1635q/7vw413x9un1635q.lua",
+  "classes": [
+    "ConfigMapWidget"
+  ],
+  "lineCount": 173,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

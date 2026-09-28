@@ -1,0 +1,15 @@
+{
+  "decoded": "status/dotstatus",
+  "ciphered": "rq9qpr/6vqrq9qpr.lua",
+  "classes": [
+    "DoTStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

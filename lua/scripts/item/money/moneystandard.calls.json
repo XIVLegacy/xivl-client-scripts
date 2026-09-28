@@ -1,0 +1,15 @@
+{
+  "decoded": "item/money/moneystandard",
+  "ciphered": "1q5x/xvw5l/xvw5lrq9w69s6.lua",
+  "classes": [
+    "MoneyStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

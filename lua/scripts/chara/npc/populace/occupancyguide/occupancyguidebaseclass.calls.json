@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/occupancyguide/occupancyguidebaseclass",
+  "ciphered": "729s9/wu7/uvupy975/v77pu9w7l3p165/v77pu9w7l3p16589r57y9rr.lua",
+  "classes": [
+    "OccupancyGuideBaseClass"
+  ],
+  "lineCount": 25,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/whm/whm1j0",
+  "ciphered": "tp5rq/r75w9s1v/n2x/n2xi0j.lua",
+  "classes": [
+    "Whm1j0"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

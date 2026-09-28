@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/monsterattackweaponskill",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/xvwrq5s9qq97zn59uvwrz1yy.lua",
+  "classes": [
+    "MonsterAttackWeaponSkill"
+  ],
+  "lineCount": 3469,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

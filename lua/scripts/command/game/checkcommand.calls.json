@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/checkcommand",
+  "ciphered": "7vxx9w6/39x5/7257z7vxx9w6.lua",
+  "classes": [
+    "CheckCommand"
+  ],
+  "lineCount": 39,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

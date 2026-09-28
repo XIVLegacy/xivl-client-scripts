@@ -1,0 +1,38 @@
+{
+  "decoded": "chara/npc/populace/populaceguildlevepublisher",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9753p1y6y5o5up8y1r25s.lua",
+  "classes": [
+    "PopulaceGuildlevePublisher"
+  ],
+  "lineCount": 1253,
+  "apiCount": 7,
+  "callsiteCount": 12,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      907,
+      1108
+    ],
+    "_getMyPlayer": [
+      168,
+      783,
+      1070,
+      1178
+    ],
+    "_loadKeyTemporarily": [
+      901,
+      1102
+    ],
+    "_loadTextDataPermanently": [
+      151
+    ],
+    "_setGroundOn": [
+      156
+    ],
+    "_unloadKey": [
+      1114
+    ]
+  }
+}

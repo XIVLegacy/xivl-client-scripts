@@ -1,0 +1,29 @@
+{
+  "decoded": "widget/ask/contentrewardwidget",
+  "ciphered": "n1635q/9rz/7vwq5wqs5n9s6n1635q.lua",
+  "classes": [
+    "ContentRewardWidget"
+  ],
+  "lineCount": 447,
+  "apiCount": 4,
+  "callsiteCount": 9,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      108,
+      114,
+      120
+    ],
+    "_loadKeyTemporarily": [
+      102
+    ],
+    "_setProperty": [
+      76,
+      193,
+      289,
+      392
+    ]
+  }
+}

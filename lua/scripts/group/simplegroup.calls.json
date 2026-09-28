@@ -1,0 +1,15 @@
+{
+  "decoded": "group/simplegroup",
+  "ciphered": "3svpu/r1xuy53svpu.lua",
+  "classes": [
+    "SimpleGroup"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

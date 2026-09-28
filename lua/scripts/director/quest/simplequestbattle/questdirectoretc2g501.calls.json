@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/simplequestbattle/questdirectoretc2g501",
+  "ciphered": "61s57qvs/tp5rq/r1xuy5tp5rq89qqy5/tp5rq61s57qvs5q7h3eji.lua",
+  "classes": [
+    "QuestDirectorEtc2g501"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "decoded": "command/commandbaseclass",
+  "ciphered": "7vxx9w6/7vxx9w689r57y9rr.lua",
+  "classes": [
+    "CommandBaseClass"
+  ],
+  "lineCount": 246,
+  "apiCount": 7,
+  "callsiteCount": 14,
+  "apis": {
+    "_callSuperClassFunc": [
+      159,
+      165,
+      195
+    ],
+    "_getData": [
+      18
+    ],
+    "_getStaticActorID": [
+      7,
+      169,
+      199
+    ],
+    "_loadKeySemipermanently": [
+      173
+    ],
+    "_onFinalize": [
+      196,
+      212
+    ],
+    "_onInit": [
+      160,
+      166,
+      182
+    ],
+    "_unloadKey": [
+      203
+    ]
+  }
+}

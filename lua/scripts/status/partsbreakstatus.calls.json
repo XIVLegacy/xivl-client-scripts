@@ -1,0 +1,15 @@
+{
+  "decoded": "status/partsbreakstatus",
+  "ciphered": "rq9qpr/u9sqr8s59zrq9qpr.lua",
+  "classes": [
+    "PartsBreakStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

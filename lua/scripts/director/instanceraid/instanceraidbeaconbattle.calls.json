@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidbeaconbattle",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s9168597vw89qqy5.lua",
+  "classes": [
+    "InstanceRaidBeaconBattle"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

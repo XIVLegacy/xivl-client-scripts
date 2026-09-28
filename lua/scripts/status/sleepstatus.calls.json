@@ -1,0 +1,15 @@
+{
+  "decoded": "status/sleepstatus",
+  "ciphered": "rq9qpr/ry55urq9qpr.lua",
+  "classes": [
+    "SleepStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "decoded": "widget/skilllistwidget",
+  "ciphered": "n1635q/rz1yyy1rqn1635q.lua",
+  "classes": [
+    "SkillListWidget"
+  ],
+  "lineCount": 331,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      33
+    ],
+    "_setUICommandCondition": [
+      17,
+      23
+    ]
+  }
+}

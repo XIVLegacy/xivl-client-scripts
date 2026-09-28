@@ -1,0 +1,42 @@
+{
+  "decoded": "chara/npc/populace/populacecaravanadviser",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97579s9o9w96o1r5s.lua",
+  "classes": [
+    "PopulaceCaravanAdviser"
+  ],
+  "lineCount": 267,
+  "apiCount": 6,
+  "callsiteCount": 18,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      31,
+      67,
+      124,
+      177,
+      232
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      45,
+      75,
+      107,
+      133,
+      156,
+      185,
+      215,
+      235,
+      255
+    ],
+    "_setGroundOn": [
+      19
+    ],
+    "_wait": [
+      259
+    ]
+  }
+}

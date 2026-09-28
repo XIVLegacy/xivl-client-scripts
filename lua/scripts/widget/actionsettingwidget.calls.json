@@ -1,0 +1,45 @@
+{
+  "decoded": "widget/actionsettingwidget",
+  "ciphered": "n1635q/97q1vwr5qq1w3n1635q.lua",
+  "classes": [
+    "ActionSettingWidget"
+  ],
+  "lineCount": 4187,
+  "apiCount": 3,
+  "callsiteCount": 27,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      559,
+      569,
+      584,
+      589,
+      594,
+      599,
+      604,
+      609,
+      614
+    ],
+    "_getMyPlayer": [
+      286,
+      629,
+      803,
+      923,
+      1155,
+      1228,
+      1274,
+      1312,
+      1394,
+      1988,
+      2056,
+      2158,
+      2947,
+      3061,
+      3438,
+      3897,
+      4168
+    ]
+  }
+}

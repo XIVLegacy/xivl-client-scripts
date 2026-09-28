@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/shieldtactstatus",
+  "ciphered": "rq9qpr/981y1ql/r215y6q97qrq9qpr.lua",
+  "classes": [
+    "ShieldTactStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

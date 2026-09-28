@@ -1,0 +1,15 @@
+{
+  "decoded": "status/monsterdrainstatus",
+  "ciphered": "rq9qpr/xvwrq5s6s91wrq9qpr.lua",
+  "classes": [
+    "MonsterDrainStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

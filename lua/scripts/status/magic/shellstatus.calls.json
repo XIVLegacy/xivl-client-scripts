@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/shellstatus",
+  "ciphered": "rq9qpr/x9317/r25yyrq9qpr.lua",
+  "classes": [
+    "ShellStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

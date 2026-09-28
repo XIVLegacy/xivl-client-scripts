@@ -1,0 +1,36 @@
+{
+  "decoded": "widget/ask/journallistwidget",
+  "ciphered": "n1635q/9rz/0vpsw9yy1rqn1635q.lua",
+  "classes": [
+    "JournalListWidget"
+  ],
+  "lineCount": 1814,
+  "apiCount": 6,
+  "callsiteCount": 12,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      983,
+      1053,
+      1126,
+      1185,
+      1228,
+      1512
+    ],
+    "_isAlive": [
+      1141
+    ],
+    "_isCompletedCutSceneReplayQuest": [
+      1249,
+      1284
+    ],
+    "_isExistKey": [
+      1244
+    ],
+    "_math": [
+      305
+    ]
+  }
+}

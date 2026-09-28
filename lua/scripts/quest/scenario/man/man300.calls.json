@@ -1,0 +1,25 @@
+{
+  "decoded": "quest/scenario/man/man300",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wgjj.lua",
+  "classes": [
+    "Man300"
+  ],
+  "lineCount": 1454,
+  "apiCount": 3,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      1121,
+      1152,
+      1183,
+      1214,
+      1245
+    ]
+  }
+}

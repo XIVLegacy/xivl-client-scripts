@@ -1,0 +1,18 @@
+{
+  "decoded": "item/normal/fooditem",
+  "ciphered": "1q5x/wvsx9y/4vv61q5x.lua",
+  "classes": [
+    "FoodItem"
+  ],
+  "lineCount": 111,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      96
+    ]
+  }
+}

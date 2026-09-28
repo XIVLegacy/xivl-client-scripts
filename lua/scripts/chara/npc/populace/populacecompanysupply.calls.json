@@ -1,0 +1,81 @@
+{
+  "decoded": "chara/npc/populace/populacecompanysupply",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wlrpuuyl.lua",
+  "classes": [
+    "PopulaceCompanySupply"
+  ],
+  "lineCount": 557,
+  "apiCount": 18,
+  "callsiteCount": 33,
+  "apis": {
+    "_callSuperClassFunc": [
+      162
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      453
+    ],
+    "_getData": [
+      528,
+      536
+    ],
+    "_getItem": [
+      393
+    ],
+    "_getMyPlayer": [
+      175,
+      224,
+      273,
+      390
+    ],
+    "_getNameIndex": [
+      456
+    ],
+    "_isAlive": [
+      449
+    ],
+    "_isInstanceOf": [
+      443
+    ],
+    "_loadKeySemipermanently": [
+      77,
+      83,
+      89,
+      95
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_onFinalize": [
+      163,
+      167
+    ],
+    "_preloadItemSpreadSheetContainer": [
+      100,
+      107,
+      114,
+      121
+    ],
+    "_releaseItemSpreadSheetContainer": [
+      135
+    ],
+    "_runCharaScheduler": [
+      203,
+      252
+    ],
+    "_setGroundOn": [
+      72
+    ],
+    "_unloadKey": [
+      139,
+      145,
+      151,
+      157
+    ],
+    "_waitForCharaSchedulerFinished": [
+      315
+    ]
+  }
+}

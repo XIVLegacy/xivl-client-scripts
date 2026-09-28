@@ -1,0 +1,19 @@
+{
+  "decoded": "item/money/moneyitembaseclass",
+  "ciphered": "1q5x/xvw5l/xvw5l1q5x89r57y9rr.lua",
+  "classes": [
+    "MoneyItemBaseClass"
+  ],
+  "lineCount": 12,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_onInit": [
+      8,
+      12
+    ]
+  }
+}

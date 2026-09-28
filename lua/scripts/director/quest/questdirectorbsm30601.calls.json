@@ -1,0 +1,15 @@
+{
+  "decoded": "director/quest/questdirectorbsm30601",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvs8rxgjdji.lua",
+  "classes": [
+    "QuestDirectorBsm30601"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

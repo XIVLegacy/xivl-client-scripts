@@ -1,0 +1,40 @@
+{
+  "decoded": "chara/npc/debug/populacemonstergrandma",
+  "ciphered": "729s9/wu7/658p3/uvupy975xvwrq5s3s9w6x9.lua",
+  "classes": [
+    "PopulaceMonsterGrandma"
+  ],
+  "lineCount": 270,
+  "apiCount": 8,
+  "callsiteCount": 12,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      48,
+      165,
+      217
+    ],
+    "_getAllKey": [
+      22
+    ],
+    "_getData": [
+      236
+    ],
+    "_loadKeyTemporarily": [
+      231
+    ],
+    "_printLog": [
+      192,
+      208
+    ],
+    "_unloadKey": [
+      241
+    ],
+    "_wait": [
+      82,
+      253
+    ]
+  }
+}

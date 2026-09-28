@@ -1,0 +1,269 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "evidenceClass": "decoded-client-lua-reproducible-decompile",
+  "sourceRecord": {
+    "name": "combined_client_manifest.csv",
+    "sha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce"
+  },
+  "decompiler": {
+    "path": "tools/vendor/unluac/unluac_2025_12_23.jar",
+    "bytes": 796256,
+    "sha256": "98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc",
+    "canonicalization": "CRLF converted to LF"
+  },
+  "scripts": [
+    {
+      "decodedPath": "director/guildleve/guildlevebaseclass.lua",
+      "decodedChunkBytes": 13561,
+      "decodedChunkSha256": "bcad3160d16813502529467ce5da17bb3a9bc80c576cd71841708fe7859d7e84",
+      "canonicalBytes": 30822,
+      "canonicalLines": 1560,
+      "canonicalSha256": "0cd9f9853d1f91c07b583db2bb7facc4cb6a0c9c900dd8cf1953435cd19aca19",
+      "sourceLocator": "lines 1-1560"
+    },
+    {
+      "decodedPath": "director/guildleve/requestdirector.lua",
+      "decodedChunkBytes": 3516,
+      "decodedChunkSha256": "316b74872a85670f3cacf4e34b3966ab78221a9fa22a45a38022a71abbf8ff67",
+      "canonicalBytes": 10347,
+      "canonicalLines": 466,
+      "canonicalSha256": "4ef8cd76d83575fbe6d3657d81a6831bd973224aeba59757203f5a80200c7927",
+      "sourceLocator": "lines 1-466"
+    },
+    {
+      "decodedPath": "director/caravanguard/caravanguarddirector.lua",
+      "decodedChunkBytes": 4953,
+      "decodedChunkSha256": "6b4a3198115e785842f2932333a6815de833cf9fe6a9f6327027826085d9fe17",
+      "canonicalBytes": 18503,
+      "canonicalLines": 742,
+      "canonicalSha256": "f9c21e5dcd7376f9dd68f5a109e309d634bc4303f15b5cb888ae26595ac427cc",
+      "sourceLocator": "lines 1-742",
+      "retailLpb": {
+        "resourcePath": "61s57qvs/79s9o9w3p9s6/79s9o9w3p9s661s57qvs.le.lpb",
+        "bytes": 4966,
+        "sha256": "88070cf30c47368deb9f54cb6ae6ed2cdbbaeb410f50f700ec030b96364fd691",
+        "decodedPayloadBytes": 4953,
+        "decodedPayloadSha256": "6b4a3198115e785842f2932333a6815de833cf9fe6a9f6327027826085d9fe17",
+        "coverageLocator": "manifests/retail_lua_coverage.json:2265"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/monster/chocobo/chocobocaravanguard.lua",
+      "decodedChunkBytes": 831,
+      "decodedChunkSha256": "e1e8c253a8a20c9a1479772f53541ef1b471874a4b514710d04acae6655ddc27",
+      "canonicalBytes": 1624,
+      "canonicalLines": 77,
+      "canonicalSha256": "b3bb82478514322df268336d8d90a6a2cd66af3ed133923802c3181bdf37bb7e",
+      "sourceLocator": "lines 1-77",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/xvwrq5s/72v7v8v/72v7v8v79s9o9w3p9s6.le.lpb",
+        "bytes": 844,
+        "sha256": "1230331709ed7ac9deaba4705b802d905f72a8db7943e0cf2e880fe4bbce9c18",
+        "decodedPayloadBytes": 831,
+        "decodedPayloadSha256": "e1e8c253a8a20c9a1479772f53541ef1b471874a4b514710d04acae6655ddc27",
+        "coverageLocator": "manifests/retail_lua_coverage.json:14130"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/populace/populacecaravanadviser.lua",
+      "decodedChunkBytes": 2460,
+      "decodedChunkSha256": "7992483c774bbd234ecf29f9f1f68a89252d66a1f5b8d84772aad5fdee9c8f37",
+      "canonicalBytes": 5203,
+      "canonicalLines": 267,
+      "canonicalSha256": "1cbefc232584d07d9c6c922283fb79aacc2b47c9a28457a04b9b1a6142132952",
+      "sourceLocator": "lines 1-267",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/uvupy975/uvupy97579s9o9w96o1r5s.le.lpb",
+        "bytes": 2473,
+        "sha256": "8103f8607b4f5538aa1278660ca6ae2d4574a33383b68243cdfc3ccfd4c9a598",
+        "decodedPayloadBytes": 2460,
+        "decodedPayloadSha256": "7992483c774bbd234ecf29f9f1f68a89252d66a1f5b8d84772aad5fdee9c8f37",
+        "coverageLocator": "manifests/retail_lua_coverage.json:7290"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/populace/populacecaravanguide.lua",
+      "decodedChunkBytes": 4818,
+      "decodedChunkSha256": "97ecacfbcfc68aa2b2f1fcb6215e7966c5f553d8b16f83b8ec8ccb2dc5acc483",
+      "canonicalBytes": 10670,
+      "canonicalLines": 542,
+      "canonicalSha256": "a169e372fe7852a3e7bf7dd5158ae5c937338ef9a755d81d3617bb1a62f06e40",
+      "sourceLocator": "lines 1-542",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/uvupy975/uvupy97579s9o9w3p165.le.lpb",
+        "bytes": 4831,
+        "sha256": "f2e4d9f4d443644d689fc591ec25d46d129c40bf70462b2bb36107da24bcc48b",
+        "decodedPayloadBytes": 4818,
+        "decodedPayloadSha256": "97ecacfbcfc68aa2b2f1fcb6215e7966c5f553d8b16f83b8ec8ccb2dc5acc483",
+        "coverageLocator": "manifests/retail_lua_coverage.json:7275"
+      }
+    },
+    {
+      "decodedPath": "chara/npc/populace/populacecaravanmanager.lua",
+      "decodedChunkBytes": 5202,
+      "decodedChunkSha256": "2f553cd0595dbf6f38527b72ba3916416581cae16e35bf036ab1ce10c175fdaa",
+      "canonicalBytes": 16550,
+      "canonicalLines": 773,
+      "canonicalSha256": "273917c5d3f51c47c74bf6a22fd33b5cf371bd76c970dc2cd6d432b5f4ce462e",
+      "sourceLocator": "lines 1-773",
+      "retailLpb": {
+        "resourcePath": "729s9/wu7/uvupy975/uvupy97579s9o9wx9w935s.le.lpb",
+        "bytes": 5215,
+        "sha256": "7885754b8648a4079c5f04c78fb96e048a34294a301df5b4f98acb2acaa30a6d",
+        "decodedPayloadBytes": 5202,
+        "decodedPayloadSha256": "2f553cd0595dbf6f38527b72ba3916416581cae16e35bf036ab1ce10c175fdaa",
+        "coverageLocator": "manifests/retail_lua_coverage.json:7305"
+      }
+    },
+    {
+      "decodedPath": "widget/chocobocaravanwidget.lua",
+      "decodedChunkBytes": 3357,
+      "decodedChunkSha256": "6e85fa941a43b00c54809d6c00213c4e3249013ff5795ac1f2d99477b3713b2a",
+      "canonicalBytes": 7429,
+      "canonicalLines": 369,
+      "canonicalSha256": "e4e09077f38fbde92f35e602d55ca499345cd33b33a7ca34afec558e990d0fb1",
+      "sourceLocator": "lines 1-369",
+      "retailLpb": {
+        "resourcePath": "n1635q/72v7v8v79s9o9wn1635q.le.lpb",
+        "bytes": 3370,
+        "sha256": "e30b5bfa70787daf3523156d3292e8e9a1fc2c7b26be07ad3edf99df947a6343",
+        "decodedPayloadBytes": 3357,
+        "decodedPayloadSha256": "6e85fa941a43b00c54809d6c00213c4e3249013ff5795ac1f2d99477b3713b2a",
+        "coverageLocator": "manifests/retail_lua_coverage.json:25529"
+      }
+    },
+    {
+      "decodedPath": "director/instanceraid/instanceraidhamletdefense.lua",
+      "decodedChunkBytes": 5792,
+      "decodedChunkSha256": "ff329e9dec60838a0d0fd5e2c42a27aba60365bf52b44bcb8d6d43c709eb1a00",
+      "canonicalBytes": 16556,
+      "canonicalLines": 823,
+      "canonicalSha256": "e9a1f5c2367152c1868a8ba2fac689a031017e801e0a8b06628d8d55a8bdf9db",
+      "sourceLocator": "lines 1-823"
+    },
+    {
+      "decodedPath": "chara/player/playerbaseclass.lua",
+      "decodedChunkBytes": 25833,
+      "decodedChunkSha256": "1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a",
+      "canonicalBytes": 66466,
+      "canonicalLines": 3020,
+      "canonicalSha256": "6226b3fa15dfdbad279b7dba453f8a3b76fcb8b68bad6e14f5403d52987f76e4",
+      "sourceLocator": "lines 1-3020",
+      "retailLpb": {
+        "resourcePath": "729s9/uy9l5s/uy9l5s89r57y9rr.le.lpb",
+        "bytes": 25846,
+        "sha256": "32182274f3886d0cdf6329f8a82e6592790c9b3038e00bebe5b2b38702bbd53e",
+        "decodedPayloadBytes": 25833,
+        "decodedPayloadSha256": "1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a",
+        "coverageLocator": "manifests/retail_lua_coverage.json:5959-5972"
+      }
+    },
+    {
+      "decodedPath": "group/contentgroup/contentgroupbaseclass.lua",
+      "decodedChunkBytes": 3614,
+      "decodedChunkSha256": "c53c41b1036bb8c9a8ed1d0b92b866fdccd2e34099489e3427b8ee97287766b1",
+      "canonicalBytes": 8911,
+      "canonicalLines": 411,
+      "canonicalSha256": "2634147ca89c0191b138875f822a548fdb1a550f74e7a0a3298299b8c689e84c",
+      "sourceLocator": "lines 1-411",
+      "retailLpb": {
+        "resourcePath": "3svpu/7vwq5wq3svpu/7vwq5wq3svpu89r57y9rr.le.lpb",
+        "bytes": 3627,
+        "sha256": "ea328e1a27abda862a1e20588384ae2f8834745b6a3143b89d3ddb3757433a9",
+        "decodedPayloadBytes": 3614,
+        "decodedPayloadSha256": "c53c41b1036bb8c9a8ed1d0b92b866fdccd2e34099489e3427b8ee97287766b1",
+        "coverageLocator": "manifests/retail_lua_coverage.json:919-932"
+      }
+    }
+  ],
+  "claims": [
+    {
+      "id": "guildleve-retained-state",
+      "support": "GuildleveBaseClass retains identifiers, timing, aim counts, UI states, and marker coordinates; initialization reads guildleve sheet column 21 into timeLimit.",
+      "sources": [
+        "director/guildleve/guildlevebaseclass.lua:11-456",
+        "director/guildleve/guildlevebaseclass.lua:565-572"
+      ]
+    },
+    {
+      "id": "guildleve-client-ui",
+      "support": "GuildleveBaseClass exposes guildleve-information data and routes retained marker slots. Marker work updates the minimap; marker size depends on the retained aetheryteLocation value.",
+      "sources": [
+        "director/guildleve/guildlevebaseclass.lua:285-472",
+        "director/guildleve/guildlevebaseclass.lua:575-1560"
+      ]
+    },
+    {
+      "id": "request-time-and-ui",
+      "support": "RequestDirector derives from GuildleveBaseClass, returns literal 20 from getTimeLimit, and supplies request-specific UI and article methods.",
+      "sources": ["director/guildleve/requestdirector.lua:1-466"]
+    },
+    {
+      "id": "caravan-retained-ui-fields",
+      "support": "CaravanGuardDirector retains finishTime, progressPer, chocobo status and HP arrays, and marker coordinates, then exposes them through UI and map-widget methods.",
+      "sources": [
+        "director/caravanguard/caravanguarddirector.lua:11-212",
+        "director/caravanguard/caravanguarddirector.lua:215-742"
+      ]
+    },
+    {
+      "id": "caravan-ui-data-tuples",
+      "support": "getUIDataOpen returns finishTime, town, placeStart, placeEnd, name1, name2, and name3 in that order. getUIDataUpdate selector 1 returns progressPer; selector 2 returns chocoboStatus entries 1-3; selector 3 returns chocoboHPStatus entries 1-3.",
+      "sources": ["director/caravanguard/caravanguarddirector.lua:333-368"]
+    },
+    {
+      "id": "caravan-widget-values",
+      "support": "ChocoboCaravanWidget uses text banks 10051 and 204, writes timer properties including 300 and 120, maps company values 1-3 to icon IDs 833-835, maps movement values 1-5 to named UI commands, and maps HP values 1-3 to named status commands.",
+      "sources": [
+        "widget/chocobocaravanwidget.lua:39-80",
+        "widget/chocobocaravanwidget.lua:82-143"
+      ]
+    },
+    {
+      "id": "caravan-npc-selector-branches",
+      "support": "PopulaceCaravanManager entry and question paths call isUpperRank with argument 25, ask selector 16 and conditionally 23 in the entry path, and use selector 4 in the question path. PopulaceCaravanGuide.caravanGuardReward branches on raw argument 1 equal to 9, equal to 0, or in 1-5, then on argument 5 greater than or equal to 50 or in the range 40 <= argument 5 < 50. PopulaceCaravanAdviser.adviserSales passes getMoneyOnHand(1000001) to say row 53013 and asks selector 14 with literal 3011317.",
+      "sources": [
+        "chara/npc/populace/populacecaravanmanager.lua:11-189",
+        "chara/npc/populace/populacecaravanguide.lua:20-60",
+        "chara/npc/populace/populacecaravanadviser.lua:48-72"
+      ]
+    },
+    {
+      "id": "caravan-guard-choice-contract",
+      "support": "ChocoboCaravanGuard.getBattalion returns 1. chocoboCommand asks restricted choices, calls ask row 6 with three forwarded arguments only when the first result is 2, then returns both results.",
+      "sources": ["chara/npc/monster/chocobo/chocobocaravanguard.lua:3-23"]
+    },
+    {
+      "id": "hamlet-defense-widget-contract",
+      "support": "InstanceRaidHamletDefense retains Hamlet and status fields, routes them to the Hamlet execution widget, and asks the score widget from the local clear path when a score is available. After the initialized base director receives packet selector 3, Hamlet processUserMessage selectors 1-10 update retained UI fields or route through the director's popup/notification helper; selector 5 maps numeric 0 to line status 3, numeric 1 to 2, and other values to 1. The HUD maps line/goods status 1/2/3 to normal/danger/fall-or-lost and receives battleValue with maximum 100. These are bytecode-backed client mechanics, not a server adapter or historical runtime packet contract.",
+      "sources": [
+        "director/instanceraid/instanceraidhamletdefense.lua:11-193",
+        "director/instanceraid/instanceraidhamletdefense.lua:247-570",
+        "director/instanceraid/instanceraidbaseclass.lua#_onReceiveDataPacket@0x0016D3-0x001787; LPB SHA-256 820F421AEF68BDCB48C082A2C1B91521903D0E82956C273CABC462B6B3271F2F; payload SHA-256 697419B9ABE065C5B77E67938F7AB4188B0C61B61F4B0E87F2D0FC05A6083941",
+        "director/instanceraid/instanceraidhamletdefense.lua#processUserMessage@0x000A51-0x000E65; LPB SHA-256 2DDEDC8FAD4DAC5FAC4C800425DD8685F83E3DBF4CD8BD0AC996D265D540881E; payload SHA-256 FF329E9DEC60838A0D0FD5E2C42A27ABA60365BF52B44BCB8D6D43C709EB1A00",
+        "widget/hamletdefensewidget.lua#status-and-target-methods@0x000F5A-0x001621; LPB SHA-256 882B2B249B3DE84A593E4084E8CB7E49FBB00B3BF4CBD0FC911D1A2814964286; payload SHA-256 A564717080911218C718EA28F4A8B604A9850B3F2DB27BCD73ED9CEC93715D9E",
+        "widget/hamletdefensepopupwidget.lua#dispInformation@0x0000EC-0x0001D8; LPB SHA-256 49DC594F8AA976696D7C2B42A2D57BF11925F36A9075ADCC7D36D141AF92A754; payload SHA-256 EB49B7D2F956BA4F66ACF5DEB9DD86259154E716898C14C665145E5B05157066"
+      ]
+    },
+    {
+      "id": "content-group-map-open-dispatch",
+      "support": "PlayerBaseClass.postMapOpen enumerates the player's groups and calls processMapOpenMessage on each ContentGroupBaseClass whose getDirector() result is non-null.",
+      "sources": ["chara/player/playerbaseclass.lua:2699-2726"]
+    },
+    {
+      "id": "content-group-finalize-notification-request",
+      "support": "ContentGroupBaseClass._onFinalize requests worldMaster notification 50012 when the local player is a member and the group kind is 30001 or 30006.",
+      "sources": ["group/contentgroup/contentgroupbaseclass.lua:343-381"]
+    }
+  ],
+  "rejectedInterpretations": [
+    "The directors do not establish server timers, acceptance rules, objective completion, rewards, or authoritative state ownership.",
+    "The caravan director does not establish escort movement, enemy waves, routes, or failure rules.",
+    "Caravan widget command strings, icon IDs, timer properties, and numeric NPC arguments do not establish their rendered meanings, owner payload semantics, or historical invocation.",
+    "The Hamlet director does not establish wave composition, scoring formulas, victory conditions, or rewards.",
+    "The content-group scripts do not identify the displayed text for notification 50012 or the event that caused finalization.",
+    "No Behest or Skirmish mechanics may be inferred from these director contracts."
+  ]
+}

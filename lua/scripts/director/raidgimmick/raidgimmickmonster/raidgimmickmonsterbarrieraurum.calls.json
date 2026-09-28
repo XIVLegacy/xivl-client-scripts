@@ -1,0 +1,15 @@
+{
+  "decoded": "director/raidgimmick/raidgimmickmonster/raidgimmickmonsterbarrieraurum",
+  "ciphered": "61s57qvs/s91631xx17z/s91631xx17zxvwrq5s/s91631xx17zxvwrq5s89ss15s9pspx.lua",
+  "classes": [
+    "RaidGimmickMonsterBarrierAurum"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

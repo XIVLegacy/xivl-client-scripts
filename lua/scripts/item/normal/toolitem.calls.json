@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/toolitem",
+  "ciphered": "1q5x/wvsx9y/qvvy1q5x.lua",
+  "classes": [
+    "ToolItem"
+  ],
+  "lineCount": 25,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

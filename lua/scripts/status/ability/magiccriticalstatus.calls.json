@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/magiccriticalstatus",
+  "ciphered": "rq9qpr/981y1ql/x93177s1q179yrq9qpr.lua",
+  "classes": [
+    "MagicCriticalStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

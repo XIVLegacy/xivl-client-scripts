@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/populaceguildleve",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9753p1y6y5o5.lua",
+  "classes": [
+    "PopulaceGuildleve"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

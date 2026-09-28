@@ -1,0 +1,99 @@
+{
+  "decoded": "chara/npc/populace/populacecompanyshop",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wlr2vu.lua",
+  "classes": [
+    "PopulaceCompanyShop"
+  ],
+  "lineCount": 2413,
+  "apiCount": 16,
+  "callsiteCount": 55,
+  "apis": {
+    "_callSuperClassFunc": [
+      432
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      2296,
+      2302,
+      2308,
+      2314,
+      2320,
+      2326
+    ],
+    "_getMyPlayer": [
+      445,
+      494,
+      578,
+      651,
+      744,
+      806,
+      873,
+      1158,
+      1266,
+      1375,
+      1469
+    ],
+    "_getSpecialEventWork": [
+      1081,
+      1090
+    ],
+    "_loadKeySemipermanently": [
+      197,
+      213,
+      229,
+      245
+    ],
+    "_loadKeyTemporarily": [
+      2289
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_onFinalize": [
+      433,
+      437
+    ],
+    "_preloadItemSpreadSheetContainer": [
+      260,
+      277,
+      294,
+      311
+    ],
+    "_releaseItemSpreadSheetContainer": [
+      363
+    ],
+    "_runCharaScheduler": [
+      473,
+      557,
+      630,
+      785,
+      847,
+      1225,
+      1235,
+      1333,
+      1344,
+      1407,
+      1419,
+      1497
+    ],
+    "_setGroundOn": [
+      186
+    ],
+    "_unloadKey": [
+      375,
+      391,
+      407,
+      423
+    ],
+    "_wait": [
+      1151,
+      1259,
+      1368
+    ],
+    "_waitForCharaSchedulerFinished": [
+      728
+    ]
+  }
+}

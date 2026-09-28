@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/com/com5g4",
+  "ciphered": "tp5rq/r75w9s1v/7vx/7vxe3f.lua",
+  "classes": [
+    "Com5g4"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

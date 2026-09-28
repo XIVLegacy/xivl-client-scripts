@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/pld/pld0j8",
+  "ciphered": "tp5rq/r75w9s1v/uy6/uy6j0b.lua",
+  "classes": [
+    "Pld0j8"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

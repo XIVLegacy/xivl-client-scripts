@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/debug/debugmarker",
+  "ciphered": "729s9/wu7/658p3/658p3x9sz5s.lua",
+  "classes": [
+    "DebugMarker"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

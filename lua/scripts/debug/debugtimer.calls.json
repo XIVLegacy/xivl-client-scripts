@@ -1,0 +1,22 @@
+{
+  "decoded": "debug/debugtimer",
+  "ciphered": "658p3/658p3q1x5s.lua",
+  "classes": [
+    "DebugTimer"
+  ],
+  "lineCount": 19,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_onInit": [
+      15,
+      19
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/headcustomizingcommand",
+  "ciphered": "7vxx9w6/39x5/25967prqvx1k1w37vxx9w6.lua",
+  "classes": [
+    "HeadCustomizingCommand"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

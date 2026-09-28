@@ -1,0 +1,18 @@
+{
+  "decoded": "director/instanceraid/occupancyplayers/occupancyplayersbaseclass",
+  "ciphered": "61s57qvs/1wrq9w75s916/v77pu9w7luy9l5sr/v77pu9w7luy9l5sr89r57y9rr.lua",
+  "classes": [
+    "OccupancyPlayersBaseClass"
+  ],
+  "lineCount": 12,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineBaseClass": [
+      2
+    ],
+    "_onInit": [
+      12
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "decoded": "quest/scenario/mnk/mnk0j3",
+  "ciphered": "tp5rq/r75w9s1v/xwz/xwzj0g.lua",
+  "classes": [
+    "Mnk0j3"
+  ],
+  "lineCount": 546,
+  "apiCount": 4,
+  "callsiteCount": 25,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      69,
+      94,
+      110,
+      132,
+      154,
+      170,
+      186,
+      200,
+      215,
+      242,
+      258,
+      298,
+      329,
+      360,
+      376,
+      401
+    ],
+    "_wait": [
+      294,
+      302,
+      460,
+      477,
+      501,
+      511
+    ]
+  }
+}

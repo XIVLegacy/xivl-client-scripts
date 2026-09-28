@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/yak/yakstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/l9z/l9zrq9w69s6.lua",
+  "classes": [
+    "YakStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

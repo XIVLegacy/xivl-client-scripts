@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/moogle/moogledarkattacker",
+  "ciphered": "729s9/wu7/xvwrq5s/xvv3y5/xvv3y569sz9qq97z5s.lua",
+  "classes": [
+    "MoogleDarkAttacker"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

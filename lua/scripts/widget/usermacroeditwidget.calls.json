@@ -1,0 +1,39 @@
+{
+  "decoded": "widget/usermacroeditwidget",
+  "ciphered": "n1635q/pr5sx97sv561qn1635q.lua",
+  "classes": [
+    "UserMacroEditWidget"
+  ],
+  "lineCount": 826,
+  "apiCount": 8,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getUserMacroData": [
+      382
+    ],
+    "_getUserMacroIcon": [
+      152,
+      507,
+      662
+    ],
+    "_getUserMacroTitle": [
+      356,
+      554
+    ],
+    "_saveUserMacro": [
+      320
+    ],
+    "_setUserMacroData": [
+      453
+    ],
+    "_setUserMacroIcon": [
+      473
+    ],
+    "_setUserMacroTitle": [
+      434
+    ]
+  }
+}

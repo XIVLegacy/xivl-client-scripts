@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/elemental/fireelementalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/5y5x5wq9y/41s55y5x5wq9yrq9w69s6.lua",
+  "classes": [
+    "FireelementalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

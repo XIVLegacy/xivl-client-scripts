@@ -1,0 +1,21 @@
+{
+  "decoded": "command/system/placedrivencommand",
+  "ciphered": "7vxx9w6/rlrq5x/uy9756s1o5w7vxx9w6.lua",
+  "classes": [
+    "PlaceDrivenCommand"
+  ],
+  "lineCount": 159,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      150
+    ],
+    "_isTouching": [
+      122
+    ]
+  }
+}

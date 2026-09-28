@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterenemyarcscenarioarclv36",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s5w5xl9s7r75w9s1v9s7yogd.lua",
+  "classes": [
+    "FighterEnemyArcScenarioArcLv36"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

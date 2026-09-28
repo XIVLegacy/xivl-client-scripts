@@ -1,0 +1,15 @@
+{
+  "decoded": "status/cmncasterhatestatus",
+  "ciphered": "rq9qpr/7xw79rq5s29q5rq9qpr.lua",
+  "classes": [
+    "CmnCasterHateStatus"
+  ],
+  "lineCount": 41,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

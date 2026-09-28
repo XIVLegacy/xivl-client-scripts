@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/objectregionjump",
+  "ciphered": "729s9/wu7/v8057q/v8057qs531vw0pxu.lua",
+  "classes": [
+    "ObjectRegionJump"
+  ],
+  "lineCount": 23,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "widget/linkshellmenusubwidget",
+  "ciphered": "n1635q/y1wzr25yyx5wprp8n1635q.lua",
+  "classes": [
+    "LinkshellMenuSubWidget"
+  ],
+  "lineCount": 544,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      453
+    ],
+    "_getParentWidget": [
+      407
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "decoded": "widget/ask/treasurelistwidget",
+  "ciphered": "n1635q/9rz/qs59rps5y1rqn1635q.lua",
+  "classes": [
+    "TreasureListWidget"
+  ],
+  "lineCount": 327,
+  "apiCount": 7,
+  "callsiteCount": 8,
+  "apis": {
+    "_countStack": [
+      230
+    ],
+    "_createVirtualItem": [
+      207
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      221
+    ],
+    "_getMyPlayer": [
+      204
+    ],
+    "_getNameIndex": [
+      233,
+      252
+    ],
+    "_isStackable": [
+      227
+    ]
+  }
+}

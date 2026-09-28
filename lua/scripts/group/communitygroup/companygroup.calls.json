@@ -1,0 +1,99 @@
+{
+  "decoded": "group/communitygroup/companygroup",
+  "ciphered": "3svpu/7vxxpw1ql3svpu/7vxu9wl3svpu.lua",
+  "classes": [
+    "CompanyGroup"
+  ],
+  "lineCount": 515,
+  "apiCount": 18,
+  "callsiteCount": 51,
+  "apis": {
+    "_callSuperClassFunc": [
+      225,
+      249,
+      260,
+      285
+    ],
+    "_countMember": [
+      48,
+      406,
+      467
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getDisplayName": [
+      36,
+      403
+    ],
+    "_getMemberDisplayName": [
+      53,
+      438,
+      448,
+      474
+    ],
+    "_getProperty": [
+      104,
+      119,
+      210
+    ],
+    "_globalSave": [
+      14,
+      25,
+      94,
+      137,
+      168,
+      173,
+      178,
+      313,
+      317,
+      321,
+      325,
+      354,
+      358
+    ],
+    "_isAlive": [
+      396
+    ],
+    "_isExistInClientMember": [
+      424
+    ],
+    "_isExistInWorldMember": [
+      419
+    ],
+    "_isMember": [
+      429
+    ],
+    "_memberSave": [
+      101,
+      125,
+      191,
+      207,
+      499,
+      509
+    ],
+    "_onUpdateGroupInformation": [
+      250,
+      254
+    ],
+    "_onUpdateMember": [
+      261,
+      279
+    ],
+    "_onUpdateMemberInformation": [
+      226,
+      243
+    ],
+    "_onUpdateWork": [
+      286,
+      307
+    ],
+    "_string": [
+      63,
+      71
+    ],
+    "_updateMemberAndInformation": [
+      375
+    ]
+  }
+}

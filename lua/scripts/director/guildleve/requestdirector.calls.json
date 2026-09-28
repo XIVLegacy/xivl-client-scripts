@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/requestdirector",
+  "ciphered": "61s57qvs/3p1y6y5o5/s5tp5rq61s57qvs.lua",
+  "classes": [
+    "RequestDirector"
+  ],
+  "lineCount": 466,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

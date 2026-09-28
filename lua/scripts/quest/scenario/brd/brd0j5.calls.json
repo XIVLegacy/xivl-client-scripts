@@ -1,0 +1,49 @@
+{
+  "decoded": "quest/scenario/brd/brd0j5",
+  "ciphered": "tp5rq/r75w9s1v/8s6/8s6j0e.lua",
+  "classes": [
+    "Brd0j5"
+  ],
+  "lineCount": 376,
+  "apiCount": 4,
+  "callsiteCount": 29,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      39,
+      69,
+      95,
+      111,
+      140,
+      166,
+      201,
+      223,
+      231,
+      245,
+      253,
+      262,
+      289,
+      297,
+      335
+    ],
+    "_wait": [
+      35,
+      60,
+      73,
+      136,
+      144,
+      170,
+      227,
+      241,
+      249,
+      257,
+      293
+    ]
+  }
+}

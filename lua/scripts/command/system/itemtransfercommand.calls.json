@@ -1,0 +1,26 @@
+{
+  "decoded": "command/system/itemtransfercommand",
+  "ciphered": "7vxx9w6/rlrq5x/1q5xqs9wr45s7vxx9w6.lua",
+  "classes": [
+    "ItemTransferCommand"
+  ],
+  "lineCount": 73,
+  "apiCount": 4,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getPackage": [
+      63
+    ],
+    "_hasItemPackage": [
+      48
+    ],
+    "_isAlive": [
+      34,
+      41,
+      56
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterallymaraudermelod",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s9yylx9s9p65sx5yv6.lua",
+  "classes": [
+    "FighterAllyMarauderMelod"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

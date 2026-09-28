@@ -1,0 +1,27 @@
+{
+  "decoded": "quest/scenario/test/scealphaa",
+  "ciphered": "tp5rq/r75w9s1v/q5rq/r759yu299.lua",
+  "classes": [
+    "SceAlphaA"
+  ],
+  "lineCount": 804,
+  "apiCount": 2,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_wait": [
+      33,
+      52,
+      78,
+      91,
+      104,
+      117,
+      130,
+      324,
+      437,
+      456
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "quest/scenario/cul/cul200",
+  "ciphered": "tp5rq/r75w9s1v/7py/7pyhjj.lua",
+  "classes": [
+    "Cul200"
+  ],
+  "lineCount": 818,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      56
+    ]
+  }
+}

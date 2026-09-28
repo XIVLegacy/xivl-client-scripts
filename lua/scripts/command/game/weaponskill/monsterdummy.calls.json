@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/weaponskill/monsterdummy",
+  "ciphered": "7vxx9w6/39x5/n59uvwrz1yy/xvwrq5s6pxxl.lua",
+  "classes": [
+    "MonsterDummy"
+  ],
+  "lineCount": 151,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickbuffrecttriggerbox",
+  "ciphered": "729s9/wu7/31xx17z/31xx17z8p44s57qqs1335s8vm.lua",
+  "classes": [
+    "GimmickBuffRectTriggerBox"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

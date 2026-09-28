@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterpopulacetest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5suvupy975q5rq.lua",
+  "classes": [
+    "ZoneMasterPopulaceTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

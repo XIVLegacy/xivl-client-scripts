@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/bloodluststatus",
+  "ciphered": "rq9qpr/981y1ql/8yvv6yprqrq9qpr.lua",
+  "classes": [
+    "BloodLustStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

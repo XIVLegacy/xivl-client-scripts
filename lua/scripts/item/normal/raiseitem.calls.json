@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/raiseitem",
+  "ciphered": "1q5x/wvsx9y/s91r51q5x.lua",
+  "classes": [
+    "RaiseItem"
+  ],
+  "lineCount": 47,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

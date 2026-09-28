@@ -1,0 +1,76 @@
+{
+  "decoded": "widget/widgetbaseclass",
+  "ciphered": "n1635q/n1635q89r57y9rr.lua",
+  "classes": [
+    "WidgetBaseClass"
+  ],
+  "lineCount": 421,
+  "apiCount": 18,
+  "callsiteCount": 28,
+  "apis": {
+    "_assignForChild": [
+      17,
+      31,
+      85,
+      107
+    ],
+    "_callSuperClassFunc": [
+      11,
+      45,
+      207
+    ],
+    "_isAlive": [
+      136
+    ],
+    "_isInstanceOf": [
+      23,
+      98,
+      210
+    ],
+    "_loadForm": [
+      197
+    ],
+    "_loadKeyTemporarily": [
+      264
+    ],
+    "_loadMultiKeyAsync": [
+      363
+    ],
+    "_onFinalize": [
+      208,
+      231
+    ],
+    "_onHoverHelp": [
+      316
+    ],
+    "_onInit": [
+      12,
+      46,
+      170
+    ],
+    "_onLoadMultiKeyAsync": [
+      389
+    ],
+    "_onLoop": [
+      421
+    ],
+    "_onTimer": [
+      408
+    ],
+    "_onUICommandEvent": [
+      285
+    ],
+    "_onUICommandRequest": [
+      310
+    ],
+    "_setFilename": [
+      193
+    ],
+    "_setLoopInterval": [
+      39
+    ],
+    "_setParentWidget": [
+      142
+    ]
+  }
+}

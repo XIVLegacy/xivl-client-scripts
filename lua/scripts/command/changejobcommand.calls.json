@@ -1,0 +1,15 @@
+{
+  "decoded": "command/changejobcommand",
+  "ciphered": "7vxx9w6/729w350v87vxx9w6.lua",
+  "classes": [
+    "ChangeJobCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

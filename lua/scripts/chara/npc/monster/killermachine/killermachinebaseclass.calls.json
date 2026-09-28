@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/killermachine/killermachinebaseclass",
+  "ciphered": "729s9/wu7/xvwrq5s/z1yy5sx9721w5/z1yy5sx9721w589r57y9rr.lua",
+  "classes": [
+    "KillermachineBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

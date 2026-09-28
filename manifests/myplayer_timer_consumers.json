@@ -1,0 +1,508 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "corpus": {
+    "manifest": "manifests/scripts.json",
+    "manifestSha256": "86798306f71336ee494f12d395db3b8ea571a21224fbd99e2ef87ecd18c61300",
+    "registry": "lua/registry.json",
+    "registrySha256": "957060c79fcce34f90b1840251c889ef8ee354f8380000518b1feb96f65dd78f",
+    "napiIndex": "lua/napi_index.json",
+    "napiIndexSha256": "8167f5f9fbc9cc8938334bc5502cbec7ab89311843c95dee34aa811b0afcd4b9",
+    "scriptCount": 2671
+  },
+  "nativeMapping": {
+    "source": "xivl-decomp:config/s2c_0193_native_state.json",
+    "occupancySubopcodes": "0x00..0x0f",
+    "occupancyInputTransform": "subtract one before indexing",
+    "normalBehestSubopcode": "0x10",
+    "companyBehestSubopcode": "0x11",
+    "warpRecastSubopcode": "0x12",
+    "nmRushSubopcode": "0x16"
+  },
+  "summary": {
+    "directCallsiteCount": 22,
+    "directCallsitesByCallback": {
+      "_getCompanyBehestTime": 1,
+      "_getNMRushUpdateTime": 2,
+      "_getNormalBehestTime": 1,
+      "_getOccupancyContentsTime": 17,
+      "_getWarpRecastTime": 1
+    },
+    "receiverDeclarationCount": 5,
+    "occupancyProvenArgumentCount": 16
+  },
+  "directCallsites": [
+    {
+      "script": "lua/scripts/chara/player/playerbaseclass.lua",
+      "line": 2819,
+      "callback": "_getWarpRecastTime",
+      "caller": "PlayerBaseClass.getWarpRecastTime",
+      "luaArityIncludingSelf": 1,
+      "argument": null,
+      "use": "subtract server time and clamp the result to a minimum of zero"
+    },
+    {
+      "script": "lua/scripts/widget/desktopwidget_connector.lua",
+      "line": 24952,
+      "callback": "_getNMRushUpdateTime",
+      "caller": "DesktopWidget.isNMRushEnable",
+      "luaArityIncludingSelf": 1,
+      "argument": null,
+      "use": "return whether the value is greater than zero"
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 579,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeGuildleveList",
+      "luaArityIncludingSelf": 2,
+      "argument": 1,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 0
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 599,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeGuildleveList",
+      "luaArityIncludingSelf": 2,
+      "argument": 2,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 1
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 619,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeGuildleveList",
+      "luaArityIncludingSelf": 2,
+      "argument": 6,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 5
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 639,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeGuildleveList",
+      "luaArityIncludingSelf": 2,
+      "argument": 7,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 6
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 659,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeGuildleveList",
+      "luaArityIncludingSelf": 2,
+      "argument": 13,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 12
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 701,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 4,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 3
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 726,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 3,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 2
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 746,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 14,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 13
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 761,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 5,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 4
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 781,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 12,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 11
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 801,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 11,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 10
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 819,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 15,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 14
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 842,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeRaidList",
+      "luaArityIncludingSelf": 2,
+      "argument": 16,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 15
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 918,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeBanzokuList",
+      "luaArityIncludingSelf": 2,
+      "argument": 8,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 7
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 932,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeBanzokuList",
+      "luaArityIncludingSelf": 2,
+      "argument": 9,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 8
+    },
+    {
+      "script": "lua/scripts/widget/pcmatchingeditwidget.lua",
+      "line": 946,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "PcMatchingEditWidget.makeBanzokuList",
+      "luaArityIncludingSelf": 2,
+      "argument": 10,
+      "use": "include the matching selection row only when the value is greater than zero",
+      "nativeVectorIndex": 9
+    },
+    {
+      "script": "lua/scripts/widget/statuswidget.lua",
+      "line": 3400,
+      "callback": "_getNormalBehestTime",
+      "caller": "StatusWidget.setContentsListItem",
+      "luaArityIncludingSelf": 1,
+      "argument": null,
+      "use": "treat as an endpoint for the contents-list countdown"
+    },
+    {
+      "script": "lua/scripts/widget/statuswidget.lua",
+      "line": 3408,
+      "callback": "_getCompanyBehestTime",
+      "caller": "StatusWidget.setContentsListItem",
+      "luaArityIncludingSelf": 1,
+      "argument": null,
+      "use": "treat as an endpoint for the contents-list countdown"
+    },
+    {
+      "script": "lua/scripts/widget/statuswidget.lua",
+      "line": 3416,
+      "callback": "_getNMRushUpdateTime",
+      "caller": "StatusWidget.setContentsListItem",
+      "luaArityIncludingSelf": 1,
+      "argument": null,
+      "use": "treat as an endpoint for the contents-list countdown"
+    },
+    {
+      "script": "lua/scripts/widget/statuswidget.lua",
+      "line": 3424,
+      "callback": "_getOccupancyContentsTime",
+      "caller": "StatusWidget.setContentsListItem",
+      "luaArityIncludingSelf": 2,
+      "argument": "parameter",
+      "use": "treat as an endpoint for the contents-list countdown",
+      "deterministicArguments": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ]
+    }
+  ],
+  "receiverDeclarations": [
+    {
+      "callback": "_getOccupancyContentsTime",
+      "receiverClass": "PlayerBaseClass",
+      "script": "lua/scripts/chara/player/playerbaseclass_u.lua",
+      "line": 547,
+      "cppName": "_getOccupancyContentsTime_cpp"
+    },
+    {
+      "callback": "_getNormalBehestTime",
+      "receiverClass": "PlayerBaseClass",
+      "script": "lua/scripts/chara/player/playerbaseclass_u.lua",
+      "line": 557,
+      "cppName": "_getNormalBehestTime_cpp"
+    },
+    {
+      "callback": "_getCompanyBehestTime",
+      "receiverClass": "PlayerBaseClass",
+      "script": "lua/scripts/chara/player/playerbaseclass_u.lua",
+      "line": 567,
+      "cppName": "_getCompanyBehestTime_cpp"
+    },
+    {
+      "callback": "_getWarpRecastTime",
+      "receiverClass": "PlayerBaseClass",
+      "script": "lua/scripts/chara/player/playerbaseclass_u.lua",
+      "line": 107,
+      "cppName": "_getWarpRecastTime_cpp"
+    },
+    {
+      "callback": "_getNMRushUpdateTime",
+      "receiverClass": "PlayerBaseClass",
+      "script": "lua/scripts/chara/player/playerbaseclass_u.lua",
+      "line": 937,
+      "cppName": "_getNMRushUpdateTime_cpp"
+    }
+  ],
+  "occupancyArgumentMap": [
+    {
+      "luaArgument": 1,
+      "nativeVectorIndex": 0,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeGuildleveList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Thousand Maws of Toto-Rak"
+    },
+    {
+      "luaArgument": 2,
+      "nativeVectorIndex": 1,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeGuildleveList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Dzemael Darkhold"
+    },
+    {
+      "luaArgument": 3,
+      "nativeVectorIndex": 2,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Bowl of Embers (Hard)"
+    },
+    {
+      "luaArgument": 4,
+      "nativeVectorIndex": 3,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Bowl of Embers"
+    },
+    {
+      "luaArgument": 5,
+      "nativeVectorIndex": 4,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Thornmarch"
+    },
+    {
+      "luaArgument": 6,
+      "nativeVectorIndex": 5,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeGuildleveList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Aurum Vale"
+    },
+    {
+      "luaArgument": 7,
+      "nativeVectorIndex": 6,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeGuildleveList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Cutter's Cry"
+    },
+    {
+      "luaArgument": 8,
+      "nativeVectorIndex": 7,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeBanzokuList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Battle for Aleport",
+      "statusTransformation": "Hamlet slot 2; before that defense window begins, replace a positive endpoint with getHamletDefenceBeginTime and use Hamlet defense available in"
+    },
+    {
+      "luaArgument": 9,
+      "nativeVectorIndex": 8,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeBanzokuList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Battle for Hyrstmill",
+      "statusTransformation": "Hamlet slot 1; before that defense window begins, replace a positive endpoint with getHamletDefenceBeginTime and use Hamlet defense available in"
+    },
+    {
+      "luaArgument": 10,
+      "nativeVectorIndex": 9,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeBanzokuList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Battle for the Golden Bazaar",
+      "statusTransformation": "Hamlet slot 3; before that defense window begins, replace a positive endpoint with getHamletDefenceBeginTime and use Hamlet defense available in"
+    },
+    {
+      "luaArgument": 11,
+      "nativeVectorIndex": 10,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Howling Eye (Hard)"
+    },
+    {
+      "luaArgument": 12,
+      "nativeVectorIndex": 11,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Howling Eye"
+    },
+    {
+      "luaArgument": 13,
+      "nativeVectorIndex": 12,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeGuildleveList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Castrum Novum Transmission Tower"
+    },
+    {
+      "luaArgument": 14,
+      "nativeVectorIndex": 13,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "the Bowl of Embers (Extreme)"
+    },
+    {
+      "luaArgument": 15,
+      "nativeVectorIndex": 14,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Rivenroad"
+    },
+    {
+      "luaArgument": 16,
+      "nativeVectorIndex": 15,
+      "callerContexts": [
+        "PcMatchingEditWidget.makeRaidList",
+        "StatusWidget.setContentsListItem"
+      ],
+      "statusTitleEnglish": "Rivenroad (Hard)"
+    }
+  ],
+  "vocabularySources": [
+    "xivl-client-data:csv/xtx_raidDungeon.csv",
+    "xivl-client-data:csv/xtx__text_ui.csv"
+  ],
+  "scalarConsumerChains": [
+    {
+      "callback": "_getNormalBehestTime",
+      "consumers": [
+        "StatusWidget.setContentsListItem"
+      ],
+      "presentation": "Behests; Available in; Available"
+    },
+    {
+      "callback": "_getCompanyBehestTime",
+      "consumers": [
+        "StatusWidget.setContentsListItem"
+      ],
+      "presentation": "Company Behests; Available in; Available"
+    },
+    {
+      "callback": "_getWarpRecastTime",
+      "consumers": [
+        "PlayerBaseClass.getWarpRecastTime",
+        "MainMenuWidget.getButtonMask",
+        "MainMenuWidget.setDezionTimer",
+        "TeleportCommand.canFire"
+      ],
+      "presentation": "Return; MainMenu item 15 timer properties"
+    },
+    {
+      "callback": "_getNMRushUpdateTime",
+      "consumers": [
+        "DesktopWidget.isNMRushEnable",
+        "StatusWidget.setContentsListItem"
+      ],
+      "presentation": "Skirmish; Available in; Available"
+    }
+  ],
+  "exactReferenceAccounting": {
+    "directCalls": 22,
+    "receiverDeclarations": 5,
+    "registryInlineMetadata": 5,
+    "otherExactStringOrResourceReferences": 0
+  },
+  "unresolved": [
+    "The occupancy call is syntactically dynamic in StatusWidget.setContentsListItem, but all 20 corpus callers pass fixed values: -1 through -4 select other callbacks and 1 through 16 select occupancy entries.",
+    "No corpus call passes occupancy argument zero, a negative value, or a value above 16; behavior for such an invocation is not established."
+  ],
+  "rejectedInterpretations": [
+    "The report does not infer timer units from the native storage.",
+    "The report does not treat UI titles as packet or server field names.",
+    "The report does not establish authoritative eligibility, setup or teardown behavior, or server policy."
+  ]
+}

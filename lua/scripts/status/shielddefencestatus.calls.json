@@ -1,0 +1,15 @@
+{
+  "decoded": "status/shielddefencestatus",
+  "ciphered": "rq9qpr/r215y66545w75rq9qpr.lua",
+  "classes": [
+    "ShieldDefenceStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "group/relationgroup/retainermeetingrelationgroup",
+  "ciphered": "3svpu/s5y9q1vw3svpu/s5q91w5sx55q1w3s5y9q1vw3svpu.lua",
+  "classes": [
+    "RetainerMeetingRelationGroup"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

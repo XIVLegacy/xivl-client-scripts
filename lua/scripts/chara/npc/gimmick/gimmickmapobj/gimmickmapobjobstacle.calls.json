@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickmapobj/gimmickmapobjobstacle",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zx9uv80/31xx17zx9uv80v8rq97y5.lua",
+  "classes": [
+    "GimmickMapObjObstacle"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

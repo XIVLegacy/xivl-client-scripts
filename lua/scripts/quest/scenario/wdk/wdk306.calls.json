@@ -1,0 +1,21 @@
+{
+  "decoded": "quest/scenario/wdk/wdk306",
+  "ciphered": "tp5rq/r75w9s1v/n6z/n6zgjd.lua",
+  "classes": [
+    "Wdk306"
+  ],
+  "lineCount": 1349,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_wait": [
+      75
+    ]
+  }
+}

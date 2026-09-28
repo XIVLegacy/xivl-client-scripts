@@ -1,0 +1,21 @@
+{
+  "decoded": "actorbaseclass_u",
+  "ciphered": "97qvs89r57y9rr_p.lua",
+  "classes": [
+    "ActorBaseClass"
+  ],
+  "lineCount": 110,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_callSuperClassFunc_inl": [
+      21
+    ],
+    "_callSuperClassFunction_cpp": [
+      17
+    ],
+    "_isAlive": [
+      70
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lizardman/lizardmanlncpublicfortguard01",
+  "ciphered": "729s9/wu7/xvwrq5s/y1k9s6x9w/y1k9s6x9wyw7up8y174vsq3p9s6ji.lua",
+  "classes": [
+    "LizardmanLncPublicFortGuard01"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

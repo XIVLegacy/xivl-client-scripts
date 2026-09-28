@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/hrv/hrv300",
+  "ciphered": "tp5rq/r75w9s1v/2so/2sogjj.lua",
+  "classes": [
+    "Hrv300"
+  ],
+  "lineCount": 908,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

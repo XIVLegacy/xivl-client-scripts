@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/confignameplatecolorwidget",
+  "ciphered": "n1635q/7vw413w9x5uy9q57vyvsn1635q.lua",
+  "classes": [
+    "ConfigNamePlateColorWidget"
+  ],
+  "lineCount": 119,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      93
+    ]
+  }
+}

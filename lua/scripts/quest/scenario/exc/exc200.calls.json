@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/exc/exc200",
+  "ciphered": "tp5rq/r75w9s1v/5m7/5m7hjj.lua",
+  "classes": [
+    "Exc200"
+  ],
+  "lineCount": 800,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

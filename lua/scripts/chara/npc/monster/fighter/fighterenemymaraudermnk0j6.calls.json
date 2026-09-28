@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/fighter/fighterenemymaraudermnk0j6",
+  "ciphered": "729s9/wu7/xvwrq5s/4132q5s/4132q5s5w5xlx9s9p65sxwzj0d.lua",
+  "classes": [
+    "FighterEnemyMarauderMnk0j6"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

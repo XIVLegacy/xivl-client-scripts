@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/banishstatus",
+  "ciphered": "rq9qpr/x9317/89w1r2rq9qpr.lua",
+  "classes": [
+    "BanishStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

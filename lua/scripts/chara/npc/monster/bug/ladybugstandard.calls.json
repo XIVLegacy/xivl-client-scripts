@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/bug/ladybugstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/8p3/y96l8p3rq9w69s6.lua",
+  "classes": [
+    "LadybugStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

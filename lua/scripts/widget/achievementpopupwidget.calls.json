@@ -1,0 +1,27 @@
+{
+  "decoded": "widget/achievementpopupwidget",
+  "ciphered": "n1635q/97215o5x5wquvupun1635q.lua",
+  "classes": [
+    "AchievementPopupWidget"
+  ],
+  "lineCount": 263,
+  "apiCount": 4,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      74,
+      97,
+      156,
+      161
+    ],
+    "_getMyPlayer": [
+      71
+    ],
+    "_math": [
+      102
+    ]
+  }
+}

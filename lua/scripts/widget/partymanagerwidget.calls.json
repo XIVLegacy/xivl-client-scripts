@@ -1,0 +1,45 @@
+{
+  "decoded": "widget/partymanagerwidget",
+  "ciphered": "n1635q/u9sqlx9w935sn1635q.lua",
+  "classes": [
+    "PartyManagerWidget"
+  ],
+  "lineCount": 810,
+  "apiCount": 7,
+  "callsiteCount": 19,
+  "apis": {
+    "_countMember": [
+      245
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      236
+    ],
+    "_getParentWidget": [
+      799
+    ],
+    "_setProperty": [
+      429,
+      443,
+      465,
+      478,
+      488,
+      498,
+      522,
+      529,
+      598,
+      606
+    ],
+    "_setUICommandCondition": [
+      14,
+      20,
+      26,
+      32
+    ],
+    "_setUICommandTemplateCondition": [
+      38
+    ]
+  }
+}

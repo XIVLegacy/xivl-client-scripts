@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/potioncommand",
+  "ciphered": "7vxx9w6/39x5/uvq1vw7vxx9w6.lua",
+  "classes": [
+    "PotionCommand"
+  ],
+  "lineCount": 57,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

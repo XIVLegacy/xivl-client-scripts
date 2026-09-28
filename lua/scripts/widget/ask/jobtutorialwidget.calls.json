@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/jobtutorialwidget",
+  "ciphered": "n1635q/9rz/0v8qpqvs19yn1635q.lua",
+  "classes": [
+    "JobTutorialWidget"
+  ],
+  "lineCount": 66,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

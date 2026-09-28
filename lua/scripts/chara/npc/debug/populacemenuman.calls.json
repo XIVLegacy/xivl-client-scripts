@@ -1,0 +1,88 @@
+{
+  "decoded": "chara/npc/debug/populacemenuman",
+  "ciphered": "729s9/wu7/658p3/uvupy975x5wpx9w.lua",
+  "classes": [
+    "PopulaceMenuMan"
+  ],
+  "lineCount": 1074,
+  "apiCount": 9,
+  "callsiteCount": 58,
+  "apis": {
+    "_commandDebug": [
+      790
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCurrentAreaMaster": [
+      251,
+      637
+    ],
+    "_isInstanceOf": [
+      249,
+      635
+    ],
+    "_printLog": [
+      35,
+      52,
+      82,
+      90,
+      107,
+      129,
+      172,
+      193,
+      209,
+      243,
+      282,
+      299,
+      329,
+      381,
+      388,
+      407,
+      414,
+      428,
+      433,
+      440,
+      458,
+      471,
+      483,
+      488,
+      497,
+      512,
+      527,
+      546,
+      555,
+      576,
+      591,
+      598,
+      1015
+    ],
+    "_runCharaSchedulerAgainstTarget": [
+      475,
+      501,
+      516,
+      531,
+      559,
+      565,
+      580
+    ],
+    "_setWeather": [
+      710,
+      719
+    ],
+    "_wait": [
+      492,
+      541,
+      550,
+      737,
+      749
+    ],
+    "_waitForCharaSchedulerFinished": [
+      507,
+      522,
+      537,
+      571,
+      586
+    ]
+  }
+}

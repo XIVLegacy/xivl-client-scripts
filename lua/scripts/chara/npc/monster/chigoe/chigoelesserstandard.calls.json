@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/chigoe/chigoelesserstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/7213v5/7213v5y5rr5srq9w69s6.lua",
+  "classes": [
+    "ChigoeLesserStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "decoded": "widget/retainerpaymentwidget",
+  "ciphered": "n1635q/s5q91w5su9lx5wqn1635q.lua",
+  "classes": [
+    "RetainerPaymentWidget"
+  ],
+  "lineCount": 251,
+  "apiCount": 3,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      31,
+      139,
+      210,
+      224,
+      232,
+      239
+    ],
+    "_setUICommandCondition": [
+      38,
+      64,
+      70,
+      76,
+      82,
+      88
+    ]
+  }
+}

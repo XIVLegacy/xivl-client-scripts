@@ -1,0 +1,45 @@
+{
+  "decoded": "command/system/logineventcommand",
+  "ciphered": "7vxx9w6/rlrq5x/yv31w5o5wq7vxx9w6.lua",
+  "classes": [
+    "LoginEventCommand"
+  ],
+  "lineCount": 203,
+  "apiCount": 10,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      44,
+      113,
+      120
+    ],
+    "_fadeIn": [
+      131
+    ],
+    "_fadeInAfterWarp": [
+      47,
+      125
+    ],
+    "_getQuestActorForCutSceneReplay": [
+      97
+    ],
+    "_isAlive": [
+      116
+    ],
+    "_lockPlayerControl": [
+      140
+    ],
+    "_runCharaScheduler": [
+      176
+    ],
+    "_unlockPlayerControl": [
+      192
+    ],
+    "_wait": [
+      180
+    ]
+  }
+}

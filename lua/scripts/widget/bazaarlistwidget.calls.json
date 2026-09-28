@@ -1,0 +1,109 @@
+{
+  "decoded": "widget/bazaarlistwidget",
+  "ciphered": "n1635q/89k99sy1rqn1635q.lua",
+  "classes": [
+    "BazaarListWidget"
+  ],
+  "lineCount": 5845,
+  "apiCount": 15,
+  "callsiteCount": 67,
+  "apis": {
+    "_countStack": [
+      1500,
+      2289,
+      2356,
+      2590,
+      2719,
+      2722
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1488,
+      2285,
+      2352,
+      2681,
+      2684
+    ],
+    "_getEquippingItem": [
+      3953,
+      3960,
+      3967,
+      3974
+    ],
+    "_getItem": [
+      1109,
+      1148,
+      2243,
+      2280,
+      2398,
+      2664,
+      3872
+    ],
+    "_getItemPackageCapacity": [
+      483,
+      489,
+      2249,
+      2605,
+      2611,
+      4904
+    ],
+    "_getItemPackageFreeSpace": [
+      1086,
+      4908
+    ],
+    "_getKeyboardFocusedWidget": [
+      1054
+    ],
+    "_getMyPlayer": [
+      435,
+      1072,
+      1106,
+      1145,
+      1463,
+      2240,
+      2389,
+      2594,
+      2601,
+      2661,
+      3867,
+      4083,
+      4365,
+      4483,
+      4871,
+      5068,
+      5449
+    ],
+    "_getNameIndex": [
+      1504,
+      2692,
+      2695
+    ],
+    "_getProperty": [
+      5724
+    ],
+    "_isAlive": [
+      1478,
+      1729,
+      2670,
+      3888,
+      3984,
+      4160,
+      4394,
+      4462,
+      4495,
+      5160
+    ],
+    "_isEquipping": [
+      2711,
+      3243
+    ],
+    "_isStackable": [
+      1496
+    ],
+    "_setProperty": [
+      2458
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "decoded": "chara/npc/object/objectship",
+  "ciphered": "729s9/wu7/v8057q/v8057qr21u.lua",
+  "classes": [
+    "ObjectShip"
+  ],
+  "lineCount": 53,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runCharaScheduler": [
+      31,
+      40
+    ]
+  }
+}

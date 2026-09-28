@@ -1,0 +1,24 @@
+{
+  "decoded": "quest/scenario/gld/gld300",
+  "ciphered": "tp5rq/r75w9s1v/3y6/3y6gjj.lua",
+  "classes": [
+    "Gld300"
+  ],
+  "lineCount": 955,
+  "apiCount": 3,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      222,
+      285,
+      328,
+      446
+    ]
+  }
+}

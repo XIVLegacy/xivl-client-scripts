@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/cmnremovestatusmagic",
+  "ciphered": "7vxx9w6/39x5/x9317/7xws5xvo5rq9qprx9317.lua",
+  "classes": [
+    "CmnRemoveStatusMagic"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

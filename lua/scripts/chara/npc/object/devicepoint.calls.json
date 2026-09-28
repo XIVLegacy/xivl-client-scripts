@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/devicepoint",
+  "ciphered": "729s9/wu7/v8057q/65o175uv1wq.lua",
+  "classes": [
+    "DevicePoint"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

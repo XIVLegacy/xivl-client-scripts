@@ -1,0 +1,98 @@
+{
+  "decoded": "widget/ask/materiaremovewidget",
+  "ciphered": "n1635q/9rz/x9q5s19s5xvo5n1635q.lua",
+  "classes": [
+    "MateriaRemoveWidget"
+  ],
+  "lineCount": 3645,
+  "apiCount": 13,
+  "callsiteCount": 60,
+  "apis": {
+    "_countStack": [
+      1258,
+      1939
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      564,
+      1246,
+      1935
+    ],
+    "_getEquippingItem": [
+      2490,
+      2497,
+      2504,
+      2511
+    ],
+    "_getItem": [
+      555,
+      934,
+      973,
+      1235,
+      1362,
+      1893,
+      1930,
+      1979,
+      2095,
+      2211,
+      2440,
+      3269,
+      3368,
+      3539
+    ],
+    "_getItemPackageCapacity": [
+      542,
+      907,
+      1416,
+      1899,
+      2012,
+      2138,
+      3398,
+      3499
+    ],
+    "_getItemPackageFreeSpace": [
+      911,
+      1420,
+      2016,
+      3402,
+      3503
+    ],
+    "_getKeyboardFocusedWidget": [
+      877
+    ],
+    "_getMyPlayer": [
+      530,
+      895,
+      931,
+      970,
+      1229,
+      1359,
+      1413,
+      1890,
+      1970,
+      1999,
+      2135,
+      2437,
+      3266,
+      3345,
+      3395,
+      3496,
+      3536
+    ],
+    "_getNameIndex": [
+      1262
+    ],
+    "_getProperty": [
+      3303,
+      3361
+    ],
+    "_isStackable": [
+      1254
+    ],
+    "_setTextProperty": [
+      448
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "decoded": "director/quest/questdirectorbaseclass",
+  "ciphered": "61s57qvs/tp5rq/tp5rq61s57qvs89r57y9rr.lua",
+  "classes": [
+    "QuestDirectorBaseClass"
+  ],
+  "lineCount": 85,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_assignForChild": [
+      16,
+      25
+    ],
+    "_defineBaseClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      55
+    ]
+  }
+}

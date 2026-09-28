@@ -1,0 +1,15 @@
+{
+  "decoded": "judge/gamecalculate/gamecalculatejudge",
+  "ciphered": "0p635/39x579y7py9q5/39x579y7py9q50p635.lua",
+  "classes": [
+    "GameCalculateJudge"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

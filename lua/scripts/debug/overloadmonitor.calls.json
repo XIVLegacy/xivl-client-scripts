@@ -1,0 +1,42 @@
+{
+  "decoded": "debug/overloadmonitor",
+  "ciphered": "658p3/vo5syv96xvw1qvs.lua",
+  "classes": [
+    "OverloadMonitor"
+  ],
+  "lineCount": 339,
+  "apiCount": 7,
+  "callsiteCount": 16,
+  "apis": {
+    "_callSuperClassFunc": [
+      14,
+      92
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getAllCharacter": [
+      101,
+      152,
+      158
+    ],
+    "_getLowResolutionTime": [
+      64,
+      70,
+      114,
+      146
+    ],
+    "_onInit": [
+      15,
+      86
+    ],
+    "_onLoop": [
+      93,
+      139
+    ],
+    "_string": [
+      182,
+      301
+    ]
+  }
+}

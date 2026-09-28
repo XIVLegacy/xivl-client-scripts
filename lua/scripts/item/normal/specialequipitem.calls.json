@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/specialequipitem",
+  "ciphered": "1q5x/wvsx9y/ru5719y5tp1u1q5x.lua",
+  "classes": [
+    "SpecialEquipItem"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

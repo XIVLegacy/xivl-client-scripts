@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/timerarrowstatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/q1x5s9ssvnrq9qpr.lua",
+  "classes": [
+    "TimerArrowStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

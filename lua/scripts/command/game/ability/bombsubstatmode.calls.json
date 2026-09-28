@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/bombsubstatmode",
+  "ciphered": "7vxx9w6/39x5/981y1ql/8vx8rp8rq9qxv65.lua",
+  "classes": [
+    "BombSubStatMode"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

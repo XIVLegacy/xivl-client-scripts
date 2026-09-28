@@ -1,0 +1,19 @@
+{
+  "decoded": "global_u",
+  "ciphered": "3yv89y_p.lua",
+  "classes": [],
+  "lineCount": 273,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass_cpp": [
+      7
+    ],
+    "_defineClass_inl": [
+      11
+    ],
+    "_progFunc": [
+      268
+    ]
+  }
+}

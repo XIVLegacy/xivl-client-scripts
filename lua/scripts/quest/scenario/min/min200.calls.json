@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/min/min200",
+  "ciphered": "tp5rq/r75w9s1v/x1w/x1whjj.lua",
+  "classes": [
+    "Min200"
+  ],
+  "lineCount": 786,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

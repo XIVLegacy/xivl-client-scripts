@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/flan/flanlesserstandardjobarm2",
+  "ciphered": "729s9/wu7/xvwrq5s/4y9w/4y9wy5rr5srq9w69s60v89sxh.lua",
+  "classes": [
+    "FlanLesserStandardJobArm2"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "decoded": "quest/scenario/sum/sum6a0",
+  "ciphered": "tp5rq/r75w9s1v/rpx/rpxd9j.lua",
+  "classes": [
+    "Sum6a0"
+  ],
+  "lineCount": 610,
+  "apiCount": 4,
+  "callsiteCount": 29,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      41,
+      57,
+      73,
+      95,
+      111,
+      121,
+      137,
+      191,
+      208,
+      235,
+      251,
+      267,
+      309,
+      326,
+      353,
+      370,
+      394,
+      405,
+      428,
+      454,
+      471,
+      482,
+      504,
+      530,
+      567
+    ],
+    "_wait": [
+      385
+    ]
+  }
+}

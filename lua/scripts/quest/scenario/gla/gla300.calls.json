@@ -1,0 +1,21 @@
+{
+  "decoded": "quest/scenario/gla/gla300",
+  "ciphered": "tp5rq/r75w9s1v/3y9/3y9gjj.lua",
+  "classes": [
+    "Gla300"
+  ],
+  "lineCount": 1350,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_wait": [
+      272
+    ]
+  }
+}

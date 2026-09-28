@@ -1,0 +1,15 @@
+{
+  "decoded": "status/cmntemporarydefencestatus",
+  "ciphered": "rq9qpr/7xwq5xuvs9sl6545w75rq9qpr.lua",
+  "classes": [
+    "CmnTemporaryDefenceStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

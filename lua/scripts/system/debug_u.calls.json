@@ -1,0 +1,15 @@
+{
+  "decoded": "system/debug_u",
+  "ciphered": "rlrq5x/658p3_p.lua",
+  "classes": [
+    "Debug"
+  ],
+  "lineCount": 83,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_getInstanceName": [
+      13
+    ]
+  }
+}

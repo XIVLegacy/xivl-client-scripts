@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/wolf/wolfwolfnm",
+  "ciphered": "729s9/wu7/xvwrq5s/nvy4/nvy4nvy4wx.lua",
+  "classes": [
+    "WolfWolfNM"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "decoded": "widget/playerprofilewidget",
+  "ciphered": "n1635q/uy9l5susv41y5n1635q.lua",
+  "classes": [
+    "PlayerProfileWidget"
+  ],
+  "lineCount": 376,
+  "apiCount": 3,
+  "callsiteCount": 16,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      88
+    ],
+    "_setProperty": [
+      210,
+      217,
+      224,
+      231,
+      249,
+      256,
+      276,
+      283,
+      291,
+      298,
+      326,
+      333,
+      340,
+      347
+    ]
+  }
+}

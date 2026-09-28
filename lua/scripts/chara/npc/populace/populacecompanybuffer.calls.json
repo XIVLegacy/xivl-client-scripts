@@ -1,0 +1,43 @@
+{
+  "decoded": "chara/npc/populace/populacecompanybuffer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9757vxu9wl8p445s.lua",
+  "classes": [
+    "PopulaceCompanyBuffer"
+  ],
+  "lineCount": 313,
+  "apiCount": 7,
+  "callsiteCount": 17,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      76
+    ],
+    "_getGrandCompanyRank": [
+      88,
+      100
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      121,
+      145,
+      200,
+      212,
+      224,
+      269,
+      284,
+      292
+    ],
+    "_setGroundOn": [
+      62
+    ],
+    "_wait": [
+      157,
+      273,
+      288
+    ]
+  }
+}

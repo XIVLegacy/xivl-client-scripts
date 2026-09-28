@@ -1,0 +1,15 @@
+{
+  "decoded": "status/cmndotstatus",
+  "ciphered": "rq9qpr/7xw6vqrq9qpr.lua",
+  "classes": [
+    "CmnDoTStatus"
+  ],
+  "lineCount": 61,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

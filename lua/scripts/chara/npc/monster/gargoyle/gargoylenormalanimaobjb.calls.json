@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/gargoyle/gargoylenormalanimaobjb",
+  "ciphered": "729s9/wu7/xvwrq5s/39s3vly5/39s3vly5wvsx9y9w1x9v808.lua",
+  "classes": [
+    "GargoyleNormalAnimaobjB"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

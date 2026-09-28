@@ -1,0 +1,26 @@
+{
+  "decoded": "widget/raiddungeonexecutionwidget",
+  "ciphered": "n1635q/s9166pw35vw5m57pq1vwn1635q.lua",
+  "classes": [
+    "RaidDungeonExecutionWidget"
+  ],
+  "lineCount": 92,
+  "apiCount": 3,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      43
+    ],
+    "_setProperty": [
+      49,
+      56,
+      63,
+      70,
+      77,
+      84
+    ]
+  }
+}

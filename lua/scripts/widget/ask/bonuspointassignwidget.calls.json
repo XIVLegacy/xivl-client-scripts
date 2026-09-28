@@ -1,0 +1,26 @@
+{
+  "decoded": "widget/ask/bonuspointassignwidget",
+  "ciphered": "n1635q/9rz/8vwpruv1wq9rr13wn1635q.lua",
+  "classes": [
+    "BonusPointAssignWidget"
+  ],
+  "lineCount": 1611,
+  "apiCount": 4,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      1471
+    ],
+    "_getMyPlayer": [
+      495,
+      566
+    ],
+    "_setProperty": [
+      1173,
+      1232
+    ]
+  }
+}

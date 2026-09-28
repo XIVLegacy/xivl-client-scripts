@@ -1,0 +1,63 @@
+{
+  "decoded": "widget/mapnavigationwidget",
+  "ciphered": "n1635q/x9uw9o139q1vwn1635q.lua",
+  "classes": [
+    "MapNavigationWidget"
+  ],
+  "lineCount": 1847,
+  "apiCount": 7,
+  "callsiteCount": 37,
+  "apis": {
+    "_addItem": [
+      496
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      1303,
+      1414,
+      1420
+    ],
+    "_getMyPlayer": [
+      1345
+    ],
+    "_getProperty": [
+      238,
+      354,
+      726,
+      732,
+      1660,
+      1676
+    ],
+    "_setKeyboardFocusedControl": [
+      29
+    ],
+    "_setProperty": [
+      503,
+      510,
+      530,
+      539,
+      546,
+      556,
+      564,
+      572,
+      606,
+      614,
+      636,
+      659,
+      667,
+      694,
+      702,
+      775,
+      783,
+      1602,
+      1625,
+      1632,
+      1639,
+      1646,
+      1825,
+      1839
+    ]
+  }
+}

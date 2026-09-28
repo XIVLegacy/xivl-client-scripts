@@ -1,0 +1,41 @@
+{
+  "decoded": "widget/ask/rewardselectwidget",
+  "ciphered": "n1635q/9rz/s5n9s6r5y57qn1635q.lua",
+  "classes": [
+    "RewardSelectWidget"
+  ],
+  "lineCount": 1636,
+  "apiCount": 8,
+  "callsiteCount": 13,
+  "apis": {
+    "_countStack": [
+      1082
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getEquippingItem": [
+      1258,
+      1265,
+      1272,
+      1279
+    ],
+    "_getItemPackageCapacity": [
+      756
+    ],
+    "_getItemPackageFreeSpace": [
+      760
+    ],
+    "_getKeyboardFocusedWidget": [
+      726
+    ],
+    "_getMyPlayer": [
+      744,
+      1059,
+      1196
+    ],
+    "_isStackable": [
+      1078
+    ]
+  }
+}

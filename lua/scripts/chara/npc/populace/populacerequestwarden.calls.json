@@ -1,0 +1,57 @@
+{
+  "decoded": "chara/npc/populace/populacerequestwarden",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975s5tp5rqn9s65w.lua",
+  "classes": [
+    "PopulaceRequestWarden"
+  ],
+  "lineCount": 858,
+  "apiCount": 6,
+  "callsiteCount": 33,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      60,
+      410,
+      595,
+      689,
+      737,
+      785,
+      816
+    ],
+    "_loadTextDataPermanently": [
+      47
+    ],
+    "_math": [
+      68,
+      418
+    ],
+    "_runCharaScheduler": [
+      78,
+      152,
+      176,
+      211,
+      256,
+      281,
+      316,
+      351,
+      424,
+      450,
+      474,
+      509,
+      544,
+      569,
+      604,
+      638,
+      663,
+      697,
+      746,
+      793,
+      824
+    ],
+    "_setGroundOn": [
+      33
+    ]
+  }
+}

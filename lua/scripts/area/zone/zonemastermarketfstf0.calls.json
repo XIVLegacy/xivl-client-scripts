@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemastermarketfstf0",
+  "ciphered": "9s59/kvw5/kvw5x9rq5sx9sz5q4rq4j.lua",
+  "classes": [
+    "ZoneMasterMarketFstF0"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

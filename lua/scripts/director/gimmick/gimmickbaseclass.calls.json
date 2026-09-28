@@ -1,0 +1,21 @@
+{
+  "decoded": "director/gimmick/gimmickbaseclass",
+  "ciphered": "61s57qvs/31xx17z/31xx17z89r57y9rr.lua",
+  "classes": [
+    "GimmickBaseClass"
+  ],
+  "lineCount": 28,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      20
+    ],
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

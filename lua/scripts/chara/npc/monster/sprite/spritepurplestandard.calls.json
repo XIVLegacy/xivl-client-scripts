@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/sprite/spritepurplestandard",
+  "ciphered": "729s9/wu7/xvwrq5s/rus1q5/rus1q5upsuy5rq9w69s6.lua",
+  "classes": [
+    "SpritePurpleStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "decoded": "widget/linkshelllistsubwidget",
+  "ciphered": "n1635q/y1wzr25yyy1rqrp8n1635q.lua",
+  "classes": [
+    "LinkshellListSubWidget"
+  ],
+  "lineCount": 336,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      34,
+      203
+    ],
+    "_getParentWidget": [
+      326
+    ]
+  }
+}

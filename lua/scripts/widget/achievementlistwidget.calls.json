@@ -1,0 +1,96 @@
+{
+  "decoded": "widget/achievementlistwidget",
+  "ciphered": "n1635q/97215o5x5wqy1rqn1635q.lua",
+  "classes": [
+    "AchievementListWidget"
+  ],
+  "lineCount": 1351,
+  "apiCount": 17,
+  "callsiteCount": 50,
+  "apis": {
+    "_clearAchievementRateCache": [
+      55
+    ],
+    "_countAchievementCategory": [
+      124
+    ],
+    "_countAchievementItem": [
+      828
+    ],
+    "_countAchievementRateList": [
+      459
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getAchievementCategoryId": [
+      177,
+      342,
+      358,
+      480,
+      793,
+      822
+    ],
+    "_getAchievementItemId": [
+      494,
+      897
+    ],
+    "_getAchievementPoint": [
+      769
+    ],
+    "_getAchievementRate": [
+      426,
+      468
+    ],
+    "_getAchievementSheetDataIcon": [
+      203,
+      503,
+      1008
+    ],
+    "_getAchievementSheetDataItem": [
+      519,
+      1081
+    ],
+    "_getAchievementSheetDataPoint": [
+      1019
+    ],
+    "_getAchievementSheetDataTitle": [
+      511,
+      1077
+    ],
+    "_getKeyboardFocusedWidget": [
+      368,
+      382,
+      642
+    ],
+    "_getMyPlayer": [
+      52,
+      121,
+      148,
+      339,
+      355,
+      423,
+      456,
+      465,
+      477,
+      491,
+      500,
+      508,
+      516,
+      766,
+      790,
+      813,
+      860
+    ],
+    "_isDoneAchievement": [
+      209,
+      362,
+      864,
+      941
+    ],
+    "_math": [
+      1023,
+      1245
+    ]
+  }
+}

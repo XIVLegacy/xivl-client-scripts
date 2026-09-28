@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/castrumnovummapwidget",
+  "ciphered": "n1635q/79rqspxwvopxx9un1635q.lua",
+  "classes": [
+    "CastrumNovumMapWidget"
+  ],
+  "lineCount": 18,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

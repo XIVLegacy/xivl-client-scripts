@@ -1,0 +1,83 @@
+{
+  "decoded": "director/instanceraid/instanceraidbaseclass",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s91689r57y9rr.lua",
+  "classes": [
+    "InstanceRaidBaseClass"
+  ],
+  "lineCount": 742,
+  "apiCount": 17,
+  "callsiteCount": 37,
+  "apis": {
+    "_assignForChild": [
+      54
+    ],
+    "_defineBaseClass": [
+      8
+    ],
+    "_delete": [
+      661
+    ],
+    "_fadeIn": [
+      306,
+      363,
+      549
+    ],
+    "_fadeInAfterWarp": [
+      486,
+      516
+    ],
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      302,
+      360
+    ],
+    "_fadeOut": [
+      475,
+      503,
+      535
+    ],
+    "_getMyPlayer": [
+      291,
+      357,
+      461,
+      500,
+      532
+    ],
+    "_getServerTime": [
+      174
+    ],
+    "_math": [
+      127,
+      232
+    ],
+    "_onEventCancel": [
+      106
+    ],
+    "_onLoop": [
+      167
+    ],
+    "_onReceiveDataPacket": [
+      615
+    ],
+    "_resetFade": [
+      102
+    ],
+    "_setLoopInterval": [
+      74
+    ],
+    "_wait": [
+      310,
+      318,
+      367,
+      421,
+      465,
+      470,
+      482,
+      553
+    ],
+    "_waitForFading": [
+      479,
+      507,
+      539
+    ]
+  }
+}

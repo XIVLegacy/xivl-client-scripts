@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/ask/chocobonamingwidget",
+  "ciphered": "n1635q/9rz/72v7v8vw9x1w3n1635q.lua",
+  "classes": [
+    "ChocoboNamingWidget"
+  ],
+  "lineCount": 322,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getUTF8StringLength": [
+      309
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "decoded": "widget/itemsharewidget",
+  "ciphered": "n1635q/1q5xr29s5n1635q.lua",
+  "classes": [
+    "ItemShareWidget"
+  ],
+  "lineCount": 958,
+  "apiCount": 10,
+  "callsiteCount": 24,
+  "apis": {
+    "_countStack": [
+      222,
+      350
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      353
+    ],
+    "_getItem": [
+      216,
+      300,
+      344
+    ],
+    "_getItemPackageCapacity": [
+      176
+    ],
+    "_getItemPackageFreeSpace": [
+      180
+    ],
+    "_getMyPlayer": [
+      173,
+      213,
+      297,
+      341
+    ],
+    "_getParentWidget": [
+      138,
+      189,
+      305
+    ],
+    "_setProperty": [
+      626,
+      639,
+      649,
+      659,
+      684,
+      692,
+      793
+    ],
+    "_setUICommandTemplateCondition": [
+      75
+    ]
+  }
+}

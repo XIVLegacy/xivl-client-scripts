@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/hiryucasterstatus",
+  "ciphered": "rq9qpr/981y1ql/21slp79rq5srq9qpr.lua",
+  "classes": [
+    "HiryuCasterStatus"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

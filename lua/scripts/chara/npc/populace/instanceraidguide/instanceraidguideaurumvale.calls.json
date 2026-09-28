@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/populace/instanceraidguide/instanceraidguideaurumvale",
+  "ciphered": "729s9/wu7/uvupy975/1wrq9w75s9163p165/1wrq9w75s9163p1659pspxo9y5.lua",
+  "classes": [
+    "InstanceRaidGuideAurumVale"
+  ],
+  "lineCount": 165,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

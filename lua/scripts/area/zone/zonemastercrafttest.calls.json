@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemastercrafttest",
+  "ciphered": "9s59/kvw5/kvw5x9rq5s7s94qq5rq.lua",
+  "classes": [
+    "ZoneMasterCraftTest"
+  ],
+  "lineCount": 14,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

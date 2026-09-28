@@ -1,0 +1,27 @@
+{
+  "decoded": "chara/npc/gimmick/gimmickmapobj/beaconfortgategimmick",
+  "ciphered": "729s9/wu7/31xx17z/31xx17zx9uv80/8597vw4vsq39q531xx17z.lua",
+  "classes": [
+    "BeaconFortGateGimmick"
+  ],
+  "lineCount": 139,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      71
+    ],
+    "_runBgScheduler": [
+      115
+    ],
+    "_runBgSchedulerFromMidstream": [
+      109
+    ],
+    "_setGroundOn": [
+      67
+    ]
+  }
+}

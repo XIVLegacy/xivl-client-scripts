@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/irontempeststatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/1svwq5xu5rqrq9qpr.lua",
+  "classes": [
+    "IronTempestStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

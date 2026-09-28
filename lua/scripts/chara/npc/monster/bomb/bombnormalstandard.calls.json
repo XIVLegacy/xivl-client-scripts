@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/bomb/bombnormalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/8vx8/8vx8wvsx9yrq9w69s6.lua",
+  "classes": [
+    "BombNormalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

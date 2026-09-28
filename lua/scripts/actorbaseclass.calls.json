@@ -1,0 +1,27 @@
+{
+  "decoded": "actorbaseclass",
+  "ciphered": "97qvs89r57y9rr.lua",
+  "classes": [
+    "ActorBaseClass"
+  ],
+  "lineCount": 33,
+  "apiCount": 5,
+  "callsiteCount": 5,
+  "apis": {
+    "_onFinalize": [
+      15
+    ],
+    "_onInit": [
+      8
+    ],
+    "_onReceiveDataPacket": [
+      27
+    ],
+    "_onReceiveTimingPacket": [
+      33
+    ],
+    "_onTimer": [
+      21
+    ]
+  }
+}

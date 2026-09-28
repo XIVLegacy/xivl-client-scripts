@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/willothewisp/willothewispnormalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/n1yyvq25n1ru/n1yyvq25n1ruwvsx9yrq9w69s6.lua",
+  "classes": [
+    "WillOTheWispNormalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

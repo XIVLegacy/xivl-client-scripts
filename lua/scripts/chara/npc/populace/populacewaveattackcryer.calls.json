@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/populace/populacewaveattackcryer",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975n9o59qq97z7sl5s.lua",
+  "classes": [
+    "PopulaceWaveAttackCryer"
+  ],
+  "lineCount": 708,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/birdman/birdmanconjurerbrd0j6b",
+  "ciphered": "729s9/wu7/xvwrq5s/81s6x9w/81s6x9w7vw0ps5s8s6j0d8.lua",
+  "classes": [
+    "BirdmanConjurerBrd0j6b"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

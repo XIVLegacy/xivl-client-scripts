@@ -1,0 +1,19 @@
+{
+  "decoded": "chara/charabaseclass_ffxivbattle",
+  "ciphered": "729s9/729s989r57y9rr_44m1o89qqy5.lua",
+  "classes": [
+    "CharaBaseClass"
+  ],
+  "lineCount": 636,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_getJob": [
+      100,
+      116
+    ],
+    "_math": [
+      79
+    ]
+  }
+}

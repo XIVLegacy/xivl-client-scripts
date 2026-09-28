@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/ancientmagic",
+  "ciphered": "7vxx9w6/39x5/x9317/9w715wqx9317.lua",
+  "classes": [
+    "AncientMagic"
+  ],
+  "lineCount": 99,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

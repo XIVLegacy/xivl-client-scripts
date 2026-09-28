@@ -1,0 +1,15 @@
+{
+  "decoded": "status/cmnmovingcontrolstatus",
+  "ciphered": "rq9qpr/7xwxvo1w37vwqsvyrq9qpr.lua",
+  "classes": [
+    "CmnMovingControlStatus"
+  ],
+  "lineCount": 50,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

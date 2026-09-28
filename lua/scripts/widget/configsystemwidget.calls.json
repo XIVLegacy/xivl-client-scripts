@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/configsystemwidget",
+  "ciphered": "n1635q/7vw413rlrq5xn1635q.lua",
+  "classes": [
+    "ConfigSystemWidget"
+  ],
+  "lineCount": 340,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

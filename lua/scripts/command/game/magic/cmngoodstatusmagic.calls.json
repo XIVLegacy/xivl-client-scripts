@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/magic/cmngoodstatusmagic",
+  "ciphered": "7vxx9w6/39x5/x9317/7xw3vv6rq9qprx9317.lua",
+  "classes": [
+    "CmnGoodStatusMagic"
+  ],
+  "lineCount": 35,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

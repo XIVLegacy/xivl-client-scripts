@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/thumbingstatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/q2px81w3rq9qpr.lua",
+  "classes": [
+    "ThumbingStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/materiaitem",
+  "ciphered": "1q5x/wvsx9y/x9q5s191q5x.lua",
+  "classes": [
+    "MateriaItem"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

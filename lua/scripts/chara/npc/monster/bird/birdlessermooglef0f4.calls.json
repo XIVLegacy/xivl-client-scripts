@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/bird/birdlessermooglef0f4",
+  "ciphered": "729s9/wu7/xvwrq5s/81s6/81s6y5rr5sxvv3y54j4f.lua",
+  "classes": [
+    "BirdLesserMoogleF0f4"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

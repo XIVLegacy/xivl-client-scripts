@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/conservempstatus",
+  "ciphered": "rq9qpr/981y1ql/7vwr5so5xurq9qpr.lua",
+  "classes": [
+    "ConserveMPStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

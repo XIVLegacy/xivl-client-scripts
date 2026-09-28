@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/empire/empireconjurerquestattack001",
+  "ciphered": "729s9/wu7/xvwrq5s/5xu1s5/5xu1s57vw0ps5stp5rq9qq97zjji.lua",
+  "classes": [
+    "EmpireConjurerQuestAttack001"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

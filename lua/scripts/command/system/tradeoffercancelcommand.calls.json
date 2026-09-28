@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/tradeoffercancelcommand",
+  "ciphered": "7vxx9w6/rlrq5x/qs965v445s79w75y7vxx9w6.lua",
+  "classes": [
+    "TradeOfferCancelCommand"
+  ],
+  "lineCount": 63,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_isAlive": [
+      32
+    ]
+  }
+}

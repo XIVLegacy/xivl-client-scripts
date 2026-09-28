@@ -1,0 +1,213 @@
+{
+  "decoded": "quest/scenario/man/man0u0",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wjpj.lua",
+  "classes": [
+    "Man0u0"
+  ],
+  "lineCount": 2630,
+  "apiCount": 26,
+  "callsiteCount": 149,
+  "apis": {
+    "_aimCameraTutorial": [
+      853,
+      1124,
+      1657,
+      1725,
+      1847,
+      2062,
+      2382,
+      2475
+    ],
+    "_cancelAimCameraTutorial": [
+      927,
+      1198,
+      1690,
+      1753,
+      1875,
+      2084,
+      2453,
+      2524
+    ],
+    "_cancelLookAtPlayerTutorial": [
+      1396,
+      1401,
+      1685,
+      2427,
+      2432,
+      2503
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      753,
+      1024
+    ],
+    "_fadeInNowLoadingForNoticeEventJustInArea": [
+      697,
+      973,
+      1432
+    ],
+    "_isKeyboardOnlyTutorial": [
+      711,
+      725,
+      730,
+      987,
+      1001,
+      1006,
+      1447,
+      1461,
+      1466
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_lockCameraControl": [
+      669,
+      844,
+      939,
+      1115
+    ],
+    "_lockLockonControl": [
+      1296,
+      1945,
+      2154
+    ],
+    "_lockPlayerControl": [
+      1293,
+      1942,
+      2151
+    ],
+    "_lockTargetCursorControl": [
+      1281,
+      1934,
+      2143
+    ],
+    "_lookAtPlayerTutorial": [
+      858,
+      863,
+      1129,
+      1134,
+      1662,
+      1730,
+      1852,
+      2067,
+      2387,
+      2392,
+      2480
+    ],
+    "_runCharaScheduler": [
+      366,
+      492,
+      550,
+      575,
+      606,
+      1341,
+      1508,
+      1539,
+      1564,
+      1589,
+      1620,
+      2540,
+      2565,
+      2590
+    ],
+    "_runCharaSchedulerTutorial": [
+      785,
+      791,
+      868,
+      874,
+      1056,
+      1062,
+      1139,
+      1145,
+      1667,
+      1673,
+      1735,
+      1741,
+      1857,
+      1863,
+      2072,
+      2397,
+      2409,
+      2415,
+      2485,
+      2491
+    ],
+    "_setTargetCharacter": [
+      886,
+      1157,
+      1358
+    ],
+    "_unlockCameraControl": [
+      823,
+      923,
+      1094,
+      1194
+    ],
+    "_unlockLockonControl": [
+      1249,
+      1914,
+      2123
+    ],
+    "_unlockPlayerControl": [
+      1252,
+      1917,
+      2126
+    ],
+    "_unlockTargetCursorControl": [
+      1246,
+      1911,
+      2120
+    ],
+    "_wait": [
+      438,
+      705,
+      720,
+      757,
+      775,
+      808,
+      840,
+      981,
+      996,
+      1028,
+      1046,
+      1079,
+      1111,
+      1219,
+      1284,
+      1337,
+      1374,
+      1456,
+      1720,
+      1842,
+      1929,
+      2052,
+      2138,
+      2261,
+      2344,
+      2617
+    ],
+    "_waitForCameraTutorial": [
+      827,
+      1098
+    ],
+    "_waitForCharaSchedulerTutorialFinished": [
+      803,
+      1074
+    ],
+    "_waitForFading": [
+      772,
+      1043
+    ],
+    "_waitForMapLoaded": [
+      749,
+      1020
+    ],
+    "_waitForTargetTutorial": [
+      1256,
+      1921,
+      2130
+    ]
+  }
+}

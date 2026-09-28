@@ -1,0 +1,24 @@
+{
+  "decoded": "widget/ask/mininginputwidget",
+  "ciphered": "n1635q/9rz/x1w1w31wupqn1635q.lua",
+  "classes": [
+    "MiningInputWidget"
+  ],
+  "lineCount": 1055,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_addItem": [
+      115
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      218
+    ],
+    "_math": [
+      699
+    ]
+  }
+}

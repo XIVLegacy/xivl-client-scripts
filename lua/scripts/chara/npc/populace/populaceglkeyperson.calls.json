@@ -1,0 +1,48 @@
+{
+  "decoded": "chara/npc/populace/populaceglkeyperson",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9753yz5lu5srvw.lua",
+  "classes": [
+    "PopulaceGLKeyPerson"
+  ],
+  "lineCount": 370,
+  "apiCount": 6,
+  "callsiteCount": 24,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      43,
+      222,
+      306
+    ],
+    "_loadTextDataPermanently": [
+      30
+    ],
+    "_runCharaScheduler": [
+      52,
+      68,
+      90,
+      101,
+      129,
+      151,
+      162,
+      178,
+      200,
+      231,
+      242,
+      253,
+      264,
+      286,
+      315,
+      332,
+      349
+    ],
+    "_setGroundOn": [
+      26
+    ],
+    "_wait": [
+      290
+    ]
+  }
+}

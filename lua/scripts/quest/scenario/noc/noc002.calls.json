@@ -1,0 +1,69 @@
+{
+  "decoded": "quest/scenario/noc/noc002",
+  "ciphered": "tp5rq/r75w9s1v/wv7/wv7jjh.lua",
+  "classes": [
+    "Noc002"
+  ],
+  "lineCount": 1599,
+  "apiCount": 5,
+  "callsiteCount": 47,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getData": [
+      108,
+      116,
+      124,
+      1180,
+      1188,
+      1196
+    ],
+    "_loadKeyTemporarily": [
+      96,
+      1168
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      202,
+      210,
+      218,
+      353,
+      361,
+      369,
+      447,
+      455,
+      463,
+      558,
+      566,
+      574,
+      670,
+      678,
+      686,
+      738,
+      746,
+      754,
+      806,
+      814,
+      822,
+      916,
+      947,
+      979,
+      1058,
+      1075,
+      1204,
+      1268,
+      1294,
+      1311,
+      1340,
+      1358,
+      1383,
+      1399,
+      1436,
+      1453,
+      1508
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "decoded": "quest/scenario/gcg/gcg304",
+  "ciphered": "tp5rq/r75w9s1v/373/373gjf.lua",
+  "classes": [
+    "Gcg304"
+  ],
+  "lineCount": 808,
+  "apiCount": 4,
+  "callsiteCount": 38,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      45,
+      76,
+      92,
+      124,
+      135,
+      176,
+      219,
+      246,
+      256,
+      272,
+      289,
+      305,
+      334,
+      344,
+      360,
+      377,
+      393,
+      431,
+      453,
+      464,
+      486,
+      558,
+      622,
+      644,
+      660,
+      676,
+      739,
+      761,
+      777,
+      793
+    ],
+    "_wait": [
+      36,
+      154,
+      224,
+      563,
+      595,
+      712
+    ]
+  }
+}

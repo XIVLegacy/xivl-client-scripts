@@ -1,0 +1,28 @@
+{
+  "decoded": "chara/npc/populace/populacebranchsvendor",
+  "ciphered": "729s9/wu7/uvupy975/uvupy9758s9w72ro5w6vs.lua",
+  "classes": [
+    "PopulaceBranchsVendor"
+  ],
+  "lineCount": 459,
+  "apiCount": 5,
+  "callsiteCount": 6,
+  "apis": {
+    "_callSuperClassFunc": [
+      197
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_onFinalize": [
+      198,
+      202
+    ],
+    "_setGroundOn": [
+      186
+    ]
+  }
+}

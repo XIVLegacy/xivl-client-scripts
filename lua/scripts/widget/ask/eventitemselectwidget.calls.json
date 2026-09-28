@@ -1,0 +1,34 @@
+{
+  "decoded": "widget/ask/eventitemselectwidget",
+  "ciphered": "n1635q/9rz/5o5wq1q5xr5y57qn1635q.lua",
+  "classes": [
+    "EventItemSelectWidget"
+  ],
+  "lineCount": 1140,
+  "apiCount": 6,
+  "callsiteCount": 10,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getItem": [
+      1005
+    ],
+    "_getItemPackageCapacity": [
+      415,
+      974
+    ],
+    "_getItemPackageFreeSpace": [
+      419,
+      979
+    ],
+    "_getMyPlayer": [
+      133,
+      358,
+      931
+    ],
+    "_setProperty": [
+      779
+    ]
+  }
+}

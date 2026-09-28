@@ -1,0 +1,21 @@
+{
+  "decoded": "command/system/itemmaterializecommand",
+  "ciphered": "7vxx9w6/rlrq5x/1q5xx9q5s19y1k57vxx9w6.lua",
+  "classes": [
+    "ItemMaterializeCommand"
+  ],
+  "lineCount": 67,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_createVirtualItem": [
+      32
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_wait": [
+      55
+    ]
+  }
+}

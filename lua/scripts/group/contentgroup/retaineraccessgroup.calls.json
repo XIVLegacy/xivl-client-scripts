@@ -1,0 +1,15 @@
+{
+  "decoded": "group/contentgroup/retaineraccessgroup",
+  "ciphered": "3svpu/7vwq5wq3svpu/s5q91w5s9775rr3svpu.lua",
+  "classes": [
+    "RetainerAccessGroup"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

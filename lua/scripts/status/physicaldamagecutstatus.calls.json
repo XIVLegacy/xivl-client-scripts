@@ -1,0 +1,15 @@
+{
+  "decoded": "status/physicaldamagecutstatus",
+  "ciphered": "rq9qpr/u2lr179y69x9357pqrq9qpr.lua",
+  "classes": [
+    "PhysicalDamageCutStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

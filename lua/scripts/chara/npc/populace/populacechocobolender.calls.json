@@ -1,0 +1,114 @@
+{
+  "decoded": "chara/npc/populace/populacechocobolender",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97572v7v8vy5w65s.lua",
+  "classes": [
+    "PopulaceChocoboLender"
+  ],
+  "lineCount": 1235,
+  "apiCount": 15,
+  "callsiteCount": 72,
+  "apis": {
+    "_aimCameraChocobo": [
+      772
+    ],
+    "_cancelAimCameraChocobo": [
+      778
+    ],
+    "_cancelTransformIntoChocobo": [
+      765
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      316,
+      611,
+      705
+    ],
+    "_fadeIn": [
+      625,
+      739,
+      855,
+      903,
+      925,
+      1034,
+      1082,
+      1105,
+      1141,
+      1163
+    ],
+    "_fadeInAfterWarp": [
+      320,
+      416,
+      715
+    ],
+    "_fadeOut": [
+      288,
+      406,
+      591,
+      685,
+      725,
+      841,
+      889,
+      912,
+      1020,
+      1068,
+      1092,
+      1127,
+      1150
+    ],
+    "_getBelongGrandCompany": [
+      146,
+      298,
+      949
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      79,
+      426,
+      438,
+      515,
+      549,
+      827
+    ],
+    "_setGroundOn": [
+      63
+    ],
+    "_transformIntoChocobo": [
+      758,
+      920,
+      1100,
+      1158
+    ],
+    "_wait": [
+      614,
+      681
+    ],
+    "_waitForFading": [
+      292,
+      410,
+      595,
+      689,
+      729,
+      743,
+      845,
+      859,
+      893,
+      907,
+      916,
+      929,
+      1024,
+      1038,
+      1072,
+      1086,
+      1096,
+      1109,
+      1131,
+      1145,
+      1154,
+      1167
+    ]
+  }
+}

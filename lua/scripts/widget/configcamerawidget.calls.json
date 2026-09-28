@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/configcamerawidget",
+  "ciphered": "n1635q/7vw41379x5s9n1635q.lua",
+  "classes": [
+    "ConfigCameraWidget"
+  ],
+  "lineCount": 393,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

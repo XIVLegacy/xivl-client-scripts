@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/trickattackstatus",
+  "ciphered": "rq9qpr/981y1ql/qs17z9qq97zrq9qpr.lua",
+  "classes": [
+    "TrickAttackStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

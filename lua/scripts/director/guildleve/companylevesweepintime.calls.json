@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/companylevesweepintime",
+  "ciphered": "61s57qvs/3p1y6y5o5/7vxu9wly5o5rn55u1wq1x5.lua",
+  "classes": [
+    "CompanyleveSweepIntime"
+  ],
+  "lineCount": 60,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

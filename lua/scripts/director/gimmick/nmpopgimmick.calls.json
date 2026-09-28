@@ -1,0 +1,15 @@
+{
+  "decoded": "director/gimmick/nmpopgimmick",
+  "ciphered": "61s57qvs/31xx17z/wxuvu31xx17z.lua",
+  "classes": [
+    "NMPopGimmick"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

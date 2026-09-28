@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/winglizard/winglizardnormalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/n1w3y1k9s6/n1w3y1k9s6wvsx9yrq9w69s6.lua",
+  "classes": [
+    "WinglizardNormalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

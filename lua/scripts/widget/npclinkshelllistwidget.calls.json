@@ -1,0 +1,26 @@
+{
+  "decoded": "widget/npclinkshelllistwidget",
+  "ciphered": "n1635q/wu7y1wzr25yyy1rqn1635q.lua",
+  "classes": [
+    "NpcLinkshellListWidget"
+  ],
+  "lineCount": 434,
+  "apiCount": 4,
+  "callsiteCount": 6,
+  "apis": {
+    "_addItem": [
+      73
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      159
+    ],
+    "_getMyPlayer": [
+      45,
+      283,
+      393
+    ]
+  }
+}

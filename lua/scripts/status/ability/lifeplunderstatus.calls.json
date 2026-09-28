@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/lifeplunderstatus",
+  "ciphered": "rq9qpr/981y1ql/y145uypw65srq9qpr.lua",
+  "classes": [
+    "LifePlunderStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "widget/usermacroiconlistwidget",
+  "ciphered": "n1635q/pr5sx97sv17vwy1rqn1635q.lua",
+  "classes": [
+    "UserMacroIconListWidget"
+  ],
+  "lineCount": 262,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      140
+    ],
+    "_math": [
+      238
+    ]
+  }
+}

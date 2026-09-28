@@ -1,0 +1,28 @@
+{
+  "decoded": "world/worldmaster_event",
+  "ciphered": "nvsy6/nvsy6x9rq5s_5o5wq.lua",
+  "classes": [
+    "WorldMaster"
+  ],
+  "lineCount": 329,
+  "apiCount": 3,
+  "callsiteCount": 10,
+  "apis": {
+    "_getHydaelynHour": [
+      7
+    ],
+    "_getServerTime": [
+      31,
+      59,
+      87
+    ],
+    "_math": [
+      33,
+      37,
+      61,
+      65,
+      89,
+      93
+    ]
+  }
+}

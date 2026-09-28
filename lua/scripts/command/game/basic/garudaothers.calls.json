@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/basic/garudaothers",
+  "ciphered": "7vxx9w6/39x5/89r17/39sp69vq25sr.lua",
+  "classes": [
+    "GarudaOthers"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "director/instanceraid/instanceraidhyperifrit",
+  "ciphered": "61s57qvs/1wrq9w75s916/1wrq9w75s9162lu5s14s1q.lua",
+  "classes": [
+    "InstanceRaidHyperIfrit"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

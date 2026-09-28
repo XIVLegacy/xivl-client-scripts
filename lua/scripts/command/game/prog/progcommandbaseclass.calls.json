@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/prog/progcommandbaseclass",
+  "ciphered": "7vxx9w6/39x5/usv3/usv37vxx9w689r57y9rr.lua",
+  "classes": [
+    "ProgCommandBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

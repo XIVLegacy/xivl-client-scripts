@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/privateglbattletutorial",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y89qqy5qpqvs19y.lua",
+  "classes": [
+    "PrivateGLBattleTutorial"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "decoded": "chara/npc/populace/populaceyukata",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975lpz9q9.lua",
+  "classes": [
+    "PopulaceYukata"
+  ],
+  "lineCount": 316,
+  "apiCount": 6,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      293
+    ],
+    "_getPos": [
+      296,
+      299
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      161,
+      175,
+      189,
+      203,
+      217
+    ],
+    "_setGroundOn": [
+      19
+    ]
+  }
+}

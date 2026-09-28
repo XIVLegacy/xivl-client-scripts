@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/passiveguildleve/craft/pgaeth",
+  "ciphered": "tp5rq/u9rr1o53p1y6y5o5/7s94q/u395q2.lua",
+  "classes": [
+    "PgAeth"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

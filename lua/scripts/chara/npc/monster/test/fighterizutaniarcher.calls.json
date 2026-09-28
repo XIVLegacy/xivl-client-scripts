@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/test/fighterizutaniarcher",
+  "ciphered": "729s9/wu7/xvwrq5s/q5rq/4132q5s1kpq9w19s725s.lua",
+  "classes": [
+    "FighterIzutaniArcher"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

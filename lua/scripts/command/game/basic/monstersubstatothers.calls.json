@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/basic/monstersubstatothers",
+  "ciphered": "7vxx9w6/39x5/89r17/xvwrq5srp8rq9qvq25sr.lua",
+  "classes": [
+    "MonsterSubStatOthers"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

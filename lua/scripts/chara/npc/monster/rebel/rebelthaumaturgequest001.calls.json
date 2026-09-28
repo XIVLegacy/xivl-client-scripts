@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/rebel/rebelthaumaturgequest001",
+  "ciphered": "729s9/wu7/xvwrq5s/s585y/s585yq29px9qps35tp5rqjji.lua",
+  "classes": [
+    "RebelThaumaturgeQuest001"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

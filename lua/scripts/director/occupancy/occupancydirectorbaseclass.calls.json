@@ -1,0 +1,15 @@
+{
+  "decoded": "director/occupancy/occupancydirectorbaseclass",
+  "ciphered": "61s57qvs/v77pu9w7l/v77pu9w7l61s57qvs89r57y9rr.lua",
+  "classes": [
+    "OccupancyDirectorBaseClass"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "decoded": "system/debug",
+  "ciphered": "rlrq5x/658p3.lua",
+  "classes": [
+    "Debug"
+  ],
+  "lineCount": 1849,
+  "apiCount": 30,
+  "callsiteCount": 81,
+  "apis": {
+    "_assignForChild": [
+      720,
+      904
+    ],
+    "_callFunction": [
+      26
+    ],
+    "_callSuperClassFunc": [
+      1346
+    ],
+    "_countMember": [
+      425,
+      761
+    ],
+    "_countStack": [
+      175
+    ],
+    "_createActor": [
+      1751
+    ],
+    "_getCatalogID": [
+      189
+    ],
+    "_getClassName": [
+      199
+    ],
+    "_getDisplayName": [
+      148
+    ],
+    "_getInstanceName": [
+      158,
+      216
+    ],
+    "_getMyPlayer": [
+      1664
+    ],
+    "_getNameIndex": [
+      181
+    ],
+    "_getStaticActor": [
+      1729
+    ],
+    "_isAlive": [
+      127
+    ],
+    "_isExistActor": [
+      1563
+    ],
+    "_isExistInClientMember": [
+      799
+    ],
+    "_isExistInWorldMember": [
+      784
+    ],
+    "_isInstanceOf": [
+      142,
+      163,
+      209
+    ],
+    "_isMember": [
+      766
+    ],
+    "_isStackable": [
+      170
+    ],
+    "_loadTextDataPermanently": [
+      1434
+    ],
+    "_math": [
+      1813
+    ],
+    "_onDebugInput": [
+      1680
+    ],
+    "_onInit": [
+      1347,
+      1440
+    ],
+    "_onReceiveDataPacket": [
+      1506
+    ],
+    "_printDebugLog": [
+      1515
+    ],
+    "_printLog": [
+      1242,
+      1325,
+      1540,
+      1674,
+      1687,
+      1696,
+      1703,
+      1710,
+      1717,
+      1724,
+      1734,
+      1837
+    ],
+    "_setNameplate": [
+      1647
+    ],
+    "_string": [
+      341,
+      348,
+      712,
+      1311,
+      1313
+    ],
+    "_table": [
+      262,
+      267,
+      272,
+      277,
+      433,
+      458,
+      471,
+      507,
+      512,
+      576,
+      601,
+      606,
+      611,
+      638,
+      643,
+      648,
+      653,
+      661,
+      666,
+      905,
+      910,
+      915,
+      920,
+      926,
+      931,
+      936,
+      941,
+      1058,
+      1072,
+      1077,
+      1095
+    ]
+  }
+}

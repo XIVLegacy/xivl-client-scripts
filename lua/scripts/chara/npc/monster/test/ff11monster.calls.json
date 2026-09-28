@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/test/ff11monster",
+  "ciphered": "729s9/wu7/xvwrq5s/q5rq/44iixvwrq5s.lua",
+  "classes": [
+    "FF11Monster"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

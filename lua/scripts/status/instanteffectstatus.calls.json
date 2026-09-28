@@ -1,0 +1,15 @@
+{
+  "decoded": "status/instanteffectstatus",
+  "ciphered": "rq9qpr/1wrq9wq54457qrq9qpr.lua",
+  "classes": [
+    "InstantEffectStatus"
+  ],
+  "lineCount": 40,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/shieldeffectcommand",
+  "ciphered": "7vxx9w6/39x5/r215y654457q7vxx9w6.lua",
+  "classes": [
+    "ShieldEffectCommand"
+  ],
+  "lineCount": 36,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

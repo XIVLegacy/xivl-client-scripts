@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/ability/monstersubstatability",
+  "ciphered": "7vxx9w6/39x5/981y1ql/xvwrq5srp8rq9q981y1ql.lua",
+  "classes": [
+    "MonsterSubStatAbility"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

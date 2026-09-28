@@ -1,0 +1,19 @@
+{
+  "decoded": "widget/hamletdefensewidget",
+  "ciphered": "n1635q/29xy5q6545wr5n1635q.lua",
+  "classes": [
+    "HamletDefenseWidget"
+  ],
+  "lineCount": 1140,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      291,
+      303
+    ]
+  }
+}

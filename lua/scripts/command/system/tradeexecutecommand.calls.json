@@ -1,0 +1,28 @@
+{
+  "decoded": "command/system/tradeexecutecommand",
+  "ciphered": "7vxx9w6/rlrq5x/qs9655m57pq57vxx9w6.lua",
+  "classes": [
+    "TradeExecuteCommand"
+  ],
+  "lineCount": 246,
+  "apiCount": 5,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      209
+    ],
+    "_getExtendedTemporaryItem": [
+      172,
+      202
+    ],
+    "_getItemPackageCapacity": [
+      193
+    ],
+    "_hasItemPackage": [
+      186
+    ]
+  }
+}

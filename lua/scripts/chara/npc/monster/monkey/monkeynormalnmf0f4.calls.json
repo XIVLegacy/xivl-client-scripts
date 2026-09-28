@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/monkey/monkeynormalnmf0f4",
+  "ciphered": "729s9/wu7/xvwrq5s/xvwz5l/xvwz5lwvsx9ywx4j4f.lua",
+  "classes": [
+    "MonkeyNormalNMf0f4"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

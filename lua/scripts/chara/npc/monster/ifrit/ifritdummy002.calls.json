@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/ifrit/ifritdummy002",
+  "ciphered": "729s9/wu7/xvwrq5s/14s1q/14s1q6pxxljjh.lua",
+  "classes": [
+    "IfritDummy002"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

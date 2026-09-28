@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaknessstatus",
+  "ciphered": "rq9qpr/n59zw5rrrq9qpr.lua",
+  "classes": [
+    "WeaknessStatus"
+  ],
+  "lineCount": 26,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

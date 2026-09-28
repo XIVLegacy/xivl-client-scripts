@@ -1,0 +1,19 @@
+{
+  "decoded": "chara/npc/object/treasurebox/animatreasurebox",
+  "ciphered": "729s9/wu7/v8057q/qs59rps58vm/9w1x9qs59rps58vm.lua",
+  "classes": [
+    "AnimaTreasureBox"
+  ],
+  "lineCount": 60,
+  "apiCount": 2,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_runCharaScheduler": [
+      44,
+      55
+    ]
+  }
+}

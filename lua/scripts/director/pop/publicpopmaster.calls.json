@@ -1,0 +1,15 @@
+{
+  "decoded": "director/pop/publicpopmaster",
+  "ciphered": "61s57qvs/uvu/up8y17uvux9rq5s.lua",
+  "classes": [
+    "PublicPopMaster"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "status/magic/biostatus",
+  "ciphered": "rq9qpr/x9317/81vrq9qpr.lua",
+  "classes": [
+    "BioStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/boostpointcommand",
+  "ciphered": "7vxx9w6/39x5/8vvrquv1wq7vxx9w6.lua",
+  "classes": [
+    "BoostPointCommand"
+  ],
+  "lineCount": 27,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

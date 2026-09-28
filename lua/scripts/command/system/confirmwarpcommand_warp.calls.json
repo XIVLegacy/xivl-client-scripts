@@ -1,0 +1,18 @@
+{
+  "decoded": "command/system/confirmwarpcommand_warp",
+  "ciphered": "7vxx9w6/rlrq5x/7vw41sxn9su7vxx9w6_n9su.lua",
+  "classes": [
+    "ConfirmWarpCommand"
+  ],
+  "lineCount": 31,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getActorMainStat": [
+      21
+    ]
+  }
+}

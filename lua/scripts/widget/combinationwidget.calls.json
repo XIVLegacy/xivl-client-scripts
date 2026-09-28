@@ -1,0 +1,27 @@
+{
+  "decoded": "widget/combinationwidget",
+  "ciphered": "n1635q/7vx81w9q1vwn1635q.lua",
+  "classes": [
+    "CombinationWidget"
+  ],
+  "lineCount": 287,
+  "apiCount": 3,
+  "callsiteCount": 9,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_sendStoryboardCommand": [
+      235
+    ],
+    "_setProperty": [
+      147,
+      154,
+      161,
+      195,
+      202,
+      209,
+      216
+    ]
+  }
+}

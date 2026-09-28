@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lizardman/lizardmanlancerhamletstd",
+  "ciphered": "729s9/wu7/xvwrq5s/y1k9s6x9w/y1k9s6x9wy9w75s29xy5qrq6.lua",
+  "classes": [
+    "LizardmanLancerHamletStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

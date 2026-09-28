@@ -1,0 +1,55 @@
+{
+  "decoded": "quest/scenario/gcl/gcl304",
+  "ciphered": "tp5rq/r75w9s1v/37y/37ygjf.lua",
+  "classes": [
+    "Gcl304"
+  ],
+  "lineCount": 630,
+  "apiCount": 4,
+  "callsiteCount": 35,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      186,
+      207,
+      223,
+      243,
+      266,
+      282,
+      302,
+      340,
+      480,
+      494,
+      504,
+      524,
+      534,
+      563,
+      577,
+      587,
+      607,
+      617
+    ],
+    "_wait": [
+      36,
+      131,
+      191,
+      227,
+      286,
+      345,
+      450,
+      471,
+      484,
+      508,
+      538,
+      554,
+      567,
+      591,
+      621
+    ]
+  }
+}

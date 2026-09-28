@@ -1,0 +1,30 @@
+{
+  "decoded": "widget/actiongaugewidget",
+  "ciphered": "n1635q/97q1vw39p35n1635q.lua",
+  "classes": [
+    "ActionGaugeWidget"
+  ],
+  "lineCount": 203,
+  "apiCount": 5,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getMyPlayer": [
+      97
+    ],
+    "_getServerTime": [
+      104
+    ],
+    "_sendStoryboardCommand": [
+      138,
+      151
+    ],
+    "_setProperty": [
+      112,
+      119,
+      126
+    ]
+  }
+}

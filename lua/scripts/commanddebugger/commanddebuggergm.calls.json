@@ -1,0 +1,136 @@
+{
+  "decoded": "commanddebugger/commanddebuggergm",
+  "ciphered": "7vxx9w6658p335s/7vxx9w6658p335s3x.lua",
+  "classes": [
+    "CommandDebuggerGM"
+  ],
+  "lineCount": 4299,
+  "apiCount": 24,
+  "callsiteCount": 76,
+  "apis": {
+    "_commandDebug": [
+      1206
+    ],
+    "_getAllCharacter": [
+      125,
+      737,
+      3629,
+      3873,
+      3878,
+      4111,
+      4161
+    ],
+    "_getAllKey": [
+      3681
+    ],
+    "_getAreaType": [
+      3867
+    ],
+    "_getCatalogID": [
+      2143
+    ],
+    "_getCurrentAreaMaster": [
+      1262,
+      1300,
+      1347,
+      2527,
+      3051,
+      3842,
+      4098,
+      4148
+    ],
+    "_getData": [
+      1272,
+      1278,
+      1284,
+      1290,
+      3719,
+      3725,
+      3731,
+      3737,
+      3743,
+      3749,
+      3859,
+      3919,
+      3966
+    ],
+    "_getDir": [
+      1367,
+      3142
+    ],
+    "_getDisplayName": [
+      766
+    ],
+    "_getEquippingItem": [
+      2137
+    ],
+    "_getInstanceName": [
+      138
+    ],
+    "_getPos": [
+      2241,
+      2541,
+      3043,
+      3137
+    ],
+    "_getStaticActor": [
+      3757
+    ],
+    "_getZoneName": [
+      4100,
+      4150
+    ],
+    "_isAlive": [
+      2505,
+      2791
+    ],
+    "_isExistKey": [
+      1253,
+      2282,
+      2562
+    ],
+    "_isInstanceOf": [
+      746,
+      1164,
+      1228,
+      1260,
+      1383,
+      2825,
+      2965,
+      3638,
+      3901,
+      3948
+    ],
+    "_math": [
+      2270,
+      2484,
+      2550,
+      2765,
+      2894
+    ],
+    "_randomFloat": [
+      2480,
+      2761
+    ],
+    "_runCharaScheduler": [
+      2933
+    ],
+    "_setGroundOn": [
+      1445
+    ],
+    "_string": [
+      2441,
+      2449,
+      2722,
+      2730,
+      4264
+    ],
+    "_table": [
+      308,
+      636
+    ],
+    "_wait": [
+      1324
+    ]
+  }
+}

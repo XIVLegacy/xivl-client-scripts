@@ -1,0 +1,25 @@
+{
+  "decoded": "widget/ask/fellinginputwidget",
+  "ciphered": "n1635q/9rz/45yy1w31wupqn1635q.lua",
+  "classes": [
+    "FellingInputWidget"
+  ],
+  "lineCount": 1061,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_addItem": [
+      115
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      218
+    ],
+    "_math": [
+      700,
+      707
+    ]
+  }
+}

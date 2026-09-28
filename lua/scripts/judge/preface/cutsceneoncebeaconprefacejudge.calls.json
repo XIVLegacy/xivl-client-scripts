@@ -1,0 +1,31 @@
+{
+  "decoded": "judge/preface/cutsceneoncebeaconprefacejudge",
+  "ciphered": "0p635/us54975/7pqr75w5vw758597vwus549750p635.lua",
+  "classes": [
+    "CutSceneOnceBeaconPrefaceJudge"
+  ],
+  "lineCount": 48,
+  "apiCount": 6,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_delete": [
+      37
+    ],
+    "_fadeIn": [
+      40
+    ],
+    "_fadeOut": [
+      18
+    ],
+    "_getMyPlayer": [
+      15
+    ],
+    "_waitForFading": [
+      22,
+      44
+    ]
+  }
+}

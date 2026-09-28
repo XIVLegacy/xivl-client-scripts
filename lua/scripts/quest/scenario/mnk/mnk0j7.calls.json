@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/mnk/mnk0j7",
+  "ciphered": "tp5rq/r75w9s1v/xwz/xwzj0c.lua",
+  "classes": [
+    "Mnk0j7"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

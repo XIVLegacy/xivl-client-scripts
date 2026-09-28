@@ -1,0 +1,15 @@
+{
+  "decoded": "status/icononlystatus",
+  "ciphered": "rq9qpr/17vwvwylrq9qpr.lua",
+  "classes": [
+    "IconOnlyStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

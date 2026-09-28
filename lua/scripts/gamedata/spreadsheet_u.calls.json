@@ -1,0 +1,11 @@
+{
+  "decoded": "gamedata/spreadsheet_u",
+  "ciphered": "39x569q9/rus596r255q_p.lua",
+  "classes": [
+    "SpreadSheet"
+  ],
+  "lineCount": 101,
+  "apiCount": 0,
+  "callsiteCount": 0,
+  "apis": {}
+}

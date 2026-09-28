@@ -1,0 +1,35 @@
+{
+  "decoded": "widget/logwidget",
+  "ciphered": "n1635q/yv3n1635q.lua",
+  "classes": [
+    "LogWidget"
+  ],
+  "lineCount": 1969,
+  "apiCount": 6,
+  "callsiteCount": 11,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      502,
+      551,
+      1020,
+      1039
+    ],
+    "_getMyPlayer": [
+      759,
+      1339
+    ],
+    "_getUserConfig": [
+      1949
+    ],
+    "_sendStoryboardCommand": [
+      518,
+      573
+    ],
+    "_string": [
+      1944
+    ]
+  }
+}

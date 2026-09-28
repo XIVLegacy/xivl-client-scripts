@@ -1,0 +1,21 @@
+{
+  "decoded": "chara/npc/populace/populacehalloweentrans",
+  "ciphered": "729s9/wu7/uvupy975/uvupy97529yyvn55wqs9wr.lua",
+  "classes": [
+    "PopulaceHalloweenTrans"
+  ],
+  "lineCount": 196,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      18
+    ],
+    "_setGroundOn": [
+      14
+    ]
+  }
+}

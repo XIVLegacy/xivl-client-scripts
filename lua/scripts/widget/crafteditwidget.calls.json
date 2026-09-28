@@ -1,0 +1,113 @@
+{
+  "decoded": "widget/crafteditwidget",
+  "ciphered": "n1635q/7s94q561qn1635q.lua",
+  "classes": [
+    "CraftEditWidget"
+  ],
+  "lineCount": 5376,
+  "apiCount": 15,
+  "callsiteCount": 71,
+  "apis": {
+    "_countStack": [
+      1615,
+      1679,
+      1714,
+      1750,
+      1908
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1667,
+      1702,
+      1896
+    ],
+    "_getEquippingItem": [
+      3318,
+      3325,
+      3332,
+      3339
+    ],
+    "_getItem": [
+      1224,
+      1249,
+      1765,
+      1885,
+      2139,
+      2386,
+      2865,
+      3009,
+      3125,
+      3232,
+      3572,
+      4308
+    ],
+    "_getItemPackageCapacity": [
+      1197,
+      2220,
+      2293,
+      2979
+    ],
+    "_getItemPackageFreeSpace": [
+      1201,
+      2225
+    ],
+    "_getKeyboardFocusedWidget": [
+      1167
+    ],
+    "_getMaxStack": [
+      2903,
+      3040
+    ],
+    "_getMyPlayer": [
+      1185,
+      1221,
+      1246,
+      1591,
+      1879,
+      2136,
+      2199,
+      2820,
+      2854,
+      2970,
+      3122,
+      3222,
+      3567,
+      4305
+    ],
+    "_getNameIndex": [
+      1794,
+      1912,
+      2872,
+      3136
+    ],
+    "_getParentWidget": [
+      3092,
+      3780,
+      3870,
+      4348,
+      4402,
+      4426,
+      4444,
+      4459,
+      5204
+    ],
+    "_isEquipping": [
+      1802,
+      3583
+    ],
+    "_isStackable": [
+      1611,
+      1675,
+      1710,
+      1746,
+      1904,
+      2887,
+      3024
+    ],
+    "_setProperty": [
+      940
+    ]
+  }
+}

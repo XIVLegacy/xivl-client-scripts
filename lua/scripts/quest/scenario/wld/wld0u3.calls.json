@@ -1,0 +1,34 @@
+{
+  "decoded": "quest/scenario/wld/wld0u3",
+  "ciphered": "tp5rq/r75w9s1v/ny6/ny6jpg.lua",
+  "classes": [
+    "Wld0u3"
+  ],
+  "lineCount": 289,
+  "apiCount": 4,
+  "callsiteCount": 14,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      57,
+      74,
+      101,
+      126,
+      148,
+      185,
+      216,
+      236,
+      261
+    ],
+    "_wait": [
+      240,
+      279
+    ]
+  }
+}

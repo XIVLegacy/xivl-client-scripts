@@ -1,0 +1,15 @@
+{
+  "decoded": "group/contentgroup/publicpopgroup",
+  "ciphered": "3svpu/7vwq5wq3svpu/up8y17uvu3svpu.lua",
+  "classes": [
+    "PublicPopGroup"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

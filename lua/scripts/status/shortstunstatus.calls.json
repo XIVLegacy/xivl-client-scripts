@@ -1,0 +1,15 @@
+{
+  "decoded": "status/shortstunstatus",
+  "ciphered": "rq9qpr/r2vsqrqpwrq9qpr.lua",
+  "classes": [
+    "ShortStunStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

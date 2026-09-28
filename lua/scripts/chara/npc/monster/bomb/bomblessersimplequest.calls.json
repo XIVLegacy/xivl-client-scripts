@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/bomb/bomblessersimplequest",
+  "ciphered": "729s9/wu7/xvwrq5s/8vx8/8vx8y5rr5sr1xuy5tp5rq.lua",
+  "classes": [
+    "BombLesserSimpleQuest"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

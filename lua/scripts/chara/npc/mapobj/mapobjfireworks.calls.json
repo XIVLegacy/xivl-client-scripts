@@ -1,0 +1,46 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjfireworks",
+  "ciphered": "729s9/wu7/x9uv80/x9uv8041s5nvszr.lua",
+  "classes": [
+    "MapObjFireworks"
+  ],
+  "lineCount": 171,
+  "apiCount": 9,
+  "callsiteCount": 16,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      64
+    ],
+    "_math": [
+      66
+    ],
+    "_onLoop": [
+      142
+    ],
+    "_randomIntegerWithSeed": [
+      156
+    ],
+    "_runBgScheduler": [
+      78,
+      90,
+      102,
+      114,
+      126
+    ],
+    "_setGroundOn": [
+      45
+    ],
+    "_setLoopInterval": [
+      49
+    ],
+    "_wait": [
+      86,
+      98,
+      110,
+      122
+    ]
+  }
+}

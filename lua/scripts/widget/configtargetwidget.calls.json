@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/configtargetwidget",
+  "ciphered": "n1635q/7vw413q9s35qn1635q.lua",
+  "classes": [
+    "ConfigTargetWidget"
+  ],
+  "lineCount": 407,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

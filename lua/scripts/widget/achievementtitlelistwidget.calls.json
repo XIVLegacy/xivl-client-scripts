@@ -1,0 +1,45 @@
+{
+  "decoded": "widget/achievementtitlelistwidget",
+  "ciphered": "n1635q/97215o5x5wqq1qy5y1rqn1635q.lua",
+  "classes": [
+    "AchievementTitleListWidget"
+  ],
+  "lineCount": 339,
+  "apiCount": 8,
+  "callsiteCount": 17,
+  "apis": {
+    "_addItem": [
+      92
+    ],
+    "_countEnableAchievementTitle": [
+      65
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getAchievementTitle": [
+      70
+    ],
+    "_getEnableAchievementTitle": [
+      106,
+      183,
+      247,
+      310
+    ],
+    "_getMyPlayer": [
+      42,
+      176,
+      238,
+      293
+    ],
+    "_getParentWidget": [
+      215,
+      257,
+      274
+    ],
+    "_setAchievementTitle": [
+      188,
+      193
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "decoded": "widget/tradewidget",
+  "ciphered": "n1635q/qs965n1635q.lua",
+  "classes": [
+    "TradeWidget"
+  ],
+  "lineCount": 2687,
+  "apiCount": 10,
+  "callsiteCount": 37,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getCatalogID": [
+      1948,
+      1979,
+      2272,
+      2303
+    ],
+    "_getKeyboardFocusedWidget": [
+      448
+    ],
+    "_getMaxStack": [
+      1896,
+      2220
+    ],
+    "_getMyPlayer": [
+      526,
+      2006,
+      2330
+    ],
+    "_getNameIndex": [
+      1982,
+      2306
+    ],
+    "_getProperty": [
+      682,
+      689,
+      696,
+      1296,
+      1542
+    ],
+    "_isStackable": [
+      1880,
+      2204
+    ],
+    "_isTrading": [
+      1877,
+      2201
+    ],
+    "_setProperty": [
+      143,
+      150,
+      157,
+      164,
+      171,
+      178,
+      266,
+      273,
+      280,
+      287,
+      294,
+      723,
+      730,
+      737,
+      1802
+    ]
+  }
+}

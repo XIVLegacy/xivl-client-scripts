@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/killermachine/killermachinenormalfortnm001",
+  "ciphered": "729s9/wu7/xvwrq5s/z1yy5sx9721w5/z1yy5sx9721w5wvsx9y4vsqwxjji.lua",
+  "classes": [
+    "KillermachineNormalFortNM001"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

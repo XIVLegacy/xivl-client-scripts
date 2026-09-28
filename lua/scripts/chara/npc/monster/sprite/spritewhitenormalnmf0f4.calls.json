@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/sprite/spritewhitenormalnmf0f4",
+  "ciphered": "729s9/wu7/xvwrq5s/rus1q5/rus1q5n21q5wvsx9ywx4j4f.lua",
+  "classes": [
+    "SpriteWhiteNormalNMf0f4"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

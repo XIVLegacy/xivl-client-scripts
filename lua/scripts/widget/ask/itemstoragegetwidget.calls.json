@@ -1,0 +1,65 @@
+{
+  "decoded": "widget/ask/itemstoragegetwidget",
+  "ciphered": "n1635q/9rz/1q5xrqvs93535qn1635q.lua",
+  "classes": [
+    "ItemStorageGetWidget"
+  ],
+  "lineCount": 2218,
+  "apiCount": 13,
+  "callsiteCount": 27,
+  "apis": {
+    "_countStack": [
+      1105
+    ],
+    "_countStoredItem": [
+      1302
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getEquippingItem": [
+      1512,
+      1519,
+      1526,
+      1533
+    ],
+    "_getItem": [
+      1239
+    ],
+    "_getItemPackageCapacity": [
+      781
+    ],
+    "_getItemPackageFreeSpace": [
+      785
+    ],
+    "_getKeyboardFocusedWidget": [
+      760
+    ],
+    "_getMyPlayer": [
+      778,
+      1088,
+      1234,
+      1295,
+      1450,
+      1730,
+      2083
+    ],
+    "_getNameIndex": [
+      1108
+    ],
+    "_getServerTime": [
+      1645,
+      1756,
+      1776,
+      2207
+    ],
+    "_getStoredItem": [
+      1340,
+      1733,
+      2086
+    ],
+    "_isStackable": [
+      1102
+    ]
+  }
+}

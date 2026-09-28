@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lizardman/lizardmanpugilistjobarmstd",
+  "ciphered": "729s9/wu7/xvwrq5s/y1k9s6x9w/y1k9s6x9wup31y1rq0v89sxrq6.lua",
+  "classes": [
+    "LizardmanPugilistJobArmStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "decoded": "commanddebugger/commanddebuggertest",
+  "ciphered": "7vxx9w6658p335s/7vxx9w6658p335sq5rq.lua",
+  "classes": [
+    "CommandDebuggerTEST"
+  ],
+  "lineCount": 870,
+  "apiCount": 15,
+  "callsiteCount": 36,
+  "apis": {
+    "_countHamletSupplyRanking": [
+      768
+    ],
+    "_countMember": [
+      70
+    ],
+    "_getCurrentAreaMaster": [
+      764
+    ],
+    "_getGroup": [
+      47
+    ],
+    "_getHamletSupplyRanking": [
+      773
+    ],
+    "_getLocalizedDisplayName": [
+      701,
+      711
+    ],
+    "_getLookAtCharacter": [
+      704
+    ],
+    "_getMember": [
+      145
+    ],
+    "_getMemberLocalizedDisplayName": [
+      90,
+      120
+    ],
+    "_getStaticActor": [
+      590,
+      599,
+      613,
+      623
+    ],
+    "_isExistInClientMember": [
+      115
+    ],
+    "_isExistInWorldMember": [
+      85
+    ],
+    "_printLog": [
+      29,
+      53,
+      61,
+      66,
+      95,
+      125,
+      150,
+      172,
+      194,
+      205,
+      259,
+      268,
+      450,
+      740,
+      753,
+      779,
+      794
+    ],
+    "_setTargetCharacterByDisplayName": [
+      689
+    ],
+    "_string": [
+      41
+    ]
+  }
+}

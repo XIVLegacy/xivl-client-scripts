@@ -1,0 +1,26 @@
+{
+  "decoded": "widget/addresslistsubwidget",
+  "ciphered": "n1635q/966s5rry1rqrp8n1635q.lua",
+  "classes": [
+    "AddressListSubWidget"
+  ],
+  "lineCount": 645,
+  "apiCount": 3,
+  "callsiteCount": 8,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getKeyboardFocusedWidget": [
+      380
+    ],
+    "_getParentWidget": [
+      475,
+      521,
+      559,
+      577,
+      617,
+      635
+    ]
+  }
+}

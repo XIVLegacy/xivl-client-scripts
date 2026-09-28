@@ -1,0 +1,49 @@
+{
+  "decoded": "quest/scenario/etc/etc200",
+  "ciphered": "tp5rq/r75w9s1v/5q7/5q7hjj.lua",
+  "classes": [
+    "Etc200"
+  ],
+  "lineCount": 351,
+  "apiCount": 4,
+  "callsiteCount": 29,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      31,
+      47,
+      57,
+      73,
+      87,
+      137,
+      148,
+      179,
+      189,
+      227,
+      251,
+      273,
+      287,
+      301,
+      311,
+      329
+    ],
+    "_wait": [
+      83,
+      91,
+      133,
+      152,
+      242,
+      283,
+      291,
+      315,
+      325,
+      333,
+      343
+    ]
+  }
+}

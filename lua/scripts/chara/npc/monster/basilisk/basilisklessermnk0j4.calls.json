@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/basilisk/basilisklessermnk0j4",
+  "ciphered": "729s9/wu7/xvwrq5s/89r1y1rz/89r1y1rzy5rr5sxwzj0f.lua",
+  "classes": [
+    "BasiliskLesserMnk0j4"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

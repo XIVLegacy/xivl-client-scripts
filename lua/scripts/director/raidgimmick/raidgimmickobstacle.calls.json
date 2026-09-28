@@ -1,0 +1,15 @@
+{
+  "decoded": "director/raidgimmick/raidgimmickobstacle",
+  "ciphered": "61s57qvs/s91631xx17z/s91631xx17zv8rq97y5.lua",
+  "classes": [
+    "RaidGimmickObstacle"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

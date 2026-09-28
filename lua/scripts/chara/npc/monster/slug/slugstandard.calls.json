@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/slug/slugstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/ryp3/ryp3rq9w69s6.lua",
+  "classes": [
+    "SlugStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

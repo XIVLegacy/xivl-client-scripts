@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/specter/specternormalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/ru57q5s/ru57q5swvsx9yrq9w69s6.lua",
+  "classes": [
+    "SpecterNormalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

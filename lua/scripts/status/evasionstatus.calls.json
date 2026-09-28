@@ -1,0 +1,15 @@
+{
+  "decoded": "status/evasionstatus",
+  "ciphered": "rq9qpr/5o9r1vwrq9qpr.lua",
+  "classes": [
+    "EvasionStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "director/raidgimmick/raidgimmickpop",
+  "ciphered": "61s57qvs/s91631xx17z/s91631xx17zuvu.lua",
+  "classes": [
+    "RaidGimmickPop"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

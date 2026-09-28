@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/object/marketmaster",
+  "ciphered": "729s9/wu7/v8057q/x9sz5qx9rq5s.lua",
+  "classes": [
+    "MarketMaster"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

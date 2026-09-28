@@ -1,0 +1,118 @@
+{
+  "decoded": "commanddebugger/commanddebuggerbaseclass",
+  "ciphered": "7vxx9w6658p335s/7vxx9w6658p335s89r57y9rr.lua",
+  "classes": [
+    "CommandDebuggerBaseClass"
+  ],
+  "lineCount": 1103,
+  "apiCount": 20,
+  "callsiteCount": 66,
+  "apis": {
+    "_assignForChild": [
+      13,
+      22
+    ],
+    "_callSuperClassFunc": [
+      7
+    ],
+    "_commandDebug": [
+      1056,
+      1077,
+      1091
+    ],
+    "_createActor": [
+      28
+    ],
+    "_getActorByName": [
+      926
+    ],
+    "_getAllKey": [
+      382
+    ],
+    "_getData": [
+      418,
+      424,
+      484,
+      493,
+      564
+    ],
+    "_getGMRank": [
+      60,
+      480
+    ],
+    "_getUTF8StringByteLength": [
+      199
+    ],
+    "_isExistKey": [
+      940
+    ],
+    "_isInstanceOf": [
+      34,
+      304,
+      311,
+      318,
+      747,
+      758,
+      770,
+      781,
+      793,
+      805,
+      822
+    ],
+    "_loadKeyTemporarily": [
+      408
+    ],
+    "_math": [
+      396,
+      645,
+      935
+    ],
+    "_onCommand": [
+      219
+    ],
+    "_onInit": [
+      8,
+      45
+    ],
+    "_onLoop": [
+      235
+    ],
+    "_printLog": [
+      160,
+      165
+    ],
+    "_string": [
+      588,
+      665,
+      682,
+      695,
+      712,
+      890,
+      915,
+      921
+    ],
+    "_table": [
+      735,
+      752,
+      764,
+      775,
+      787,
+      799,
+      816,
+      827,
+      845,
+      863,
+      881,
+      896,
+      909,
+      944,
+      952,
+      965,
+      979,
+      1021
+    ],
+    "_unloadKey": [
+      581
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "decoded": "quest/scenario/wld/wld1l0",
+  "ciphered": "tp5rq/r75w9s1v/ny6/ny6iyj.lua",
+  "classes": [
+    "Wld1l0"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

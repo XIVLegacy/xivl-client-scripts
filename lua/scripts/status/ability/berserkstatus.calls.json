@@ -1,0 +1,15 @@
+{
+  "decoded": "status/ability/berserkstatus",
+  "ciphered": "rq9qpr/981y1ql/85sr5szrq9qpr.lua",
+  "classes": [
+    "BerserkStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

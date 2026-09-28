@@ -1,0 +1,15 @@
+{
+  "decoded": "item/normal/cmnhatecontrolitem",
+  "ciphered": "1q5x/wvsx9y/7xw29q57vwqsvy1q5x.lua",
+  "classes": [
+    "CmnHateControlItem"
+  ],
+  "lineCount": 19,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

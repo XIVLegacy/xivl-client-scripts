@@ -1,0 +1,23 @@
+{
+  "decoded": "widget/repairequipmentdialogwidget",
+  "ciphered": "n1635q/s5u91s5tp1ux5wq619yv3n1635q.lua",
+  "classes": [
+    "RepairEquipmentDialogWidget"
+  ],
+  "lineCount": 334,
+  "apiCount": 2,
+  "callsiteCount": 7,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      134,
+      152,
+      194,
+      220,
+      250,
+      309
+    ]
+  }
+}

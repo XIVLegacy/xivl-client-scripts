@@ -1,0 +1,35 @@
+{
+  "decoded": "quest/scenario/noc/noc001",
+  "ciphered": "tp5rq/r75w9s1v/wv7/wv7jji.lua",
+  "classes": [
+    "Noc001"
+  ],
+  "lineCount": 622,
+  "apiCount": 5,
+  "callsiteCount": 13,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getGrandCompanyRank": [
+      200
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ],
+    "_runCharaScheduler": [
+      156,
+      183,
+      243,
+      267,
+      323,
+      474,
+      478,
+      604
+    ],
+    "_wait": [
+      490,
+      509
+    ]
+  }
+}

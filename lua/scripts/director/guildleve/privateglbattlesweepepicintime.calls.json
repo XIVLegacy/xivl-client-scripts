@@ -1,0 +1,18 @@
+{
+  "decoded": "director/guildleve/privateglbattlesweepepicintime",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y89qqy5rn55u5u171wq1x5.lua",
+  "classes": [
+    "PrivateGLBattleSweepEpicInTime"
+  ],
+  "lineCount": 118,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

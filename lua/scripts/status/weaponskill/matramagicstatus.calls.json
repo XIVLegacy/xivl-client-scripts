@@ -1,0 +1,15 @@
+{
+  "decoded": "status/weaponskill/matramagicstatus",
+  "ciphered": "rq9qpr/n59uvwrz1yy/x9qs9x9317rq9qpr.lua",
+  "classes": [
+    "MatraMagicStatus"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

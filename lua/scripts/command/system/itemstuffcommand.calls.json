@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/itemstuffcommand",
+  "ciphered": "7vxx9w6/rlrq5x/1q5xrqp447vxx9w6.lua",
+  "classes": [
+    "ItemStuffCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

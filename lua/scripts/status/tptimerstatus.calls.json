@@ -1,0 +1,15 @@
+{
+  "decoded": "status/tptimerstatus",
+  "ciphered": "rq9qpr/quq1x5srq9qpr.lua",
+  "classes": [
+    "TpTimerStatus"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

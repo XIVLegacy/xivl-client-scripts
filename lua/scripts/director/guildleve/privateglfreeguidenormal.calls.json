@@ -1,0 +1,15 @@
+{
+  "decoded": "director/guildleve/privateglfreeguidenormal",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y4s553p165wvsx9y.lua",
+  "classes": [
+    "PrivateGLFreeGuideNormal"
+  ],
+  "lineCount": 150,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

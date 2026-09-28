@@ -1,0 +1,15 @@
+{
+  "decoded": "status/equipmentweaknessstatus",
+  "ciphered": "rq9qpr/5tp1ux5wqn59zw5rrrq9qpr.lua",
+  "classes": [
+    "EquipmentWeaknessStatus"
+  ],
+  "lineCount": 35,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

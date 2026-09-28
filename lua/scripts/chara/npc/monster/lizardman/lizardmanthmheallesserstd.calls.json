@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lizardman/lizardmanthmheallesserstd",
+  "ciphered": "729s9/wu7/xvwrq5s/y1k9s6x9w/y1k9s6x9wq2x259yy5rr5srq6.lua",
+  "classes": [
+    "LizardmanThmHealLesserStd"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

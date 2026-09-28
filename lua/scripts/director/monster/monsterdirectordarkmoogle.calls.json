@@ -1,0 +1,15 @@
+{
+  "decoded": "director/monster/monsterdirectordarkmoogle",
+  "ciphered": "61s57qvs/xvwrq5s/xvwrq5s61s57qvs69szxvv3y5.lua",
+  "classes": [
+    "MonsterDirectorDarkMoogle"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

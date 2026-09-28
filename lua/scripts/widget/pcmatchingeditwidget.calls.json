@@ -1,0 +1,69 @@
+{
+  "decoded": "widget/pcmatchingeditwidget",
+  "ciphered": "n1635q/u7x9q721w3561qn1635q.lua",
+  "classes": [
+    "PcMatchingEditWidget"
+  ],
+  "lineCount": 5026,
+  "apiCount": 8,
+  "callsiteCount": 41,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getBelongGrandCompany": [
+      816
+    ],
+    "_getKeyboardFocusedWidget": [
+      2982,
+      4942
+    ],
+    "_getMyPlayer": [
+      66,
+      576,
+      697,
+      915,
+      2237,
+      2543,
+      4060
+    ],
+    "_getOccupancyContentsTime": [
+      579,
+      599,
+      619,
+      639,
+      659,
+      701,
+      726,
+      746,
+      761,
+      781,
+      801,
+      819,
+      842,
+      918,
+      932,
+      946
+    ],
+    "_getParentWidget": [
+      296,
+      3145,
+      3992,
+      4181,
+      4224,
+      4393,
+      4436,
+      4627,
+      4647
+    ],
+    "_getProperty": [
+      4795,
+      4826
+    ],
+    "_getServerTime": [
+      572,
+      693,
+      911
+    ]
+  }
+}

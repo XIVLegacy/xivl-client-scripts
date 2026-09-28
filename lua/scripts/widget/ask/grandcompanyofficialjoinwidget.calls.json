@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/ask/grandcompanyofficialjoinwidget",
+  "ciphered": "n1635q/9rz/3s9w67vxu9wlv441719y0v1wn1635q.lua",
+  "classes": [
+    "GrandCompanyOfficialJoinWidget"
+  ],
+  "lineCount": 93,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "decoded": "group/relationgroup/bazaarbuyitemrelationgroup",
+  "ciphered": "3svpu/s5y9q1vw3svpu/89k99s8pl1q5xs5y9q1vw3svpu.lua",
+  "classes": [
+    "BazaarBuyItemRelationGroup"
+  ],
+  "lineCount": 34,
+  "apiCount": 4,
+  "callsiteCount": 4,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_onFinalize": [
+      34
+    ],
+    "_onUpdateMember": [
+      27
+    ],
+    "_onUpdateWork": [
+      21
+    ]
+  }
+}

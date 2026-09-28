@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/lnc/lnc506",
+  "ciphered": "tp5rq/r75w9s1v/yw7/yw7ejd.lua",
+  "classes": [
+    "Lnc506"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

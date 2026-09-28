@@ -1,0 +1,15 @@
+{
+  "decoded": "command/system/confirmraisecommand_raise",
+  "ciphered": "7vxx9w6/rlrq5x/7vw41sxs91r57vxx9w6_s91r5.lua",
+  "classes": [
+    "ConfirmRaiseCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

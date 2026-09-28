@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/ask/marketselectwidget",
+  "ciphered": "n1635q/9rz/x9sz5qr5y57qn1635q.lua",
+  "classes": [
+    "MarketSelectWidget"
+  ],
+  "lineCount": 268,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_setProperty": [
+      161
+    ]
+  }
+}

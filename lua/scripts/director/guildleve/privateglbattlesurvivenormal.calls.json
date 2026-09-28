@@ -1,0 +1,18 @@
+{
+  "decoded": "director/guildleve/privateglbattlesurvivenormal",
+  "ciphered": "61s57qvs/3p1y6y5o5/us1o9q53y89qqy5rpso1o5wvsx9y.lua",
+  "classes": [
+    "PrivateGLBattleSurviveNormal"
+  ],
+  "lineCount": 331,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      303
+    ]
+  }
+}

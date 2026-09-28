@@ -1,0 +1,49 @@
+{
+  "decoded": "widget/ask/negotiationwidget",
+  "ciphered": "n1635q/9rz/w53vq19q1vwn1635q.lua",
+  "classes": [
+    "NegotiationWidget"
+  ],
+  "lineCount": 2110,
+  "apiCount": 4,
+  "callsiteCount": 29,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_sendStoryboardCommand": [
+      702,
+      742,
+      1029,
+      1072,
+      1214,
+      1241,
+      1248,
+      1327,
+      1344,
+      1361,
+      1450,
+      1460,
+      1470,
+      1559,
+      1609,
+      1619
+    ],
+    "_setProperty": [
+      748,
+      756,
+      1056,
+      1064,
+      1285,
+      1292,
+      1303,
+      1310,
+      1431,
+      1439
+    ],
+    "_wait": [
+      1256,
+      1268
+    ]
+  }
+}

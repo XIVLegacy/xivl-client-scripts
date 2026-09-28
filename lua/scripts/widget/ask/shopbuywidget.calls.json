@@ -1,0 +1,53 @@
+{
+  "decoded": "widget/ask/shopbuywidget",
+  "ciphered": "n1635q/9rz/r2vu8pln1635q.lua",
+  "classes": [
+    "ShopBuyWidget"
+  ],
+  "lineCount": 2756,
+  "apiCount": 10,
+  "callsiteCount": 21,
+  "apis": {
+    "_countStack": [
+      1304
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_getEquippingItem": [
+      1621,
+      1628,
+      1635,
+      1642
+    ],
+    "_getItem": [
+      967,
+      1379
+    ],
+    "_getItemPackageCapacity": [
+      890,
+      916
+    ],
+    "_getItemPackageFreeSpace": [
+      894,
+      920
+    ],
+    "_getKeyboardFocusedWidget": [
+      840
+    ],
+    "_getMyPlayer": [
+      527,
+      887,
+      913,
+      964,
+      1268,
+      1559
+    ],
+    "_getNameIndex": [
+      1406
+    ],
+    "_isStackable": [
+      1300
+    ]
+  }
+}

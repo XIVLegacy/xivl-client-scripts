@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/populace/populacemateriaremover",
+  "ciphered": "729s9/wu7/uvupy975/uvupy975x9q5s19s5xvo5s.lua",
+  "classes": [
+    "PopulaceMateriaRemover"
+  ],
+  "lineCount": 47,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

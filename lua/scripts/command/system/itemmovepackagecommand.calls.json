@@ -1,0 +1,25 @@
+{
+  "decoded": "command/system/itemmovepackagecommand",
+  "ciphered": "7vxx9w6/rlrq5x/1q5xxvo5u97z9357vxx9w6.lua",
+  "classes": [
+    "ItemMovePackageCommand"
+  ],
+  "lineCount": 65,
+  "apiCount": 4,
+  "callsiteCount": 5,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getPackage": [
+      51
+    ],
+    "_hasItemPackage": [
+      28,
+      36
+    ],
+    "_isAlive": [
+      44
+    ]
+  }
+}

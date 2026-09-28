@@ -1,0 +1,22 @@
+{
+  "decoded": "chara/npc/savenpc/companycottagesavenpc",
+  "ciphered": "729s9/wu7/r9o5wu7/7vxu9wl7vqq935r9o5wu7.lua",
+  "classes": [
+    "CompanyCottageSaveNpc"
+  ],
+  "lineCount": 23,
+  "apiCount": 3,
+  "callsiteCount": 4,
+  "apis": {
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineClass": [
+      5
+    ],
+    "_onInit": [
+      15,
+      23
+    ]
+  }
+}

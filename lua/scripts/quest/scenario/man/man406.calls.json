@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/scenario/man/man406",
+  "ciphered": "tp5rq/r75w9s1v/x9w/x9wfjd.lua",
+  "classes": [
+    "Man406"
+  ],
+  "lineCount": 1262,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

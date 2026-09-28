@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/elemental/fireelementalscenarioconlv36",
+  "ciphered": "729s9/wu7/xvwrq5s/5y5x5wq9y/41s55y5x5wq9yr75w9s1v7vwyogd.lua",
+  "classes": [
+    "FireelementalScenarioConLv36"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

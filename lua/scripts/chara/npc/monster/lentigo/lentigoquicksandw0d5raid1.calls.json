@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/lentigo/lentigoquicksandw0d5raid1",
+  "ciphered": "729s9/wu7/xvwrq5s/y5wq13v/y5wq13vtp17zr9w6nj6es916i.lua",
+  "classes": [
+    "LentigoQuicksandW0D5Raid1"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

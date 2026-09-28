@@ -1,0 +1,53 @@
+{
+  "version": "1",
+  "gameVersion": "1.23b",
+  "extraction": "2012.09.19.0001",
+  "sourceRecordSha256": "694bf86243cff8c1348da3323ca703c5ac3be4fe249ee943e8812a5690edb2ce",
+  "scripts": [
+    {
+      "decodedPath": "judge/craft/craftjudge.lua",
+      "cipheredPath": "0p635/7s94q/7s94q0p635.le.lpb",
+      "decodedChunkBytes": 10114,
+      "decodedChunkSha256": "0dff8463d2b685ff65a23afcf5e52e451e531e6fac194fd088adba3d05dbd0ff",
+      "canonicalScriptSha256": "5019a3e9acaf99a23210a451e0df2b0f4a73e5d44f764a480bb3b23953c9076f",
+      "locators": ["24-157", "196-257"]
+    },
+    {
+      "decodedPath": "widget/craftprogresswidget.lua",
+      "cipheredPath": "n1635q/7s94qusv3s5rrn1635q.le.lpb",
+      "decodedChunkBytes": 8016,
+      "decodedChunkSha256": "b4d2f8d0a2f8e6ab6d6791ee012e57d432f8b4305a1d83cdd038d93c5abb1c53",
+      "canonicalScriptSha256": "9431f0056989aa241e1910bb294c8076d17d3dbf73894b2ff2afe71efb91e1bf",
+      "locators": ["11-215"]
+    }
+  ],
+  "commandBands": {
+    "system": [22501, 22549],
+    "standard": [22550, 22698],
+    "gift": [29501, 29698]
+  },
+  "standardSets": {
+    "normal": [22550, 22556, 22562, 22568, 22574, 22580, 22586, 22592, 22553, 22559, 22565, 22571, 22577, 22583, 22589, 22595],
+    "rapid": [22551, 22557, 22563, 22569, 22575, 22581, 22587, 22593, 22554, 22560, 22566, 22572, 22578, 22584, 22590, 22596],
+    "bold": [22552, 22558, 22564, 22570, 22576, 22582, 22588, 22594, 22555, 22561, 22567, 22573, 22579, 22585, 22591, 22597]
+  },
+  "classBaseCommands": {
+    "29": 22550,
+    "30": 22556,
+    "31": 22562,
+    "32": 22568,
+    "33": 22574,
+    "34": 22580,
+    "35": 22586,
+    "36": 22592
+  },
+  "progressWidget": {
+    "maximumProgress": 100,
+    "missingMaximumSubstitute": 999,
+    "storedInputs": ["progressPercentage", "craftPoint", "qualityPoint", "maxCraftPoint", "maxQualityPoint"]
+  },
+  "rejectedInterpretations": [
+    "The scripts do not establish retail craft success or quality formulas.",
+    "The scripts do not establish durability, inventory, experience, eligibility, or server policy."
+  ]
+}

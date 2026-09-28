@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/specter/spectermarch",
+  "ciphered": "729s9/wu7/xvwrq5s/ru57q5s/ru57q5sx9s72.lua",
+  "classes": [
+    "SpecterMarch"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

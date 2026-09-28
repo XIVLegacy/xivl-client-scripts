@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/ifrit/ifritanchor",
+  "ciphered": "729s9/wu7/xvwrq5s/14s1q/14s1q9w72vs.lua",
+  "classes": [
+    "IfritAnchor"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

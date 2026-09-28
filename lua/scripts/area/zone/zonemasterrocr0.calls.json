@@ -1,0 +1,15 @@
+{
+  "decoded": "area/zone/zonemasterrocr0",
+  "ciphered": "9s59/kvw5/kvw5x9rq5ssv7sj.lua",
+  "classes": [
+    "ZoneMasterRocR0"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

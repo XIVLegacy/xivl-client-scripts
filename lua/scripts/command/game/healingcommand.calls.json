@@ -1,0 +1,15 @@
+{
+  "decoded": "command/game/healingcommand",
+  "ciphered": "7vxx9w6/39x5/259y1w37vxx9w6.lua",
+  "classes": [
+    "HealingCommand"
+  ],
+  "lineCount": 17,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

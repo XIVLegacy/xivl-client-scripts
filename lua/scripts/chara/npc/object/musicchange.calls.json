@@ -1,0 +1,28 @@
+{
+  "decoded": "chara/npc/object/musicchange",
+  "ciphered": "729s9/wu7/v8057q/xpr17729w35.lua",
+  "classes": [
+    "MusicChange"
+  ],
+  "lineCount": 67,
+  "apiCount": 5,
+  "callsiteCount": 6,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_fadeIn": [
+      58
+    ],
+    "_fadeOut": [
+      39
+    ],
+    "_getMyPlayer": [
+      36
+    ],
+    "_waitForFading": [
+      43,
+      62
+    ]
+  }
+}

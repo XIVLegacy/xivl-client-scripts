@@ -1,0 +1,29 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjshipport",
+  "ciphered": "729s9/wu7/x9uv80/x9uv80r21uuvsq.lua",
+  "classes": [
+    "MapObjShipPort"
+  ],
+  "lineCount": 134,
+  "apiCount": 4,
+  "callsiteCount": 9,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      52
+    ],
+    "_runBgSchedulerFromMidstream": [
+      69,
+      88,
+      99,
+      105,
+      115,
+      121
+    ],
+    "_setGroundOn": [
+      129
+    ]
+  }
+}

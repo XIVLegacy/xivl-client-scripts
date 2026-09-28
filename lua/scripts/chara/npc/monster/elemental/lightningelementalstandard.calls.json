@@ -1,0 +1,15 @@
+{
+  "decoded": "chara/npc/monster/elemental/lightningelementalstandard",
+  "ciphered": "729s9/wu7/xvwrq5s/5y5x5wq9y/y132qw1w35y5x5wq9yrq9w69s6.lua",
+  "classes": [
+    "LightningelementalStandard"
+  ],
+  "lineCount": 8,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "decoded": "quest/passiveguildleve/craft/pgconv",
+  "ciphered": "tp5rq/u9rr1o53p1y6y5o5/7s94q/u37vwo.lua",
+  "classes": [
+    "PgConv"
+  ],
+  "lineCount": 20,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_loadTextDataPermanently": [
+      14
+    ]
+  }
+}

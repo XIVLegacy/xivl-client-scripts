@@ -1,0 +1,272 @@
+{
+  "decoded": "chara/player/playerbaseclass",
+  "ciphered": "729s9/uy9l5s/uy9l5s89r57y9rr.lua",
+  "classes": [
+    "PlayerBaseClass"
+  ],
+  "lineCount": 3020,
+  "apiCount": 61,
+  "callsiteCount": 138,
+  "apis": {
+    "_appendLogPool": [
+      2734,
+      2751,
+      2768,
+      2783,
+      2798
+    ],
+    "_assignForChild": [
+      418,
+      495,
+      685,
+      722
+    ],
+    "_callFunction": [
+      2165
+    ],
+    "_callServerOnCommand": [
+      1836
+    ],
+    "_callSuperClassFunc": [
+      410,
+      1347,
+      1416,
+      1432
+    ],
+    "_canExecuteCommand": [
+      2000
+    ],
+    "_cancelCommand": [
+      2603,
+      2651,
+      2661,
+      2676
+    ],
+    "_countStack": [
+      2904
+    ],
+    "_doServerOnCommand": [
+      1899
+    ],
+    "_executeCommand": [
+      1521,
+      1530,
+      1872,
+      1950,
+      2561,
+      2608
+    ],
+    "_getAllGroup": [
+      2702
+    ],
+    "_getCatalogID": [
+      2926
+    ],
+    "_getCurrentAreaMaster": [
+      1383,
+      1505
+    ],
+    "_getData": [
+      57,
+      328,
+      354,
+      378,
+      1202,
+      1234
+    ],
+    "_getDisplayName": [
+      1211,
+      1243
+    ],
+    "_getGrandCompanyRank": [
+      268,
+      285,
+      308,
+      343,
+      367
+    ],
+    "_getItem": [
+      2899,
+      2920
+    ],
+    "_getItemPackageCapacity": [
+      2882
+    ],
+    "_getMyPlayer": [
+      1185
+    ],
+    "_getServerTime": [
+      1264,
+      1277,
+      1286,
+      1294,
+      2179,
+      2205,
+      2580,
+      2826
+    ],
+    "_getStaticActor": [
+      1512,
+      1804,
+      1842,
+      1864,
+      2563
+    ],
+    "_getUTF8StringByteLength": [
+      2501,
+      2535
+    ],
+    "_getWarpRecastTime": [
+      2819
+    ],
+    "_hasItemPackage": [
+      2877
+    ],
+    "_isCommandPlaying": [
+      2594,
+      2633,
+      2646,
+      2656,
+      2671
+    ],
+    "_isEventPlaying": [
+      102,
+      107,
+      112,
+      117,
+      122,
+      127,
+      132,
+      137,
+      142,
+      147,
+      152,
+      157
+    ],
+    "_isInstanceOf": [
+      2514,
+      2708
+    ],
+    "_isPushingOut": [
+      1851
+    ],
+    "_isTouching": [
+      1378
+    ],
+    "_loadKeyTemporarily": [
+      322,
+      348,
+      372
+    ],
+    "_lockLockonControl": [
+      2068,
+      2117
+    ],
+    "_lockPlayerControl": [
+      2065,
+      2114
+    ],
+    "_lockTargetCursorControl": [
+      2072,
+      2121
+    ],
+    "_math": [
+      2821,
+      2945,
+      2949
+    ],
+    "_onChocoboRentalRide": [
+      2213
+    ],
+    "_onChocoboWarpRide": [
+      2236
+    ],
+    "_onCommandCancel": [
+      2046
+    ],
+    "_onCommandEvent": [
+      1881
+    ],
+    "_onCommandRejected": [
+      2059
+    ],
+    "_onCommandRequest": [
+      1908
+    ],
+    "_onGetGoobbue": [
+      2247
+    ],
+    "_onInit": [
+      411,
+      1099
+    ],
+    "_onLoginEvent": [
+      3020
+    ],
+    "_onMoveAtSit": [
+      3000
+    ],
+    "_onPostCommand": [
+      2159
+    ],
+    "_onPostEvent": [
+      2107
+    ],
+    "_onPreCommand": [
+      2131
+    ],
+    "_onPreEvent": [
+      2081
+    ],
+    "_onReceiveAchievementId": [
+      2972
+    ],
+    "_onReceiveAchievementRate": [
+      2986
+    ],
+    "_onReceiveDataPacket": [
+      1433,
+      1484
+    ],
+    "_onReceiveLimitAddicted": [
+      2813
+    ],
+    "_onReceiveTimingPacket": [
+      1499
+    ],
+    "_onTouch": [
+      1595
+    ],
+    "_onUpdateWork": [
+      1348,
+      1417,
+      1426
+    ],
+    "_printDebugLog": [
+      2554
+    ],
+    "_setTouchAttribute": [
+      937,
+      942,
+      947,
+      952,
+      957,
+      962
+    ],
+    "_unlockLockonControl": [
+      2100,
+      2151
+    ],
+    "_unlockPlayerControl": [
+      2103,
+      2154
+    ],
+    "_unlockTargetCursorControl": [
+      2097,
+      2148
+    ],
+    "_updateWork": [
+      1710
+    ]
+  }
+}

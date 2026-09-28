@@ -1,0 +1,18 @@
+{
+  "decoded": "widget/commondialogwidget",
+  "ciphered": "n1635q/7vxxvw619yv3n1635q.lua",
+  "classes": [
+    "CommonDialogWidget"
+  ],
+  "lineCount": 198,
+  "apiCount": 2,
+  "callsiteCount": 2,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getParentWidget": [
+      158
+    ]
+  }
+}

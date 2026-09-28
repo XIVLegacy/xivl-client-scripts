@@ -1,0 +1,36 @@
+{
+  "decoded": "chara/npc/mapobj/mapobjclam",
+  "ciphered": "729s9/wu7/x9uv80/x9uv807y9x.lua",
+  "classes": [
+    "MapObjClam"
+  ],
+  "lineCount": 214,
+  "apiCount": 6,
+  "callsiteCount": 12,
+  "apis": {
+    "_defineClass": [
+      5
+    ],
+    "_getServerTime": [
+      95,
+      188,
+      203
+    ],
+    "_onReaction": [
+      174
+    ],
+    "_runBgScheduler": [
+      119,
+      157,
+      192,
+      207
+    ],
+    "_setGroundOn": [
+      83
+    ],
+    "_setReactionTriggerBox": [
+      67,
+      75
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "decoded": "director/publicraid/publicraidbaseclass",
+  "ciphered": "61s57qvs/up8y17s916/up8y17s91689r57y9rr.lua",
+  "classes": [
+    "PublicRaidBaseClass"
+  ],
+  "lineCount": 28,
+  "apiCount": 3,
+  "callsiteCount": 3,
+  "apis": {
+    "_assignForChild": [
+      20
+    ],
+    "_callSuperClassFunc": [
+      14
+    ],
+    "_defineBaseClass": [
+      5
+    ]
+  }
+}

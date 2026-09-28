@@ -1,0 +1,15 @@
+{
+  "decoded": "widget/systemtraywidget",
+  "ciphered": "n1635q/rlrq5xqs9ln1635q.lua",
+  "classes": [
+    "SystemTrayWidget"
+  ],
+  "lineCount": 15,
+  "apiCount": 1,
+  "callsiteCount": 1,
+  "apis": {
+    "_defineClass": [
+      5
+    ]
+  }
+}
