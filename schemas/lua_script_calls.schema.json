@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.local/schemas/lua-script-calls.schema.json",
+  "title": "XIVLegacy Lua Per-Script Calls Sidecar",
+  "type": "object",
+  "required": [
+    "decoded",
+    "ciphered",
+    "classes",
+    "lineCount",
+    "apiCount",
+    "callsiteCount",
+    "apis"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "decoded": { "type": "string" },
+    "ciphered": { "type": "string" },
+    "classes": { "type": "array", "items": { "type": "string" } },
+    "lineCount": { "type": "integer", "minimum": 0 },
+    "apiCount": { "type": "integer", "minimum": 0 },
+    "callsiteCount": { "type": "integer", "minimum": 0 },
+    "apis": {
+      "type": "object",
+      "description": "Keyed by N-API name. Each value is the list of line numbers where the api appears in this script.",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

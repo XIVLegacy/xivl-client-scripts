@@ -1,0 +1,3 @@
+* text=auto eol=lf
+tools/vendor/unluac/LICENSE.txt -text -eol -diff
+tools/vendor/unluac/*.jar -text -eol

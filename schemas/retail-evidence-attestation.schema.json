@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/XIVLegacy/xivl-client-scripts/schemas/retail-evidence-attestation.schema.json",
+  "title": "Retail evidence verification attestation, version 1",
+  "description": "Strict sanitized output. Script bytes, decoded chunks, observations, paths, and diagnostics are excluded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "publicRepositoryCommit", "approvedInputSha256", "toolVersions", "check", "result"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "publicRepositoryCommit": {"type": "string", "pattern": "^(?!0{40}$)[0-9a-f]{40}$"},
+    "approvedInputSha256": {"const": "74761459950b4dbafab6c879ea9a4c1437d4bfe8084058be2023e32add32e569"},
+    "toolVersions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["jdk", "unluac", "verifier"],
+      "properties": {
+        "jdk": {"const": "21.0.12.1+1"},
+        "unluac": {"const": "2025_12_23"},
+        "verifier": {"const": "1.0"}
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": {"const": "battle-command-baseclass-v1"},
+        "version": {"const": 1}
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {"status": {"enum": ["pass", "fail"]}}
+    }
+  }
+}

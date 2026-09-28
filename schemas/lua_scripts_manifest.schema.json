@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.local/schemas/lua-scripts-manifest.schema.json",
+  "title": "XIVLegacy Lua Script Reproduction Manifest",
+  "type": "object",
+  "required": [
+    "version",
+    "gameVersion",
+    "extraction",
+    "pipeline",
+    "scriptCount",
+    "totalBytes",
+    "scripts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "version": { "const": "1" },
+    "gameVersion": { "const": "1.23b" },
+    "extraction": { "const": "2012.09.19.0001" },
+    "pipeline": {
+      "type": "object",
+      "required": ["orchestrator", "decoder", "decompiler", "canonicalization"],
+      "additionalProperties": false,
+      "properties": {
+        "orchestrator": { "type": "string", "minLength": 1 },
+        "decoder": { "type": "string", "minLength": 1 },
+        "decompiler": { "type": "string", "minLength": 1 },
+        "canonicalization": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scriptCount": { "type": "integer", "minimum": 0 },
+    "totalBytes": { "type": "integer", "minimum": 0 },
+    "scripts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["relativePath", "bytes", "sha256", "lineCount"],
+        "additionalProperties": false,
+        "properties": {
+          "relativePath": {
+            "type": "string",
+            "pattern": "^lua/scripts/.+\\.lua$"
+          },
+          "bytes": { "type": "integer", "minimum": 0 },
+          "sha256": { "type": "string", "pattern": "^[0-9A-F]{64}$" },
+          "lineCount": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  }
+}
