@@ -107,20 +107,17 @@ local source slot and operation 4. The widget rejects another slot edit while
 does not prove that the inventory item or gil is locked by the client or
 server.
 
-There is a material published-decompile contradiction at the next boundary.
-`TradeWidget.getAskResult` returns the full rows shown above, and
-`TradeExecuteCommand.processUpdateTradeCommandTrayData` expects the operation,
-slot, package, item index, and stack. The intervening
-`DesktopWidget.checkReplyTradeWidget` assigns only two results from
-`getAskResult` and returns only its ready flag, operation, and slot. Therefore
-the published Lua drops the package, item, and stack before the command method
-uses them. The full operation 3/4 tuple is widget intent, not a proven working
-runtime transfer. Bytecode or native call-frame evidence is required to decide
-whether this is a decompiler defect or a retail script defect.
+The retail bytecode preserves the complete operation 3/4 tuple across
+`DesktopWidget.checkReplyTradeWidget`. Its ready path returns `true` followed
+by all five `TradeWidget.getAskResult` values. The command callback receives
+ready, operation, slot, package, item index, and stack. The two-result capture
+and three-value return in the canonical decompiled connector are a decompiler
+defect. The [retail return-arity finding](#retail-return-arity) establishes this
+boundary directly from instructions and registers.
 
 The widget does not immediately install the selected item into its own slot
-model. The polling path exposes the operation at the native command boundary,
-subject to the truncation above. A later trading-item callback obtains the synchronized item
+model. The polling path exposes the full operation at the native command boundary.
+A later trading-item callback obtains the synchronized item
 with `_getTradingItem` and updates either the local source presentation or the
 other player's destination presentation. A nil item clears the displayed
 slot. The local callback also clears `reservedSlot` when the corresponding
@@ -135,6 +132,72 @@ Evidence: `lua/scripts/widget/tradewidget.lua`,
 `lua/scripts/widget/tradeeditwidget.lua`,
 `lua/scripts/widget/desktopwidget_connector.lua`, and
 `lua/scripts/command/system/tradeexecutecommand.lua`.
+
+## Retail return arity
+
+The inputs are the retail 1.23b resources identified by the
+`decodedScriptPath` rows below in
+[`manifests/retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
+Each original LPB's size and SHA-256, and each decoded payload's size and
+SHA-256, matched that row. The ciphered paths also matched the corresponding
+[`lua/registry.json`](../lua/registry.json) entries after the documented suffix
+conversion. Those records own the exact input identities.
+
+| Decoded script under `lua/scripts/` | Resource under `client/script/` |
+|---|---|
+| `widget/tradewidget.lua` | `n1635q/qs965n1635q.le.lpb` |
+| `widget/desktopwidget_connector.lua` | `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` |
+| `command/system/tradeexecutecommand.lua` | `7vxx9w6/rlrq5x/qs9655m57pq57vxx9w6.le.lpb` |
+
+Method: decode the LPB wrapper with `tools/retail_script.py`, parse the Lua
+5.1 chunk header and prototype arrays, and extract opcode/A/B/C fields from
+the little-endian instruction words. Match each method's top-level `SETTABLE`
+key to its preceding `CLOSURE` child index. Check the result against the pinned
+unluac `--disassemble` output. Prototype indices and registers below are
+zero-based, PCs are one-based within each prototype, and byte offsets are
+zero-based within the decoded chunk, including its header.
+
+| Method | Root child prototype | Root closure / assignment PCs | Decisive prototype PCs and operands |
+|---|---:|---|---|
+| `TradeWidget.getAskResult` | 31 | 102 / 103 | 49 and 67: `RETURN A=2 B=6`, five results from R2..R6 for operations 3 and 4. |
+| `DesktopWidget.checkReplyTradeWidget` | 216 | 650 / 651 | 17: `CALL A=4 B=2 C=0`; 18: `RETURN A=3 B=0`, all call results after the ready flag. |
+| `TradeExecuteCommand.processUpdateTradeCommandTrayData` | 4 | 21 / 22 | 5: `CALL A=3 B=3 C=7`, six results into R3..R8. |
+
+The widget's operation 3 branch places operation, `reservedSlot - 4`,
+`chosenPackage`, `chosenItem`, and `chosenStack` in R2..R6 at PCs 41-48.
+Operation 4 uses the same positions at PCs 60-66, with package 100 in R4.
+Their return instructions are at decoded offsets `0x4C81` and `0x4CC9`.
+
+The connector places `true` in R3 at PC 15, selects `getAskResult` at PC 16,
+and calls it at PC 17 (offset `0x1ABE7`). In Lua 5.1, `CALL C=0` keeps all
+results and sets the dynamic stack top. PC 18 (offset `0x1ABEB`) uses
+`RETURN B=0` to return R3 through that top, yielding six values here. Its
+`maxstacksize=6` does not limit the open result count. The early missing-widget
+and waiting paths return one nil or false value at PCs 8 and 14.
+
+The command's call at PC 5 (offset `0x57D`) receives ready in R3, operation in
+R4, slot in R5, package in R6, item index in R7, and stack in R8. For operation
+3, PCs 35-38 use R6/R7 for `_getExtendedTemporaryItem`. PCs 96-103 return
+stack and the current package/item values in the callback's final seven-value
+result. Operation 4 replaces R6/R7 with the gil lookup's package/item values
+before that return.
+The interpretation follows Lua 5.1
+[`lopcodes.h`, `OP_CALL`/`OP_RETURN`](https://www.lua.org/source/5.1/lopcodes.h.html),
+[`lvm.c`, `luaV_execute`](https://www.lua.org/source/5.1/lvm.c.html), and
+[`ldo.c`, `luaD_poscall`](https://www.lua.org/source/5.1/ldo.c.html).
+
+The [pinned decompiler](../tools/vendor/unluac/PROVENANCE.json) reproduced all
+three canonical script bodies byte-for-byte against
+[`manifests/scripts.json`](../manifests/scripts.json), including the connector's
+incorrect fixed two-result capture. The canonical corpus remains a reproduction
+artifact. Use this finding for its retail return semantics. The owning
+[`regression check`](../tools/tests/test_player_trade_lifecycle.py) keeps corpus
+fidelity separate from an explicit local LPB arity check, documented in
+[tools](../tools/README.md#player-trade-return-arity).
+
+This is static bytecode evidence for these pinned resources under Lua 5.1
+instruction semantics. It establishes no live client session, runtime method
+replacement, native packet route, server acceptance, or ownership transfer.
 
 ## Reply and readiness ordering
 

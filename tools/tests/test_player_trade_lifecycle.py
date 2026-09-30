@@ -1,8 +1,16 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import os
+import struct
+import sys
 import unittest
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+
+from retail_script import decode_lpb  # noqa: E402
 
 
 REPO = Path(__file__).resolve().parents[2]
@@ -104,7 +112,8 @@ class PlayerTradeLifecycleCorpusTests(unittest.TestCase):
             source,
         )
 
-    def test_published_connector_truncates_item_and_gil_results(self) -> None:
+    def test_canonical_decompile_loses_the_open_result_tail(self) -> None:
+        # Retail forwards six values; see docs/player-trade-lifecycle.md.
         command = compact("command/system/tradeexecutecommand.lua")
         connector = compact("widget/desktopwidget_connector.lua")
         self.assertIn(
@@ -160,6 +169,79 @@ class PlayerTradeLifecycleCorpusTests(unittest.TestCase):
             "L1_2(L2_2) end L0_1._onFinalize = L1_1",
             relation,
         )
+
+
+class PlayerTradeRetailArityTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        configured = os.environ.get("XIVL_TRADE_LPB_ROOT")
+        if configured is None:
+            raise unittest.SkipTest("explicit retail client/script root is absent")
+        if not configured:
+            raise ValueError("explicit retail client/script root is empty")
+        cls.root = Path(configured).expanduser().absolute()
+        cls.coverage = json.loads(
+            (REPO / "manifests" / "retail_lua_coverage.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+    def payload(self, relative: str) -> bytes:
+        matches = [
+            row
+            for row in self.coverage["resources"]
+            if row.get("decodedScriptPath") == f"lua/scripts/{relative}"
+        ]
+        self.assertEqual(len(matches), 1)
+        row = matches[0]
+        original = (self.root / row["resourcePath"]).read_bytes()
+        self.assertEqual(len(original), row["bytes"])
+        self.assertEqual(hashlib.sha256(original).hexdigest().upper(), row["sha256"])
+        decoded = decode_lpb(original)
+        self.assertIsNotNone(decoded)
+        assert decoded is not None
+        self.assertEqual(len(decoded), row["wrapper"]["decodedPayloadBytes"])
+        self.assertEqual(
+            hashlib.sha256(decoded).hexdigest().upper(),
+            row["wrapper"]["decodedPayloadSha256"],
+        )
+        self.assertEqual(decoded[:12], bytes.fromhex("1b4c75615100010404040800"))
+        return decoded
+
+    def assert_instruction(
+        self, payload: bytes, offset: int, expected: tuple[int, int, int, int]
+    ) -> None:
+        word = struct.unpack_from("<I", payload, offset)[0]
+        operands = (
+            word & 63,
+            (word >> 6) & 255,
+            (word >> 23) & 511,
+            (word >> 14) & 511,
+        )
+        self.assertEqual(operands, expected, f"instruction at {offset:#x}")
+
+    def test_widget_returns_five_values_for_item_and_gil(self) -> None:
+        payload = self.payload("widget/tradewidget.lua")
+        # Child 31 PCs 49/67: RETURN R2..R6. Locators are in the trade contract.
+        for offset in (0x4C81, 0x4CC9):
+            self.assert_instruction(payload, offset, (30, 2, 6, 0))
+
+    def test_connector_forwards_ready_and_all_widget_results(self) -> None:
+        payload = self.payload("widget/desktopwidget_connector.lua")
+        # Child 216 PCs 15-18: true, SELF getAskResult, open CALL, open RETURN.
+        self.assert_instruction(payload, 0x1ABDF, (2, 3, 1, 0))
+        self.assert_instruction(payload, 0x1ABE3, (11, 4, 2, 262))
+        self.assert_instruction(payload, 0x1ABE7, (28, 4, 2, 0))
+        self.assert_instruction(payload, 0x1ABEB, (30, 3, 0, 0))
+
+    def test_command_receives_six_results_and_preserves_stack(self) -> None:
+        payload = self.payload("command/system/tradeexecutecommand.lua")
+        # Child 4 PC5 receives R3..R8; PCs 100-103 return stack/package/item.
+        self.assert_instruction(payload, 0x57D, (28, 3, 3, 7))
+        self.assert_instruction(payload, 0x6F9, (0, 14, 8, 0))
+        self.assert_instruction(payload, 0x6FD, (0, 15, 6, 0))
+        self.assert_instruction(payload, 0x701, (0, 16, 7, 0))
+        self.assert_instruction(payload, 0x705, (30, 10, 8, 0))
 
 
 if __name__ == "__main__":

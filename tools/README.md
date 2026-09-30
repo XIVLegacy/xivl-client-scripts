@@ -80,6 +80,26 @@ check the dispatched commit against its parent.
 
 Python with `jsonschema` is required.
 
+## Player trade return arity
+
+The [trade contract](../docs/player-trade-lifecycle.md#retail-return-arity)
+records the retail bytecode arities separately from the canonical decompile.
+Run the focused corpus check with an explicit decoded source root:
+
+```powershell
+$env:XIVL_LUA_SCRIPTS_DIR = '<scripts-root>'
+python -m unittest discover -s tools/tests -p test_player_trade_lifecycle.py
+```
+
+To reproduce the bytecode arity check locally, also set
+`XIVL_TRADE_LPB_ROOT` to an explicit retail `client/script` directory. The same
+command reads the three original resources identified by the coverage census,
+verifies their complete LPB and decoded-payload identities, and checks the
+distilled instruction operands at the documented offsets. It retains no input
+bytes or disassembly. A missing or mismatched supplied input fails the check.
+Without this setting, only the retail arity class is skipped. This optional
+local check does not add a hosted retail-input grant or validate live execution.
+
 ## Lua corpus builder
 
 The local `lua/scripts/` corpus is a user-supplied input and remains the
