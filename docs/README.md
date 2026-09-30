@@ -51,6 +51,7 @@ and contribution policy.
 | Reward and delivery widget results | [reward-widget-result-contracts.md](reward-widget-result-contracts.md) |
 | Market search and bazaar client contracts | [market-search-bazaar-client-contracts.md](market-search-bazaar-client-contracts.md) |
 | Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
+| Quest reward Notice helper | [notice-helper-contract.md](notice-helper-contract.md) |
 | Quest scene literal and replay-row joins | [quest-scene-replay-joins.md](quest-scene-replay-joins.md) |
 | Seasonal quest client contracts | [seasonal-quest-client-contracts.md](seasonal-quest-client-contracts.md) |
 | Seasonal event actor contracts | [seasonal-event-actor-contracts.md](seasonal-event-actor-contracts.md) |
