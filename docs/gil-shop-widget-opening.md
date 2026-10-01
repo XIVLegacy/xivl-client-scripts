@@ -26,6 +26,7 @@ Direct source hashes matched these `manifests/scripts.json` records:
 | `chara/player/playerbaseclass.lua` | `6226B3FA15DFDBAD279B7DBA453F8A3B76FCB8B68BAD6E14F5403D52987F76E4` |
 | `widget/ask/askbaseclass.lua` | `642F3112D4663004FDC0B79DAF0A5FAF8B7588EAD58D2CD8E6747821BDA54ADB` |
 | `widget/widgetbaseclass.lua` | `737A53B0472B510440735CF19A1D0A11FD100E69DF7F3EAB1178969A3D57B95C` |
+| `chara/charabaseclass_event.lua` | `5FC7DAA8450E109F8D2EAC6E9F3C126496AE843F76326FC5A0FB34A0F404B986` |
 
 The matching `.calls.json` sidecars identify the decoded/ciphered paths,
 classes and native callsites. They are structural indexes; the method flow
@@ -103,3 +104,26 @@ command admission delay, or an event-packet acknowledgement timestamp.
 The [command boundary](widget-open-command-boundary.md) also records a
 known decompiler omission in command 24228; native and bytecode evidence
 remain necessary before treating the recovered text as a complete contract.
+
+## Virtual-item and resource boundaries
+
+`CharaBaseClass.createVirtualItem` directly returns
+`_createExtendedTemporaryVirtualItem(self, catalogId, 1, 1)`
+(`chara/charabaseclass_event.lua:335-346`). This wrapper contains no Lua
+polling or wait. Together with the per-entry calls above, it identifies a
+native item-creation boundary inside list initialization; it does not prove
+that native creation completes synchronously or measure its cost.
+
+The tracked `.calls.json` sidecars map these script identities. Ciphered
+paths are under `client/script/`, with `.le.lpb` replacing `.lua` in the
+retail resource path:
+
+| Decoded script under `lua/scripts/` | Ciphered path |
+|---|---|
+| `widget/ask/shopbuywidget.lua` | `n1635q/9rz/r2vu8pln1635q.lua` |
+| `widget/ask/askbaseclass.lua` | `n1635q/9rz/9rz89r57y9rr.lua` |
+| `item/normal/standarditem.lua` | `1q5x/wvsx9y/rq9w69s61q5x.lua` |
+| `item/normal/shielditem.lua` | `1q5x/wvsx9y/r215y61q5x.lua` |
+
+These mappings identify scripts in resource observations. They do not
+identify the caller or item catalog entry that requested a particular read.
