@@ -27,6 +27,10 @@ Direct source hashes matched these `manifests/scripts.json` records:
 | `widget/ask/askbaseclass.lua` | `642F3112D4663004FDC0B79DAF0A5FAF8B7588EAD58D2CD8E6747821BDA54ADB` |
 | `widget/widgetbaseclass.lua` | `737A53B0472B510440735CF19A1D0A11FD100E69DF7F3EAB1178969A3D57B95C` |
 | `chara/charabaseclass_event.lua` | `5FC7DAA8450E109F8D2EAC6E9F3C126496AE843F76326FC5A0FB34A0F404B986` |
+| `item/itembaseclass.lua` | `2A0841C0477019577E9939330EB80F2E3A3D1A2166A3D2278A7E378EE36540C8` |
+| `item/normal/normalitembaseclass.lua` | `9FD880FD67FF5EE58998364D02121B631F7D3055BB909B970B2F324C72CE7B83` |
+| `item/normal/standarditem.lua` | `8307C0E44BEA5D8B4E9A76A4C6CA585C439A96354C68C3841CBF9EF5EF59FB73` |
+| `item/normal/shielditem.lua` | `74D4E6D5AA3041F60D63EF3E84D9A6F39CF547E287748D696BA0C1CDA8FFD331` |
 
 The matching `.calls.json` sidecars identify the decoded/ciphered paths,
 classes and native callsites. They are structural indexes; the method flow
@@ -127,3 +131,19 @@ retail resource path:
 
 These mappings identify scripts in resource observations. They do not
 identify the caller or item catalog entry that requested a particular read.
+
+## Sheets bound during item initialization
+
+`ItemBaseClass._onInit` calls its superclass `_onInit`, then calls
+`_bindSpreadSheetData` for `itemDataSheet`, `equipmentSheet`, `weaponSheet`,
+`armorSheet` and `accessorySheet` (`item/itembaseclass.lua:7-32`). When the
+item has an owner, it also requests its `itemName` word through
+`worldMaster._loadWord` (`:33-45`). The body contains no explicit Lua wait.
+
+`NormalItemBaseClass._onInit` calls its superclass `_onInit` and then `init`
+(`item/normal/normalitembaseclass.lua:7-18`). `StandardItem` and `ShieldItem`
+declare `NormalItemBaseClass` as their base
+(`item/normal/standarditem.lua:1-8`, `item/normal/shielditem.lua:1-8`).
+These declarations and calls do not establish the native binding's completion
+conditions, the requested rows, or their runtime cost. In particular, absence
+of an explicit Lua wait does not prove synchronous native sheet binding.
