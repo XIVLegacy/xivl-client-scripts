@@ -23,6 +23,9 @@ Direct source hashes matched these `manifests/scripts.json` records:
 | `widget/desktopwidget.lua` | `5D3BFABF2E8A55EE2E64F607BDADA5F04046C9528E9E9ACA858E9AD9E232070A` |
 | `widget/desktopwidget_connector.lua` | `9C33F21C1F70A0056147E716D53300634EFABE5B744EF6E8690114DB21613A01` |
 | `widget/ask/shopbuywidget.lua` | `032B0C06D57300A810B9953DAD04BF794DEC096360944F4A3683CB2DC9797091` |
+| `chara/player/playerbaseclass.lua` | `6226B3FA15DFDBAD279B7DBA453F8A3B76FCB8B68BAD6E14F5403D52987F76E4` |
+| `widget/ask/askbaseclass.lua` | `642F3112D4663004FDC0B79DAF0A5FAF8B7588EAD58D2CD8E6747821BDA54ADB` |
+| `widget/widgetbaseclass.lua` | `737A53B0472B510440735CF19A1D0A11FD100E69DF7F3EAB1178969A3D57B95C` |
 
 The matching `.calls.json` sidecars identify the decoded/ciphered paths,
 classes and native callsites. They are structural indexes; the method flow
@@ -56,7 +59,31 @@ below comes from inspecting the manifest-matched decoded bodies.
    `desktopwidget_connector.lua:26239-26265`). Opening does not use this
    purchase-selection wait.
 
+## Player widget-command gates
+
+`PlayerBaseClass.commandAboutWidget` reads `_getServerTime`. It rejects a
+non-forced request if the nonzero stored `widgetCommandBurstBlocker` is later
+than that current value. It then rejects a non-forced request while the
+resolved command name is already playing. Otherwise it calls
+`_executeCommand` and stores the current time in the blocker
+(`chara/player/playerbaseclass.lua:2576-2623`). The recovered body adds no
+future cooldown interval. This does not establish how the native server-time
+clock behaves during a live session.
+
+`isCommandAboutWidgetPlaying` resolves the command name and forwards the
+name and command actor to `_isCommandPlaying` (`:2626-2639`). Thus the
+creation-yield loop polls a command predicate; it does not call the shop
+widget's item-selection predicate. A retrying open and a command still
+playing are distinct possible reasons for the yield to continue.
+
 ## Item-list initialization
+
+The shared widget `_onInit` calls `initCommon`, sends the before-Lua-init
+command, calls the widget's `init`, sends the after-Lua-init command, then
+marks its shared initialized flag
+(`widget/widgetbaseclass.lua:114-147`). `AskBaseClass.init` calls `initAsk`
+(`widget/ask/askbaseclass.lua:11-48`), and `ShopBuyWidget.initAsk` calls
+`setInitialData` (`widget/ask/shopbuywidget.lua:380-419`).
 
 `ShopBuyWidget.setInitialData` obtains the catalog start index and builds its
 item list before marking initialization complete and updating the window
