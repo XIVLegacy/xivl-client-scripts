@@ -28,6 +28,7 @@ and contribution policy.
 | Gathering marker and fishing UI | [gathering-marker-fishing-ui.md](gathering-marker-fishing-ui.md) |
 | Garuda command range boundary | [garuda-command-range-boundary.md](garuda-command-range-boundary.md) |
 | Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
+| Gil-shop widget opening | [gil-shop-widget-opening.md](gil-shop-widget-opening.md) |
 | Materia removal client UI | [materia-removal-client-ui.md](materia-removal-client-ui.md) |
 | Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
 | Aetheryte list widget | [aetheryte-list-widget-contract.md](aetheryte-list-widget-contract.md) |
