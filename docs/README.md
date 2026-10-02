@@ -43,6 +43,7 @@ and contribution policy.
 | MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
 | Party matching client contract | [party-matching-client-contract.md](party-matching-client-contract.md) |
 | Widget-open command boundary | [widget-open-command-boundary.md](widget-open-command-boundary.md) |
+| ActionMenu grid visibility | [action-menu-grid-visibility.md](action-menu-grid-visibility.md) |
 | Weather director client contract | [weather-director-client-contract.md](weather-director-client-contract.md) |
 | NPC Linkpearl client route | [npc-linkpearl-client-contract.md](npc-linkpearl-client-contract.md) |
 | Parley target gate | [parley-target-gate.md](parley-target-gate.md) |
