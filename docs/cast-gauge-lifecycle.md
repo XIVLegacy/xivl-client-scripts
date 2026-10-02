@@ -14,7 +14,7 @@ The source is the canonical decoded Lua extraction `2012.09.19.0001`.
 | Decoded path under `lua/scripts/` | Bytes | SHA-256 |
 | --- | --- | --- |
 | `widget/actionmenuwidget.lua` | 61888 | `81aafee07ca7f70ff31ee909f3883c9893dd6df941abd79c86f42c79bb1949ea` |
-| `widget/actiongaugewidget.lua` | 4058 | `4269a53c9be52759d49289364fdbdd16e7fef350c5866bdca5c5aae5eba746aff` |
+| `widget/actiongaugewidget.lua` | 4058 | `4269a53c9be52759d49289364fdbd16e7fef350c5866bdca5c5aae5eba746aff` |
 
 The manifest entries were inspected at revision
 `6c3b02b06fa9ba529469a798ade0ced4684ef467`. The identified bodies were
