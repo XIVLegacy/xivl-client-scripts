@@ -610,7 +610,11 @@ argument claim is therefore bounded to the decoded bytecode control flow.
 
 The command 24241 registration and player-facing text belong to
 `xivl-client-data`. Native guildleve execution retirement and director object
-finalization belong to `xivl-client-structs:manifests/guildleve_lifecycle.json`.
-Neither owner currently maps subindices 2-5 to an outgoing packet or proves
-Break and Retry server mutations. This page does not infer those behaviors from
-widget closure or native director teardown.
+finalization belong to `xivl-client-structs:manifests/guildleve_lifecycle.json`,
+which also owns the native-derived outgoing mapping for subindices 2-5. Its
+`evidenceMatrix` entry "How does journal command 24241 reach the wire for
+subindices 2-5?" maps all four requests to the generic c2s `0x012D` EventStart
+carrier with event name `commandRequest` and records the exact argument tail.
+The mapping does not establish a correlated server response or authoritative
+Break and Retry mutations. This page does not infer those behaviors from widget
+closure or native director teardown.
