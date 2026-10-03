@@ -1,9 +1,8 @@
 # Item compatibility eligibility
 
-The retail item helper uses an item compatibility key and the actor's active
-class or job to decide whether a simple equipment check can proceed. This page
-records that narrow client contract. It does not promote a server equipment
-policy, item unlock rules, tribe policy, or compatibility-based combat scaling.
+The retail item helper checks an item compatibility key against the actor's
+active class or job. This is a local equipment check. It does not establish
+server equipment policy, unlock rules, tribe restrictions, or combat scaling.
 
 ## Evidence identity
 

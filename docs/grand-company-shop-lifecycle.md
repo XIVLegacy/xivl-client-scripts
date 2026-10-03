@@ -1,11 +1,9 @@
 # Grand Company shop lifecycle
 
-This report recovers the retail Lua boundary for `PopulaceCompanyShop` and
-`Ask/GrandCompanyShopWidget`. It distinguishes observed presentation and intent
-state from purchase fulfillment that is not present in the published scripts.
-The safe conclusion is narrow: a completed ask yields a Grand Company seal shop
-sheet row ID, but the Lua does not expose a purchase quantity, debit seals, add
-an item, send a purchase command, or define an acknowledgement.
+The retail Lua for `PopulaceCompanyShop` and `Ask/GrandCompanyShopWidget`
+shows the shop UI and the player's selection. A completed ask returns a Grand
+Company seal shop sheet row ID. The scripts do not expose a purchase quantity,
+debit seals, add an item, send a purchase command, or define an acknowledgement.
 
 ## Evidence scope
 
@@ -16,11 +14,10 @@ sidecars. The callback classification is cross-checked against
 and row coverage are independently documented by
 `xivl-client-data:docs/shop-catalogs.md`.
 
-An exact native string-reference export was attempted for
-`eventShopMenuOpen`, `eventShopMenuAsk`, and `eventShopMenuClose`. The committed
-wrapper could not run because this checkout has no configured
-`BCS_GHIDRA_HOME`, and no local Ghidra project was discoverable. No native owner
-or caller is therefore assigned from names, proximity, or convention.
+The native owners and callers of `eventShopMenuOpen`, `eventShopMenuAsk`,
+and `eventShopMenuClose` remain unverified. Resolving them requires an exact
+string-reference export from the client binary; names and nearby code do not
+establish those relationships.
 
 ## Lifecycle and state ordering
 

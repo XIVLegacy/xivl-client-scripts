@@ -12,7 +12,7 @@ Deletion is the default. Keep a comment only when it records one of these:
 - a safety or immutability constraint
 - an API or command contract not inferable from names and types
 
-Compress other survivors to about one line at the use site. Move a longer
+Shorten the remaining comments to about one line at the use site. Move a longer
 contract to this policy tier or the relevant corpus/tool page and leave a
 short pointer. When unsure, keep one line and flag it in review notes.
 
@@ -65,8 +65,9 @@ All tracked authored prose and structured descriptions state current evidence or
 contracts. They are not prompts, assignments, review summaries, checkout state,
 internal milestones, or work-session plans.
 
-- Avoid over-hyphenation and invented compound modifiers. Established
-  technical terms keep their hyphens.
+- Avoid awkward compounds and strings of modifiers. Rewrite the sentence
+  rather than joining more words with hyphens. Preserve established technical
+  terms, identifiers, and quoted source text.
 - Use semicolons sparingly, preferring periods, commas, or short lists.
 
 Internal working docs are outside this public policy tier.

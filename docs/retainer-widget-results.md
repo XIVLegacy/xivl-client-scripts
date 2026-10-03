@@ -29,7 +29,7 @@ The retail client widgets return these local result tuples:
 
 These are UI result values and selected fields only. They do not establish
 whether codes 31, 32, 13, or 21 mean retrieve, entrust, list, remove, or any
-other server operation. The retail client tuple does not by itself establish
+other server operation. The retail client tuple alone does not establish
 that a server accepted or applied it.
 
 Evidence: `lua/scripts/widget/retainertradewidget.lua:3188-3294,3691-3763`,

@@ -1,67 +1,83 @@
-# Docs index
+# Documentation
 
-The public documentation covers the corpus contract, tooling, client contracts,
-and contribution policy.
+Guides to the extracted Lua corpus and findings from the Final Fantasy XIV
+1.23b client. Each finding distinguishes recovered script behavior from
+unverified native or server behavior.
 
-| Need | File |
-|---|---|
-| Lua Script Corpus | [../lua/README.md](../lua/README.md) |
-| Tooling | [../tools/README.md](../tools/README.md) |
-| XIVLegacy Client Scripts | [../README.md](../README.md) |
-| Repository style | [style-guide.md](style-guide.md) |
-| AI-assisted contributions | [ai_agents/README.md](ai_agents/README.md) |
-| Comments and prose | [ai_agents/comments-and-prose.md](ai_agents/comments-and-prose.md) |
-| Evidence and claims | [ai_agents/evidence-and-claims.md](ai_agents/evidence-and-claims.md) |
-| Retail-input validation | [ai_agents/retail-input-validation.md](ai_agents/retail-input-validation.md) |
-| Content director UI contracts | [content-director-ui-contracts.md](content-director-ui-contracts.md) |
-| Content command client route | [content-command-client-route.md](content-command-client-route.md) |
-| Player command event routes | [player-command-event-routes.md](player-command-event-routes.md) |
-| TalkCommand client contract | [talk-command-client-contract.md](talk-command-client-contract.md) |
-| Chocobo mount script contracts | [chocobo-mount-script-contracts.md](chocobo-mount-script-contracts.md) |
-| Area-base client initialization | [area-base-client-initialization.md](area-base-client-initialization.md) |
-| Cutscene replay and skip contract | [cutscene-replay-skip-contract.md](cutscene-replay-skip-contract.md) |
-| Inn bed client hook | [inn-bed-client-hook.md](inn-bed-client-hook.md) |
-| Dungeon exit client contracts | [dungeon-exit-client-contracts.md](dungeon-exit-client-contracts.md) |
-| Craft command and progress contracts | [craft-command-progress-contracts.md](craft-command-progress-contracts.md) |
-| Equipment parameter formulas | [equipment-parameter-formulas.md](equipment-parameter-formulas.md) |
-| General parameter 18 consumers | [general-parameter-18-consumers.md](general-parameter-18-consumers.md) |
-| Gathering marker and fishing UI | [gathering-marker-fishing-ui.md](gathering-marker-fishing-ui.md) |
-| Garuda command range boundary | [garuda-command-range-boundary.md](garuda-command-range-boundary.md) |
-| Grand Company shop lifecycle | [grand-company-shop-lifecycle.md](grand-company-shop-lifecycle.md) |
-| Gil-shop widget opening | [gil-shop-widget-opening.md](gil-shop-widget-opening.md) |
-| Materia removal client UI | [materia-removal-client-ui.md](materia-removal-client-ui.md) |
-| Guildleve journal lifecycle | [guildleve-journal-lifecycle.md](guildleve-journal-lifecycle.md) |
-| Aetheryte list widget | [aetheryte-list-widget-contract.md](aetheryte-list-widget-contract.md) |
-| Aetheryte object events | [aetheryte-object-event-contracts.md](aetheryte-object-event-contracts.md) |
-| Hamlet supply and score UI | [hamlet-supply-ui-contract.md](hamlet-supply-ui-contract.md) |
-| Item compatibility eligibility | [item-equipment-compatibility.md](item-equipment-compatibility.md) |
-| Item-storage widget contracts | [item-storage-widget-contracts.md](item-storage-widget-contracts.md) |
-| Job and Grand Company event contracts | [job-grand-company-event-contracts.md](job-grand-company-event-contracts.md) |
-| Map-object door client contract | [map-object-door-client-contract.md](map-object-door-client-contract.md) |
-| Raid object client contracts | [raid-object-client-contracts.md](raid-object-client-contracts.md) |
-| Loot item UI contract | [loot-item-ui-contract.md](loot-item-ui-contract.md) |
-| MyPlayer timer consumers | [myplayer-timer-consumers.md](myplayer-timer-consumers.md) |
-| Party matching client contract | [party-matching-client-contract.md](party-matching-client-contract.md) |
-| Widget-open command boundary | [widget-open-command-boundary.md](widget-open-command-boundary.md) |
-| ActionMenu grid visibility | [action-menu-grid-visibility.md](action-menu-grid-visibility.md) |
-| Cast gauge lifecycle | [cast-gauge-lifecycle.md](cast-gauge-lifecycle.md) |
-| Weather director client contract | [weather-director-client-contract.md](weather-director-client-contract.md) |
-| NPC Linkpearl client route | [npc-linkpearl-client-contract.md](npc-linkpearl-client-contract.md) |
-| Parley target gate | [parley-target-gate.md](parley-target-gate.md) |
-| Status parameters and party buffs | [status-parameters-party-buffs.md](status-parameters-party-buffs.md) |
-| Player trade lifecycle | [player-trade-lifecycle.md](player-trade-lifecycle.md) |
-| Retainer widget results | [retainer-widget-results.md](retainer-widget-results.md) |
-| Reward and delivery widget results | [reward-widget-result-contracts.md](reward-widget-result-contracts.md) |
-| Market search and bazaar client contracts | [market-search-bazaar-client-contracts.md](market-search-bazaar-client-contracts.md) |
-| Quest event client contracts | [quest-event-client-contracts.md](quest-event-client-contracts.md) |
-| Quest reward Notice helper | [notice-helper-contract.md](notice-helper-contract.md) |
-| Quest scene literal and replay-row joins | [quest-scene-replay-joins.md](quest-scene-replay-joins.md) |
-| Seasonal quest client contracts | [seasonal-quest-client-contracts.md](seasonal-quest-client-contracts.md) |
-| Seasonal event actor contracts | [seasonal-event-actor-contracts.md](seasonal-event-actor-contracts.md) |
-| Quest selector consumers | [quest-selector-consumers.md](quest-selector-consumers.md) |
-| MonsterAttackWeaponSkill getter profile | [monster-attack-weapon-skill-profiles.md](monster-attack-weapon-skill-profiles.md) |
-| Monster map-marker selection | [monster-map-marker-selection.md](monster-map-marker-selection.md) |
-| Retail Lua resource coverage | [retail-lua-coverage.md](retail-lua-coverage.md) |
-| Vendored client-structs input | [../data/vendor/client-structs/README.md](../data/vendor/client-structs/README.md) |
+## Start here
 
-`tools/validate_corpus.py` checks that local Markdown paths listed here exist.
+- [Lua Script Corpus](../lua/README.md)
+- [Tooling](../tools/README.md)
+- [XIVLegacy Client Scripts](../README.md)
+- [Retail Lua resource coverage](retail-lua-coverage.md)
+- [Vendored client-structs input](../data/vendor/client-structs/README.md)
+
+## Commands and character state
+
+- [Content command client route](content-command-client-route.md)
+- [Player command event routes](player-command-event-routes.md)
+- [TalkCommand client contract](talk-command-client-contract.md)
+- [Craft command and progress contracts](craft-command-progress-contracts.md)
+- [Equipment parameter formulas](equipment-parameter-formulas.md)
+- [General parameter 18 consumers](general-parameter-18-consumers.md)
+- [Garuda command range boundary](garuda-command-range-boundary.md)
+- [Item compatibility eligibility](item-equipment-compatibility.md)
+- [MyPlayer timer consumers](myplayer-timer-consumers.md)
+- [Widget-open command boundary](widget-open-command-boundary.md)
+- [ActionMenu grid visibility](action-menu-grid-visibility.md)
+- [Cast gauge lifecycle](cast-gauge-lifecycle.md)
+- [Status parameters and party buffs](status-parameters-party-buffs.md)
+- [MonsterAttackWeaponSkill getter profile](monster-attack-weapon-skill-profiles.md)
+- [Monster map-marker selection](monster-map-marker-selection.md)
+
+## Quests and events
+
+- [Content director UI contracts](content-director-ui-contracts.md)
+- [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
+- [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
+- [Raid object client contracts](raid-object-client-contracts.md)
+- [Quest event client contracts](quest-event-client-contracts.md)
+- [Quest reward Notice helper](notice-helper-contract.md)
+- [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)
+- [Seasonal quest client contracts](seasonal-quest-client-contracts.md)
+- [Seasonal event actor contracts](seasonal-event-actor-contracts.md)
+- [Quest selector consumers](quest-selector-consumers.md)
+
+## Travel and world objects
+
+- [Chocobo mount script contracts](chocobo-mount-script-contracts.md)
+- [Area-base client initialization](area-base-client-initialization.md)
+- [Cutscene replay and skip contract](cutscene-replay-skip-contract.md)
+- [Inn bed client hook](inn-bed-client-hook.md)
+- [Dungeon exit client contracts](dungeon-exit-client-contracts.md)
+- [Aetheryte list widget](aetheryte-list-widget-contract.md)
+- [Aetheryte object events](aetheryte-object-event-contracts.md)
+- [Map-object door client contract](map-object-door-client-contract.md)
+- [Weather director client contract](weather-director-client-contract.md)
+
+## Shops, items, and social UI
+
+- [Gathering marker and fishing UI](gathering-marker-fishing-ui.md)
+- [Grand Company shop lifecycle](grand-company-shop-lifecycle.md)
+- [Gil-shop widget opening](gil-shop-widget-opening.md)
+- [Materia removal client UI](materia-removal-client-ui.md)
+- [Item-storage widget contracts](item-storage-widget-contracts.md)
+- [Job and Grand Company event contracts](job-grand-company-event-contracts.md)
+- [Loot item UI contract](loot-item-ui-contract.md)
+- [Party matching client contract](party-matching-client-contract.md)
+- [NPC Linkpearl client route](npc-linkpearl-client-contract.md)
+- [Parley target gate](parley-target-gate.md)
+- [Player trade lifecycle](player-trade-lifecycle.md)
+- [Retainer widget results](retainer-widget-results.md)
+- [Reward and delivery widget results](reward-widget-result-contracts.md)
+- [Market search and bazaar client contracts](market-search-bazaar-client-contracts.md)
+
+## Repository policy
+
+- [Repository style](style-guide.md)
+- [AI-assisted contributions](ai_agents/README.md)
+- [Comments and prose](ai_agents/comments-and-prose.md)
+- [Evidence and claims](ai_agents/evidence-and-claims.md)
+- [Retail-input validation](ai_agents/retail-input-validation.md)
+
+`tools/validate_corpus.py` checks that the local Markdown links listed here exist.

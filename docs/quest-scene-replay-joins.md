@@ -1,11 +1,10 @@
 # Quest scene literal and replay-row joins
 
-This note records direct scene-key calls from two bounded audits of 125
-recovered scenario scripts and separate HQ-key checks. Exact-key joins to the
-static `cutReplay.csv` table are recorded where established. It records call
-presence and table matches only; it does not establish dispatch, invocation,
-playback, quest ownership, or historical activation. It is not a full-corpus
-absence audit.
+Two audits of 125 recovered scenario scripts, plus separate HQ-key checks,
+found the direct scene-key calls listed below. Where possible, the literal
+keys were matched to `cutReplay.csv`. A call or table match does not establish
+dispatch, invocation, playback, quest ownership, or historical activation.
+The audits do not support absence claims for the full corpus.
 
 The canonical Lua source paths, byte counts, and SHA-256 values are pinned in
 [`scripts.json`](../manifests/scripts.json); resource paths and

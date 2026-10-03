@@ -73,7 +73,7 @@ widget operations:
 | 28, 29 | Send `PauseLimitTimer` or `ResumeLimitTimer` to the time gauge. |
 
 The decompiler damages nested control flow elsewhere in this method.
-These operations do not by themselves establish valid server update
+These operations alone do not establish valid server update
 sequences, widget acceptance, timer duration, Parley scoring, or a
 historical Man300 negotiation result. Codes 13 and 16-21 and 26 retain
 their raw method bodies as leads rather than published gameplay semantics.
