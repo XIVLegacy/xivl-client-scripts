@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build or check the bounded MyPlayer timer-consumer corpus report."""
+"""Build or check the report of MyPlayer timer consumers in the selected corpus."""
 
 from __future__ import annotations
 

@@ -464,7 +464,7 @@ def verify_package(
 
 
 def _ensure_destination(destination: Path) -> tuple[bool, Path]:
-    """Validate an explicit absent/empty destination and return its parent."""
+    """Require a missing or empty destination and return its parent."""
     destination = destination.absolute()
     if destination.exists() or destination.is_symlink():
         st = _lstat(destination, "hydration destination")

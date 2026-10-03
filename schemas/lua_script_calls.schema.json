@@ -22,7 +22,7 @@
     "callsiteCount": { "type": "integer", "minimum": 0 },
     "apis": {
       "type": "object",
-      "description": "Keyed by N-API name. Each value is the list of line numbers where the api appears in this script.",
+      "description": "Keyed by N-API name. Each value lists the line numbers where that API appears in the script.",
       "additionalProperties": {
         "type": "array",
         "items": { "type": "integer", "minimum": 1 }

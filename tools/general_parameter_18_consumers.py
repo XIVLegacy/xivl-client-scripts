@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check the bounded generalParameter[18] retail Lua consumer census."""
+"""Check the selected retail Lua consumers of generalParameter[18]."""
 
 from __future__ import annotations
 

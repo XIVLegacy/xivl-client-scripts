@@ -103,7 +103,7 @@ def _source_manifest_row() -> dict[str, Any]:
 
 
 def _function_block(lines: list[str], getter: str) -> tuple[int, int, list[str]]:
-    """Return zero-based function start/end and its source lines."""
+    """Return the function's zero-based start and end positions and its source lines."""
     marker = f"L0_1.{getter} = L1_1"
     markers = [index for index, line in enumerate(lines) if line == marker]
     if len(markers) != 1:
