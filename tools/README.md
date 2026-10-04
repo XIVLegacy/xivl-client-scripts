@@ -80,6 +80,22 @@ check the dispatched commit against its parent.
 
 Python with `jsonschema` is required.
 
+### Schema ownership
+
+| Product | Schema | Producer or check |
+|---|---|---|
+| `manifests/scripts.json` | `lua_scripts_manifest.schema.json` | `lua_corpus.py manifest` records exact decoded-script identities. |
+| `lua/registry.json` | `lua_registry.schema.json` | `lua_corpus.py publish` records recovered script declarations. |
+| `lua/scripts/**/*.calls.json`, `lua/napi_index.json` | `lua_script_calls.schema.json`, `lua_napi_index.schema.json` | `lua_corpus.py annotate` records callsites and builds the N-API index. |
+| Named reports under `manifests/` | Matching report schemas under `schemas/` | The timer, quest-selector, weapon-skill, and retail-coverage tools own their reports and evidence boundaries. |
+| Retail grants, checks, and attestations | Retail schemas under `schemas/` | The corresponding `verify_retail_*` commands and contract tests own the restricted-input checks. |
+
+`validate_corpus.py` connects these products to their schemas. A shape check
+does not replace the producer's digest, cross-reference, or reproduction checks.
+The weapon-skill profile, for example, has a two-integer result contract and a
+separate exact getter-rule digest. Input pins and unresolved evidence statements
+belong to the report, even when they are strings rather than numeric fields.
+
 ## Player trade return arity
 
 The [trade contract](../docs/player-trade-lifecycle.md#retail-return-arity)

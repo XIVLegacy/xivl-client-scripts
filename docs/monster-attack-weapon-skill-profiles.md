@@ -30,4 +30,6 @@ python tools/monster_attack_weapon_skill_profiles.py --check
 The profile preserves the recovered boundary that `getCommandInformation`
 returns a value only for selector 8. The pair returned by
 `getPartsDamageAdjust` is retained as two values; its consumer and combination
-rule remain unresolved.
+rule remain unresolved. The [profile schema](../schemas/monster_attack_weapon_skill_profiles.schema.json)
+requires exactly two integers for its default and each override result.
+The retained-profile check also verifies the canonical getter-rule digest.

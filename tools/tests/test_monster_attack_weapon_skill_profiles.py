@@ -9,6 +9,8 @@ from copy import deepcopy
 from pathlib import Path
 from unittest import mock
 
+import jsonschema
+
 TOOLS_DIR = Path(__file__).resolve().parents[1]
 REPO_ROOT = TOOLS_DIR.parent
 sys.path.insert(0, str(TOOLS_DIR))
@@ -17,6 +19,21 @@ import monster_attack_weapon_skill_profiles as profile  # noqa: E402
 
 
 class MonsterAttackWeaponSkillProfileTests(unittest.TestCase):
+    def test_schema_requires_two_part_damage_values(self) -> None:
+        schema = json.loads(profile.SCHEMA_PATH.read_text(encoding="utf-8"))
+        validator = jsonschema.Draft202012Validator(schema)
+        report = json.loads(profile.OUTPUT_PATH.read_text(encoding="utf-8"))
+        for target in ("default", "override"):
+            for values in ([], [1], [1, 0], [1, 0, 2]):
+                with self.subTest(target=target, values=values):
+                    mutation = deepcopy(report)
+                    rule = mutation["getterRules"]["getPartsDamageAdjust"]
+                    if target == "default":
+                        rule["default"] = values
+                    else:
+                        rule["overrides"][0]["result"] = values
+                    self.assertEqual(validator.is_valid(mutation), len(values) == 2)
+
     def test_retained_report_is_pinned_and_compact(self) -> None:
         report = json.loads(profile.OUTPUT_PATH.read_text(encoding="utf-8"))
         self.assertEqual(profile.validate_retained(report), [])
