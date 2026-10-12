@@ -38,13 +38,15 @@ the historical Parley target.
 
 ## Negotiation widget boundary
 
-The decoded `NegotiationJudge` and `NegotiationWidget` chunks also matched
-their LPBs byte-for-byte after wrapper decoding:
+The decoded `NegotiationJudge`, `NegotiationWidget`, and
+`NegotiationAbilityListWidget` chunks also matched their LPBs
+byte-for-byte after wrapper decoding:
 
 | Recovered class | LPB beneath `client/script/` | LPB SHA-256 | Decoded chunk SHA-256 |
 | --- | --- | --- | --- |
 | `judge/negotiation/negotiationjudge` | `0p635/w53vq19q1vw/w53vq19q1vw0p635.le.lpb` | `90823b625d2a41ee5d16b6d55aa9b85f03c178c91c8e9517155d713432c672a9` | `184d55b038ab4e5089af58ecd9037844a39d45b9b28ca01aa7d63fa8168d6ada` |
 | `widget/ask/negotiationwidget` | `n1635q/9rz/w53vq19q1vwn1635q.le.lpb` | `dafe05e99972fe0ae83d1dbdc590d98a560a2c8f4f214fb741c9ab685e7819e1` | `33c1a6e77080e763c22bfde6ddf1e4e8faf02c3ad457f524931c61932e26bedd` |
+| `widget/ask/negotiationabilitylistwidget` | `n1635q/9rz/w53vq19q1vw981y1qly1rqn1635q.le.lpb` | `dc365626983d6fd751f2a98b8075933fd52f442af5ba2c1ee27be07580fe2cce` | `bc6e6ec2a4afdadf1b18435f9cb4aa79efa6dc4849da2aa29ac5f113dc26736a` |
 
 The recovered `NegotiationJudge` body opens or selects
 `Ask/NegotiationListWidget` and `Ask/NegotiationAskWidget`, opens
@@ -67,13 +69,77 @@ widget operations:
 | 1-12 | Set a numbered tile's data, icon, visibility, and count text. |
 | 14 | Set the negotiation gauge's `Maximum` and `Value` from the supplied inputs. |
 | 15 | Set the achievement gauge's `Maximum` and `Value` from the supplied inputs. |
+| 16, 17, 18 | Set `IconControl_Addition_1`, `_2`, or `_3` visibility from the first value after the code; when that value is true, send `UILuaCommands.SoundPlayAddItem` to the negotiation gauge. |
+| 19 | Pass the first two values after the code to `negotiationWidgetDispSelected`. |
+| 20 | Store five values in `work.ability1` through `work.ability5`; disable `Button_Ability` when `abilityCheck` returns false. |
+| 21 | Show `Border_ArrowIconLeft` and hide `Border_ArrowIconRight` when the fourth value after the code is true; otherwise hide the left arrow and show the right. |
 | 22 | Set the time gauge's `Maximum` from `work.time` and `Value` to zero. |
 | 23, 24, 25 | Send player-operation, enemy-operation, or time-up sound commands respectively. |
+| 26 | Copy the three `negotiationWidgetGetData` values of the tile named by the second value into the tile named by the first; show the destination icon and count text, hide the source icon and count text, and send `UILuaCommands.SoundPlayIconSet`. |
 | 27 | Traverse twelve tile records and double or halve their displayed numeric values according to the supplied flag. |
 | 28, 29 | Send `PauseLimitTimer` or `ResumeLimitTimer` to the time gauge. |
 
-The decompiler damages nested control flow elsewhere in this method.
-These operations alone do not establish valid server update
-sequences, widget acceptance, timer duration, Parley scoring, or a
-historical Man300 negotiation result. Codes 13 and 16-21 and 26 retain
-their raw method bodies as leads rather than published gameplay semantics.
+The rows for codes 16-21 and 26 follow the `updateAskParameter`
+bytecode (`root/proto7`): codes 16, 17, and 18 at PCs 172-185, 187-200,
+and 202-215 (offsets `0x252E`-`0x2562`, `0x256A`-`0x259E`, and
+`0x25A6`-`0x25DA`); 19 at PCs 217-223 (`0x25E2`-`0x25FA`); 20 at PCs
+225-245 (`0x2602`-`0x2652`); 21 at PCs 247-268 (`0x265A`-`0x26AE`); and
+26 at PCs 326-390 (`0x2796`-`0x2896`). `abilityCheck` returns false only
+when all five stored ability values equal `false` (lines 1635-1662).
+
+`negotiationWidgetDispSelected` (lines 1932-2097) stores an index from 1
+through 5 in the matching `work.selected` field and shows that
+`Label_SelectedItem` icon. For a larger index it fills slot 6 when
+`work.selected6` is 0; otherwise it shifts slots 2-6 into slots 1-5, stores
+the new icon in slot 6, and redraws all six icons (`root/proto11`, PCs
+0-142, offsets `0x3824`-`0x3A5C`; slot-6 test at PCs 75-80,
+`0x3950`-`0x3964`).
+
+The decompiler damages nested control flow elsewhere in this method,
+including the recovered code 21 branch. These operations alone do not
+establish valid server update sequences, widget acceptance, timer
+duration, Parley scoring, item or ability identities, or a historical
+Man300 negotiation result. Code 13 retains its raw method body as a lead
+rather than published gameplay semantics.
+
+## Negotiation widget results
+
+`NegotiationWidget.processUICommandOperate` (lines 569-717) maps
+`Button_ItemIcon_1` through `Button_ItemIcon_12` to `playerSelect(1)`
+through `playerSelect(12)` (`root/proto1`, PCs 4-85, offsets
+`0xFC5`-`0x1109`). `playerSelect` (lines 720-781) passes its argument to
+`setBaseAskResult` and stores it in `work.select` unless it is 13. It then
+stops the time gauge's limit timer, resets the gauge's `Maximum` to
+`work.time` and `Value` to zero, and disables the twelve tile buttons and
+`Button_Ability` (`root/proto2`, PCs 0-49, offsets `0x14BF`-`0x1583`; the
+13 test is at PCs 12-15, `0x14EF`-`0x14FB`). `processUICommandDefault`
+calls `playerSelect(13)` when it receives `UILuaCommands.TimerOver`
+(`root/proto4`, PCs 2-6, offsets `0x17CD`-`0x17DD`).
+
+`Button_Ability` proceeds only when `abilityCheck` returns true and no
+`Ask/NegotiationAbilityListWidget` child is open. It then opens that child
+with the five stored ability values and resumes the limit timer if the open
+returns false (`root/proto1`, PCs 88-124, offsets `0x1115`-`0x11A5`). In
+the child, `Button_AbilityCommand_1` through `Button_AbilityCommand_5` call
+`playerAbilitySelect(1)` through `playerAbilitySelect(5)`.
+`NegotiationAbilityListWidget.playerAbilitySelect` (lines 376-408) sets the
+parent's ask result to its argument plus 14, so the five buttons yield
+results 15-19. It also pauses the parent's limit timer, hides the chosen
+button, and sends `UILuaCommands.SoundPlayAbility` to it (`root/proto6`,
+PCs 0-22, offsets `0xD20`-`0xD78`; the addition is at PC 3, `0xD2C`).
+
+`NegotiationWidget.processUICommandCancel` opens `CommonAskWidget` with
+text IDs 7124, 7125, and 7126 and raw mode 2 (`root/proto3`, PCs 0-10,
+offsets `0x170C`-`0x1734`). `processAskResult` sets the ask result to -1
+only when the child result is 1 (`root/proto12`, PCs 0-4, offsets
+`0x3C95`-`0x3CA5`).
+
+The widget's local ask results are therefore tiles 1-12, time-up 13,
+abilities 15-19, and confirmed cancel -1. They do not show how the judge
+or server consumes a result, name the abilities, or establish any
+result's gameplay effect.
+
+A prior external lead, `parley/parley_decomp_2026-09-27.md` and
+`quests/man300-toll-of-the-warden-parley/parley.md` at revision
+`d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, listed these result values
+and several update-code roles.

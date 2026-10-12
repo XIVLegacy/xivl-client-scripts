@@ -16,8 +16,15 @@ line numbers below locate Lua decompiler output, not native executable code.
 `UILuaCommands.ShortCutActionQuestLSMenu` when `Button_QuestLinkPearl`
 is operated (recovered lines 209-212). The DesktopWidget connector handles
 that shortcut by opening `NpcLinkshellListWidget` (lines 1692-1695 and
-1985-1988). `MainMenuWidget` has a separate list-opening path (lines
-208-211).
+1985-1988). `MainMenuWidget` has a separate list-opening path. Its `init`
+sets main-menu entry 13's `MainName` to text ID 2124 and its `Help` to
+75732 (`root/proto0`, PCs 142-147 and 261-266, offsets `0x5F6`-`0x60A`
+and `0x7D2`-`0x7E6`). Its `processUICommandSelectionChanged` opens
+`NpcLinkshellListWidget` through `openMainMenuRootWidget` when
+`ListBox_MainMenu` reports selection 13 (`root/proto1`, PCs 104-111,
+offsets `0x1016`-`0x1032`).
+A prior external lead, `quests/man206-together-we-stand-linkpearl/linkpearl.md`
+at revision `d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, listed these IDs.
 
 `NpcLinkshellListWidget.init` adds a row for each `hasNpcLinkshell(id)`
 result, stores that ID in `IntData.Value0`, and uses text ID 3482 with
