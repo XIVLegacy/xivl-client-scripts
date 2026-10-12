@@ -60,6 +60,13 @@ The pinned unluac decompile matches the canonical 14,917-byte, 818-line
 Method locators are `lua/scripts/quest/scenario/com/com0g5.lua:72-175,
 215-233, 236-351, 552-818`.
 
+The common `QuestBaseClass.contentsJoinAskInBasaClass`
+(`quest/questbaseclass_common.lua:562-576`) calls the supplied actor's
+`ask` with `worldMaster`, row 25015, mode 2, and the results of
+`self:getQuestId()`, then returns the ask result. It presents a client
+prompt; its body contains no content allocation, admission, or progression
+rule.
+
 ## Class quest choices and transitions
 
 The following method contracts use canonical script paths and method names
@@ -255,6 +262,13 @@ script; they do not transfer quest ownership or establish a server sequence.
 Likewise, scene-call presence does not identify the invoking actor, private
 area, progression gate, reward, or historical retail activation path.
 
+`Man1l0.processEvent600_2` (`quest/scenario/man/man1l0.lua:552-595`) calls
+`self:isPlayerMale(player)` and, inside a client talk turn, passes rows 183
+and 184 to the actor's `say` when the result is `true`, otherwise rows 185
+and 186. `Man1g0.processEvent1000_5` (`quest/scenario/man/man1g0.lua:765-776`)
+calls the supplied actor's `ask(worldMaster, 34112, 2)` and returns its
+result. These bodies do not identify the historical event caller.
+
 ## Man200 scenario presentation lead
 
 The `client/script/tp5rq/r75w9s1v/x9w/x9whjj.le.lpb` has SHA-256
@@ -282,6 +296,13 @@ return `(-1, -1)` in the method. The decoded bytecode has one
 branch. It does not establish the internals of `getSnpcCandidacyNumber`
 or historical candidate selection. These IDs are client selection inputs,
 not proof of spawning, persistence, or a server-side class/personality mapping.
+
+`Man200.pEN` (`quest/scenario/man/man200.lua:1615-1724`) starts a talk turn
+and passes one row to `say` according to its fourth method argument:
+values 1 through 9 select rows 283, 284, 285, 286, 287, 288, 290, 289, and 291. It
+then calls `inputSnpcName` with the event argument, the supplied actor, and
+literal 1070005, and returns that result. The method does not validate,
+persist, or complete the naming operation.
 
 ## Man2 city scenario composite scenes
 
@@ -325,6 +346,17 @@ NQ `man2l100`, and NQ `man2l110`. `Man2u0.processEvent005` chains NQ
 `man2u085`, HQ `MAN2U090`, NQ `man2u100`, and NQ `man2u110`. These are
 client presentation sequences, not evidence of server-side duty state,
 combat objectives, scene-trigger ownership, or reward timing.
+
+`Man2g0.processEventTrial001` (`quest/scenario/man/man2g0.lua:1506-1532`)
+passes row 267 to `say` when its fourth method argument is 1 and row 269
+when it is 2, then asks row 270 in mode 3 and returns the answer;
+`processEventTrial002` (lines 1535-1545) says row 268. Neither body grants
+an item or defines a combat effect. `Man2g0.processEvent080_01`
+(lines 1442-1461) calls `worldMaster:say` with the quest as text owner and
+row 279 when its fourth method argument is at least 18, otherwise row 280.
+`Man2u0.processEventSystemMessage` (`quest/scenario/man/man2u0.lua:604-623`)
+makes the same comparison with rows 179 and 180. These branches present a
+message from a supplied value; they do not accept or advance a quest.
 
 ## SimpleQuestBattle client give-up hook
 
@@ -474,11 +506,35 @@ with default fade-out and calls `startNQCutScene` in mode 1:
 
 | Method | Scene | Fade-in |
 | --- | --- | --- |
+| `processEvent600` | `man0l600` | after warp |
 | `processEvent604` | `man0l604` | after warp |
 | `processEvent605` | `man0l605` | after warp |
 | `processEvent610` | `man0l610` | default |
 | `processEvent615` | `man0l615` | after warp |
 | `processEvent620` | `man0l620` | default |
+| `processEvent630` | `man0l630` | after warp |
+
+`processEvent600` and `processEvent630` are at
+`quest/scenario/man/man0l1.lua:1229-1246` and `1883-1900`.
+`processEvent600_2` (lines 1249-1273) instead
+passes rows 193 and 194 to the supplied actor's `say` inside a talk turn,
+and `processEvent1000_4` (lines 2348-2366) passes row 268. The six
+`processEvent601_1` through `processEvent601_6` methods share one shape:
+start and wait for a talk turn, call `_runCharaScheduler` on the supplied
+actor, pass one row to `say`, call `_waitForCharaSchedulerFinished` with the
+same scheduler ID, then finish the turn.
+
+| Method | Scheduler ID | Row | Source lines |
+| --- | ---: | ---: | --- |
+| `processEvent601_1` | 83906560 | 275 | 1324-1353 |
+| `processEvent601_2` | 83914752 | 276 | 1356-1385 |
+| `processEvent601_3` | 84004864 | 277 | 1388-1417 |
+| `processEvent601_4` | 84000768 | 278 | 1420-1449 |
+| `processEvent601_5` | 83959808 | 279 | 1452-1481 |
+| `processEvent601_6` | 83951616 | 280 | 1484-1513 |
+
+These are literal arguments; they do not define an emote-admission rule or
+a server order.
 
 `processEvent637` sends NPC-linkshell chat rows 161-164 with `_wait(2)`
 between the calls, then uses the after-warp fade-in helper. These wrappers
@@ -508,6 +564,9 @@ mode 1 after default fade-out:
 
 These are direct client calls, not proof that the methods were invoked in a
 historical quest, or that the server followed a corresponding sequence.
+`processEvent100_1` (`quest/scenario/man/man0g1.lua:43-63`) and
+`processEvent123` (lines 584-600) call `worldMaster:say` with the quest as
+text owner and rows 353 and 354, or 389 and 390, respectively.
 LPB byte and decoded-payload identities are in
 [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json); source
 hashes and method locators are in the quest-event source manifest.
@@ -583,6 +642,17 @@ one more. Those are argument shapes, not recovered values or meanings for
 the other slots. The contributor's proposed nickname, skin, personality,
 coordinate, and town tuple is a server-side candidate; this client body
 does not establish that tuple or an actor owner for any wrapper.
+
+`Man300.pEStart` (canonical lines 190-249) starts a client talk turn, says
+rows 9 and 516, and calls `showQuestInfomation`. Result 1 selects rows 10,
+293, and 294, with the method's two extra arguments also passed to rows 293
+and 294; any other result selects row 520. The method finishes the turn
+and returns the saved result. `processEvent050_3`, `processEvent050_4`,
+`processEvent050_5`, and  and `processEvent050_6` call
+`_runCharaScheduler(354168832)` on the supplied actor before their `say`
+calls (lines 1120-1123, 1151-1154, 1182-1185, and 1213-1216).
+These bodies do not write a quest sequence or define the scheduler's
+meaning.
 
 ## Man304, Man308, Man402, and Man406 scene wrappers
 
@@ -699,6 +769,39 @@ establish scene keys, call order, conditional returns, and payload provenance
 only. The sampled trace domain does not establish original server owners,
 quest sequence, battle orchestration, reward rules, or visible playback.
 
+The canonical decoded sources add these direct calls. In `Man304`,
+`processEvent000_20` (`quest/scenario/man/man304.lua:580-593`) asks row 490
+in mode 2 and returns the result, and `processEvent000_22` (lines 602-616)
+calls `worldMaster:tell` with row 494 and forwards its extra argument twice.
+`pE10` (lines 81-119) says row 306, converts the second payload, calls SNPC
+NQ `man30410`, and uses default fade-in; `pE20` (lines 122-149) calls SNPC
+NQ `man30420` with after-warp fade-in. `pE30` (lines 152-325) compares its
+third payload with 1 through 9 and says paired rows 369/378, 370/379,
+371/380, 372/381, 373/382, 374/383, 376/385, 375/384, and 377/386
+respectively, then calls SNPC NQ `man30430` with after-warp fade-in.
+
+In `Man308`, `pE20` (`quest/scenario/man/man308.lua:727-831`) says one row
+for third-payload values 1 through 9: rows 624-629 for values 1-6, 631 for
+7, 630 for 8, and 632 for 9. `processEvent020_1` and `processEvent020_2`
+(lines 834-873) each say row 20 or 21 inside a talk turn. The scene
+wrappers use these fade-in calls:
+
+| Method | Source lines | Scene calls | Fade-in |
+| --- | --- | --- | --- |
+| `pE01` | 660-687 | `man30800` | default |
+| `pE10` | 690-724 | `man30810` | default when the sixth payload is `true`, otherwise after warp |
+| `pE30` | 876-903 | `man30830` | after warp |
+| `pE50` | 906-950 | `man40640`, `man30850` | default when the sixth payload is `true`, otherwise after warp |
+| `pE60` | 953-980 | `man30860` | default |
+| `pE80` | 983-1020 | `man30880`, `man30890` | default |
+
+On its offer-result-1 branch, `Man402.pES`
+(`quest/scenario/man/man402.lua:39-58`) also passes
+`getSnpcSexualityToSkin` of its third payload as an extra argument to SNPC
+NQ `man40200`. These selector branches, prompts, and fades do not establish
+personality semantics, item removal, Parley admission, or a server
+progression gate.
+
 ## DftSrt travel scene wrapper
 
 The LPB at `client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qrsq.le.lpb` has
@@ -761,7 +864,10 @@ granting.
 
 ## Empty Man scenario boundary
 
-`Man502` and `Man504` define their classes and initialize text. Their paired
+`Man502` and `Man504` define their classes and initialize text; their
+`initText` methods call `_loadTextDataPermanently` with `1648, "man502"`
+and `1661, "man504"` respectively
+(`quest/scenario/man/man502.lua:11-20`, `man504.lua:11-20`). Their paired
 `QuestDirectorMan50201` and `QuestDirectorMan50202` scripts only define empty
 director classes. This evidence contains no progression, objective, reward, or
 scene implementation for those directors. The empty bodies are a negative
@@ -809,9 +915,20 @@ SHA-256 `2e2e2dd5cd9651388f6fa575b4229081ad0452165e78b725df0a5b5b7cf7c643`;
 `Enter this instance?`. The method does not identify an active instance-entry
 caller. Canonical source ranges and hashes are in the quest-event source
 manifest; the LPB and decoded-payload identities are given above.
+
 These methods do not prove the retail caller, quest sequence, escort
 completion rule, historical private-area transfer, or timing of either
 scene.
+
+`processEvent051_7` (`quest/scenario/man/man0u1.lua:1647-1723`) starts and
+waits for a talk turn and passes row 351 to the supplied actor's `say`.
+Its fourth method argument then selects a scheduler ID: values 51 through
+56 select 83898368, 83918848, 83972096, 83988480, 84049920, and 84029440.
+Each branch calls `_runCharaScheduler` and `_waitForCharaSchedulerFinished`
+with that ID before the turn closes. `processEvent013` (lines 402-452) calls
+`tellByNpcLinkshellChat` with first argument 1500014 and rows 242 through 246,
+calling `_wait(2)` between messages; `processEvent013_2` (lines 455-485)
+sends rows 242, 243, and 322 the same way.
 
 ## Man0 director chunk boundary
 
@@ -904,6 +1021,10 @@ inputs and canonical sources remain identified by their pinned hashes even
 when the extracted Lua corpus is not present in a checkout.
 
 ## Evidence boundary
+
+A prior external lead, the `quests/110001/` through `quests/110021/` pages
+at revision `d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, listed many of the
+Man scenario methods above.
 
 The decoded chunks and the pinned decompiler establish the recovered client
 scripts listed in the manifest. They do not establish server templates,
