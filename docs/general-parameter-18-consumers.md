@@ -90,8 +90,8 @@ display; their magnitudes were not used to identify the field. The samples do
 not establish how the total is calculated or whether every equipment change
 must alter it.
 
-For Bahamut, property hash `0x8cae90db` can be treated as the client-facing
-aggregate Defense value at `generalParameter[18]`. Supplying the authoritative
+A server implementation can treat property hash `0x8cae90db` as the
+client-facing aggregate Defense value at `generalParameter[18]`. Supplying the authoritative
 value there makes it available when the Status and Equipment widgets next read
 their parameter groups.
 This evidence does not prove that the property update alone

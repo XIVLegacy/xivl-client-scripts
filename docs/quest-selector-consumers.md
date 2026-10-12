@@ -68,14 +68,12 @@ not silently correct retail script arguments.
 For the seven initial unlock rows, the secondary threshold is no longer
 unresolved: the exact 51130 consumers show level 15, matching the independent
 job-requirement table at
-`xivl-captures:studies/lodestone-manual/derived/tables/jobs.csv`. Bahamut can
-therefore preserve each listed `secondaryClassId` with threshold 15
+`xivl-captures:studies/lodestone-manual/derived/tables/jobs.csv`. A consumer
+can therefore preserve each listed `secondaryClassId` with threshold 15
 as client presentation evidence.
 
 That does not justify claiming that the retail server enforced both selectors.
-`BahamutXIV/bahamut:scripts/globals/interaction/quest.lua` currently discards
-`secondaryClassId` and fails closed for named rows. The client evidence does not
-establish an implementation policy until an authoritative retail acceptance or
-rejection capture establishes enforcement.
+The client evidence does not establish an enforcement policy until an
+authoritative retail acceptance or rejection capture establishes it.
 The 35 later family rows retain a secondary class in localized text, but no
 recovered 51130 consumer supplies an independent numeric threshold for them.
