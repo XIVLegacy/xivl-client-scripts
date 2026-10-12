@@ -60,6 +60,101 @@ The pinned unluac decompile matches the canonical 14,917-byte, 818-line
 Method locators are `lua/scripts/quest/scenario/com/com0g5.lua:72-175,
 215-233, 236-351, 552-818`.
 
+## Class quest choices and transitions
+
+The following method contracts use canonical script paths and method names
+as locators. `manifests/scripts.json` pins their source identities.
+
+### Pugilist Echo finalizers
+
+`Pgl306.processEvent030` and `processEvent030_2` each ask `worldMaster`
+row 51030 in mode 2 once. Answer 1 runs `runCharaSchedulerPastAreaIn`,
+performs default fade-out, and plays `pgl30630` in mode 1.
+`processEvent030` uses default fade-in; `processEvent030_2` uses
+after-warp fade-in. Both return the saved answer on that path and return
+0 otherwise. The `processEvent040` and `processEvent040_2` pair preserves
+the same distinction for `pgl30640`. The shared scene keys do not make
+the paired finalizers interchangeable or establish a warp destination.
+
+Source: `lua/scripts/quest/scenario/pgl/pgl306.lua`, `processEvent030`,
+`processEvent030_2`, `processEvent040`, and `processEvent040_2`.
+
+### Blacksmith melody and island methods
+
+`Bsm300.processEvent040` repeats a melody choice until confirmation.
+It asks row 152 in mode 3. Choices 1, 2, and 3 run player schedulers
+67111905, 67111904, and 67111903, respectively, then ask row 156 in
+mode 2. Confirmation answer 1 says row 44 for the first two choices or
+row 43 for the third, then leaves the loop. Other answers repeat it.
+This is a local presentation branch, not a completion or reward rule.
+
+`Bsm306.processEvent020` performs default fade-out and plays `bsm30620`
+in mode 1, then ends without fade-in. The separate `processFadeIn`
+only calls the default fade-in helper. Neither method identifies the
+caller that joins those presentations or an island-instance lifetime.
+
+`danceIsland_problem01` through `danceIsland_problem08` compare their
+fourth method argument with Lua boolean `true`. That branch says a world-master row shared by each problem pair (95, 98,
+101, or 104), then world-master row 94, and asks row 109 in mode 2. Answer 1 also says world-master row 112. Each method closes its
+talk and returns the saved ask result, or literal 2 from the other branch,
+which uses the problem's own speech. Numeric 1 does not select the
+boolean-true branch.
+
+`danceIsland_solve01` through `danceIsland_solve08` say world-master
+row 129. Methods 01, 02, 05, and 06 pass parameter 2; 03, 04, 07, and
+08 pass parameter 1. `danceIsland_picked01` returns ask row 126 in mode 2.
+`danceIsland_changeItem` says world-master row 122 and returns ask row 123
+in mode 2. These methods do not choose clue items, enforce ownership,
+or bind a victim actor.
+
+Sources: `lua/scripts/quest/scenario/bsm/bsm300.lua`, `processEvent040`;
+`lua/scripts/quest/scenario/bsm/bsm306.lua`, `processEvent020`,
+`processFadeIn`, and the named `danceIsland_*` methods.
+
+### Culinarian choices and Echo entry
+
+`Cul200.processEvent015` asks row 100 in mode 2. Answer 1 selects row
+103; other answers select row 115. `processEvent017` separately asks row
+104 in mode 2 and selects row 107 or 116 by the same comparison. Each
+closes its talk and returns its saved answer. Separate client choices do
+not establish mandatory branches or a server choice lock.
+
+`Cul306.processEvent020` asks `worldMaster` row 51030 in mode 2. Answer
+1 runs `runCharaSchedulerPastAreaIn`, plays `cul30620` in mode 1, and
+uses default fade-in before returning the saved answer. Other answers
+return 0. `processEvent050` asks the same row and mode, but its answer-1
+path performs default fade-out, plays `cul30650` in mode 1, and uses
+default fade-in without the past-area-entry scheduler call. It then opens a talk turn on the owner, says rows 32-35, and ends with
+default fade-out and after-warp fade-in without closing that turn. It returns the saved ask result on both paths. These method
+differences do not recover their historical order or server dispatcher.
+
+Sources: `lua/scripts/quest/scenario/cul/cul200.lua`, `processEvent015`
+and `processEvent017`; `lua/scripts/quest/scenario/cul/cul306.lua`,
+`processEvent020` and `processEvent050`.
+
+### Fisher ferry prompts
+
+`Fsh300.processEvent010_1001` says row 105 and asks row 106 in mode 2.
+`processEvent010_1002` says row 115 and asks row 116 in mode 2. Each
+opens and closes its own talk turn and returns its one saved ask result.
+Neither method contains a travel call; the prompts do not recover travel
+ownership or a historical dispatcher.
+
+Source: `lua/scripts/quest/scenario/fsh/fsh300.lua`,
+`processEvent010_1001` and `processEvent010_1002`.
+
+### Tanner text arguments
+
+`Tan306.processEvent027_4` says row 132 without extra payload, then
+forwards its fourth and fifth method arguments to row 133 after the
+literal 0. `processEvent027_9` forwards that same argument pair to row
+136 after literal 0. Each owns and closes its talk turn. The methods
+establish text-argument positions, not the producer or meaning of either
+incoming value.
+
+Source: `lua/scripts/quest/scenario/tan/tan306.lua`, `processEvent027_4`
+and `processEvent027_9`.
+
 ## ETC1g4 Nicoliaux dialogue branch
 
 The LPB at `client/script/tp5rq/r75w9s1v/5q7/5q7i3f.le.lpb` (SHA-256

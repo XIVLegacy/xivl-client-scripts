@@ -19,8 +19,9 @@ event owner, runs scheduler `354234368`, speaks text rows 35 and 36, and closes
 that turn. The separate method proves a post-clear speaker-owned presentation;
 it must not be folded into whichever NPC happens to grant the reward.
 
-`War0j6.processEvent010` performs only the default fade-out/fade-in pair.
-`processEvent020` inserts scene `war0j620` between that pair.
+`War0j6.processEvent010` plays scene `war0j610` in mode 1 between the
+default fade-out/fade-in pair. `processEvent020` inserts scene `war0j620`
+in mode 1 between that pair.
 `processEventClear` owns the long information dialog, job ability 27189, and
 the supplied job item. The client sequence does not identify the server battle
 completion trigger or a post-battle world position.
@@ -31,6 +32,22 @@ Sources:
   `processEventClear` and `processEventClearAfter`.
 - `lua/scripts/quest/scenario/war/war0j6.lua`, methods `processEvent010`,
   `processEvent020`, and `processEventClear`.
+
+`War0j3.processEvent005` calls `startNQCutScene("war0j310", 1, 0, arg)`,
+forwarding its fourth method argument between default fades. The scene key
+does not supply the missing argument producer.
+
+`War0j2` and `War0j5` split completion presentation across
+`onJobQuestCompleteFirst`, `onJobQuestCompleteSecond`, and
+`onJobQuestCompleteThird`. First opens long information dialog 51119 on
+`worldMaster`. Second presents ability `(27187, 1)` or `(27192, 3)`,
+respectively. Third calls `showEventBeforeNpsLS` with `(1600318, 75)` or
+`(1600318, 77)`, respectively. The names do not establish dispatch order or
+a reward grant.
+
+Sources: `lua/scripts/quest/scenario/war/war0j3.lua`, method
+`processEvent005`; `lua/scripts/quest/scenario/war/war0j2.lua` and
+`lua/scripts/quest/scenario/war/war0j5.lua`, the three named completion hooks.
 
 ### Monk
 
@@ -68,6 +85,29 @@ byte-for-byte to the recovered chunk (SHA-256
 `cb397ed9b9567e2d0b136c3c90a745440e898aa7b4c704545d404a525a941830`).
 This identity does not recover inherited behavior, encounter rules, or a
 server-side director owner.
+
+`Mnk0j1.processEvent010_2_system` says row 35 through `worldMaster`,
+presents its fourth method argument through the item widget, and waits six
+seconds. The separate `processEvent010_3_system` opens long information
+dialog 59, waits eight seconds, presents ability `(27108, 1)`, and waits
+six seconds. Neither method selects an item or establishes its caller.
+`Mnk0j6.processEvent015` plays `mnk0j620` in mode 1 after default fade-out
+and always uses after-warp fade-in, unlike the conditional `005` finalizer
+described below.
+
+`Mnk0j2` and `Mnk0j4` also split completion into
+`onJobQuestCompleteFirst`, `onJobQuestCompleteSecond`, and
+`onJobQuestCompleteThird`. First opens long information dialog on
+`worldMaster` with `(51124, 11000552)` or `(51125, 11000555)`.
+Second presents ability `(27107, 1)` or `(27118, 3)`. Third calls
+`showEventBeforeNpsLS` with `(1000101, 92)` or `(2200241, 93)`.
+The paired values belong to `Mnk0j2` and `Mnk0j4`, respectively; the
+separate hooks do not establish historical dispatch or completion conditions.
+
+Sources: `lua/scripts/quest/scenario/mnk/mnk0j1.lua`, the two named system
+methods; `lua/scripts/quest/scenario/mnk/mnk0j6.lua`, `processEvent015`;
+`lua/scripts/quest/scenario/mnk/mnk0j2.lua` and
+`lua/scripts/quest/scenario/mnk/mnk0j4.lua`, the three named completion hooks.
 
 ### Black Mage
 
@@ -118,6 +158,17 @@ and neither proves an authoritative quest gate. Source:
 `0e712e06d0b2fcc2185eb00a6a9d4614705155f6f7e21249dcccbb8158a0feb8`).
 The donor raw chunk matches the decoded LPB exactly.
 
+`Blm0j3.processEventClear` is a separate ability presentation: it waits
+three seconds, calls the ability widget with `(27318, 2)`, then waits six
+seconds. `Blm0j6.processEventNQ02` and `processEventNQ03` both play
+`blm0j620` in mode 1 after default fade-out. NQ02 uses after-warp fade-in;
+NQ03 uses default fade-in. These available methods do not establish a
+server completion trigger or destination.
+
+Sources: `lua/scripts/quest/scenario/blm/blm0j3.lua`, `processEventClear`;
+`lua/scripts/quest/scenario/blm/blm0j6.lua`, `processEventNQ02` and
+`processEventNQ03`.
+
 ### Paladin
 
 `Pld0j1.processEvent010` and `processEvent015` both play scene `pld0j110`,
@@ -134,6 +185,17 @@ destination or authorize treating either method as a generic quest intro.
 
 Source: `lua/scripts/quest/scenario/pld/pld0j1.lua`, methods
 `processEvent010` and `processEvent015`.
+
+`Pld0j1.processEventKokuti` presents its fourth method argument through
+the item widget, waits six seconds, opens long information dialog 51,
+waits eight seconds, presents ability `(27146, 1)`, waits six seconds,
+and closes the supplied owner's talk turn. It has no talk-start call of
+its own. `Pld0j5.processEventClear` separately says world-master row 29, then opens long information dialog 31
+and presents ability `(27159, 3)`. These are presentation
+sequences, not item selection or server reward transactions.
+
+Sources: `lua/scripts/quest/scenario/pld/pld0j1.lua`, `processEventKokuti`;
+`lua/scripts/quest/scenario/pld/pld0j5.lua`, `processEventClear`.
 
 ### Strict-boolean job scene finalizers
 
@@ -193,6 +255,36 @@ fade-in. `processEventLS` and `processEventLS2` separately call
 distinct available client surfaces; their retail dispatcher, serial order,
 fight trigger, and roster are not established by the script.
 
+`Whm0j2.processEventRAYAOSENNAStart` plays `whm0j210` in mode 1 between
+default fades before `showQuestInfomation` selects acceptance or refusal
+speech. The scene is therefore shared by both offer-result paths.
+`Whm0j3.processEvent005` owns the report and ability presentation in one
+talk turn: rows 24-27 precede long information dialog 31 and ability
+`(27357, 2)`, then the owner says rows 28 and 29, `worldMaster` says row 30,
+and the talk closes. `Whm0j4.processEventClear` uses ordinary 1.5-second
+fades, opens long information dialog 64, and presents ability `(27359, 2)`.
+
+`Whm0j5.processEvent_RAYA_O_follow` says rows 17, 44, and 21 before its
+talk-start call, then says row 22 and closes. Preserve this unusual order.
+`processEvent_RAYA_O_clear` separately says rows 47-52 on the supplied
+owner and row 53 through `worldMaster`, then closes without an item or
+ability widget.
+
+`Whm0j6.processEvent_getAF_info` passes literal item 8032706 to long
+information dialog 49 and the item widget. `processEventClear` uses
+ordinary 1.5-second fades, dialog 50, and ability `(27345, 1)` before
+closing its talk. The separate `processEventAfget` presents that ability,
+then passes its fourth method argument to ordinary information dialog 49;
+it has no item-widget call. These distinct surfaces do not prove that a
+caller invokes all of them, or that any presentation grants a reward.
+
+Sources: `lua/scripts/quest/scenario/whm/whm0j2.lua`,
+`processEventRAYAOSENNAStart`; `lua/scripts/quest/scenario/whm/whm0j3.lua`,
+`processEvent005`; `lua/scripts/quest/scenario/whm/whm0j4.lua`,
+`processEventClear`; `lua/scripts/quest/scenario/whm/whm0j5.lua`, the named
+follow and clear methods; `lua/scripts/quest/scenario/whm/whm0j6.lua`,
+`processEvent_getAF_info`, `processEventClear`, and `processEventAfget`.
+
 The following four decoded chunks match their LPBs byte-for-byte.
 Method locators are in the named scripts under `lua/scripts/quest/scenario/`;
 their `.calls.json` sidecars give the full ciphered LPB paths.
@@ -204,6 +296,37 @@ their `.calls.json` sidecars give the full ciphered LPB paths.
 | `whm/whm0j2` | `74347fd33eefba6f5f718c977f114e7a5addafe406a03124c61f01bb782d1d56` |
 | `whm/whm0j4` | `819ba233c3f6faaa64ea1e5c78785d1f409d016e7c510a17c64d9aeb2e57bf18` |
 
+### Bard
+
+`Brd0j4.processEventClear01` and `processEventClear02` each open long
+information dialog 36, wait eight seconds, present ability `(27232, 3)`,
+and wait six seconds. They duplicate that presentation locally; their
+presence does not establish that both run. `Brd0j6.processEventClear`
+opens long information dialog 47 and presents ability `(27227, 1)` before
+passing its fourth method argument to the item widget. The client method
+does not select or grant that item.
+
+Sources: `lua/scripts/quest/scenario/brd/brd0j4.lua`, `processEventClear01`
+and `processEventClear02`; `lua/scripts/quest/scenario/brd/brd0j6.lua`,
+`processEventClear`.
+
+### Dragoon completion hooks
+
+`Drg0j2`, `Drg0j3`, and `Drg0j5` define separate
+`onJobQuestCompleteFirst`, `onJobQuestCompleteSecond`, and
+`onJobQuestCompleteThird` methods. First opens long information dialog on
+`worldMaster`: the first two use `(51126, 2000204)`, while `Drg0j5`
+uses `(51135, 3102224, 1, 2000204)`. Second presents ability
+`(27272, 3)`, `(27267, 1)`, or `(27277, 3)`, respectively. Third calls
+`showEventBeforeNpsLS` with `(1000275, 85)`, `(1000275, 86)`, or
+`(1000275, 88)`, respectively. This preserves distinct information, ability,
+and Linkpearl surfaces without establishing their caller, invocation order,
+or rewards.
+
+Sources: `lua/scripts/quest/scenario/drg/drg0j2.lua`,
+`lua/scripts/quest/scenario/drg/drg0j3.lua`, and
+`lua/scripts/quest/scenario/drg/drg0j5.lua`, the three named completion hooks.
+
 ### AF item and stela presentations
 
 Seven job scenarios define `processEvent_getAF_info`: `War0j4`, `Mnk0j5`,
@@ -213,6 +336,10 @@ argument, runs scheduler 67108910, and calls
 public-information dialog 25 and waits eight seconds. The method presents a
 supplied item; it neither chooses the item nor identifies a coffer, its
 location, the number or order of acquisitions, or the server grant.
+
+`Whm0j6` also defines `processEvent_getAF_info`, with a different shape
+described under White Mage: it takes no item argument, runs no scheduler,
+and presents literal item 8032706.
 
 `Blm0j4.processEvent000_SEKIHI` presents world-master text row 33.
 `processEvent005` presents row 24 and free-display-name row 25 with display
@@ -484,12 +611,21 @@ Sources:
 
 ## Dragoon 60 presentation split
 
+`Drg0j6.processEvent015` only opens and immediately closes a talk turn on
+its supplied owner. It has no dialogue or scene call and must not be
+substituted for the neighboring scene wrappers.
+
 `Drg0j6.processEvent020` and `processEvent025` both play scene `Drg0j620`
 in mode 1 after default fade-out. The former ends with the after-warp fade-in;
 the latter uses the default fade-in. A separate `processEvent030` presents
 ability 27268 and literal item 8032704 through job widgets after dialogue.
 Those widget calls do not establish an authoritative reward grant, event
 ordering, or a warp destination.
+
+`processEvent030` also retains a `finishCliantTalkTurn` call with explicit
+mode 2 and the player argument between its later talk sections, followed
+by further speech and a parameterless close. Reducing its body to the job
+widgets would lose those talk boundaries.
 
 Source: `lua/scripts/quest/scenario/drg/drg0j6.lua`, LPB resource
 `tp5rq/r75w9s1v/6s3/6s3j0d.le.lpb` (decoded SHA-256
