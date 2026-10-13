@@ -1020,6 +1020,41 @@ The source ranges are
 inputs and canonical sources remain identified by their pinned hashes even
 when the extracted Lua corpus is not present in a checkout.
 
+## Imperial Devices briefing arguments
+
+The three `Com5*0` scenario scripts pass supplied values into dungeon
+briefing text rather than fixed literals. `Com5l0.processEvent_010`
+(`quest/scenario/com/com5l0.lua:385-533`) calls `worldMaster:say` with the
+quest as text owner, row 37, and its fifth method argument;
+`Com5g0.processEvent_010` (`com5g0.lua:188-290`) and
+`Com5u0.processEvent_010` (`com5u0.lua:344-474`) do the same with rows 22
+and 29 respectively and their fourth method argument. Canonical
+`com5l0.csv` row 37, `com5g0.csv` row 22, and `com5u0.csv` row 29 format
+that value as a maximum visit length in minutes (SHA-256
+`3a45fa1b22ad1fd647b88f556d1c80718b3afda30d43c1bb67ad1eb3e6cb5276`,
+`2fc71e586033216dc56f6785d5512dadac29959e2cd4610fece7d2958b991b45`, and
+`a6eac49a1727d982ebb58ef96c62d94e4de100da46f4c36c95b906157c709be1`, pinned
+in `xivl-client-data:manifests/tables.json`). `Com5g0.followEvent_000`
+(lines 142-185) and `menberCountUnderRange` (lines 784-816) say rows 71 and
+72, whose text formats party-size bounds and a minimum Disciple of War or
+Magic level from parameters.
+
+`Com5l0.processEvent_015` (lines 627-690) says row 49 when its fourth method
+argument is 1 and row 50 otherwise. `Com5u0.processEventAUBREYStart`
+(`com5u0.lua:23-135`) says rows 76 and 77 in place of rows 5 and 7 when its
+fourth method argument is 1, then returns the quest-information result after row 8 for result 1 or
+row 9 otherwise. `Com5u0.processEvent_015` (lines 518-605) calls
+`desktopWidget:openPublicInformDialogWidget(worldMaster, 25117, 11000261)`,
+then `worldMaster:notify` with the same row and item, and waits 3 seconds.
+`Com5g0.processEventFULKEStart` (lines 23-139) says rows 10 and 11 for
+quest-information result 1 and row 9 otherwise.
+
+These calls show which values the client formats or displays. They do not
+supply the time limit, party bounds, or level, establish dungeon admission,
+or grant item 11000261. A prior external lead, the `quests/111410-`,
+`quests/111610-`, and `quests/111810-` Imperial Devices pages at revision
+`d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, named these briefing methods.
+
 ## Evidence boundary
 
 A prior external lead, the `quests/110001/` through `quests/110021/` pages

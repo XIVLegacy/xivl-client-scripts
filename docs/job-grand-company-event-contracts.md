@@ -609,6 +609,71 @@ Sources:
 - `lua/scripts/quest/scenario/gcg/gcg102.lua`.
 - `lua/scripts/quest/scenario/gcu/gcu102.lua`.
 
+### Company quest offer and choice branches
+
+The selected company scenario start methods below end in one of two client
+choices. Some call `showQuestInfomation`; others call the actor's `ask` with
+a scenario row in mode 2. Other company start methods, such as the `Com0*5`
+and `Com0*7` starts, are not tabulated here. Each listed method speaks one
+row or row group for result 1 and another for any other result, closes its
+talk turn, and returns the saved result. The row IDs below are the
+branch-selecting `say` arguments.
+
+| Method | Choice | Result 1 | Other results | Source lines |
+| --- | --- | --- | --- | --- |
+| `Com0l1.processEventGUINCUMStart` | quest information | 10 | 9 | `com0l1.lua:23-118` |
+| `Com0l2.processEventGUINCUMStart` | `ask(7, 2)` | tutorial rows 11-20 and 22 | 10 | `com0l2.lua:23-204` |
+| `Com0l3.processEventFHILAHCTStart` | `ask(12, 2)` | 4-11 | 15 | `com0l3.lua:23-151` |
+| `Com0l4.processEventGUINCUMStart` | quest information | 29, 30 | 28 | `com0l4.lua:23-135` |
+| `Com0l6.processEventGUINCUMStart` | quest information | 18, 19 | 16, 17 | `com0l6.lua:23-231` |
+| `Com0g1.processEventStart` | quest information | 10 | 9 | `com0g1.lua:23-130` |
+| `Com0g2.processEventFulkeStart` | `ask(7, 2)` | tutorial rows 11-21 | 10 | `com0g2.lua:23-183` |
+| `Com0g3.processEventStart` | `ask(14, 2)` | 4-11 | 17 | `com0g3.lua:23-139` |
+| `Com0g4.processEventStart` | quest information | 29 | 28 | `com0g4.lua:23-127` |
+| `Com0g6.processEventStart` | quest information | 12 | 11 | `com0g6.lua:91-237` |
+| `Com0u1.processEventAUBREYStart` | quest information | 9 | 8 | `com0u1.lua:23-112` |
+| `Com0u2.processEventAUBREYStart` | `ask(7, 2)` | tutorial rows 11-21 | 10 | `com0u2.lua:23-210` |
+| `Com0u3.processEventUSANZIStart` | `ask(12, 2)` | 4-11 | 15 | `com0u3.lua:23-135` |
+| `Com0u4.processEventAUBREYStart` | quest information | 29 | 28 | `com0u4.lua:23-109` |
+| `Gcl301.processEventCLIFTONStart` | quest information | 10-12 | 9 | `gcl301.lua:23-159` |
+| `Gcl302.processEventStart` | quest information | 10 | 9 | `gcl302.lua:23-147` |
+| `Gcg302.processEventStart` | quest information | 12 | 11 | `gcg302.lua:23-139` |
+| `Gcu301.processEventCLIFTONStart` | quest information | 11 | 10 | `gcu301.lua:23-159` |
+
+Source paths are beneath `lua/scripts/quest/scenario/com/`, `gcl/`, `gcg/`,
+or `gcu/`. In the three `Com0*2` tutorial branches, answer 1 first calls
+`openPublicEffectWidget` with 4, 5, or 6 respectively and waits 4.7 seconds
+before the status-widget calls described above. `Com0u3` asks its own
+explanation prompt and contains no purchase call, item check, or
+shop-widget handoff; it is separate from the company shop UI in
+[Grand Company shop lifecycle](grand-company-shop-lifecycle.md).
+
+Several start and talk methods also select a dialogue row from a supplied
+argument before reconverging. For `Com0l6.processEventGUINCUMStart` the
+split follows its first rows; for the others it selects the opening row:
+
+| Method | Comparison | Selected row | Otherwise |
+| --- | --- | ---: | ---: |
+| `Com0l6.processEventGUINCUMStart` | fourth argument `== 1` | 8 | 9 |
+| `Gcl301.processEventCLIFTONStart` | fourth argument `== 1` | 29 | 2 |
+| `Gcl302.processEventStart` | fourth argument `== 1` | 2 | 28 |
+| `Gcg302.processEventStart` | fourth argument `== 1` | 2 | 39 |
+| `Gcg302.processEventChallinie` | fourth argument `== 1` | 15 | 40 |
+| `Gcu301.processEventCLIFTONStart` | fourth argument `== 1` | 2 | 28 |
+| `Com0g6.processEventLewin` | fourth `== 1` and fifth `== 2` | 15 | 16 |
+
+`Com0l6.processEvent_elevator_nq1` and `processEvent_elevator_nq2`
+(`com0l6.lua:994-1035`) call `startNQCutScene` with `elv0l01a` and
+`elv0l02a`, mode 1, and argument 0. These choices and comparisons are client
+presentation. They do not establish quest admission, the producer or meaning
+of a compared argument, an item or seal transaction, or historical
+invocation.
+
+A prior external lead, the Grand Company quest pages under `quests/1114*`,
+`quests/1116*`, and `quests/1118*` and the `111406-Com0l6`, `111606-Com0g6`,
+and `111817-Gcu301` pages at revision
+`d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, listed many of these methods.
+
 ## Dragoon 60 presentation split
 
 `Drg0j6.processEvent015` only opens and immediately closes a talk turn on
