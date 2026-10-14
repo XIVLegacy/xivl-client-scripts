@@ -40,6 +40,52 @@ notes](https://forum.square-enix.com/ffxiv/threads/32606), which describe curren
 actions as automatically set and not voluntarily removable while allowing them to move
 and reapplying them on class change.
 
+## Actions and Traits lists and help panel
+
+`MainMenuWidget.processUICommandSelectionChanged` opens `ActionSettingWidget`
+for `ListBox_MainMenu` item 2 (`mainmenuwidget.lua:416-695`), and the desktop
+connector's `processUICommandEvent` opens it for
+`UILuaCommands.ShortCutActionActionMenu` (`desktopwidget_connector.lua:3199-4175`).
+
+`setBattleGrid` passes class IDs 3, 2, 4, 8, 7, 23, and 22 to `setClassButton`
+with the prefix `Button_FighterSorcerer_` (`actionsettingwidget.lua:945-970`).
+`setCraftGrid` passes IDs 29 through 36 and `setGatherGrid` passes 39 through
+41 with `Button_GathererCrafter_`; the gather grid hides buttons 4 through 8
+(`:973-1032`).
+
+`setJobAction` hides `Grid_JobAction` unless `isJob` accepts the actor's
+`getMainClassOrJob` value (`:2943-3053`). It selects a base index by job ID:
+15 to 11, 16 to 1, 17 to 6, 18 to 21, 19 to 16, 26 to 31, and 27 to 26. For
+`n` from 0 through 4 it tests `isAcquiredAdditionalCommand(base + n)` and
+takes the matching entry of the 36-entry `getAdditionalCommandList`
+(`chara/charabaseclass_ffxivbattle.lua:317-395`) for the five
+`Button_JobAction_` slots. `setClassAction` and `setSpecialSkill` hold literal
+command and level lists selected by class ID. `setClassAction` takes that ID
+as an argument defaulting to `getStateMainSkill`; `setSpecialSkill` reads
+`getStateMainSkill` (`:2153-2940`, `:3056-3430`). A job overlay therefore does
+not select the trait list.
+
+`setHelp` loads `gameCommandBasicSheet` for the command ID (`:4084-4109`).
+`processSpreadSheetDataAsync` reads position 119 first. A nonzero value
+passes only position 39 to `setCommandInfo`; zero passes positions 38, 39,
+40, 76, 79, 115, and 114 (`:551-622`). `setCommandInfo` shows position 38 in
+`TextBlock_SkillName`, 39 in `Grid_BestLevel`, 40 in `Grid_Compatibility`, 76
+as cast time, 79 as recast time, 115 as TP cost, and 114 as MP cost through
+`calculateCommandCost`; it hides each grid whose value is not positive
+(`:625-783`). Position 119 is nonzero in 624 of the 1,611
+`gameCommandBasic.csv` rows; its meaning is not established.
+`equipAction(a, b)` and `equipGodsend(a, b)` call `executePlayerEquipAction`
+with first argument 0 and 1 respectively, then `a`, `b`, and 0
+(`:4112-4139`).
+
+A prior external lead,
+`docs/job_system_soulstone_actionbar_battle_regimen_2026-09-27.md` at revision
+`d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, listed the grid and job-window
+limits and the help-panel positions as open. `mainmenuwidget.lua` is pinned by
+SHA256 `7DFD161C2852A56FD598F47469CC2D7597BA9F0E4B228555A09274674B2B4E41`
+and `xivl-client-data:csv/gameCommandBasic.csv` by SHA256
+`4D2D75D88E96D56D1B4812B27D1D8CBA68919EC9A4D4E2527647F4AE38CF7424`.
+
 ## Acquisition state is independent of placement
 
 The pinned `ffxivgame.exe` is retail 1.23b, image base `0x00400000`, SHA256
@@ -79,7 +125,7 @@ it accepts only the following class IDs; all other tested IDs return false:
 
 This is a client chooser visibility rule, not proof of server acceptance or of an
 individual action's equip eligibility. The source is
-`chara/charabaseclass_ffxivbattle.lua:60-163` (manifest
+`chara/charabaseclass_ffxivbattle.lua:113-220` (manifest
 `manifests/scripts.json:410-414`, SHA256
 `D1DB23D11F911EA3205CA72868CC9FCA22CEFE0D3F88A6706CBB035D92130BDA`).
 The LPB is `client/script/729s9/729s989r57y9rr_44m1o89qqy5.le.lpb`
