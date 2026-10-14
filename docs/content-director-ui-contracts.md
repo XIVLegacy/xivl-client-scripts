@@ -73,6 +73,49 @@ These details are in `guildlevebaseclass.lua:211,285-364,380,395-453,456,465-472
 `manifests/scripts.json:7833-7836`). The LPB and its decoded
 payload are pinned above.
 
+### Guildleve timer, card, and instruction helpers
+
+`GuildleveBaseClass.getTimeLimit` returns the retained `timeLimit`, and
+`getTimeDataOnGuildleveInfo` returns the start time plus 60 times that value,
+then the same sum minus 60 (`guildlevebaseclass.lua:565-572,821-837`).
+`GuildleveExecutionWidget.init` passes both results to `setTimer`
+(`guildleveexecutionwidget.lua:63-66`). `setTimer` subtracts
+`worldMaster:_getServerTime()` from each value, sets `IntData.Value0` of
+`CustomControl_TimerLabel` to 1, writes the first difference to
+`FloatData.Value0`, zero to `FloatData.Value1`, and the gap between the two
+differences, 60, to `FloatData.Value2` (`:280-323`). The client therefore
+scales sheet column 21 by 60 against the server clock. This makes the column
+a minute count only if the start time and server time are in seconds, which
+the corpus does not establish. A prior external lead,
+`Guildleves/00-guildleves-overview.md` and `Guildleves/40-faction-leves.md` at
+revision `d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, gives 30- and 40-minute
+guildleve timers; stored column values are in
+`xivl-client-data:docs/guildleve-selected-row-values.md`.
+
+When the director has a guildleve ID, the same `init` reads `guildleve_UI`
+columns 76, 77, and 75 for it and passes them to `setCard`
+(`guildleveexecutionwidget.lua:88-122`).
+`setCard` writes them to `IconControl_Card`, `IconControl_Plate`, and
+`IconControl_TownName` and shows `Label_GLPlate`. When the first value is nil
+or not positive, it clears all three icons and hides the label instead
+(`:230-277`).
+
+`getIdForInstruction` (`guildlevebaseclass.lua:855-913`) maps the keys
+`sweep`, `gather`, `chase`, `detect`, `orb`, `survive`, `hunt`, `round`, and
+`follow` to 10011, 10021, 10031, 10041, 10051, 10061, 10071, 10081, and 10091,
+maps `glText` to 50003, and returns 10011 for any other key. Six director
+subclasses call it, all passing `glText`. `getTextIdForInfo`
+(`:1019-1052`) maps `glText`, `glOrder`, `enemy`, `enemyParty`, and `item` to
+50003, 50089, 50001, 50099, and 50002, and returns 50047 otherwise; the base
+class and 19 director subclasses call it. Neither method names the text sheet.
+The 100xx values equal objective row IDs of `xtx_guildleveText.csv`; all but
+10091 also occur in `guildleve.csv` column 17.
+
+Evidence: `lua/scripts/director/guildleve/guildlevebaseclass.lua` (pinned
+above) and `lua/scripts/widget/guildleveexecutionwidget.lua` (17,377 bytes,
+SHA-256 `E01C200DB8DEBC404B103C72C95F02E736BD57419E25AB2CF5653936A7631510`,
+`manifests/scripts.json:15470-15475`).
+
 ## Content-group map-open and finalization
 
 `PlayerBaseClass.postMapOpen` enumerates the player's groups and calls

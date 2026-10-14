@@ -523,8 +523,13 @@ from ID 50021. Operating a level control sets the base ask result to its
 number from 1 through 5; both the cancel control and cancel handler set it to
 -1.
 
-This identifies the level-selection control and result values, not the
-semantic scale of the argument or a guildleve difficulty formula.
+In `xivl-client-data:csv/worldMaster.csv`, row 50015 reads "Difficulty".
+Rows 50016 through 50020 read one to five stars. Rows 50017 through 50020
+append enemy level offsets of +3, +6, +9, and +12.
+
+This identifies the level-selection control and result values. The labels name
+displayed enemy-level offsets; they do not establish the semantic scale of the
+argument or a guildleve difficulty formula.
 
 Evidence: `lua/scripts/widget/ask/guildleveselectlevelwidget.lua`; its decoded
 payload SHA-256 is
@@ -574,6 +579,99 @@ Evidence: `lua/scripts/chara/npc/object/aetheryte/aetherytebaseclass.lua`,
 `lua/scripts/chara/player/playerbaseclass_work.lua`,
 `lua/scripts/widget/ask/journallistwidget.lua`, and
 `lua/scripts/widget/desktopwidget_connector.lua`.
+
+### Return node, retry, and local synthesis prompts
+
+`GuildleveWarpPoint.eventTalkGuildleveWarp` takes two arguments after self
+and calls `worldMaster:askRestrictChoices` with the warp point as text owner,
+text ID 1, four availability flags, and literal 0
+(`guildlevewarppoint.lua:177-215`). When the second argument is positive, all
+four flags are true and both arguments follow. Otherwise the second flag is
+false and only the first argument follows. The method returns the ask result.
+In `guildleveWarpPoint.csv`, row 1 reads "Select destination." This records
+the prompt route only, not which destination a result selects.
+
+`AetheryteBaseClass.askRetryRegionalleve` asks `worldMaster` text 50144 in
+mode 2 with its two arguments (`aetherytebaseclass.lua:301-335`). Result 1
+returns `(1, nil)`. Result 2 asks text 50149 with the first argument and
+returns `(2, secondResult)`. Any other result returns `(result, nil)`.
+`CraftJudge.askRetryLocalleve` follows the same branch through
+`desktopWidget:askForEventMode`. It shows text 50144 with choices 50145 and
+50146 and its third and fourth arguments. On result 2 it shows text 50149 with
+choices 50150 and 50151 and the third argument (`craftjudge.lua:932-991`).
+In `worldMaster.csv`, row 50144 offers to retry the failed leve for one leve
+allowance, row 50149 asks whether to abandon it, and the choices read Yes and
+No. `CraftJudge.askContinueLocalleve` shows the judge's own text 26 with
+choices 27 and 28 and forwards its third through seventh arguments
+(`craftjudge.lua:899-929`). `craftJudge.csv` row 26 asks whether to continue
+synthesizing the requested item. These are prompts; no allowance change or
+abandon mutation is visible in them.
+
+`CraftStartWidget.setInitialData` stores its first argument as
+`work.craftMode` (`craftstartwidget.lua:329-399`). Mode 1 sets the
+`Button_QuestCraft` content to text 3008 and disables `Button_Recipe`. Any
+other mode sets text 3012 and enables `Button_Recipe`. When
+`Button_QuestCraft` gains focus, `processUICommandDefault` shows help texts
+3009 and 3010 in mode 1, and 3019 and 3020 otherwise (`:1081-1302`). In
+`xtx__text_ui.csv`, 3008 reads "Normal Synthesis", and 3012 and 3019 read
+"Requested Items". `xtx__text_ui(2).csv` has no rows 3008-3010. Its row 3012
+reads "Requested Items" and its row 3019 reads "Quest Synthesis". A prior
+external lead, `Guildleves/30-local-handcraft.md` at revision
+`d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, names the crafting option Quest
+Synthesis. Both sheets label the button "Requested Items"; the corpus does not
+show which sheet a given help display loads.
+
+Evidence: `lua/scripts/chara/npc/object/guildlevewarppoint.lua` (13,043 bytes,
+SHA-256 `E347C4EAFC958638603860EF3498AD8C5088D8CC80231DF14E759D1E26D22229`,
+`manifests/scripts.json:5768-5773`),
+`lua/scripts/chara/npc/object/aetheryte/aetherytebaseclass.lua` (17,098
+bytes, SHA-256
+`198ACEE5FB54F13C60F446B050A0F5B41E8EF0D1DD268699BCB71574588A1DCF`),
+`lua/scripts/judge/craft/craftjudge.lua` (23,945 bytes, SHA-256
+`5019A3E9ACAF99A23210A451E0DF2B0F4A73E5D44F764A480BB3B23953C9076F`), and
+`lua/scripts/widget/craftstartwidget.lua` (62,546 bytes, SHA-256
+`4DD33EEB3AF13CD7E727A5E573B177490FA44A43E558ADC7E452D2AE73D3413A`), with
+`xivl-client-data:csv/worldMaster.csv`, `csv/craftJudge.csv`,
+`csv/guildleveWarpPoint.csv`, `csv/xtx__text_ui.csv`, and
+`csv/xtx__text_ui(2).csv`.
+
+## Faction worker talk events
+
+`PopulaceFactionGLWorker.initForEvent` loads `populaceFactionGLWorker` as text
+bank 30 (`populacefactionglworker.lua:11-133`). Separate start and end talk
+methods compare a supplied guildleve ID with fixed row IDs and then call `say`
+with that sheet's row IDs:
+
+| Method | Lines | Compared argument | Guildleve IDs compared |
+|---|---|---|---|
+| `eventTalkFaction01Start` | 136-653 | fourth method argument | 1011-1020 |
+| `eventTalkFaction02Start` | 656-1182 | fourth method argument | 1111-1119 |
+| `eventTalkFaction03Start` | 1185-2021 | fourth method argument | 1201-1214 |
+| `eventTalkFaction01End` | 2024-2221 | second method argument | 1011-1020 |
+| `eventTalkFaction02End` | 2224-2392 | second method argument | 1111-1119 |
+| `eventTalkFaction03End` | 2395-3156 | second method argument | 1201-1214 |
+| `eventTalkWaitKeyPerson` | 3159-3220 | third method argument | 1111-1113 |
+| `eventTalkGuildleveWarp` | 3276-3551 | fifth method argument | 1011-1020, 1111-1119, 1211-1213 |
+
+Method arguments are counted with self as the first. Each start method also
+compares its third argument with 0, and `eventTalkFaction03Start` compares its
+fifth argument with 1 and 2. `eventTalkFaction03End`
+compares its third argument with 1 and 2. The warp method compares its fourth
+argument with 1, 2, and 3. Every compared ID is a faction guildleve row in
+`xivl-client-data:docs/guildleve-selected-row-values.md`; IDs 1001-1010,
+1021-1025, 1101-1110, 1120, and 1215-1220 are compared nowhere in this class.
+The published decompile repeats one guildleve comparison in
+`eventTalkFaction03Start`, so this table records compared constants, not
+branch structure. The script does not identify the speaking actor or the
+server's start and end ordering. A prior external lead,
+`Guildleves/40-faction-leves.md` at revision
+`d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, says faction guildleves require
+speaking with an NPC after starting and after finishing.
+
+Evidence: `lua/scripts/chara/npc/populace/populacefactionglworker.lua`
+(85,592 bytes, SHA-256
+`A7AF97BBBC5825BA96356F67ADD5466AFBD3F4A3CDDBB6325E56FC55348D9EF9`,
+`manifests/scripts.json:6326-6331`).
 
 ## Command mapping
 
