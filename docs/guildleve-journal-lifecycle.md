@@ -500,8 +500,10 @@ with the supplied eighth argument equal to 1 says text ID 164 on the parent or
 53 on the child, then repeats the prompt. Otherwise it says text ID 162 or 51
 and opens `Ask/GuildleveSelectLevelWidget` in mode 1 with the eighth argument
 minus one. It returns `(4, selectedLevel)` only when the widget succeeds and
-the level is between 1 and 5. These numeric text IDs and argument gates do
-not establish the meaning of the choices or the server-side start decision.
+the level is between 1 and 5. The [aetheryte guildleve event contract](aetheryte-guildleve-events.md)
+joins these text IDs to their menu labels and identifies the Favor balance,
+activation cost, and other presentation arguments. The client prompt does
+not establish the server-side start decision.
 
 Evidence: `lua/scripts/chara/npc/object/aetheryte/aetheryteparent.lua` and
 `lua/scripts/chara/npc/object/aetheryte/aetherytechild.lua`. Their decoded

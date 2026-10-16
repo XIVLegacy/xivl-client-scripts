@@ -34,6 +34,8 @@ unverified native or server behavior.
 
 - [Content director UI contracts](content-director-ui-contracts.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
+- [Local guildleve titles and passiveGL_craft columns](passivegl-craft-columns.md)
+- [Aetheryte guildleve events and Guardian's Aspect](aetheryte-guildleve-events.md)
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
 - [Quest event client contracts](quest-event-client-contracts.md)
