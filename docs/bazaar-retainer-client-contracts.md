@@ -250,10 +250,10 @@ they do not establish a numeric server event or packet binding.
 Lobby `0x0017` parsing and retained-record consumers are documented in
 `xivl-decomp:docs/net/retainer-lobby-record-consumers.md`. The native trace
 establishes dword `+0x04` and byte `+0x08` matching keys, word `+0x0A` flag
-uses, and a working snapshot that builds a local grouped result. It stops
-at the snapshot's virtual copy/clone call `0x00DA4AA6`; an independent
-callback-object identity gap bounds the UI connection. Neither route
-establishes the next request's wire encoding or server mutation policy.
+uses, and conditional command 0x000F application-buffer construction from
+the working snapshot. The canonical finding separates that byte layout from
+unresolved coordination, allocator and transport-route identities. An independent
+callback identity gap bounds the UI connection; server mutation policy remains unproved.
 
 ### In-game retainer roster source
 
