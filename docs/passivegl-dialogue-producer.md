@@ -26,6 +26,8 @@ calls also match in full. Nil replies occur before the server supplies 365
 in the first conversation and 368 in the second. These are observations
 with separate stream order and packet-completion provenance, not proof of
 server execution order or a deterministic response to the matched bytes.
+The [native EventUpdate layout](#eventupdate-fields) establishes that the
+seven differing bytes are copied from an unwritten stack tail.
 
 Both `welcomeTalk` calls use `delegateEvent`, wire owner `0x44B00005`, player
 `0x029B2941`, quest actor `0xA0F1D58A`, method `welcomeTalk`, and four nils.
@@ -38,6 +40,47 @@ owner's client-data actor class.
 The capture study owns the exact packet, frame, byte, and source-hash
 locators. Matching requests do not identify the server state, a phase rule,
 or a source-column number.
+
+## Intervening craft progress
+
+The capture study's `derived/progression.json` records the interval between
+the conversations. Three `CraftJudge.askContinueLocalleve` calls for leve
+120202 supply current/target counts 1/3, 2/3, and 3/3, with attempts remaining
+4, 3, and 2. The last call precedes text 368 in the same main s2c stream.
+Player property writes also set `work.guildleveChecked[8] = 1` after text 366,
+then `work.guildleveDone[8] = 1` before the second conversation. The recording
+does not supply a nonzero `work.guildleveId[8]` baseline, so it does not
+directly bind that array slot to leve 120202. The slot index and sheet source
+column 8 belong to separate domains.
+
+The count interpretation comes from `lua/scripts/judge/craft/craftjudge.lua`,
+`askContinueLocalleve:899-929`. Raw prototype `main/f27`, PCs 18-24 at decoded
+offsets `0x21C2-0x21DA`, moves r3-r7 to r20-r24 and uses `CALL A10 B15 C2`.
+It forwards all five supplied values to `DesktopWidget.askForEventMode` with
+question key 26 and choices 27 and 28. This method contains no comparison of
+the counts and no `pgConv` reference.
+
+`CraftJudge.initText:178-187`, raw `main/f11`, loads bank 16 as `craftJudge`.
+`xivl-client-data:manifests/tables.json`, entry `craftJudge`, pins its
+16,624-byte CSV to SHA-256
+`2eb97dc8778c124a794fe5be2d765b4cc0b03ac6eb6781171bbf95f39a681972`.
+Row 26, English field 1, explicitly labels the third, fourth, and fifth
+formatting values as current count, target count, and attempts remaining.
+Their number controls are `022003e80403`, `022003e80503`, and `022003e80603`.
+The first two values format the leve title and requested item.
+
+The open vararg adapters preserve those values:
+`DesktopWidget.askForEventMode` in `widget/desktopwidget_connector.lua:12038-12090`,
+raw `main/f237`, PCs 27-28 at `0x1C0E9-0x1C0ED`, and
+`AskWidget.ask` in `widget/ask/askwidget.lua:185-194`, raw `main/f2`, PCs 70-77
+at `0x0697-0x06B3`. The latter passes the question key and formatting values
+to `TextBlock_Question.Text` through `_setProperty`. This proves supplied
+presentation inputs without establishing a historical display.
+
+The observed progress and done-flag changes supply candidate state for the
+different dialogue values. They do not establish that the sender tested a
+particular count, flag, or source column. Text 367 has no retained call, and
+the source-column tuple permutations remain unresolved in the column finding.
 
 ## Lua request and return values
 
@@ -76,6 +119,9 @@ The relevant decoded LPB identities, relative to retail `client/script/`, are:
 | `729s9/wu7/wu789r57y9rr.le.lpb` | 5,925 | `1941c40b64cacd721d271b36e31017a24f908b8ea518f713b44da17bb4e57627` |
 | `729s9/wu7/wu789r57y9rr_5o5wq.le.lpb` | 6,249 | `4a3008dd8d2a91e7eb044e5555d2757468a9097bba5175992fb88f943bd07b6c` |
 | `tp5rq/u9rr1o53p1y6y5o5/u9rr1o53p1y6y5o589r57y9rr.le.lpb` | 774 | `ac1de2b6208166e8ec616ee9c0a075ab7cfb91e19051e03041e93020bbea1455` |
+| `0p635/7s94q/7s94q0p635.le.lpb` | 10,114 | `0dff8463d2b685ff65a23afcf5e52e451e531e6fac194fd088adba3d05dbd0ff` |
+| `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` | 213,474 | `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| `n1635q/9rz/9rzn1635q.le.lpb` | 5,244 | `1b0d5e2ca4c39b781305b98320eb597337e0d4c0fc0c9167244553dfc49d14c0` |
 
 LPB decoding uses `xivl-client-structs:tools/decode_lpb.py`. Raw instruction
 operands and prototype opcode sequences were checked against the pinned
@@ -132,6 +178,18 @@ historical callback suspended or completed.
 This is static native dataflow. It does not establish that a particular
 captured reply completed a particular Lua call, or that the client displayed
 the message or ran its scheduler.
+
+## EventUpdate fields
+
+`xivl-client-structs:structs/network/event-update.md` owns the native field
+provenance and talk-request route. Normal callback completion supplies a
+64-byte span for the CRC32 at application offset `+0x0C`. All 71 such
+updates in the retained local-leve capture match that checksum. The seven
+bytes at `+0x51-0x57` are unwritten stack bytes included by the forwarder's
+copy. Their differing values provide no supported initialized selector.
+The other compared application fields and choice parameters match, as
+recorded in the capture study. This still leaves the sender's retained state
+and its actual selection condition unidentified.
 
 ## Remaining producer evidence
 
