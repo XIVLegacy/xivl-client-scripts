@@ -17,13 +17,17 @@ of the arguments that a server supplied.
 calls `_countHamletSupplyRanking`, and iterates that many
 `_getHamletSupplyRanking` rows. It derives a linkshell icon when the row's
 linkshell field is nonnull and passes the row to `setRankingListItem`
-(`hamletdefenserankingwidget.lua:188-215`; bytecode
+(`widget/ask/hamletdefenserankingwidget.lua:setRankingList`; bytecode
 `0x0009D0-0x000A40`). `HamletDefenseScoreWidget.initAsk` instead gets the
 local player, iterates `_countHamletDefenseScore` and
 `_getHamletDefenseScore`, and reads `_getHamletDefenseScoreAll` for totals
-(`hamletdefensescorewidget.lua:3-49`; bytecode `0x00011F-0x00013B`
-and following). Neither widget's Lua calls alone decode the raw native
-ranking or score receiver fields or validate particular row values.
+(`widget/ask/hamletdefensescorewidget.lua:initAsk`; bytecode
+`0x00011F-0x00013B` and following). The native receiver copies, cache writes,
+getter order and wire-field joins are recorded in
+`xivl-client-structs:manifests/hamlet_wire_contract.json`.
+The score totals getter consumes and clears its cache; neither receiver
+directly opens a widget. Client display arithmetic does not validate server
+ranking, bonus or reward policy.
 
 `PopulaceHamletSupply` provides separate item and materia delivery-menu
 methods (`populacehamletsupply.lua:7-78`). Its item getters return a

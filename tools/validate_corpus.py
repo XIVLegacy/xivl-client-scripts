@@ -37,6 +37,7 @@ from quest_selector_consumers import (
     analyze_script_consumers,
     validate_retained as validate_quest_selector_report,
 )
+from build_quest_contracts import validate_retained as validate_quest_contract_report
 from retail_lua_coverage import (
     TOOLS_COMMIT,
     TOOLS_SOURCES,
@@ -324,6 +325,11 @@ def validate_schemas(sidecars: dict[str, dict]) -> None:
             MANIFESTS_DIR / "quest_selector_consumers.json",
             "quest_selector_consumers.schema.json",
             "manifests/quest_selector_consumers.json",
+        ),
+        (
+            REPO_ROOT / "data" / "quest_contracts.json",
+            "quest_contracts.schema.json",
+            "data/quest_contracts.json",
         ),
         (
             MANIFESTS_DIR / "monster_attack_weapon_skill_profiles.json",
@@ -1039,6 +1045,10 @@ def main(argv: list[str] | None = None) -> int:
     validate_retail_lua_coverage()
     validate_myplayer_timer_consumers(scripts_tree_safe)
     validate_quest_selector_consumers(scripts_tree_safe)
+    quest_contract_path = REPO_ROOT / "data" / "quest_contracts.json"
+    if quest_contract_path.is_file():
+        for problem in validate_quest_contract_report(_load(quest_contract_path)):
+            errors.append(f"data/quest_contracts.json: {problem}")
     validate_monster_attack_weapon_skill_profile(scripts_tree_safe)
     validate_reproduction_contract(sidecars, scripts_tree_safe)
     validate_lua_corpus(sidecars, api_bcs, scripts_tree_safe)

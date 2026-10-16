@@ -1,0 +1,895 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://xivlegacy.org/schemas/quest_contracts.schema.json",
+  "title": "Retained quest script contracts",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "gameVersion",
+    "extraction",
+    "evidenceClass",
+    "inputs",
+    "replaySource",
+    "replayRows",
+    "census",
+    "scripts",
+    "summary",
+    "contentSha256"
+  ],
+  "properties": {
+    "version": {
+      "const": "1"
+    },
+    "gameVersion": {
+      "const": "1.23b"
+    },
+    "extraction": {
+      "const": "2012.09.19.0001"
+    },
+    "evidenceClass": {
+      "const": "retail-lua-bytecode-static-analysis"
+    },
+    "inputs": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "$ref": "#/$defs/hash"
+          }
+        }
+      }
+    },
+    "replaySource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "sha256",
+        "keyColumn",
+        "comparison"
+      ],
+      "properties": {
+        "source": {
+          "const": "xivl-client-data:csv/cutReplay.csv"
+        },
+        "sha256": {
+          "$ref": "#/$defs/hash"
+        },
+        "keyColumn": {
+          "const": 0
+        },
+        "comparison": {
+          "const": "case-sensitive-exact"
+        }
+      }
+    },
+    "replayRows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rowId",
+          "key",
+          "line"
+        ],
+        "properties": {
+          "rowId": {
+            "$ref": "#/$defs/nonnegative"
+          },
+          "key": {
+            "type": "string"
+          },
+          "line": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "census": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/census"
+      }
+    },
+    "scripts": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/script"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenarioMembers",
+        "includedScripts",
+        "excludedScripts",
+        "families",
+        "sceneCalls",
+        "clientFunctionCalls",
+        "unresolvedCalls",
+        "questPresentationReferences",
+        "unknownQuestIds"
+      ],
+      "properties": {
+        "scenarioMembers": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "includedScripts": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "excludedScripts": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "families": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "family",
+              "group",
+              "scripts",
+              "decoded",
+              "withHandlers",
+              "unknownQuestIds"
+            ],
+            "properties": {
+              "family": {
+                "type": "string"
+              },
+              "group": {
+                "$ref": "#/$defs/group"
+              },
+              "scripts": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "decoded": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "withHandlers": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "unknownQuestIds": {
+                "$ref": "#/$defs/nonnegative"
+              }
+            }
+          }
+        },
+        "sceneCalls": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "clientFunctionCalls": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "unresolvedCalls": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "questPresentationReferences": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "unknownQuestIds": {
+          "$ref": "#/$defs/nonnegative"
+        }
+      }
+    },
+    "contentSha256": {
+      "$ref": "#/$defs/hash"
+    }
+  },
+  "$defs": {
+    "nonnegative": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^[0-9a-fA-F]{64}$"
+    },
+    "group": {
+      "enum": [
+        "class",
+        "job",
+        "grand-company"
+      ]
+    },
+    "prototype": {
+      "type": "string",
+      "pattern": "^root(/proto[0-9]+)*$"
+    },
+    "value": {
+      "oneOf": [
+        {
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "unknown"
+          ],
+          "properties": {
+            "unknown": {
+              "enum": [
+                "control-flow-or-computed-value",
+                "caller-argument",
+                "global-value",
+                "call-result",
+                "member-value",
+                "closure-or-vararg",
+                "missing-scene-argument"
+              ]
+            },
+            "parameter": {
+              "$ref": "#/$defs/nonnegative"
+            },
+            "name": {
+              "type": "string"
+            },
+            "pc": {
+              "$ref": "#/$defs/nonnegative"
+            },
+            "result": {
+              "$ref": "#/$defs/nonnegative"
+            },
+            "base": {
+              "$ref": "#/$defs/value"
+            },
+            "key": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "unknown": {
+                    "const": "caller-argument"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "parameter"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "unknown": {
+                    "const": "global-value"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "name"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "unknown": {
+                    "const": "call-result"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "pc",
+                  "result"
+                ]
+              }
+            },
+            {
+              "if": {
+                "properties": {
+                  "unknown": {
+                    "const": "member-value"
+                  }
+                }
+              },
+              "then": {
+                "required": [
+                  "base",
+                  "key"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prototype",
+        "pc",
+        "offset"
+      ],
+      "properties": {
+        "prototype": {
+          "$ref": "#/$defs/prototype"
+        },
+        "pc": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "offset": {
+          "$ref": "#/$defs/nonnegative"
+        }
+      }
+    },
+    "census": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "script",
+        "family",
+        "group",
+        "classification"
+      ],
+      "properties": {
+        "script": {
+          "type": "string",
+          "pattern": "^lua/scripts/quest/scenario/.+\\.lua$"
+        },
+        "family": {
+          "type": "string"
+        },
+        "group": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/group"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classification": {
+          "enum": [
+            "included",
+            "outside-selected-families"
+          ]
+        }
+      }
+    },
+    "call": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prototype",
+        "pc",
+        "offset",
+        "target",
+        "receiver",
+        "argumentCount",
+        "arguments",
+        "resultCount"
+      ],
+      "properties": {
+        "prototype": {
+          "$ref": "#/$defs/prototype"
+        },
+        "pc": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "offset": {
+          "$ref": "#/$defs/nonnegative"
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "receiver": {
+          "$ref": "#/$defs/value"
+        },
+        "argumentCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "arguments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/value"
+          }
+        },
+        "resultCount": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "kind": {
+          "enum": [
+            "client-function",
+            "scene",
+            "presentation",
+            "selector"
+          ]
+        },
+        "sceneKey": {
+          "$ref": "#/$defs/value"
+        },
+        "replayRowIds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonnegative"
+          }
+        },
+        "joinStatus": {
+          "enum": [
+            "exact-key-match",
+            "unmatched-literal",
+            "dynamic-key"
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "kind"
+            ],
+            "properties": {
+              "kind": {
+                "const": "scene"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "sceneKey",
+              "replayRowIds",
+              "joinStatus"
+            ]
+          }
+        }
+      ]
+    },
+    "script": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "script",
+        "family",
+        "group",
+        "classification",
+        "source",
+        "resource",
+        "decodeStatus",
+        "questId",
+        "questPresentationReferences",
+        "declarations",
+        "calls",
+        "textCalls",
+        "resultComparisons",
+        "questWorkAccesses",
+        "callCounts",
+        "unresolvedCalls",
+        "actorClassCalls",
+        "prototypeCensus",
+        "selectorResultSets",
+        "returnSites",
+        "classDefinitions",
+        "uncertainties"
+      ],
+      "properties": {
+        "script": {
+          "type": "string",
+          "pattern": "^lua/scripts/quest/scenario/[^/]+/[^/]+\\.lua$"
+        },
+        "family": {
+          "type": "string"
+        },
+        "group": {
+          "$ref": "#/$defs/group"
+        },
+        "classification": {
+          "const": "included"
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "relativePath",
+            "bytes",
+            "sha256",
+            "lineCount"
+          ],
+          "properties": {
+            "relativePath": {
+              "type": "string"
+            },
+            "bytes": {
+              "$ref": "#/$defs/nonnegative"
+            },
+            "sha256": {
+              "$ref": "#/$defs/hash"
+            },
+            "lineCount": {
+              "$ref": "#/$defs/nonnegative"
+            }
+          }
+        },
+        "resource": {
+          "type": "object"
+        },
+        "decodeStatus": {
+          "const": "matched-retained-corpus"
+        },
+        "questId": {
+          "type": "null"
+        },
+        "questPresentationReferences": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "declarations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "prototype",
+              "parameterCount",
+              "variadic",
+              "callerArguments",
+              "instructionCount",
+              "declaredAt"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "parameterCount": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "variadic": {
+                "type": "boolean"
+              },
+              "callerArguments": {
+                "const": "unknown"
+              },
+              "instructionCount": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "declaredAt": {
+                "$ref": "#/$defs/location"
+              }
+            }
+          }
+        },
+        "calls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/call"
+          }
+        },
+        "unresolvedCalls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/call"
+          }
+        },
+        "actorClassCalls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/call"
+          }
+        },
+        "classDefinitions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/call"
+          }
+        },
+        "textCalls": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prototype",
+              "pc",
+              "offset",
+              "target",
+              "arguments"
+            ],
+            "properties": {
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "pc": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "offset": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "target": {
+                "type": "string"
+              },
+              "arguments": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/value"
+                }
+              }
+            }
+          }
+        },
+        "resultComparisons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prototype",
+              "pc",
+              "offset",
+              "callPc",
+              "result",
+              "operator",
+              "literal",
+              "skipWhen",
+              "callTarget",
+              "resultOperand"
+            ],
+            "properties": {
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "pc": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "offset": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "callPc": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "result": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "operator": {
+                "enum": [
+                  "EQ",
+                  "LT",
+                  "LE"
+                ]
+              },
+              "literal": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              },
+              "skipWhen": {
+                "type": "boolean"
+              },
+              "callTarget": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "resultOperand": {
+                "enum": [
+                  "B",
+                  "C"
+                ]
+              }
+            }
+          }
+        },
+        "questWorkAccesses": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prototype",
+              "pc",
+              "offset",
+              "access",
+              "base",
+              "key"
+            ],
+            "properties": {
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "pc": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "offset": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "access": {
+                "enum": [
+                  "read",
+                  "write"
+                ]
+              },
+              "base": {
+                "$ref": "#/$defs/value"
+              },
+              "key": {
+                "$ref": "#/$defs/value"
+              }
+            }
+          }
+        },
+        "callCounts": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/nonnegative"
+          }
+        },
+        "prototypeCensus": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prototype",
+              "codeOffset",
+              "instructionCount",
+              "reachableInstructions",
+              "unreachableCallPcs"
+            ],
+            "properties": {
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "codeOffset": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "instructionCount": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "reachableInstructions": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "unreachableCallPcs": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/nonnegative"
+                }
+              }
+            }
+          }
+        },
+        "selectorResultSets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prototype",
+              "pc",
+              "target",
+              "comparedLiterals",
+              "completeResultDomain"
+            ],
+            "properties": {
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "pc": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "target": {
+                "type": "string"
+              },
+              "comparedLiterals": {
+                "type": "array",
+                "items": {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean",
+                    "null"
+                  ]
+                }
+              },
+              "completeResultDomain": {
+                "const": "unknown"
+              }
+            }
+          }
+        },
+        "returnSites": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "prototype",
+              "pc",
+              "offset",
+              "resultCount",
+              "values"
+            ],
+            "properties": {
+              "prototype": {
+                "$ref": "#/$defs/prototype"
+              },
+              "pc": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "offset": {
+                "$ref": "#/$defs/nonnegative"
+              },
+              "resultCount": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 0
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/value"
+                }
+              }
+            }
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "quest-id-not-joined",
+              "caller-arguments-unknown",
+              "actor-parameters-not-literal-actor-classes"
+            ]
+          },
+          "uniqueItems": true
+        }
+      }
+    }
+  }
+}
