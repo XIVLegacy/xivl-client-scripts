@@ -19,10 +19,12 @@ false for the system classes in the table. When dispatch delivers
 `_onCommandRequest`, the player callback therefore reaches
 `_doServerOnCommand`
 (`chara/player/playerbaseclass.lua:1884-1908`, `root/proto43`,
-`0x41C3-0x4207`). The Lua event name alone does not establish the runtime
-descriptor class. The block callback instead uses `_callServerOnCommand`;
-both bridges share the same proven direct fallback. The separate PartyAccept
-exception is described below.
+`0x41C3-0x4207`). The retained `commandRequest` definition and conditional
+nonblock constructor are recorded in
+`xivl-client-structs:manifests/command_descriptor_registration.json`. The
+descriptor selected for a later invocation remains unobserved. The block
+callback instead uses `_callServerOnCommand`; both bridges share the same
+proven direct fallback. The separate PartyAccept exception is described below.
 
 `xivl-client-structs:manifests/player_command_wire_contract.json` owns the
 native binding, envelope and typed serializer evidence. The direct fallback

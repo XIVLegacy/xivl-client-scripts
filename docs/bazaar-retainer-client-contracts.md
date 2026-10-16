@@ -46,9 +46,11 @@ The canonical native contract is
 `nativeBindings`, `execution`, `directFallback`, `wire`, and `serializer`.
 It distinguishes the blocking `_onCommandEvent` and nonblocking
 `_onCommandRequest` descriptor routes, and the direct
-`_callServerOnCommand` / `_doServerOnCommand` fallbacks. The runtime descriptor
-record selecting the callback class for `commandRequest` remains unresolved.
-A Lua descriptor name alone does not select that class.
+`_callServerOnCommand` / `_doServerOnCommand` fallbacks. The retained
+`commandRequest` definition has priority input 0 and selector 1. Under a zero
+native selector global it constructs `CommandNonBlock`, as recorded in
+`xivl-client-structs:manifests/command_descriptor_registration.json`. The
+descriptor selected for a later invocation remains unobserved.
 
 ## Listing operands
 

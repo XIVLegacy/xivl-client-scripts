@@ -80,9 +80,12 @@ invoking `_doServerOnCommand`
 (`chara/player/playerbaseclass.lua:1884-1908`, `root/proto43`,
 `0x41C3-0x4207`). The native direct route and scalar encoding are recorded in
 `xivl-client-structs:manifests/player_command_wire_contract.json`.
-The runtime name-to-descriptor-class registration is not established by
-the Lua event name alone. The block callback `_onCommandEvent` uses
-`_callServerOnCommand`; both bridges have the same proven direct fallback.
+The retained definition and conditional `CommandNonBlock` construction for
+`commandRequest` are recorded in
+`xivl-client-structs:manifests/command_descriptor_registration.json`; the later
+selected runtime descriptor remains unobserved. The block callback
+`_onCommandEvent` uses `_callServerOnCommand`; both bridges have the same proven
+direct fallback.
 That fallback uses MapServerbound `0x012D`, the command object's resolved
 control reference and the event name `commandRequest`. It does not write a
 standalone scalar command ID into the typed tail. For ordinary integral

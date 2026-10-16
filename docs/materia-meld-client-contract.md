@@ -137,8 +137,10 @@ The Bazaar request helpers share the conditional command transport described
 in [Bazaar and retainer client contracts](bazaar-retainer-client-contracts.md)
 and `xivl-client-structs:manifests/player_command_wire_contract.json`.
 That manifest proves the native direct fallback builds serverbound `0x012D`;
-it does not prove the runtime descriptor for these named commands selected
-that fallback, passed its send gates, or reached a server.
+the retained definitions and conditional constructors are recorded in
+`xivl-client-structs:manifests/command_descriptor_registration.json`. Neither
+proves which runtime descriptor a later invocation selected, that it took
+the fallback, passed its send gates, or reached a server.
 
 The ready-command routes additionally depend on runtime command availability,
 variation and `CraftCommand` dispatch. Conversion is separate system command

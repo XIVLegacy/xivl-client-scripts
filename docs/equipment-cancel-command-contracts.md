@@ -59,9 +59,10 @@ descriptor, `_onCommandEvent` calls `_callServerOnCommand`; if it selects the
 nonblock descriptor, `_onCommandRequest` calls `command` and `fire`, then
 `_doServerOnCommand` when both are false
 (`chara/player/playerbaseclass.lua:1820-1908`). The inherited command and fire
-methods are false here. The descriptor class chosen by the runtime
-registration of `commandForced` is not established by its Lua name or numeric
-priority alone.
+methods are false here. The retained `commandForced` definition carries
+priority 11 and selector 0, constructing `CommandBlock` if the native selector
+global is zero. See `xivl-client-structs:manifests/command_descriptor_registration.json`
+for that conditional construction and the unobserved later descriptor selection.
 
 Both native bridges have the same proven direct fallback:
 `_callServerOnCommand` at VA `0x006E8B30` calls `0x006E2FB0` at `0x006E8BF9`;
