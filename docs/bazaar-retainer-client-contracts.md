@@ -247,41 +247,56 @@ List prototype `0.7`, selection CALL PC `58`, `0xD68`, has nine results.
 Retainer furniture and meeting-space scripts provide additional event wrappers;
 they do not establish a numeric server event or packet binding.
 
-Lobby `0x0017` reaches `FUN_00DA4D80` with application data, as recorded in
-`xivl-client-structs:manifests/symbols.json#BCS-Y-0022`. Direct disassembly
-confirms the following bounded parser contract:
+Lobby `0x0017` parsing and retained-record consumers are documented in
+`xivl-decomp:docs/net/retainer-lobby-record-consumers.md`. The native trace
+establishes dword `+0x04` and byte `+0x08` matching keys, word `+0x0A` flag
+uses, and a working snapshot that builds a local grouped result. It stops
+at the snapshot's virtual copy/clone call `0x00DA4AA6`; an independent
+callback-object identity gap bounds the UI connection. Neither route
+establishes the next request's wire encoding or server mutation policy.
 
-| Application offset | Native use and instruction locator |
+### In-game retainer roster source
+
+`RetainerListWidget.updateRetainerData` reads
+`DesktopWidget.countRetainerMember` and `getRetainerMemberInfo`, then passes
+the six returned values to its row setters. The connector obtains these
+values from `MyPlayer._getGroup(80001)`. This is a positive group-data route;
+the matching widget name does not connect the roster to lobby `0x0017`.
+
+| Returned position | Group getter |
 | --- | --- |
-| `+0x08`, u8 | Mask `0xfe` controls clearing the accumulator at `0x00DA4D8E`; inverse low bit supplies the return at `0x00DA4F18..0x00DA4F20`. |
-| `+0x09`, u8 | Number of records iterated, at `0x00DA4DE4` and `0x00DA4F0B`. |
-| `+0x10`, u16 | Zero-extended into operation `+0x200` when clearing, at `0x00DA4DD8..0x00DA4DDC`. |
-| `+0x1c`, stride `0x30` | Record array, at `0x00DA4DF4..0x00DA4DFF`. |
+| 1 | `getMemberWorkCoordinateId` |
+| 2 | `getMemberWorkEmploymentState` |
+| 3 | `getMemberLocation` |
+| 4 | `getMemberRetainerLevel` |
+| 5 | `_getMemberLocalizedDisplayName` |
+| 6 | `getMemberTown` |
 
-A zero record dword `+0x04` skips that record. Otherwise the parser copies
-all 48 bytes, appends to the operation accumulator, matches record `+0x04`
-against character-slot `+0x04`, and upserts into the matched slot's vector
-at `+0x2d0` (`0x00DA4E1A`, `0x00DA4E23`, `0x00DA4E95..0x00DA4EA0`,
-`0x00DA4EF9`). `FUN_00DA94C0` rejects a zero record byte `+0x08` and uses
-that byte as the upsert key (`0x00DA94C5`, `0x00DA9505..0x00DA950B`).
-It replaces a matching 48-byte record or appends a new one.
+`countRetainerMember` returns nil when the group is absent; the widget turns
+that nil into a zero count. `getRetainerMemberInfo` substitutes employment
+state `127` for a player member, and the widget omits rows with that state.
+The displayed level and location therefore do not establish fields of the
+48-byte lobby record. The native implementation and population of this group
+are outside this bounded roster trace.
 
-`xivl-client-structs:manifests/structs.json#BCS-S-0004` owns the existing
-record layout, including its ID and 32-byte name labels. The parser's bulk
-copy does not independently prove those labels, class, level, location, or
-listing count. The first unresolved field-semantic boundary in this trace is
-the downstream consumer of the copied `RetainerListRecord`; a 496-byte catalog
-packet label alone does not resolve it. Hiring/renaming event dispatch,
-retainer result serialization, persistent mutations and settlement responses
-also remain unestablished.
+Canonical sources: `widget/retainerlistwidget.lua:173-221,365-399` and
+`widget/desktopwidget_connector.lua:17315-17415`. Original bytecode locators:
 
-Native identity: retail `ffxivgame.exe`, SHA-256
-`9341f2b4567440b310a4d494f5cc5599ca334ba51c8042247317ff466492f2e9`, image
-base `0x00400000`. Capstone 5.0.7 x86-32 disassembly of original PE bytes:
-`0x00DA4D80`, 425 bytes, SHA-256
-`ee7bdba9a54e7d742abd6d87416ef1ed3751f5bbfd26195647512d027c563c2e`;
-`0x00DA94C0`, 131 bytes, SHA-256
-`6b00ba1f92b0d39979074c48abcb9ed4a87cf3d1551304abd776546a68d451b6`.
+| Prototype and zero-based PC | Decoded offset | Operation |
+| --- | --- | --- |
+| RetainerListWidget `0.2`, PC 2 | `0x959` | Calls `countRetainerMember`. |
+| RetainerListWidget `0.2`, PC 14 | `0x989` | Calls `getRetainerMemberInfo` with six results. |
+| RetainerListWidget `0.2`, PC 15-16, 25 | `0x98D`, `0x991`, `0x9B5` | Skips state 127; otherwise forwards the display index and six values. |
+| DesktopWidget `0.384`, PC 4-5, 11 | `0x25105`, `0x25109`, `0x25121` | Loads group 80001, calls `_getGroup`, tail-calls `_countMember`. |
+| DesktopWidget `0.385`, PC 10-11 | `0x251CB`, `0x251CF` | Loads group 80001 and calls `_getGroup`. |
+| DesktopWidget `0.385`, PC 16, 20, 24, 28, 32, 36 | `0x251E3`, `0x251F3`, `0x25203`, `0x25213`, `0x25223`, `0x25233` | Calls the six getters in table order. |
+| DesktopWidget `0.385`, PC 50 | `0x2526B` | Returns six values. |
+
+Root closure bindings identify these methods: RetainerListWidget PC 14-15
+at `0x58..0x5C` binds child `0.2` to `updateRetainerData`; DesktopWidget
+PC 1281-1284 at `0x1424..0x1430` binds child `0.384` to
+`countRetainerMember`, and PC 1285-1288 at `0x1434..0x1440` binds child
+`0.385` to `getRetainerMemberInfo`.
 
 ## Source identity and locators
 
@@ -301,6 +316,7 @@ Decoded payload SHA-256 values pin the instruction offsets below.
 | Decoded member below `lua/scripts/` | Decoded payload SHA-256 |
 | --- | --- |
 | `widget/desktopwidget_connector.lua` | `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| `widget/retainerlistwidget.lua` | `fe3e8dd4d738b61564443b6c1e06d28804d19ff6293eb49fb01f8e4a6c1d7ce8` |
 | `widget/bazaareditwidget.lua` | `083f7cfea5a479cb882d6315cdcc4738996b23de82a161de5c0b55ae03161ac8` |
 | `widget/bazaarlistwidget.lua` | `ca5cbcbeca34331a7e1c9ef411d7dca5ebe75c0d13c91dcbeaec9a7921571ce7` |
 | `chara/player/playerbaseclass.lua` | `1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a` |
