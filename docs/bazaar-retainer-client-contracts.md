@@ -251,9 +251,11 @@ Lobby `0x0017` parsing and retained-record consumers are documented in
 `xivl-decomp:docs/net/retainer-lobby-record-consumers.md`. The native trace
 establishes dword `+0x04` and byte `+0x08` matching keys, word `+0x0A` flag
 uses, and conditional command 0x000F application-buffer construction from
-the working snapshot. The canonical finding separates that byte layout from
-unresolved coordination, allocator and transport-route identities. An independent
-callback identity gap bounds the UI connection; server mutation policy remains unproved.
+the working snapshot. Its constructor and registration trace binds the paired
+dispatcher-lookup calls to a no-op and identifies the carrier getter. Entry
+selection, allocation success and transport-route identity remain conditional
+or unresolved, as detailed in the canonical finding. An independent callback
+identity gap bounds the UI connection; server mutation policy remains unproved.
 
 ### In-game retainer roster source
 
