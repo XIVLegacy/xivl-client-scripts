@@ -221,6 +221,10 @@ It does not record a sheet read, establish why the sender chose a value,
 or show source column 10 being used. A captured call is also not proof that
 the client displayed or acknowledged its message.
 
+[The producer boundary](passivegl-dialogue-producer.md) traces the surrounding
+requests, quest-choice results, and native conversion of callback results
+into EventUpdate replies. The sender's text-ID selection remains unresolved.
+
 The card selector is established separately in
 [the journal lifecycle finding](guildleve-journal-lifecycle.md#passive-guildleve-card-selection).
 `PopulacePassiveGLPublisher.getPassiveGuildleveVariation` returns slot
