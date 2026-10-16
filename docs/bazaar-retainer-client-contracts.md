@@ -253,8 +253,9 @@ establishes dword `+0x04` and byte `+0x08` matching keys, word `+0x0A` flag
 uses, and conditional command 0x000F application-buffer construction from
 the working snapshot. Its constructor and registration trace binds the paired
 dispatcher-lookup calls to a no-op and identifies the carrier getter. Entry
-selection, allocation success and transport-route identity remain conditional
-or unresolved, as detailed in the canonical finding. An independent callback
+registration also binds a constructed transport route's gate to a constant
+true return. Runtime entry selection, allocation and synchronization results
+remain unproved, as detailed in the canonical finding. An independent callback
 identity gap bounds the UI connection; server mutation policy remains unproved.
 
 ### In-game retainer roster source
