@@ -254,7 +254,9 @@ uses, and conditional command 0x000F application-buffer construction from
 the working snapshot. Its constructor and registration trace binds the paired
 dispatcher-lookup calls to a no-op and identifies the carrier getter. Entry
 registration also binds a constructed transport route's gate to a constant
-true return. Runtime entry selection, allocation and synchronization results
+true return. Conditional continuation constructs transport-buffer headers and
+copies the selected carrier's payload, with one frame dword's value unestablished.
+Runtime entry selection, allocation, synchronization and later call results
 remain unproved, as detailed in the canonical finding. An independent callback
 identity gap bounds the UI connection; server mutation policy remains unproved.
 
