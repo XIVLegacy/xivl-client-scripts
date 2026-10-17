@@ -302,6 +302,45 @@ craft predicate at PC `40`, `0x136C`, and loads `commandJudgeMode` at PC
 `PlayerBaseClass.command` prototype `0.44` calls `_executeCommand` at PC
 `47`, `0x431E`, `B=13`.
 
+### Incoming delegation boundary
+
+`PlayerBaseClass.delegateCommand(p0,p1,p2,...)` forwards
+`p1:_callFunction(p2,p0,...)` and tail-returns the boundary call's complete
+result sequence. Here `p0,p1,p2` are positional arguments entering the
+delegate. The Lua selects `p1` as the target, forwards `p2` unchanged as the
+first explicit operand, then supplies `p0` and every trailing argument.
+These positions do not identify packet owner/trigger fields or a particular
+CraftJudge receiver.
+
+Source: `chara/player/playerbaseclass.lua:2162-2172`. Original prototype
+`0.52` uses VARARG PC `3` at `0x4BE4`, `B=0`, and TAILCALL PC `4` at
+`0x4BE8`, `A=4,B=0,C=0`. The open tail is not limited to the decompiler's
+single apparent temporary. The two `delegateEvent` adapters and their
+different prefix order are recorded in the
+[supplied dialogue consumer](passivegl-craft-columns.md#supplied-dialogue-consumer).
+
+`ActorBaseClass._callFunction_inl` returns exactly the descriptor strings
+`"self","_callFunction_lua"`; its body does not invoke a callback.
+Source: `actorbaseclass_u.lua:24-31`, prototype `0.2`, LOADK PCs `0,1`
+at `0x2A6,0x2AA`, RETURN PC `2` at `0x2AE`, `B=3`.
+The native `_inl` dispatch behavior remains unresolved in
+`xivl-client-structs:docs/lua-class-system.md`, section "Known limits".
+Thus the selected `_callFunction` target is not proof that the eventual
+callback receives that object as `A0`, or that `A1,A2` have particular actor
+roles.
+
+The complete admitted capture prefix-string census is recorded in
+`xivl-captures:studies/local-guildleve-dialogue/derived/accounting.json`,
+`corpus.all_admitted_0x0130_delegate_prefix_string_counts`, with scope and
+reproduction in that study's "Delegated prefix-string census" section.
+The accounting SHA-256 is
+`3c349ec3dacba303d26c9666e487353193b7f662a967587dce52c4fd090dec15`.
+Neither its outer function-name census nor its delegated prefix strings
+contains the four CraftJudge materia callback names. This is a retained
+capture boundary, not a command-to-callback pairing or a complete argument
+decoder. The actual selector and callback argument vector for a materia
+invocation remain unobserved.
+
 ## Sheet getters
 
 `DesktopWidget` uses a materia type row and a quality argument `q` in
@@ -399,6 +438,7 @@ chunk parsing and instruction operands without running the client.
 
 | Decoded member below `lua/scripts/` | Decoded payload SHA-256 |
 | --- | --- |
+| `actorbaseclass_u.lua` | `28d5d3b3fcd26cdb18394b3e9d937b3a5514cf8ff0b3b4c4196efda82d4596b1` |
 | `chara/charabaseclass.lua` | `101cafa86ebcb362b502e47dd33e262ede31b4939cc7fe945ab571e1afd0d3a9` |
 | `chara/player/playerbaseclass.lua` | `1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a` |
 | `command/commandbaseclass.lua` | `4d9cace900e712997f1a40663144d58f33b1f35f5a4aa521f637eb8c52364f25` |
