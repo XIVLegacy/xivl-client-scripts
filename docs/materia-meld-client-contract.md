@@ -115,6 +115,124 @@ Nothing here establishes the rate formula, a random roll, item consumption,
 gil settlement, or successful equipment mutation.
 Source: `materiaattachaskwidget.lua:89-234,411-604,754-976`.
 
+## CraftJudge callback contract
+
+The four methods below use the decompiler's zero-based positional names
+`A0` through `A8`. Their bodies do not establish a command ID, actor class
+or wire-field role for unused positions. In particular, `A0,A1,A2` are
+unused by `askJoinMateria`, `displayRate` and `cancelTarget`;
+`askJoinResult` uses `A1` only as the `_createVirtualItem` receiver and
+does not use `A0,A2`.
+
+| Method and canonical source in `judge/craft/craftjudge.lua` | Consumed arguments and local behavior | Exact Lua return |
+| --- | --- | --- |
+| `askJoinMateria(A0,A1,A2,A3)`, `994-1019` | Clears the main target, then calls `askEventModeWidgetYield("Ask/MateriaAttachAskWidget",1,A3)`. `A3` becomes the supplied `work.rate`. | One boolean: `false` if the first yielded value equals `false` or the second is not `1`; otherwise `true`. |
+| `cancelTarget(A0,A1,A2)`, `1022-1030` | Clears the main target. No argument is consumed and no meld cancellation command is issued in this body. | Zero values. |
+| `askJoinResult(A0,A1,A2,A3,A4,A5,A6,A7,A8)`, `1033-1060` | Creates equipment presentation item `E=A1:_createVirtualItem(A4,1,A5)` and materia presentation item `M=A1:_createVirtualItem(A6,1,1)`, then calls `askEventModeWidgetYield("Ask/MateriaInformWidget",1,A3,M,E,A7,A8)`. | Zero values; the yielded acknowledgement is discarded. |
+| `displayRate(A0,A1,A2,A3)`, `1071-1087` | Clears the main target, then calls `askEventModeWidgetYield("Ask/MateriaAttachAskWidget",1,A3,true)`. `A3` becomes `work.rate`; the extra argument selects the presentation with Install hidden. | Zero values; the yielded widget result is discarded. |
+
+The `1` after the widget path requests one widget result. It is not the
+widget mode. `askEventModeWidgetYield` supplies widget category `4` and
+forwards the remaining arguments through `askWidgetYield` and
+`AskBaseClass.init` to `initAsk`. Thus the first and second data arguments
+reach `MateriaAttachAskWidget.initAsk` as rate and the optional presentation
+flag. Its omitted mode defaults to `1`. `setInitialData` tests that flag
+against `nil`, hides Install and shows help text `3547` when it is present.
+Source: `desktopwidget_connector.lua:25788-25855`,
+`widget/ask/askbaseclass.lua:11-48`,
+`materiaattachaskwidget.lua:182-245,411-499`.
+
+Modes `1` and `2` share the local selection lookup: `initAsk` obtains
+`ItemListWidget`, reads its equipment and materia indices, and calls
+`setInitialData(localPlayer,1,equipmentIndex,materiaIndex,nil,flag)`.
+A missing item-list widget sets base result `-1`. The equipment detail
+consumer forwards the supplied rate to `setItemMateriaInstallRate`, which
+formats it using `floor(rate*100)/100`, fractional digits and text row
+`3570`. This is rate presentation, not its calculation from item data.
+Source: `materiaattachaskwidget.lua:59-85,411-604` and
+`widget/desktopwidget_itemdetail.lua:10429-10487`. Bytecode:
+ask-widget prototype `0.4`, mode tests PCs `79,82`, shared initialization
+CALL PC `109` at `0xF4A`; prototype `0.3`, rate-forwarding CALL PC `6`
+at `0x7C5`; prototype `0.1`, detail CALL PC `22` at `0x459`.
+
+The yielded tuple distinguishes completion from the local decision.
+`askWidgetYield` returns one `false` when opening or selecting fails. After
+completed selection it closes the widget and returns
+`true,unpack(widgetResults,1,requestedCount)`. With requested count `1`,
+confirmation is `(true,1)` and Back/Close completion is `(true,nil)`.
+`askJoinMateria` reduces either failed yielding or a non-`1` decision to
+one `false`; it returns neither an item pair nor a rate. The retail
+bytecode uses open-arity `getAskResult`, table construction and final
+return, despite the decompile's apparent fixed list of temporary values.
+Source: `desktopwidget_connector.lua:25804-25855` and
+`materiaattachaskwidget.lua:921-946`.
+
+`cancelMainTargetCharacter` calls the local player's
+`_setLockonTarget(nil)`, then `_setTargetCharacter(1,nil)` and
+`afterTargetChanged(1,nil)` on the desktop widget. These are target-state
+operations. Source: `desktopwidget_connector.lua:1612-1634`.
+
+For result presentation, `MateriaInformWidget.initAsk` receives
+`(A3,M,E,A7,A8)`. `A3` selects the positive/negative text and styles by
+Lua truthiness. With equipment present the text rows are `3592/3593`;
+without it they are `3590/3591`. `M` supplies the materia icon and name,
+and `E` supplies the equipment icon and name. `A7` is the displayed materia
+count, reduced by one only when `A3 == false`; `A8` controls
+`IconControl_PolishMAX` visibility. The exact-false branch also presents a
+catalyst derived from `M:getItemRepairItem()`. Operate and Cancel both set
+the widget acknowledgement to `1`. This describes supplied result data,
+not verification of inventory mutation. `A4,A6` are the first native
+creation operands for `E,M`; the meaning of creation operand `A5` and the
+native creation semantics are not established by these consumers.
+Source: `widget/ask/materiainformwidget.lua:11-302`.
+
+| Method | Authenticated retail bytecode |
+| --- | --- |
+| `askJoinMateria` | Prototype `0.29`, yield CALL PC `8` at `0x23F7`, `B=5,C=3`; comparisons PCs `9,13` at `0x23FB,0x240B`; one-value RETURN PCs `12,16,18` at `0x2407,0x2417,0x241F`, each `B=2`. |
+| `cancelTarget` | Prototype `0.30`, target-clear CALL PC `2` at `0x24D1`; zero-value RETURN PC `3` at `0x24D5`, `B=1`. |
+| `askJoinResult` | Prototype `0.31`, creation CALL PCs `4,9` at `0x2543,0x2557`, each `B=5,C=2`; presentation CALL PC `19` at `0x257F`, `B=9,C=1`; zero-value RETURN PC `20` at `0x2583`, `B=1`. |
+| `displayRate` | Prototype `0.33`, presentation CALL PC `9` at `0x2671`, `B=6,C=1`; zero-value RETURN PC `10` at `0x2675`, `B=1`. |
+
+Supporting anchors: connector `askEventModeWidgetYield` prototype `0.541`,
+TAILCALL PC `5` at `0x32E4D`; `askWidgetYield` prototype `0.542`,
+`getAskResult` CALL PC `19` at `0x32EEA` with `C=0`, SETLIST PC `20`
+at `0x32EEE` with `B=0`, failure RETURN PC `29` at `0x32F12` with `B=2`,
+and success RETURN PC `36` at `0x32F2E` with `B=0`.
+`AskBaseClass.init` prototype `0.0` forwards varargs at CALL PC `25`,
+`0x28C`, with `B=0`. `MateriaInformWidget.initAsk` prototype `0.3`
+passes result, materia and equipment to the display helpers at CALL PCs
+`4,9,15`, `0x783,0x797,0x7AF`; its equipment helper prototype `0.2`
+passes `A8` to visibility at CALL PC `66`, `0x5B2`.
+
+## Local operation binding
+
+| Operation | Established local entry | Callback binding boundary |
+| --- | --- | --- |
+| Local meld `22014` | `MateriaAttachWidget.attachMateria` calls `executePlayerMateriaJoinCommand` with the selected equipment and materia indices. The connector resolves both in local package `1` and calls the ready-command helper as recorded above. | The `askJoinMateria` boolean and `askJoinResult` presentation contracts are independently recovered. No inspected Lua callsite binds either method to command `22014`. |
+| Rate query `22015` | Three failed-requirement branches in `MateriaAttachWidget.attachMateria` call `executePlayerMateriaJoinRateGetCommand` with the same selected-index order, after class, level or repair-item alerts. | `displayRate` consumes a supplied rate and discards its widget result. No inspected Lua callsite binds it to command `22015` or supplies that rate. |
+
+Both commands obtain their variation from the second result of
+`getReadyCommand(work.commandIndex[readyIndex])` because the supplied third
+operand is nil.
+The numeric runtime variation and the producer/selector of these four
+callbacks remain unresolved. `CraftCommand` supplies only action-gauge and
+aim overrides; inherited `GameCommandBaseClass.fire` returns `false`.
+The complete decoded corpus contains the four method declarations but no
+other exact-name reference to them. Method names and the UI request routes
+therefore do not establish a command-to-callback pairing.
+
+Sources: `widget/materiaattachwidget.lua:749-995,1020-1075`,
+`desktopwidget_connector.lua:13737-13797,18676-18709,18794-18827`,
+`command/game/craftcommand.lua:1-46` and
+`command/game/gamecommandbaseclass.lua:2657-2663`.
+Bytecode: selection widget prototype `0.8`, local-meld CALL PC `203`
+at `0x1CE3` and rate CALL PCs `123,152,184` at
+`0x1BA3,0x1C17,0x1C97`, each `B=4,C=2`.
+Connector ready helper prototype `0.279` obtains both ready values at
+CALL PC `25`, `0x1EDE5`, `C=3`; nil comparison PC `28`, `0x1EDF1`,
+and MOVE PC `30`, `0x1EDF9`, select the variation. Its TAILCALL PC `39`,
+`0x1EE1D`, passes the command and substituted operands onward.
+
 ## Sheet getters
 
 `DesktopWidget` uses a materia type row and a quality argument `q` in
@@ -168,12 +286,22 @@ Instruction locators use the original decoded Lua 5.1 chunk. `0` is the root
 prototype, child indices and PCs are zero-based, and offsets are byte offsets
 in that chunk. Lua line locators refer to the authenticated canonical member.
 Decoded payload SHA-256 values pin the instruction offsets below.
+The retained `tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader,instruction` reproduce the
+chunk parsing and instruction operands without running the client.
 
 | Decoded member below `lua/scripts/` | Decoded payload SHA-256 |
 | --- | --- |
+| `judge/craft/craftjudge.lua` | `0dff8463d2b685ff65a23afcf5e52e451e531e6fac194fd088adba3d05dbd0ff` |
+| `command/game/craftcommand.lua` | `72a26dc9c62a3b9545e4051f2cb6b92c046e7dfc2a1b52fbb17cd7ebb424cf68` |
+| `command/game/gamecommandbaseclass.lua` | `1b3ba520dc0efb2f1941d2b8206d33f7a2e1a8ee52a6012092563395f853a6f7` |
+| `widget/ask/askbaseclass.lua` | `a1d4129ca5779c3b2598da418909f057bd9b6c6733701855fd70bf2a9dcb1230` |
 | `widget/ask/materiaattachaskwidget.lua` | `b5cdbfac344c7c966b08edad0ac48a22c8dcfdfcd8cd012e50ea13364efc6fd6` |
+| `widget/ask/materiainformwidget.lua` | `4bd676e8ea6d61206f88bb81272847545beb5fb3ab90d16a45604381d6559fd6` |
 | `widget/desktopwidget_connector.lua` | `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| `widget/desktopwidget_itemdetail.lua` | `dea088111249bdfe99c5dae618a674c112859e1587f60bc1c57917f9b01cc180` |
 | `widget/desktopwidget_materia.lua` | `834e5180a20668add24bafe7d94baa430dce855a13797d3038eab31a26392fb0` |
+| `widget/materiaattachwidget.lua` | `e549ccae709e4eb8ae1b59d034ec7826e285e8318fea425c4ceecbb1f1ae48c2` |
 | `widget/itemlistwidget.lua` | `f92b2bef0eac76acfc8896da338275659e14a8b826d944cc39634eb6defadded` |
 | `widget/mainmenuwidget.lua` | `185d856d406d46ba7416444ddc2212b68036f7d56d0ee62148be2567630c90b2` |
 | `widget/consoleicontraywidget.lua` | `498b25c7365180cd1ecff32d099ebc3e38fae0c6b6cd9d1f6e3a0953a33e3a7e` |
