@@ -323,9 +323,12 @@ different prefix order are recorded in the
 `"self","_callFunction_lua"`; its body does not invoke a callback.
 Source: `actorbaseclass_u.lua:24-31`, prototype `0.2`, LOADK PCs `0,1`
 at `0x2A6,0x2AA`, RETURN PC `2` at `0x2AE`, `B=3`.
-The native `_inl` dispatch behavior remains unresolved in
-`xivl-client-structs:docs/lua-class-system.md`, section "Known limits".
-Thus the selected `_callFunction` target is not proof that the eventual
+The conditional native alias installation is recorded in
+`xivl-decomp:docs/script/lua-call-function-bridge.md`, section
+"Descriptor resolution and alias installation". The successful path installs
+an existing function found under `_callFunction_lua`; its runtime identity
+and callback argument construction remain unresolved. Thus the selected
+`_callFunction` target is not proof that the eventual
 callback receives that object as `A0`, or that `A1,A2` have particular actor
 roles.
 
@@ -383,7 +386,11 @@ actor and `charaWork.commandCategory` value together. To establish callback
 binding, retain that invocation's selected native descriptor and a producer
 or correlated dispatch record identifying the CraftJudge receiver, method
 and positional arguments. The generic incoming function-name decoder is
-only a candidate until such a connection is established.
+only a candidate until such a connection is established. The minimum required
+invocation record is specified in
+`xivl-decomp:docs/script/materia-command-dispatch.md`, section
+"Minimum missing invocation record". It requires a causal producer-to-callback
+join; client-side timing alone does not recover a server binding.
 
 The conditional native policy dispatch can call the generic player hooks
 `_onCommandEvent` or `_onCommandRequest`, as recorded in
