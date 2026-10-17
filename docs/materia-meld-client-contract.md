@@ -211,12 +211,9 @@ passes `A8` to visibility at CALL PC `66`, `0x5B2`.
 | Local meld `22014` | `MateriaAttachWidget.attachMateria` calls `executePlayerMateriaJoinCommand` with the selected equipment and materia indices. The connector resolves both in local package `1` and calls the ready-command helper as recorded above. | The `askJoinMateria` boolean and `askJoinResult` presentation contracts are independently recovered. No inspected Lua callsite binds either method to command `22014`. |
 | Rate query `22015` | Three failed-requirement branches in `MateriaAttachWidget.attachMateria` call `executePlayerMateriaJoinRateGetCommand` with the same selected-index order, after class, level or repair-item alerts. | `displayRate` consumes a supplied rate and discards its widget result. No inspected Lua callsite binds it to command `22015` or supplies that rate. |
 
-Both commands obtain their variation from the second result of
-`getReadyCommand(work.commandIndex[readyIndex])` because the supplied third
-operand is nil.
-The numeric runtime variation and the producer/selector of these four
-callbacks remain unresolved. `CraftCommand` supplies only action-gauge and
-aim overrides; inherited `GameCommandBaseClass.fire` returns `false`.
+The producer/selector of these four callbacks remains unresolved.
+`CraftCommand` supplies only action-gauge and aim overrides; inherited
+`GameCommandBaseClass.fire` returns `false`.
 The complete decoded corpus contains the four method declarations but no
 other exact-name reference to them. Method names and the UI request routes
 therefore do not establish a command-to-callback pairing.
@@ -232,6 +229,78 @@ Connector ready helper prototype `0.279` obtains both ready values at
 CALL PC `25`, `0x1EDE5`, `C=3`; nil comparison PC `28`, `0x1EDF1`,
 and MOVE PC `30`, `0x1EDF9`, select the variation. Its TAILCALL PC `39`,
 `0x1EE1D`, passes the command and substituted operands onward.
+
+### Ready variation and command-name selection
+
+The desktop lookup maps `22014` to ready index `15` and `22015` to `17`.
+`updateReadyCommand` fills `work.commandIndex` by scanning the player's
+ready slots and recording the slot for each recognized command ID. A later
+matching slot overwrites an earlier one. The desktop index is therefore
+not the ready slot passed to `getReadyCommand`.
+
+Both commands obtain their variation from the second result of
+`getReadyCommand(work.commandIndex[readyIndex])` because their supplied third
+operand is nil. The getter returns `charaWork.command[index]` and
+`charaWork.commandCategory[index]`. The latter is declared as an
+`integer8[64]` array, included in local-player synchronization and bound by
+`_bindWork(3003,"charaWork","commandCategory")`. This identifies the Lua
+field read for variation. It does not recover its native writer or a numeric
+value for a particular invocation.
+
+The retained property-stream join in
+`xivl-client-structs:manifests/command_slot_context.json`, `commandId` rows
+`22014,22015`, records command assignments at property array slots `19,16`
+respectively, with empty `categoryObservations` for both. Its SHA-256 is
+`6d6141b254a6c33cb1a0ca7c7cfc6a1d4017f64693868a6fb4ade4db6ca02e81`.
+Those are qualified static-actor identity joins, not observed Lua ready-slot
+state. Category value `1` observed for other commands cannot supply either
+materia variation. The catalog also leaves the native property-cache-to-Lua
+work-3003 bridge unresolved. Its scope is explained in
+`xivl-client-structs:docs/actor/command-slot-context.md`, sections
+"Observed loadout writes" and "Category observations".
+
+The authenticated `command.csv` rows select the Lua command name:
+
+| Command row key | Column `29` (`s32`, priority) | Column `32` (`bool`, craft-judge predicate) | Selected name |
+| --- | --- | --- | --- |
+| `22014` | `6` | `true` | `commandJudgeMode` |
+| `22015` | `6` | `true` | `commandJudgeMode` |
+
+Columns use the CSV header labels, excluding the row key. `CraftCommand`
+inherits `GameCommandBaseClass` and `CommandBaseClass` without overriding
+`getPriority`, `isJudgedAtCraftJudge` or `isDesktopCommandMode`.
+`CommandBaseClass.getCommandData` reads `commandSheet` at the command ID and
+requested column. `CharaBaseClass.getCommandName` first selects `commandWeak`
+for priority `6`, then replaces it with `commandJudgeMode` when the craft
+predicate is truthy. The rows and class chain establish this static selection,
+not the loaded native descriptor or successful admission.
+
+After `canCommand` returns exactly `true`, `PlayerBaseClass.command` passes
+the selected name, command actor and operands to `_executeCommand`. The local
+meld and rate routes preserve equipment, materia and the substituted variation
+as the first three operands. Neither that name nor the variation selects one
+of the four callback methods in the inspected Lua.
+
+Sources: `desktopwidget_connector.lua:12350-12489,13737-13797`,
+`chara/charabaseclass.lua:294-341,400-455,569-578,779,948`,
+`chara/player/playerbaseclass.lua:1047-1053,1911-1964,1978-2020` and
+`command/commandbaseclass.lua:14-21,51-59,123-131,146-149`.
+The command rows are `csv/command.csv:40-41`, extraction
+`2012.09.19.0001`, authenticated by
+`xivl-client-data:manifests/tables.json`, entry `command.csv`, SHA-256
+`14548e379a6c4f76c10a4ac53866161ebf1622ce7f1e76a760e85f0577f38848`.
+The class-path mapping remains
+`xivl-client-data:manifests/staticactor_class_paths.json`,
+`/Command/Game/CraftCommand` range.
+
+Bytecode: `CharaBaseClass.getReadyCommand` prototype `0.14` loads the
+command and category at PCs `36-41`, `0x1038-0x104C`, and returns both at
+PC `42`, `0x1050`, `B=3`. `getCommandName` prototype `0.17` calls the
+craft predicate at PC `40`, `0x136C`, and loads `commandJudgeMode` at PC
+`51`, `0x1398`. `CommandBaseClass` prototypes `0.4,0.10` load columns
+`32,29` at PCs `1`, `0x474,0x68A`, and tailcall at `0x478,0x68E`.
+`PlayerBaseClass.command` prototype `0.44` calls `_executeCommand` at PC
+`47`, `0x431E`, `B=13`.
 
 ## Sheet getters
 
@@ -261,7 +330,45 @@ proves which runtime descriptor a later invocation selected, that it took
 the fallback, passed its send gates, or reached a server.
 
 The ready-command routes additionally depend on runtime command availability,
-variation and `CraftCommand` dispatch. Conversion is separate system command
+variation and the native descriptor selected for `commandJudgeMode`.
+The first equal native name match depends on runtime registration records,
+their type bytes and the actual player's command vector. The conditional
+request bridge and precise selector boundary are recorded in
+`xivl-decomp:docs/script/materia-command-dispatch.md`, sections
+"Generic command request bridge" and "Unresolved callback selector".
+Neither the selected native `commandJudgeMode` descriptor nor a correlated
+callback name/argument input was observed for `22014` or `22015`.
+
+To recover the numeric variation, retain the selected ready slot, command
+actor and `charaWork.commandCategory` value together. To establish callback
+binding, retain that invocation's selected native descriptor and a producer
+or correlated dispatch record identifying the CraftJudge receiver, method
+and positional arguments. The generic incoming function-name decoder is
+only a candidate until such a connection is established.
+
+The conditional native policy dispatch can call the generic player hooks
+`_onCommandEvent` or `_onCommandRequest`, as recorded in
+`xivl-decomp:docs/input/chara-selection-producers.md`, section
+"Native command construction and policy dispatch". Their Lua continuations
+are distinct:
+
+| Hook | Conditional request continuation |
+| --- | --- |
+| `_onCommandEvent` | For these IDs, calls `_callServerOnCommand(name,command,...)` directly. Its special `fire` check applies to command `24105`. |
+| `_onCommandRequest` | Tries `command:command(player,...)`, then `command:fire(player,...)`. If both are falsey, calls `_doServerOnCommand(name,command,...)`. The recovered CraftCommand class chain inherits false-returning implementations of both probes. |
+
+Both request calls forward all incoming varargs. Apparent fixed-length
+temporary lists in the decompile do not define their arity. The original
+`PlayerBaseClass` prototypes `0.42,0.43` use open VARARG/CALL pairs:
+PCs `14/15` at `0x4016/0x401A` and PCs `15/16` at `0x41FF/0x4203`,
+respectively, each with `B=0` and the CALL with `C=1`. Sources:
+`chara/player/playerbaseclass.lua:1819-1907`,
+`command/commandbaseclass.lua:236-247` and
+`command/game/gamecommandbaseclass.lua:2657-2663`.
+These conditional outgoing continuations do not identify the later
+CraftJudge callback or its incoming arguments.
+
+Conversion is separate system command
 `24240`, mapped to `ItemMaterializeCommand`; its `showResult` creates a
 virtual item and displays `Ask/MateriaInformWidget`. That presentation does
 not supply the two-player meld request. Source:
@@ -292,6 +399,9 @@ chunk parsing and instruction operands without running the client.
 
 | Decoded member below `lua/scripts/` | Decoded payload SHA-256 |
 | --- | --- |
+| `chara/charabaseclass.lua` | `101cafa86ebcb362b502e47dd33e262ede31b4939cc7fe945ab571e1afd0d3a9` |
+| `chara/player/playerbaseclass.lua` | `1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a` |
+| `command/commandbaseclass.lua` | `4d9cace900e712997f1a40663144d58f33b1f35f5a4aa521f637eb8c52364f25` |
 | `judge/craft/craftjudge.lua` | `0dff8463d2b685ff65a23afcf5e52e451e531e6fac194fd088adba3d05dbd0ff` |
 | `command/game/craftcommand.lua` | `72a26dc9c62a3b9545e4051f2cb6b92c046e7dfc2a1b52fbb17cd7ebb424cf68` |
 | `command/game/gamecommandbaseclass.lua` | `1b3ba520dc0efb2f1941d2b8206d33f7a2e1a8ee52a6012092563395f853a6f7` |
