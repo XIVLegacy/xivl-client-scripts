@@ -1,5 +1,8 @@
 # Seasonal quest client contracts
 
+The [Impish Impositions contract](impish-impositions-client-contract.md)
+separately pins the canonical `Spl0i2` decompile and the retail quest/text joins.
+
 The `client/script/tp5rq/r75w9s1v/ruy/` LPBs below decode
 byte-for-byte to the independently recovered Lua 5.1 chunks. The recovered
 Lua bodies are a separate decompile from the canonical corpus recorded in

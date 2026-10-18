@@ -48,6 +48,7 @@ unverified native or server behavior.
 - [Quest reward Notice helper](notice-helper-contract.md)
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)
 - [Seasonal quest client contracts](seasonal-quest-client-contracts.md)
+- [Impish Impositions client contract](impish-impositions-client-contract.md)
 - [Seasonal event actor contracts](seasonal-event-actor-contracts.md)
 - [Quest selector consumers](quest-selector-consumers.md)
 
