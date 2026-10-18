@@ -323,14 +323,19 @@ different prefix order are recorded in the
 `"self","_callFunction_lua"`; its body does not invoke a callback.
 Source: `actorbaseclass_u.lua:24-31`, prototype `0.2`, LOADK PCs `0,1`
 at `0x2A6,0x2AA`, RETURN PC `2` at `0x2AE`, `B=3`.
-The conditional native alias installation is recorded in
-`xivl-decomp:docs/script/lua-call-function-bridge.md`, section
-"Descriptor resolution and alias installation". The successful path installs
-an existing function found under `_callFunction_lua`; its runtime identity
-and callback argument construction remain unresolved. Thus the selected
-`_callFunction` target is not proof that the eventual
-callback receives that object as `A0`, or that `A1,A2` have particular actor
-roles.
+The implementation and conditional native alias installation are recorded in
+`xivl-decomp:docs/script/lua-call-function-bridge.md`, sections
+"Embedded implementation" and "Class table and installed closure". The embedded Lua
+body consumes its name argument by indexing the receiver, then calls the
+resolved value with that receiver followed by every trailing argument.
+Through the recovered native forwarding closure and successful alias, composing
+that body with `delegateCommand` calls the lookup result `p1[p2]` with
+supplied arguments `(p1,p0,...)`.
+If that lookup selects a CraftJudge callback, its supplied `A0` is `p1`,
+`A1` is `p0`, and subsequent positions come from the delegate's trailing
+arguments. These are conditional positional relationships. They establish
+neither the actor roles of `p0,p1`, the actual function/table used by a
+historical invocation, nor a callback selector for command `22014` or `22015`.
 
 The complete admitted capture prefix-string census is recorded in
 `xivl-captures:studies/local-guildleve-dialogue/derived/accounting.json`,
