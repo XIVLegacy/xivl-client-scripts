@@ -2,6 +2,9 @@
 
 The [Impish Impositions contract](impish-impositions-client-contract.md)
 separately pins the canonical `Spl0i2` decompile and the retail quest/text joins.
+The [Winter Is Not Coming snowman contract](winter-is-not-coming-client-contract.md)
+pins the selected `Spl0i3` callbacks and related object initializers against
+original bytecode, with their producer and server effects kept separate.
 
 ## Retail quest identities
 
