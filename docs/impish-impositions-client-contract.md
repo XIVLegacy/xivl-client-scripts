@@ -85,6 +85,38 @@ rows 20-21 and inventory-full text rows 22-23. `getSweets`, lines 184-188,
 is empty and supplies no collection contract. `HalloweenDirector` contains
 only its require/class declaration, with no recovered event lifecycle.
 
+## Separate 2011 video observations
+
+The Leonesaurus video
+[Final Fantasy XIV 1.0 - Original Halloween Event (All Saints' Wake)](https://www.youtube.com/watch?v=Yn8L_t8sCTk)
+was published October 19, 2011, with duration 8:42 and description
+`Impish Impositions Quest`. Its exact client patch and capture date are
+unknown. The 1.x footage is historical outcome evidence, not an authenticated
+execution of the preserved 1.23b scripts.
+
+`xivl-captures:studies/seasonal-impish-impositions-video-breakdown/derived/evidence-map.md`
+owns the video-tier observations, client-text comparison and limits. Its
+source manifest pins the 4,227-byte observation record with SHA-256
+`6f7e1821abbe9c7a349da880d7d816211220b3259ee7896537eb46da9d329e90`.
+This hash identifies the authored record, not external video bytes.
+
+| Video locator | Observation | Relation to 1.23b evidence |
+| --- | --- | --- |
+| 5:03, question widget | Three ordered choices: The Coffer & Coffin; The Roost; The Red Rooster Stead | Wording corresponds to question row 131 and candidate rows 136, 132, 135. This is a text correspondence across versions, not a recovered argument vector or row-ID encoding. |
+| 5:13 then 5:28, correct response and log | Correct-answer acknowledgement, followed by a reported acquisition of 9 pumpkin cookies and a basket drop | Corroborates the later callback's nine-cookie presentation. It does not establish 1.23b server validation or inventory settlement. |
+| 5:38, log | A separate reported acquisition of 3 pumpkin cookies, followed by an empty-basket message | Supports a separate basket reward in the recorded 2011 sequence. The empty `getSweets` method does not establish the later collection contract. |
+
+The nine-cookie reward and three-cookie basket are distinct reported
+acquisitions in that sequence. They are not alternative values for one
+reward, nor proof of a universal twelve-cookie payout. The footage's drop
+message refers to a basket of treats; the 1.23b text row 25 instead says
+the imp drops the cookies. Preserve that version difference.
+
+These samples do not identify the submitted answer, numeric widget result,
+expected value P6, callback producer, packet mapping, wrong-answer reward,
+basket sharing or expiry. The five-cookie consolation remains a 1.23b
+presentation branch without a target outcome witness here.
+
 ## Original LPB bytecode verification
 
 The selected original LPBs match the exact resource
@@ -225,7 +257,8 @@ unknown. getSweets is proto6, a sole zero-value RETURN A0/B1 at PC0 / 0x5f9,
 and supplies no basket collection contract.
 
 NPC bindings, seasonal dates and population, actual grants and basket quantity,
-sharing and expiry remain outside this static contract.
+sharing and expiry remain outside this static 1.23b contract. The separate
+2011 footage above supplies reported acquisitions only for its shown sequence.
 
 ## Question bank and producer boundary
 
@@ -247,8 +280,9 @@ departure presentation rather than another riddle group.
 This bank supplies content candidates, not the runtime producer. The callback
 receives three choices while each adjacent text group has five. Neither the
 group layout nor the riddle's subject proves which three were supplied,
-their order, a shuffle rule, or the expected result value P6. No answer key
-was inferred from lore. The question/choice arguments remain caller-supplied;
+their order in a 1.23b invocation, a shuffle rule, or the expected result
+value P6. No answer key was inferred from lore. The question/choice arguments
+remain caller-supplied;
 the callback does not select a question or derive P6 from an answer string.
 
 ### Local caller and helper boundary
@@ -342,8 +376,9 @@ that negative result; it does not prove that retail lacked the event.
 do not provide city placement or script binding. The staticactor catalog
 contains script actors and does not supply these NPC class bindings.
 
-The client artifacts above do not establish the event's calendar, imp spawn
-locations, disguise-to-imp binding, question selection, basket quantity,
-per-player sharing or expiry. Actual grants and first-trade completion also
-remain server-owned unknowns. Decoration weather and population are distinct
+The 1.23b client artifacts above do not establish the event's calendar, imp
+spawn locations, disguise-to-imp binding, question selection, basket quantity,
+per-player sharing or expiry. Actual 1.23b grants and first-trade completion
+also remain server-owned unknowns. The 2011 video outcome does not resolve
+those later runtime contracts. Decoration weather and population are distinct
 controls; the recovered quest methods do not activate a city decoration set.
