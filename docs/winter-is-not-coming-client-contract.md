@@ -8,8 +8,9 @@ calculate a snowman counter, consume an item or return a completion flag.
 
 The [retail quest identity](seasonal-quest-client-contracts.md#retail-quest-identities)
 is Winter Is Not Coming, quest 110801, class `/Quest/Scenario/Spl/Spl0i3`.
-This finding covers its snowman callbacks, adjacent completion presentation
-and two related object initializers, rather than the full quest flow.
+This finding covers its snowman callbacks, inherited emote/delegate paths,
+adjacent completion presentation and two related object initializers.
+The Winter-specific callback selection and P3 producer remain unresolved.
 
 ## Artifact identity and method
 
@@ -128,10 +129,93 @@ members, after checking every member's bytes against the pinned script
 manifest, likewise found only their five declarations in `spl0i3.lua`, at
 lines 919, 934, 948, 993 and 1007.
 
-Those checks cover literal references and resolved local calls. Inherited,
-computed, native, server and other-resource dispatch remain untraced. The
-missing edge is the emote/event producer selecting a method and
-supplying its arguments, particularly P3. These artifacts do not establish
-the actor-class/spawn binding, snowman growth thresholds, item consumption,
-gift grant, quest completion or weather activation. The selected object
-initializers do not supply those mechanics.
+Those checks cover literal references and resolved local calls. The inherited
+emote and delegate paths below establish generic forwarding, without a
+Winter-specific invocation. The actor-class/spawn binding, snowman growth
+thresholds, item consumption, gift grant, quest completion and weather
+activation remain unresolved. The selected object initializers do not supply
+those mechanics.
+
+## Emote entry and conditional callback frame
+
+Four further original LPBs matched the same coverage and script manifests
+above and parsed to exact EOF with `decode_lpb`, `ChunkReader` and
+`instruction`. Paths are relative to `client/script/`; hashes are SHA-256.
+
+| Readable member / LPB resource | LPB bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `chara/npc/npcbaseclass.lua`: `729s9/wu7/wu789r57y9rr.le.lpb` | 5938 / `3f1dcc3416f7e22db138a6dcc730b095f81f3d0ceb458a7ded7d5b0d17df55c9` | 5925 / `1941c40b64cacd721d271b36e31017a24f908b8ea518f713b44da17bb4e57627` |
+| `chara/npc/npcbaseclass_u.lua`: `729s9/wu7/wu789r57y9rr_p.le.lpb` | 3160 / `1400e76a2735a079726a9920596f1b124c5f9bc912d0af6ff9635348f9cad6f8` | 3147 / `26ff1eb8502d975cf8a23c34b211d49265e434998966762bd4bf0d0fccbf38ff` |
+| `command/system/emotestandardcommand.lua`: `7vxx9w6/rlrq5x/5xvq5rq9w69s67vxx9w6.le.lpb` | 876 / `75c14bae192f3272b90b4f85eee286837ed58c8517b1fa25d2594ef392035125` | 863 / `86868c26a8ff35c421b1a7823c822a8c5b8db2ee5f983ceda495bd20398ce84b` |
+| `chara/player/playerbaseclass_u.lua`: `729s9/uy9l5s/uy9l5s89r57y9rr_p.le.lpb` | 12827 / `dc81f3099dceb28edff91ebebaee9f42243dfa49ab62588d0bb083c2da01f361` | 12814 / `e78c6a024c386ea07fe76830c2d2378a205626b5dd44b7119feaa18811978429` |
+
+`EmoteStandardCommand.fire`, `root/proto1`, tests `canFire` and whether P6
+is an `NpcBaseClass`. Its NPC branch calls P1:`_executeEmote(P6,P2)` at
+PC 25 / offset 730, `CALL A=11 B=4 C=2`, retaining one result. This body
+does not select a snowman method or establish Snowball's numeric ID.
+`PlayerBaseClass._executeEmote_inl`, `root/proto3`, returns the two strings
+`self`, `_executeEmote_cpp` at PC 2 / offset 4188, `RETURN B=3`.
+That descriptor makes no native call itself.
+
+`NpcBaseClass._onEmoteEvent`, `root/proto23`, forwards P0, P1 and P2
+to `_callServerOnEmote`. The reachable CALL is PC 21 / offset 4406,
+`A=3 B=4 C=1`; PC 0 jumps to PC 6, skipping the earlier call at PC 4.
+Lock-on and target-cancellation calls surround the reachable forwarding.
+Its final RETURN is PC 28 / offset 4434, `B=1`.
+`_onEmoteRequest`, `root/proto24`, forwards the same three values to
+`_doServerOnEmote` at PC 3 / offset 4607, `CALL A=3 B=4 C=1`, then
+returns zero values at PC 4 / offset 4611, `RETURN B=1`.
+The `_u` descriptors return `self`, `_callServerOnEmote_cpp` and `self`,
+`_doServerOnEmote_cpp` at `root/proto12` PC 2 / offset 2005 and
+`root/proto13` PC 2 / offset 2099 respectively, both `RETURN B=3`.
+
+The native condition constructors select these generic entry-point names;
+the normal call entry reaches the event-request builder. Those observations
+and their remaining selection gap are owned by
+`xivl-decomp:docs/event/npc-emote-event-dispatch.md`. No recovered edge here
+joins the particular Snowball execution to an installed snowman condition.
+
+The same original `NpcBaseClass` chunk supplies `delegateEvent`:
+`root/proto27`, four fixed parameters, vararg flags 3 and no upvalues.
+Root SETTABLE PC 89 / offset 388 installs it. Its body is:
+
+```text
+P2:_callFunction(P3,P1,P0,...)
+```
+
+PCs 0-3 / offsets 5075-5087 prepare that receiver, method key and fixed
+arguments. PC 4 / offset 5091 is `VARARG A=10 B=0`, PC 5 / offset 5095
+is `TAILCALL A=5 B=0 C=0`, and PC 6 / offset 5099 is `RETURN A=5 B=0`.
+The open operands preserve every trailing argument and every returned value,
+including explicit nil positions. The source decompiler's apparent single
+vararg assignment does not express that contract. A static register tracer
+checked empty, single, multiple and nil-containing tails; it did not run Lua.
+
+The generic incoming function path supplies `(F,O,D0,D1,D2,...)`, where
+`O` is the selected binding's Lua value and `D` is the ordered materialized
+parameter sequence. Source, guards and typed decoding are owned by
+`xivl-decomp:docs/script/delegate-command-producer.md`, Incoming record and
+receiver through Function, binding value and supplied frame. If `F` resolves
+to this NPC `delegateEvent`, and the reflective helper and inner lookup
+resolve to the recovered implementations, the callback frame is:
+
+| Incoming source | Role after delegation |
+| --- | --- |
+| `D1` | Lookup receiver and callback P0. |
+| `D2` | Method key, consumed by lookup. |
+| `D0` | Callback P1. |
+| `O` | Callback P2. |
+| `D3` and later values | Callback P3 and later arguments, in order. |
+
+For `processEventSnowManOk`, this route would therefore select the method
+with `D2` and supply P3 from `D3`, the fourth materialized parameter.
+The [callback body](#snowman-argument-and-return-contract) would pass that
+value unchanged to row 72. This is a conditional source map, not a recovered
+Winter packet or proof of the actual invoker. A direct call or another
+delegate can supply a different outer frame.
+
+The remaining proof requires a Winter-specific condition/request and its
+correlated callback producer: actual binding, selected method, complete typed
+argument vector and the source of the displayed quantity. A generic event
+decoder or a synthetic payload cannot supply that historical selection or
+its quantity calculation.
