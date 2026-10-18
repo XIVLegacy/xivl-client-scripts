@@ -392,19 +392,18 @@ their type bytes and the actual player's command vector. The conditional
 request bridge and precise selector boundary are recorded in
 `xivl-decomp:docs/script/materia-command-dispatch.md`, sections
 "Generic command request bridge" and "Unresolved callback selector".
-Neither the selected native `commandJudgeMode` descriptor nor a correlated
-callback name/argument input was observed for `22014` or `22015`.
+That canonical boundary marks the `22014`/`22015` callback mapping unresolved
+at the evidence ceiling of the authenticated preserved artifacts examined.
+Neither the selected native `commandJudgeMode` descriptor, a correlated
+callback with its full supplied argument vector, nor the executed variation
+was established for either command.
 
-To recover the numeric variation, retain the selected ready slot, command
-actor and `charaWork.commandCategory` value together. To establish callback
-binding, retain that invocation's selected native descriptor and a producer
-or correlated dispatch record identifying the CraftJudge receiver, method
-and positional arguments. The generic incoming function-name decoder is
-only a candidate until such a connection is established. The minimum required
-invocation record is specified in
+The generic incoming function-name decoder remains a candidate without a
+command-specific causal connection. The minimum proof criteria are specified in
 `xivl-decomp:docs/script/materia-command-dispatch.md`, section
-"Minimum missing invocation record". It requires a causal producer-to-callback
-join; client-side timing alone does not recover a server binding.
+"Minimum missing invocation record". They require a causal producer-to-callback
+join and the actual variation operand; client-side timing alone does not recover
+a server binding. These criteria do not prescribe an active recovery step.
 
 The conditional native policy dispatch can call the generic player hooks
 `_onCommandEvent` or `_onCommandRequest`, as recorded in
