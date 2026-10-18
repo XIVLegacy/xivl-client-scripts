@@ -1,5 +1,22 @@
 # Seasonal event actor client contracts
 
+## LemmingEventMoon2011 local class boundary
+
+The canonical decoded member
+`lua/scripts/chara/npc/monster/lemming/lemmingeventmoon2011.lua` is 195 bytes,
+SHA-256 `ca43e47af4243b56a86ebcbd627e266c4b1b882618742225f932170b0944c5e6`.
+It matched [manifests/scripts.json](../manifests/scripts.json), SHA-256
+`86798306f71336ee494f12d395db3b8ea571a21224fbd99e2ef87ecd18c61300`,
+and the selected member in the decoded corpus archive, SHA-256
+`0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31`.
+Python ZIP reading and direct text inspection found only the require of
+`/Chara/Npc/Monster/Lemming/LemmingBaseClass` and class definition
+`LemmingEventMoon2011`, inheriting `LemmingBaseClass`, at lines 1-8.
+
+No local method is present in this exact canonical decompile. The parent
+class was not inspected for this finding. This does not establish an event
+binding, monster placement, drop rule, quest or absence of inherited behavior.
+
 ## Valentione town-type selector
 
 The 1.23b LPB at

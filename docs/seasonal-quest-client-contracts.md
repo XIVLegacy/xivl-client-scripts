@@ -3,6 +3,46 @@
 The [Impish Impositions contract](impish-impositions-client-contract.md)
 separately pins the canonical `Spl0i2` decompile and the retail quest/text joins.
 
+## Retail quest identities
+
+The retail title and class joins below use `xivl-client-data` revision
+`9ca24cf5aecd33c4f2753c0d75887ac6e96516cc`:
+`csv/xtx_quest.csv`, row ID and column 2; the same IDs in `csv/quest.csv`;
+and `manifests/staticactor_class_paths.json`, the record's class path.
+CSV sheet columns start at zero after the row ID. Python `csv` checked the
+selected rows from the decoded archive, SHA-256
+`006f9438a8cfd9277376f0ab28474500c67e4665050aa631cae64c9e6f38a5b0`.
+The whole members matched `manifests/tables.json`, SHA-256
+`239cb63fb00de5f434b92924696c043cb80ddcd9abc7f334075afb6b28d5626d`.
+The staticactor class-path manifest has SHA-256
+`d612438827e5997422ab6f64a807e567ddf1b953c532e8a319d67b93c53c9db0`.
+
+| Retail English title | Quest ID | Class under `/Quest/Scenario/Spl/` |
+| --- | ---: | --- |
+| The Dreamer's Gospel (Gridania) | 110794 | `Spl0g1` |
+| The Dreamer's Gospel (Limsa Lominsa) | 110804 | `Spl0l1` |
+| The Dreamer's Gospel (Ul'dah) | 110789 | `Spl0u1` |
+| The Dreamer's Dilemma (Gridania) | 110795 | `Spl0g2` |
+| The Dreamer's Dilemma (Limsa Lominsa) | 110805 | `Spl0l2` |
+| The Dreamer's Dilemma (Ul'dah) | 110790 | `Spl0u2` |
+| Scrambled Eggs | 110859 | `Spl101` |
+| The Heat Is On | 110799 | `Spl0i1` |
+| Bombard Backlash | 110860 | `Spl102` |
+| Impish Impositions | 110800 | `Spl0i2` |
+| Winter Is Not Coming | 110801 | `Spl0i3` |
+| Gone with the Snow | 110802 | `Spl0i4` |
+
+Each class joins to the lowercased decoded path in
+[lua/registry.json](../lua/registry.json) and the corresponding canonical member
+in [manifests/scripts.json](../manifests/scripts.json), SHA-256
+`86798306f71336ee494f12d395db3b8ea571a21224fbd99e2ef87ecd18c61300`.
+`Spl101` and the supplemental `spl101_quest` filename declare the same class
+name. The staticactor record identifies `Spl101`; it does not prove how that
+supplement is invoked. These identity joins do not establish event calendars,
+NPC placements, script dispatch, rewards or a complete server quest flow.
+
+## Independent decompile inputs
+
 The `client/script/tp5rq/r75w9s1v/ruy/` LPBs below decode
 byte-for-byte to the independently recovered Lua 5.1 chunks. The recovered
 Lua bodies are a separate decompile from the canonical corpus recorded in
