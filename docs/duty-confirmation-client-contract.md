@@ -155,6 +155,52 @@ Those mechanisms do not select the server's next quest or content action.
 The outer adapter, native result conversion and actual invocation remain
 separate from the one answer retained by this helper.
 
+## Flowers for All binding boundary
+
+The static client class path is established by
+`xivl-client-data:manifests/staticactor_class_paths.json`, row `id=110009`,
+`/Quest/Scenario/Man/Man0u0`, SHA-256
+`d612438827e5997422ab6f64a807e567ddf1b953c532e8a319d67b93c53c9db0`.
+The following original resources and complete decoded chunks match the
+coverage manifest; canonical source identities match `scripts.json`.
+
+| Decoded script | LPB resource | LPB SHA-256 | Decoded payload SHA-256 |
+| --- | --- | --- | --- |
+| `quest/scenario/man/man0u0.lua` | `tp5rq/r75w9s1v/x9w/x9wjpj.le.lpb` | `b954f9735da9ef38401872562074482ffeb510da44441febaa4fba959052f0cc` | `850591e834ab2849dc8b53c949d5db743e829264ea90ced0ea83c6ebbbfb1a4c` |
+| `quest/scenario/scenariobaseclass.lua` | `tp5rq/r75w9s1v/r75w9s1v89r57y9rr.le.lpb` | `360478f727c5ae17b409f94392ad586b7a4f28987a9cb5eef4724f49ef0b33ee` | `bb33ffb04cceb7a8351922f39c44419f5774d470b22f16f1c4fc9b55308ba3aa` |
+| `quest/questbaseclass.lua` | `tp5rq/tp5rq89r57y9rr.le.lpb` | `35293157c6bfd1edfc973bc0bd1986e83401d69e5cac39df2616041caff58674` | `6903eb4a86f200f5cd690cda2d4104476d72d1eeba86e3b03f3cd2631966ef88` |
+
+In `man0u0.lua`, root PC 2 / offset 40 requires
+`/Quest/Scenario/ScenarioBaseClass`, and PC 6 / offset 56 calls
+`_defineClass("Man0u0","ScenarioBaseClass")`. The scenario base at those
+same locators requires `/Quest/QuestBaseClass` and calls
+`_defineBaseClass("ScenarioBaseClass","QuestBaseClass")`. The quest base's
+root PC 2 / offset 40 requires `/Quest/QuestBaseClass_common`.
+This chain makes the shared helper available to Man0u0; it does not select
+that helper for a Flowers event.
+
+All 48 prototypes and 2,115 instructions of the complete Man0u0 chunk were
+parsed. None of their constants is the exact string
+`contentsJoinAskInBasaClass` or numeric row `25015`. This bounds literal
+local selection; it does not exclude an inherited, external or computed
+invocation. The opening tutorial callbacks and judge delegation remain in
+[Man0 opening tutorial boundaries](quest-event-client-contracts.md#man0-opening-tutorial-boundaries).
+
+`QuestBaseClass.getQuestId`, `root/proto0`, PC 1 / offset 636, is
+`TAILCALL A1 B2 C0` to `self:_getStaticActorID()`. It forwards every native
+result. Thus the static quest row does not fix `Q` to numeric `110009`, nor
+establish its result count or types. The conditional delegate frame above
+still needs its actual owner `O`, materialized arguments and reflective
+selector; the actor supplied to the shared helper must resolve the selected
+`ask` method before its NPC/widget forwarding applies.
+
+`xivl-captures:studies/director-wire-identity/README.md`, Flowers for All
+packet boundary, records the complete retained clear-game check and its
+finite encodings and reconstruction limits. It supplied no Flowers-specific
+invocation, typed arguments, correlated reply or duty transition. The inherited
+client capability therefore leaves the historical trigger/callback and
+reply-to-duty binding unresolved.
+
 ## Evidence boundary
 
 This route distinguishes an NPC choice prompt from multiple `say` calls,
