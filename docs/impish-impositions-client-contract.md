@@ -87,11 +87,11 @@ only its require/class declaration, with no recovered event lifecycle.
 
 ## Original LPB bytecode verification
 
-The original Spl0i2 and PopulaceHalloweenTrans LPBs match the exact resource
+The selected original LPBs match the exact resource
 records in [manifests/retail_lua_coverage.json](../manifests/retail_lua_coverage.json).
 The coverage manifest has SHA-256
 `46fd1b388a883c0f70fc8a0bae27d08e05a1bfd776ffcac094a6b1ddd4b9d9f4`.
-Both decoded Lua 5.1 chunks parse to exact EOF. Method names are joined to
+All three decoded Lua 5.1 chunks parse to exact EOF. Method names are joined to
 prototypes by root CLOSURE/SETTABLE instructions. This verifies the contracts
 below independently of the canonical decompiler's control-flow rendering.
 
@@ -99,6 +99,7 @@ below independently of the canonical decompiler's control-flow rendering.
 | --- | --- | --- |
 | Spl0i2: tp5rq/r75w9s1v/ruy/ruyj1h.le.lpb | b30852b309ecb1f954dd220b7549ca5c22ec46f7091b3343e1e60d92a7c2caaa | 060506b25c19a40d7c6e194f9c875bf89480296f21992f25645632bc429d8eb8 / 6827 |
 | PopulaceHalloweenTrans: 729s9/wu7/uvupy975/uvupy97529yyvn55wqs9wr.le.lpb | 1fee30134a635e42ca12a167c93ceeab70f64147de342d10047f3e8998b9cfbf | 900f1a43967f7afe3269847f5d395d06050a485663d8264719e48afbc006b95d / 1613 |
+| HalloweenDirector: 61s57qvs/29yyvn55w61s57qvs.le.lpb | 10507704954137b6cd7aa5e0b424ea31c892c51d8564ad06019170cc23a59678 | 8047067877f2e5dc3e2461a28522759d270505fa42f32593f60fc5c27949cad1 / 194 |
 
 Prototype child indices and instruction PCs start at zero. Offsets below count
 bytes from the decoded payload's first byte, including its 12-byte header.
@@ -225,6 +226,113 @@ and supplies no basket collection contract.
 
 NPC bindings, seasonal dates and population, actual grants and basket quantity,
 sharing and expiry remain outside this static contract.
+
+## Question bank and producer boundary
+
+The preserved `populaceHalloweenTrans.csv` contains an English riddle bank
+at rows 29-148: twenty groups, each with one question followed by five
+candidate answer strings. Question rows are `29+6*k`, for `k=0..19`; the
+following five row IDs belong to that adjacent candidate group. The first
+two groups use question/answer ranges `29 / 30-34` and `35 / 36-40`; the
+last uses `143 / 144-148`.
+
+Python `csv` inspected the complete member from the decoded archive pinned
+above. It matched `xivl-client-data:manifests/tables.json`: 54,587 bytes,
+SHA-256 `cda55dc5fe76ac4b9ec528c83016076311266922ef6d565242c589a8d889681f`.
+English is sheet column 1, counting after the row ID from zero. All five
+declared sheet columns have type `str`; there is no typed answer-key or
+selection-rule column. Rows 149-158 contain transformation, nighttime and
+departure presentation rather than another riddle group.
+
+This bank supplies content candidates, not the runtime producer. The callback
+receives three choices while each adjacent text group has five. Neither the
+group layout nor the riddle's subject proves which three were supplied,
+their order, a shuffle rule, or the expected result value P6. No answer key
+was inferred from lore. The question/choice arguments remain caller-supplied;
+the callback does not select a question or derive P6 from an answer string.
+
+### Local caller and helper boundary
+
+A case-insensitive exact-identifier scan checked every one of the 2,671
+canonical Lua members after verifying each member's size/hash against the
+script manifest above. `firstTalkAskEvent` occurred only at its declaration
+in `chara/npc/populace/populacehalloweentrans.lua:144`. The adjacent symbols
+`firstTalkNomalEvent`, `firstUboa` and `halloweenshowHideTest` likewise occurred
+only at their declarations. `PopulaceHalloweenTrans` and `HalloweenDirector`
+identifiers had no references outside their defining members. Exact identifier
+boundaries were ASCII letters, digits and underscore; computed names and
+external callers were outside this scan.
+
+The original PopulaceHalloweenTrans chunk has eight local methods. All its
+CALL/TAILCALL targets resolve to `require`, `_defineClass`, `_setGroundOn`,
+`_loadTextDataPermanently`, `say` or `askForEventMode`. No local call produces
+the question/choice/expected-answer frame. `initForEvent`, `root/proto0`,
+loads text set 7696 at PC 6 / decoded offset 477. `halloweenshowHideTest`,
+`root/proto7`, has only two RETURN instructions at offsets 1573/1577.
+Neither supplies question selection or an event lifecycle.
+
+The 207-byte original HalloweenDirector LPB above decodes to 194 bytes. Its
+root has eight instructions and zero child prototypes: `require` at PC 2 /
+offset 40, `_defineClass` at PC 6 / offset 56 and zero-value RETURN at PC 7 /
+offset 60. It requires `/Director/DirectorBaseClass` and defines its child
+class, without a local callback or question producer. This original-bytecode
+check does not establish what an inherited or external caller did.
+
+The immediate `DesktopWidget.askForEventMode` helper is recovered in
+`widget/desktopwidget_connector.lua:12038-12090`, whose complete canonical
+member is 660,617 bytes, SHA-256
+`9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01`.
+Lines 12067-12070 forward helper A7/A8, the callback's question and choice
+table, unchanged to `Ask/AskWidget.ask`. This is a decompile observation;
+that helper's original LPB and deeper widget consumers were not inspected.
+It does not establish a text-row-ID, string or other value domain. P6 stays
+in the imp callback's comparison rather than being passed to this helper.
+
+### Conditional incoming arguments
+
+The existing generic incoming function contract in
+`xivl-decomp:docs/script/delegate-command-producer.md`, Function, binding
+value and supplied frame, prepares `(F,O,D0,D1,...)`, where `O` is the
+selected binding's Lua value and `D` contains materialized typed parameters.
+If `F` resolves directly to the recovered `firstTalkAskEvent`, with at least
+six materialized parameters, its fixed arguments would have these sources:
+
+| Callback parameter | Direct incoming-call source | Local use |
+| --- | --- | --- |
+| P0 | `O` | Receiver and widget/text context. |
+| P1 | `D0` | Unused. |
+| P2 | `D1` | Question passed to the widget. |
+| P3-P5 | `D2-D4` | Three ordered choices. |
+| P6 | `D5` | Expected value compared with the widget result. |
+
+That direct-call source map is conditional on the actual function and binding
+lookup, readiness and invocation guards. It is not a recovered Impish packet.
+An intervening delegate changes the prefix: the authenticated NPC
+`delegateEvent` in
+[the inherited delegate contract](winter-is-not-coming-client-contract.md#emote-entry-and-conditional-callback-frame)
+would instead supply callback `(D1,D0,O,D3,...)`, consuming `D2` as the
+method key. Neither route is established for the imp, and the input value
+types, chosen rows and actual expected answer remain unobserved.
+
+The [retained packet search](#retained-packet-boundary) found no target
+invocation to resolve those alternatives. A target-specific producer or
+correlated invocation would be needed to recover question selection, choice
+selection/order and P6. The text bank and generic transport do not establish
+the server's answer validation or cookie/basket settlement.
+
+The question/answer producer remains unresolved at the current evidence
+ceiling. Repeating the generic bridge, local callback or same corpus search
+does not select a historical question or construct its expected answer.
+
+### Retained packet boundary
+
+`xivl-captures:studies/director-wire-identity/README.md`, Impish question
+packet boundary, owns the exact retained-source identities, query definitions
+and complete decoded-domain accounting. All sixteen selected class, callback,
+quest-text and numeric-ID queries returned zero in that domain. There was no
+matching question/choices/expected-answer vector. Its canonical overlap
+resolution, excluded connections, tails and encoding limits remain part of
+that negative result; it does not prove that retail lacked the event.
 
 ## Actor and server boundary
 
