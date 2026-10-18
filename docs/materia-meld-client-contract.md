@@ -337,6 +337,15 @@ arguments. These are conditional positional relationships. They establish
 neither the actor roles of `p0,p1`, the actual function/table used by a
 historical invocation, nor a callback selector for command `22014` or `22015`.
 
+The native producer is recorded in
+`xivl-decomp:docs/script/delegate-command-producer.md`, "Delegate and callback
+positions". On its successful recovered path, the delegate receives
+`(O,D0,D1,D2,...)`: one selected binding's Lua value `O`, then materialized
+typed values `D` from the input. Thus `A1=O`; `A2` and subsequent values
+come from `D2` onward. The native producer does not automatically insert a
+copy of the raw owner key as `A2`. Its trigger/owner selection, registry
+fallback and actual callable remain invocation-specific conditions.
+
 The complete admitted capture prefix-string census is recorded in
 `xivl-captures:studies/local-guildleve-dialogue/derived/accounting.json`,
 `corpus.all_admitted_0x0130_delegate_prefix_string_counts`, with scope and
