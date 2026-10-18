@@ -219,3 +219,19 @@ correlated callback producer: actual binding, selected method, complete typed
 argument vector and the source of the displayed quantity. A generic event
 decoder or a synthetic payload cannot supply that historical selection or
 its quantity calculation.
+
+## Retained packet evidence ceiling
+
+`xivl-captures:studies/director-wire-identity/README.md`, Winter snowman
+packet boundary, owns the complete retained-corpus search, exact source and
+decoder identities, query encodings and limitations. No selected quest ID,
+static actor key, class substring or snowman callback literal occurred in
+its canonical decoded clear-game domain. No matching packet supplied a
+Winter method selection or P3 argument vector.
+
+The mapping remains unresolved at the current evidence ceiling. The generic
+emote/delegate paths and the P3 display consumer are established, while the
+Winter-specific producer and quantity calculation are not. Reopening this
+mapping requires newly available target-specific producer or correlated
+invocation evidence. Repeating the same packet or generic bridge trace does
+not add that evidence.
