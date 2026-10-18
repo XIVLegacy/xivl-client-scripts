@@ -44,6 +44,7 @@ unverified native or server behavior.
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
 - [Quest event client contracts](quest-event-client-contracts.md)
+- [Duty confirmation client contract](duty-confirmation-client-contract.md)
 - [Class, job, and Grand Company quest scripts](quest-script-inventory.md)
 - [Quest reward Notice helper](notice-helper-contract.md)
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)

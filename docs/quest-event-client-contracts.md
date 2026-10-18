@@ -60,12 +60,9 @@ The pinned unluac decompile matches the canonical 14,917-byte, 818-line
 Method locators are `lua/scripts/quest/scenario/com/com0g5.lua:72-175,
 215-233, 236-351, 552-818`.
 
-The common `QuestBaseClass.contentsJoinAskInBasaClass`
-(`quest/questbaseclass_common.lua:562-576`) calls the supplied actor's
-`ask` with `worldMaster`, row 25015, mode 2, and the results of
-`self:getQuestId()`, then returns the ask result. It presents a client
-prompt; its body contains no content allocation, admission, or progression
-rule.
+The [duty confirmation contract](duty-confirmation-client-contract.md)
+owns `QuestBaseClass.contentsJoinAskInBasaClass`, its inherited NPC/widget
+forwarding, variable argument tuple and one-answer return boundary.
 
 ## Class quest choices and transitions
 
