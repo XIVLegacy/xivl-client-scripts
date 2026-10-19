@@ -89,7 +89,7 @@ decompile of these exact decoded chunks.
 
 | Method | Direct recovered client-script call | Boundary |
 | --- | --- | --- |
-| `Spl0i1.processEventSUMFES001` | `Ask/RewardSelectWidget` presents `3020604-3020606` and `10012018-10012021`; following `say` arguments pair these with `10012014-10012017` and displayed counts. | Presentation and dialogue arguments, not item ownership, cost deduction, grant, or selector outcome. |
+| `Spl0i1.processEventSUMFES001` | [Original-bytecode selector contract](heat-is-on-selector-contract.md) establishes the seven scalar item arguments, second retained result, confirmation/retry, cancel normalization and both outer-menu result paths. | Caller retention does not establish native arity/domain or forwarding. Local `199` retries on some paths and returns directly on another; presentation IDs/counts do not establish settlement, city binding or historical dispatch. |
 | `Spl0i2.processEventSUMFES001` | `Ask/RewardSelectWidget` presents `8013301-8013304`; `worldMaster:say` arguments pair them with `3010417` and counts `3/10/50/99`. | The decompiler renders selector tests as constants such as `8 == 8`; no selected-index mapping is established. |
 | `Spl0i3.processEventStartAfter` | `askExtendWidget(worldMaster, 51109, 2, 1, 1, 1000004)`. | This is an ask call; it does not prove a reward or completion grant. |
 | `Spl101.askEgg` | `Ask/EventItemSelectWidget` presents `10012001-10012004`, `10012022`, and `10012024-10012028`. | The meaning of widget return values and any exchange or ring grant are not established by this call. |

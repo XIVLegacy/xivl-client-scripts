@@ -53,6 +53,7 @@ unverified native or server behavior.
 - [Winter Is Not Coming snowman callbacks](winter-is-not-coming-client-contract.md)
 - [Scrambled Eggs require and start result](scrambled-eggs-start-contract.md)
 - [Bombard Backlash item selector](bombard-backlash-selector-contract.md)
+- [The Heat Is On selector results](heat-is-on-selector-contract.md)
 - [Dreamer's Dilemma exchange results](dreamers-dilemma-exchange-contract.md)
 - [Dreamer's Gospel presentation and results](dreamers-gospel-presentation-contract.md)
 - [Little Ladies' Day JIJO menus](little-ladies-jijo-contract.md)
