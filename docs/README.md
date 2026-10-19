@@ -52,6 +52,7 @@ unverified native or server behavior.
 - [Impish Impositions client contract](impish-impositions-client-contract.md)
 - [Winter Is Not Coming snowman callbacks](winter-is-not-coming-client-contract.md)
 - [Scrambled Eggs require and start result](scrambled-eggs-start-contract.md)
+- [Scrambled Eggs askEgg tuple](scrambled-eggs-askegg-contract.md)
 - [Bombard Backlash item selector](bombard-backlash-selector-contract.md)
 - [The Heat Is On selector results](heat-is-on-selector-contract.md)
 - [Dreamer's Dilemma exchange results](dreamers-dilemma-exchange-contract.md)
