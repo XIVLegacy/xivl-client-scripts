@@ -48,7 +48,7 @@ source arity and return sites:
 | `eventUseRentalChocobo` | 332-458 | 4 | 4 | 108 | Boolean |
 | `eventInformationRental` | 461-560 | 5 | 1 | 86 | no explicit return |
 | `eventTalkMyChocobo` | 563-630 | 6 | 2 | 54 | no explicit return |
-| `eventSetChocoboName` | 633-650 | 7 | 2 | 12 | naming-widget result |
+| `eventSetChocoboName` | 633-650 | 7 | 2 | 12 | one name string, empty string, or nil |
 | `eventAfterChocoboName` | 653-719 | 8 | 3 | 54 | no explicit return |
 | `eventCancelChocoboName` | 722-750 | 9 | 2 | 19 | no explicit return |
 | `visibleChocobo` | 753-784 | 10 | 5 | 24 | no explicit return |
@@ -98,6 +98,18 @@ player company does not equal `work.townId` (`populacechocobolender.lua:132-150`
 Rental is a separate path: it checks caller-supplied `A2` and `A3` plus the
 wallet lookup described below, and neither grants nor checks the personal
 issuance or whistle items.
+
+The inputs consumed by `eventAskMainMenu` and its child events are:
+
+| Input | Client use | Eligibility boundary |
+| --- | --- | --- |
+| `A1`, player-like control | Supplies company, wallet, fade and item-query methods. | Company is queried from this control, not supplied as a separate menu scalar. |
+| `A2`, numeric rental input | Forwarded to `eventUseRentalChocobo`, which compares it with `10`. | The class does not compute a level or rank from it. |
+| `A3`, rental flag | Forwarded to rental and compared with Boolean `true`. | Its producer and policy meaning are outside this class. |
+| `A4,A5,A6`, menu flags | Forwarded to the menu macro, with town/actor-class restrictions on local copies. | No flag is locally derived from possession of a personal issuance item. |
+| `A7`, choice/cutscene input | Forwarded to personal use and barding selection. | Barding treats it as a current appearance code; personal use forwards it unchanged to the cutscene. |
+| Stored `companyRank = 31` | Written by initialization. | No rank consumer in this class. |
+| Issuance item and price | No dedicated operand, item test, price comparison or deduction in the personal path. | Choosing issuance eligibility and cost remains outside this client contract. |
 
 ## Talk and menu events
 
@@ -203,12 +215,29 @@ cancel (`populacechocobolender.lua:753-784`). It has no explicit return.
 `eventSetChocoboName(self, A1)` calls
 `worldMaster.say(worldMaster, self, 35)` at `root/proto7` PC 6 / offset 5293
 when `A1 == true`, then returns
-`desktopWidget.askChocoboNamingWidget(desktopWidget)` unchanged; the widget
-call is at PC 9 / offset 5305 and the return follows at offset 5309
+`desktopWidget.askChocoboNamingWidget(desktopWidget)` in one result slot;
+the widget call is at PC 9 / offset 5305 and the return follows at offset 5309
 (`populacechocobolender.lua:633-650`). The naming widget's
 character rules, length rules, and positive-result conversion are canonical in
 [`Chocobo mount script contracts`](chocobo-mount-script-contracts.md#naming-widget);
 this lender method adds no validation.
+
+The connector helper calls
+`askEventModeWidgetYield2("Ask/ChocoboNamingWidget", 1, true)`
+(`desktopwidget_connector.lua:11893-11903`, prototype `root/proto230`,
+TAILCALL PC `4`, offset `113637`). Its shared wrapper opens widget type `4`,
+selects the widget, gets its polymorphic `getAskResult`, closes it, and returns
+only the first result (`desktopwidget_connector.lua:25858-25905`,
+`root/proto543`). The success `unpack(resultTable, 1, A2)` is PC `33`,
+offset `208977`. The wrapper's failure branch returns zero values at PC `28`,
+offset `208957`. The lender's fixed one-result call converts that absence to
+one nil result.
+
+Consequently the event result is a converted name string after a confirmed
+decision, an empty string after the widget's finish/close path, or nil if
+opening/selecting the widget fails. Rejecting the child confirmation dialog
+re-enables the name editor for another attempt. It does not finish the naming
+event. These are Lua event-return values, not an ownership or issuance receipt.
 
 `eventAfterChocoboName(self, A1, A2)` uses the actor-class cutscene, hides the
 chocobo with `visibleChocobo(A1, 0, false, false)`, and fades in after the
@@ -253,7 +282,10 @@ macro argument in
 91, 5, 1, available1, available2, available3, baseAvailable, true, item1,
 item2, item3, 0, 0)` (`root/proto12` PC 108 / offset 7974). The availability
 flag for the selected choice is forced false before this macro. A confirmed choice
-returns its numeric code; canceling the selection returns integer `0`
+returns its numeric code. Leaving the first selection menu returns integer
+`0` (`root/proto12` PC `139`, offset `8098`). A confirmation result other
+than `1` restores the caller's appearance code and loops instead of returning
+zero. The confirmed-code return is PC `186`, offset `8286`
 (`populacechocobolender.lua:998-1176`). The method does not return an item ID
 and does not show a separate purchase or deduction operation.
 
@@ -266,3 +298,20 @@ barding eligibility contract. The frozen retail corpus does not expose the
 upstream caller that supplies the rental threshold, the Boolean rental mode,
 or the runtime rental price, so those values cannot be given stronger names
 or literal values from this script.
+
+The exact lender-method name search over all `2671` canonical Lua members
+found no direct external caller. This bounds the available Lua producer
+evidence; dynamically selected engine or server event calls are not excluded.
+The event function list, argument consumption and return shapes close the
+client-side lender dialogue question. Eligibility values remain caller/owner
+decisions rather than client-derived issuance rules.
+
+The connector source used above has SHA-256
+`9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01`.
+Its original LPB is
+`client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb`, raw SHA-256
+`0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425`,
+payload SHA-256
+`685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621`.
+The same manifest and Lua 5.1 decoder checks described above authenticated
+these additional wrapper locators.

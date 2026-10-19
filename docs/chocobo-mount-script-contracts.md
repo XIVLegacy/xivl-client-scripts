@@ -31,12 +31,34 @@ dispatch and post-server follow-up for commands `12014` and `12015`.
 
 ## Naming widget
 
-When `desktopWidget:isChinese()` is false, `ChocoboNamingWidget` accepts `A-Z`
-and `a-z`, sets the text control's maximum length to `10`, and enables Decide
-at length three or more. In the Chinese branch it enables IME input, uses a
-maximum `maxZenHan` of `4`, and enables Decide for `getZenHanLength` values
-from `3` through `4` unless the control's `IsValidFirst` property is false.
-The script does not define what `IsValidFirst` validates.
+`DesktopWidget.isChinese` returns true for `_getLanguage()` values `4` or
+`5`, and false otherwise (`desktopwidget_connector.lua:26401-26415`). The
+naming widget initializes Decide to disabled, then configures these branches:
+
+| Mode | Text-control settings | TextChanged check enabling Decide |
+| --- | --- | --- |
+| Other languages | Accept specification `A-Z a-z`, `MaxLength = 10`, `InputMethod.SqwtInputAllowedChars = "Alphabet"`. | Lua byte length at least `3`. |
+| Chinese | Accept specification from `getControlUserWorkString(1,"TextBox_Name")`, IME enabled, `MaxLength = "10b"`, `IsReplaceUnaccept = true`, `InputMethod.SqwtInputAllowedChars = "Alphabet\|Number"`. | `getZenHanLength` from `3` through `4`, and `IsValidFirst` must not be false. |
+
+`WidgetBaseClass.setAcceptChars` joins its arguments with spaces and writes
+`InputMethod.AcceptChars`
+(`widgetbaseclass_common.lua:2674-2705`). The Chinese branch obtains that
+description from control user-work slot `1`; this class supplies no literal
+Chinese character whitelist.
+
+For a nonempty name, `getZenHanLength` calculates `(byteLength + C) / 2`,
+where `C = _getUTF8StringLength(name)`
+(`chocobonamingwidget.lua:304-322`). It returns `0` for nil or empty input.
+For valid one-byte ASCII and three-byte UTF-8 characters this weights them
+as `1` and `2` respectively. It does not measure visual glyph width. The
+native character counter and first-character property are documented in
+`xivl-client-structs:docs/chocobo-naming-native-contract.md`.
+
+`DesktopWidget.convertNameText` returns its input unchanged in Chinese mode.
+Otherwise it returns `upper(sub(name,1,1)) .. sub(lower(name),2)`
+(`desktopwidget_connector.lua:1047-1077`). Under the configured ASCII ranges,
+that capitalizes the first letter and lowercases the rest. The helper itself
+does not repeat the widget's length or character checks.
 
 Decide opens `CommonDialogWidget` with text parameter `7015` and the converted
 name. Child result exactly `1` sets the base ask result to `1`; other child
@@ -47,12 +69,26 @@ These calls do not define the localized text or the server's name-validation
 policy.
 
 Canonical locators are
-`lua/scripts/widget/ask/chocobonamingwidget.lua:225-244,281-299`.
+`lua/scripts/widget/ask/chocobonamingwidget.lua:11-112,141-188,225-244,281-322`.
 The decoded Lua 5.1 chunk places the child-result comparison in prototype
 `0.8`, PC `0`, offset `0xB4B`, and the retry calls at PCs `6-12`.
+Prototype `0.0` configures the ranges at PC `37` / `0x2B0`, the ordinary
+maximum at PC `42` / `0x2C4`, and the Chinese maximum at PC `68` / `0x32C`.
+Prototype `0.2` performs length comparisons at PCs `12,19,23`
+(`0x6E3,0x6FF,0x70F`) and reads `IsValidFirst` at PC `29` / `0x727`.
+Prototype `0.9` calls the native counter at PC `8` / `0xC20`, computes the
+weighted length at PCs `9-14`, and returns it at PC `15` / `0xC3C`.
+The connector conversion is prototype `root/proto16`, PCs `4,12-24`,
+offsets `0x7E93,0x7EB3-0x7EE3`; language selection is `root/proto561`,
+PCs `2,4` / `0x33D12,0x33D1A`.
 `tools/retail_script.py:decode_lpb` and
 `tools/build_quest_contracts.py:ChunkReader,instruction` reproduce those
 static checks from the pinned LPB below.
+
+The [lender contract](chocobo-lender-client-contract.md#naming-events) owns
+the event-return wrapper: it exposes this converted string or empty string,
+and returns nil when opening/selecting the naming widget fails. No ownership,
+issuance-item or payment operation occurs in these naming methods.
 
 ## Rental timer widget
 
