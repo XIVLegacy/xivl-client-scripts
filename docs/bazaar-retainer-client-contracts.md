@@ -87,7 +87,7 @@ for the separate mode `40` callers.
 
 ## Widget callers, withdrawal and fulfillment
 
-`BazaarEditWidget.processUICommand` initializes its local mode operand to
+`BazaarEditWidget.processUICommandEvent` initializes its local mode operand to
 `0`. Its mode-1 branch can replace it with `11`, `12`, or `13`; widget
 modes `2` and `3` set `20` and `30`. Five direct `setItemDeal` calls pass
 the selected package, slot, mode, reward and chosen stack. The item-reward
@@ -160,20 +160,32 @@ The native manifest owns the complete field, reference, metadata and send-gate
 definitions. This is conditional construction, not evidence of an observed
 or accepted Bazaar request.
 
+For a single item the exact tuple is `07 R:u32be S:u16be P:u8`, where `R`
+is the resolved binding reference, `S` the slot and `P` the package. A
+non-item target is `06 R:u32be`. Quantity and price remain ordinary numeric
+operands, not fields embedded in the item tuple. Integral operands use the
+four-byte tag-`00` encoding above; nonintegral Lua numbers select tag `01`
+and float32 bits. The manifest's `serializer.item` and `luaBridge.numbers`
+own the native branch and range qualifications.
+
 ## Bazaar inspection and incoming packets
 
-`checkBazaar` saves the current target (or player fallback) and calls
+`executeBazaarCommand` saves the current target (or player fallback) and calls
 `executePlayerCommandLocal(24215,nil,nil,nil,nil,target)`.
 `BazaarCheckCommand.canFire` requires the local living player, a nonnil
 alive target, a living target when it is a player, and nonactive player mode.
 `processChackBazaar` calls `orderBazaarWidget(1)`;
 `processSetupBazaar` and `processSetupRetainerBazaar` call mode `2`.
 The method names do not establish the server event that invokes them.
+The Check call has four leading nil operands and a target control reference,
+with no item, quantity or price. The local wrapper supplies four more trailing
+nils. Deal and Undeal each supply seven operands and acquire two trailing nils
+from that same wrapper. These positions matter in the conditional typed stream.
 
 The mode-1 route opens `BazaarListWidget`, calls `updateItemPackage(8)` for
 another actor, waits for widget creation and updates the Bazaar package.
 The existing [market search contract](market-search-bazaar-client-contracts.md)
-owns that display boundary. The original `checkBazaar` bytecode is connector
+owns that display boundary. The original `executeBazaarCommand` bytecode is connector
 prototype `0.309`, TAILCALL PC `14`, `0x20A5E`.
 
 MapClientbound `0x01DA-0x01DD` do not establish retainer result widgets.
@@ -191,6 +203,100 @@ do not establish the commerce payload fields or widget-opening semantics.
 The independent serverbound uses of the same integers are different routes.
 No Bazaar-check reply packet, listing result code, or settlement result
 mapping is established by the Lua methods above.
+
+### Seller package updates and reply order
+
+The local command return is a submission result. The Deal widget closes its
+edit after a true return from `setItemDeal`; it does not wait there for a
+named success packet or a changed dealing row. Undeal similarly returns the
+command helper's result. Neither call site selects a server reply opcode.
+
+`DesktopWidget.updateBazaarPackage` requests `updateItemPackage(8)` only for
+another actor. It returns immediately when the Bazaar actor is the local
+player. Its successful polling interval is 15 server-time units. Check's
+mode-1 display route also requests package `8` only for another actor.
+Thus package `8` polling is established for inspecting another Bazaar, not
+as a seller acknowledgement after Deal or Undeal.
+
+Incoming item updates have an independent presentation route:
+`CharaBaseClass._onUpdateItemPackage(package,slots)` forwards the actor,
+package and changed-slot collection to
+`DesktopWidget.processUpdateItemInformation`. That method calls
+`updateBazaarListWidget`, which selects the current Bazaar actor and passes
+the update through `updateActorWidget`. Matching actor updates call the
+widget's `updateItemList`; local-player updates for a different displayed
+actor call `updatePlayerItem`. This establishes incremental UI consumption,
+without assigning a fixed package number to a seller's listing mutation.
+
+The native inventory family is independently catalogued in
+`xivl-client-structs:manifests/inventory_subsystem.json`, sections
+`inventory_opcodes` and `opcode_dispatch_table`: `0x0146` selects a package,
+`0x0148-0x014C` supply item records, `0x014D-0x0151` supply linked-slot
+records, `0x0152-0x0156` remove slots, and `0x016D/0x016E` bracket mutation
+processing. Its item record carries dealing mode/value/attachment fields and
+modifier data. Those general handlers do not prove which subset replies to
+Deal, Undeal or Check, their order, or whether an event callback precedes or
+follows them. The catalog's `0x0147` dispatch boundary also prevents treating
+that value as a proved required end acknowledgement.
+
+For each of Deal, Undeal and Check, the exact seller reply sequence remains
+unresolved. The missing specimen is a retail 1.23b seller main-connection
+trace beginning before opening the seller's Bazaar, including a known
+package/slot, listing mode, quantity and price, one successful Deal, one
+successful Undeal of that listing, and Check on self. Preserve c2s command
+and package requests, s2c event callbacks, all inventory-family records and
+the resulting seller display. A synchronized inspector trace for Check on
+that seller would distinguish inspector package `8` refreshes from seller
+updates. Record TCP connection, direction, frame/subevent and complete typed
+arguments for every operation. This specifies the missing evidence within
+the frozen retail corpus.
+
+### Items with materia
+
+In the inspected ordinary listing route, `setItemDeal` never reads materia
+state and always passes the resolved item reference. Its only operand-shape
+branch is mode `20/30` and numeric versus item reward. The ordinary Deal
+`canFire` branch for modes `11/12/13` checks item identity and liveness,
+without a materia-count test. `BazaarEditWidget` reads
+`getItemMateriaAttachInfo` to display the attached count and icon, separately
+from the listing calls. No separate ordinary listing command for an item
+with attached materia is established by these callers.
+
+Mode `40` is the distinct attachment-service request documented in
+[Materia meld client contract](materia-meld-client-contract.md), rather than
+the ordinary sale of equipment that already has materia. The client sources
+do not identify `MK1` or `MK2` as listing-route names. A join from those
+labels to specific client item records is unestablished. To settle any
+remaining modifier or reply difference, the missing retail specimen must
+repeat the same Deal/Undeal operation for identified plain and materia-bearing
+items, retaining their inventory modifier records and typed tag `09`
+metadata. No difference in accepted listing or seller updates is inferred
+from the labels alone.
+
+The native serializer's names `M1/M2` identify two opaque u64 values in its
+optional `09` trailer. Its metadata collection tests zero sentinels, not
+materia count. Their identities remain unresolved in
+`xivl-client-structs:manifests/player_command_wire_contract.json#serializer.finalizer`.
+Equating either value with `MK1/MK2` or treating its presence as a materia
+listing mode would exceed that evidence.
+
+Sources: canonical connector
+`lua/scripts/widget/desktopwidget_connector.lua:800-854,5860-6046,6177-6200,6247-6285,6342-6368,14770-14800`,
+`lua/scripts/chara/charabaseclass.lua:1276-1324`,
+`lua/scripts/widget/bazaareditwidget.lua:537-582,2387-2396`, and
+`lua/scripts/command/system/bazaardealcommand.lua:53-154`.
+The original LPBs were decoded with `tools/retail_script.py:decode_lpb` and
+inspected with the Lua 5.1 reader and instruction decoder in
+`tools/build_quest_contracts.py`. Root closure assignments identify connector
+prototypes `0.5,0.86,0.91,0.94,0.97,0.309` and CharaBase prototypes
+`0.27,0.28`. Connector package `8` CALL is PC `30` at `0x781C`;
+the local-actor return is PC `17` at `0x77E8`; item-update forwarding CALL
+is PC `9` at `0x10C09`. CharaBase native package-request CALL is PC `9`
+at `0x281C`, and update forwarding is PC `7` at `0x2904`.
+Deal's exact-mode `40` branch starts at PC `49`, `0x1B7`, in prototype
+`0.0`; its attached-count test is PCs `71-76`, `0x20F-0x223`.
+These are static observations; no route-specific retail wire reply is
+established here.
 
 ## Retainer events and local results
 
@@ -328,6 +434,7 @@ Decoded payload SHA-256 values pin the instruction offsets below.
 | `widget/bazaarlistwidget.lua` | `ca5cbcbeca34331a7e1c9ef411d7dca5ebe75c0d13c91dcbeaec9a7921571ce7` |
 | `chara/player/playerbaseclass.lua` | `1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a` |
 | `command/system/bazaarcheckcommand.lua` | `794fea44f175104e12e36d31a7e993c281309b68750af5f449f6df67466ae267` |
+| `command/system/bazaardealcommand.lua` | `01e86c9adcee297a23c7e887b5c81b470869a58d7f6d49befff7cb6bc078c504` |
 | `chara/npc/retainer/ordinaryretainer.lua` | `3b458d8430d91dc358921b5e0ae35e879e6c1e502124a62a1af6a9211861d25a` |
 | `chara/npc/populace/populaceretainermanager.lua` | `5f07fe5973489b019a5958d203c9208858351effa83e69a2e328979deac32b09` |
 | `widget/ask/retainernamingwidget.lua` | `53546cd0d0702e27ed30fd3c27b2faf92f87b4ed9b011d8b9d3813eb676d1dc3` |
