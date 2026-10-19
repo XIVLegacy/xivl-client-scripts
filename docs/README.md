@@ -53,6 +53,7 @@ unverified native or server behavior.
 - [Winter Is Not Coming snowman callbacks](winter-is-not-coming-client-contract.md)
 - [Scrambled Eggs require and start result](scrambled-eggs-start-contract.md)
 - [Bombard Backlash item selector](bombard-backlash-selector-contract.md)
+- [Dreamer's Dilemma exchange results](dreamers-dilemma-exchange-contract.md)
 - [Seasonal event actor contracts](seasonal-event-actor-contracts.md)
 - [Quest selector consumers](quest-selector-consumers.md)
 
