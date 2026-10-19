@@ -3,8 +3,10 @@
 The client routes Bazaar listing, withdrawal and fulfillment through system
 commands. Their operands are item/control references, numbers and explicit
 nil positions. The native direct fallback conditionally serializes these in
-serverbound `0x012D`; a dedicated fixed Bazaar packet layout and a complete
-server result contract are not established.
+serverbound `0x012D`. The native receive queue, package numbering and
+publication dependencies are recorded in
+`xivl-client-structs:docs/bazaar-native-wire-contract.md`. A complete
+route-specific retail reply sequence is not established.
 
 ## Command identity and route
 
@@ -166,7 +168,10 @@ non-item target is `06 R:u32be`. Quantity and price remain ordinary numeric
 operands, not fields embedded in the item tuple. Integral operands use the
 four-byte tag-`00` encoding above; nonintegral Lua numbers select tag `01`
 and float32 bits. The manifest's `serializer.item` and `luaBridge.numbers`
-own the native branch and range qualifications.
+own the native branch and range qualifications. Native item lookup subtracts
+one from each Lua package and slot number. The tuple uses native indices;
+Lua Bazaar package `8` is native package code `7`. The native record owns
+the conversion locators and the c2s `0x0131` package-request layout.
 
 ## Bazaar inspection and incoming packets
 
@@ -226,7 +231,22 @@ package and changed-slot collection to
 the update through `updateActorWidget`. Matching actor updates call the
 widget's `updateItemList`; local-player updates for a different displayed
 actor call `updatePlayerItem`. This establishes incremental UI consumption,
-without assigning a fixed package number to a seller's listing mutation.
+but the Bazaar list has a more specific dependency: `updateItemList` rebuilds
+only for package `8`, subject to its update-counter and actor/editor-state
+guards (`bazaarlistwidget.lua:5350-5414`). Callback delivery alone does not
+guarantee a visible rebuild.
+
+The seller list itself enumerates Bazaar package `8` through
+`makeBazaarItemList` and `setItemToXmlLight`
+(`bazaarlistwidget.lua:2435-2570,1467-1475,1550-1569`).
+`DesktopWidget.getBazaarItem` calls the Bazaar actor's
+`_getExtendedTemporaryItem(package,slot)`
+(`desktopwidget_connector.lua:13545-13575`), and the row code filters
+dealing and attachment state. It does not derive the listing by scanning
+physical bag packages. `updatePlayerItem` updates capacity/money without
+rebuilding the listing (`bazaarlistwidget.lua:5417-5475`). A seller edit
+closed with nil sets `waitupdate` when `chosenOperation == 2`
+(`bazaarlistwidget.lua:5489-5500`), without naming a received packet.
 
 The native inventory family is independently catalogued in
 `xivl-client-structs:manifests/inventory_subsystem.json`, sections
@@ -234,10 +254,16 @@ The native inventory family is independently catalogued in
 `0x0148-0x014C` supply item records, `0x014D-0x0151` supply linked-slot
 records, `0x0152-0x0156` remove slots, and `0x016D/0x016E` bracket mutation
 processing. Its item record carries dealing mode/value/attachment fields and
-modifier data. Those general handlers do not prove which subset replies to
-Deal, Undeal or Check, their order, or whether an event callback precedes or
-follows them. The catalog's `0x0147` dispatch boundary also prevents treating
-that value as a proved required end acknowledgement.
+modifier data. The authenticated native continuation is
+`xivl-client-structs:docs/bazaar-native-wire-contract.md`, section
+"Incoming package operations and publication": receive handlers queue item
+commands, package-start selects the destination, and end-command execution
+publishes staged data or defers it. A nonempty changed-slot set reaches
+`_onUpdateItemPackage` with Lua indices. Packet receipt and widget refresh
+are separate boundaries. These shared handlers do not select a reply subset
+by Deal, Undeal or Check ID, or fix event-call ordering against inventory
+updates. The `0x0147` dispatch boundary does not establish a required end
+acknowledgement.
 
 For each of Deal, Undeal and Check, the exact seller reply sequence remains
 unresolved. The missing specimen is a retail 1.23b seller main-connection
@@ -248,8 +274,10 @@ and package requests, s2c event callbacks, all inventory-family records and
 the resulting seller display. A synchronized inspector trace for Check on
 that seller would distinguish inspector package `8` refreshes from seller
 updates. Record TCP connection, direction, frame/subevent and complete typed
-arguments for every operation. This specifies the missing evidence within
-the frozen retail corpus.
+arguments for every operation. Include package-8 callback delivery and
+resolved listing rows, so an inventory update is not mistaken for a seller
+list rebuild. This specifies the missing specimen and evidence ceiling
+within the frozen retail corpus; new retail acquisition is unavailable.
 
 ### Items with materia
 
@@ -273,11 +301,13 @@ items, retaining their inventory modifier records and typed tag `09`
 metadata. No difference in accepted listing or seller updates is inferred
 from the labels alone.
 
-The native serializer's names `M1/M2` identify two opaque u64 values in its
-optional `09` trailer. Its metadata collection tests zero sentinels, not
-materia count. Their identities remain unresolved in
-`xivl-client-structs:manifests/player_command_wire_contract.json#serializer.finalizer`.
-Equating either value with `MK1/MK2` or treating its presence as a materia
+The native serializer's names `M1/M2` identify two u64 slots in its optional
+`09` trailer. Each collected value comes from the first eight-byte field of
+a referenced item record, separately from its modifier block. Collection
+tests zero sentinels, not materia count. The copy-chain evidence is canonical
+in `xivl-client-structs:manifests/player_command_wire_contract.json#serializer.finalizer`,
+with Ghidra locators and reproduction in the native record. Equating these
+slots with the unmapped `MK1/MK2` labels or treating the trailer as a materia
 listing mode would exceed that evidence.
 
 Sources: canonical connector
