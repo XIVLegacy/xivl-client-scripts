@@ -54,6 +54,7 @@ unverified native or server behavior.
 - [Scrambled Eggs require and start result](scrambled-eggs-start-contract.md)
 - [Bombard Backlash item selector](bombard-backlash-selector-contract.md)
 - [Dreamer's Dilemma exchange results](dreamers-dilemma-exchange-contract.md)
+- [Dreamer's Gospel presentation and results](dreamers-gospel-presentation-contract.md)
 - [Seasonal event actor contracts](seasonal-event-actor-contracts.md)
 - [Quest selector consumers](quest-selector-consumers.md)
 
