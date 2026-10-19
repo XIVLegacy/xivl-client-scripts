@@ -8,6 +8,13 @@ publication dependencies are recorded in
 `xivl-client-structs:docs/bazaar-native-wire-contract.md`. A complete
 route-specific retail reply sequence is not established.
 
+The [sale-price mode record](bazaar-price-modes.md) owns mode `11/12/13`
+price, quantity and dealing-field consumers. The native record's "Purchase
+freshness and the amount echo", "Settlement update dependencies", and "Command completion and item
+locks" sections own the start discriminator, safe package publication and
+command-lifetime findings. The actor sign and its false-value clear are in
+`xivl-client-structs:docs/bazaar-appearance-contract.md`.
+
 ## Command identity and route
 
 | Command ID | Class path | Client role established here |
@@ -116,8 +123,13 @@ starts at `1`, uses an attached item's stack when the attachment is an item,
 and otherwise uses the third `_getDealingAttached()` result for a nonnil
 attachment. Connector prototype `0.415`, TAILCALL PC `44`, `0x26DE9`.
 
-`executeBazaarBuy(package,slot,count,extra)` resolves the Bazaar item and
-calls `(24227,I,count,nil,nil,B,extra,catalog,nameIndex1,nameIndex2)`.
+`executeBazaarBuy(package,slot,value,extra)` resolves the Bazaar item and
+calls `(24227,I,value,nil,nil,B,extra,catalog,nameIndex1,nameIndex2)`.
+The mode-6 buy dialog supplies `TotalGil` as `value` and its chosen
+`ItemSource` quantity as `extra`. It therefore echoes the amount selected by
+the dialog; no fresh request ID or purchase counter is added. The native
+record gives the conditional wire offsets and separates this amount echo
+from a replay discriminator.
 `executeBazaarSell(playerPackage,playerSlot,bazaarPackage,bazaarSlot)` resolves
 both the Bazaar and player items, reads the Bazaar stack and attached-item
 stack (default `1`), and calls
@@ -291,24 +303,16 @@ from the listing calls. No separate ordinary listing command for an item
 with attached materia is established by these callers.
 
 Mode `40` is the distinct attachment-service request documented in
-[Materia meld client contract](materia-meld-client-contract.md), rather than
-the ordinary sale of equipment that already has materia. The client sources
-do not identify `MK1` or `MK2` as listing-route names. A join from those
-labels to specific client item records is unestablished. To settle any
-remaining modifier or reply difference, the missing retail specimen must
-repeat the same Deal/Undeal operation for identified plain and materia-bearing
-items, retaining their inventory modifier records and typed tag `09`
-metadata. No difference in accepted listing or seller updates is inferred
-from the labels alone.
+[Materia meld client contract](materia-meld-client-contract.md), separate from
+the ordinary sale of equipment that already has materia.
 
 The native serializer's names `M1/M2` identify two u64 slots in its optional
 `09` trailer. Each collected value comes from the first eight-byte field of
 a referenced item record, separately from its modifier block. Collection
 tests zero sentinels, not materia count. The copy-chain evidence is canonical
 in `xivl-client-structs:manifests/player_command_wire_contract.json#serializer.finalizer`,
-with Ghidra locators and reproduction in the native record. Equating these
-slots with the unmapped `MK1/MK2` labels or treating the trailer as a materia
-listing mode would exceed that evidence.
+with Ghidra locators and reproduction in the native record. Treating the
+trailer as a materia listing mode would exceed that evidence.
 
 Sources: canonical connector
 `lua/scripts/widget/desktopwidget_connector.lua:800-854,5860-6046,6177-6200,6247-6285,6342-6368,14770-14800`,
