@@ -65,6 +65,7 @@ unverified native or server behavior.
 ## Travel and world objects
 
 - [Chocobo mount script contracts](chocobo-mount-script-contracts.md)
+- [Personal chocobo lender client contract](chocobo-lender-client-contract.md)
 - [Mount damage evidence](retail-mount-damage-finding.md)
 - [Ferry service evidence](retail-ferry-service-finding.md)
 - [Area-base client initialization](area-base-client-initialization.md)

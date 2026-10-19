@@ -39,9 +39,20 @@ from `3` through `4` unless the control's `IsValidFirst` property is false.
 The script does not define what `IsValidFirst` validates.
 
 Decide opens `CommonDialogWidget` with text parameter `7015` and the converted
-name. A positive child result returns the converted name; other results return
-an empty string. Closing the ask sets the base ask result to `2`. These calls
-do not define the localized text or the server's name-validation policy.
+name. Child result exactly `1` sets the base ask result to `1`; other child
+results re-enable and focus `TextBox_Name` for another edit. `getAskResult`
+returns the converted name when the eventual base ask result is `1`, and an
+empty string otherwise. Closing the ask sets the base ask result to `2`.
+These calls do not define the localized text or the server's name-validation
+policy.
+
+Canonical locators are
+`lua/scripts/widget/ask/chocobonamingwidget.lua:225-244,281-299`.
+The decoded Lua 5.1 chunk places the child-result comparison in prototype
+`0.8`, PC `0`, offset `0xB4B`, and the retry calls at PCs `6-12`.
+`tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader,instruction` reproduce those
+static checks from the pinned LPB below.
 
 ## Rental timer widget
 
