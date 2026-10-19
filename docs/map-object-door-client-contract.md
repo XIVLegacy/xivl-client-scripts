@@ -1,9 +1,10 @@
 # Map-object door client contract
 
-The retail corpus contains two door initializers. `DoorStandard` constructs a
-six-entry second schema table and drives its own reaction timers; `DoorServer`
-constructs the two shared map entries and uses its final initializer argument
-as a scheduler switch. The source identities and LPB identities below were
+The retail corpus contains two door initializers. `DoorStandard` consumes the
+six-value tail `false, false, 0, 0, layout, instance` through its inherited
+initializer and ignores an optional seventh value. Its six declared work fields
+occupy `work._temp`. `DoorServer` uses the seventh value as a scheduler switch.
+The source identities and LPB identities below were
 matched through `manifests/scripts.json` and `manifests/retail_lua_coverage.json`.
 
 Static checks used `tools/retail_script.py decode_lpb` and
@@ -36,7 +37,7 @@ The shared `initWork` helper declares writes to temporary and synchronized
 schema tables in `work._temp` and `work._sync`; its positional behavior is
 addressed below (`lua/scripts/chara/npc/npcbaseclass.lua:311-327`).
 
-The authenticated retail corpus contains the candidate superclass body
+The authenticated retail corpus contains the superclass body
 `CharaBaseClass._onInit(self, A1, A2)` at
 `lua/scripts/chara/charabaseclass.lua:534-1126` (source SHA-256
 `f17b3e62a137d8f524ba88d55296e1fb064512dc803f7a85dc980dd4bcbc9625`,
@@ -46,30 +47,36 @@ decoded payload SHA-256
 `101cafa86ebcb362b502e47dd33e262ede31b4939cc7fe945ab571e1afd0d3a9`).
 Its decoded body is `root/proto21` (three parameters, no vararg, code offset
 6001, 474 instructions). The native superclass route is exposed by the
-authenticated `lua/scripts/actorbaseclass_u.lua:14-21` wrapper (source SHA-256
+authenticated `lua/scripts/actorbaseclass_u.lua:14-21` alias descriptor (source SHA-256
 `890997302a35d8217fb7c8f68105e9cc82dbfe7a77654348588bb7d4195986dd`,
 resource `client/script/97qvs89r57y9rr_p.le.lpb`, raw SHA-256
 `008c68b70373b9d8decf53d6dc53f1f2d384ddf8ee7e6e5a5e9bddef6a34504c`,
 decoded payload SHA-256
 `28d5d3b3fcd26cdb18394b3e9d937b3a5514cf8ff0b3b4c4196efda82d4596b1`),
-which returns `_callSuperClassFunction_cpp` from decoded `root/proto1` PC 2 /
-offset 587; the API catalog records this as BCS-Y-0403 but publishes no typed
-argument signature or Lua parent link. The gate meanings in the table are
-therefore conditional on that native route resolving `NpcBaseClass` to this
-`CharaBaseClass` body; the NpcBase source itself proves only the values passed
-to `_callSuperClassFunc`.
+which returns the pair `"self", "_callSuperClassFunction_cpp"` from decoded
+`root/proto1` PC 2 / offset 587. Native registration and parent dispatch resolve
+the call from NpcBaseClass to CharaBaseClass. The binary identity, producing Ghidra tools,
+registration, parent-pointer write and method lookup are recorded in
+`xivl-client-structs:docs/door-initialization-native-contract.md`,
+"Superclass dispatch". That record also owns the native argument-position
+and reaction-box conversion evidence used below.
 
 For the supplied six-value tail after the actor-class argument, the forwarding
 chain is:
 
-| position | supplied value | static destination and meaning |
-| --- | --- | --- |
-| fixed `A2` | `false` | Passed as the first superclass argument. If the native route resolves to `CharaBaseClass._onInit` `A1`, it is the `gameParameter` gate: it stores `charaWork.gameParameter`, gates common/event parameter sync setup, and gates parameter/event work bindings; `false` skips those branches. |
-| fixed `A3` | `false` | Passed as the second superclass argument. If the native route resolves to `CharaBaseClass._onInit` `A2`, it is the battle-work gate: it gates `battleSave`/`battleTemp` setup, `initBattleSync`, and the non-player `battleSave.potencial` binding; `false` skips those branches. |
-| variadic 1 | `0` | Lua numeric first segment count; `initForBattleCommon` is skipped. |
-| variadic 2 | `0` | Lua numeric second segment count; `initForEventCommon` is skipped. |
-| variadic 3 | `layout` | Caller value with no type declaration here; after the two zero counts it is forwarded as the first value to `initForBattle` and as child `DoorStandard.initForEvent` `A1`. |
-| variadic 4 | `instance` | Caller value with no type declaration here; forwarded as the second value to `initForBattle` and as child `DoorStandard.initForEvent` `A2`. |
+| Tail slot | NpcBase position | Type | Supplied value and meaning |
+| ---: | --- | --- | --- |
+| 1 | fixed `A2` | Lua Boolean gate | `false` becomes `CharaBaseClass._onInit` `A1`, the `gameParameter` gate: it stores `charaWork.gameParameter`, gates common/event parameter sync setup, and gates parameter/event work bindings. `false` skips those branches. |
+| 2 | fixed `A3` | Lua Boolean gate | `false` becomes superclass `A2`, the battle-work gate: it gates `battleSave`/`battleTemp` setup, `initBattleSync`, and the non-player `battleSave.potencial` binding. `false` skips those branches. |
+| 3 | variadic 1 | Lua numeric count | `0` is the first common-segment count; `initForBattleCommon` is skipped. |
+| 4 | variadic 2 | Lua numeric count | `0` is the second common-segment count; `initForEventCommon` is skipped. |
+| 5 | variadic 3 | Native integer tag 0, 32-bit read; low 16 bits used as an unsigned layout selector | `layout` is forwarded as the first value to `initForBattle` and as child `DoorStandard.initForEvent` `A1`. For actor class 5900001 it selects the BG attachment's map layout through `_setReactionTriggerBox`. |
+| 6 | variadic 4 | Native integer tag 0, 32-bit read and instance selector | `instance` is forwarded as the second value to `initForBattle` and as child `DoorStandard.initForEvent` `A2`. For actor class 5900001 it identifies the object instance within the selected layout. |
+
+These positions exclude the preceding actor-class argument. The first two
+slots are tested by Lua truthiness, rather than a native Boolean conversion;
+the last two native types describe the 5900001 reaction-box path. Other
+DoorStandard actor-class branches do not consume those two values.
 
 The two zero values are the common-segment counts: the source tests each with
 `0 < count`, then advances by `count + 1`. With both counts zero, the next
@@ -97,40 +104,36 @@ The superclass decode corroborates these gates in `root/proto21`: the calls to
 168 / offset 6673, 211 / offset 6845, and 263 / offset 7053. The parameter
 bindings are PCs 433-457 / offsets 7733-7829 and the battle `potencial` binding
 is PC 467 / offset 7869 (`charabaseclass.lua:782-935, 1058-1117`).
-This narrows the first two false values to the client-used Boolean gates in the
-candidate CharaBase body; native dispatch evidence still withholds the direct
-NpcBase-to-CharaBase parent link, a friendlier type name, and a typed
-signature.
+The native parent link makes those the actual superclass gate uses for this
+NpcBase call.
 
 The child function is fixed-arity `DoorStandard.initForEvent(self, A1, A2,
 A3)`, not a variadic six-value consumer. For this tail it receives
 `A1=layout`, `A2=instance`, and `A3=nil`. For actor class 5900001 those two
 values are used only as the two `_setReactionTriggerBox` arguments
-(`doorstandard.lua:69-85`); they are not assigned to `_sync.layout` or
-`_sync.instance`. A seventh overall tail value, after
+(`doorstandard.lua:69-85`); they are not assigned to `work.layout` or
+`work.instance`. A seventh overall tail value, after
 `false,false,0,0,layout,instance`, would bind to the existing child `A3`, and
 the child body never reads it. Only values after that method `A3` are discarded
-by the fixed-arity call boundary. The constructed schema therefore has no
-seventh slot, and the declared `layout` and `instance` types below are schema
+by the fixed-arity call boundary. That seventh value does not become a schema
+field, and the declared `layout` and `instance` types below are schema
 declarations rather than types of the forwarded tail values. The decoded root
 prototype has four parameters including `self`, no vararg, and 78 instructions.
 Its `initWork` call is followed by the trigger and scheduler calls described
 below.
 
-There is a positional discrepancy in the shared schema helper that the frozen
-corpus cannot resolve through a hidden wrapper. `NpcBaseClass.initWork` declares
+`NpcBaseClass.initWork` declares
 `(self, A1, A2, A3)` but writes `A2` to `work._temp` and `A3` to `work._sync`,
 defaulting each missing value to `{}` (`npcbaseclass.lua:311-327`; decoded
 `root/proto13`, four parameters, 11 instructions, writes at PCs 4 / offset
 3299 and 9 / offset 3319). `DoorStandard` passes exactly
 `initWork(self, firstDummyTable, secondSixEntryTable)` at PC 37 / offset 425,
-so this document reports the six declarations constructed by the source as a
-second table and does not assert that they occupy runtime `work._sync`.
-Resolving the placement requires a captured LGE method wrapper or runtime work
-object; neither is present in the frozen corpus. Resolving the superclass
-identity requires native parent-registration evidence or a runtime capture of
-`_callSuperClassFunction_cpp` for this NpcBase object; the frozen catalogs do
-not establish that link.
+so the dummy table is unused `A1`, the six-entry second table is `A2` and
+occupies `work._temp`, and missing `A3` produces an empty `work._sync`.
+The native ordinary method closure preserves the supplied argument list.
+It carries class context in an upvalue, without inserting a Lua argument
+(`xivl-client-structs:docs/door-initialization-native-contract.md`,
+"Method argument positions and work schemas").
 
 The trigger native boundary is also narrower than the schema declarations.
 `DoorStandard` passes `("in", A1, A2, "door", nil)` and
@@ -143,29 +146,34 @@ resource `client/script/729s9/wu7/wu789r57y9rr_p.le.lpb`, raw SHA-256
 decoded payload SHA-256
 `26ff1eb8502d975cf8a23c34b211d49265e434998966762bd4bf0d0fccbf38ff`).
 The decoded wrapper is `root/proto16`; its return is PC 2 / offset 2375. The
-API catalogs identify BCS-Y-0212/BCS-Y-0334 and the native slot, but give no
-argument widths or types. Therefore the caller values `layout` and `instance`
-remain untyped at this boundary; their `integer16` declarations in
-the constructed schema table do not prove trigger argument widths.
+native registrar `0x007428B0` binds implementation `0x006F23F0`. That
+implementation reads the reaction name and `"door"` as strings, both numeric
+values as four-byte integer-tagged values, and the final value as nil-to-false
+or a Boolean. The first numeric value is narrowed to an unsigned 16-bit layout
+selector in the MapObject constructor at `0x00590282`; the second remains a
+32-bit instance selector. These are independent of the schema declarations
+(`xivl-client-structs:docs/door-initialization-native-contract.md`,
+"Reaction-box arguments").
+The two native flags are literals in the class body; neither comes from child
+`A3` or the seventh tail value.
 
 The declared work fields are ordered as follows:
 
-| constructed table | slot | declared type | observed client use |
+| runtime schema | slot | declared type | observed client use |
 | --- | --- | --- | --- |
-| first constructed table | `dummy` | `integer32` | Declared by the initializer; no read by this class. |
-| second constructed table | `layout` | `integer16` | Declared by the initializer; no read by this class. |
-| second constructed table | `instance` | `integer16` | Declared by the initializer; no read by this class. |
-| second constructed table | `count` | `integer8` | The reaction body reads and updates `work.count`, incrementing on `in`, decrementing on the other reaction, and clamping at zero. |
-| second constructed table | `timerAfterOpen` | `timer` | The reaction body writes a two-second delay or a server-time-derived remaining value; `processTimer` consumes it to schedule `clos`. |
-| second constructed table | `timerAfterClose` | `timer` | The reaction body writes a two-second delay or a server-time-derived remaining value; `processTimer` consumes it to schedule `open`. |
-| second constructed table | `serverTimeAnimation` | `integer32` | `_onReaction` reads it with the current server time to choose the timer delay; `processTimer` writes `_getServerTime()` before the opposite scheduler runs. |
+| unused first table | `dummy` | `integer32` | Constructed but not installed by this helper. |
+| `work._temp` | `layout` | `integer16` | Declared by the initializer; no read by this class. |
+| `work._temp` | `instance` | `integer16` | Declared by the initializer; no read by this class. |
+| `work._temp` | `count` | `integer8` | The reaction body reads and updates `work.count`, incrementing on `in`, decrementing on the other reaction, and clamping at zero. |
+| `work._temp` | `timerAfterOpen` | `timer` | The reaction body writes a two-second delay or a server-time-derived remaining value; `processTimer` consumes it to schedule `clos`. |
+| `work._temp` | `timerAfterClose` | `timer` | The reaction body writes a two-second delay or a server-time-derived remaining value; `processTimer` consumes it to schedule `open`. |
+| `work._temp` | `serverTimeAnimation` | `integer32` | `_onReaction` reads it with the current server time to choose the timer delay; `processTimer` writes `_getServerTime()` before the opposite scheduler runs. |
 
 The `timer` declarations include the literal `true` flag at
 `doorstandard.lua:36-49`; this class does not expose a further name for that
 flag. These six entries are the complete second-table schema constructed by
-this initializer. The direct `initWork` assignment described above leaves the
-runtime table placement unresolved. `initForEvent` accepts `A3` but never reads
-it, and the decoded function is non-variadic, so only arguments after `A3` are
+this initializer and occupy `work._temp`. `initForEvent` accepts `A3` but never
+reads it, and the decoded function is non-variadic, so only arguments after `A3` are
 ignored by the Lua call boundary rather than being assigned to a hidden seventh
 field.
 The child `A1` and `A2` values are used only when actor class 5900001 installs
@@ -202,22 +210,13 @@ off). This confirms the forwarding order, source slot order, and fixed method
 arity without assigning meanings to the unused `dummy`, `layout`, or `instance`
 schema fields.
 
-Q1 status is narrowed, not fully closed at the native boundaries. The Lua
-forwarding chain, the two zero count slots, the candidate superclass gate uses,
-the child `A1/A2` trigger positions, the seventh value's existing child `A3`
-binding, the source-declared schema entries, and the `DoorServer` final branch
-are closed by authenticated source and bytecode. The frozen corpus leaves the
-NpcBase-to-CharaBase native parent identity, the runtime `initWork` table
-placement, and native trigger argument widths/types open. The exact settling
-specimen is a retail native trace that records (1) BCS-Y-0403
-`_callSuperClassFunction_cpp` for this NpcBase object at NpcBase root/proto10
-PC 4 / offset 1983, including the resolved class/method and converted Lua
-argument types/values; (2) the post-`initWork` `work._temp` and `work._sync`
-objects at DoorStandard PC 37 / offset 425 or NpcBase root/proto13 PCs 4 and 9
-/ offsets 3299 and 3319; and (3) BCS-Y-0212/BCS-Y-0334
-`_setReactionTriggerBox_cpp` at DoorStandard PCs 48 and 55 / offsets 469 and
-497, including native argument conversions. The retail corpus is frozen, so
-these are evidence requirements rather than acquisition steps.
+The six-value initialization contract is statically closed by the
+authenticated Lua instructions and native Ghidra observations. A seventh tail
+value is accepted as the existing child `A3` and ignored by DoorStandard;
+it is neither a new work field nor a shifted trigger argument. DoorServer's
+seventh Boolean has no meaning to DoorStandard. No capture is needed to settle
+these argument, schema-placement or dispatch questions. The record does not
+claim that particular placement values rendered or triggered in a session.
 
 ## DoorServer comparison
 
@@ -236,8 +235,7 @@ The canonical class and method inventory is in
 `dummy` field and second-table `layout` and `instance` fields
 (`doorserver.lua:13-32`). It passes those tables as
 `initWork(self, firstDummyTable, secondLayoutInstanceTable)` at PC 19 / offset
-292, so the same helper positional discrepancy applies: the second table is
-the source declaration, while runtime `_sync` placement is unresolved.
+292, so its second table occupies `work._temp` and `work._sync` defaults to `{}`.
 `A1` and `A2` are accepted but unused. When `A3`
 is exactly `true`, actor class 5900015 requests scheduler `open` from offset
 5; every other actor class requests `hide` from offset 5. For false or any

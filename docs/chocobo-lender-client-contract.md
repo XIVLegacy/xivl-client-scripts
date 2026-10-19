@@ -65,8 +65,9 @@ declared as `integer8`, and calls `initWork(nil, schema)`
 `initWork(self, nil, townCompanySchema)`. The shared NpcBaseClass helper
 declares `(self, A1, A2, A3)` but writes `A2` to `work._temp` and `A3` to
 `work._sync`, so this three-argument call places the supplied schema in the
-source helper's `_temp` position and defaults `_sync` to `{}` unless an
-unseen runtime wrapper changes the call. The source still sets `work.townId`
+helper's `_temp` position and defaults `_sync` to `{}`. The native method
+wrapper preserves this argument list, as established in the linked door
+contract. The source sets `work.townId`
 and `work.companyRank` directly after that call. It sets `townId` by actor
 class. The helper's full byte identity and static locator are canonical in the
 [door contract](map-object-door-client-contract.md#doorstandard-initialization).
