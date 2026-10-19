@@ -55,6 +55,7 @@ unverified native or server behavior.
 - [Bombard Backlash item selector](bombard-backlash-selector-contract.md)
 - [Dreamer's Dilemma exchange results](dreamers-dilemma-exchange-contract.md)
 - [Dreamer's Gospel presentation and results](dreamers-gospel-presentation-contract.md)
+- [Little Ladies' Day JIJO menus](little-ladies-jijo-contract.md)
 - [Seasonal event actor contracts](seasonal-event-actor-contracts.md)
 - [Quest selector consumers](quest-selector-consumers.md)
 
