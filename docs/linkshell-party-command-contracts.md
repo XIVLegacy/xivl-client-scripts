@@ -150,6 +150,8 @@ field of type `integer8` for each member (100-136).
 The latter is not established as the recipient's own member rank.
 These Lua fields identify consumers, not their `0x017A` record offsets,
 record count, continuation marker or complete synchronization sequence.
+The full type-20002 rank consumer inventory and native marker handling are
+recorded in `xivl-client-structs:docs/linkshell-rank-work-contract.md`.
 
 ## Invitation answers, timing and replies
 
