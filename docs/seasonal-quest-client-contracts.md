@@ -39,10 +39,12 @@ Each class joins to the lowercased decoded path in
 [lua/registry.json](../lua/registry.json) and the corresponding canonical member
 in [manifests/scripts.json](../manifests/scripts.json), SHA-256
 `86798306f71336ee494f12d395db3b8ea571a21224fbd99e2ef87ecd18c61300`.
-`Spl101` and the supplemental `spl101_quest` filename declare the same class
-name. The staticactor record identifies `Spl101`; it does not prove how that
-supplement is invoked. These identity joins do not establish event calendars,
-NPC placements, script dispatch, rewards or a complete server quest flow.
+The [Scrambled Eggs require and start contract](scrambled-eggs-start-contract.md)
+owns the original-bytecode relationship between `Spl101` and `spl101_quest`:
+the main chunk requires the supplement, which calls the class-definition
+helper, before extending the global class. The staticactor record identifies
+`Spl101`; these identity and loading joins do not establish event calendars,
+NPC placements, event dispatch, rewards or a complete server quest flow.
 
 ## Independent decompile inputs
 
@@ -91,7 +93,7 @@ decompile of these exact decoded chunks.
 | `Spl0i2.processEventSUMFES001` | `Ask/RewardSelectWidget` presents `8013301-8013304`; `worldMaster:say` arguments pair them with `3010417` and counts `3/10/50/99`. | The decompiler renders selector tests as constants such as `8 == 8`; no selected-index mapping is established. |
 | `Spl0i3.processEventStartAfter` | `askExtendWidget(worldMaster, 51109, 2, 1, 1, 1000004)`. | This is an ask call; it does not prove a reward or completion grant. |
 | `Spl101.askEgg` | `Ask/EventItemSelectWidget` presents `10012001-10012004`, `10012022`, and `10012024-10012028`. | The meaning of widget return values and any exchange or ring grant are not established by this call. |
-| `Spl101` methods in `spl101_quest` | Repeated `askExtendWidget` menus use rows `158` and `164`, including `processEventEASTER_G1Start`. | The recovered body does not identify a corresponding server quest row, selected result, or reward. |
+| `Spl101` methods in `spl101_quest` | The independent decompile includes `askExtendWidget` menus using rows `158` and `164`. The linked Scrambled Eggs contract separately checks `processEventEASTER_G1Start` against original bytecode. | That selected method retains one `showQuestInfomation` result, branches on equality with numeric 1, then returns the value unchanged. Its actual cancel sentinel, invoking NPC, progression and rewards remain unresolved; the other menu methods retain their separate boundaries. |
 | `Spl102.processEventItemSelection` | `isMale()` selects two eight-item arrays; the stable trailing entries are male `8032835-8032836`, `8051521-8051523`, `8081921`, `3020613`, or female `8032838-8032839`, `8051524-8051526`, `8081922`, `3020613`. `Ask/RewardSelectWidget` consumes that array, while `say` arguments use `10011253` and counts `1/30/50/1/30/50/5/1`. | The decompiler overwrites the first array slot during construction; `8032834`/`8032837` are plausible first-slot values, not proven displayed entries. No exchange mutation or selector result is proven. |
 | `Spl0g1`, `Spl0l1`, `Spl0u1` `processEventGirlStart` and `processEvent020` | The city variants present `showQuestInfomation()` dialogue and later a fade-out/fade-in talk sequence. | Method presence does not prove a seasonal schedule, actor binding, eligibility, or completion effect. |
 | `Spl0g2`, `Spl0l2`, `Spl0u2` `eventBricotExchange` | Each renders a five-option ask, tests choices 1-4 against four caller-supplied counts, and has a fifth-choice branch. | The decompile repeats `ask` calls and shows a `false == true` comparison; exact return/acceptance behavior and item recipes are not established. |
@@ -105,9 +107,11 @@ chunks independently recovered as a class declaration with an empty
 `lua/registry.json`. This is a boundary of these specific shipped chunks,
 not proof that the historical seasonal event lacked other scripts or flows.
 
-These are client presentation contracts only. The recovered decompile includes
-unstable control-flow and register rendering (including repeated asks and
-constant-looking selector comparisons). No historical return values, cancel
-semantics, eligibility, server item mutations, or retail activation path are
-available from these static scripts. Contributor server quest IDs, SQL reward
-rows, and implementation notes are not evidence of a shipped client exchange.
+These are client presentation contracts only. The independent decompile
+includes unstable control-flow and register rendering, including repeated asks
+and constant-looking selector comparisons. The linked original-bytecode
+findings establish the selected argument and return contracts within their
+stated scopes. They do not establish historical result domains, actual cancel
+sentinels, eligibility, server item mutations or a retail activation path.
+Contributor server quest IDs, SQL reward rows and implementation notes are not
+evidence of a shipped client exchange.

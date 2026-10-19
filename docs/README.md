@@ -51,6 +51,7 @@ unverified native or server behavior.
 - [Seasonal quest client contracts](seasonal-quest-client-contracts.md)
 - [Impish Impositions client contract](impish-impositions-client-contract.md)
 - [Winter Is Not Coming snowman callbacks](winter-is-not-coming-client-contract.md)
+- [Scrambled Eggs require and start result](scrambled-eggs-start-contract.md)
 - [Seasonal event actor contracts](seasonal-event-actor-contracts.md)
 - [Quest selector consumers](quest-selector-consumers.md)
 
