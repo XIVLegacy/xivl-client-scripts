@@ -38,6 +38,12 @@ work fields with those names, calls `_setGroundOn(true)`, and stores the
 two supplied arguments. It loads text data with `(1355, "populaceRequestWarden")`.
 The body returns no values and performs no content lookup.
 
+The selected English bank rows and their matching recruitment/menu keys
+are recorded in `xivl-client-data:docs/request-warden-operation-text.md`.
+They describe timed culls and operation prompts, without resolving the
+helper/native text lookup, normal/company Behest identity or supplied fields'
+producers.
+
 `RequestDirector.initAsGuildleve(self, requestId)` calls `initWork` with
 an `integer32` temporary `requestId` descriptor and a synchronized
 `aimNpcBoss` array descriptor of length 4 and element type `integer8`.
