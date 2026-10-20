@@ -69,18 +69,94 @@ offsets `0x0495`-`0x04A9`). Its `createList` method calls
 `addQuestCompleteListForCutsceneReplay` for mode 7 (`root/proto10` PCs 79-84,
 offsets
 `0x1ED0`-`0x1EE4`). The row builder uses the numeric range returned by
-`getQuestCompleteID`. For the `(110820, 20)` range returned by numeric
-`questType` 32 (`root/proto20` PCs 183-188, offsets
-`0x3823`-`0x3837`), it checks `cutReplaySheet` keys
-`110820 * 100 + i` for `i` from 1 through 20. It adds a row only when the
-key exists and `_isCompletedCutSceneReplayQuest(ID)` is not exactly true; the
-row has `JournalType` 3, `JournalIndex` 0, and text key 5108
-(`root/proto16` PCs 3-38, offsets `0x2A53`-`0x2ADF`).
+`getQuestCompleteID`. The two original bytecode bodies used by this contract
+are `addQuestCompleteListForCutsceneReplay` (`root/proto16`, 76 code words,
+304 instruction bytes, offsets `0x2A47`-`0x2B73`) and `getQuestCompleteID`
+(`root/proto20`, 194 code words, 776 instruction bytes, offsets
+`0x3547`-`0x384B`).
 
-For other returned ranges, the row builder tests IDs from the first value plus
-1 through the second value minus 1, applies the same completion predicate,
-and uses text key 5106. When the first value is 110600, it excludes IDs 110821
-through 110824 (`root/proto16` PCs 41-73, offsets `0x2AEB`-`0x2B6B`).
+For numeric `questType` 32, `getQuestCompleteID` returns `(110820, 20)`
+(`root/proto20` PCs 183-188, offsets `0x3823`-`0x3837`). The row builder
+checks `cutReplaySheet` keys `110820 * 100 + i` for `i` from 1 through 20.
+The original `TEST` and `EQ` instructions gate the row as follows:
+
+In the type-32 path, `_isExistKey` is called at `root/proto16` PC 18,
+offset `0x2A8F`, and its result is tested at PC 19, offset `0x2A93`. The
+completion call is at PC 23, offset `0x2AA3`; PC 24, offset `0x2AA7`, uses
+`EQ A=0` against the Lua constant `true`, and its following jump skips row
+construction when the result is unequal (the jump is PC 25, offset
+`0x2AAB`). The generic path repeats that exact comparison at PC 57, offset
+`0x2B2B`, and PC 58, offset `0x2B2F`, with its skip jump at PC 59, offset
+`0x2B33`. The PCs in this paragraph are zero-based, matching the preceding
+contract locators.
+
+| Value returned by `_isCompletedCutSceneReplayQuest` | Type-32 key exists | Type-32 key missing | Other included ID | Type-3 excluded ID |
+| --- | --- | --- | --- | --- |
+| exactly `true` | Add the row. | Do not call the API and add no row. | Add the row. | Do not call the API and add no row. |
+| `false` | Add no row. | Do not call the API and add no row. | Add no row. | Do not call the API and add no row. |
+| `nil` | Add no row. | Do not call the API and add no row. | Add no row. | Do not call the API and add no row. |
+
+Thus the published row condition is exact boolean `true`, which includes the
+ID when the completion API reports true. A missing `cutReplaySheet` key is
+tested only by the type-32 branch; other included IDs are passed to the
+completion API without a row-existence test. The type-32 row has `JournalType`
+3, `JournalIndex` 0,
+and text key 5108 (`root/proto16` PCs 3-38, offsets `0x2A53`-`0x2ADF`).
+
+For all other returned ranges, the row builder iterates the first and second
+values inclusively and uses text key 5106. When the first value is 110600, it
+skips IDs 110821 through 110824 before calling the completion API
+(`root/proto16` PCs 41-73, offsets `0x2AEB`-`0x2B6B`). The complete range
+mapping from `getQuestCompleteID` is:
+
+| `questType` | Returned pair | IDs tested by the row builder |
+| ---: | --- | --- |
+| 2 | `(110001, 110059)` | 110001-110059 |
+| 3 | `(110600, 110971)` | 110600-110820 and 110825-110971 |
+| 4 | `(111401, 111599)` | 111401-111599 |
+| 5 | `(111601, 111799)` | 111601-111799 |
+| 6 | `(111801, 111999)` | 111801-111999 |
+| 7 | `(111200, 111219)` | 111200-111219 |
+| 8 | `(111220, 111239)` | 111220-111239 |
+| 9 | `(111240, 111259)` | 111240-111259 |
+| 10 | `(111260, 111279)` | 111260-111279 |
+| 11 | `(111280, 111299)` | 111280-111299 |
+| 12 | `(111300, 111319)` | 111300-111319 |
+| 13 | `(111320, 111339)` | 111320-111339 |
+| 14 | `(110080, 110099)` | 110080-110099 |
+| 15 | `(110060, 110079)` | 110060-110079 |
+| 16 | `(110100, 110119)` | 110100-110119 |
+| 17 | `(110180, 110199)` | 110180-110199 |
+| 18 | `(110160, 110179)` | 110160-110179 |
+| 19 | `(110260, 110279)` | 110260-110279 |
+| 20 | `(110240, 110259)` | 110240-110259 |
+| 21 | `(110300, 110319)` | 110300-110319 |
+| 22 | `(110320, 110339)` | 110320-110339 |
+| 23 | `(110360, 110379)` | 110360-110379 |
+| 24 | `(110380, 110399)` | 110380-110399 |
+| 25 | `(110400, 110419)` | 110400-110419 |
+| 26 | `(110420, 110439)` | 110420-110439 |
+| 27 | `(110440, 110459)` | 110440-110459 |
+| 28 | `(110460, 110479)` | 110460-110479 |
+| 29 | `(110480, 110499)` | 110480-110499 |
+| 30 | `(110500, 110519)` | 110500-110519 |
+| 31 | `(110821, 110824)` | 110821-110824 |
+| 32 | `(110820, 20)` | 11082001-11082020 (`110820 * 100 + 1..20`) |
+| Any other value | `(0, 0)` | 0 |
+
+The native predicate evidence proves integer-key membership and publishes that
+membership result unchanged as the Lua boolean: `0x00706370` forwards the ID
+to `0x00764F90`, which reports true when the ID is found in the state
+container at `+0x20`. The `0x01A3` producer rebuilds a key set with the same
+published layout and replaces it on each packet, making it the leading
+producer candidate. Actual owner equality between packet wrapper
+`0x00576140`'s `[ECX+4]` and the predicate's resolved `GameEngine +0x220`
+holder `+4` remains unproved. This establishes client-side membership only;
+server award rules, persistence and a historical player's unlock state remain
+unproved (`xivl-decomp:docs/event/cutscene-replay-state.md`, sections
+`Predicate and state pointer`, `Incoming state producer`, and `Evidence and
+limits`).
+
 These numeric values and text keys are not assigned category or wording
 meanings.
 
@@ -195,6 +271,16 @@ and the reviewed decompile output is
 `0080CAFDA1B0174612D464308A33E1CE4489CFBA6BAFB6C7ADFFF209E5E69747`; the
 canonical source SHA-256 is
 `0080CAFDA1B0174612D464308A33E1CE4489CFBA6BAFB6C7ADFFF209E5E69747`.
+The `JournalListWidget` carrier is
+`n1635q/9rz/0vpsw9yy1rqn1635q.le.lpb`, 15,297 bytes, with LPB SHA-256
+`A15C8BF36E8124C5C4F5BE2EF189037894C98342C7C7EEF5889ADE16D975E6F3`; its
+15,284-byte decoded payload has SHA-256
+`549BC61FE3C206F1DD080057948A201F2824A785D039FB9F97878D8A31491D33`.
+The canonical `lua/scripts/widget/ask/journallistwidget.lua` output is 37,468
+bytes with SHA-256
+`C103432E8671EE20493B4060D5D0958F608C967F211C2F73BEE8AEC6AF96DE87`
+(`manifests/retail_lua_coverage.json:26208-26220`,
+`manifests/scripts.json:15009-15012`).
 Recovered-source identities and hashes are in `manifests/scripts.json` under
 the matching `lua/scripts/` paths. The 1.23b client executable is pinned by
 SHA-256:
