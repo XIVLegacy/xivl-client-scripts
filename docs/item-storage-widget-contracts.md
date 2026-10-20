@@ -22,14 +22,22 @@ issues `worldMaster:say` calls with numeric IDs 6 and 7
 to those numeric menu results.
 
 `selectCategory` returns the result of `worldMaster:ask(self, self, 8, 5)`
-unchanged (`objectitemstorage.lua:73-86`). `selectStoreItem` yields
-`Ask/ItemStoragePutWidget` in mode 1 and `selectReceiveItem` yields
-`Ask/ItemStorageGetWidget` in mode 1, passing their third argument unchanged;
-each returns the widget's second yield value only when the first yield value is
-true, and otherwise returns nil (`objectitemstorage.lua:89-130`). This actor
-prototype calls the generic storage widgets directly and contains no Entrust
-API call or native category mapping; those meanings remain outside this Lua
-contract.
+unchanged (`objectitemstorage.lua:73-86`). `selectStoreItem` requests one
+result from `Ask/ItemStoragePutWidget`, and `selectReceiveItem` requests one
+result from `Ask/ItemStorageGetWidget`, passing their third argument
+unchanged. Each returns the widget's second yield value only when the first
+yield value is true, and otherwise returns nil
+(`objectitemstorage.lua:89-130`). This actor prototype calls the generic
+storage widgets directly and contains no Entrust API call or native category
+mapping; those meanings remain outside this Lua contract.
+
+The returned catalog ID or nil is a callback result, not a mutation
+acknowledgement. If this actor callback is invoked through the normal event
+callback path, the existing generic contract collects typed callback results
+and serializes them into c2s `0x012E` EventUpdate, including the typed nil path
+(`passivegl-dialogue-producer.md:145-171`; `xivl-client-structs:structs/network/event-update.md:1-6,35-38`).
+No Armoire invocation of that native event route or successful storage
+mutation was observed here.
 
 `ItemStoragePutWidget.getAskResult` returns a value only when the base ask
 result is `1`. It resolves the selected package and item index, reads the live
@@ -46,10 +54,66 @@ reveals the native eligibility rule or proves that a selected item was stored.
 nonpositive values become `nil`. The Lua does not establish the native value's
 full semantics or a successful removal transaction.
 
+## Confirmation and transaction boundary
+
+The put selection handler opens `ItemStorageDialogWidget` with dialog type `1`
+and the presentation tuple `catalog, icon, quality, name, cantEquip,
+canChangeFitness, polishProgress, materializePermission`. The get selection
+handler opens the same child with dialog type `2` and the selected stored-item
+value. These calls select a row and populate a modal; they do not submit a
+storage operation (`itemstorageputwidget.lua:2081-2101` and
+`itemstoragegetwidget.lua:1732-1751`).
+
+The dialog's OK and Cancel conditions call the parent's confirmation methods.
+`processUICommandOperate` maps `Button_OK` to operation `1` and
+`Button_Cancel` to operation `2`; the keyboard cancel path maps
+`Button_Cancel` to operation `2` as well (`itemstoragedialogwidget.lua:366-435`).
+The put and get widgets only store that operation in `work.chosenOperation`
+(`itemstorage{put,get}widget.lua:2723-2729,2145-2151`).
+
+On close, both widgets treat operation `1` as local confirmation: they call
+`setBaseAskResult(1)`, disable input, and set `waitNext`. Operation `2` clears
+the edit state, clears the selected border, and re-enables input. Both paths
+then reset the operation, close `ItemStorageDialogWidget`, update the server
+time field, and refresh the window (`itemstorageputwidget.lua:2732-2796`,
+`itemstoragegetwidget.lua:2154-2218`). No request, command ID, item removal,
+item insertion, or result callback is emitted by these inspected confirmation
+handlers. The dialog's `_sendStoryboardCommand` calls are presentation effects
+only (`itemstoragedialogwidget.lua:335,344`).
+
+The storage widgets' own operate and cancel handlers likewise only handle
+sorting, focus, and previous-sequence state; they do not hand off a request
+(`itemstorageputwidget.lua:1722-1796`, `itemstoragegetwidget.lua:1584-1620`).
+
+The generic `DesktopWidget.askEventModeWidgetYield` helper is also a local
+widget continuation. It delegates to `askWidgetYield`, which opens and selects
+the widget, reads `widget.getAskResult()`, closes the widget, and returns the
+local values (`desktopwidget_connector.lua:25787-25856`). It is not a server
+request or a persistence acknowledgement.
+
+The inspected bodies establish selection, confirmation, cancellation, and
+local result return. The generic event contract supplies the conditional
+reply transport. The server's store/retrieve handling, successful inventory
+and storage transition, and update ordering remain unbound. The mapped native
+`SetPlayerItemStoragePacket` entry (`0x01A5`) is a clientbound state receiver,
+not evidence of a Lua request. The opcode record in
+`xivl-opcodes:opcodes.json:5250-5261` and the capture index entry in
+`xivl-captures:derived/opcode_names.json:3177-3185` have no observed capture;
+the opcode record explicitly has `observedIn: []` and `payloadLengths: []`,
+while the capture index has `observedIn: []`. Therefore actual retail storage
+or retrieval mutation status is unresolved here; the absent 0x01A5 sample only
+limits indexed capture evidence. A selected ID, presentation tuple, or
+returned ask value is not persistence proof.
+
+The retained actor and event-caller evidence is recorded in
+`xivl-captures:studies/armoire-event-caller-census/README.md`.
+
 | Decoded script | Canonical source SHA-256 | Reviewed decompile output SHA-256 | LPB and decoded-payload identity |
 | --- | --- | --- | --- |
 | `lua/scripts/widget/ask/itemstorageputwidget.lua` | `4086c717edd9828ca9eb054aade1c327c7878742cf12cd483bb1f105f43a55f8` | `782ab27bea7969bc2ecf8b91b8f7e5a44fa0fa044ec43557e8a9b9b9ba8d7f1f` | `n1635q/9rz/1q5xrqvs935upqn1635q.le.lpb`; LPB SHA-256 `8e835166f07c2e5204efbf1d7dd2ebba1fc4477bf0ed836bade956e3c51170f6`; decoded payload SHA-256 `756d290ad8b1a89711e095fcc11b65dbaa633992419e3d9abd3d5e0072b4a0ab` |
 | `lua/scripts/widget/ask/itemstoragegetwidget.lua` | `c3f63428d9fa499e77b8bbbd1f79ff2d9c519cc1a601804f8d44fadd81a08640` | `9cacb12d4a04769facc779389ada0e54b221053c7be4cfe74c813846d0c8249f` | `n1635q/9rz/1q5xrqvs93535qn1635q.le.lpb`; LPB SHA-256 `b768c0719f38fc1555d29eeb3a9d3bad3af31ab28aa1a368fc09364e8c277c31`; decoded payload SHA-256 `f3de6468acee403b381a16a8451f6a33d484bf5333eb65e75fc7bc52a9093585` |
+| `lua/scripts/widget/itemstoragedialogwidget.lua` | `3382e5472aa63a954b9569df58543a09b5fdf710b79e5ac856a022a7617b02ae` | `3382e5472aa63a954b9569df58543a09b5fdf710b79e5ac856a022a7617b02ae` | `n1635q/1q5xrqvs935619yv3n1635q.le.lpb`; LPB SHA-256 `f01e4b59b2fb97d424e7746dbe1d3cdf002f61f2190afe9eb53b23f907a1871`; decoded payload SHA-256 `e4ffbf1855d4ce52860a1a0fc0541e7049bf4374a6bf7a06dff294acc5cbe804` |
+| `lua/scripts/widget/desktopwidget_connector.lua` | `9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01` | `9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01` | `n1635q/65rzqvun1635q_7vww57qvs.le.lpb`; LPB SHA-256 `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425`; decoded payload SHA-256 `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
 | `lua/scripts/chara/npc/object/objectitemstorage.lua` | `fc331b51bc957ae1a663a5a7edaab667d85004ef32011f5f37572a6161add5e4` | `fc331b51bc957ae1a663a5a7edaab667d85004ef32011f5f37572a6161add5e4` | `729s9/wu7/v8057q/v8057q1q5xrqvs935.le.lpb`; LPB SHA-256 `e0b4270c835a12bc2ee2f9eb04e761e98872ae7b4e8bb7e759dba0063764c562`; decoded payload SHA-256 `f2b1b7c117862d6a55428925e412937a7d69ce66b2f1367688a96ac5fada1d31` |
 
 Source locators in the reviewed decompile outputs: `ItemStoragePutWidget` item
