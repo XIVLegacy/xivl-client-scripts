@@ -27,11 +27,11 @@ Both forwarding calls discard all results. None returns a single nil value.
 
 The native route is recorded in
 `xivl-decomp:docs/net/guildleve-initializer-route.md`. For the captured
-ordinary non-current-player path, prefix-string consumption and descriptor
-vector preservation remain conditions of the substitution below. If the
-prefix helper consumes the captured path through its NUL, five Boolean
-controls precede the numeric remainder. The first false control then selects
+ordinary non-current-player path, five Boolean controls follow the captured
+path and precede the numeric remainder. The first false control selects
 deferred initialization.
+Descriptor vector preservation, historical branch/endian state and native
+request/lifetime conditions remain prerequisites of the substitution below.
 
 | Supplied non-self position at `_onInit` | Value | Lua consumer |
 | ---: | ---: | --- |
