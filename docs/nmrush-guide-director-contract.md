@@ -51,7 +51,13 @@ The order is talk start, scheduler, the listed `self:say` calls, customization
 where present, then `self:finishCliantTalkTurn()`. Warp additionally calls
 `worldMaster:say(self, 3, 45, 4)` and `worldMaster:say(self, 51)` between
 its self messages and customization. Those calls have different receivers.
-The text arguments do not establish the uninspected text bodies' meanings.
+The numeric text arguments alone do not establish those cells' meanings.
+
+The matching English bank keys are recorded in
+`xivl-client-data:docs/nmrush-skirmish-text.md`. They explicitly name Skirmish
+and provide participation/commencement labels. This static association leaves
+helper/native text resolution, the option-to-result mapping and a live guide,
+site or instance unresolved.
 
 The three ask methods retain exactly one customization result and return
 exactly that one value after finishing talk. Extra results are discarded;
