@@ -50,6 +50,7 @@ unverified native or server behavior.
 - [Quest event client contracts](quest-event-client-contracts.md)
 - [Duty confirmation client contract](duty-confirmation-client-contract.md)
 - [Class, job, and Grand Company quest scripts](quest-script-inventory.md)
+- [Grand Company quest recoverability](gc-quest-recoverability.md)
 - [Quest reward Notice helper](notice-helper-contract.md)
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)
 - [Seasonal quest client contracts](seasonal-quest-client-contracts.md)
