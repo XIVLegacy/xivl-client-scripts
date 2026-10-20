@@ -39,6 +39,7 @@ unverified native or server behavior.
 
 - [Content director UI contracts](content-director-ui-contracts.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
+- [Guildleve initializer arguments](guildleve-initializer-arguments.md)
 - [GatherNormal Guildleve article contract](guildleve-gather-normal-contract.md)
 - [Request-warden recruitment and end events](request-warden-event-contract.md)
 - [NMRush guide and Director01 client contract](nmrush-guide-director-contract.md)
