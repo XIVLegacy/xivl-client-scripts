@@ -510,11 +510,14 @@ recovered chunks:
 
 The source locators are `lua/scripts/quest/scenario/com/com0l2.lua`,
 `com0g2.lua`, and `com0u2.lua`; their `.calls.json` sidecars give the
-full ciphered paths. In the decoded bytecode, the start open/set calls
-are at PCs 58/62, 53/57, and 56/60, respectively. The paired set/close
-calls are at PCs 4/11, 4/11, and 1/8. These values are client UI
-operations, not evidence that 250 seals were granted or that a failed
-server transaction closed the widget.
+full ciphered paths. Generated call metadata records the start open/set
+calls at PCs 60/64, 55/59, and 58/62, with offsets 656/672, 632/648, and
+648/664, respectively. The paired set/close calls are at PCs 6/12, 6/12,
+and 3/9, with offsets 1566/1590, 1453/1477, and 1570/1594. The metadata
+records these presentation calls at
+`xivl-client-scripts:data/quest_contracts.json:63203-63265,71854-71916,81006-81068`.
+These values are client UI operations, not evidence that 250 seals were
+granted or that a failed server transaction closed the widget.
 
 ### Post-event widget cleanup
 

@@ -86,6 +86,7 @@ unverified native or server behavior.
 - [Gathering marker and fishing UI](gathering-marker-fishing-ui.md)
 - [Grand Company shop lifecycle](grand-company-shop-lifecycle.md)
 - [Grand Company promotion client contract](gc-promotion-client-contract.md)
+- [Grand Company enlistment and promotion evidence](gc-enlistment-promotion-evidence.md)
 - [Gil-shop widget opening](gil-shop-widget-opening.md)
 - [Materia removal client UI](materia-removal-client-ui.md)
 - [Materia melding client contract](materia-meld-client-contract.md)
