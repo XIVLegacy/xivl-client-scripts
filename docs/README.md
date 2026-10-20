@@ -90,6 +90,7 @@ unverified native or server behavior.
 - [Materia removal client UI](materia-removal-client-ui.md)
 - [Materia melding client contract](materia-meld-client-contract.md)
 - [Item-storage widget contracts](item-storage-widget-contracts.md)
+- [Rested experience client contract](rested-experience-client-contract.md)
 - [Job and Grand Company event contracts](job-grand-company-event-contracts.md)
 - [Loot item UI contract](loot-item-ui-contract.md)
 - [Party matching client contract](party-matching-client-contract.md)

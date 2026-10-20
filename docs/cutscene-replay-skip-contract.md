@@ -1,5 +1,12 @@
 # Cutscene replay and skip client contract
 
+The official [Patch 1.21 notes](https://forum.square-enix.com/ffxiv/threads/39024),
+2012-03-08, `[dev1301]`, named the inn-room replay tome The Unending Journey
+and described selecting completed quests and replaying their event scenes.
+That is documented intent; the client route below establishes the generic
+selector and replay actor contract without identifying a historical spawned
+tome or its server unlock state.
+
 The client uses two distinct UI paths: skip is bound to the currently playing
 CutScene actor, while replay selection starts from an inn journal and resolves
 static `cutReplay` rows. Neither path is a generic widget-open entitlement.
@@ -91,12 +98,50 @@ scene filenames (`replaycutsceneselectwidget.lua:65-133`).
 selected ID, loads its `cutReplay` row, resolves sheet column 0, CSV field 1
 after the row ID, as the cutscene name and columns 8..15 as playback
 arguments, and selects NQ/HQ and SNPC
-playback branches (`populacecutsceneplayer.lua:39-141`). The script also
-unloads the row and closes the selector. This establishes a client-side
+playback branches (`populacecutsceneplayer.lua:116-333`). The script unloads
+each selected row before returning to the selector loop and closes the
+selector after that loop exits. This establishes a client-side
 replay route, not which book entries a historical player had unlocked,
 whether a contributor's completion-bit packet is retail-equivalent, or a
 safe direct open outside the inn owner path. No runtime playback or music
 restoration is inferred from the static calls.
+
+## Populace actor callback boundary
+
+The original `PopulaceCutScenePlayer` prototype registers a `saveQuestId`
+`integer32` work field, loads text data 9984 named
+`populaceCutScenePlayer`, initializes that field to zero, and turns its ground
+state off in `initForEvent` (`populacecutsceneplayer.lua:11-38`). Its
+`_onTalkEvent` optionally lock-on targets the actor, calls
+`processClientTalkEvent`, clears the target, and cancels desktop targeting
+(`populacecutsceneplayer.lua:41-73`). `processClientTalkEvent` loops
+`askExtendWidget(self, 1, 3, 1, 1)`; result 1 calls `processCutScenePlay`,
+result 2 says text IDs 5 and 6 before asking again, and any other result exits
+(`populacecutsceneplayer.lua:76-113`).
+
+`processCutScenePlay` opens the replay selector and consumes the pair returned
+by `selectCutSceneReplaySelectWidget`; it exits the selector loop when the
+first value is exactly false or the selected ID is nonpositive, and processes
+the row only when neither exit condition holds
+(`populacecutsceneplayer.lua:116-148`).
+For each accepted ID it saves `floor(selectedID / 100)`, loads the matching
+`cutReplay` row, obtains the name through `_getData(selectedID, 0)` in
+`getCutName`, and resolves columns 8 through 15 through the replay actor's
+`getCutSceneReplayData` (`populacecutsceneplayer.lua:149-193,336-346`). A
+`-202` argument selects the SNPC path and is converted with
+`getSnpcActorClassID`; `-206` maps `getStateMainSkill() == 41` to 1 or 0,
+`-207` resolves `getInitialTown`, and `-208` has no additional branch
+(`populacecutsceneplayer.lua:177-219`). The method sets music 7/2, treats row
+column 6 equal to 2 as the HQ choice, invokes the NQ or HQ cutscene starter,
+then hides widget 14, fades in, resets `saveQuestId`, deletes the replay actor,
+sets music 61/2, unloads the row, and returns to the selector loop; the
+selector closes after that loop exits
+(`populacecutsceneplayer.lua:220-331`).
+
+This closes the actor-side callback and result contract. The method itself does
+not test `_isInn`; inn ownership remains established by area setup and its
+caller, and these static branches do not prove unlock state, packet
+equivalence, persistence, or runtime playback behavior.
 
 ## Quest replay argument helper
 
@@ -141,6 +186,15 @@ selector, replay owner, and common CutScene chunk are respectively
 `A4C7806E22AA956FAE4ACB8E1351BAE4109C0F6D5F093ACBB80C198E07B1A648`,
 `18FBC24A732FEA85E4C43EA42CF6821B0550A4C312EA861C090B89867C0A7EC3`,
 and `7EF33408C579F2D1EDE120D9751851BD39B77DD1B6CA6A0AA821B413FE11B4FD`.
+The `PopulaceCutScenePlayer` LPB
+`729s9/wu7/uvupy975/uvupy9757pqr75w5uy9l5s.le.lpb` has SHA-256
+`D165D71D84A9C629C96DADF1FCDC6BB0C7043D1677BADF81DF327697FBD0CFF0`; its
+3,079-byte decoded payload is
+`18FBC24A732FEA85E4C43EA42CF6821B0550A4C312EA861C090B89867C0A7EC3`,
+and the reviewed decompile output is
+`0080CAFDA1B0174612D464308A33E1CE4489CFBA6BAFB6C7ADFFF209E5E69747`; the
+canonical source SHA-256 is
+`0080CAFDA1B0174612D464308A33E1CE4489CFBA6BAFB6C7ADFFF209E5E69747`.
 Recovered-source identities and hashes are in `manifests/scripts.json` under
 the matching `lua/scripts/` paths. The 1.23b client executable is pinned by
 SHA-256:
