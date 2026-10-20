@@ -117,3 +117,30 @@ identify an actual guide NPC, site, instance or event dispatcher. The selected
 bodies leave unresolved the caller supplying A1, the consumer of the returned
 option value, and the producer of synchronized `directNumber`/`limitTime`.
 No server policy or live encounter follows from the static UI contract.
+
+## Incoming caller positions
+
+The conditional native frame is established in
+`xivl-decomp:docs/script/delegate-command-producer.md`, "Function, binding
+value and supplied frame" and "Delegate and callback positions". It distinguishes
+two possible caller forms; neither is an observed Skirmish call here.
+Let O be the selected binding's Lua value and D0, D1, ... the explicitly
+materialized typed parameters.
+
+| Selected call form | Guide self | Guide A1 |
+| --- | --- | --- |
+| Incoming function directly resolves a Guide event method | O | D0 |
+| Incoming function resolves `PlayerBaseClass.delegateCommand`, D0 is the Guide and D1 resolves its event method | D0 | O |
+
+The direct form supplies `(O,D0,D1,...)`; the reflective form calls the inner
+method with `(D0,O,D2,...)`. In the latter form D1 is consumed as the method
+key. The native bridge does not independently insert the raw trigger key as
+the Guide's A1. An explicit actor-reference token also requires resolution
+before it becomes a Lua value. Selecting between these forms requires an
+actual requested outer function, typed parameters and resolved binding.
+
+The six-capture comparison at
+`xivl-captures:studies/request-nmrush-caller-bindings/README.md` found no Guide
+or NMRush Director class field and no selected Guide method call. That result
+does not identify A1 or the returned option consumer, and does not establish
+absence from the rest of the retained corpus.

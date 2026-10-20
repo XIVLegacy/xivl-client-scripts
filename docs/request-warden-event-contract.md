@@ -41,8 +41,8 @@ The body returns no values and performs no content lookup.
 The selected English bank rows and their matching recruitment/menu keys
 are recorded in `xivl-client-data:docs/request-warden-operation-text.md`.
 They describe timed culls and operation prompts, without resolving the
-helper/native text lookup, normal/company Behest identity or supplied fields'
-producers.
+helper/native text lookup, normal/company Behest identity or event argument
+producers. The retained initializer below supplies one concrete field vector.
 
 `RequestDirector.initAsGuildleve(self, requestId)` calls `initWork` with
 an `integer32` temporary `requestId` descriptor and a synchronized
@@ -54,6 +54,74 @@ descriptor. It is not a Guildleve ID assignment. The method returns no values.
 These are script descriptors and calls, without a proven native storage or
 network layout. The [base Director finding](content-director-ui-contracts.md#guildleve-and-request-directors)
 owns the separately established request UI and time-limit helpers.
+
+## Retained Warden initializer
+
+`xivl-captures:studies/request-nmrush-caller-bindings/README.md`, "Warden
+creation record", pins `PopulaceRequestWarden` actor `0x44D04940` and the
+serialized post-control vector `(1500038,false,false,0,1,"TEST",3,2)`.
+Applying the native initializer and class-dispatch conditions gives:
+
+```text
+NpcBaseClass._onInit(self,1500038,false,false,0,1,"TEST",3,2)
+    actorClassId = 1500038
+    fixed superclass gates = false,false
+    varargs = (0,1,"TEST",3,2)
+    count cursor = 1 -> 2 -> 4
+    self:initForEvent(3,2)
+
+PopulaceRequestWarden.initForEvent(self,3,2)
+    speechType = 3
+    townType = 2
+```
+
+The Warden root explicitly passes `NpcBaseClass` as the base of
+`PopulaceRequestWarden` to `_defineClass` and assigns child 0 to
+`initForEvent`. The inherited initializer stores its first argument as
+`npcWork.actorClassId`; the next two fixed arguments go to the superclass.
+They are distinct from its variadic count segments.
+
+The first count is 0, so battle-common initialization is skipped and the
+cursor advances to 2. The next count is 1. Its common call receives
+`initForEventCommon(self,1500038,"TEST",3,2)` through an open `select` suffix;
+the call is not truncated to the counted item. The cursor then advances to 4,
+past the one counted `TEST` item. Both `initForBattle` and the child
+`initForEvent` receive `(3,2)`. The selected inherited event-common method
+ignores actorClassId and the entire suffix. It may call `_setGroundOn(false)`
+from `_getGrandOnExtraStat()`, so it is not an empty method. `TEST` has no
+assigned gameplay meaning here.
+
+The [NPC base contract](map-object-door-client-contract.md#doorstandard-initialization)
+owns the NpcBase and event-helper resource identities and generic forwarding
+contract. The Warden resource is pinned above. Direct Lua 5.1 operand checks
+covered four prototypes: Warden root, NpcBase `_onInit` child 10, event-helper
+root and its `initForEventCommon` child 2, totaling 274 instructions / 1,096
+code bytes. Whole-resource authentication covered 19,443 original and 19,404
+decoded bytes; other methods were skipped structurally. PCs below are
+one-based and offsets are decimal decoded-payload offsets.
+
+| Operand | PCs / payload offsets |
+| --- | --- |
+| Warden base-class declaration and child binding | Root PCs1-7 / 32-56; PCs9-10 / 64-68 |
+| NPC actor-class store | PC80 / 2283 |
+| Cursor initialization and two advances | PC86 / 2307; PCs100-105 / 2363-2383; PCs119-124 / 2439-2459 |
+| Event-common open suffix and call | PCs112-118 / 2411-2435 |
+| Child open suffix and call | PCs131-136 / 2487-2507 |
+| Event-helper common binding | Root PCs7-9 / 56-64 |
+| Common body | PCs1-8 / 874-902; no actorClassId or vararg read |
+
+Open suffixes preserve positional nils and tail count. Each selected method
+return is zero-result, not a single nil. The concrete count route, a counted
+nil, changed/zero counts, root method, cursor and call/return arity mutations,
+and truncated chunks were checked.
+
+This is a conditional formal-argument binding. The native body/application
+mapping, guard, non-current-player arm, endian state, mixed-vector retention,
+allocation/lifetime and request/lookup conditions remain in
+`xivl-decomp:docs/net/guildleve-initializer-route.md`. Its Director-specific
+path length and offsets must not be applied to this Warden record. The
+capture does not prove historical invocation, assign a place to townType 2,
+or identify normal versus company Behest.
 
 ## Recruitment and cancellation
 
@@ -111,8 +179,9 @@ to the named methods.
 | End | `root.16` | Ask 28 at `0x1859`; equality/branch 30/31 at `0x1861/0x1865`; finish 33 at `0x186D`; return 34 at `0x1871` | 733-776 |
 | Director initialization | `root.0` | Calls 19/23/35 at `0x25E/0x26E/0x29E`; empty return 36 at `0x2A2` | 11-57 |
 
-The missing connection is a content-specific caller or data binding supplying
-the Warden's fields/event arguments and the Director's `requestId`. The
+The retained initializer supplies one conditional Warden field binding.
+A content-specific caller supplying the Warden event arguments and the
+Director's `requestId` remains unresolved. The
 [normal/company timer consumers](myplayer-timer-consumers.md#scalar-consumer-map)
 and the "Official Behest" title at
 `xivl-client-data:derived/guildleve_names.csv`, ID 1, do not supply it.
