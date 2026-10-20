@@ -44,6 +44,7 @@ unverified native or server behavior.
 - [Request-warden recruitment and end events](request-warden-event-contract.md)
 - [NMRush guide and Director01 client contract](nmrush-guide-director-contract.md)
 - [Local guildleve titles and passiveGL_craft columns](passivegl-craft-columns.md)
+- [Local guildleve supplies contract](local-guildleve-supplies-contract.md)
 - [Aetheryte guildleve events and Guardian's Aspect](aetheryte-guildleve-events.md)
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
