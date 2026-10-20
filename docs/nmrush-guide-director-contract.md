@@ -56,14 +56,116 @@ The numeric text arguments alone do not establish those cells' meanings.
 The matching English bank keys are recorded in
 `xivl-client-data:docs/nmrush-skirmish-text.md`. They explicitly name Skirmish
 and provide participation/commencement labels. This static association leaves
-helper/native text resolution, the option-to-result mapping and a live guide,
-site or instance unresolved.
+helper/native text resolution, rendered labels and a live guide, site or
+instance unresolved. The [shared helper contract](#shared-talk-and-choice-helpers)
+supplies the conditional choice-index mapping.
 
 The three ask methods retain exactly one customization result and return
 exactly that one value after finishing talk. Extra results are discarded;
 an absent result becomes nil in the single returned position. No branch
 interprets it as an admission or end decision. `processBattleEnd` returns
 zero values. Presentation helper results are discarded.
+
+## Shared talk and choice helpers
+
+The Guide root requires `/Chara/Npc/NpcBaseClass` and declares
+`PopulaceNMRushGuide` with base `NpcBaseClass`. The NPC main root requires
+`/Chara/Npc/NpcBaseClass_event`; that event root binds
+`startCliantTalkTurn`, `finishCliantTalkTurn` and `askForCustomizeOption`.
+These declarations establish the helper path subject to normal require/class
+resolution, method lookup and no later replacement.
+
+Let G be the Guide and P its supplied talk argument. The start helper has six
+fixed parameters `(G,mode,P,x,y,z)` and no varargs. For the Guide's modes 1
+and 2, it calls `P:_getPos()` and retains exactly three results, then calls
+`G:_getDir()` and `G:_getOrientation(x,y,z)`, retaining one result from each.
+It passes P unchanged to `G:_lookAtCharacter(P,1)`. Mode 2 additionally calls
+`G:_lookAtCharacter(P,0.25)`. Mode 1 calls
+`G:_turnDir(savedDir+orientation)` and `G:_waitForTurning()` only when the
+orientation result is strictly outside `[-1.047,1.047]`.
+
+Thus P must support the position lookup/call and be acceptable to the Guide's
+look-at method. The helper does not select P through `_getMyPlayer` or prove
+P's native type or historical identity. Extra position results are discarded
+and missing results become nil; their acceptability to the native orientation
+method is unproved. The optional fixed x/y/z arguments are unused for these
+two modes. Start returns zero values. Finish calls `G:_turnBack()` and
+`G:_cancelLookAt()`, discards their results and returns zero values. These
+are observed calls, without established native effects or event completion.
+
+The customize helper forwards all six explicit arguments plus its open
+varargs to `desktopWidget:askForEventMode`, with two extra G values before
+them. Substituting the Guide's calls gives this explicit desktop tuple:
+
+```text
+(G, G, G, M, false, true, questionKey, optionKeys)
+```
+
+The [desktop and AskWidget contract](duty-confirmation-client-contract.md#prompt-and-argument-forwarding)
+omits the first owner argument and calls
+`widget:ask(G,G,M,false,true,questionKey,optionKeys)`. G supplies both the
+talker and text-provider positions. P is absent from this tuple. M is the
+default answer index, false is `askPaging` and true is `canCancel`.
+The NPC helper retains exactly one desktop result and returns exactly that
+one value; an absent callee result becomes one nil, and extra results are
+discarded. Its open varargs preserve positional and trailing nils.
+
+The [selection contract](duty-confirmation-client-contract.md#selection-and-continuation)
+preserves ordinary answer-control indices through the stored ask-result field.
+Conditional on that widget path and an ordinary first-answer selection:
+
+| Guide method | Supplied default answer index | First supplied text key / authored label | Returned first-answer value |
+| --- | ---: | --- | ---: |
+| `processWarpAsk` | 1 | 22 / "No." | 1 |
+| `processBattleAsk` | 1 | 33 / "Commence Skirmish." | 1 |
+| `processContentEndAsk` | 2 | 49 / "Yes." | 1 |
+
+The text-key/label associations belong to the client-data finding above.
+Text keys 22, 33 and 49 are presentation inputs, not returned answer values.
+The content-end default index 2 is distinct from its first answer, Yes at
+index 1. With `canCancel=true`, the widget's cancel branch stores `-3`.
+With `askPaging=false`, the `-1/-2` paging-result branches do not apply.
+The desktop fallback is numeric `0` after a failed open or a selection
+continuation unequal to Boolean true. It is separate from selected No and
+from cancellation. No completion/status prefix is inserted.
+
+The Guide finishes talk and returns its one retained result without choosing
+a content action. The [generic callback result path](passivegl-dialogue-producer.md#native-callback-result-and-eventupdate)
+can collect and serialize the result for c2s `0x012E` on normal completion.
+That does not identify a Skirmish invocation, outer adapter, actual reply or
+server continuation. Text resolution, successful display and native/widget
+state remain conditions of applying the client result mapping.
+
+The NPC main and event-helper resource identities are in the
+[NPC base finding](map-object-door-client-contract.md#doorstandard-initialization)
+and the [resource manifest](../manifests/retail_lua_coverage.json):
+`729s9/wu7/wu789r57y9rr.le.lpb` and
+`729s9/wu7/wu789r57y9rr_5o5wq.le.lpb`. The Guide resource is pinned above.
+Direct Lua 5.1 operand checks covered the three roots plus three event methods,
+375 instructions / 1,500 code bytes, including the root revisits. Whole-file
+authentication covered 15,393 original and 15,354 decoded bytes. Other
+prototype bodies were skipped structurally. Deeper widget and native result
+evidence is reused from the cited contracts.
+
+PCs here are one-based; offsets are decimal decoded-payload offsets. The duty
+contract uses zero-based PCs, so its PC numbers differ while offsets agree.
+
+| Operand | Prototype / PCs / payload offsets |
+| --- | --- |
+| Guide base declaration | Guide root PCs1-7 / 32-56 |
+| NPC event-helper require | NPC root PCs1-3 / 32-40 |
+| Three helper bindings | Event root PCs12/21/39 / 76/112/184 |
+| P position call, three retained results | Event child 3, PCs9-13 / 1022-1038 |
+| Initial look-at calls | Child 3, PCs61-69 / 1230-1262 |
+| Mode-1 turn test and calls | Child 3, PCs100-114 / 1386-1442 |
+| Mode-2 second look-at call | Child 3, PCs115-120 / 1446-1466 |
+| Finish calls and zero-result return | Event child 6, PCs1-5 / 2286-2302 |
+| Customize open arguments, one-result call/return | Event child 12, PCs3-13 / 3998-4038 |
+
+Focused instruction replay with substituted method results checked Guide-mode
+branches, threshold equality, argument order, nil preservation and return
+arity. Eight operand/arity mutations were rejected. These checks do not
+execute the client or establish native-method behavior.
 
 ## Director01 state branches
 
@@ -114,7 +216,7 @@ The three option CALLs use `A=3 B=8 C=2`; their operative RETURNs use
 The [Skirmish timer consumer](myplayer-timer-consumers.md#scalar-consumer-map)
 connects the NMRush timer API to the displayed status label. It does not
 identify an actual guide NPC, site, instance or event dispatcher. The selected
-bodies leave unresolved the caller supplying A1, the consumer of the returned
+bodies leave unresolved the caller supplying A1, the content-specific consumer of the returned
 option value, and the producer of synchronized `directNumber`/`limitTime`.
 No server policy or live encounter follows from the static UI contract.
 
