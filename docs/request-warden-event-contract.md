@@ -140,6 +140,12 @@ Otherwise they are `(self, 143+2*s, 0)` and
 `(self, 157, A3, A4)`. The script does not identify A5 as a normal/company
 selector or assign meanings to A3/A4.
 
+For the retained initializer's `speechType=3`, the matching bank keys are
+greeting 4 followed by 8 when A5 equals numeric zero, or 149 and 150
+otherwise. The selected text finding above establishes no normal/company
+label for either branch. Capturing speechType does not select the A5 branch
+or identify its producer.
+
 Join repeatedly calls `askExtendWidget(self, 111, 3, 1, 1)` while its first
 result equals 3. On 3 it runs scheduler `354004992`, says rows `115+s` and
 `119+s` with zero, runs scheduler `70799360`, says row `123+s` with
