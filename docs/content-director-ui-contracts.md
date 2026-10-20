@@ -309,9 +309,10 @@ These methods establish client UI consumption only. They do not establish
 enemy waves, routes, scoring formulas, victory conditions, server ownership,
 or rewards.
 
-The base director ignores data packets until its initialization flag is set;
-packet selector 3 then forwards the remaining arguments to
-`processUserMessage`. In `InstanceRaidHamletDefense.processUserMessage`, the
+The base director's [data-packet callback](#instance-raid-data-packet-callback)
+returns early when its initialization flag equals false. Selector 3 forwards
+the remaining arguments to `processUserMessage`. In
+`InstanceRaidHamletDefense.processUserMessage`, the
 first forwarded value selects these client-side updates:
 
 | Selector | Client-side update |
@@ -396,13 +397,39 @@ starts a raid, scene, or HUD.
 and notifies world-master row 52021 with content ID. `failedEvent` closes
 the widget and selects a notification from rows 52065, 52054, 52010, and
 52093 by its failure argument; non-first failure paths include fade and
-effect calls. The recovered data-packet handler ignores packets until the
-initialization flag is set. Its visible subtype 1 and 2 paths set the clear
-flag and close the widget; subtype 1 also accepts replacement start/finish
-times, while subtype 2 stops countdown. Subtype 3 delegates to
-`processUserMessage`. The decompiled handler contains invalid `break`
-statements, so this is a bounded branch reading, not a recovered packet
-wire format.
+effect calls.
+
+### Instance-raid data-packet callback
+
+Original `_onReceiveDataPacket` bytecode returns immediately when
+`instanceRaidWork.initFlag == false`. This is an exact boolean comparison,
+not a truthiness test. R0 is self, R1 is the selector, and the remaining
+arguments form the vararg tail. The callback compares the selector with
+literal numbers without converting strings.
+
+| Selector | Ordered writes and calls |
+| --- | --- |
+| 1 | Set `instanceRaidWork.clearFlag=true`; retain the first result of each `select(1,...)` and `select(2,...)`; call `self:setCountDownTimer(first,second,false)`; call `self:closeInformationWidget()`; return. |
+| 2 | Set `instanceRaidWork.clearFlag=true`; set `instanceRaidWork.countdownStatus=0`; call `self:closeInformationWidget()`; return. This branch reads no varargs. |
+| 3 | Call `self:processUserMessage(...)` with all remaining arguments, preserving their positions; return. |
+
+Every normal path returns no Lua results. Other selectors return without
+these writes or calls. There is no reachable fallthrough between selectors
+or loop in this callback. Selectors 1 and 2 do not call `clearEvent` or
+`failedEvent`; their state changes do not establish the full clear/failure
+presentation or settlement sequence.
+
+The authenticated decoded payload has SHA-256
+`697419b9abe065c5b77e67938f7ab4188b0c61b61f4b0e87f2d0fc05a6083941`.
+Its `root/proto13` contains 46 instructions in `[0x16D3,0x178B)`, with
+zero-based PCs. The guard is PCs 0-4; selector-1 writes/calls are 8-24;
+selector-2 writes/call are 29-34; selector-3 forwarding is 39-41. Completion
+jumps at PCs 25/35/42 target return PC 45. PCs 26/36/43 are unreachable
+jumps, which explains the damaged `break` rendering without assigning it
+runtime behavior. The LPB and canonical source identities are pinned above.
+This proves the conditional callback contract, without identifying a wire
+carrier, actual caller/variant, supplied time values, message provider or
+historical packet sequence.
 
 The loop and `getRestTimeStatus` reference one-, three-, five-, ten-,
 twenty-, and thirty-minute thresholds and a half-time notification. Some
