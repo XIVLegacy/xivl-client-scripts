@@ -124,11 +124,9 @@ SHA-256 `E01C200DB8DEBC404B103C72C95F02E736BD57419E25AB2CF5653936A7631510`,
 establishes a client dispatch path, not which director or map marker was active
 in a particular retail session.
 
-`ContentGroupBaseClass._onFinalize` requests world-master notification 50012
-when the local player is a member and the group kind is 30001 or 30006
-(`contentgroupbaseclass.lua:343-381`). The Lua identifies the numeric client
-request; it does not identify the displayed text or establish what caused
-finalization. Both decoded sources and their retail LPBs are pinned in
+The [party continuity contract](guildleve-party-continuity.md#content-group-and-party-are-separate-state)
+owns the content-group work, membership and finalization callbacks. The player
+and content-group decoded sources and their retail LPBs are pinned in
 [`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json).
 
 ### Owned content-widget slots
