@@ -7,6 +7,10 @@ interval. In particular, actor-class row 1200161 and its captured appearance
 are associated with a guildleve bonus box, so they cannot supply keyed-coffer
 cadence for Zahar'ak, U'Ghamaro or Natalan.
 
+The [keyed treasure-box registration contract](keyed-treasure-box-registration.md)
+owns the initializer argument layout, work/publication distinction and named
+event-helper delivery boundary for PublicTreasureBox and GimmickTreasureBox.
+
 | Question | Supported observation | Remaining discriminator |
 | --- | --- | --- |
 | Separate actors at each post, or one actor moving | Class declarations and an appearance row exist. No keyed zone placement or BG/instance identity is bound. | A retained keyed actor registration joined to its zone, instance identity and positions at multiple posts. |

@@ -85,6 +85,7 @@ unverified native or server behavior.
 - [Aetheryte object events](aetheryte-object-event-contracts.md)
 - [Map-object door client contract](map-object-door-client-contract.md)
 - [Open-world key coffer contract](open-world-key-coffer-contract.md)
+- [Keyed treasure-box registration](keyed-treasure-box-registration.md)
 - [Weather director client contract](weather-director-client-contract.md)
 
 ## Shops, items, and social UI
