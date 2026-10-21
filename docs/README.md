@@ -51,6 +51,7 @@ unverified native or server behavior.
 - [Raid object client contracts](raid-object-client-contracts.md)
 - [Quest event client contracts](quest-event-client-contracts.md)
 - [Duty confirmation client contract](duty-confirmation-client-contract.md)
+- [Primal entry client boundary](primal-entry-client-contract.md)
 - [Class, job, and Grand Company quest scripts](quest-script-inventory.md)
 - [Grand Company quest recoverability](gc-quest-recoverability.md)
 - [Quest reward Notice helper](notice-helper-contract.md)
