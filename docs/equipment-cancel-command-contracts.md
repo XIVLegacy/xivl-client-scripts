@@ -3,8 +3,10 @@
 ChangeEquipSetCommand (`12007`) and CommandCancelCommand (`21005`, `21006`)
 inherit their command checks and execution behavior from GameCommandBaseClass.
 Their own methods only disable action-gauge use and action-menu presentation.
-The inspected desktop callers pass one opaque argument to ready command
-12007 or 21006. They do not establish a saved-set schema, an equipment-list
+The equipment-set wrapper passes an opaque argument to ready command 12007.
+The stock action-menu cancel route passes the selected command's
+`charaWork.commandCategory` value to 21006. These routes do not establish a
+saved-set schema, an equipment-list
 reply, or a combat-result reply contract.
 
 ## Callers and arguments
@@ -38,10 +40,88 @@ target. It forwards nine command values to `PlayerBaseClass.command`
 
 `currentTarget` may be nil. This is the submitted argument vector before
 eligibility helpers normalize local copies. The first value's server meaning
-is unresolved. In particular, the equip-set wrapper does not itself enumerate
+is unresolved. Its client-side provenance is established for the action-menu
+cancel route below. The equip-set wrapper does not itself enumerate
 item-package/slot pairs, and the cancel wrapper does not construct a result
 packet. Command 21005 shares the mapped class and sheet settings with 21006,
 but no concrete UI caller or argument vector for 21005 is established here.
+
+## First-operand provenance
+
+`ActionMenuWidget.executeGameCommand` obtains three results from
+`getPlayerEquippedReadyCommand(slot)` for ready type `1`, or from
+`getPlayerEquippedCustomCommand(slot)` for type `2`. It retains the command
+object, the second scalar and a validity flag separately. Under config flag
+`15`, the current-cast equality and positive cast-time tests lead to
+`cancelCommand(secondScalar)`
+(`widget/actionmenuwidget.lua:859-949`). `cancelCommand` forwards that scalar
+to `cancelPlayerCastCommand`, then uses the same value for its local reset
+when submission returns true (`:1152-1168`).
+
+The scalar's source is explicit Lua work, without a native return-value
+interpretation:
+
+| Getter | First and second results |
+| --- | --- |
+| `CharaBaseClass.getReadyCommand(slot)`, `chara/charabaseclass.lua:288-344` | `charaWork.command[slot]`, `charaWork.commandCategory[slot]`, after its special command-22001 exclusions. |
+| `CharaBaseClass.getCustomCommand(slot)`, `chara/charabaseclass_cliprog.lua:231-249` | The same two arrays indexed by `charaWork.commandBorder + slot`. |
+| Desktop equipped-command wrappers, `widget/desktopwidget_connector.lua:12534-12652` | Preserve those two results and append the command-validity flag after slot/object checks. |
+
+`CharaBaseClass` declares `commandCategory` as an array of 64 `integer8`
+values (`chara/charabaseclass.lua:575-583`). On the successful action-menu
+cancel route, operand 1 therefore comes from the selected action's category
+entry. It is distinct in provenance from the command object/ID and from the
+slot used to select that entry. No observed cast-instance identifier is
+constructed here. This does not recover the complete numeric category domain
+or its server interpretation.
+
+Operand 3 remains the separate category/hand default obtained when the ready
+dispatcher resolves the cancel command itself. The two values must not be
+conflated merely because both are used in hand-related helpers. The existing
+conditional serializer applies to the unchanged tuple.
+
+Original bytecode confirms the multi-return and forwarding chain. PCs below
+are zero-based and identify actual `CALL`/`TAILCALL` instructions:
+
+- ActionMenu `main/f13`: ready/custom getters at PCs `21/31`, cancellation at
+  PC `83`.
+- ActionMenu `main/f16`: desktop cancel call at PC `3`, local reset at PC `8`.
+- Connector `main/f297`: `executePlayerReadyCommand(21006, value)` tail call
+  at PC `3`.
+
+### Equipment input and 21005 search boundary
+
+A literal-reference search covered every canonical member of the authenticated
+decoded Lua corpus: 2,671 manifest-matched scripts. Exact helper-name searches
+found `executeCharacterEquipItemSet` only at its connector definition and
+`cancelPlayerCastCommand` only at its definition and the ActionMenu caller.
+Exact numeric-token searches found no `21005`. `21006` occurred only in the
+connector's ready-index mapping and cancel wrapper. The other `12007` hit,
+`widget/achievementlistwidget.lua:908-913`, is a `setListText` help-text ID,
+not a command submission. Its original LPB independently reproduced that
+source. EquipWidget's separate `12017` equipment operations are not callers
+of the 12007 wrapper (`widget/equipwidget.lua:8301-8315`).
+
+The pinned `ffxivgame.exe` also contained neither NUL-terminated literal
+`executeCharacterEquipItemSet` nor `cancelPlayerCastCommand` in a read-only
+exact byte search. Binary identity is size `15996808`, SHA-256
+`9341f2b4567440b310a4d494f5cc5599ca334ba51c8042247317ff466492f2e9`.
+This does not exclude constructed names, generic dispatch, or runtime inputs.
+
+The remaining equipment discriminator is a concrete issuer that supplies
+12007's first operand. No selected evidence binds it to a class ID, saved-set
+number or equipment selector. The 21005 negative covers literal Lua issuers
+and these named native literals, not every possible dynamic issuer. Observed
+21005 command-slot population is separately recorded in
+`xivl-client-structs:manifests/command_slot_context.json`; a populated slot
+does not identify a request or its operand vector.
+
+The corpus search authenticated archive size `14385427` and SHA-256
+`0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31`
+against `manifests/private_lua_corpus.json`, then every source member against
+`manifests/scripts.json` at revision
+`39927f86fd8614102d4144cd98fe0eeab01e1e3a`. Only matching locators were
+retained. Search output alone was not used to assign semantics.
 
 ## Route and native fallback
 
@@ -151,6 +231,20 @@ line count and SHA-256. Each original resource matched
 LPB paths are relative to retail `client/script/`. The payloads were decoded
 with `tools/retail_script.py:decode_lpb` and parsed as Lua 5.1 instructions.
 Instruction offsets on this page are offsets into the decoded payload.
+
+The first-operand trace additionally authenticated these originals and their
+decoded/reproduced identities against the same two manifests at revision
+`39927f86fd8614102d4144cd98fe0eeab01e1e3a`. It used
+`tools/retail_script.py` and `unluac_2025_12_23.jar`, SHA-256
+`98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc`.
+The connector identity remains in the linked shared-source contract.
+
+| Script | LPB path | Original bytes |
+| --- | --- | ---: |
+| `chara/charabaseclass.lua` | `729s9/729s989r57y9rr.le.lpb` | 13821 |
+| `chara/charabaseclass_cliprog.lua` | `729s9/729s989r57y9rr_7y1usv3.le.lpb` | 4508 |
+| `widget/equipwidget.lua` | `n1635q/5tp1un1635q.le.lpb` | 85949 |
+| `widget/achievementlistwidget.lua` | `n1635q/97215o5x5wqy1rqn1635q.le.lpb` | 11494 |
 
 - `lua/scripts/command/game/changeequipsetcommand.lua` (26 lines): source SHA-256
   `53568ae20767c4b0c835018ccc87e0bc67b889a5ce64b33e53c67e15a616a651`.
