@@ -15,6 +15,9 @@ locks" sections own the start discriminator, safe package publication and
 command-lifetime findings. The actor sign and its false-value clear are in
 `xivl-client-structs:docs/bazaar-appearance-contract.md`.
 
+[Repair requests](repair-request-client-contract.md) distinguish equipment
+request 24243 from Bazaar repair listing, withdrawal and fulfillment inputs.
+
 ## Command identity and route
 
 | Command ID | Class path | Client role established here |
