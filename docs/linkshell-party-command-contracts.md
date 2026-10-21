@@ -138,6 +138,63 @@ selected ranks to 7 before calling the appoint helper
 command predicate does not prove master transfer at rank 10. The inspected
 issuer establishes rank changes 4 and 7 only.
 
+## NPC naming and master-transfer boundary
+
+The normal management NPC and member widgets did not establish a rename or
+master-transfer request. The manager's naming step supplied a standalone name
+to a later name/crest return; neither existing-group branch collected a new
+name or a target member. This is a bounded client observation, not a claim
+that every server-authored event or backend operation was absent.
+
+The [NPC contract](npc-linkpearl-client-contract.md#linkshell-management-ui-and-local-command-checks)
+owns the full management method/UI observations and resource identities.
+Reproduction from the original LPBs used `tools/retail_script.py:decode_lpb`
+and pinned `unluac_2025_12_23.jar` (SHA-256
+`98be0fa84ac73ca66dce2842a2e4512226f4c611b6500dc96415571fc5538fcc`).
+The decoded payload and canonical LF source matched both retail coverage
+and source manifests. PCs below are zero-based Lua 5.1 instruction indices.
+
+| Manager boundary | Direct original-bytecode observation |
+| --- | --- |
+| `eventTalkStep231`, `root/proto8`, PCs 23-33; source 666-675 | Calls `askLinkshellNamingWidget()` with no group UID or old-name argument (CALL 25). Returns the third widget result only when the first two equal `true, 1`; otherwise returns the empty string. |
+| `eventTalkStep2`, `root/proto5`, PCs 62-149; source 360-463 | Carries that name through validation, icon selection and confirmation, then returns `(3, name, icon)` at PC 149. The malformed-looking decompiled nesting was checked against the bytecode branches. |
+| `eventTalkStep24`, `root/proto11`, PCs 33-101; source 833-905 | Selects a type-20002 group, reads its UID and crest, and calls `askLinkshellSelectIconWidget(2, oldCrest)` at PC 78. Its accepted pair is `(UID, selectedIcon)`; result 2 yields `(UID, 0)`, other unsuccessful widget results `(UID, -1)`. No naming call occurs. |
+| `eventTalkStep2`, `root/proto5`, PCs 153-169 | Returns `(4, UID, selectedIcon)` only after a nonempty UID and icon at least 1. |
+| `eventTalkStep25`, `root/proto12`, PCs 35-123; source 952-1050 | Selects an existing group's UID/crest, confirms mode 3 (CALL 77), then asks the additional question (CALL 92). Normal cancellation sets the UID to the empty string. It neither requests a member nor reads a replacement name. |
+| `eventTalkStep2`, `root/proto5`, PCs 174-184 | A nonempty result from step 25 produces `(5, UID, 0)` at PC 184. |
+
+These are returns to the event caller, not a newly authenticated wire
+request. The values `3/4/5` remain local method results; text keys and
+`MakeupDone`/`ModifyDone`/`BreakDone` names alone do not assign server
+operations or reply semantics. The existing
+[completion observations](npc-linkpearl-client-contract.md#manager-text-and-widget-handoffs)
+show callable refresh/talk-turn methods, without a transaction proving which
+request invoked them.
+
+The naming widget itself returns `(baseAskResult, textBoxText)` from
+`getAskResult` (`root/proto5`, source 328-343; base-result CALL PC 1,
+text-box `getText` CALL PC 7, RETURN PC 11). Text remains empty unless the
+base result equals 1. It does not add a group or
+member identity to that result.
+
+The finite original inspection covered all constants and instructions of
+`populacelinkshellmanager`, `ask/linkshellnamingwidget`,
+`linkshellmemberslistwidget` and `linkshellmenusubwidget`. The member UI's
+rank-4/7 issuer remains the separate appoint operation documented above;
+the allowed rank-10 predicate is not a demonstrated transfer caller. A
+case-sensitive source query across all 2,671 manifest-authenticated Lua
+members found `askLinkshellNamingWidget` only at this manager call and the
+DesktopWidget wrapper definition. The exact expression
+`Linkshell.*(Rename|Master|Transfer)|(Rename|Master|Transfer).*Linkshell`
+had no match. This literal query does not exclude aliases or dynamic event
+construction.
+
+The missing discriminator is a retail caller associating an existing group
+UID with a replacement name, or that UID with a new owner/member, together
+with its event/command dispatch and result receiver. No such concrete seed
+arose in this scope, so no additional native payload was opened. Backend
+capability names cannot fill that request/reply join.
+
 ## CompanyGroup rank consumer
 
 `CompanyGroup.getMemberRank` takes a member index or resolves an actor with
