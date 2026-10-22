@@ -527,7 +527,7 @@ def annotate_corpus(
             "callsiteCount": len(sites),
             "callsites": sites,
         }
-    # Read every script before replacing any annotation from the previous pass.
+    # Finish reading all scripts before replacing existing annotations.
     for sidecar_path, sidecar in sidecars:
         write_json(sidecar_path, sidecar)
     write_json(index_out, napi_index)

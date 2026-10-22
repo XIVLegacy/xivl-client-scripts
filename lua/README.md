@@ -24,6 +24,14 @@ The tracked metadata describes the corpus but cannot recreate script bodies.
 The retail-derived `.lua` files remain outside the repository and must not be
 redistributed.
 
+## Choose an index
+
+Use `registry.json` to find a script, class, method or `require` relationship.
+Use `napi_index.json` to find references to a native API across scripts, then
+open the named `.calls.json` sidecar for that script's metadata. Use
+`../manifests/scripts.json` to verify the identity of a supplied Lua file.
+An indexed reference is not, by itself, proof that the native function ran.
+
 ## Canonical form
 
 The hashes describe canonical decompiler output, not byte-identical Windows

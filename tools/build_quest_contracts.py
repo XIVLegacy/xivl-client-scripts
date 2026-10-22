@@ -256,7 +256,7 @@ def transfer(prototype: dict, pc: int, incoming: tuple) -> tuple:
         for index in range(a + 2, a + 3 + c):
             state[index] = None
     elif opcode == "TESTSET":
-        # Both successors share a conservative state; one may assign B to A.
+        # TESTSET may copy B to A. Clear A because both successors share this state.
         state[a] = None
     elif opcode in {
         "GETUPVAL",
