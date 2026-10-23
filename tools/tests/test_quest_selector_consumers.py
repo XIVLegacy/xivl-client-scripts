@@ -20,20 +20,6 @@ SCRIPTS = analyzer.resolve_scripts_root(analyzer.SCRIPTS_ROOT)
 
 
 class QuestSelectorConsumerTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
-            raise unittest.SkipTest("local retail Lua corpus is absent")
-
-    def test_complete_message_census(self) -> None:
-        rows = analyzer.analyze_script_consumers()
-        self.assertEqual(sum(row["messageId"] == 51130 for row in rows), 7)
-        self.assertEqual(sum(row["messageId"] == 51131 for row in rows), 42)
-        self.assertEqual(sum(row["messageId"] == 51132 for row in rows), 42)
-        two_level = [row for row in rows if row["messageId"] == 51130]
-        self.assertEqual({row["primaryLevel"] for row in two_level}, {30})
-        self.assertEqual({row["secondaryLevel"] for row in two_level}, {15})
-
     def test_schema_rejects_secondary_fields_on_primary_only_message(self) -> None:
         schema = json.loads(
             (
@@ -91,6 +77,26 @@ class QuestSelectorConsumerTests(unittest.TestCase):
             "named selector row content disagrees", analyzer.validate_retained(report)
         )
 
+    def test_retained_report_pins_and_counts(self) -> None:
+        report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(analyzer.validate_retained(report), [])
+
+
+class QuestSelectorConsumerSourceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
+            raise unittest.SkipTest("local retail Lua corpus is absent")
+
+    def test_complete_message_census(self) -> None:
+        rows = analyzer.analyze_script_consumers()
+        self.assertEqual(sum(row["messageId"] == 51130 for row in rows), 7)
+        self.assertEqual(sum(row["messageId"] == 51131 for row in rows), 42)
+        self.assertEqual(sum(row["messageId"] == 51132 for row in rows), 42)
+        two_level = [row for row in rows if row["messageId"] == 51130]
+        self.assertEqual({row["primaryLevel"] for row in two_level}, {30})
+        self.assertEqual({row["secondaryLevel"] for row in two_level}, {15})
+
     def test_non_worldmaster_sink_is_rejected(self) -> None:
         source_path = SCRIPTS / "quest" / "scenario" / "war" / "war0j1.lua"
         lines = source_path.read_text(encoding="utf-8").splitlines()
@@ -103,10 +109,6 @@ class QuestSelectorConsumerTests(unittest.TestCase):
             path.write_text("\n".join(lines) + "\n", encoding="utf-8")
             with self.assertRaisesRegex(analyzer.AnalysisError, "not worldMaster.say"):
                 analyzer._message_at(path, index, 51130)
-
-    def test_retained_report_pins_and_counts(self) -> None:
-        report = json.loads(analyzer.OUTPUT_PATH.read_text(encoding="utf-8"))
-        self.assertEqual(analyzer.validate_retained(report), [])
 
 
 if __name__ == "__main__":

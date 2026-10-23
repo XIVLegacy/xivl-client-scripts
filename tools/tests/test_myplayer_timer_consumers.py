@@ -20,17 +20,6 @@ SCRIPTS = analyzer.resolve_scripts_root(analyzer.SCRIPTS_ROOT)
 
 
 class MyPlayerTimerConsumerTests(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
-        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
-            raise unittest.SkipTest("local retail Lua corpus is absent")
-
-    def test_all_occupancy_arguments_map_to_the_native_vector(self) -> None:
-        report = analyzer.analyze()
-        rows = report["occupancyArgumentMap"]
-        self.assertEqual([row["luaArgument"] for row in rows], list(range(1, 17)))
-        self.assertEqual([row["nativeVectorIndex"] for row in rows], list(range(16)))
-
     def test_schema_rejects_inconsistent_callsite_shapes(self) -> None:
         schema = json.loads(
             (
@@ -53,6 +42,19 @@ class MyPlayerTimerConsumerTests(unittest.TestCase):
         )
         del fixed["nativeVectorIndex"]
         self.assertTrue(list(validator.iter_errors(occupancy_mutation)))
+
+
+class MyPlayerTimerConsumerSourceTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        if os.environ.get("XIVL_CORPUS_ABSENT") == "1" or not SCRIPTS.is_dir():
+            raise unittest.SkipTest("local retail Lua corpus is absent")
+
+    def test_all_occupancy_arguments_map_to_the_native_vector(self) -> None:
+        report = analyzer.analyze()
+        rows = report["occupancyArgumentMap"]
+        self.assertEqual([row["luaArgument"] for row in rows], list(range(1, 17)))
+        self.assertEqual([row["nativeVectorIndex"] for row in rows], list(range(16)))
 
     def test_mutation_to_out_of_range_argument_is_rejected(self) -> None:
         source_path = SCRIPTS / "widget" / "pcmatchingeditwidget.lua"
