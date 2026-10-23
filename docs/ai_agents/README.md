@@ -44,6 +44,7 @@ comment, and evidence rules for this repository.
 
 1. [Evidence and claims](evidence-and-claims.md)
 2. [Comments and prose](comments-and-prose.md)
+3. [Test authoring](test-authoring.md)
 
 The repository surfaces remain canonical for their subjects:
 
