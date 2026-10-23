@@ -148,6 +148,10 @@ class RetainedQuestContractTests(unittest.TestCase):
         cls.schema = contracts.load(
             contracts.ROOT / "schemas/quest_contracts.schema.json"
         )
+        cls.validator = jsonschema.Draft202012Validator(cls.schema)
+        # Keep references rooted in the complete schema for subtree checks.
+        cls.call_validator = cls.validator.evolve(schema={"$ref": "#/$defs/call"})
+        cls.script_validator = cls.validator.evolve(schema={"$ref": "#/$defs/script"})
 
     def resign(self, report: dict) -> dict:
         report["contentSha256"] = contracts.json_digest(
@@ -157,7 +161,7 @@ class RetainedQuestContractTests(unittest.TestCase):
 
     def test_retained_report_and_schema(self) -> None:
         self.assertEqual(contracts.validate_retained(self.report), [])
-        jsonschema.Draft202012Validator(self.schema).validate(self.report)
+        self.validator.validate(self.report)
         self.assertEqual(self.report["summary"]["includedScripts"], 274)
         self.assertEqual(self.report["summary"]["scenarioMembers"], 620)
 
@@ -192,11 +196,11 @@ class RetainedQuestContractTests(unittest.TestCase):
         self.assertTrue(any("bytecode locator mismatch" in p for p in problems))
 
     def test_unknown_values_require_provenance(self) -> None:
-        validator = jsonschema.Draft202012Validator(self.schema)
+        validator = self.call_validator
         report = deepcopy(self.report)
         call = next(c for r in report["scripts"] for c in r["calls"])
         call["arguments"][0] = {"unknown": "caller-argument"}
-        self.assertTrue(list(validator.iter_errors(report)))
+        self.assertTrue(list(validator.iter_errors(call)))
 
     def test_relabelled_replay_join_is_rejected_after_resigning(self) -> None:
         report = deepcopy(self.report)
@@ -208,7 +212,7 @@ class RetainedQuestContractTests(unittest.TestCase):
         )
         call["joinStatus"] = "dynamic-key"
         self.resign(report)
-        jsonschema.Draft202012Validator(self.schema).validate(report)
+        self.call_validator.validate(call)
         problems = contracts.validate_retained(report)
         self.assertNotIn("contract content digest mismatch", problems)
         self.assertTrue(any("replay join status mismatch" in p for p in problems))
@@ -219,7 +223,7 @@ class RetainedQuestContractTests(unittest.TestCase):
         self.assertEqual(returned["values"], [])
         returned["resultCount"] = 99
         self.resign(report)
-        jsonschema.Draft202012Validator(self.schema).validate(report)
+        self.script_validator.validate(report["scripts"][0])
         problems = contracts.validate_retained(report)
         self.assertNotIn("contract content digest mismatch", problems)
         self.assertTrue(any("return result arity mismatch" in p for p in problems))
@@ -229,7 +233,7 @@ class RetainedQuestContractTests(unittest.TestCase):
         prototype = report["scripts"][0]["prototypeCensus"][0]
         prototype["reachableInstructions"] = 999999
         self.resign(report)
-        jsonschema.Draft202012Validator(self.schema).validate(report)
+        self.script_validator.validate(report["scripts"][0])
         problems = contracts.validate_retained(report)
         self.assertNotIn("contract content digest mismatch", problems)
         self.assertTrue(
