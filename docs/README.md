@@ -18,6 +18,7 @@ unverified native or server behavior.
 - [Player command event routes](player-command-event-routes.md)
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
 - [Linkshell and party command contracts](linkshell-party-command-contracts.md)
+- [Linkshell master-transfer evidence](linkshell-master-transfer-evidence.md)
 - [Equipment set and cancel command contracts](equipment-cancel-command-contracts.md)
 - [Equipment and enmity evidence](retail-equipment-enmity-finding.md)
 - [Party level-sync evidence](retail-level-sync-finding.md)

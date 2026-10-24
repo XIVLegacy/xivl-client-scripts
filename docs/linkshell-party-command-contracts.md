@@ -5,7 +5,10 @@ For the scoped
 system-command classes that admit a local invocation, the direct native
 fallback is MapServerbound `0x012D` with event name `commandRequest`.
 `LinkshellChangeCommand` selects the current linkshell. The inspected client
-callers do not establish a rename or master-transfer operation.
+callers do not establish a rename or master-transfer operation. The focused
+[master-transfer evidence](linkshell-master-transfer-evidence.md) records
+the exhaustive recovered-caller search, member identity relationship, text
+and capture findings, and remaining native/backend boundaries.
 
 ## Shared dispatch and wire representation
 
@@ -127,8 +130,11 @@ requires checked text containing a space
 The per-class predicates occupy `canFire` in the corresponding system Lua
 members listed under input identities. Appoint and kick compare the string
 branch with `getMemberUniqueIdentifier`, while their DesktopWidget helpers
-obtain `m` from `_getMemberLocalizedDisplayName`. This records the actual
-methods and does not equate those identity domains without their native join.
+obtain `m` from `_getMemberLocalizedDisplayName`.
+`CompanyGroup.getMemberUniqueIdentifier` bounds-checks its index and returns
+`_getMemberDisplayName(index)` (`companygroup.lua:464-479`). The
+[focused identity finding](linkshell-master-transfer-evidence.md#caller-and-operand-domains)
+records the native same-string branch and its limits.
 
 `executePlayerSetCurrentLinkshell` sends operation 1 with the selected UID
 or nil. This is concrete evidence of current-shell selection, not renaming.
