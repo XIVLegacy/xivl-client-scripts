@@ -118,6 +118,11 @@ calls establish the source associations only. The inspected Lua does not
 establish how the native leaf interprets the supplied objects as sheet owners
 or constructs its lookup key.
 
+The separate `xivl-decomp:docs/script/actor-base-text-source.md` profile
+qualifies the registered loader and its immediate/deferred source-name writes
+for the matching initialized ActorBase receiver. The native conditions and
+limits are documented there.
+
 ## Declared target and native qualification
 
 `widget/desktopwidget_u.lua:4-11` declares `_appendMessagePool_inl` with
