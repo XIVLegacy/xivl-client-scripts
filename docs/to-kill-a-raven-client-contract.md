@@ -89,7 +89,7 @@ Results 3 and -3 exit; the method returns the selected result at PC 154.
 When the fourth caller argument equals true, it omits rows 173/174 and 177.
 This is client choice processing, not a recovered instance-launch call.
 
-Authenticated `xivl-client-data:csv/gcl107.csv` English field 2 (sheet column 1),
+Authenticated `xivl-client-data:csv/gcl107.csv` numeric column 1 (physical CSV cell 3),
 SHA-256 `6443eae90fbf3572c553194c85658e54b0689a04aca8b2b5020efc52976cafa1`,
 distinguishes the two descriptions:
 
@@ -97,11 +97,36 @@ distinguishes the two descriptions:
 | --- | --- | --- |
 | 171 | Each party member must fulfill entry requirements for one of three To Kill a Raven quests | Text does not implement eligibility |
 | 328, reached from 171 when caller boolean is true | Each party member must have completed To Kill a Raven and Living on a Prayer | Does not directly bind the boolean to content 16 |
-| 170/327, 172/329 | Party/level conditions and a time limit are presented using embedded rich-string values and an xtx/raidDungeon reference | No server enforcement or runtime values inferred |
+| 138/170/327 | Byte-equal entry descriptions encode the constant words four/eight and literal level 45 | Fixed description operands, not a selected runtime row or eligibility test |
+| 172/329 | Distinct "All assaults on" / "All forays into" wording shares a literal 30-minute number frame and duty-reference control | Description text does not prove the timer or its enforcement |
 | 173/174 and 177, omitted when true | Refueling/maintenance explanation and greater rewards for parties representing all three Grand Companies | No reward formula or cooldown recovered |
 
 This is evidence for alternate entry-description text. Calling it the hard-mode
 dispatch would require the missing caller-argument-to-content join.
+
+### Embedded entry values
+
+`xivl-decomp:docs/resource/rich-string-entry-counts.md` owns the constructor,
+handler and recursive-selection proof for the two count controls. The selected
+conditions and list indices are literal, so their static outputs are `four`
+and `eight` without a supplied count argument. The standalone level frame is
+`02 20 02 2E 03`, whose immediate operand is 45. Rows 172/329 share
+`02 20 02 1F 03`, whose immediate operand is 30. The selected number/decimal
+path is documented in
+`xivl-decomp:docs/resource/sqwt-plain-text-reference-lookup.md`, SQTP-05/06.
+
+The lossless annotation-to-byte relationship is documented in
+`xivl-tools:docs/formats/ssd-sheet.md`, Rich-string control tokens and
+Rich-string read and text-export contract.
+This interpretation uses the authenticated decoded CSV member, without a fresh
+sheet-resource extraction or a historical renderer invocation.
+
+At `processEventStewart` PC 83, the call for row 170 passes `A3_2` unchanged
+after `getTextIdStewart(170,A4_2)` (decoded Lua lines 2234-2238). The adjacent
+171/172 calls pass the same value. Its runtime value/type and the native
+`worldMaster.say` argument-vector binding remain unresolved. The count and
+level controls do not establish those arguments, the selected duty reference,
+the caller's mode or server admission predicates.
 
 ## Scenes and encounter classes
 
