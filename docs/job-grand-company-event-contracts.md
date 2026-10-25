@@ -677,6 +677,46 @@ A prior external lead, the Grand Company quest pages under `quests/1114*`,
 and `111817-Gcu301` pages at revision
 `d5fb880e17f07f31ea7f8380ff813e5d71b6b678`, listed many of these methods.
 
+### Don't Hate the Messenger selector paths
+
+The shared Gcl105 script distinguishes selector-driven dialogue from returned
+results. A3 below is register R3, the fourth fixed Lua parameter including self.
+Its caller and retail values remain unknown. The
+[GC identity map](https://github.com/XIVLegacy/xivl-client-data/blob/main/docs/grand-company-quest-identities.md)
+owns its three company aliases.
+
+| Method | Selector result == 1 | Other selector results | Return |
+| --- | --- | --- | --- |
+| `processEventKinnison` | Omits row 17 | Says row 17 | One unchanged selector value, after `finishCliantTalkTurn` |
+| `processEventSenna02` | Says row 66 | Says row 67 | No values; both paths run scheduler 364675072, say row 68 and `finishCliantTalkTurn` |
+| `processEventCid03` | Says row 74 with A3 | Says row 75 with A3 | No values; both paths continue through row 76, scheduler 354000896, an A3-dependent final row and `finishCliantTalkTurn` |
+
+Kinnison asks row 14/mode 2; A3 == 2 selects introductory row 322 instead of
+row 13. Senna02 asks row 63/mode 2; A3 == 2 selects rows 50/323 instead of 49/61.
+Cid03 asks row 71/mode 2 with A3. It also forwards A3 into rows 70/74/75 and tests
+A3 == 3 to select final row 78 instead of 77. These are presentation and argument
+flow facts, not recovered server predicates or a proven interpretation of A3.
+
+Gcl105 source: resource `tp5rq/r75w9s1v/37y/37yije.le.lpb` in
+`manifests/retail_lua_coverage.json`, root/proto8 code 5895, ask PC21;
+root/proto17 code 8870, ask PC129; root/proto19 code 10119, ask PC23.
+Offsets address the decoded Lua payload and PCs are zero-based. Payload SHA-256:
+`fed612e54d4279d7858646b0afb4c4026c3e8a49aaa339e0a487fde2a4627f85`.
+
+The selected `DesktopWidget.openPublicInformDialogWidget` helper returns no
+values when `checkActor` yields nil. Otherwise it gets static widget 8, calls
+`setInitialData(1, originalActor, secondExplicitArgument, ...)` and tail-returns
+all results from `show()`. This establishes result propagation, not the meaning
+or timing of those results. `Gcl105.processEventContainer` supplies worldMaster
+and 51047 but requests no helper results and itself returns none.
+
+Helper source: resource `n1635q/65rzqvun1635q_7vww57qvs.le.lpb`,
+`widget/desktopwidget_connector`, root/proto219 code 110158,
+`checkActor` PC2, nil branch PCs3-5, `setInitialData` PC14,
+`show` TAILCALL PC16. Payload SHA-256:
+`685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621`.
+Container source: `data/quest_contracts.json`, Gcl105 root/proto73 PCs4-5.
+
 ## Dragoon 60 presentation split
 
 `Drg0j6.processEvent015` only opens and immediately closes a talk turn on

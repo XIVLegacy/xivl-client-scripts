@@ -58,6 +58,7 @@ The focused pages provide detail without repeating the full inventory:
 - [Quest selector consumers](quest-selector-consumers.md)
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)
 - [Reward widget contracts](reward-widget-result-contracts.md)
+- [Grand Company event contracts](job-grand-company-event-contracts.md#grand-company-distinctions), including Gcl105 selector paths
 
 The [quest script inventory](quest-script-inventory.md) owns the complete family
 census, null `questId` rule, source identities, field limits, and reproduction
