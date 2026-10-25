@@ -541,9 +541,10 @@ retain a local timer flag, and report kind 1 with maximum article index 0.
 Their title rows are 51143 and 51144 respectively; both return instruction
 row 51145. Their recovered bodies request content-information start for
 direct numbers 1 or 2 when the timer flag is false and cancel for 3 or
-finalization. The [NMRush guide and Director01 contract](nmrush-guide-director-contract.md)
-establishes Director01's exact update branches from bytecode. Director02's
-exact update control flow remains unresolved.
+finalization. The [NMRush guide and director contracts](nmrush-guide-director-contract.md)
+establish both directors' exact update branches from their original bytecode.
+The Director02 finding also owns its initialization, finalization and
+two-result time getter; these UI branches do not select server encounter rules.
 
 The canonical
 `lua/scripts/widget/desktopwidget_connector.lua` (SHA-256

@@ -45,7 +45,7 @@ unverified native or server behavior.
 - [Guildleve party continuity](guildleve-party-continuity.md)
 - [GatherNormal Guildleve article contract](guildleve-gather-normal-contract.md)
 - [Request-warden recruitment and end events](request-warden-event-contract.md)
-- [NMRush guide and Director01 client contract](nmrush-guide-director-contract.md)
+- [NMRush guide and director client contracts](nmrush-guide-director-contract.md)
 - [Local guildleve titles and passiveGL_craft columns](passivegl-craft-columns.md)
 - [Local guildleve publisher contract](local-guildleve-publisher-contract.md)
 - [Local guildleve supplies contract](local-guildleve-supplies-contract.md)

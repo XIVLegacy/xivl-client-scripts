@@ -1,7 +1,7 @@
-# NMRush guide and Director01 client contract
+# NMRush guide and director client contracts
 
 `PopulaceNMRushGuide` passes a supplied talk argument through and returns the
-first customization result after finishing talk. `QuestDirectorNMRush01`
+first customization result after finishing talk. `QuestDirectorNMRush01/02`
 starts content information on states 1 or 2 only when its timer flag is
 exactly Boolean false. State 3 always requests cancel without resetting the
 flag. These are client call contracts, without an established admission,
@@ -188,9 +188,65 @@ update requests cancel. Nil and numeric zero do not satisfy the exact-false
 test. Uninspected callees may have additional effects.
 
 The [quest Director finding](content-director-ui-contracts.md#quest-content-information-directors)
-owns the separate initialization, title and finalization evidence. This
-bytecode result applies to Director01's update method; Director02's exact
-update control flow remains unresolved.
+owns Director01's separate initialization, title and finalization evidence.
+
+## Director02 original state and time contract
+
+The separately authenticated Director02 resource establishes the same update
+state/flag behavior as the table above. This comparison reuses Director01's
+published proof; it does not infer Director02's branches from the class name.
+
+| Director02 artifact | Identity |
+| --- | --- |
+| Resource under `client/script/` | `61s57qvs/tp5rq/tp5rq61s57qvswxspr2jh.le.lpb` |
+| Original bytes / SHA-256 | 1936 / `C65739DA2CB6817C6333B9D5D69A4DB3B7118649304D0F461E8319BC9DAB3491` |
+| Decoded payload bytes / SHA-256 | 1923 / `6EF7C7C7D55D01DD311BE32DDACBE6020C59E0E3BDDAE0BC2571B11C9E9C6374` |
+| Canonical Lua under `lua/scripts/` | `director/quest/questdirectornmrush02.lua`, 3569 bytes / 197 lines |
+| Canonical Lua SHA-256 | `8753C016DF079227ADB24F55538095EF63164953BFCE5F051E9107127071C083` |
+
+Original root closure assignments bind the four selected methods at PCs 9,
+12, 15 and 30. The fixed Lua 5.1 reader consumed the payload exactly to EOF.
+The following offsets are decoded-payload code-array offsets and PCs are
+zero-based; original source-line metadata is distinct from canonical
+decompiled line numbering.
+
+| Method | Prototype / code offset | Original source lines / instruction words |
+| --- | --- | --- |
+| `initAsQuestDirector` | `root/proto0`, `0x249` | 891-914 / 41 |
+| `processUIUpdate` | `root/proto1`, `0x3B6` | 923-948 / 46 |
+| `processUIFinalize` | `root/proto2`, `0x535` | 956-958 / 6 |
+| `getTimeDataOnGuildleveInfo` | `root/proto7`, `0x6CB` | 1020-1026 / 7 |
+
+Initialization declares local `timer:boolean`, synchronized
+`directNumber:integer8` and `limitTime:integer32`, sets `timer=false` at PC 21,
+and associates tags `direct` and `time` with those two synchronized fields.
+It returns zero values.
+
+Update reads `directNumber` at PCs 0-1 and does not use the argument after
+`self`. Numeric 0 jumps to return at PC 45. Numeric 1 selects the exact-false
+timer test at PC 10, calls `processUpdateContentsInformation(self, "start")`
+at PC 16, then writes `timer=true` at PC 18. Numeric 2 takes the separate
+exact-false test at PC 25, start call at PC 31 and write at PC 33. Each start
+branch returns directly; it does not fall through into cancellation. Nil,
+numeric zero and true timer values do not satisfy either Boolean-false test.
+Numeric 3 always calls `processUpdateContentsInformation(self, "cancel")`
+at PC 42 without resetting the flag. Other direct numbers return without a
+widget call. All three CALLs discard results and update returns zero values.
+
+Finalization unconditionally requests cancel at PC 4, discards its results,
+and returns zero values without a timer write. The time getter reads
+`limitTime` once, subtracts constant 60 at PC 2 and returns exactly
+`(limitTime, limitTime - 60)` at PC 5. It applies no clamp or unit conversion;
+those operands alone do not establish the unit or timer-expiry policy.
+
+The four bodies total 100 instruction words / 400 bytes. Focused static
+instruction replay checked initialization, 40 direct-number/timer cases,
+repeated start/cancel, finalization and getter return arity. Inverting either
+exact-false comparison rejected a supported start case. This is conditional
+client UI behavior, without a runtime reproduction, historical instance
+assignment, wave/encounter transition, admission decision or reward rule.
+The [content-information adapter](content-director-ui-contracts.md#quest-content-information-directors)
+owns the existing kind-1 route to `GuildleveExecutionWidget`.
 
 ## Bytecode locators and evidence boundary
 
