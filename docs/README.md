@@ -89,6 +89,7 @@ unverified native or server behavior.
 - [Dungeon exit client contracts](dungeon-exit-client-contracts.md)
 - [Aetheryte list widget](aetheryte-list-widget-contract.md)
 - [Aetheryte object events](aetheryte-object-event-contracts.md)
+- [Camp favored-destination client contract](camp-favored-destination-client-contract.md)
 - [Map-object door client contract](map-object-door-client-contract.md)
 - [Open-world key coffer contract](open-world-key-coffer-contract.md)
 - [Keyed treasure-box registration](keyed-treasure-box-registration.md)
