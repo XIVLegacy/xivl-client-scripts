@@ -138,3 +138,35 @@ the reviewed output has SHA-256
 The method locators are `initForEvent:11-31`, `storageMenu:34-70`,
 `selectCategory:73-86`, `selectStoreItem:89-108`, and
 `selectReceiveItem:111-130` in that output.
+
+## Ul'dah inn desk return boundary
+
+`DftWil.defaultTalkWithInn_Desk` and `defaultTalkWithInn_Desk_2` have different
+return contracts. The former returns no values. Its menu call is
+`worldMaster:askRestrictChoices(self, self, 588, false, true, true, false, true)`.
+Results 2 and 3 select explanatory dialogue and repeat the menu. Result 5 or
+nil finishes the talk and returns zero values; other results repeat the menu.
+A caller cannot obtain an entry or homepoint selector from this method's return.
+
+`defaultTalkWithInn_Desk_2` asks the supplied actor with
+`askExtendWidget(self, 588, 5, 1, 1)`. Result 1 says row 648 and returns that
+single value immediately, without finishing the talk. Results 2 and 3 display
+explanatory rows and repeat. Result 4 opens a second question using
+`askExtendWidget(worldMaster, 60016, 2, 1, 1)`. Confirmation 1 finishes the
+talk and returns numeric 2; other confirmation results repeat the first menu.
+First-menu results 5, -3 or nil finish the talk and return zero values.
+Other first-menu results repeat. Neither method performs a zone change or
+storage transaction; the caller owns any action on a returned value.
+
+Original source: `client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qn1y.le.lpb`,
+SHA-256 `f9305122e98522b72baee7bf405a04ebf30468d4c52187dc1445acea7daa93c2`;
+decoded payload SHA-256
+`577dcc3f9fa49b22f92a1ad160253cf2ee6df9473d47d666cf8dbe536e0a7bb1`.
+The resource is pinned in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json) as
+`lua/scripts/quest/scenario/defaulttalk/dftwil.lua`.
+`root/proto284` starts at decoded offset 78408; its only return is zero-based
+PC 72, `RETURN R0 B=1`. `root/proto287` starts at offset 79365: PC 34 returns
+the saved result 1, PCs 83-86 load and return 2 after finishing, and PCs 89-91
+finish and return zero values. These are original-bytecode paths, not evidence
+of server handling or equivalence with similarly named methods in other classes.
