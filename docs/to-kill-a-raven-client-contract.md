@@ -128,6 +128,42 @@ owns WhiteGeneralMeteor's off-ground setting, m091/m917 resource identities,
 the Golem/Lentigo identity-only boundary, and arena geometry. Those resources
 do not supply meteor/golem counts, movement, spawn policy, or encounter phases.
 
+### WhiteGeneral monster director declarations
+
+The separate `MonsterWhiteGeneralBaseClass`, `MonsterWhiteGeneralLesser`
+and `MonsterWhiteGeneralNormal` chunks define director classes. Their original
+bytecode supplies no battle logic or initialization fields.
+
+`MonsterWhiteGeneralBaseClass` requires
+`/Director/Monster/MonsterDirectorBaseClass`, then calls
+`_defineBaseClass("MonsterWhiteGeneralBaseClass", "MonsterDirectorBaseClass")`.
+Its root has eight instructions at decoded offset `0x20`: require at PC 2,
+class definition at PC 6, and a zero-value return at PC 7. It has no child
+prototypes or locally declared methods.
+
+Lesser and Normal each require
+`/Director/Monster/WhiteGeneral/MonsterWhiteGeneralBaseClass` and call
+`_defineClass` with their own class name and parent
+`MonsterWhiteGeneralBaseClass`. Each root has eleven instructions at `0x20`.
+The calls are at PCs 2 and 6; PCs 7-9 assign the sole child closure to the
+class's `init` field; PC 10 returns no values. Both callsites discard results.
+
+Each `init` is `root/proto0`, at decoded offset `0x113` (275), with one
+parameter and no varargs, constants, upvalues or nested prototypes. Its entire
+body is PC 0, `RETURN A=0 B=1`: no calls, field writes or returned values.
+In particular, Lesser/Normal do not initialize distinct encounter fields in
+these chunks. This does not establish how the class-definition helpers or
+inherited methods behave.
+
+Sources: `lua/scripts/director/monster/whitegeneral/monsterwhitegeneralbaseclass.lua:1-8`
+and `monsterwhitegenerallesser.lua:1-15` / `monsterwhitegeneralnormal.lua:1-15`.
+The original LPB, decoded payload and canonical source identities match
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json) and
+[`scripts.json`](../manifests/scripts.json). Exact whole-chunk instruction
+checks cover all three roots and both init bodies. These director declarations
+do not bind Lesser/Normal to content 15/16 or establish authoritative battle
+AI, encounter phases or runtime mode selection.
+
 ## Command and animation boundary
 
 The authenticated SAN assigns commands 23596, 23603, 23608, 23616,
@@ -178,3 +214,6 @@ read from the archive pinned by `manifests/private_lua_corpus.json`.
 | `whitegeneralnormal.lua` | `729s9/wu7/xvwrq5s/n21q535w5s9y/n21q535w5s9ywvsx9y.le.lpb` | `ecd1c01b4010683338a3d2b438c8495d14c79cc96815bb9c9a051ba15cf290a1` | `56e775cf30187e3b9008eaeb319f5aff679574e066f0220f91a75a01082f112e` |
 | `instanceraidlesserwhitegeneral.lua` | `61s57qvs/1wrq9w75s916/1wrq9w75s916y5rr5sn21q535w5s9y.le.lpb` | `f6e5631947f42562dcb6b865f45c9122c4e50bc002235c28a04846e174e272e7` | `5f5d1b3e8dfe776d208803166eed1b92c987817a43112a26d5ba50c7290433d4` |
 | `instanceraidnormalwhitegeneral.lua` | `61s57qvs/1wrq9w75s916/1wrq9w75s916wvsx9yn21q535w5s9y.le.lpb` | `e21b34f19e8a78b82f32660ed8a1b2cffb8e547885aeaaa1cc50eabcefa3ea32` | `9cb91d078304277fd3a8d97e562c64e049d2b241332aafcc0bef633bace769ee` |
+| `monsterwhitegeneralbaseclass.lua` | `61s57qvs/xvwrq5s/n21q535w5s9y/xvwrq5sn21q535w5s9y89r57y9rr.le.lpb` | `d843213e32b47cc44cc66f630b4e6d8d723493b560b810a755a800e1e1d0a364` | `2510b9bc678cede76b664ff97be6ba9f727bb6126ba425c8047f4b88bc005985` |
+| `monsterwhitegeneralnormal.lua` | `61s57qvs/xvwrq5s/n21q535w5s9y/xvwrq5sn21q535w5s9ywvsx9y.le.lpb` | `10a8e3701844485888e5b31183d7fa2b507d42abe7a3461fc7f9cdf703f5f423` | `e1f8df9c91f24ab2624fcedd3159ef7bb615bbfb8aed7d608b0159b174b13d1e` |
+| `monsterwhitegenerallesser.lua` | `61s57qvs/xvwrq5s/n21q535w5s9y/xvwrq5sn21q535w5s9yy5rr5s.le.lpb` | `6fff4fa3a9b4197b99ad2e567bb722b58cc1144950b23dca0bcf8fa6f3138d34` | `d40e9eabc3cb3496f1763ca4d4186dbf4e65c12bdc51668e316bae972ff2385a` |
