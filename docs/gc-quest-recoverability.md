@@ -59,9 +59,59 @@ The focused pages provide detail without repeating the full inventory:
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)
 - [Reward widget contracts](reward-widget-result-contracts.md)
 - [Grand Company event contracts](job-grand-company-event-contracts.md#grand-company-distinctions), including Gcl105 selector paths
-- [Company selector paths](grand-company-selector-paths.md), covering Into the Dark and selected 701/304 methods
+- [Company selector paths](grand-company-selector-paths.md), covering Into the Dark, Imperial Devices and selected 701/304 methods
 
 The [quest script inventory](quest-script-inventory.md) owns the complete family
 census, null `questId` rule, source identities, field limits, and reproduction
 checks. Its client-only result remains bounded by the metadata retained in the
 canonical contract.
+
+## SAN-selected source coverage
+
+The SAN/title join in
+`xivl-client-data:docs/grand-company-quest-identities.md` selects 92 canonical
+scenario resources for 102 Grand Company quest IDs. These comprise 59 named
+classes with handlers and 33 placeholder classes containing only `initText`.
+The separate Gcg/Gcu 101, 104, 105, 106 and 107 resources are outside this
+selection. The selection does not include content directors or inn menus.
+
+All 92 selected source members match the exact SHA-256, byte size and line
+count in [`manifests/scripts.json`](../manifests/scripts.json). Their 43,935
+lines account for all 787 original method declarations retained in
+[`data/quest_contracts.json`](../data/quest_contracts.json): 92 `initText`,
+685 `processEvent` methods and 10 other helpers. Each declaration joins one
+canonical function body and class assignment with the same parameter count;
+no unmatched declaration or extra function remains. The decoded corpus archive
+identity is owned by
+[`manifests/private_lua_corpus.json`](../manifests/private_lua_corpus.json).
+
+The complete selection passed a Lua 5.4.8 syntax-only check. It contains no
+`break` statement or detected decompiler failure marker. Source call counts
+by target agree with the retained original metadata for every script. Every
+retained nonzero return arity appears in its recovered body. The retained original
+records report no unresolved call in these selected methods. These checks
+screen for contradictions; they do not establish path-sensitive equivalence.
+
+Four methods use recovered `goto`/label forms. Their targets and continuations
+are readable; none establishes a remaining source ambiguity:
+
+| Method and source under lua/scripts/quest/scenario/ | Recovered control flow and retained return |
+| --- | --- |
+| `Com0g5.processEvent030`, `com/com0g5.lua:625-816` | A3 alternatives converge at label 139, line 794, before common presentation and finalization. The implicit zero-value return agrees with `root/proto14`, PC154. |
+| `Com0g6.processEventClear`, `com/com0g6.lua:735-942` | Two A3 dialogue selections have explicit defaults and converge at labels 51 and 130, lines 794 and 887. The zero-value return agrees with `root/proto18`, PC171. |
+| `Com0l6.processEvent_015`, `com/com0l6.lua:701-989` | The A3 scheduler/dialogue selection converges at label 97, line 817. Later alternatives reconverge before finalization; the implicit zero-value return agrees with `root/proto17`, PC235. |
+| `Gcl104.processEventStart`, `gcl/gcl104.lua:263-441` | A5 selects dialogue or no dialogue, then label 122 at line 408 reaches one quest-information call. Both answer branches finish and return saved `L6_2`. The duplicate goto at line 407 is unreachable. `root/proto4`, PC146 returns result 0 of call PC122. |
+
+These goto forms are decompiler representations, not executable Lua 5.1
+source. Syntax acceptance by Lua 5.4 does not validate the original Lua 5.1
+bytecode. The finite census establishes complete recovered-source and
+declaration coverage, with no concrete additional original-bytecode question
+identified by these checks and inspection of the four flagged methods.
+It does not independently prove all 787 methods' branch associations, argument
+dataflow or return-value identities. Existing focused contracts retain their
+own stronger evidence and narrower scope.
+
+Lack of a prose contract, unknown caller arguments and unknown native or server
+semantics do not make an otherwise accounted-for recovered body unresolved.
+Historical invocation, server dispatch, objectives, combat, rewards and quest
+state remain outside this source census.

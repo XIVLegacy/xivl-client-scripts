@@ -1,6 +1,6 @@
 # Grand Company scenario selector paths
 
-These eighteen selected methods retain one selector result, with different
+These selected methods retain one selector result, with different
 company-specific dialogue and finalization paths. The original bytecode
 distinguishes a caller-visible return from the presentation that precedes it.
 The [GC recoverability record](gc-quest-recoverability.md) owns the complete
