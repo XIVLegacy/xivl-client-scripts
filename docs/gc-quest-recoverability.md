@@ -17,6 +17,15 @@ retained client resources; they do not establish quest ownership, quest state,
 or a complete server quest. The 43 resources without handler declarations
 contribute initialization only.
 
+The separate SAN/title join in
+`xivl-client-data:docs/grand-company-quest-identities.md` maps 102 static
+actor IDs to 92 of these resources, including five shared Gcl classes.
+It does not change the generated contract's singular `questId` field.
+The [United We Stand](united-we-stand-client-contract.md) and
+[To Kill a Raven](to-kill-a-raven-client-contract.md) findings apply those
+identities to the authenticated client methods and preserve their server
+dispatch limits.
+
 ## Evidence boundary
 
 The canonical [`data/quest_contracts.json`](../data/quest_contracts.json) is a
