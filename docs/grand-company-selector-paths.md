@@ -140,8 +140,9 @@ Static checks cover both selector branches and both salute branches where
 present. They do not establish the native meaning of scheduler values,
 historical caller arguments, server interpretation of the returned result,
 or authoritative quest acceptance, cancellation, completion or rewards.
-The separately documented QuestDirectorGc*70101 content-information constants
-and malformed-decompile control-flow limitation remain separate evidence.
+The separately documented
+[QuestDirectorGc*70101 UI-update branches](content-director-ui-contracts.md#quest-content-information-directors)
+govern content-information calls; they are distinct from these scenario methods.
 
 ## Company sidequest 304 offers and follow-up choices
 
@@ -196,3 +197,51 @@ emit one value (`RETURN B=2`). The follow-up jumps at PCs 6 and 7 both target
 PC 8. This is recovered client presentation and return behavior; it does not
 establish historical invocation, server objectives, quest admission, or the
 action taken by a caller receiving the result.
+
+### Gcu304 later dialogue and rank comparisons
+
+`Gcu304.processEvent_015` calls `A2:ask(A0, 23, 2)` once, saves its first
+result, and returns that single unchanged value after the remaining dialogue
+and `A2:finishCliantTalkTurn()`. Every ask result reaches the common
+continuation. Answer 1 changes one response row; it does not skip the later
+presentation or finish the method early.
+
+The method declares A0, A1 and A2. It begins with
+`A2:startCliantTalkTurn(1, A1)` and scheduler 354099200. Five separate calls
+to `A2:isUpperRank(3, 23)` select the following rows. Each call's result is
+compared to boolean `true`, not merely tested for truthiness; the calls are
+not one cached decision. `say` below means `A2:say(A0, row, 0)` and scheduler
+means `A2:_runCharaScheduler(value)`.
+
+| Stage | Rank-call PC | Result exactly true | Every other result |
+| --- | --- | --- | --- |
+| Before ask | 10 | say 22 | say 53 |
+| After ask result 1 | 37 | say 26 | say 54 |
+| After any other ask result | 58 | say 27 | say 55 |
+| Common continuation | 75 | say 28, 29 | say 56, 57 |
+| After scheduler 83890176 | 105 | say 30; scheduler 354086912; say 31, 32, 33 | say 58; scheduler 354086912; say 59, 60, 61 |
+| After scheduler 354107392 and `A0:_wait(4)` | 164 | say 34 | say 62 |
+
+The ask follows the first row. Both ask branches first run scheduler
+353959936 and then perform their respective rank check at PC 37 or 58.
+Both reconverge at PC 72 before the rank call at 75. The later scheduler
+83890176 follows the row pair, and scheduler 354107392 follows the next
+four-row group. The final row is followed by finish talk and the saved ask
+result. No fade call occurs in this method.
+
+Source: `lua/scripts/quest/scenario/gcu/gcu304.lua:408-628`, declaration at
+line 630, authenticated against its source record in
+[`manifests/scripts.json`](../manifests/scripts.json). The original LPB and
+decoded-payload identities are retained in the Gcu304 resource record of
+[`data/quest_contracts.json`](../data/quest_contracts.json).
+`root/proto8` has 182 instructions beginning at decoded offset 3119.
+Zero-based PC 28 (offset 3231) is `CALL R3 B=5 C=2`; PC 29 compares that
+saved result to numeric 1. PC 179 (offset 3835) finishes the talk and PC 180
+(offset 3839) is `RETURN R3 B=2`. The trailing zero-result return at PC 181
+is unreachable. The canonical decompile preserves this flow and saved return;
+no duplicate ask or branch correction is needed for this method.
+
+These are call and return contracts, not observed retail execution. The
+method does not identify its caller objects, establish the native meaning of
+the rank arguments, guarantee that successive rank results agree, or establish
+quest completion or the server's use of the returned answer.

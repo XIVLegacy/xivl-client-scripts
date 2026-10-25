@@ -519,9 +519,22 @@ are:
 | `Gcu70101` | 51114 | 11000427 | 16 | 19 |
 
 All three request effect 20 for `directNumber=-1` and effect 13 when
-finalizing with `directNumber=0`. The recovered UI-update bodies contain
-invalid `break` statements, so their exact branch fall-through is not
-established by this decompile.
+finalizing with `directNumber=0`. Original bytecode resolves their
+`processUIUpdate` branches (`root/proto2`, instruction array at decoded
+payload offset `0x47C`, zero-based PCs 0-37). When `directNumber` is 20,
+PCs 4-7 request the director-specific effect above; when it is -1, PCs
+12-15 request effect 20. Both branches jump directly to return at PC 37
+(PCs 8 and 16), without starting or updating content information.
+For every other direct number, the argument after `self` equal to `"time"`
+selects `desktopWidget:processUpdateContentsInformation(self, "start")`
+(PCs 18-25), regardless of `limitTime`. Other argument values select
+`desktopWidget:processUpdateContentsInformation(self, "update", 1)` only
+when `self.work.limitTime > 0` (PCs 26-36); otherwise the method returns
+without a call. The jumps at PCs 9 and 17 are unreachable from entry,
+so they do not create fall-through between effect and information branches.
+These are static client call paths, not server encounter rules. Wrapper and
+decoded payload identities are pinned by the three `resourcePath` rows in
+[`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
 
 `QuestDirectorNMRush01/02` synchronize `directNumber` and `limitTime`,
 retain a local timer flag, and report kind 1 with maximum article index 0.
