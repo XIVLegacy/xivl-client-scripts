@@ -85,6 +85,9 @@ no unmatched declaration or extra function remains. The decoded corpus archive
 identity is owned by
 [`manifests/private_lua_corpus.json`](../manifests/private_lua_corpus.json).
 
+The [text-source binding contract](gc-text-source-bindings.md) owns original
+`initText`/class-binding and definition-identity checks for this selection.
+
 The complete selection passed a Lua 5.4.8 syntax-only check. It contains no
 `break` statement or detected decompiler failure marker. Source call counts
 by target agree with the retained original metadata for every script. Every
