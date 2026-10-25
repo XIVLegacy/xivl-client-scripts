@@ -118,8 +118,11 @@ path is documented in
 The lossless annotation-to-byte relationship is documented in
 `xivl-tools:docs/formats/ssd-sheet.md`, Rich-string control tokens and
 Rich-string read and text-export contract.
-This interpretation uses the authenticated decoded CSV member, without a fresh
-sheet-resource extraction or a historical renderer invocation.
+The selected original English definition, data/enable/offset resources and
+rows 138/170/327 are qualified by
+`xivl-decomp:docs/script/actor-base-text-source.md`. Their lossless CSV
+representation matches the raw source cells. The static interpretation
+does not establish a historical renderer invocation.
 
 At `processEventStewart` PC 83, the row-170 call supplies worldMaster, the
 quest receiver, `getTextIdStewart(quest,170,A4_2)` and `A3_2` unchanged
