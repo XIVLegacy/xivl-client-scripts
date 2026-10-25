@@ -6,6 +6,40 @@ work consumers and local returns do not establish server repair settlement.
 The NPC/self-repair limits remain canonical in
 `xivl-client-structs:docs/repair-contract.md` and its linked manifest.
 
+## Garthrite provider identity
+
+`actorclass.csv` row `1500258`, column 5, contains display key `1100074`;
+`xtx_displayName.csv` row `1100074` has English name Garthrite.
+`PopulaceItemRepairer.talkWelcome` explicitly recognizes actor class
+`1500258`. Its original bytecode joins that comparison to the supplied
+fourth method argument's comparison with numeric 20: equality selects speech
+row 102, otherwise row 87, with no second speech row. The default branch's
+false provider flag is bypassed. This is a specific repair-provider
+presentation branch, rather than evidence of a missing generic talk method.
+
+The method's recognized actor class does not prove a particular live actor's
+assigned script, position or zone. Those require the corresponding actor
+creation/binding and event invocation. The shared repair contract remains
+the authority for item selection, confirmation, settlement and evidence
+limits. In particular, the six one-gil prompts in
+`xivl-captures:studies/retail-repair-contract/` do not establish a global
+tariff, a repair-all service or Garthrite-specific settlement.
+
+Source: `xivl-client-data:manifests/tables.json`, `actorclass.csv` and
+`xtx_displayName.csv` rows above, columns zero-based after the row key.
+The original `PopulaceItemRepairer` LPB
+`729s9/wu7/uvupy975/uvupy9751q5xs5u91s5s.le.lpb` has SHA-256
+`3d2148a689cbf940bbfc80260fd3d5a540e75d4992cdbd296a36a1e0cf3e1e7d`.
+Its decoded payload has SHA-256
+`90d9858f42360f5078a0f567d17c3f1651832127f81bd146d293e33ee01889e7`;
+the canonical source has SHA-256
+`027ac93ef6e805ee4c2197d5fa7353a0ebdff125f6d52f0d6c08bedfb5218ea3`
+in `manifests/scripts.json`. `talkWelcome` is `root/proto1`, code offset
+`0x0265`; the actor comparison and branch are PCs 76-94
+(`0x0395`-`0x03DD`). The default false-flag path is PCs 96-98
+(`0x03E5`-`0x03ED`). These are static observations of extraction
+`2012.09.19.0001`, not a runtime repair observation.
+
 ## Equipment request mode 24243
 
 `RepairEquipmentDialogWidget.getDialogResult` constructs its mode from
