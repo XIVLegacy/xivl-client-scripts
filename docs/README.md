@@ -60,6 +60,7 @@ unverified native or server behavior.
 - [United We Stand client contract](united-we-stand-client-contract.md)
 - [To Kill a Raven client contract](to-kill-a-raven-client-contract.md)
 - [Quest reward Notice helper](notice-helper-contract.md)
+- [Quest-offer reward display](quest-offer-reward-display.md)
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)
 - [Seasonal quest client contracts](seasonal-quest-client-contracts.md)
 - [Impish Impositions client contract](impish-impositions-client-contract.md)
