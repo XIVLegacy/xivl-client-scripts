@@ -245,3 +245,48 @@ These are call and return contracts, not observed retail execution. The
 method does not identify its caller objects, establish the native meaning of
 the rank arguments, guarantee that successive rank results agree, or establish
 quest completion or the server's use of the returned answer.
+
+## Imperial Devices follow-up prompts
+
+The three Imperial Devices follow-up prompts return immediately after the
+choice when its first result equals numeric 1, without a response or
+`finishCliantTalkTurn`. Every other result reaches the response and finishes
+the talk turn before returning. Boolean `true` is not numeric 1 in this
+comparison.
+
+All three declare A0-A2. A0 is passed as the scenario text owner, A1 is
+forwarded to the talk-start call, and A2 receives all calls below. These are
+parameter roles, not identified caller objects. `say(row)` means
+`A2:say(A0, row, 0)` and `ask(row)` means `A2:ask(A0, row, 2)`.
+
+| Method | Before the answer comparison | Numeric 1 | Every other answer |
+| --- | --- | --- | --- |
+| `Com5g0.processEvent_010_1` | `A2:startCliantTalkTurn(0, A1)`; say 73; ask 28 | Return saved answer | say 31; finish talk; return saved answer |
+| `Com5l0.processEvent_010_01` | `A2:startCliantTalkTurn(2, A1)`; say 79; ask 43 | Return saved answer | say 46; finish talk; return saved answer |
+| `Com5u0.processEvent_010_01` | `A2:startCliantTalkTurn(2, A1)`; say 68; ask 35 | Return saved answer | `A2:_runCharaScheduler(70795264)`; say 72; finish talk; return saved answer |
+
+Each ask retains one result, and each reached return emits that one saved
+value unchanged. The original code places the start call at PC 3, opening
+row at PC 8 and ask at PC 13. `EQ A=0` at PC 14 compares the saved result
+to numeric 1. Equality skips PC 15 and takes PC 16 directly to the return;
+inequality takes PC 15 to PC 17. PCs are zero-based within each prototype.
+
+| Script under lua/scripts/quest/scenario/com/ | Prototype / code offset / instruction count | Alternative-branch calls | Return PC / offset |
+| --- | --- | --- | --- |
+| com5g0.lua | root/proto4 / 2434 / 26 | say at 21; finish at 23 | 24 / 2530 |
+| com5l0.lua | root/proto6 / 3942 / 26 | say at 21; finish at 23 | 24 / 4038 |
+| com5u0.lua | root/proto6 / 3605 / 29 | scheduler at 19; say at 24; finish at 26 | 27 / 3713 |
+
+Com5u0's three extra instructions are `SELF`, `LOADK` and `CALL` at PCs
+17-19, implementing only the alternative branch's scheduler call. The
+trailing zero-value return in every prototype is unreachable on these paths.
+The original LPB and decoded-payload sizes and hashes match each script's
+resource record in [the canonical quest contracts](../data/quest_contracts.json).
+The [Imperial Devices briefing contracts](quest-event-client-contracts.md#imperial-devices-briefing-arguments)
+own the separate briefing arguments and other presentation methods.
+
+Static path checks distinguish numeric 1 from boolean true and string "1",
+cover both branch destinations, and verify the ordered calls and single
+saved return. These client contracts do not establish dungeon admission,
+dungeon launch, historical invocation, caller policy or authoritative quest
+state. The scheduler value's native meaning remains unverified.
