@@ -59,6 +59,7 @@ unverified native or server behavior.
 - [Company quest selector paths](grand-company-selector-paths.md)
 - [United We Stand client contract](united-we-stand-client-contract.md)
 - [To Kill a Raven client contract](to-kill-a-raven-client-contract.md)
+- [WorldMaster message arguments](worldmaster-message-arguments.md)
 - [Quest reward Notice helper](notice-helper-contract.md)
 - [Quest-offer reward display](quest-offer-reward-display.md)
 - [Quest scene literal and replay-row joins](quest-scene-replay-joins.md)

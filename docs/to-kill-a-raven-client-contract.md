@@ -121,12 +121,21 @@ Rich-string read and text-export contract.
 This interpretation uses the authenticated decoded CSV member, without a fresh
 sheet-resource extraction or a historical renderer invocation.
 
-At `processEventStewart` PC 83, the call for row 170 passes `A3_2` unchanged
-after `getTextIdStewart(170,A4_2)` (decoded Lua lines 2234-2238). The adjacent
-171/172 calls pass the same value. Its runtime value/type and the native
-`worldMaster.say` argument-vector binding remain unresolved. The count and
-level controls do not establish those arguments, the selected duty reference,
-the caller's mode or server admission predicates.
+At `processEventStewart` PC 83, the row-170 call supplies worldMaster, the
+quest receiver, `getTextIdStewart(quest,170,A4_2)` and `A3_2` unchanged
+(decoded Lua lines 2228-2238). The adjacent 171/172 calls pass the same value.
+The [WorldMaster message argument contract](worldmaster-message-arguments.md)
+traces these values through the shared helpers to the declared native target
+`_appendMessagePool_cpp`. The fixed description controls do not establish
+A3_2's runtime value/type, the native formatter-vector relationship, the
+selected duty reference, caller mode or server admission predicates.
+
+The separate
+`xivl-decomp:docs/script/worldmaster-message-pool.md` profile qualifies the
+native argument route. If the selected English cell is looked up and A3_2
+takes the accepted integer-capture path, its captured dword supplies the row
+for that cell's `xtx/raidDungeon` reference, logical field 26. The profile does
+not select a historical value, default locale, duty or caller mode.
 
 ## Scenes and encounter classes
 
