@@ -132,6 +132,7 @@ def _verify_physical_arguments(scripts_root: Path) -> None:
 
 
 def _verify_connector(path: Path) -> None:
+    # Pin extraction identity only: original bytecode owns the shared branch.
     _require_patterns(
         "widget/desktopwidget_connector.lua",
         _compact(path),
@@ -224,7 +225,10 @@ def analyze(scripts_root: Path | None = None) -> dict[str, object]:
         "displayControl": "Label_PhysicsDefense",
         "parameterNameRow": 15019,
         "helpRow": 70019,
-        "propertyCallbackBoundary": "empty DesktopWidget battleParameter branch",
+        "propertyCallbackBoundary": (
+            "original bytecode required for DesktopWidget "
+            "battleParameter/gameParameter control flow"
+        ),
         "generalParameterReferenceCount": sum(map(len, general_refs.values())),
         "normalDefenceReferenceCount": sum(map(len, defence_refs.values())),
         "genericPhysicalParameterCallCount": sum(map(len, physical_refs.values())) - 1,

@@ -36,7 +36,8 @@ class GeneralParameter18ConsumerTests(unittest.TestCase):
         )
         self.assertEqual(
             report["propertyCallbackBoundary"],
-            "empty DesktopWidget battleParameter branch",
+            "original bytecode required for DesktopWidget "
+            "battleParameter/gameParameter control flow",
         )
 
     def _mutated_file(self, relative: str, old: str, new: str) -> Path:
