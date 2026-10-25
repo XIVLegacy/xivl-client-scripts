@@ -16,6 +16,7 @@ unverified native or server behavior.
 
 - [Content command client route](content-command-client-route.md)
 - [Player command event routes](player-command-event-routes.md)
+- [Standard emote command targets](standard-emote-command-contract.md)
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
 - [Linkshell and party command contracts](linkshell-party-command-contracts.md)
 - [Linkshell master-transfer evidence](linkshell-master-transfer-evidence.md)
