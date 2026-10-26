@@ -490,7 +490,10 @@ fixed threshold. There is no separate `F <= N` expiry branch.
 `getHalfTime` returns the single value 5940 when `clearFlag` is exactly
 Boolean true. Otherwise it tail-calls `_math.ceil((F-S)/2)`, forwarding that
 callee's results. The selected callers retain only its first result. The
-literal scaling by 60 does not independently establish the native clock unit.
+[clock qualification](player-command-event-routes.md#clock-qualification)
+establishes whole-second samples for N only under the documented native
+binding, including its signed return conversion. The supplied S/F producers
+and their compatible clock domain remain unbound.
 
 `setCountDownTimer(self,S,F,flag)` writes the times first. Exactly Boolean
 false sets `countdownStatus=7` without calling the status getter. Every other
@@ -898,6 +901,10 @@ arguments to `setContents` and `setTimer`. `setContents` uses text bank
 `IntData.Value2 = 120`. Those are client widget inputs; the script does
 not prove server timer authority, actual content duration, clear ownership,
 exit cleanup, or reward policy.
+
+The same [clock qualification](player-command-event-routes.md#clock-qualification)
+applies to the clock operand. It does not bind the supplied finish-time
+producer or its compatible clock domain.
 
 ## Evidence boundary
 

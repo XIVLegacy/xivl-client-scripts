@@ -63,9 +63,8 @@ request attempt and player-state update. It does not establish request
 acceptance, completion, response arrival or a historical successful request.
 
 The selected helpers contain no nil or flag fallback. The blocker initializer,
-other writers, native clock units and server policy remain unbound.
-JournalCommand's dynamic receiver is not identified by this separate
-local-player caller.
+other writers and server policy remain unbound. JournalCommand's dynamic
+receiver is not identified by this separate local-player caller.
 
 The page's evidence records pin the retail LPB and decoded-payload identities.
 With zero-based PCs and half-open decoded-payload offsets, the guard is
@@ -80,3 +79,27 @@ fixed parameter, zero upvalues and no varargs. The producing tools are
 `tools/retail_script.py` (`decode_lpb`) and
 `tools/build_quest_contracts.py` (`ChunkReader`, `instruction`) at revision
 `6a19d5909c1a454b9b0656ef75e311c5d7501f31`.
+
+### Clock qualification
+
+If these calls resolve to the documented native
+`WorldMaster._getServerTime` binding and the receiver is accepted as native
+`WorldMaster`, the call takes zero post-receiver arguments and returns exactly
+one Lua number. The cached whole-second dword at `WorldMaster+0x60` is
+interpreted as signed 32-bit and converted to double. The binding, receiver and return
+conversion are canonical in
+`xivl-client-structs:docs/world-master-native-call-contract.md`, Registration
+and receiver and Return conversion. The source, whole-second unit and cache
+initialization are canonical in
+`xivl-decomp:docs/actor/cast-timing-clock.md`, Native clock model.
+
+Under this binding, the guard compares the blocker with a whole-second
+sample, and the writer's constants `1` and `3` are seconds offsets. The
+writer still tests its first sample `t0` and stores its separate second
+sample `t1`, with `3` added only on the inclusive branch. The native return
+conversion does not preserve the unsigned interpretation of dwords with the
+high bit set. The script arithmetic establishes neither a fixed elapsed wait
+nor a request rate, persistence or server settlement rule. Actual invocations
+were not observed. The selected writer does not bind the blocker's initial
+value or other writers to this signed clock domain. The static composition
+establishes no monotonic-clock guarantee.
