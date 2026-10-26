@@ -232,6 +232,8 @@ indexes below are one-based within that prototype.
 | `-203` | `16`, `18`-`20` | Call `_getCutSceneReplaySnpcSkin`. |
 | `-204` | `22`, `24`-`26` | Call `_getCutSceneReplaySnpcPersonality`. |
 | `-205` | `28`, `30`-`32` | Call `getInitialTown`. |
+| `-212` | `96`, `98`-`111` | Return `1` when `_isCompletedCutSceneReplayQuest` returns exactly `false` for both 111806 and 111606, otherwise `0`. |
+| `-213` | `112`, `114`-`127` | Return `1` when `_isCompletedCutSceneReplayQuest` returns exactly `false` for both 111406 and 111606, otherwise `0`. |
 | `-217` | `180`, `182`-`187` | Call `_getCutSceneReplaySnpcSkin`, then pass its result to `getSnpcSexualityToSkin`. |
 | `-200` | `197`, `199`-`200` | Return the literal value `0`. |
 
@@ -239,6 +241,36 @@ The method first obtains the player through `worldMaster:_getMyPlayer()`.
 These branches establish only the client helper operations and literal
 return. They do not assign field meanings to the values or establish replay
 eligibility or runtime playback.
+
+The `-212` and `-213` branches each make two completion calls. Every result
+is compared with the Lua constant `false` by `EQ A=0`, at indexes `101` and
+`106` for `-212` and at `117` and `122` for `-213`. A first result other
+than `false` skips the second call. Any result other than `false`, including
+`true` and `nil`, jumps to the `0` assignment at index `110` or `126`. Only
+two `false` results reach the `1` assignment at index `108` or `124`.
+
+| Completion results | `-212` result | `-213` result |
+| --- | ---: | ---: |
+| Neither listed quest reported complete | `1` | `1` |
+| Only 111606 reported complete | `0` | `0` |
+| Only 111806 reported complete | `0` | not tested |
+| Only 111406 reported complete | not tested | `0` |
+| Both listed quests reported complete | `0` | `0` |
+
+In this table, reported complete means any result other than exact `false`.
+An input that matches no branch reaches index `252`, which returns the
+input unchanged.
+
+Row `11140601`, scene key `com0l510`, has sheet columns 8/9 `0`, `-212`.
+Row `11180601`, scene key `com0u510`, has sheet columns 8/9 `0`, `-213`.
+Row `11160601`, scene key `com0g510`, has sheet columns 8/9 `-200`, `-200`.
+Sheet columns 10-15 are `-200` in all three rows
+(`xivl-client-data:csv/cutReplay.csv` rows `11140601`, `11160601`, and
+`11180601`, SHA-256
+`2553b82e1f983025e0ee23b2a8fd27e8ea44e228cda1fe3e45d743b48c584e37` in
+`xivl-client-data:manifests/tables.json`). These branches resolve replay
+arguments only. They do not establish the value a historical server sent
+when the scene played during the quest.
 
 The LPB `tp5rq/tp5rq89r57y9rr.le.lpb` has SHA-256
 `35293157c6bfd1edfc973bc0bd1986e83401d69e5cac39df2616041caff58674`.
