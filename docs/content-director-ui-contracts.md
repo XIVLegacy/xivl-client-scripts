@@ -843,6 +843,52 @@ branches establish capability
 The original-bytecode decoding tools are the same pinned LPB and Lua 5.1
 decoders identified in the [instance helper](#instance-raid-cutscene-helper).
 
+### Occupancy desktop wrappers
+
+The original DesktopWidget wrappers refine these opening and close requests.
+The connector's source and LPB identities are recorded in
+[quest content-information directors](#quest-content-information-directors).
+Its decoded payload SHA-256 is
+`685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621`
+(`manifests/retail_lua_coverage.json:25443-25455`). Exact root
+GETGLOBAL/CLOSURE/SETTABLE PCs 684-686 bind
+`DesktopWidget.openRaidDungeonExecutionWidget` to `root/proto228`, and
+PCs 687-689 bind `closeRaidDungeonExecutionWidget` to `root/proto229`.
+Their decoded-payload code intervals are `[0x1badc,0x1bb00)` and
+`[0x1bb66,0x1bb8a)`, respectively, with PCs 0-8 in each body.
+The selected bodies contain 18 instruction words/72 bytes in total;
+the exact root binding metadata contains six words/24 bytes.
+
+Open has four formal slots including receiver `p1`. It calls
+`p1:openWidgetYield(15, "RaidDungeonExecutionWidget", nil, nil, true, p3, p4)`.
+The first non-receiver input `p2` is unused. Thus the two opening scenes above
+forward 1 or 2 and their `p5` value to that boundary; the 2123/4102 input
+does not reach it. Open CALL PC7 has B=9, C=1, so it passes eight arguments
+including the receiver and discards all results.
+
+Close calls `p1:closeWidget(15, nil)` at PC3, then separately looks up and calls
+`p1:closeWidget(16, nil)` at PC7. Both CALLs have B=4, C=1 and discard all
+results. If the first call returns nil or false normally, the second request
+still follows. The second method lookup occurs after the first call.
+If the first call raises an error or does not return, the second request is
+not reached.
+
+Neither wrapper contains a conditional gate, a widget-handle store, a local
+state write or a result test. Both end with zero-result RETURN PC8, B=1.
+Nil, false, true, opaque handles and multiple results from normally returning calls
+are discarded without branching. The open call's true input is exactly a
+Boolean; its meaning is not established here. These contracts assume callable
+method lookups and normal opaque-call returns. They do not establish the
+callees' admission rules, state changes, native factory, command completion,
+widget rendering, server policy or historical invocation.
+
+Focused offline instruction checks pin the tuples, arities, required Boolean
+and nil inputs, unused input and separate close lookups. Argument, result,
+return and method-name mutations are rejected. The next unbound Lua boundary
+is `openWidgetYield`; reaching the widget's `init` is not proved by these
+wrapper bodies alone. The original LPB and instruction decoders are the
+tools identified in the [instance helper](#instance-raid-cutscene-helper).
+
 `RaidDungeonExecutionWidget.init` forwards its content and finish-time
 arguments to `setContents` and `setTimer`. `setContents` uses text bank
 10051 for `TextBlock_ContentsName`. `setTimer` writes
