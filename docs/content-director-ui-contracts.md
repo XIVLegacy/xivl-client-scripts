@@ -987,10 +987,11 @@ widget rendering, server policy or historical invocation.
 
 Focused offline instruction checks pin the tuples, arities, required Boolean
 and nil inputs, unused input and separate close lookups. Argument, result,
-return and method-name mutations are rejected. The next unbound Lua boundary
-is `openWidgetYield`; reaching the widget's `init` is not proved by these
-wrapper bodies alone. The original LPB and instruction decoders are the
-tools identified in the [instance helper](#instance-raid-cutscene-helper).
+return and method-name mutations are rejected. The
+[callee contracts](#desktop-widget-admission-and-close) qualify admission,
+arguments and returns. Reaching the widget's `init` remains unproved by these
+wrapper bodies. The original LPB and instruction decoders are the tools
+identified in the [instance helper](#instance-raid-cutscene-helper).
 
 `RaidDungeonExecutionWidget.init` forwards its content and finish-time
 arguments to `setContents` and `setTimer`. `setContents` uses text bank
@@ -1005,6 +1006,102 @@ exit cleanup, or reward policy.
 The same [clock qualification](player-command-event-routes.md#clock-qualification)
 applies to the clock operand. It does not bind the supplied finish-time
 producer or its compatible clock domain.
+
+### Desktop widget admission and close
+
+The original `DesktopWidget.openWidgetYield` and `closeWidget` bodies are in
+the same connector resource and decoded payload pinned in
+[occupancy desktop wrappers](#occupancy-desktop-wrappers). Their canonical
+source is `lua/scripts/widget/desktopwidget_connector.lua`, 660617 bytes,
+SHA-256 `9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01`
+(`manifests/scripts.json:15399-15402`). The selected source definitions are
+lines 25912-25971 and 25300-25322, respectively. Original instructions establish
+call and return arities. The canonical decompile truncates the displayed
+extra-argument tail.
+
+All PCs below are zero-based. Code intervals are half-open offsets in the
+decoded payload. Each exact root binding is
+`GETGLOBAL DesktopWidget`, `LOADK` of the named method, `CLOSURE`, `SETTABLE`.
+
+| Method | Root binding PCs and interval | Selected body | Fixed slots and varargs |
+| --- | --- | --- | --- |
+| `openWidgetYield` | 1921-1924, `[0x1e24,0x1e34)` | `root/proto544`, PCs 0-50, `[0x330fd,0x331c9)`, 51 words/204 bytes | Six including receiver, vararg flag 3 |
+| `closeWidget` | 1853-1856, `[0x1d14,0x1d24)` | `root/proto527`, PCs 0-16, `[0x32261,0x322a5)`, 17 words/68 bytes | Three including receiver, no varargs |
+
+For open, call the fixed slots `p1` through `p6`, with `p1` the receiver.
+Only `p5 == nil` calls `p1:isWidgetExec(p2)`. Only an exact first result true
+returns one nil immediately. Otherwise that nil `p5` becomes `p1` locally.
+Any supplied non-nil `p5`, including false, bypasses this precheck and remains
+unchanged. The method then saves the first result of
+`p1:getWidgetTypeByIndex(p2)`. Its saved lookup selector is `p3` when
+`p4 == nil`, or `p4` otherwise, including false.
+
+Each attempt calls `p1:openWidget(p2,p3,p4,p5,p6,...)` and keeps
+only the first result. Original VARARG PC24 has B=0 and open CALL PC25 has
+B=0, C=2, preserving the entire extra-argument tail, including nil positions.
+Canonical lines 25942-25943 display one local for `...`; that displayed tail
+is not the original argument contract.
+
+Only an exact true open result calls `p1:waitWidgetCreateYield(p2)`, discards
+its results, then calls `p1:getWidget(p2,saved-selector)`. Open returns exactly
+the latter's first result, including nil or false. EQ PC36's two paths both
+reach RETURN PC49, so a nil lookup result does not retry. Every other open
+result reloads `p1.work.widgetEnableFlag[saved-type]`. Exact false ends with
+one nil. Otherwise `p1:_wait(0.1)` precedes another attempt. Type and selector
+remain saved, while work and the enable table are reloaded after each failed
+attempt. Method lookups occur when their SELF instructions are reached.
+
+The open body's EQ `(A,B,C)` operands are PC0 `(0,4,256)` for nil `p5`,
+PC5 `(0,7,258)` for the precheck's true result, PC15 `(1,3,256)` for the
+selector's nil test, PC26 `(0,10,258)` for open's true result, PC36
+`(0,7,256)` for the final nil test, and PC42 `(0,10,265)` for the enable
+flag's false test. RK256 is nil, RK258 is true and RK265 is false.
+The retry JMP PC48 has sBx=-31 and targets PC18. The normal result returns
+are PC8 and PC49, both A=7, B=2. PC50 is an unreachable empty terminator.
+
+| Open call | PC | CALL A,B,C | Result handling |
+| --- | ---: | --- | --- |
+| `isWidgetExec(p2)` | 4 | `7,3,2` | First result |
+| `getWidgetTypeByIndex(p2)` | 13 | `8,3,2` | First result, saved |
+| `openWidget(p2,p3,p4,p5,p6,...)` | 25 | `10,0,2` | First result |
+| `waitWidgetCreateYield(p2)` | 30 | `10,3,1` | Discarded |
+| `getWidget(p2,saved-selector)` | 34 | `10,4,2` | First result, returned |
+| `_wait(0.1)` | 47 | `10,3,1` | Discarded |
+
+For the published raid wrapper, nil `p5` selects the precheck. After a
+non-true result, the underlying call is
+`p1:openWidget(15,"RaidDungeonExecutionWidget",nil,p1,true,p3,p4)`, where
+the last two values are the wrapper's forwarded inputs. The saved lookup
+selector is `"RaidDungeonExecutionWidget"`. This qualifies the literal true
+input's position without assigning native creation or rendering semantics.
+
+Close has a leading constant `nil == true` comparison, EQ PC0 A=0, B=256,
+C=257. Its false-return block at PCs 2-3 is unreachable. It then calls
+`p1:getWidget(p2,p3)` at PC7, A=3, B=4, C=2, retaining only the first result.
+EQ PC8 A=0, B=3, C=256 tests equality with nil. A nil result returns exactly
+one false at PC11, A=4, B=2. Every non-nil result, including false, reaches
+`p1:closeWidgetDirect(result)` at TAILCALL PC14, A=4, B=3, C=0, followed by
+open RETURN PC15, A=4, B=0. All normal callee results propagate, including
+zero results, nil positions and multiple results. No fixed success value
+is supplied by this path.
+
+Neither selected body writes a receiver property, global or upvalue. The
+calls remain opaque: they may mutate state, raise, suspend or fail to return.
+Errors propagate without a local handler. The `_wait(0.1)` argument and
+`waitWidgetCreateYield` call do not establish a measured delay or completion.
+Close has no explicit wait or cleanup operation beyond its opaque helper.
+The occupancy wrappers discard these callee results, so the composed path
+does not establish native creation, destruction, widget initialization or
+rendering, historical invocation, or server policy. `openWidget`,
+`waitWidgetCreateYield`, `getWidget` and `closeWidgetDirect` remain separate
+callee boundaries.
+
+Focused original operand checks and static replays cover exact Boolean/nil
+comparisons, complete varargs, saved and reloaded state, retries, result
+arities and propagated errors. Ten open and eight close semantic mutations
+are rejected. These checks use the LPB and instruction decoders identified
+in the [instance helper](#instance-raid-cutscene-helper), without client
+execution or interpretation of another helper body.
 
 ## Evidence boundary
 
