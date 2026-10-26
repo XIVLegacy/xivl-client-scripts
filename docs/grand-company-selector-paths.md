@@ -290,3 +290,56 @@ cover both branch destinations, and verify the ordered calls and single
 saved return. These client contracts do not establish dungeon admission,
 dungeon launch, historical invocation, caller policy or authoritative quest
 state. The scheduler value's native meaning remains unverified.
+
+## Imperial Devices member-message helpers
+
+The three `menberCountUnderRange` helpers present company-specific messages
+and return zero values. Their bodies contain no local member enumeration,
+counting, distance calculation or range test. Limsa compares one supplied
+parameter with numeric 1 to choose its opening row.
+
+A0 is the scenario receiver supplied as text owner. A1 is forwarded unchanged
+to the talk-start call, and A2 receives the actor-side calls. A3-A5 are
+caller-supplied values whose producers and concrete values are unknown. These
+roles do not identify concrete caller objects. The `worldMaster` receiver is
+loaded separately from its global. In the following table, calls use colon
+notation, so the receiver is an additional argument before those shown.
+
+| Helper | Calls in order |
+| --- | --- |
+| `Com5g0.menberCountUnderRange(A0,A1,A2,A3,A4)` | `A2:startCliantTalkTurn(0,A1)`; `A2:say(A0,15,0,0,0,A3,A4)`; `worldMaster:say(A0,72,0,0,A3,A4)`; `A2:finishCliantTalkTurn()` |
+| `Com5l0.menberCountUnderRange(A0,A1,A2,A3,A4,A5)` | `A2:startCliantTalkTurn(2,A1)`; `A2:say(A0,29,0)` when A5 equals numeric 1, otherwise `A2:say(A0,30,0)`; `A2:_runCharaScheduler(354168832)`; `A2:say(A0,27,0,0,0,A4)`; `worldMaster:say(A0,28,1,0,A4,A3)`; `A2:finishCliantTalkTurn()` |
+| `Com5u0.menberCountUnderRange(A0,A1,A2,A3,A4)` | `A2:startCliantTalkTurn(0,A1)`; `A2:_runCharaScheduler(354168832)`; `A2:say(A0,20,0)`; `A2:say(A0,18,0,0,0,A4)`; `worldMaster:say(A0,71,1,0,A4,A3)`; `A2:finishCliantTalkTurn()` |
+
+The original instructions preserve these parameter values and argument order.
+Gridania forwards A3 then A4 to WorldMaster; Limsa and Ul'dah forward A4
+then A3. Their row and following literal arguments also differ. Limsa and Ul'dah construct
+the extra zero arguments from a local initialized to numeric zero. Every CALL
+uses C=1, retaining no results, and each reached `RETURN A=0 B=1 C=0` emits
+zero values. There is no TAILCALL.
+
+Source identities are the `lua/scripts/quest/scenario/com/com5g0.lua`,
+`com5l0.lua` and `com5u0.lua` records in
+[the canonical quest contracts](../data/quest_contracts.json). Their complete
+original LPB and decoded payload sizes and SHA-256 hashes match those resource
+records. The [accepted text-source bindings](gc-text-source-bindings.md)
+own the class/root/text identity evidence. The selected root closure/store
+pairs additionally bind the particular prototypes to `menberCountUnderRange`.
+
+| Class | Canonical Lua lines | Prototype / code offset / instructions | Root closure/store PCs | Call PCs | Return PC |
+| --- | --- | --- | --- | --- | --- |
+| Com5g0 | 784-816 | root/proto14 / 5695 / 25 | 50, 51 | 3, 12, 21, 23 | 24 |
+| Com5l0 | 573-624 | root/proto7 / 4209 / 41 | 29, 30 | 3, 11 or 17, 20, 28, 37, 39 | 40 |
+| Com5u0 | 903-945 | root/proto13 / 6441 / 33 | 47, 48 | 4, 7, 12, 20, 29, 31 | 32 |
+
+PCs are zero-based; offsets are into the decoded payload. Limsa's
+`EQ A=0 B=5 C=259` at PC 5 compares A5 with numeric 1. Equality skips
+PC 6 and reaches row 29; the jump at PC 12 then targets PC 18. Inequality
+takes PC 6 to PC 13 for row 30, which also continues at PC 18. Boolean true
+and string "1" do not equal numeric 1. Gridania and Ul'dah have no branch
+in these helpers.
+
+These are static message and return contracts. The selected bodies establish
+no local admission decision. They do not establish callee internals, the
+meaning of scheduler 354168832, text readiness or rendering, historical
+invocation, caller policy, server behavior or authoritative dungeon admission.

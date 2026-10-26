@@ -1036,6 +1036,10 @@ in `xivl-client-data:manifests/tables.json`). `Com5g0.followEvent_000`
 72, whose text formats party-size bounds and a minimum Disciple of War or
 Magic level from parameters.
 
+The [Imperial Devices member-message helpers](grand-company-selector-paths.md#imperial-devices-member-message-helpers)
+own the original call tuples, company differences and zero-value returns for
+the three `menberCountUnderRange` methods.
+
 `Com5l0.processEvent_015` (lines 627-690) says row 49 when its fourth method
 argument is 1 and row 50 otherwise. `Com5u0.processEventAUBREYStart`
 (`com5u0.lua:23-135`) says rows 76 and 77 in place of rows 5 and 7 when its
