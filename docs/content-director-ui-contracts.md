@@ -630,6 +630,57 @@ return-arity mutations failed the corresponding checks. These are conditional
 Lua instruction facts, without client execution, native allocation/playback/
 destruction proof or historical event attribution.
 
+#### CutScene initializer inputs
+
+Original `CutScene._onInit` has three fixed formal slots `(self, scene,
+subject)`, no upvalues and no variadic tail. It calls
+`self:_callSuperClassFunc("_onInit")` without forwarding either payload value
+and discards the results. It then fetches `self.work` and assigns its `_temp` an ordered table
+of three pairs: `("textOwner", "actor")`,
+`("isPreviewTextOwner", "boolean")` and `("actorclassSheet", "actor")`.
+This assignment alone does not establish native member registration.
+
+It calls `self:_setFilename(scene)` and discards the results. The
+`CutScene` overload's filename store and later `_play` consumer are owned by
+`xivl-client-structs:docs/stub-overload-native-contract.md`, CutScene
+_setFilename. Next it fetches `self.work` into a saved register, calls global
+`_createActor(nil, "SpreadSheet", false, "actorclass")`, and assigns only
+the first result to that saved value's `actorclassSheet`. Zero returned
+values supply nil to this assignment. The following assignments each fetch
+`self.work` again: `textOwner` receives `subject`, then `isPreviewTextOwner`
+receives Boolean false. These separate work lookups need not return the same
+value across opaque calls, yields or metamethods.
+
+All 36 instructions form one local path ending in a zero-result return.
+There is no local result test or protected cleanup. The sequence assumes
+successful lookups and normally returning calls. The native payload handoff
+is recorded in `xivl-decomp:docs/actor/world-master.md`, Native scene-creation
+handoff, at revision `500b02ea661743b8826f4a264dadbf3e97bd5690`.
+Here scene and subject name its incoming converted payload values; the
+subject store does not prove identity with the original caller object or a
+world player. Spreadsheet construction and readiness remain conditional on
+the native contract in
+`xivl-client-structs:docs/create-actor-native-contract.md`.
+
+The canonical `lua/scripts/gamedata/cutscene.lua:7-53` has SHA-256
+`89a7ec2df66697ffe012b17200194bf1851147b234fd240d738138b249ad4264`
+(`manifests/scripts.json:9513-9516`). Its 727-byte original resource
+`client/script/39x569q9/7pqr75w5.le.lpb` has SHA-256
+`cfb5ad38220b3b9a1dd8ae3ba8cae05feef84be3a845d56a2954efedb2d807c2`;
+the 714-byte decoded payload has SHA-256
+`fae5ec95e85f0de381a366d1ec76643444b181173747fa11ba7d0019c2379b1d`
+(`manifests/retail_lua_coverage.json:799-811`). Root PCs 3-5 at
+`[0x2C,0x38)` bind `CutScene._onInit` to `root/proto0`; its complete
+PCs 0-35 occupy `[0xBC,0x14C)`, 36 words/144 bytes. CALL PCs 2, 21
+and 29 encode superclass, filename and Spreadsheet calls respectively.
+Focused offline operand checks and register replay verified the ordered
+inputs, first-result retention, saved work reference, separate work lookups,
+typed false and zero-result return. Fourteen decoded semantic mutations
+were rejected independently of the original-byte hash check. The LPB and
+instruction decoders are `tools/retail_script.py` and
+`tools/build_quest_contracts.py` at revision
+`5507da1522e173f7fcad29d6b0bc7294b64b6ea5`.
+
 ## Instance-raid guide and event methods
 
 The following client contracts are pinned by their LPB and decoded payload
