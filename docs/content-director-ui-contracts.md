@@ -324,7 +324,7 @@ first forwarded value selects these client-side updates:
 | 7 | Stores the first value as `cargoTarget`. |
 | 8 | Sets `bossFlag` to true. |
 | 9 | Stores the first value as `battleValue`; the HUD refresh passes it to `cmdSetWarPotentialValue` with maximum 100. |
-| 10 | Calls the director's `dispInformation` helper with the remaining values, then returns. The helper sends a `worldMaster:notify` call and, when the popup widget exists, calls its `dispInformation` using a lookup-table entry and the Hamlet ID. The notice-ID meanings are not established here. |
+| 10 | Calls the director's `dispInformation` helper with the remaining values, then returns. Its exact lookup and ordered popup/notice calls are recorded below; rendered text and historical trigger meanings remain unbound. |
 
 The HUD maps line-status values 1/2/3 to normal, danger, and line-fall
 commands; goods-status values 1/2/3 map to normal, danger, and goods-lost
@@ -337,6 +337,55 @@ mapping. It maps numeric 0 to 3 and numeric 1 to 2, with all other values
 mapped to 1. Whether a historical server sent booleans, these numeric values,
 or any particular sequence is unknown.
 
+### Hamlet information helper
+
+`InstanceRaidHamletDefense.dispInformation(self,key,...)` constructs its lookup
+inside the method. Keys 1 through 18 select numeric notice IDs 11 through 28
+in order. The remaining two row values are passed to the popup as follows:
+
+| Input key | Notice ID | Boolean argument | Numeric argument |
+| --- | --- | --- | ---: |
+| 1 through 10 | 11 through 20, respectively | false | 0 |
+| 11 | 21 | true | 1019 |
+| 12 | 22 | true | 1091 |
+| 13 | 23 | true | 1022 |
+| 14 | 24 | true | 1063 |
+| 15 | 25 | true | 1013 |
+| 16 | 26 | true | 1018 |
+| 17 | 27 | true | 1017 |
+| 18 | 28 | true | 1063 |
+
+The helper retains exactly one result of
+`desktopWidget:getHamletPopupWidget()`, then constructs and indexes the lookup.
+There is no missing-key fallback or conversion of string keys to numbers.
+A missing row fails during indexing before either display call, including
+when the popup result is nil.
+
+For a valid key and a non-nil popup, the first call is
+`popup:dispInformation(row[2],self.work.hamletID,row[3],self,row[1],...)`.
+A false Boolean table value does not skip that call. The availability test
+compares the popup result with nil, rather than testing general Lua falsiness.
+The continuing path then calls `worldMaster:notify(self,row[1],...)`.
+A nil popup skips the popup call and Hamlet-ID read but still reaches notify.
+The helper catches no exception; a failing popup call does not establish
+delivery of the later notice.
+
+Both calls forward the complete variadic tail, including nil positions,
+and discard their results. The helper returns zero Lua values. Its supplied
+provider is the director receiver; it does not substitute WorldMaster as the
+explicit provider. The [log-argument contract](worldmaster-message-arguments.md#countdown-log-arguments)
+owns the common forwarding/native contract, subject to its typed-capture and
+source-readiness conditions. These numeric arguments do not prove rendered
+text, item identity, historical key selection or a server event policy.
+
+The original helper is `root/proto10`, `[0x1133,0x12FF)`, 115 instructions.
+Its local R4 lookup is produced at PCs 3-94, `[0x113F,0x12AF)`, within that
+same body. Root PCs 37-39, `[0xB4,0xC0)`, bind the class/name/closure. These
+are zero-based PCs and half-open decoded-payload offsets. The director LPB,
+payload and canonical source are pinned below. Focused static replay checked
+all 18 keys, popup nil/present cases, full tails, invalid-key failure and
+return arity; it did not execute the client.
+
 The decoded-chunk pins below are the inputs used for the bytecode checks. The
 instruction offsets locate the inspected methods within those decoded Lua 5.1
 chunks; they do not establish a runtime packet or its effects.
@@ -345,6 +394,7 @@ chunks; they do not establish a runtime packet or its effects.
 | --- | --- | --- | --- | --- |
 | `InstanceRaidBaseClass._onReceiveDataPacket` | `61s57qvs/1wrq9w75s916/1wrq9w75s91689r57y9rr.le.lpb` | `820F421AEF68BDCB48C082A2C1B91521903D0E82956C273CABC462B6B3271F2F` | `697419B9ABE065C5B77E67938F7AB4188B0C61B61F4B0E87F2D0FC05A6083941` | `0x0016D3-0x001787` |
 | `InstanceRaidHamletDefense.processUserMessage` | `61s57qvs/1wrq9w75s916/1wrq9w75s91629xy5q6545wr5.le.lpb` | `2DDEDC8FAD4DAC5FAC4C800425DD8685F83E3DBF4CD8BD0AC996D265D540881E` | `FF329E9DEC60838A0D0FD5E2C42A27ABA60365BF52B44BCB8D6D43C709EB1A00` | `0x000A51-0x000E65` |
+| `InstanceRaidHamletDefense.dispInformation` | Same director resource above | Same director LPB above | Same director payload above | `[0x001133,0x0012FF)` |
 | `HamletDefenseWidget` status and target methods | `n1635q/29xy5q6545wr5n1635q.le.lpb` | `882B2B249B3DE84A593E4084E8CB7E49FBB00B3BF4CBD0FC911D1A2814964286` | `A564717080911218C718EA28F4A8B604A9850B3F2DB27BCD73ED9CEC93715D9E` | `cmdSetDefenseLineStatus: 0x000F5A-0x000FE6`; `cmdSetGoodsStatus: 0x001321-0x0013A9`; `cmdSetTargetGoods: 0x0015AD-0x001621` |
 | `HamletDefensePopupWidget.dispInformation` | `n1635q/29xy5q6545wr5uvupun1635q.le.lpb` | `49DC594F8AA976696D7C2B42A2D57BF11925F36A9075ADCC7D36D141AF92A754` | `EB49B7D2F956BA4F66ACF5DEB9DD86259154E716898C14C665145E5B05157066` | `0x0000EC-0x0001D8` |
 
