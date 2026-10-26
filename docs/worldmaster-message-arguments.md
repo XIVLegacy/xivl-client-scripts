@@ -83,6 +83,55 @@ The adjacent source helpers provide separate observed literals:
 `DesktopWidget.showLog` with 32; `WorldMaster.alert` at lines 143-156 forwards
 to the same helper with 33. No enum meaning is assigned here to 40, 32 or 33.
 
+## Countdown log arguments
+
+The [instance-raid countdown](content-director-ui-contracts.md#instance-raid-countdown-and-notices)
+calls `worldMaster:notify(worldMaster,row,contentID,value)`. The explicit
+WorldMaster is additional to the method receiver. Original `notify`
+bytecode (`root/proto5`, code `[0x528,0x54C)`, PCs 0-8) preserves the tail
+through `VARARG B=0` / `CALL B=0 C=1` at PCs 6-7. `showLog` does the same
+at PCs 7-8 (`root/proto15`, `[0xF54,0xF7C)`, PCs 0-9). The latter's initial
+jump skips its first return. Both reachable terminal returns have zero values.
+Root SETTABLE PCs 17 and 59 bind the respective method names. The authenticated
+resource, payload and canonical source identities are listed below.
+
+For either countdown row, the ordered function arguments are:
+
+| Boundary | Arguments, including method receiver |
+| --- | --- |
+| `notify` | `worldMaster, worldMaster, row, contentID, value` |
+| `showLog` | `desktopWidget, worldMaster, 32, worldMaster, row, contentID, value` |
+| `_appendLogPool` | `desktopWidget, worldMaster, 32, worldMaster, row, contentID, value` |
+
+The [native log-pool contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/talk-native-contract.md#message-and-log-pools)
+already qualifies `_appendLogPool` registrar `0x00744020`, callback
+`0x006ECF80`, and shared worker `0x006E8360` with flag 0. That callback has
+no results and requests no yield; the message-pool callback's checker/yield
+must not be assigned to this route. Those native observations are owned by
+that contract.
+
+After the desktop receiver is removed, native index 0 is WorldMaster, index 1
+is 32, index 2 is the explicit WorldMaster provider control and index 3 is the
+row. Index 4 onward carries the two supplied formatter values in order.
+The worker casts index 2 to ActorBase and derives its opaque handle. A valid
+WorldMaster control at index 0 selects sink `0x00772650`; the
+[shared source/formatter contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/script/worldmaster-message-pool.md#quest-source-and-textmodule-join)
+then qualifies lookup of the supplied provider's source name. For this call
+that provider is WorldMaster, rather than an implicit replacement by the
+instance director. Its existing `_onInit` loader passes `(39,"worldMaster")`
+on the WorldMaster receiver; matching initialized state and lifetime remain
+required for the native source lookup.
+
+The countdown values occupy formatter positions 1 and 2 only when their
+native captures are accepted as integer values. An absent or differently
+typed value must not be assigned an integer-reference meaning by position
+alone. This composition does not prove rendered text, current source state,
+notice completion, native clock units or server timer authority.
+
+Focused static replay of the two original helper bodies checked six open-tail
+cases, including nil positions, zero returns and the distinct literal 32.
+It establishes transport and arity, without executing the client.
+
 ## Stewart callsite and text-loading context
 
 Gcl107 `processEventStewart`, `root/proto28` PC 83, supplies this exact tuple:

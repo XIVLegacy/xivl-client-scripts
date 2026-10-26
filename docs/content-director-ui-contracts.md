@@ -467,8 +467,12 @@ worldMaster receiver, explicit worldMaster, row, first content-ID result,
 and value. `SELF A5` and `CALL A5 B6 C1` at `_onLoop` PCs 38/44 preserve
 that duplicate worldMaster and discard notify results. The half-time branch
 recomputes H for its value. The loop and setter return zero Lua results;
-`getRestTimeStatus` returns exactly one. These operands do not assign native
+`getRestTimeStatus` returns exactly one. These operands alone do not assign native
 provider meaning to the explicit worldMaster or prove rendered notices.
+
+The [countdown log-argument composition](worldmaster-message-arguments.md#countdown-log-arguments)
+joins this tuple to `notify`, `showLog` and the already qualified native
+log-pool entry, preserving the explicit provider and conditional source lookup.
 
 The same pinned LPB and decoded payload above contain these four methods.
 The following code intervals are half-open decoded-payload offsets; PCs are
