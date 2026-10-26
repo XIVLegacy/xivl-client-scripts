@@ -732,31 +732,74 @@ Two recovered occupancy directors and their widget have corresponding
 | `RaidRoc0Dungeon01` | `61s57qvs/v77pu9w7l/s916sv7j6pw35vwji.le.lpb` / `3b7e73d556fc9016951cb4897a85fad7ff2b93e5ccd570e2c229414e6f0e4cf2` | `ec6e626a70d41a976da06a327663581cc1473e35adb4b73e67079529bbb6d7db` |
 | `RaidDungeonExecutionWidget` | `n1635q/s9166pw35vw5m57pq1vwn1635q.le.lpb` / `f02fdcd3ecbf7269937c19d664532afae94744aec33a104d364fdb795504f67d` | `8a2d239324a1ce8fc23dee64596f4ab94c1be9df862a967d522d68fe1e98e814` |
 
-`RaidFst0Dungeon03.eventNoticeCutScene` treats `rad0f300` as its opening
-scene and requests widget close for `rad0f306`, `rad0f307`, or `rad0f308`.
-It then requests a cutscene in mode 61 and passes content ID 2123, type 1,
-and the method's fifth argument to `openRaidDungeonExecutionWidget`.
-For `rad0f300`, the method sets its local branch flag instead of calling
-`_fadeOut`; after starting the cutscene and deleting its object, it calls
-`_fadeIn`. `relogin` calls
+`RaidFst0Dungeon03.eventNoticeCutScene` and
+`RaidRoc0Dungeon01.eventNoticeCutScene` each call `createCutScene` once,
+retain its first result and use that same value for `startCutScene` and
+`_delete`. Neither method tests the creator result before indexing it for
+`startCutScene`; there is no encoded nil/false skip path. The original
+instructions resolve the repeated creator expression in the recovered Lua.
+They establish a single Lua creator invocation, without establishing how many
+native allocations that invocation performs.
+
+Both methods have five formal slots. Using `p1` through `p5` for those
+slots, including the receiver, their common sequence is
+`worldMaster:createCutScene(p3, p1)`, then
+`result:startCutScene(1, 61, 1, 0, p4)`, `result:_delete()` and
+`p2:_fadeIn(1)`. Each call after creation discards its results; the methods
+return no values. The continuation assumes that the returned value supports
+the indexed methods and that the opaque calls return normally.
+
+The exact scene comparisons control the calls before and after that sequence:
+
+| Director | Opening scene | Close scenes | Opening widget inputs |
+| --- | --- | --- | --- |
+| `RaidFst0Dungeon03` | `rad0f300` | `rad0f306`, `rad0f307`, `rad0f308` | `(2123, 1, p5)` |
+| `RaidRoc0Dungeon01` | `rad0r100` | `rad0r106` | `(4102, 2, p5)` |
+
+For its opening scene, each method skips `_fadeOut` and `_waitForFading`.
+After the common sequence it calls
+`desktopWidget:openRaidDungeonExecutionWidget` with the table's three inputs,
+then `desktopWidget:processUpdateGeneralNotificationDialog(3, nil, nil, 1)`.
+For every other scene, including nil, it calls `p2:_fadeOut(1)` first,
+conditionally calls `desktopWidget:closeRaidDungeonExecutionWidget()` for
+its listed close scenes, then calls `p2:_waitForFading()` before creation.
+Those non-opening paths do not make the two opening widget calls.
+
+Each original root's `GETGLOBAL`/`CLOSURE`/`SETTABLE` PCs 13-15 bind the exact
+class and method name to `root/proto2`. Decoded-payload code intervals are
+`[0x259,0x329)` for Fst, PCs 0-51, and `[0x259,0x319)` for Roc, PCs 0-47.
+Creator/start/delete CALL PCs are 24/31/33 and 20/27/29 respectively.
+The canonical Roc source SHA-256 is
+`7511e87f9e017cc93a7ae7a1a32c8a6280516f876839bb39fc2296f592e54071`,
+recorded in `manifests/scripts.json:8229-8233`. The corresponding original
+LPB identities are in the table above and in
+`manifests/retail_lua_coverage.json:5479-5506`; decoded-payload SHA-256 values
+are `b64ca62a6ed4ee20ac42001e270c596f74044c9ef7f84beca18000b16be4938c`
+and `27fc9ec035033acf5822bf0b8595ba7c7e5b3f2a0c35558e0e7bbeaa2fe50077`.
+
+Both `relogin` methods request the corresponding widget open when their
+fourth argument is false. Both `processUIFinalize` and `widgetSetOff` request
+close. The Fst `relogin` method calls
 `_fadeInNowLoadingForNoticeEventJustInArea`, as does
-`CutScene.startCutScene` immediately before `_loadCutScene`. These are
-recovered call sequences, not proof of visible loading or fade behavior.
+`CutScene.startCutScene` immediately before `_loadCutScene`. Those existing
+source findings remain separate from the conditional original instruction
+contracts above.
 The director source is `director/occupancy/raidfst0dungeon03.lua:29-78,93-107`
 (SHA-256 `A01AF800CC925D858191AAC416EBDA2CA79DAF52F1148DA45CAB1F2A552D6C4C`);
 the common source is `gamedata/cutscene_common.lua:1064-1075,1316` (SHA-256
 `F6DB9559B3F805D2738C073C7DB9DD102FD5C33A056E789FF2FB2F8AFF395BD1`). Both
 are pinned in `manifests/scripts.json:8223-8226,9519-9522` and joined to
 retail resources by `manifests/retail_lua_coverage.json:5480-5492,815-826`.
-No cited evidence joins `rad0f300` to native spawn types 16 or 21; their
-separate dispatcher branches establish capability, not a historical scene
-selection (`xivl-decomp:docs/actor/animation-bank-routing.md`).
-`RaidRoc0Dungeon01` uses opening scene `rad0r100`, closes for
-`rad0r106`, and opens with content ID 4102, type 2, and its fifth
-argument. Both `relogin` methods request the same widget open when their
-fourth argument is false. Both `processUIFinalize` and `widgetSetOff`
-request close. The decompiled cutscene expression repeats
-`createCutScene`; that output does not establish two runtime allocations.
+
+These are conditional client call sequences. Native allocation, successful
+playback, visible fades or widget rendering, historical event invocation,
+scene actor selection and server policy remain unobserved. No cited evidence
+joins `rad0f300` to native spawn types 16 or 21; the separate dispatcher
+branches establish capability
+(`xivl-decomp:docs/actor/animation-bank-routing.md`).
+
+The original-bytecode decoding tools are the same pinned LPB and Lua 5.1
+decoders identified in the [instance helper](#instance-raid-cutscene-helper).
 
 `RaidDungeonExecutionWidget.init` forwards its content and finish-time
 arguments to `setContents` and `setTimer`. `setContents` uses text bank
