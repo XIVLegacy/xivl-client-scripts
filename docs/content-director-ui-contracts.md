@@ -1254,13 +1254,86 @@ meets `openWidget`'s separate normalization: exact false becomes false and
 every other normal result becomes true. The outer and inner type lookups
 remain distinct. These calls do not bind an actual native control/table or
 prove creation, completion, rendering, lifetime, historical invocation or
-server policy. `_isAlive` and `commandCreateWidget` remain opaque boundaries.
+server policy. `_isAlive` remains opaque. The
+[`commandCreateWidget` contract](#commandcreatewidget-forwarding) qualifies
+its request forwarding.
 
 Focused original operand checks, 52 static replays and 28 rejected semantic
 mutations verify defaults, comparisons, exact request arguments, full varargs,
 saved values, fresh post-call lookups and result/error boundaries. The LPB
 and instruction decoders at revision `3ad61ba2b38887b04f504b8b4561ea2eb9062a7f`
 were used without client execution or interpretation of a dependency body.
+
+#### commandCreateWidget forwarding
+
+Original `DesktopWidget.commandCreateWidget` has three fixed slots, `p1`
+through `p3`, including its unused receiver `p1`, plus varargs. Its canonical
+source is `widget/desktopwidget.lua`, 7929 bytes, SHA-256
+`5d3bfabf2e8a55ee2e64f607bdada5f04046c9528e9e9aca858e9ad9e232070a`
+(`manifests/scripts.json:15393-15396`). The selected definition/binding window
+is lines 117-141. Canonical lines 137-138 display a single local from the
+variadic tail; the original forwards the complete tail.
+
+Its original resource is `client/script/n1635q/65rzqvun1635q.le.lpb`,
+4029 bytes, SHA-256
+`be7b0959ba530027991b22308b1d6a84ce5db311bdb727f987678b5dbf810e51`.
+The 4016-byte decoded payload has SHA-256
+`92af6d4fe068c49efcb7f4b1df869e4b5846a86217915bb6cb798fe24c58d14e`
+(`manifests/retail_lua_coverage.json:25413-25425`). Root PCs 24-26,
+`[0x80,0x8c)`, bind DesktopWidget/name to `root/proto4` through GETGLOBAL
+R0,K5, CLOSURE R1,child4, SETTABLE R0,K10,R1. K5 is `DesktopWidget` and
+K10 is `commandCreateWidget`. The body is PCs 0-15, `[0x696,0x6d6)`,
+16 words/64 bytes, with vararg flag 3. PCs are zero-based; byte intervals
+are half-open decoded-payload offsets.
+
+The first global `worldMaster` lookup supplies `w1`. Its separately resolved
+`_getMyPlayer` call contributes first result `q1`. SELF PC3 saves both
+`q1.commandAboutWidget` as function `F` and `q1` as its receiver before the
+later calls. A fresh global lookup supplies `w2`; its `_getMyPlayer` call
+contributes first result `q2`. The body then calls
+`q2:getSystemCommand(24228)`, retaining only first result `c`.
+
+The separate global loads and first player results are not proved equal.
+The final call uses the function and receiver held in registers before the
+later lookups; it does not resolve `commandAboutWidget` again. Those saved
+references do not freeze their referenced objects.
+
+| Operation | PC | A,B,C | Handling |
+| --- | ---: | --- | --- |
+| First `_getMyPlayer()` CALL | 2 | `4,2,2` | First result `q1` |
+| Second `_getMyPlayer()` CALL | 6 | `6,2,2` | First result `q2` |
+| `getSystemCommand(24228)` CALL | 9 | `6,3,2` | First result `c` |
+| VARARG | 12 | `9,0,0` | Complete extra tail |
+| Saved `commandAboutWidget` TAILCALL | 13 | `4,0,0` | All normal results forwarded |
+| Open RETURN trailer | 14 | `4,0,0` | Tail results |
+
+The exact final tuple is `F(q1,c,p3,p2,...)`, with all extra positions,
+including trailing nils. Neither fixed inputs nor `c` are normalized or
+checked. Each earlier CALL keeps one result: zero results become nil and
+additional results are discarded. A nil command result is passed as nil.
+The tail call propagates every normal result, including zero results and nil
+positions; PC15's empty terminator has no independent normal path.
+
+For the published occupancy request, the saved function receives
+`(q1,c,false,"RaidDungeonExecutionWidget",receiver,true,"RaidDungeonExecutionWidget",15,true,wrapper-p3,wrapper-p4)`.
+The original DesktopWidget receiver survives only in that tail position;
+its relationship to either player result is unproved. The immediate caller's
+separate first-result adjustment and outer Boolean normalization remain as
+documented above.
+
+The first explicit opaque call is `_getMyPlayer` at PC2. The body has no
+conditional branch, local admission/type/default test, store, loop, wait or
+error handler. Reached lookup/call errors propagate; suspension or nonreturn
+prevents later work. The literal 24228 is the low ID in the existing
+[WidgetOpenCommand finding](widget-open-command-boundary.md). This selector
+does not establish the class of returned `c`, its dispatch by the saved
+function, an actual native receiver/address, or historical execution.
+
+Focused original operand checks, 44 static paths and 14 rejected semantic
+mutations verify separate lookups, saved-method timing, exact request tuple,
+full varargs/results and error boundaries. The LPB and instruction decoders
+at revision `37114264126f9e342f78754c028ab78cc491c3ee` were used without
+client execution or interpretation of a dependency body.
 
 ## Evidence boundary
 
