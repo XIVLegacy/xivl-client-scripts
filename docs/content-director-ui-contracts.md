@@ -542,8 +542,48 @@ return arity and notification argument order. Comparison and argument-operand
 mutations failed the corresponding expectations. This was not client execution.
 The class proves a conditional presentation lifecycle, not server timer authority,
 content creation, participant management, clear/failure policy, exit
-movement, or rewards. In particular, the duplicate `createCutScene`
-expression in `executeCutScene` does not prove two runtime allocations.
+movement, or rewards. The [scene helper](#instance-raid-cutscene-helper) records its original
+creator, argument and saved-result contract.
+
+### Instance-raid cutscene helper
+
+Original `InstanceRaidBaseClass.executeCutScene` calls
+`worldMaster.createCutScene` once and retains only its first result C. The
+creator receives exactly `(worldMaster, scene, subject)`; when the supplied
+subject is nil, the helper substitutes self. False and other non-nil subjects
+are preserved. The helper selects mode 2 only when its flag is exactly
+Boolean false; every other flag selects mode 1.
+
+It then calls `startCutScene` with `(C, 1, 63, mode, ...)`, preserving the
+complete variadic tail, including nil holes. There is no nil, false or
+truthiness guard on C before the method lookup. On normal return from start,
+it calls `_delete` with the same saved C. Both calls discard their results,
+and the helper returns no Lua values. There is no local protected cleanup
+path if a lookup or called method raises an error.
+
+The retained `InstanceRaidLesserWhiteGeneral.processCutSceneEvent` call with
+flag true therefore selects mode 1 in this helper. This resolves the repeated
+creator expression in the decompile as one Lua creator invocation; it does
+not establish native allocation count, successful playback, native object
+destruction or a historical invocation.
+
+The pinned base-director LPB and decoded payload above contain this helper at
+`root/proto16`, zero-based PCs 0-20, half-open payload interval
+`[0x1935,0x1989)`: 21 words/84 bytes. Root PCs 58-60 load the class and bind
+the named child, at `[0x108,0x114)`. PCs 1-6 select mode and subject;
+creator CALL 11 is at `0x1961`, start CALL 17 at `0x1979`, delete CALL 19 at
+`0x1981`, and zero-result RETURN 20 at `0x1985`.
+
+Focused static instruction replay checked exact Boolean/nil distinctions,
+one creator call, first-result retention, same-object start/delete, complete
+variadic argument order and zero-result returns. Saved-result, branch,
+argument-count and duplicate-creator mutations failed their checks. These
+checks authenticate a conditional Lua contract, without client execution.
+
+The LPB was decoded with `tools/retail_script.py` (`decode_lpb`), and
+instructions were read with `ChunkReader` and `instruction` in
+`tools/build_quest_contracts.py`, at revision
+`6a19d5909c1a454b9b0656ef75e311c5d7501f31`.
 
 ## Instance-raid guide and event methods
 
@@ -605,8 +645,10 @@ prompt or choice semantics, an instance launch, or a server result.
 zero-based PCs 0-23) calls `worldMaster:_getMyPlayer()`, fades out and waits for
 fading, passes its weather argument to `_setWeather` with a second argument
 of 0, calls `executeCutScene` with its two supplied arguments and `true`,
-fades in, and waits 1. This is call order in the client method; it does not
-establish a successful scene or weather effect.
+fades in, and waits 1. The inherited
+[scene helper](#instance-raid-cutscene-helper) records its inner call contract.
+This is call order in the client method; it does not establish a successful
+scene or weather effect.
 
 ## Quest content-information directors
 
