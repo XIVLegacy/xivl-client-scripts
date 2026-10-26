@@ -585,6 +585,48 @@ instructions were read with `ChunkReader` and `instruction` in
 `tools/build_quest_contracts.py`, at revision
 `6a19d5909c1a454b9b0656ef75e311c5d7501f31`.
 
+#### WorldMaster scene factory
+
+Original `WorldMaster.createCutScene` has three fixed formal slots: receiver,
+scene and subject. It has no variadic tail and does not read its receiver.
+The wrapper resolves global `_createActor` and tail-calls it once with exactly
+five arguments: `(nil, "CutScene", false, scene, subject)`. The explicit nil
+and false retain their positions. Nil or false scene/subject values pass
+through unchanged, with no fallback or conditional test in this factory.
+Extra incoming arguments beyond its fixed formal slots are not forwarded.
+
+The wrapper propagates all results of that call, including zero results and
+nil positions. It performs no subsequent Lua initialization call or result
+check. The instance helper and occupancy callers retain only the first result
+at their own call sites; their later method lookups do not imply that this
+factory validated or initialized that result. Native construction and any
+initialization inside `_createActor` remain outside this Lua contract.
+
+The canonical source `lua/scripts/world/worldmaster.lua` is 2479 bytes,
+SHA-256
+`c0a7e0460ef969fe5c10de5593e3237a279258a5849df3d2b7f534b08732a4ba`
+(`manifests/scripts.json:16023-16026`). Its original resource is
+`client/script/nvsy6/nvsy6x9rq5s.le.lpb`, SHA-256
+`da3adccea066061a6289b89af65bde92db13a5eabbdd1f0072565576d5414d20`;
+the decoded payload has SHA-256
+`6dca2434550518b09fe58d4878da3f0f0a77c1124808c231ad399b87089e420d`
+(`manifests/retail_lua_coverage.json:28083-28095`).
+
+Exact root PCs 21-23 bind WorldMaster, the child closure and method name at
+half-open decoded-payload interval `[0x74,0x80)`. The factory is
+`root/proto6`, PCs 0-8, `[0x525,0x549)`, nine words/36 bytes. The fixed
+five-argument `TAILCALL` is PC 6 at `0x53D`, followed by the open `RETURN`
+at PC 7. Producing tools were `tools/retail_script.py` (`decode_lpb`) and
+`ChunkReader`/`instruction` in `tools/build_quest_contracts.py`, at revision
+`a8d88abef3b659281c13adc95fd4d362a50d6005`.
+
+Focused static operand checks and replay verified fixed argument positions,
+nil/false distinctions and complete factory result propagation. The existing
+caller proofs establish their first-result retention. Argument, flag and
+return-arity mutations failed the corresponding checks. These are conditional
+Lua instruction facts, without client execution, native allocation/playback/
+destruction proof or historical event attribution.
+
 ## Instance-raid guide and event methods
 
 The following client contracts are pinned by their LPB and decoded payload
