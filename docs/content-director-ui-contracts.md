@@ -1166,10 +1166,11 @@ lookup is distinct from the outer method's earlier lookup; equality of their
 first results is not established. The resulting Boolean feeds the outer
 exact-true test, without proving completion or a valid widget result.
 
-`getWidgetTypeByIndex` and the later conditional `openWidgetLocal` remain
-opaque. These property names and forwarded values do not identify an actual
-native control or table, or establish initialization, rendering, lifetime,
-historical invocation or server policy.
+`getWidgetTypeByIndex` remains opaque. The
+[`openWidgetLocal` contract](#openwidgetlocal-creation-request) qualifies the
+later call. These property names and forwarded values do not identify an
+actual native control or table, or establish initialization, rendering,
+lifetime, historical invocation or server policy.
 
 Focused original operand checks and 33 static replay cases verify the
 admission comparisons, separate state reads, fixed-argument order, full
@@ -1177,6 +1178,89 @@ varargs, Boolean result normalization and propagated errors. Sixteen semantic
 mutations are rejected. The checks use the existing LPB and instruction
 decoders at revision `9b4ed5282b403b0fbd1c1fdd3d6a64ecee75ad52`; they do
 not execute the client or interpret another body.
+
+#### openWidgetLocal creation request
+
+Original `DesktopWidget.openWidgetLocal` has six fixed slots, `p1` through
+`p6`, including receiver `p1`, plus varargs. Its connector LPB, payload and
+canonical-source identities are pinned above. Only the named source and
+binding window `widget/desktopwidget_connector.lua:25076-25130` supports
+this contract. Canonical lines 25114-25115 display one extra-argument local;
+the original forwards the complete tail.
+
+Exact root PCs 1833-1836, `[0x1cc4,0x1cd4)`, bind the name to `root/proto522`:
+GETGLOBAL R0,K0 (`DesktopWidget`), LOADK R1,K523 (`openWidgetLocal`), CLOSURE
+R2,child522, SETTABLE R0,R1,R2. The body is PCs 0-45, `[0x31d12,0x31dca)`,
+46 words/184 bytes, with vararg flag 3. PCs are zero-based; byte intervals
+are half-open decoded-payload offsets.
+
+Only nil `p3` defaults to `p2`. A local saved input value starts as Boolean
+true. Only nil `p4` defaults to `p1`, bypassing the snapshot below. Supplied
+non-nil values, including false, are preserved. When supplied `p4` compares
+unequal to `p1`, the body calls `p4:isShow()`. Only an exact true first result
+calls `p4:getInputEnable()`, saving its first result without normalization.
+Otherwise the saved input value stays true. Equality here is the Lua
+comparison; it does not establish distinct native object identities.
+
+Every path then calls `p4:_isAlive()`. Only exact false rejects, returning
+one false. Every other normal first result, including nil and zero results
+adjusted to nil, continues. An admitted path freshly resolves and calls
+`p1:commandCreateWidget(p2,false,p4,saved-input-value,p3,p5,p6,...)`.
+The false is literal. VARARG PC31 A=17, B=0 and CALL PC32 A=8, B=0, C=2
+preserve all extra positions, including trailing nils, then keep only the
+first result. No native allocation or initialization follows from this call
+name or its normally returned value alone.
+
+Only an exact true creation result and `p4` comparing unequal to `p1`
+reach a fresh `p4:isShow()` lookup and call. Only an exact true first result
+then requests `p4:setInputEnable(false)`, discarding all setter results.
+The two show lookups/results are separate; the earlier saved input value is
+not refreshed before creation. The local values and references survive the
+opaque calls without freezing their referenced objects.
+
+| Call | SELF/CALL PCs | CALL A,B,C | Result handling |
+| --- | --- | --- | --- |
+| `p4:isShow()` | 10/11 | `8,2,2` | First result |
+| `p4:getInputEnable()` | 14/15 | `8,2,2` | First result saved |
+| `p4:_isAlive()` | 17/18 | `8,2,2` | First result |
+| `p1:commandCreateWidget(...)` | 23/32 | `8,0,2` | Full tuple, first result saved |
+| `p4:isShow()` | 37/38 | `9,2,2` | Fresh lookup, first result |
+| `p4:setInputEnable(false)` | 41/43 | `9,3,1` | All results discarded |
+
+EQ `(A,B,C)` operands are PC0 `(0,2,256)` for nil `p3`, PC4 `(0,3,256)`
+for nil `p4`, PC8 `(1,3,0)` for `p4`/`p1` equality, PC12 `(0,8,258)`
+for the first show result, PC19 `(0,8,261)` for liveness, PC33 `(0,8,258)`
+for creation, PC35 `(1,3,0)` for the later equality test and PC39
+`(0,9,258)` for the later show result. RK256 is nil, RK258 is true and
+RK261 is false. RETURN PC22 and PC44 both have A=8, B=2: one false on
+liveness rejection, or the saved first creation result otherwise. Zero
+creation results become one nil; extra results are discarded. Normal
+setter results cannot replace the saved result. PC45's empty RETURN is
+unreachable.
+
+The first explicit opaque call is conditional `p4:isShow()` at PC11; the
+nil-defaulted or receiver-equal path first calls `_isAlive` at PC18. The body
+has no property/global/upvalue store, loop, explicit wait or local handler.
+The setter is an opaque request, not proof of an input-state change. Errors
+propagate. A reached call that suspends or does not return prevents later
+work; this includes post-creation calls before the saved result is returned.
+
+The published occupancy tuple supplies `p3=nil` and `p4=p1`. It therefore
+defaults `p3` to `"RaidDungeonExecutionWidget"`, keeps the saved input value
+true, and first calls `p1:_isAlive()`. A non-false first result requests
+`p1:commandCreateWidget("RaidDungeonExecutionWidget",false,p1,true,"RaidDungeonExecutionWidget",15,true,wrapper-p3,wrapper-p4)`.
+It reaches neither show query nor the setter. Its first creation result then
+meets `openWidget`'s separate normalization: exact false becomes false and
+every other normal result becomes true. The outer and inner type lookups
+remain distinct. These calls do not bind an actual native control/table or
+prove creation, completion, rendering, lifetime, historical invocation or
+server policy. `_isAlive` and `commandCreateWidget` remain opaque boundaries.
+
+Focused original operand checks, 52 static replays and 28 rejected semantic
+mutations verify defaults, comparisons, exact request arguments, full varargs,
+saved values, fresh post-call lookups and result/error boundaries. The LPB
+and instruction decoders at revision `3ad61ba2b38887b04f504b8b4561ea2eb9062a7f`
+were used without client execution or interpretation of a dependency body.
 
 ## Evidence boundary
 
