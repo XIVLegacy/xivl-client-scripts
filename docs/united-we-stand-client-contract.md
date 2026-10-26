@@ -49,24 +49,74 @@ introduces Serpent Commander Yarborough.
 The method passes A4 unchanged to `worldMaster:say(A0, row, A4)` for
 messages 84, 85, 87, 89, 90, 92, at PCs 44, 50, 61, 77, 83, 94. Each uses `CALL B=5, C=1`,
 including the receiver. The preceding `MOVE` copies A4 into the last argument
-register. The method constructs no parameter table and supplies no concrete
-party range, level, duration or content ID.
+register. The method constructs no parameter table or separate count, level
+or duration arguments. The selected English descriptions carry fixed numeric
+operands, qualified below; A4 remains an unchanged caller value.
 
 | Message rows | English client instruction |
 | --- | --- |
 | 83, 138, 145, 148 | Destroy the lunar transmitter in Castrum Novum while the main host diverts the VIIth Legion. |
-| 84-85 | Entry needs a party of Disciples of War or Magic at a supplied level and each member's United We Stand entry requirements. The numeric range and level are substitutions. |
-| 86-87 | Automated defense triggers after a delay; operatives are extracted. The displayed time limit is a substitution in Earth minutes. |
+| 84-85 | The fixed English description specifies four to eight Disciples of War or Magic, level 45 or above, and each member's United We Stand entry requirements. |
+| 86-87 | Automated defense triggers after a delay; operatives are extracted. The fixed time-limit description specifies 30 Earth minutes. |
 | 88-89, 206 | Further sorties wait for the officers' briefing; the Timers tab reports the remaining wait. |
 | 90 | Loot-list items transfer on departure; items that cannot be obtained are lost. |
 | 91-92 | Parties representing all three Grand Companies receive greater rewards. |
 | 139-142 | The map marks the tower; vanguards defend the stronghold, especially by day. Sector gates are reported to open when imperial sentries patrol. |
 
-These are localized instructions, not recovered server rules or historical
-observations. They do not supply patrol routes, gate instance bindings, numeric
-entry limits, timer lengths, reward values or combat behavior. Cid and city
-leader dialogues branch on supplied flags; they do not compute victory or
-grant the rewards mentioned in their text.
+These localized instructions do not establish server enforcement or
+historical invocation, patrol routes, gate instance bindings, reward values
+or combat behavior. Cid and city leader dialogues branch on supplied flags;
+they do not compute victory or grant the rewards mentioned in their text.
+
+### Fixed entry-description controls
+
+Row 84's two complete count controls are byte-equal to the selected controls
+in `xivl-decomp:docs/resource/rich-string-entry-counts.md`, Exact Gcl107
+controls. Under that constructor-qualified native path, their literal
+conditions and selectors produce the words `four` and `eight`; neither count
+comes from A4. Row 84's `02 20 02 2E 03` number frame carries literal 45.
+Row 87's `02 20 02 1F 03` carries literal 30. The selected number/decimal
+path is qualified in
+`xivl-decomp:docs/resource/sqwt-plain-text-reference-lookup.md`, SQTP-05/06.
+
+Rows 84, 87, 89 and 90 also share the exact `xtx/raidDungeon` code-28
+reference qualified in `xivl-decomp:docs/script/worldmaster-message-pool.md`.
+For the same helper/native capture route, an accepted integer A4 supplies
+formatter argument 1 and hence that reference's row, with logical field 26
+and an empty nested argument vector. This remains conditional on the selected
+English cell, source readiness and surviving receiver. It does not select
+A4's historical value, a concrete content ID or an invocation.
+
+The [original definition join](gc-text-source-bindings.md#original-definition-joins)
+qualifies loader input 10352/name `gcl106` and its conditional definition key
+`0x03A22870`. The English definition explicitly names these three original
+resources; their association is not inferred from adjacency:
+
+| Resource | Role | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `0x03A22877` | English data | 29581 | `0ef6f86c72282fa043dc348f28c974f9938e5de46de45d8509acd187ffaed77b` |
+| `0x03A22878` | Enable ranges | 32 | `09033ee100a25b89ec53054b5695c9ad8e727856a3a51ca66b9b32df5d8cc271` |
+| `0x03A22879` | End offsets | 2004 | `969c78fdfaffb77ec7e52d01d4cfff2d3a45722808d4574840ec45955e90bc34` |
+
+It declares one `str` field at logical index 1 and a block with 501 slots.
+All 501 original end offsets were monotonic, bounded by the 29,581-byte data
+body and ended at its last byte. Four enable ranges selected 212 nonempty row
+spans. The six selected rows exactly consumed their individual framed-string
+spans and reproduced their own `gcl106.csv` numeric-header-1 cells, physical
+CSV cell 3, after lossless control-marker inversion:
+
+| Row | Original half-open data span | Decoded string bytes |
+| --- | --- | ---: |
+| 84 | `[9870,10200)` | 326 |
+| 85 | `[10200,10333)` | 129 |
+| 87 | `[10598,10685)` | 83 |
+| 89 | `[10845,11112)` | 263 |
+| 90 | `[11112,11291)` | 175 |
+| 92 | `[11405,11523)` | 114 |
+
+The CSV identity is recorded under [Reproduction and evidence](#reproduction-and-evidence).
+The source/row association does not observe loaded fields, actual language or
+invocation, nor establish enforcement of the description's rules.
 
 ## Content and layout boundary
 
