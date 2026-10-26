@@ -1364,6 +1364,7 @@ to nil, proceeds. The method name does not validate liveness.
 Only then does SELF PC14 A=2, B=0, C=260 resolve `p1.closeWidgetLocal`.
 PC15 copies the unchanged `p2`; CALL PC16 A=2, B=3, C=1 requests
 `p1:closeWidgetLocal(p2)` and discards all results, including false or nil.
+The [callee contract](#closewidgetlocal-cleanup-request) qualifies that request.
 After normal return, LOADBOOL PC17 supplies true and RETURN PC18 returns it.
 Normal RETURNs at PCs 7, 13 and 18 have A=2, B=2: one Boolean. PC19's
 empty RETURN is unreachable. Extra actual arguments have no forwarding path.
@@ -1393,6 +1394,70 @@ handling, late lookup, discarded close results and one-Boolean returns. The
 LPB and instruction decoders at revision
 `37114264126f9e342f78754c028ab78cc491c3ee` were used without client execution,
 native-body inspection or interpretation of either dependency body.
+
+#### closeWidgetLocal cleanup request
+
+Original `DesktopWidget.closeWidgetLocal` has two fixed slots, receiver `p1`
+and widget argument `p2`, with no varargs. Its connector LPB, payload and
+canonical-source identities are pinned above. The selected definition and
+binding window is `widget/desktopwidget_connector.lua:25270-25296`, using
+an anonymous-register function assignment. Exact root PCs 1849-1852,
+`[0x1d04,0x1d14)`, use GETGLOBAL R0,K0 (`DesktopWidget`), LOADK R1,K527
+(`closeWidgetLocal`), CLOSURE R2,child526, SETTABLE R0,R1,R2. The body is
+`root/proto526`, PCs 0-15, `[0x3219d,0x321dd)`, 16 words/64 bytes.
+PCs are zero-based and byte intervals are half-open decoded-payload offsets.
+
+The first explicit opaque request is `p1:closeWidgetRecursive(p2)` at
+SELF PC0 / CALL PC2. The argument is forwarded unchanged, without a local
+nil/false test or argument indexing. Missing `p2` becomes nil; extra actual
+arguments are not forwarded. Only the first recursive result is kept.
+Only exact true reaches `p1:getThreadOwnerWidget()`. Every other normal
+first result, including zero results adjusted to nil, skips owner cleanup.
+
+The getter is called on the original receiver, with no explicit argument.
+Only its first result is saved. Nil skips the later requests. Every non-nil
+result, including false, reaches `p1:setThreadOwnerWidget(nil)`, then
+`savedOwner:close()`. The setter receives an explicit nil, and both later
+calls discard all results. The getter is not repeated. The owner value stays
+saved across the setter, while its `close` method is looked up only after
+the setter returns. The same saved value is used as the close receiver even
+if the setter changes other state; that late lookup can observe method changes.
+
+| Call | SELF/CALL PCs | CALL A,B,C | Handling |
+| --- | --- | --- | --- |
+| `p1:closeWidgetRecursive(p2)` | 0/2 | `2,3,2` | First result |
+| `p1:getThreadOwnerWidget()` | 5/6 | `3,2,2` | First result saved |
+| `p1:setThreadOwnerWidget(nil)` | 9/11 | `4,3,1` | Explicit nil; all results discarded |
+| `savedOwner:close()` | 12/13 | `4,2,1` | Late lookup; all results discarded |
+
+EQ PC3 A=0, B=2, C=257 tests the recursive result against true. JMP PC4
+has sBx=10 and targets the final return on non-true results. EQ PC7 A=1,
+B=3, C=259 tests the owner against nil; JMP PC8 sBx=6 skips cleanup for nil.
+RK257 is true and RK259 is nil. LOADNIL PC10 A=6, B=6 supplies the setter's
+nil argument. Every normal path reaches RETURN PC15 A=0, B=1, C=0:
+exactly zero values, with no recursive or owner-call result propagated.
+
+The body has no direct property/global/upvalue store, loop, wait, handler or
+rollback. Its getter, setter and close requests remain opaque. A false owner
+passes the nil gate and reaches the setter before ordinary Boolean `close`
+indexing can fail; special metatable behavior is unproved. Reached errors,
+suspension or nonreturn prevent later requests and normal return. The saved
+owner's identity, recursive traversal, actual state mutation, destruction,
+native control/table/address and lifetime completion are not established.
+No declared native receiver/argument chain is attributable from this body.
+
+The published `closeWidgetDirect` caller discards these zero results and
+returns true after normal return. It therefore also returns true when a
+non-true recursive result or nil owner skips the cleanup branch. An error or
+nonreturn here still prevents that caller return. This Boolean does not
+report recursive-cleanup success or prove any close effect.
+
+Focused original operand checks, seven semantic replay checks and 12 detected
+semantic mutations verify exact gates, original argument forwarding, saved
+owner/late lookup, explicit nil, discarded results and zero-result returns.
+The LPB and instruction decoders at revision
+`ae6a576e03412483f4efc4733e07cf4bb06545dd` were used without client
+execution or interpretation of a dependency body.
 
 ## Evidence boundary
 
