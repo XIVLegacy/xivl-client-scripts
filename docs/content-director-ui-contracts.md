@@ -1092,9 +1092,10 @@ Errors propagate without a local handler. The `_wait(0.1)` argument and
 Close has no explicit wait or cleanup operation beyond its opaque helper.
 The occupancy wrappers discard these callee results, so the composed path
 does not establish native creation, destruction, widget initialization or
-rendering, historical invocation, or server policy. `openWidget`,
-`waitWidgetCreateYield`, `getWidget` and `closeWidgetDirect` remain separate
-callee boundaries.
+rendering, historical invocation, or server policy. The
+[`openWidget` contract](#openwidget-inputs-and-results) qualifies the next
+call. `waitWidgetCreateYield`, `getWidget` and `closeWidgetDirect` remain
+separate callee boundaries.
 
 Focused original operand checks and static replays cover exact Boolean/nil
 comparisons, complete varargs, saved and reloaded state, retries, result
@@ -1102,6 +1103,80 @@ arities and propagated errors. Ten open and eight close semantic mutations
 are rejected. These checks use the LPB and instruction decoders identified
 in the [instance helper](#instance-raid-cutscene-helper), without client
 execution or interpretation of another helper body.
+
+#### openWidget inputs and results
+
+Original `DesktopWidget.openWidget` has six fixed formal slots, `p1` through
+`p6`, including receiver `p1`, followed by varargs. It shares the connector
+LPB, payload and canonical-source identities pinned above. The named source
+and binding window is `widget/desktopwidget_connector.lua:25131-25183`.
+Canonical lines 25173-25174 display a single extra-argument local; the
+original preserves the complete tail.
+
+Exact root PCs 1837-1840, `[0x1cd4,0x1ce4)`, bind `DesktopWidget.openWidget`
+to `root/proto523`: GETGLOBAL R0,K0 (`DesktopWidget`), LOADK R1,K524
+(`openWidget`), CLOSURE R2,child523, SETTABLE R0,R1,R2. The body is PCs 0-43,
+`[0x31e52,0x31f02)`, 44 words/176 bytes, with vararg flag 3. PCs and
+half-open decoded-payload offsets use the same conventions as above.
+
+The first explicit opaque call is `p1:getWidgetTypeByIndex(p2)` at PC7,
+A=8, B=3, C=2. Only its first result is saved. Exact nil returns one false.
+Every non-nil type, including false, reaches a read of
+`p1.work.widgetEnableFlag[saved-type]`. Only an exact false entry rejects
+with false. This is a type-keyed read after the getter returns; no receiver
+property is written.
+
+Only nil `p5` causes a fresh lookup of `p1.work.rootWidget[p2]`. Any non-nil
+root entry, including false, returns false. Every non-nil `p5`, including
+false, bypasses that root check. This later work lookup is separate from
+the earlier enable-table lookup. Its key is the original `p2`, while the
+enable-table key is the saved type. This body does not normalize `p5`.
+
+An admitted path resolves `openWidgetLocal` at SELF PC29 and calls
+`p1:openWidgetLocal(p3,p4,p5,p2,p6,...)`. VARARG PC35 A=15, B=0 and CALL
+PC36 A=8, B=0, C=2 forward the reordered fixed arguments and all extra
+positions, including interior and trailing nils, then keep only the first
+result. Exact false becomes one false result. Every other normal first
+result becomes one true, including nil, zero or an opaque handle. Zero
+callee results are adjusted to nil and also produce true. Additional results
+are discarded. This Boolean does not validate a widget or prove creation.
+
+| Test | EQ PC | A,B,C | Effect |
+| --- | ---: | --- | --- |
+| Literal nil versus true | 0 | `0,256,257` | False-return block at PCs 2-3 is unreachable |
+| Saved type versus nil | 9 | `0,7,256` | Nil returns false at PC12 |
+| Enable entry versus false | 16 | `0,8,261` | False returns false at PC19 |
+| `p5` versus nil | 20 | `0,4,256` | Only nil reads rootWidget |
+| Root entry versus nil | 25 | `1,8,256` | Non-nil returns false at PC28 |
+| Local call result versus false | 37 | `0,8,261` | False returns false at PC40; otherwise true at PC42 |
+
+RK256 is nil, RK257 is true and RK261 is false. Every reachable normal
+RETURN at PCs 12, 19, 28, 40 and 42 has A=8, B=2: exactly one Boolean.
+PC43's empty RETURN is unreachable. The body has no loop, explicit wait,
+state store or local error handler. Lookups, indexing and calls can raise
+or invoke opaque behavior; suspension or nonreturn prevents later work.
+
+In the published occupancy composition, `openWidgetYield` has already
+replaced its nil `p5` with the receiver. This body's rootWidget check is
+therefore bypassed. If its own type and enable checks permit the request,
+the tuple is
+`p1:openWidgetLocal("RaidDungeonExecutionWidget",nil,p1,15,true,p3,p4)`,
+where the last two inputs came from the occupancy wrapper. This body's type
+lookup is distinct from the outer method's earlier lookup; equality of their
+first results is not established. The resulting Boolean feeds the outer
+exact-true test, without proving completion or a valid widget result.
+
+`getWidgetTypeByIndex` and the later conditional `openWidgetLocal` remain
+opaque. These property names and forwarded values do not identify an actual
+native control or table, or establish initialization, rendering, lifetime,
+historical invocation or server policy.
+
+Focused original operand checks and 33 static replay cases verify the
+admission comparisons, separate state reads, fixed-argument order, full
+varargs, Boolean result normalization and propagated errors. Sixteen semantic
+mutations are rejected. The checks use the existing LPB and instruction
+decoders at revision `9b4ed5282b403b0fbd1c1fdd3d6a64ecee75ad52`; they do
+not execute the client or interpret another body.
 
 ## Evidence boundary
 
