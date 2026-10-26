@@ -86,6 +86,29 @@ explains, the references that are indexed can also be accesses, callback
 assignments or string literals. An absent getter entry cannot establish that
 no Lua or native callback consumer exists.
 
+An ASCII-bounded, case-sensitive query for `getPartsDamageAdjust` in the
+[pinned decoded corpus](../manifests/private_lua_corpus.json), archive SHA-256
+`0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31`,
+covered all 2,671 canonical Lua members and 13,971,401 decoded bytes named by
+the [script manifest](../manifests/scripts.json). Every queried member matched
+its declared byte count, SHA-256 and line count.
+
+Exactly three occurrences were present, each on a decompiler temporary
+field-assignment binding line. The source paths below identify the corresponding
+rows of the script manifest; binding lines are 1-based decoded-source lines.
+
+| Decoded source | Binding line |
+|---|---|
+| `lua/scripts/command/game/ability/monstersubstatability.lua` | 26 |
+| `lua/scripts/command/game/gamecommandbaseclass.lua` | 1107 |
+| `lua/scripts/command/game/weaponskill/monsterattackweaponskill.lua` | 3469 |
+
+The matched lines assign the getter field from a decompiler temporary; they
+do not show use of its results. No exact-name consumer occurrence was found
+in this declared corpus. The query does not cover aliases, computed names,
+case variants or native callbacks, and cannot establish global absence of a
+consumer.
+
 The pair's consumer and combination rule remain unresolved. Establishing them
 requires an actual caller or callback-dispatch locator that selects this
 getter, together with its requested return arity and the immediate destination
