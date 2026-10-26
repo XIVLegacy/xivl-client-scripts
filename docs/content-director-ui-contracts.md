@@ -419,11 +419,68 @@ This proves the conditional callback contract, without identifying a wire
 carrier, actual caller/variant, supplied time values, message provider or
 historical packet sequence.
 
-The loop and `getRestTimeStatus` reference one-, three-, five-, ten-,
-twenty-, and thirty-minute thresholds and a half-time notification. Some
-temporary references in that decompile are damaged; the exact threshold
-ordering and notification arguments are not established here. The class
-proves a client presentation lifecycle, not server timer authority,
+### Instance-raid countdown and notices
+
+Original bytecode resolves the countdown comparisons and notification operands
+lost in the decompile. Let S and F be the retained start and finish times,
+N the first result of `worldMaster:_getServerTime()`, and H the first result
+of `self:getHalfTime()`. `getRestTimeStatus` samples N before H and tests
+`M=[1,3,5,10,20,30]` in ascending index order. It returns the first index i
+for which both `F-60*M[i] <= N` and `60*M[i] < H` hold. Only when none
+qualifies does `S+H <= N` return 7; otherwise it returns 0. Fixed thresholds
+therefore take precedence over half-time, and equality with H excludes a
+fixed threshold. There is no separate `F <= N` expiry branch.
+
+`getHalfTime` returns the single value 5940 when `clearFlag` is exactly
+Boolean true. Otherwise it tail-calls `_math.ceil((F-S)/2)`, forwarding that
+callee's results. The selected callers retain only its first result. The
+literal scaling by 60 does not independently establish the native clock unit.
+
+`setCountDownTimer(self,S,F,flag)` writes the times first. Exactly Boolean
+false sets `countdownStatus=7` without calling the status getter. Every other
+flag value uses the getter: nonzero status r stores r-1, while zero stores 7.
+The setter does not notify or write the clear/initialization flags.
+
+`_onLoop` returns when retained status is 0 or the getter returns 0. Otherwise
+it proceeds only when r is at most the retained status, storing r-1 before
+notification. This suppresses repeated statuses and emits only the current
+status when an update skips thresholds. Moving time backward to a larger
+status does not restore retained state or emit. After status 1 stores 0,
+further loop countdown work is suppressed until another writer changes it.
+This selected loop does not test `initFlag`; its second formal argument is
+unused.
+
+| Status r | Row | Last explicit argument |
+| --- | ---: | --- |
+| 1 through 6 | 52009 | `M[r]` |
+| 7 | 52092 | First result of `_math.ceil(self:getHalfTime()/60)` |
+
+The call is `worldMaster:notify(worldMaster,row,self:getContentID(),value)`.
+The underlying function receives exactly five arguments in order:
+worldMaster receiver, explicit worldMaster, row, first content-ID result,
+and value. `SELF A5` and `CALL A5 B6 C1` at `_onLoop` PCs 38/44 preserve
+that duplicate worldMaster and discard notify results. The half-time branch
+recomputes H for its value. The loop and setter return zero Lua results;
+`getRestTimeStatus` returns exactly one. These operands do not assign native
+provider meaning to the explicit worldMaster or prove rendered notices.
+
+The same pinned LPB and decoded payload above contain these four methods.
+The following code intervals are half-open decoded-payload offsets; PCs are
+zero-based. Root CLOSURE/SETTABLE pairs at PCs 20/21, 23/24, 26/27 and 29/30
+bind the listed names.
+
+| Method | Prototype | PCs / code interval |
+| --- | --- | --- |
+| `_onLoop` | `root/proto3` | 0-45 / `[0x739,0x7F1)` |
+| `getRestTimeStatus` | `root/proto4` | 0-37 / `[0x913,0x9AB)` |
+| `getHalfTime` | `root/proto5` | 0-16 / `[0xA8F,0xAD3)` |
+| `setCountDownTimer` | `root/proto6` | 0-18 / `[0xB68,0xBB4)` |
+
+Focused static instruction replay checked threshold equality, strict half-time
+exclusion, exact Boolean flags, repeats, time reversal, skipped thresholds,
+return arity and notification argument order. Comparison and argument-operand
+mutations failed the corresponding expectations. This was not client execution.
+The class proves a conditional presentation lifecycle, not server timer authority,
 content creation, participant management, clear/failure policy, exit
 movement, or rewards. In particular, the duplicate `createCutScene`
 expression in `executeCutScene` does not prove two runtime allocations.
