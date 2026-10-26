@@ -15,7 +15,7 @@ unverified native or server behavior.
 ## Commands and character state
 
 - [Content command client route](content-command-client-route.md)
-- [Player command event routes](player-command-event-routes.md)
+- [Player command routes and request guard](player-command-event-routes.md)
 - [Standard emote command targets](standard-emote-command-contract.md)
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
 - [Linkshell and party command contracts](linkshell-party-command-contracts.md)

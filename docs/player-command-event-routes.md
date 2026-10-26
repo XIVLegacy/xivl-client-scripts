@@ -25,7 +25,7 @@ gates are documented with their LPB identities in
 Evidence:
 
 - `lua/scripts/chara/player/playerbaseclass.lua:1823-1881,3011-3020`; source
-  SHA-256 `6226b3fa15dfdbad279b7db453f8a3b76fcb8b68bad6e14f5403d52987f76e4`,
+  SHA-256 `6226b3fa15dfdbad279b7dba453f8a3b76fcb8b68bad6e14f5403d52987f76e4`,
   pinned at `manifests/scripts.json:6657-6660`.
 - Retail LPB `729s9/uy9l5s/uy9l5s89r57y9rr.le.lpb`, SHA-256
   `32182274f3886d0cdf6329f8a82e6592790c9b3038e00bebe5b2b38702bbd53e`,
@@ -35,3 +35,48 @@ Evidence:
 - `xivl-client-data:manifests/staticactor_class_paths.json:58-64,3114-3116`,
   SHA-256
   `d612438827e5997422ab6f64a807e567ddf1b953c532e8a319d67b93c53c9db0`.
+
+## Information-request guard and record state
+
+`PlayerBaseClass.canRequestInformation` reads
+`self.playerWork.requestBurstBlocker` and returns exactly one Boolean:
+whether that value is strictly less than the result of
+`worldMaster:_getServerTime()`. Equality returns false. The helper does
+not write the field.
+
+`recordRequestInformation` takes only its player receiver and returns no
+values. It reads `worldMaster:_getServerTime()` as `t0`, then reads the blocker
+as `b`. When `t0 <= b + 1`, it calls `_getServerTime` again and stores that
+second result plus `3` in `self.playerWork.requestBurstBlocker`. Otherwise it
+calls `_getServerTime` again and stores the second result directly. Each
+normal branch therefore uses two clock reads. The helper consumes no native
+request result or acceptance flag.
+
+The concrete caller is `CharaBaseClass.updateItemPackage`: it checks the local
+player's guard, calls the receiver's `_updateItemPackage(package)` only when
+the guard passes, then records the local player's request after the native
+call returns normally. The original caller order is retained at
+`xivl-decomp:docs/script/materia-command-dispatch.md`, "Package refresh and
+publication" (`root/proto27`, CALL PCs `4`, `9`, `14`; source `1278-1306`,
+revision `ae2b85946c0e353a90497b67046213f92680acbd`). This is a conditional
+request attempt and player-state update. It does not establish request
+acceptance, completion, response arrival or a historical successful request.
+
+The selected helpers contain no nil or flag fallback. The blocker initializer,
+other writers, native clock units and server policy remain unbound.
+JournalCommand's dynamic receiver is not identified by this separate
+local-player caller.
+
+The page's evidence records pin the retail LPB and decoded-payload identities.
+With zero-based PCs and half-open decoded-payload offsets, the guard is
+`root/proto28`, PCs `0-10`, `[0x2DA5,0x2DD1)`, `11` words/`44` bytes. Its
+strict comparison is PC `5`, with the one-result return at PC `9`. The writer
+is `root/proto29`, PCs `0-20`, `[0x2E47,0x2E9B)`, `21` words/`84` bytes. Its
+inclusive comparison is PC `6`, second clock calls are PCs `11` and `18`,
+and stores are PCs `13` and `19`. Exact root class/name bindings are PCs
+`96-101`, `[0x1A0,0x1B8)`: `GETGLOBAL PlayerBaseClass`, `CLOSURE`, then
+`SETTABLE` bind each method to its child prototype. Both methods have one
+fixed parameter, zero upvalues and no varargs. The producing tools are
+`tools/retail_script.py` (`decode_lpb`) and
+`tools/build_quest_contracts.py` (`ChunkReader`, `instruction`) at revision
+`6a19d5909c1a454b9b0656ef75e311c5d7501f31`.
