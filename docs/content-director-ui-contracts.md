@@ -1094,8 +1094,9 @@ The occupancy wrappers discard these callee results, so the composed path
 does not establish native creation, destruction, widget initialization or
 rendering, historical invocation, or server policy. The
 [`openWidget` contract](#openwidget-inputs-and-results) qualifies the next
-call. `waitWidgetCreateYield`, `getWidget` and `closeWidgetDirect` remain
-separate callee boundaries.
+call. `waitWidgetCreateYield` and `getWidget` remain separate callee
+boundaries. The [`closeWidgetDirect` contract](#closewidgetdirect-behavior)
+qualifies its close request.
 
 Focused original operand checks and static replays cover exact Boolean/nil
 comparisons, complete varargs, saved and reloaded state, retries, result
@@ -1334,6 +1335,64 @@ mutations verify separate lookups, saved-method timing, exact request tuple,
 full varargs/results and error boundaries. The LPB and instruction decoders
 at revision `37114264126f9e342f78754c028ab78cc491c3ee` were used without
 client execution or interpretation of a dependency body.
+
+#### closeWidgetDirect behavior
+
+Original `DesktopWidget.closeWidgetDirect` has two fixed slots, receiver `p1`
+and widget argument `p2`, with no varargs. Its connector LPB, payload and
+canonical-source identities are pinned above. Its selected definition and
+binding window is `widget/desktopwidget_connector.lua:25322-25350`.
+Exact root PCs 1857-1860, `[0x1d24,0x1d34)`, use GETGLOBAL
+R0,K0 (`DesktopWidget`), LOADK R1,K529 (`closeWidgetDirect`), CLOSURE
+R2,child528, SETTABLE R0,R1,R2. The selected body is `root/proto528`,
+PCs 0-19, `[0x322f6,0x32346)`, 20 words/80 bytes. PCs are zero-based and
+byte intervals are half-open decoded-payload offsets.
+
+The literal nil-versus-true comparison at EQ PC0 A=0, B=256, C=257 makes
+the false-return block at PCs 2-3 unreachable. EQ PC4 A=0, B=1, C=256
+tests `p2 == nil`; nil returns exactly one false at PC7. Every non-nil
+value, including false, reaches the `_isAlive` member lookup. False is not
+rejected as nil: ordinary Boolean indexing without an applicable metatable
+can raise there, and the selected body has no handler.
+
+SELF PC8 A=2, B=1, C=258 resolves `p2._isAlive`. CALL PC9 A=2, B=2, C=2
+calls it with only receiver `p2` and retains the first result. EQ PC10
+A=0, B=2, C=259 rejects only exact false, returning one false at PC13.
+Every other normal first result, including nil, zero or zero results padded
+to nil, proceeds. The method name does not validate liveness.
+
+Only then does SELF PC14 A=2, B=0, C=260 resolve `p1.closeWidgetLocal`.
+PC15 copies the unchanged `p2`; CALL PC16 A=2, B=3, C=1 requests
+`p1:closeWidgetLocal(p2)` and discards all results, including false or nil.
+After normal return, LOADBOOL PC17 supplies true and RETURN PC18 returns it.
+Normal RETURNs at PCs 7, 13 and 18 have A=2, B=2: one Boolean. PC19's
+empty RETURN is unreachable. Extra actual arguments have no forwarding path.
+
+The first explicit opaque dependency is `_isAlive` at PC9 for non-nil input.
+Its effects may change the later `closeWidgetLocal` lookup, which is not saved
+before that call. Neither argument register is replaced. The body has no
+persistent store, state-flag lookup, loop, explicit wait or error handler.
+Lookup/call errors propagate; suspension or nonreturn prevents later work.
+Returning true after the opaque close request proves no cleanup, native close
+effect, destruction, rendering, lifetime completion or invalidation of `p2`.
+This dynamic `_isAlive` receiver has no exact native implementation/control
+binding established by the selected body or the token's catalog membership.
+
+The published `closeWidget` caller rejects a nil first `getWidget` result,
+then tail-forwards `closeWidgetDirect` results. Under this callee contract,
+its non-nil path now has one Boolean normal result or a propagated lookup/
+call boundary. A false lookup result reaches the `_isAlive` member lookup;
+it does not become a normal false return solely because it is false.
+The occupancy wrapper still discards results and reaches its separate slot-16
+request only after the slot-15 request returns normally. A normal false result
+does not itself stop that sequence.
+
+Focused original operand checks, typed static replays, caller composition
+checks and 16 rejected semantic mutations verify admission, first-result
+handling, late lookup, discarded close results and one-Boolean returns. The
+LPB and instruction decoders at revision
+`37114264126f9e342f78754c028ab78cc491c3ee` were used without client execution,
+native-body inspection or interpretation of either dependency body.
 
 ## Evidence boundary
 
