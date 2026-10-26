@@ -415,9 +415,15 @@ selector-2 writes/call are 29-34; selector-3 forwarding is 39-41. Completion
 jumps at PCs 25/35/42 target return PC 45. PCs 26/36/43 are unreachable
 jumps, which explains the damaged `break` rendering without assigning it
 runtime behavior. The LPB and canonical source identities are pinned above.
-This proves the conditional callback contract, without identifying a wire
-carrier, actual caller/variant, supplied time values, message provider or
-historical packet sequence.
+The conditional native caller is qualified in
+`xivl-decomp:docs/event/user-data-receiver.md`, Requested Lua frame.
+The mapped actor `0x0133` path requests `_onReceiveDataPacket` with binding
+value O followed by actual materialized values D0, D1 and later arguments.
+If that lookup selects this InstanceRaid function, R0 is O, R1 is D0 and the
+vararg tail begins at D1. The native profile owns the ordinary supported-value
+conditions and the distinct unresolved-actor/error-marker limits. This
+composition does not select an actual actor/class, caller variant, supplied
+time values, message provider, clear policy or historical packet sequence.
 
 ### Instance-raid countdown and notices
 
