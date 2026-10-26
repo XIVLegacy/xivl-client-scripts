@@ -681,6 +681,55 @@ instruction decoders are `tools/retail_script.py` and
 `tools/build_quest_contracts.py` at revision
 `5507da1522e173f7fcad29d6b0bc7294b64b6ea5`.
 
+#### Caption clip arguments
+
+Original `CutScene._onShowUIClip(self, tag, actorClass, ...)` selects its
+caption arm for either exact tag `Caption` or `CaptionClip`. It keeps only
+the first result of `self.getNameByActorClass(self, actorClass)`, then calls
+the global named `select` with `(1, ...)` and keeps only its first result.
+Zero returned values at either call supply nil to that saved position.
+It next prepares `desktopWidget.showCaption`, loads `self.work.textOwner`
+and separately resolves global `select` for `(2, ...)`. Every result from
+this second select becomes the open tail of the caption call.
+
+The call's fixed positions are `(desktopWidget, derivedName, owner,
+firstSelectResult)`, followed by that complete tail. With the standard Lua
+5.1 `select` binding, these are the receiver, derived name, owner, first
+vararg and every remaining vararg. Explicit and trailing nil positions keep
+their argument extent. With no varargs, the first-vararg position is nil and
+the tail adds no arguments. The decompiler's expanded temporary list does
+not limit this open tail to its printed register count. The caption call
+discards all results and the selected arm returns no values after normal
+completion of its calls.
+
+The owner lookup occurs after the opaque name lookup and first select. It
+does not cache the [initializer's subject store](#cutscene-initializer-inputs)
+or establish that the owner and derived name identify the same actor. The
+two select globals are loaded separately. Name lookup, select bindings and
+the widget callee remain conditional. Argument positions do not establish
+actual text, actor identity, a rendered caption, scene invocation, encounter
+mode or native callee behavior.
+
+The canonical `lua/scripts/gamedata/cutscene_common.lua:502-525` is
+46,939 bytes, SHA-256
+`f6db9559b3f805d2738c073c7db9dd102fd5c33a056e789ff2fb2f8aff395bd1`.
+Its 9,125-byte resource
+`client/script/39x569q9/7pqr75w5_7vxxvw.le.lpb` has SHA-256
+`a5279136c0ee8f6ef2342fd22af2b9cd12f9b6aff5a4feff4bc0fc21367f5321`;
+the 9,112-byte decoded chunk has SHA-256
+`7ef33408c579f2d1ede120d9751851bd39b77dd1b6ca6a0aa821b413fe11b4fd`.
+Root PCs 9-11 at `[68,80)` bind the method to `root/proto3`, which has
+three fixed formal slots, no upvalues and a variadic tail. Its PCs 0-23 at
+`[3262,3358)` and PC 302 at `[4470,4474)` establish the caption route.
+PC 23 jumps directly to that zero-result return, skipping the other arms.
+All PCs and decoded-payload offsets are zero-based and intervals are
+half-open. The LPB and instruction decoders are `tools/retail_script.py`
+and `tools/build_quest_contracts.py` at revision
+`5507da1522e173f7fcad29d6b0bc7294b64b6ea5`.
+Focused offline operand and tuple checks covered absent results, absent
+varargs, nil positions and a tail beyond the printed temporaries. Twenty-five
+decoded semantic mutations were rejected independently of the byte pins.
+
 ## Instance-raid guide and event methods
 
 The following client contracts are pinned by their LPB and decoded payload
