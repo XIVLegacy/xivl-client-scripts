@@ -1413,6 +1413,8 @@ nil/false test or argument indexing. Missing `p2` becomes nil; extra actual
 arguments are not forwarded. Only the first recursive result is kept.
 Only exact true reaches `p1:getThreadOwnerWidget()`. Every other normal
 first result, including zero results adjusted to nil, skips owner cleanup.
+The [recursive callee](#closewidgetrecursive-traversal-and-owner-result)
+qualifies the traversal requests and meaning of that Boolean.
 
 The getter is called on the original receiver, with no explicit argument.
 Only its first result is saved. Nil skips the later requests. Every non-nil
@@ -1442,8 +1444,8 @@ rollback. Its getter, setter and close requests remain opaque. A false owner
 passes the nil gate and reaches the setter before ordinary Boolean `close`
 indexing can fail; special metatable behavior is unproved. Reached errors,
 suspension or nonreturn prevent later requests and normal return. The saved
-owner's identity, recursive traversal, actual state mutation, destruction,
-native control/table/address and lifetime completion are not established.
+owner's identity, actual state mutation, destruction, native control/table/address
+and lifetime completion are not established by this body.
 No declared native receiver/argument chain is attributable from this body.
 
 The published `closeWidgetDirect` caller discards these zero results and
@@ -1458,6 +1460,99 @@ owner/late lookup, explicit nil, discarded results and zero-result returns.
 The LPB and instruction decoders at revision
 `ae6a576e03412483f4efc4733e07cf4bb06545dd` were used without client
 execution or interpretation of a dependency body.
+
+#### closeWidgetRecursive traversal and owner result
+
+Original `DesktopWidget.closeWidgetRecursive` has two fixed slots, receiver
+`p1` and input `p2`, with no varargs. The connector identities are pinned
+above. Its canonical definition/binding window is
+`widget/desktopwidget_connector.lua:25204-25269`. Root PCs 1845-1848,
+`[0x1cf4,0x1d04)`, bind the exact name to child525 using GETGLOBAL
+`DesktopWidget`, LOADK `closeWidgetRecursive`, CLOSURE and SETTABLE.
+The complete `root/proto525` body is PCs 0-53, `[0x31ffb,0x320d3)`,
+54 words/216 bytes. PCs are zero-based and payload ranges are half-open.
+
+Only nil is rejected before any input or receiver lookup: it returns one
+false at PC3. Missing input becomes nil; extra actual arguments are not
+forwarded. False passes the nil gate and can fail ordinary method indexing;
+special metatable behavior is unproved.
+
+The first opaque request is `p2:_countChildWidgets()` at SELF4/CALL5.
+Only its first result is saved. A fresh table receives the first result of
+`p2:_getChildWidget(i)` for each numeric-loop index starting at 1, stepping
+by 1, with the saved count as limit. This complete snapshot loop precedes
+the recursive-request loop. Both loops reuse R5-R8 and reload their limit
+from the retained R2 count result. An unusable numeric limit can error. A
+zero-iteration count skips both loops and still reaches the owner decision.
+
+The second loop reads each saved child value and requests
+`p1:closeWidgetRecursive(savedChild)` in the same numeric-loop order. A nil
+child lookup result is later read and forwarded as nil. Only an exact-true
+first recursive result sets a sticky local Boolean true. The Boolean starts
+false and never resets; other results, including zero results adjusted to
+nil, leave it unchanged. There is no early exit on either Boolean result.
+
+Each child getter is looked up on `p2` for its iteration, and the recursive
+method is looked up on `p1` for each saved child. If the recursive dispatches
+resolve to this selected body, one child's complete recursive call precedes
+the next sibling, and the current input's owner/close decision follows all
+child calls. This establishes conditional depth-first request ordering.
+The body has no visited set or explicit cycle guard. It does not establish
+actual child identity, a stable runtime hierarchy or recursive destruction.
+
+After child calls, `p1:getThreadOwnerWidget()` supplies one saved first result.
+Nil skips the liveness request. Every non-nil value, including false, reaches
+`savedOwner:_isAlive()`. Only exact false as its first result requests
+`p1:setThreadOwnerWidget(nil)`, discarding all setter results. After that
+setter returns normally, the saved local owner becomes nil. Nil, zero
+results adjusted to nil and every other non-false liveness result retain the
+saved owner. The owner getter is not repeated. The `_isAlive` name proves
+no liveness.
+
+A retained non-nil owner that compares equal to the original input by Lua
+`==` sets the Boolean true and suppresses this input's close. Applicable
+equality metatable behavior and raw owner identity remain unproved. Every
+other path that reaches the final decision requests `p2:close()` after the
+child calls and owner decision, discarding all close results. Child results
+do not themselves suppress that close. An exact-false liveness result followed by a normal
+setter clears the saved owner and cannot itself suppress it.
+
+| Request | SELF/CALL PCs | CALL A,B,C | Handling |
+| --- | --- | --- | --- |
+| `p2:_countChildWidgets()` | 4/5 | `2,2,2` | First result supplies both loop limits |
+| `p2:_getChildWidget(i)` | 12/14 | `9,3,2` | First result saved in snapshot |
+| `p1:closeWidgetRecursive(savedChild)` | 22/24 | `10,3,2` | Exact-true first result sets sticky Boolean |
+| `p1:getThreadOwnerWidget()` | 29/30 | `5,2,2` | First result saved once |
+| `savedOwner:_isAlive()` | 33/34 | `6,2,2` | Only exact false requests normalization |
+| `p1:setThreadOwnerWidget(nil)` | 37/39 | `6,3,1` | Explicit nil; all results discarded |
+| `p2:close()` | 50/51 | `7,2,1` | All results discarded |
+
+Every reachable normal return is one Boolean: PC3 returns false for nil,
+and PC52 returns the sticky flag. The zero-value fallback RETURN PC53 is
+unreachable. For non-nil input whose operations finish normally, true means
+an exact-true recursive first result or a retained non-nil owner equality
+match. Otherwise the result is false, regardless of the close result.
+There is no explicit wait, yield request, protected call, handler or rollback.
+Reached errors propagate; supported suspension or nonreturn prevents later
+requests and normal return until continuation completes. Native effects,
+owner mutation effectiveness, lifetime and cleanup completion remain unproved.
+
+The published `closeWidgetLocal` exact-true gate therefore observes this
+Boolean, not a close result. Nil input normally skips its owner cleanup.
+A non-nil input can return false after its close request, or return true
+from a child result while still requesting its own close. An owner match
+returns true while suppressing the current input close. On true, the caller
+performs its own fresh owner getter; that value is not proved identical to
+any owner saved by a recursive invocation. Its nil gate, explicit-nil setter,
+late saved-owner close lookup and zero-value normal return remain as above.
+`closeWidgetDirect` still returns true after normal local return, including
+when a false recursive result skipped the local owner-cleanup branch.
+
+Focused authenticated operand and control-flow checks cover all 54 body
+words, four binding words and canonical body lines 25207-25267. The existing
+LPB and instruction decoders were used without client execution or
+interpretation of another function body. The next opaque dependency is the
+input's `_countChildWidgets` request; no native receiver chain is established.
 
 ## Evidence boundary
 
