@@ -1650,6 +1650,43 @@ The common-script identities above apply. Canonical class at 859, body at
 PC 0, payload `[13930,13934)`, one word/four bytes, no varargs, upvalues,
 children or constants. PCs are zero-based and payload ranges are half-open.
 
+#### Nominal ActorBase delete descriptor
+
+`ActorBaseClass._delete_inl` returns exactly the literal pair
+`("self", "_delete_cpp")`. Its one fixed receiver is unused, including a
+missing receiver adjusted to nil. Extra arguments are unused. LOADK PCs 0-1
+load the strings into R1-R2; RETURN at PC 2, `A=1,B=3,C=0`, returns both.
+The trailing RETURN at PC 3 is unreachable after that unconditional return.
+The descriptor performs no lookup, call, state write or deletion.
+
+The [published descriptor installer](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/script/lua-call-function-bridge.md#descriptor-resolution-and-alias-installation)
+calls a descriptor with zero arguments and two requested results. Under its
+registration/interception and context conditions, literal `self` selects the
+original registration table, rather than a later actor receiver. `_delete_cpp`
+is the raw key searched in that table and then its registered parents on nil.
+If a function is found, applying the published `_inl` removal to this name
+would install an `_delete` alias to that existing function. This is conditional
+alias inference. The `_cpp` spelling and Lua function type 6 prove no native
+identity. Failed lookup leaves ordinary registration available.
+
+This ActorBase assignment does not establish successful alias installation or
+WidgetBase inheritance/reach. The actual `p2`, `_delete_cpp` callable, later
+`_delete` dispatch, native identity and deletion/finalization/lifetime effects
+remain unproved. The descriptor's literal returns supply no deletion operation.
+
+Its source is distinct from the common WidgetBase artifact above. Canonical
+`actorbaseclass_u.lua` has class at 71, complete body at 73-78 and assignment
+at 80. Root PCs 21-23, payload `[116,128)`, bind child7 under `_delete_inl`
+on `ActorBaseClass`. Complete `root/proto7` has PCs 0-3, payload `[1082,1098)`,
+four words/16 bytes, no varargs, upvalues or children. Canonical and original
+agree on the two literal results. PCs are zero-based and ranges are half-open.
+
+| ActorBase descriptor artifact | Size | SHA-256 |
+| --- | --- | --- |
+| `client/script/97qvs89r57y9rr_p.le.lpb` | 1,455 bytes | `008c68b70373b9d8decf53d6dc53f1f2d384ddf8ee7e6e5a5e9bddef6a34504c` |
+| Decoded payload | 1,442 bytes | `28d5d3b3fcd26cdb18394b3e9d937b3a5514cf8ff0b3b4c4196efda82d4596b1` |
+| Canonical `actorbaseclass_u.lua` | 1,887 bytes / 110 lines | `890997302a35d8217fb7c8f68105e9cc82dbfe7a77654348588bb7d4195986dd` |
+
 #### Nominal setInputEnable forwarding
 
 If `close`'s helper lookup resolves to `WidgetBaseClass.setInputEnable`, its
