@@ -1440,8 +1440,10 @@ nil argument. Every normal path reaches RETURN PC15 A=0, B=1, C=0:
 exactly zero values, with no recursive or owner-call result propagated.
 
 The body has no direct property/global/upvalue store, loop, wait, handler or
-rollback. Its getter, setter and close requests remain opaque. A false owner
-passes the nil gate and reaches the setter before ordinary Boolean `close`
+rollback. Its close request remains opaque. The
+[nominal thread-owner contract](#nominal-thread-owner-access) qualifies the
+getter and setter when their dynamic lookups resolve to those methods. A false
+owner passes the nil gate and reaches the setter before ordinary Boolean `close`
 indexing can fail; special metatable behavior is unproved. Reached errors,
 suspension or nonreturn prevent later requests and normal return. The saved
 owner's identity, actual state mutation, destruction, native control/table/address
@@ -1460,6 +1462,70 @@ owner/late lookup, explicit nil, discarded results and zero-result returns.
 The LPB and instruction decoders at revision
 `ae6a576e03412483f4efc4733e07cf4bb06545dd` were used without client
 execution or interpretation of a dependency body.
+
+#### Nominal thread-owner access
+
+If dispatch reaches `DesktopWidget.getThreadOwnerWidget`, its one fixed
+receiver supplies `W=receiver.work` at GETTABLE PC0, then
+`O=W.threadOwnerWidget` at GETTABLE PC1. RETURN PC2, `A=1,B=2,C=0`, returns
+exactly one unchanged O, including nil or false. The trailing zero-value
+RETURN PC3 is unreachable. There is no default, truth conversion or validity
+filter. Missing receiver is adjusted to nil; extra arguments are unused.
+
+`DesktopWidget.setThreadOwnerWidget` has two fixed slots, receiver and value.
+GETTABLE PC0 saves `W=receiver.work` in R2. SETTABLE PC1,
+`A=2,B=257,C=1`, assigns `W.threadOwnerWidget=value`. RETURN PC2,
+`A=0,B=1,C=0`, returns exactly zero values. Explicit nil reaches that assignment
+unchanged; a missing value is adjusted to nil. Extra arguments are unused.
+
+Each invocation looks up `work` once and uses its saved result. Getter and
+setter invocations perform separate lookups, so their W values need not be
+identical. These are ordinary Lua indexing and assignment operations, with
+applicable metamethod and error behavior. Under ordinary table storage, nil
+removes the `threadOwnerWidget` entry. There is no rawset, work creation,
+validation, readback or success flag. Normal setter return does not prove a
+particular effect through an unverified `__newindex` implementation.
+
+Both prototypes have no varargs, upvalues or children, and no explicit
+CALL/TAILCALL, branch, loop, protected call, handler or yield/wait operation.
+The getter has no persistent store. The setter makes no close request for the
+owner or native request. Applicable indirect effects, actual receiver and storage
+binding, shared work aliases and owner identity remain unproved.
+
+For [close-local cleanup](#closewidgetlocal-cleanup-request), nominal dispatch
+makes the saved getter result exactly O from that invocation. The explicit-nil
+setter has its own work lookup, and its zero results are discarded. The caller
+retains its saved O and looks up O's `close` only after normal setter return.
+For the [recursive caller](#closewidgetrecursive-traversal-and-owner-result),
+the exact-false `_isAlive` result still selects the explicit-nil setter;
+the subsequent local owner=nil action is separate from the field assignment.
+Neither composition proves equality of the work objects, complete reference
+release, cleanup, destruction or lifetime completion.
+
+The connector LPB, decoded-payload and canonical-source identities above apply.
+Canonical definitions and assignments are in `widget/desktopwidget_connector.lua`:
+
+| Method | Class line | Complete body lines | Assignment line |
+| --- | ---: | --- | ---: |
+| `getThreadOwnerWidget` | 1142 | 1144-1149 | 1151 |
+| `setThreadOwnerWidget` | 1133 | 1135-1139 | 1141 |
+
+Each root binding uses GETGLOBAL R0,K0 (`DesktopWidget`), CLOSURE R1 and
+SETTABLE R0,RK(method),R1. Root K22 binds child21 as the getter; K21 binds
+child20 as the setter. Both body constant pools are K0=`work`,
+K1=`threadOwnerWidget`. PCs are zero-based; payload ranges are half-open.
+
+| Selected code | PCs | Payload interval | SHA-256 |
+| --- | --- | --- | --- |
+| Getter `root/proto21` body | [0,4) | [33094,33110) | `2e677feeb3fc915f3591651020158cbbddae6a8d99189e7cc084f667c0e6ace2` |
+| Getter root binding | [63,66) | [284,296) | `f7f4573df317a759fa5a34769d445a88e3ae88947e0f1fe228a76ca4bfa5ca0a` |
+| Setter `root/proto20` body | [0,3) | [33009,33021) | `d13a916208b98b2aa3d9b56cd9f9cc1bea3b921bcc20e8b813e7976a61f8f34a` |
+| Setter root binding | [60,63) | [272,284) | `fe61de99e82ae897d89ae8bacf174d6f1fdce9434556511f61475afe82d2217d` |
+
+The original bytecode and complete canonical bodies agree. The existing
+[LPB decoder](../tools/retail_script.py) and
+[Lua instruction decoder](../tools/build_quest_contracts.py) cover all seven
+body words and six binding words without client execution.
 
 #### closeWidgetRecursive traversal and owner result
 
@@ -1543,6 +1609,9 @@ setter returns normally, the saved local owner becomes nil. Nil, zero
 results adjusted to nil and every other non-false liveness result retain the
 saved owner. The owner getter is not repeated. The `_isAlive` name proves
 no liveness.
+
+The [nominal owner methods](#nominal-thread-owner-access) supply the getter and
+setter contracts only when those dynamic lookups resolve to them.
 
 A retained non-nil owner that compares equal to the original input by Lua
 `==` sets the Boolean true and suppresses this input's close. Applicable
