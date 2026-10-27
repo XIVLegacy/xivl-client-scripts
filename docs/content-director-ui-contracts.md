@@ -1494,6 +1494,32 @@ registered descriptor/functor, a successful holder cast and a receiver
 identity that resolves valid widget storage. Those conditions are unproved
 for this `p2`, so its count remains the parameterized first result above.
 
+`WidgetBaseClass._countChildWidgets_inl` is an executable descriptor closure
+with one unused fixed argument and no varargs. It returns exactly two literal
+strings in order, `"self"` and `"_countChildWidgets_cpp"`, without invoking a
+native or counting widgets. Literal `self` is a string, not the receiver value.
+The pair is distinct from the native `int` and this caller's count result.
+
+Its canonical window is `widget/widgetbaseclass_u.lua:132-141`: class lookup
+at 132, complete body at 134-139 and assignment at 141. Root PCs 39-41,
+payload `[188,200)`, load `WidgetBaseClass`, create child13's closure and
+assign it under `_countChildWidgets_inl`. The descriptor `root/proto13` has
+PCs 0-3, payload `[2203,2219)`, four words/16 bytes. RETURN PC2 supplies both
+strings; the zero-value RETURN PC3 is unreachable. PCs are zero-based and
+payload byte ranges are half-open.
+
+| Descriptor artifact | Size | SHA-256 |
+| --- | --- | --- |
+| `client/script/n1635q/n1635q89r57y9rr_p.le.lpb` | 3,210 bytes | `47325df731d3e0a9b6775dbfce8c5364d6dc1631f0518fbfc30e0c46a05a3757` |
+| Decoded payload | 3,197 bytes | `e480408e273057f08bfe7854adca77ded50dfb53f806527caf01db38997f44f5` |
+| Canonical `widget/widgetbaseclass_u.lua` | 4,394 bytes / 241 lines | `28385e6036059caa033670efde0eb9b3d162ab6fcee95503a353a8cd2943556b` |
+
+`xivl-client-structs:docs/lua-class-system.md#pipeline-diagram` records
+conditional `_inl` target/key lookup. This closure supplies its specific
+literal outputs, but does not establish resolution of `self`, successful
+`_countChildWidgets_cpp` lookup or alias installation. The actual `p2`
+dispatch, holder cast and identity/storage requirements above remain unproved.
+
 The second loop reads each saved child value and requests
 `p1:closeWidgetRecursive(savedChild)` in the same numeric-loop order. A nil
 child lookup result is later read and forwarded as nil. Only an exact-true
