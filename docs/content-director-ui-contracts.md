@@ -1633,6 +1633,23 @@ or children. PCs are zero-based and payload byte ranges are half-open.
 | Decoded payload | 32,983 bytes | `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
 | Canonical `widget/widgetbaseclass_common.lua` | 69,077 bytes / 3,361 lines | `2057f6a4a94071bf8c9f2fa697bc0571b47da14a6bc4919a6d5491005417800f` |
 
+#### Nominal processClosing return
+
+If dispatch reaches `WidgetBaseClass.processClosing`, its complete body is
+RETURN at PC 0, `A=0,B=1,C=0`, returning zero values. The one fixed receiver
+is unused, including a missing receiver adjusted to nil. Extra arguments are
+unused. This nominal body performs no closing operation, request, member/global
+read or state write, and has no guard, branch, loop, explicit yield or handler.
+After its normal return, `close` can reach `_delete` at SELF5/CALL6 without a
+result gate. Actual dispatch and overrides remain conditional. The later
+deletion, finalization and lifetime effects remain unproved.
+
+The common-script identities above apply. Canonical class at 859, body at
+861-863 and assignment at 865 bind this method. Root PCs 117-119, payload
+`[500,512)`, bind child39 under `processClosing`. Full `root/proto39` has
+PC 0, payload `[13930,13934)`, one word/four bytes, no varargs, upvalues,
+children or constants. PCs are zero-based and payload ranges are half-open.
+
 #### Nominal setInputEnable forwarding
 
 If `close`'s helper lookup resolves to `WidgetBaseClass.setInputEnable`, its
