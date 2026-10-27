@@ -1670,9 +1670,14 @@ alias inference. The `_cpp` spelling and Lua function type 6 prove no native
 identity. Failed lookup leaves ordinary registration available.
 
 This ActorBase assignment does not establish successful alias installation or
-WidgetBase inheritance/reach. The actual `p2`, `_delete_cpp` callable, later
-`_delete` dispatch, native identity and deletion/finalization/lifetime effects
-remain unproved. The descriptor's literal returns supply no deletion operation.
+actual WidgetBase dispatch. The canonical
+[WidgetBase delete contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/fade-actor-group-native-contract.md#widget-delete-override)
+records nominal `WidgetBaseClass` to `ActorBaseClass` parent registration and
+the conditional virtual `+0x70` override at `0x006E3A00`, including its ordered
+requests and AL-selected branches. Actual `p2`, `_delete_cpp` callable, later
+`_delete` dispatch, alias/cast/override reach, native object identity and
+deletion/finalization/lifetime effects remain unproved. The descriptor's
+literal returns supply no deletion operation.
 
 Its source is distinct from the common WidgetBase artifact above. Canonical
 `actorbaseclass_u.lua` has class at 71, complete body at 73-78 and assignment
