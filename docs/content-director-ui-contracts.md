@@ -1485,6 +1485,15 @@ the recursive-request loop. Both loops reuse R5-R8 and reload their limit
 from the retained R2 count result. An unusable numeric limit can error. A
 zero-iteration count skips both loops and still reaches the owner decision.
 
+For the nominal `WidgetBase` binding,
+`xivl-client-structs:docs/talk-native-contract.md#parent-and-child-widgets`
+and `xivl-client-structs:manifests/talk_native_call_contract.json`,
+row `luaName=_countChildWidgets`, record a child-vector count read and an
+`int` push. Applying that contract here requires SELF4 to resolve to the
+registered descriptor/functor, a successful holder cast and a receiver
+identity that resolves valid widget storage. Those conditions are unproved
+for this `p2`, so its count remains the parameterized first result above.
+
 The second loop reads each saved child value and requests
 `p1:closeWidgetRecursive(savedChild)` in the same numeric-loop order. A nil
 child lookup result is later read and forwarded as nil. Only an exact-true
