@@ -1633,6 +1633,30 @@ or children. PCs are zero-based and payload byte ranges are half-open.
 | Decoded payload | 32,983 bytes | `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
 | Canonical `widget/widgetbaseclass_common.lua` | 69,077 bytes / 3,361 lines | `2057f6a4a94071bf8c9f2fa697bc0571b47da14a6bc4919a6d5491005417800f` |
 
+#### Nominal setInputEnable forwarding
+
+If `close`'s helper lookup resolves to `WidgetBaseClass.setInputEnable`, its
+explicit false requests `receiver:setProperty("SqwtIsEnableInput", false)`.
+The method has two fixed slots, receiver and value, with no varargs. It
+forwards the value unchanged, including a missing value adjusted to nil.
+Extra arguments are unused. There is no default, guard or normalization.
+SELF0/CALL3 (`2,4,1`) supplies the literal key and value after the receiver,
+discards all results and reaches the zero-value RETURN PC4 on normal return.
+False, nil or zero helper results provide no success gate for close's later
+`processClosing` lookup. Reached errors, supported suspension or nonreturn
+can prevent that progression.
+
+The method uses the common-script identities above. Its canonical window is
+`widget/widgetbaseclass_common.lua:1565-1576`, with body 1567-1574. Root PCs
+216-218, payload `[896,908)`, bind child72 under `setInputEnable`. The complete
+`root/proto72` body has PCs 0-4, payload `[19502,19522)`, five words/20 bytes,
+no upvalues or children. PCs are zero-based and payload ranges are half-open.
+
+There is no body SETTABLE or other persistent store. The first opaque edge
+is the `setProperty` lookup and request above. Its target, metatable behavior,
+native input effects, raw persistence and lifetime remain unproved, separately
+from actual `p2` and helper dispatch or native receiver identity.
+
 ## Evidence boundary
 
 No Behest or Skirmish script in this filing proves wave composition, routes,
