@@ -1552,6 +1552,9 @@ child calls and owner decision, discarding all close results. Child results
 do not themselves suppress that close. An exact-false liveness result followed by a normal
 setter clears the saved owner and cannot itself suppress it.
 
+The [nominal close contract](#nominal-widgetbaseclassclose-requests)
+applies only if this dynamic `p2:close()` lookup resolves to that method.
+
 | Request | SELF/CALL PCs | CALL A,B,C | Handling |
 | --- | --- | --- | --- |
 | `p2:_countChildWidgets()` | 4/5 | `2,2,2` | First result supplies both loop limits |
@@ -1588,6 +1591,47 @@ words, four binding words and canonical body lines 25207-25267. The existing
 LPB and instruction decoders were used without client execution or
 interpretation of another function body. The next opaque dependency is the
 input's `_countChildWidgets` request; no native receiver chain is established.
+
+#### Nominal WidgetBaseClass.close requests
+
+If the reached recursive-close `p2:close()` dispatch resolves to this nominal
+`WidgetBaseClass.close` method, it makes these requests in order:
+
+| Request | SELF/CALL PCs | CALL A,B,C | Results |
+| --- | --- | --- | --- |
+| `receiver:setInputEnable(false)` | 0/2 | `1,3,1` | All discarded |
+| `receiver:processClosing()` | 3/4 | `1,2,1` | All discarded |
+| `receiver:_delete()` | 5/6 | `1,2,1` | All discarded |
+
+All three lookups use the unchanged receiver. Each later lookup follows
+the preceding normal call return. Earlier requests can affect later lookups.
+The method has one fixed receiver and no varargs, guard, default or normalization.
+Missing receiver becomes nil; extra arguments are not forwarded. False, nil
+and zero-result call returns are discarded and provide no success gate.
+The sole RETURN PC7 returns exactly zero values after all calls return normally.
+The recursive caller discards these results and keeps its earlier Boolean
+and owner-decision result handling.
+
+The body has no direct persistent write, branch, loop, explicit wait/yield,
+protected call, handler or rollback. Reached errors propagate; supported
+suspension or nonreturn prevents later requests and normal return until
+continuation completes. The first opaque edge is `setInputEnable` lookup
+at SELF0, then `receiver:setInputEnable(false)` at CALL2. Helper targets,
+input/closing/deletion effects, destruction and lifetime completion remain
+unproved, as do actual `p2` dispatch and native receiver identity.
+
+The canonical window is `widget/widgetbaseclass_common.lua:842-858`, with
+class lookup at 842, complete body at 844-856 and assignment at 858.
+Root PCs 114-116, payload `[488,500)`, use GETGLOBAL `WidgetBaseClass`,
+CLOSURE child38 and SETTABLE under `close`. The full `root/proto38` body
+has PCs 0-7, payload `[13805,13837)`, eight words/32 bytes, no upvalues
+or children. PCs are zero-based and payload byte ranges are half-open.
+
+| Close artifact | Size | SHA-256 |
+| --- | --- | --- |
+| `client/script/n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` | 32,996 bytes | `c549f746370366f9827570ee22201516e07a05d91829ca643a2e2ec0c73bcf3c` |
+| Decoded payload | 32,983 bytes | `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
+| Canonical `widget/widgetbaseclass_common.lua` | 69,077 bytes / 3,361 lines | `2057f6a4a94071bf8c9f2fa697bc0571b47da14a6bc4919a6d5491005417800f` |
 
 ## Evidence boundary
 
