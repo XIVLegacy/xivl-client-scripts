@@ -33,6 +33,7 @@ unverified native or server behavior.
 - [Widget-open command boundary](widget-open-command-boundary.md)
 - [ActionMenu grid visibility](action-menu-grid-visibility.md)
 - [Cast gauge lifecycle](cast-gauge-lifecycle.md)
+- [PlayerParameter TP consumer contract](player-parameter-tp-consumer.md)
 - [Status parameters and party buffs](status-parameters-party-buffs.md)
 - [MonsterAttackWeaponSkill getter profile](monster-attack-weapon-skill-profiles.md)
 - [Monster map-marker selection](monster-map-marker-selection.md)
