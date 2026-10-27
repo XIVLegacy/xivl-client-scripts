@@ -1657,6 +1657,51 @@ is the `setProperty` lookup and request above. Its target, metatable behavior,
 native input effects, raw persistence and lifetime remain unproved, separately
 from actual `p2` and helper dispatch or native receiver identity.
 
+#### Nominal setProperty forwarding
+
+If the helper dispatch resolves to `WidgetBaseClass.setProperty`, SELF0 first
+saves `F = receiver._setProperty` and the receiver. It then supplies nil and
+reads `receiver.widgetWork`, that result's `common`, then its `widgetName`
+at PCs 2-4. These dynamic reads occur after the function lookup. They do not
+cause another lookup of `F`. CALL7 requests the saved function with this tuple:
+
+```text
+F(receiver, nil, widgetName, propertyName, ...complete extra tail)
+```
+
+The two fixed slots are receiver and property name. A missing property name
+becomes nil in that fixed position. The full extra tail passes unchanged,
+including zero extras, multiple values, false and trailing nil positions.
+There is no local guard, default, normalization, persistent store, branch,
+loop, explicit wait/yield, protected call, handler or rollback. CALL7 discards
+all results and RETURN8 returns zero values on normal completion. The first
+opaque edge is the saved `_setProperty` lookup. Errors, supported suspension
+or nonreturn in that lookup, the later reads or the call can prevent progression.
+
+Original VARARG6 `A=8,B=0` and CALL7 `A=3,B=0,C=1` establish full-tail
+forwarding. Canonical lines 1455-1456 assign ellipsis to one local and pass
+that local once, retaining one tail position and supplying nil for an empty
+tail. That rendering alone does not express the original's complete tail.
+
+With both nominal helper dispatches, the accepted input-enable request becomes
+`F(receiver, nil, receiver.widgetWork.common.widgetName, "SqwtIsEnableInput", false)`.
+Its single false tail value is unaffected by the rendering limitation. After
+normal completion, the zero-result input-enable wrapper lets `close` reach
+its later `processClosing` lookup. No returned success value gates that step.
+
+The method uses the common-script identities above. Its canonical class is
+at 1444, complete body at 1446-1457 and assignment at 1459. Root PCs 198-200,
+payload `[824,836)`, bind child66 under `setProperty`. The full `root/proto66`
+body has PCs 0-8, payload `[18602,18638)`, nine words/36 bytes, vararg flag 3,
+no upvalues or children. PCs are zero-based and payload ranges are half-open.
+
+Published [native property access](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/widget-native-call-contract.md#property-access)
+supplies conditional context: if `F` is that binding and receiver/name
+marshalling is valid, leading nil selects its `FUN_0075B810` setter route.
+Actual callable and native receiver identity, name marshalling, resolved part,
+descriptor/parser reach, Lua-false conversion, property update and delivered
+input effects remain unproved by this Lua contract.
+
 ## Evidence boundary
 
 No Behest or Skirmish script in this filing proves wave composition, routes,
