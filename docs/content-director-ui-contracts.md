@@ -1255,7 +1255,8 @@ meets `openWidget`'s separate normalization: exact false becomes false and
 every other normal result becomes true. The outer and inner type lookups
 remain distinct. These calls do not bind an actual native control/table or
 prove creation, completion, rendering, lifetime, historical invocation or
-server policy. `_isAlive` remains opaque. The
+server policy. The [conditional `_isAlive` profiles](#conditional-_isalive-lookups)
+qualify possible results without selecting this receiver's actual surface. The
 [`commandCreateWidget` contract](#commandcreatewidget-forwarding) qualifies
 its request forwarding.
 
@@ -1369,7 +1370,9 @@ After normal return, LOADBOOL PC17 supplies true and RETURN PC18 returns it.
 Normal RETURNs at PCs 7, 13 and 18 have A=2, B=2: one Boolean. PC19's
 empty RETURN is unreachable. Extra actual arguments have no forwarding path.
 
-The first explicit opaque dependency is `_isAlive` at PC9 for non-nil input.
+The first `_isAlive` request is at PC9 for non-nil input. Its
+[published lookup profiles](#conditional-_isalive-lookups) require their actual
+dispatch and frame premises.
 Its effects may change the later `closeWidgetLocal` lookup, which is not saved
 before that call. Neither argument register is replaced. The body has no
 persistent store, state-flag lookup, loop, explicit wait or error handler.
@@ -1527,6 +1530,40 @@ The original bytecode and complete canonical bodies agree. The existing
 [Lua instruction decoder](../tools/build_quest_contracts.py) cover all seven
 body words and six binding words without client execution.
 
+#### Conditional _isAlive lookups
+
+The published [script profiles](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/binding-map-native-contract.md#script-surfaces)
+and [userdata query](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/player-world-native-contract.md#_isalive)
+distinguish conditional results, rather than one universal native function:
+
+| Reached lookup/call profile | Normal result |
+| --- | --- |
+| Class lookup reaches nominal `ActorBaseClass._isAlive` | true |
+| Released-instance `__index` reaches the published global `__lge_isAlive` function | false |
+| `IndividualRef` userdata reaches the documented engine-query closure/frame | Lua Boolean converted from the returned engine byte |
+
+The [instance lookup contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/script/widget-work-members.md#instance-__index)
+qualifies the released, hidden-cache and class/parent lookup paths. The
+released-reference role of record `+0x7E` remains `INFERRED`. Actual receiver,
+metatable/class chain, dynamic/global lookup, cast, call frame and engine-byte
+conditions are not established here. The documented derived bare-`RET 8`
+query path can produce true without proving object validity; its balanced
+`IndividualRef` frame does not establish the distinct script-instance frame.
+
+The query is reached through `openWidget` and `openWidgetLocal` in the nominal
+`openWidgetYield` chain. Exact false rejects the local creation request;
+the outer retry/wait/result logic retains its separate conditions. In
+`closeWidgetDirect`, exact false rejects delegation to `closeWidgetLocal`.
+In the recursive owner branch, exact false requests the nil setter and only
+after normal setter return clears the saved local owner. Other dynamic results
+keep the existing exact-false handling: nil, numeric zero and zero return values
+adjusted to nil take the non-false path. That path proves no object validity.
+
+These profiles select no actual `p4`, `p2` or saved-owner surface. They prove
+no HP, death, server phase, creation, cleanup, destruction or lifetime result.
+The nominal owner setter's separate work lookup, assignment/metamethod limits
+and the close-local saved owner's later `close` lookup remain qualified above.
+
 #### closeWidgetRecursive traversal and owner result
 
 Original `DesktopWidget.closeWidgetRecursive` has two fixed slots, receiver
@@ -1607,8 +1644,9 @@ Nil skips the liveness request. Every non-nil value, including false, reaches
 `p1:setThreadOwnerWidget(nil)`, discarding all setter results. After that
 setter returns normally, the saved local owner becomes nil. Nil, zero
 results adjusted to nil and every other non-false liveness result retain the
-saved owner. The owner getter is not repeated. The `_isAlive` name proves
-no liveness.
+saved owner. The owner getter is not repeated. The
+[published `_isAlive` profiles](#conditional-_isalive-lookups) qualify possible
+lookup results; this saved owner's actual surface and liveness remain unproved.
 
 The [nominal owner methods](#nominal-thread-owner-access) supply the getter and
 setter contracts only when those dynamic lookups resolve to them.
