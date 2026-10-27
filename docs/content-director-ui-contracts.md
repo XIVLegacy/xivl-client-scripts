@@ -1086,7 +1086,8 @@ zero results, nil positions and multiple results. No fixed success value
 is supplied by this path.
 
 Neither selected body writes a receiver property, global or upvalue. The
-calls remain opaque: they may mutate state, raise, suspend or fail to return.
+calls remain dynamically resolved and may mutate state, raise, suspend or fail
+to return. The nominal getter's effects are qualified below.
 Errors propagate without a local handler. The `_wait(0.1)` argument and
 `waitWidgetCreateYield` call do not establish a measured delay or completion.
 Close has no explicit wait or cleanup operation beyond its opaque helper.
@@ -1094,9 +1095,11 @@ The occupancy wrappers discard these callee results, so the composed path
 does not establish native creation, destruction, widget initialization or
 rendering, historical invocation, or server policy. The
 [`openWidget` contract](#openwidget-inputs-and-results) qualifies the next
-call. `waitWidgetCreateYield` and `getWidget` remain separate callee
-boundaries. The [`closeWidgetDirect` contract](#closewidgetdirect-behavior)
-qualifies its close request.
+call. `waitWidgetCreateYield` remains opaque. The
+[nominal `getWidget` contract](#nominal-getwidget-lookup) qualifies its lookup,
+state and result handling when dispatch resolves there. The
+[`closeWidgetDirect` contract](#closewidgetdirect-behavior) qualifies its close
+request.
 
 Focused original operand checks and static replays cover exact Boolean/nil
 comparisons, complete varargs, saved and reloaded state, retries, result
@@ -1104,6 +1107,73 @@ arities and propagated errors. Ten open and eight close semantic mutations
 are rejected. These checks use the LPB and instruction decoders identified
 in the [instance helper](#instance-raid-cutscene-helper), without client
 execution or interpretation of another helper body.
+
+#### Nominal getWidget lookup
+
+If dispatch reaches `DesktopWidget.getWidget`, its three fixed slots are
+receiver, key and selector. Missing inputs are adjusted to nil; extra arguments
+are unused. There is no local default, type check or key/selector conversion.
+The leading literal nil-versus-true test skips an unreachable one-nil return
+at PCs2-3 and reaches PC4. It supplies no actual admission check.
+
+GETTABLE PCs4-6 save `X=receiver.work.rootWidget[key]`. Nil X proceeds directly
+to the tail request below. Every non-nil X, including false, instead reaches
+`X:_isAlive()` at SELF9/CALL10. CALL `A=4,B=2,C=2` keeps only the first normal
+result; zero results become nil and additional results are discarded. Only
+exact false reaches the nil-assignment branch. Nil, numeric zero and every
+other non-false first result take the tail path. The
+[conditional lookup profiles](#conditional-_isalive-lookups) select no actual
+X surface or object-validity result.
+
+On exact false, GETTABLE PCs13-14 freshly reload `receiver.work.rootWidget`.
+SETTABLE PC15, `A=4,B=1,C=256`, assigns nil at the unchanged key in that fresh
+value. It need not be the table used by the initial lookup. Under ordinary
+table storage the assignment removes the key; applicable `__newindex` and
+error behavior remain. There is no rawset, identity check or readback.
+LOADNIL16 and RETURN17, `A=4,B=2,C=0`, return exactly one nil after normal
+assignment completion. This branch does not return false or call
+`getWidgetByName`.
+
+For nil X or a non-false query result, SELF18 freshly resolves
+`receiver.getWidgetByName`. MOVEs19-20 forward saved X and the unchanged
+selector. TAILCALL21, `A=4,B=4,C=0`, requests
+`receiver:getWidgetByName(X,selector)`, including nil X or selector. All normal
+callee results propagate, including zero values, nil positions and multiple
+results. RETURN22, `A=4,B=0`, is the open-result continuation; empty RETURN23
+is unreachable normally. The cached X is not re-read after the query, while
+its referenced state and the later method lookup can have changed.
+
+The exact `getWidgetByName` callable, name/search/default behavior, native
+identity and effects remain opaque. Ordinary indexing, assignment and calls
+retain their metamethod, error, fault and nonreturn limits. There is no loop,
+explicit wait/yield request, protected call, handler or rollback. This contract
+does not establish actual receiver/work/root binding, a valid widget, creation,
+cleanup, destruction or lifetime completion.
+
+Under nominal caller dispatch, `openWidgetYield` PC34 keeps only the first
+result, including nil or false, and does not retry a final nil lookup result.
+`closeWidget` PC7 likewise keeps the first result. Nil, including zero tail
+results adjusted to nil, makes that caller return one false without calling
+`closeWidgetDirect`. Every non-nil first result, including false, instead
+tail-forwards to `closeWidgetDirect`; its own later member lookup can error. None of these
+first-result rules changes the full-result tail contract of `getWidget`.
+
+The connector artifact identities above apply. Canonical class/key/body/
+assignment lines in `widget/desktopwidget_connector.lua` are
+25405/25406/25408-25434/25436. The computed-key assignment is
+`L0_1[L1_1]=L2_1`, after `L1_1="getWidget"`. The original root binding uses
+GETGLOBAL R0,K0 (`DesktopWidget`), LOADK R1,K531 (`getWidget`), CLOSURE
+R2,child530 and SETTABLE R0,R1,R2. The complete `root/proto530` has three
+fixed parameters, no varargs, upvalues or children. PCs are zero-based and
+payload ranges are half-open.
+
+| Selected code | PCs | Payload interval | SHA-256 |
+| --- | --- | --- | --- |
+| `root/proto530` body | [0,24) | [206034,206130) | `b380092c823c0696bb4a8f9d94643733f765f0f7f03e91f290dc910d14523566` |
+| Root binding | [1865,1869) | [7492,7508) | `41c8c061f938632901f8ea20fca3b4812a056b32a098eec93373a495c2e9d72f` |
+
+The existing LPB and instruction decoders establish all 24 body words and four
+binding words. The original operations and complete 27-line canonical body agree.
 
 #### openWidget inputs and results
 
