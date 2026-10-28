@@ -62,6 +62,7 @@ unverified native or server behavior.
 - [Class, job, and Grand Company quest scripts](quest-script-inventory.md)
 - [Grand Company quest recoverability](gc-quest-recoverability.md)
 - [Grand Company text-source bindings](gc-text-source-bindings.md)
+- [Grand Company quest step contracts](grand-company-quest-step-contracts.md)
 - [Company quest selector paths](grand-company-selector-paths.md)
 - [United We Stand client contract](united-we-stand-client-contract.md)
 - [To Kill a Raven client contract](to-kill-a-raven-client-contract.md)
