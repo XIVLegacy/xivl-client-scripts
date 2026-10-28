@@ -41,6 +41,7 @@ unverified native or server behavior.
 ## Quests and events
 
 - [Content director and scene contracts](content-director-ui-contracts.md)
+- [Caravan reward guide contract](caravan-reward-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
 - [Guildleve initializer arguments](guildleve-initializer-arguments.md)
 - [Guildleve party continuity](guildleve-party-continuity.md)
