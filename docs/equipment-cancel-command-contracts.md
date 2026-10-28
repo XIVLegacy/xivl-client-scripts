@@ -38,6 +38,20 @@ target. It forwards nine command values to `PlayerBaseClass.command`
 (value, nil, readyHand, nil, currentTarget, nil, nil, nil, nil)
 ```
 
+For the equipment-set wrapper, every position after the command object is:
+
+| Operand | Submitted value | Type and meaning established by the client |
+| ---: | --- | --- |
+| 1 | `value` | Opaque Lua caller value, including nil if omitted. No established issuer assigns its type or semantic domain. |
+| 2 | nil | Explicit nil. |
+| 3 | `readyHand` | The selected ready command's `charaWork.commandCategory[slot]`, declared `integer8`; serialized integral values use the generic 32-bit integer encoding. |
+| 4 | nil | Explicit nil. |
+| 5 | `currentTarget` | Current character control or nil, after the connector substitutes for the absent explicit target. |
+| 6 | nil | Explicit nil. |
+| 7 | nil | Explicit nil. |
+| 8 | nil | Explicit nil. |
+| 9 | nil | Explicit nil. |
+
 `currentTarget` may be nil. This is the submitted argument vector before
 eligibility helpers normalize local copies. The first value's server meaning
 is unresolved. Its client-side provenance is established for the action-menu
@@ -123,6 +137,12 @@ against `manifests/private_lua_corpus.json`, then every source member against
 `39927f86fd8614102d4144cd98fe0eeab01e1e3a`. Only matching locators were
 retained. Search output alone was not used to assign semantics.
 
+To establish 12007's first operand, a concrete authored invocation must join
+the command identity to the supplied value, and its producer or consumer must
+establish that value's domain. The wrapper, priority row, serializable integer
+shape and populated command slot do not supply that join. The complete
+literal search above remains the bounded issuer-search ceiling.
+
 ## Route and native fallback
 
 `command.csv` column 29 is 11 for 12007, 21005 and 21006.
@@ -202,12 +222,59 @@ The inspected route contains no command-specific enmity predicate. This does
 not prove that an equipment change succeeds while the player holds enmity:
 server refusal and the native command scheduler remain separate boundaries.
 
+### Return and refusal handling
+
+The ready wrapper returns false for an unmapped ready ID or a nonpositive
+equipped-slot mapping. The command wrapper returns false for an absent or
+dead command actor. `PlayerBaseClass.command` returns no value when the
+first two string operands exceed its combined 50-byte limit, so nil
+propagates through the wrappers on that branch. For this one-argument caller,
+only operand 1 can contribute string bytes
+(`desktopwidget_connector.lua:13623-13641,13749-13762`;
+`playerbaseclass.lua:1915-1929`).
+
+After local `canCommand` succeeds, `PlayerBaseClass.command` calls
+`_executeCommand`, writes `playerWork.commandBurstBlocker=1` even when the
+native call returns false, and returns its boolean result
+(`playerbaseclass.lua:1944-1972`). The native execution contract is
+`xivl-client-structs:docs/command-talk-native-contract.md#execution-natives`,
+VA `0x0070A010`: the returned boolean describes local dispatch acceptance.
+A true return is not gear-set completion or server acceptance.
+
+When the connector receives exactly false, it re-runs `processCanFire` to
+obtain refusal text and reads the command ID. Missing/zero text or ID returns
+nil. For this GameCommand route, an alert is emitted only for strict ranges
+`32500 < text < 32600` or `32700 < text < 32800`; otherwise the original false
+is returned. A nil command result skips that exact-false branch
+(`desktopwidget_connector.lua:13675-13732`). These returns distinguish local
+submission/refusal, not command-specific server outcomes.
+
+Original LPB instructions confirm the nine-operand forwarding despite the
+decompiler's finite temporary lists. Connector `root/proto278` calls
+`PlayerBaseClass.command` at zero-based PC 43, payload `0x1EB06`, with
+`B=12`. PlayerBase `root/proto44` calls `_executeCommand` at PC 47,
+`0x431E`, with `B=13`. Its block callback `root/proto42` uses open `VARARG`
+at `0x4016` followed by open `CALL` at `0x401A`; the nonblock callback
+`root/proto43` does so at `0x41FF`/`0x4203`. The selected connector and
+PlayerBase originals and decoded payloads matched
+`manifests/retail_lua_coverage.json` at revision
+`0badc824adb353ca36ea41a61ee255a92a3231e2`, using
+`tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader`.
+
 ## Reply boundary and inputs
 
 The inspected wrappers and classes do not wait for or classify equipment
 packets, `0x0139-0x013C` combat results, or a command-specific success/error
 message. No named server reply, set contents, inventory mutation or cast
 interruption is established by their local return values.
+
+The generic `_onCommandRejected` handles `widgetCreate` and `macroRequest`;
+the selected pre/post hooks handle `commandJudgeMode` and `commandContent`.
+They establish no `commandForced` gear-set result branch
+(`playerbaseclass.lua:2049-2059,2110-2159`). Establishing a completion
+contract still requires a source-qualified 12007 reply consumer or a retained
+request/result exchange tied to the concrete issuer and operand 1.
 
 The authenticated CSV members are pinned by
 `xivl-client-data:manifests/tables.json`, with columns identified by their
