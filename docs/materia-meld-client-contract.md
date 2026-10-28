@@ -438,6 +438,109 @@ no server opener for mode `2`, no counterpart notification ordering, and
 no result packet or status that proves success or failure. The owner and
 crafter flows above are separate client paths, not a captured interaction.
 
+## Operation names and stage boundaries
+
+`MA3` and `MA4` are not established retail operation names in the inspected
+sources. Exact case-sensitive substring searches found neither label in the
+2,671 authenticated decoded Lua members nor the 803 authenticated CSV
+members. That bounded text result does not identify an alternative spelling,
+a numeric selector or a server operation. Use the explicit command IDs and
+widget modes below rather than assigning either label to a stage.
+
+The recovered local order is conditional. The following rows do not join the
+separate callbacks into a witnessed request/reply sequence.
+
+| Stage | Established input and next local action | Boundary |
+| --- | --- | --- |
+| Select local equipment and materia | The selection widget records equipment and materia indices. Submenu `12` calls `attachMateria(equipmentIndex,materiaIndex)`. | These are local package indices, not serialized item IDs. |
+| Choose meld or rate request | The local-meld branch calls ready command `22014`. Class, level and repair-item refusal branches can instead call `22015` with the same item order. | A rate query is not an unconditional precursor to `22014`. Other requirement failures open warnings. |
+| Resolve ready command | Both helpers resolve equipment `E` and materia `M` in package `1`, then supply `(commandId,E,M,nil,player)`. | The ready helper substitutes its selected category for operand 3's nil. Its actual value, descriptor and admission remain runtime conditions. |
+| Confirm if `askJoinMateria` is selected | Supplied `A3` reaches the default mode-1 ask as rate. A completed confirmation returns `(true,1)` from the yield helper, reduced to one `true` by the callback. | Failed yielding and a non-`1` decision return one `false`; neither boolean proves a meld result. The request-to-callback edge is unbound. |
+| Display if `displayRate` is selected | Supplied `A3` reaches the same ask with a present presentation flag, which hides Install. | The callback returns no values. Its input producer and relation to `22015` are unbound. |
+| Present if `askJoinResult` is selected | Supplied result data creates presentation items and selects result text, count and polish visibility. | The callback returns no values and discards acknowledgement. It does not verify equipment mutation. |
+| Meld another player's equipment | Mode `3` requires the stored target's four-item package `6`, then calls `22016` with `(E,M,nil,target,nil)` through the ready helper. | Its helper result is discarded before close. Neither closing nor the nil ask result proves admission, acceptance or completion. |
+
+The request's item values are Lua object references. The rate callback's
+`A3` is a supplied value used as a number by comparison and formatting;
+no incoming typed frame establishes its encoded numeric type, precision or
+producer. The trailing `true` in `displayRate` is a presentation flag, not
+an acceptance result. Retain nil versus omitted arguments, boolean false
+versus numeric zero, and the callback return counts when comparing a record.
+
+Sources: `widget/materiaattachwidget.lua:749-1072`,
+`widget/desktopwidget_connector.lua:13737-13797,18674-18831`,
+`judge/craft/craftjudge.lua:994-1087`, and the callback bytecode table above.
+The conditional target call and close are also recorded in
+`xivl-decomp:docs/script/materia-command-dispatch.md`, sections
+"Exact target operands" and "Package refresh and publication".
+
+A complete historical sequence still needs each claimed command and its
+actual variation causally joined to the selected callback and full supplied
+typed argument vector. Acceptance, refusal and authoritative completion then
+need their own correlated response or item-state evidence. The minimum
+missing historical record is specified in
+`xivl-decomp:docs/script/materia-command-dispatch.md`, "Minimum missing
+invocation record". These are missing-evidence criteria, not authorization
+for new acquisition.
+
+## Quest 110814 and the melder tool
+
+Quest `110814` is `Waking the Spirit` in
+`xivl-client-data:csv/xtx_quest.csv`, row `110814`, English title column `2`.
+Its static class path is `/Quest/Scenario/Etc/Etc104` in
+`xivl-client-data:manifests/staticactor_class_paths.json`, entry `110814`.
+`Etc104.initText` loads text resource `7440,"etc104"`.
+
+`processEventHobhasStart` presents text rows `3,4,24,29`, waits, then calls
+`showQuestInfomation`. Result exactly `1` selects the instructional branch;
+other results select refusal text row `5`. The method finishes the talk turn
+and returns that same single result. This is the offer decision, not a meld
+success boolean. The instructional branch includes row `12`, which describes
+a borrowed melder and asks the player to supply gear, materia and catalyst,
+and row `27`, which describes selecting materia and Meld.
+
+`processEvent_000` presents reminder row `20`.
+`processEvent_005` presents rows `21,22,30,23,28`: success narration,
+removal advice, the separate multiple-materia technique, retaining the tool,
+and closing dialogue. Its body contains presentation and scheduler calls,
+then returns no values. It does not inspect equipment, grant the tool,
+execute a meld command or establish why that event was selected.
+
+The static tool association is concrete:
+`xivl-client-data:csv/quest_new_reward.csv`, row `110814`, has typed `s32`
+column `81 = 2001002` and column `83 = 1`.
+`xivl-client-data:csv/xtx_itemName.csv`, rows `2001002,2001003`, column `5`,
+names these items `Materia Melder` and `Augmented Materia Melder`.
+The target-meld widget's Install checks possession of either item in
+package `101`; the local requirement helper also checks `2001003` when
+materia is already attached. The reward-row cells and dialogue do not prove
+an actual grant, the server's completion test, or that completing quest
+`110814` is the command's direct runtime gate.
+
+No literal `110814` occurs in the authenticated decoded Lua corpus. The
+selected quest body does not call the meld or rate helpers, and the selected
+melding bodies do not query this quest's completion. A server-side
+quest-to-tool grant or quest-completion requirement, and any subsequent
+command-to-callback selection, remain unestablished by these artifacts.
+
+Sources: `quest/scenario/etc/etc104.lua:11-343`,
+`widget/ask/materiaattachaskwidget.lua:829-918`, and
+`widget/desktopwidget_materia.lua:316-410`.
+The `Etc104` original chunk has prototypes `0.0-0.4`: text-load CALL PC `3`
+at `0x17F`; offer CALL PC `34` at `0x26A`, single-result RETURN PC `160`
+at `0x462`; event-005 zero-result RETURN PC `37` at `0x8DE`.
+The requirement helper is prototype `0.9`, tool-presence CALL PC `45` at
+`0xBBF`; its seven-result RETURN PC `88` at `0xC6B` preserves the individual
+checks separately from their aggregate.
+
+The CSV members are authenticated by
+`xivl-client-data:manifests/tables.json`, entries `etc104.csv`, `quest.csv`,
+`xtx_quest.csv`, `quest_new_reward.csv` and `xtx_itemName.csv`.
+All sheet column numbers exclude the row key. `etc104.csv` rows `12,21,23,27,31`
+are instructional or narrative text. Row `31` states the level-18 crafting
+class requirement; `quest.csv` row `110814`, column `51`, contains `18`.
+These static rows do not establish server admission or completion.
+
 ## Source identity and locators
 
 Extraction: `2012.09.19.0001`, retail 1.23b. Each named decoded Lua member
@@ -458,6 +561,7 @@ chunk parsing and instruction operands without running the client.
 
 | Decoded member below `lua/scripts/` | Decoded payload SHA-256 |
 | --- | --- |
+| `quest/scenario/etc/etc104.lua` | `46c407a008b888147cb5b33aa5de5714374896ed13429d0209cdac03eed8b177` |
 | `actorbaseclass_u.lua` | `28d5d3b3fcd26cdb18394b3e9d937b3a5514cf8ff0b3b4c4196efda82d4596b1` |
 | `chara/charabaseclass.lua` | `101cafa86ebcb362b502e47dd33e262ede31b4939cc7fe945ab571e1afd0d3a9` |
 | `chara/player/playerbaseclass.lua` | `1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a` |
