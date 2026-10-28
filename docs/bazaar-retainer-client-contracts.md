@@ -188,6 +188,101 @@ one from each Lua package and slot number. The tuple uses native indices;
 Lua Bazaar package `8` is native package code `7`. The native record owns
 the conversion locators and the c2s `0x0131` package-request layout.
 
+## Wanted-item and materia-service issuers
+
+Request kind `20` is the wanted-item editor path. `BazaarEditWidget`
+mode `2` sets its window title from UI row `3127`, then assigns command
+operand `20` when Done is processed. The English row is "Seek Item" in
+`xivl-client-data:csv/xtx__text_ui.csv` and "Purchase Item" in the separate
+`xtx__text_ui(2).csv` member. This consumer/text join establishes the
+wanted-item role without inferring it from neighboring kind numbers.
+Canonical Lua: `lua/scripts/widget/bazaareditwidget.lua:1039-1052,2435-2453`.
+The two text members are pinned by `xivl-client-data:manifests/tables.json`:
+SHA-256 `23762a422118d99c4144a48b3495c52511b1b1b865e4fc50fdc61a973e3c6ece`
+and `e33205165bda559ed69bb63664514f0e12b7c29fc219d13ae17fa740985eca82`.
+The text variants do not establish which member a runtime selected.
+
+In the player branch, the editor obtains the requested count from
+`CustomControl_NumberInput_ItemSource`. With a numeric reward it passes
+`CustomControl_NumberInput_TotalGil` to `setItemDeal`. With an item reward
+it resolves the selected reward item and passes its selected reward count
+as the sixth helper argument. The connector emits the reward first:
+
+| Kind-20 reward | Nine tail operands after command resolution |
+| --- | --- |
+| Numeric `R` | `1000001, I, 20, nil, B, R, Q, nil, nil` |
+| Item `J` | `J, I, 20, nil, B, RQ, Q, nil, nil` |
+
+Here `I` is the helper's selected item control, `J` the reward item control,
+`B` the Bazaar actor, `Q` the requested count and `RQ` the reward count.
+Only nil counts default to the corresponding item's stack; numeric zero
+is preserved. This fixes operand roles and order, without establishing
+server escrow, matching, partial fulfillment or settlement. Sources:
+`bazaareditwidget.lua:2435-2610` and
+`widget/desktopwidget_connector.lua:18255-18339`. Connector prototype
+`0.414`, PCs `17-22` select the reward-first branch, and PCs `37/54`
+at `0x26BF9/0x26C3D` issue its numeric/item calls. The wrapper adds the two
+trailing nils. A true helper return closes the editor before a named
+acknowledgement or changed row is awaited.
+
+For kind `40`, owner confirmation in `Ask/MateriaAttachAskWidget` mode `2`
+calls `setMateriaAttachDeal(equipmentIndex,materiaIndex)`. Both controls
+come from local-player package `1`. The nine tail operands are
+`equipment, materia, 40, nil, player, nil, nil, nil, nil`.
+`setMateriaAttachUndeal()` instead resolves command `24216` and preserves
+`nil, nil, 40, nil, player, nil, nil, nil, nil`. Closing a confirmation
+widget alone does not prove that withdrawal helper ran. Eligibility,
+owner confirmation and the distinct crafter command `22016` remain in
+[the materia contract](materia-meld-client-contract.md#owner-request-and-cancellation).
+The equipment/materia operands do not carry the received modifier block or
+an offered price/count scalar. The service cost displayed by the widget
+is not an additional operand at this call site.
+
+Kinds `20` and `40` are operands of Deal command `24214`, not network
+opcodes. The conditional direct fallback constructs serverbound `0x012D`.
+The native record's conditional-layout tables own the offsets, including
+same-owner item coalescing. The command helper result establishes neither
+socket transmission nor server acceptance.
+
+### Update and completion boundary for kinds 20 and 40
+
+The ordinary Bazaar row consumer enumerates Lua package `8`. It stores
+the first `getBazaarItemDealData` result as `bazaarkind`; kind `20` selects
+its reward display category. That value comes from the `0xC9` tag's value
+byte, not the incoming record's attachment-representation mode byte.
+Sources: `widget/bazaarlistwidget.lua:1947-1986` and
+`xivl-client-structs:docs/bazaar-native-wire-contract.md#dealing-fields-read-by-lua`.
+An updated kind-20 row therefore needs compatible received item/tag state
+and package publication. The request does not itself write the row.
+
+The kind-40 crafter widget has a separate consumer: it requests the target's
+Lua package `6`, accepts an update only for that actor/package, requires
+four items, and reads slots `1-3` for presentation. The command helper
+also scans slot `4`. These reads constrain the state consumed by the
+crafter UI; they do not prove that a successful kind-40 Deal necessarily
+caused a particular package-6 update. See
+[the crafter route](materia-meld-client-contract.md#crafter-and-local-meld-routes).
+
+For both kinds, the retained `commandRequest` route conditionally submits
+through `_doServerOnCommand` and returns without a Bazaar-specific result
+wait. Command completion, incoming item publication, confirmation UI closure
+and actual fulfillment are separate boundaries. No route-correlated server
+reply, admission result or settlement completion is established for either
+kind. The shared Start/PackageStart/item-update/End dependency establishes
+how received state becomes publishable, not which response a server sent.
+
+The missing historical specimen must join a known `24214` invocation and
+kind `20` or `40` to its complete typed operands, item identities, actor and
+per-connection incoming event/item sequence. Kind `20` needs numeric and
+item-reward examples with requested/reward counts and resulting package-8
+rows and balances. Kind `40` needs owner equipment/materia identities,
+the target package-6 publication and resulting equipment/materia state,
+plus the distinct `22016` request if claiming fulfillment. Withdrawal needs
+its own `24216` request-to-update join. Frame/subevent order, publication
+callbacks and final visible state must be retained so receipt is not
+mistaken for completion. The frozen corpus does not establish those joins;
+new acquisition is unavailable.
+
 ## Bazaar inspection and incoming packets
 
 `executeBazaarCommand` saves the current target (or player fallback) and calls
