@@ -44,6 +44,7 @@ unverified native or server behavior.
 - [Caravan reward guide contract](caravan-reward-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
 - [Guildleve initializer arguments](guildleve-initializer-arguments.md)
+- [Guildleve 12468 reveal and 12487 objectives](local-regional-leve-contracts.md)
 - [Guildleve party continuity](guildleve-party-continuity.md)
 - [GatherNormal Guildleve article contract](guildleve-gather-normal-contract.md)
 - [Request-warden recruitment and end events](request-warden-event-contract.md)
