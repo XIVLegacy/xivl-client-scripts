@@ -152,6 +152,33 @@ to a later name/crest return; neither existing-group branch collected a new
 name or a target member. This is a bounded client observation, not a claim
 that every server-authored event or backend operation was absent.
 
+### Linkshell rename boundary
+
+A rename caller would associate an existing group UID with a replacement
+name. The inspected operations preserve different inputs:
+
+| Client path | Established operands | Source locator |
+| --- | --- | --- |
+| Current-shell selection, 24236 | UID or nil, nil, integer 1, six nils | `executePlayerSetCurrentLinkshell`, 15018-15048 |
+| Standalone-name collection | Name, later returned with icon as `(3,name,icon)` | Manager `root/proto8` PCs 23-33 and `root/proto5` PCs 62-149 |
+| Icon selection for existing UID | UID and icon, later returned as `(4,UID,icon)` | Manager `root/proto11` PCs 33-101 and `root/proto5` PCs 153-169 |
+| Rank appointment, 24231 | UID string, member string, rank, six nils; inspected menu requests 4/7 | `executePlayerLinkshellAppoint`, 15376-15432; submenu 323-346 |
+
+The manager tuples are local method returns, not assigned server operations
+or authenticated wire requests. None supplies an existing UID and a new
+name together. The complete original-bytecode and authenticated literal
+searches below therefore establish no rename caller within those bounds.
+They do not exclude the native text-command parser's computed dispatch,
+aliases, dynamically formed method/command names, arbitrary server-authored
+events, or backend operations. No rename payload, completion receiver,
+message row, recipient split or server naming policy is established.
+
+The missing discriminator is a retail existing-UID plus replacement-name
+caller followed through its event/command bridge and result consumer, or an
+already retained transaction identifying that operation. The naming widget,
+current-shell selection, icon selection and rank appointment do not supply
+that join.
+
 The [NPC contract](npc-linkpearl-client-contract.md#linkshell-management-ui-and-local-command-checks)
 owns the full management method/UI observations and resource identities.
 Reproduction from the original LPBs used `tools/retail_script.py:decode_lpb`
