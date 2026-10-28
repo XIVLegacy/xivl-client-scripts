@@ -7,6 +7,10 @@ answer to admission. The text dictionary names the Howling Eye and
 Thornmarch, and the static-actor table identifies the three Garuda quest
 titles with `Gcl104`. These are separate, directly observed relationships.
 
+The [selected instance entry contracts](instance-entry-client-contracts.md)
+cover Toto-Rak, the separate Rivenroad requests and Ifrit Hard, including
+their unresolved actor, admission and destination bindings.
+
 ## Original evidence
 
 The scope contains all ten canonical resources under
