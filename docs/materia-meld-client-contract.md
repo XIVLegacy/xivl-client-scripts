@@ -427,11 +427,8 @@ respectively, each with `B=0` and the CALL with `C=1`. Sources:
 These conditional outgoing continuations do not identify the later
 CraftJudge callback or its incoming arguments.
 
-Conversion is separate system command
-`24240`, mapped to `ItemMaterializeCommand`; its `showResult` creates a
-virtual item and displays `Ask/MateriaInformWidget`. That presentation does
-not supply the two-player meld request. Source:
-`lua/scripts/command/system/itemmaterializecommand.lua:30-76`.
+Conversion has its own
+[objective and result contract](materia-conversion-objective-contract.md).
 This contract establishes no numeric
 serverbound or clientbound opcode for the completed two-player meld,
 no server opener for mode `2`, no counterpart notification ordering, and
