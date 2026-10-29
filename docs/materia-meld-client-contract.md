@@ -480,6 +480,22 @@ missing historical record is specified in
 invocation record". These are missing-evidence criteria, not authorization
 for new acquisition.
 
+## Settlement qualification
+
+| Operation | Receipt or transition | Closest proven retail fact | Source and locator | Confidence | Remaining gap and finite source boundary |
+| --- | --- | --- | --- | --- | --- |
+| Local meld `22014` | **UNESTABLISHED**: authoritative success/refusal and equipment, materia, catalyst, tool or currency changes. | Package-1 equipment and materia reach the ready helper. If selected, `askJoinMateria` returns one decision boolean; `askJoinResult` presents supplied data and returns no values. | [Local operation binding](#local-operation-binding), [CraftJudge callbacks](#craftjudge-callback-contract); `xivl-decomp:docs/script/materia-command-dispatch.md#minimum-missing-invocation-record`. | High for static local contracts; no historical settlement attribution. | Executed command and actual variation -> selected callback/full supplied frame -> authoritative outcome and item/balance state. The retained registration, slot, request-vector, prefix and preserved-artifact studies do not supply that chain. |
+| Rate query `22015` | **UNESTABLISHED**: command-specific rate receipt and refusal/result selection. | Failed class, level or repair-item branches can request a rate. `displayRate` consumes supplied `A3` and returns zero values. | [Ready variation](#ready-variation-and-command-name-selection), [stage boundaries](#operation-names-and-stage-boundaries); same decomp invocation criteria. | High for static branches; rate producer and actual variation are unknown. | Executed query -> attributable rate producer/selected callback/full frame. A displayed rate does not establish a subsequent meld, roll or material change. The finite callback/variation/capture ceiling remains unchanged. |
+| Target meld `22016` | **UNESTABLISHED**: service acceptance/refusal, resulting equipment/materia and catalyst/tool/currency changes. | The target's four-item package `6` is required locally. The helper checks equipment, materia, currency catalog and matching repair item, then issues the distinct ready request and its result is discarded before close. | [Crafter route](#crafter-and-local-meld-routes); `xivl-decomp:docs/script/materia-command-dispatch.md#exact-target-operands` and `#package-refresh-and-publication`. | High for static operands and guards; no completed service attribution. | Owner kind-40 request -> target package publication -> executed `22016` with actual category -> selected result -> authoritative state. The exact target-route study and generic publication contract do not join these occurrences. |
+
+The finite retained metadata for the named command, CraftJudge, selection,
+ask, information and connector scripts identifies no additional
+command-specific result producer. Registry and N-API sidecar coverage is
+structural and does not exclude dynamic, inherited or native selectors.
+`MA3/MA4` labels, ready variation, callback-prefix and quest `110814`
+grant/dispatch retain their separate evidence limits. No tool or material consumption
+rule follows from possession checks or result presentation.
+
 ## Quest 110814 and the melder tool
 
 Quest `110814` is `Waking the Spirit` in

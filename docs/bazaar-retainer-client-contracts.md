@@ -283,6 +283,23 @@ callbacks and final visible state must be retained so receipt is not
 mistaken for completion. The frozen corpus does not establish those joins;
 new acquisition is unavailable.
 
+### Settlement qualification by request kind
+
+| Kind | Receipt or transition | Closest proven retail fact | Source and locator | Confidence | Remaining gap and finite source boundary |
+| --- | --- | --- | --- | --- | --- |
+| `20`, wanted item, numeric reward | **UNESTABLISHED**: accepted request, fulfillment, item transfer and currency settlement. | Deal `24214` carries `(1000001,I,20,nil,B,R,Q,nil,nil)`. The package-8 row reads kind from the received `0xC9` tag value. | [Wanted-item issuer](#wanted-item-and-materia-service-issuers), [update boundary](#update-and-completion-boundary-for-kinds-20-and-40); `xivl-client-structs:docs/bazaar-native-wire-contract.md#dealing-fields-read-by-lua`. | High for static operand and row-consumer facts; no completed retail transaction attribution. | Known request/control identities/counts -> per-connection admission/result -> package-8 and physical item changes -> reward/balance changes. The exact issuer/layout/publication contracts and retained command/widget metadata name no correlated settlement record. |
+| `20`, wanted item, item reward | **UNESTABLISHED**: accepted exchange, partial/full fulfillment and reward-item transfer. | Deal `24214` carries `(J,I,20,nil,B,RQ,Q,nil,nil)`, preserving both counts and resolved references. | Same issuer and update sections; native record `#kind-20-and-kind-40-application-offsets`. | High for static construction; no completed exchange attribution. | Known requested/reward items and counts -> selected fulfillment request/result -> authoritative item/count and listing changes. Equal serializer references or a published row alone do not identify a successful exchange. The finite metadata and prior transaction ceiling provide no new discriminator. |
+| `40`, materia request | **UNESTABLISHED**: accepted listing, service completion, equipment mutation and materia/catalyst/tool/currency settlement. | Owner Deal supplies equipment/materia from package `1`. The crafter separately consumes target package `6` and can issue ready command `22016`. | Same issuer and update sections; [materia settlement](materia-meld-client-contract.md#settlement-qualification); `xivl-decomp:docs/script/materia-command-dispatch.md#target-materia-command-22016`. | High for distinct static issuer/consumer paths; no historical transaction joins. | Owner `24214` -> admission and target package-6 publication -> crafter `22016`/actual category -> selected full result frame -> authoritative state. Generic item handlers, four displayed items and UI close do not close these edges. |
+| Withdrawal, `20` or `40` | **UNESTABLISHED**: accepted withdrawal and release/replacement of the associated item or service state. | Separate `24216` helpers exist; kind `40` preserves both leading nils. | [Withdrawal](#widget-callers-withdrawal-and-fulfillment), [owner cancellation](materia-meld-client-contract.md#owner-request-and-cancellation); native record `#command-completion-and-item-locks`. | High for static helper shapes; no withdrawal attribution. | A known `24216` invocation -> its own received removal/replacement and item/balance consequence. Back/Close and the nonblocking return do not prove that occurrence. The retained command/widget metadata supplies no attributable withdrawal sequence. |
+
+This qualification reuses the finite issuer, serializer, package-publication
+and target-command studies. The retained Bazaar edit/list/command and materia
+ask/connector metadata supplies no new concrete transaction source.
+Known payload variants and constructors establish client-compatible shapes,
+without observing a server transaction. Binding references, Lua/native
+package/slot numbering, typed parameter order, endian qualifications and
+callback selection retain their existing boundaries.
+
 ## Bazaar inspection and incoming packets
 
 `executeBazaarCommand` saves the current target (or player fallback) and calls
