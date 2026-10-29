@@ -711,3 +711,56 @@ Decoded payload SHA-256 values pin the instruction offsets below.
 | `widget/ask/retaineritemlistwidget.lua` | `408cf496ed3fcda95c53a6925cc9c8e689c517e37893e6d566e55e0a64aae469` |
 | `chara/npc/object/retainerfurniture.lua` | `4a8af6a781c1e364dbdba23eda8824845f4d05b2b755a30402f5b3e18b03cee7` |
 | `widget/itemlistwidget.lua` | `f92b2bef0eac76acfc8896da338275659e14a8b826d944cc39634eb6defadded` |
+
+## Other-retainer Bazaar entry
+
+`DesktopWidget._onTargetDecided(cursor,actor)` has a direct other-retainer
+branch. After its tutorial-lock guard, the cursor-1 branch requires a nonnil
+actor different from the local player and no user-control lock. It calls
+`isOtherRetainerBazaar(actor)` and, for an exact true result, calls
+`executeBazaarCommand()` and returns.
+
+`isOtherRetainerBazaar` returns false for `checkActor(actor) == nil`,
+`actor.isPlayer() == true`, `actor.isRetainer() == false`, or
+`isMyRetainer(actor) == true`. Otherwise it returns `actor.isDealer()`.
+These are explicit equality tests, not general truthiness tests.
+`isMyRetainer` starts with false and, when the local player's group 80001
+is nonnil, returns that group's `_isMember(actor)` result. This is the
+client's membership consumer, not an incoming ownership-field contract.
+
+The callback tests its actor argument, while `executeBazaarCommand` separately
+reads the current target and saves its own target snapshot. This body does
+not pass the tested actor into that helper. The established inspection call
+therefore retains its current-target identity boundary.
+
+`OrdinaryRetainer.eventTalkRetainerOther` separately calls
+`desktopWidget.orderBazaarWidget(1)` and returns its retained result. Its
+extra formal argument is unused. This identifies an ordinary-retainer event
+entry into the existing Bazaar-list buyer path. It does not identify the
+server event selecting that method, establish a completed purchase, or bind
+the seller player's login state.
+
+Canonical sources below `lua/scripts/` are
+`widget/desktopwidget_connector.lua:2999-3065,13265-13330` and
+`chara/npc/retainer/ordinaryretainer.lua:31-41`. Root closure assignments bind
+connector prototype 0.60 to `_onTargetDecided` at PC182 / 0x2F8 and
+OrdinaryRetainer prototype 0.1 to `eventTalkRetainerOther` at PC12 / 0x50.
+Connector 0.60 calls the predicate at PC50 / 0xB771, tests exact true at
+PC51 / 0xB775 and calls `executeBazaarCommand` at PC54 / 0xB781.
+Predicate prototype 0.268 calls checkActor/isPlayer/isRetainer/isMyRetainer
+at PCs5/11/17/24, offsets 0x1E1FA/0x1E212/0x1E22A/0x1E246,
+with comparisons at PCs6/12/18/25. Its isDealer tailcall is PC30 / 0x1E25E.
+The ordinary-retainer opening CALL/RETURN are PCs3/4, offsets 0x364/0x368.
+Prototype and PC indices are zero-based; offsets are decoded-payload bytes.
+
+The existing source table pins both canonical scripts and original payloads.
+The connector payload SHA-256 is
+`685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621`;
+the OrdinaryRetainer payload SHA-256 is
+`3b458d8430d91dc358921b5e0ae35e879e6c1e502124a62a1af6a9211861d25a`.
+Original LPBs matched `manifests/retail_lua_coverage.json`, decoded with
+`tools/retail_script.py:decode_lpb`, and were read with
+`tools/build_quest_contracts.py:ChunkReader,states_for,instruction` using
+Python 3.12.0. Original-bytecode checks and synthetic predicate evaluations
+corroborated these call and comparison observations; they do not establish
+retail runtime execution or authoritative transaction settlement.
