@@ -57,6 +57,7 @@ unverified native or server behavior.
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
 - [Quest event client contracts](quest-event-client-contracts.md)
+- [Joining the Spirit objective boundary](joining-spirit-objective-contract.md)
 - [Duty confirmation client contract](duty-confirmation-client-contract.md)
 - [Primal entry client boundary](primal-entry-client-contract.md)
 - [Instance entry client contracts](instance-entry-client-contracts.md)
