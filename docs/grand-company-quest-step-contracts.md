@@ -38,6 +38,133 @@ Imperial Disruptor rows 11000421 and 11000423 share an English name but are dist
 
 The SAN records describe script actors; their provenance explicitly excludes server-bound NPC actor classes. Consequently the method-name roles below remain useful identifiers without being numeric NPC joins. No direct caller record supplies these A2 objects.
 
+## Encounter, outcome and reward joins
+
+Authoritative encounter/state joins and historical reward receipt remain
+**UNESTABLISHED** for each named quest. Static reward offers are separately
+established where stated. The linked tables preserve the closest client observation and the
+specific missing producer. Confidence is high in these bounded observations,
+not in an inferred admission rule, item effect, victory condition or amount.
+Static identity and narrative wording remain established independently of
+the missing runtime party-registry binding.
+
+| Quest | Admission / Director | Item effect | Victory transition | Companions | EXP | Gil | Seals |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Alive `111427` | UNESTABLISHED; [A1](#admission-and-director-selection) | UNESTABLISHED; [I1](#encounter-item-effects) | UNESTABLISHED; [V1](#victory-to-authoritative-state) | UNESTABLISHED; [C1](#companion-counts) | Expression established; amount/receipt UNESTABLISHED; [R1](#reward-amounts) | Offer entry absent; reward UNESTABLISHED; [R1](#reward-amounts) | Offer 1000 established; receipt UNESTABLISHED; [R1](#reward-amounts) |
+| Two Vans are Better than One `111627` | UNESTABLISHED; [A2](#admission-and-director-selection) | UNESTABLISHED; [I2](#encounter-item-effects) | UNESTABLISHED; [V2](#victory-to-authoritative-state) | UNESTABLISHED; [C2](#companion-counts) | Expression established; amount/receipt UNESTABLISHED; [R2](#reward-amounts) | Offer entry absent; reward UNESTABLISHED; [R2](#reward-amounts) | Offer 1000 established; receipt UNESTABLISHED; [R2](#reward-amounts) |
+| Like Father, Like Son `111827` | UNESTABLISHED; [A3](#admission-and-director-selection) | UNESTABLISHED; [I3](#encounter-item-effects) | UNESTABLISHED; [V3](#victory-to-authoritative-state) | UNESTABLISHED; [C3](#companion-counts) | Expression established; amount/receipt UNESTABLISHED; [R3](#reward-amounts) | Offer entry absent; reward UNESTABLISHED; [R3](#reward-amounts) | Offer 1000 established; receipt UNESTABLISHED; [R3](#reward-amounts) |
+| Imperial Devices (Limsa Lominsa) `111410` | UNESTABLISHED; [A4](#admission-and-director-selection) | UNESTABLISHED; [I4](#encounter-item-effects) | UNESTABLISHED; [V4](#victory-to-authoritative-state) | UNESTABLISHED; [C4](#companion-counts) | Expression established; amount/receipt UNESTABLISHED; [R4](#reward-amounts) | Offer entry absent; reward UNESTABLISHED; [R4](#reward-amounts) | Offer 1000 established; receipt UNESTABLISHED; [R4](#reward-amounts) |
+| Imperial Devices (Gridania) `111610` | UNESTABLISHED; [A5](#admission-and-director-selection) | UNESTABLISHED; [I5](#encounter-item-effects) | UNESTABLISHED; [V5](#victory-to-authoritative-state) | UNESTABLISHED; [C5](#companion-counts) | Expression established; amount/receipt UNESTABLISHED; [R5](#reward-amounts) | Offer entry absent; reward UNESTABLISHED; [R5](#reward-amounts) | Offer 1000 established; receipt UNESTABLISHED; [R5](#reward-amounts) |
+| Imperial Devices (Ul'dah) `111810` | UNESTABLISHED; [A6](#admission-and-director-selection) | UNESTABLISHED; [I6](#encounter-item-effects) | UNESTABLISHED; [V6](#victory-to-authoritative-state) | UNESTABLISHED; [C6](#companion-counts) | Expression established; amount/receipt UNESTABLISHED; [R6](#reward-amounts) | Offer entry absent; reward UNESTABLISHED; [R6](#reward-amounts) | Offer 1000 established; receipt UNESTABLISHED; [R6](#reward-amounts) |
+
+### Admission and Director selection
+
+The source columns cite observations. No row supplies an accepted encounter
+admission, content ID or Director binding for that quest. A same-named scene,
+Toto-Rak reference or script class does not establish that selection.
+
+| Row / quest | Closest proven client fact and source | Remaining join |
+| --- | --- | --- |
+| A1 / `111427` | SAN selects Gcl102. Sea journal `318` describes the crash-site route. [Alive](#alive---111427) retains callable presentation methods with `D`. | Accepted admission and authoritative quest-to-content/Director selector, including concrete actor/event arguments. |
+| A2 / `111627` | SAN selects Gcg102. Fst journal `385` describes securing the area after the gas attack. [Two Vans](#two-vans-are-better-than-one---111627) retains presentation methods with `D`. | Accepted admission and authoritative quest-to-content/Director selector; a supplied dialogue branch is not the selector. |
+| A3 / `111827` | SAN selects Gcu102. Wil journal `449` places the narrative fight northwest of Camp Black Brush. [Like Father](#like-father-like-son---111827) retains presentation methods with `D`. | Accepted admission and authoritative quest-to-content/Director selector, separately from the narrative location. |
+| A4 / `111410` | Com5l0.processEvent_010 passes supplied A4 to WorldMaster row `37` for minutes. [Briefing arguments](quest-event-client-contracts.md#imperial-devices-briefing-arguments) and [Limsa contract](#imperial-devices-limsa-lominsa---111410). | Producer of the supplied admission values, accepted continuation and Limsa-specific content/Director binding. No fixed duration is established. |
+| A5 / `111610` | Com5g0.processEvent_010 passes supplied A3 to WorldMaster row `22` for minutes. [Briefing arguments](quest-event-client-contracts.md#imperial-devices-briefing-arguments) and [Gridania contract](#imperial-devices-gridania---111610). | Producer of the supplied admission values, accepted continuation and Gridania-specific content/Director binding. No fixed duration is established. |
+| A6 / `111810` | Com5u0.processEvent_010 passes supplied A3 to WorldMaster row `29` for minutes. [Briefing arguments](quest-event-client-contracts.md#imperial-devices-briefing-arguments) and [Ul'dah contract](#imperial-devices-uldah---111810). | Producer of the supplied admission values, accepted continuation and Ul'dah-specific content/Director binding. No fixed duration is established. |
+
+The identity source is `xivl-client-data:docs/grand-company-quest-identities.md`,
+the six exact IDs. The journal source and authenticated sheet locators are
+`xivl-client-data:docs/grand-company-journal-text.md`, the corresponding
+quest rows. The retained generic factory and event-argument transport in
+`xivl-decomp:docs/event/quest-dispatch.md` and
+`xivl-decomp:docs/event/event-base-callback-arguments.md#runeventfunction-binding`
+do not provide a quest-attributed stage, accepted invocation or Director selector.
+
+### Encounter item effects
+
+| Row / quest | Closest proven client fact and source | Remaining join |
+| --- | --- | --- |
+| I1 / `111427` | Sea `318` instructs use of Imperial Disruptor `11000423` through the interaction menu to prevent reinforcements. | Quest-attributed item action/target and successful reply or state change proving the reinforcement effect. |
+| I2 / `111627` | Fst `385` instructs use of Mist Emitter `11000422` through the interaction menu against specified Garlean attacks. | Quest-attributed item action/target and successful reply or state change proving the protection effect. |
+| I3 / `111827` | Wil `449` instructs use of Imperial Disruptor `11000421` through the interaction menu to remove an enhanced status. | Quest-attributed item action/target and successful reply or status change proving the removal effect. |
+| I4 / `111410` | Com5l0's [selected client contract](#imperial-devices-limsa-lominsa---111410) preserves dialogue and choices. No encounter item is identified by the selected evidence. | An encounter-item attribution and its effect, if applicable. This is not proof that no item was involved. |
+| I5 / `111610` | Com5g0's [selected client contract](#imperial-devices-gridania---111610) preserves dialogue and choices. No encounter item is identified by the selected evidence. | An encounter-item attribution and its effect, if applicable. This is not proof that no item was involved. |
+| I6 / `111810` | Com5u0.processEvent_015 presents item `11000261` with message `25117` as qualified [below](#precise-return-and-presentation-qualifications). It does not identify an encounter-item effect. | An encounter-item attribution and its effect, if applicable. The presentation is not an item grant. |
+
+I1-I3 are localized instructions, not observed mechanics. Their rich-string
+lookups and separate item-name rows are owned by
+`xivl-client-data:docs/grand-company-journal-text.md`. The two Imperial
+Disruptor IDs remain distinct. No selected original `questWorkAccesses`
+record supplies an item-effect mutation.
+
+### Victory to authoritative state
+
+Every row is UNESTABLISHED. The original locators below are retained in
+`data/quest_contracts.json`, selected `scripts[]` by the exact canonical
+path in the corresponding quest section. The closest facts establish
+presentation or return shape, not a victory callback or state write.
+
+| Row / quest | Closest proven client fact and source | Remaining join |
+| --- | --- | --- |
+| V1 / `111427` | Gcl102.processEventClear, lines `986-1054`, root/proto21, RETURN PC `50` / offset `8008`, returns zero values. Sea `319-320` describes defeat and reporting. | Attributed victory condition/event, authoritative quest-state mutation and dispatch into or after this presentation. |
+| V2 / `111627` | Gcg102.processEventClear, lines `860-1038`, root/proto27, RETURN PC `140` / offset `7802`, returns zero values. Fst `386-389` describes defeat, Echo and report. | Attributed victory condition/event, authoritative quest-state mutation and consumer of any preceding client answer. |
+| V3 / `111827` | Gcu102.processEvent025, lines `815-984`, root/proto22, RETURN PC `134` / offset `7485`, returns zero values. Wil `450-452` describes survivor, Echo and report. | Attributed victory condition/event, authoritative quest-state mutation and dispatch into or after this presentation. |
+| V4 / `111410` | Com5l0's follow-up prompt returns the saved answer; [its exact branch](grand-company-selector-paths.md#imperial-devices-follow-up-prompts) is client dialogue. processEvent_025, root/proto14, RETURN PC `103` / offset `6949`, returns zero values. | Limsa-attributed victory event, authoritative quest-state mutation and accepted client-result continuation. |
+| V5 / `111610` | Com5g0's follow-up prompt returns the saved answer; [its exact branch](grand-company-selector-paths.md#imperial-devices-follow-up-prompts) is client dialogue. The selected methods have no local quest-work access. | Gridania-attributed victory event, authoritative quest-state mutation and accepted client-result continuation. |
+| V6 / `111810` | Com5u0's follow-up prompt returns the saved answer. processEvent_025, root/proto12, RETURN PC `86` / offset `6100`, returns zero values. Item-message presentation is separately qualified below. | Ul'dah-attributed victory event, authoritative quest-state mutation and accepted client-result continuation. |
+
+All six selected original `questWorkAccesses` arrays are empty. That is a
+chunk-local observation. It does not exclude an external producer or inherited
+helper. `finishCliantTalkTurn`, scene completion and a zero-result RETURN
+do not prove a victory state update, item grant or reward settlement.
+
+### Companion counts
+
+| Row / quest | Closest proven client fact and source | Remaining join |
+| --- | --- | --- |
+| C1 / `111427` | Sea `318` says up to two party members may accompany the player. | Enforced count, leader inclusion and accepted membership/admission predicate for this quest. |
+| C2 / `111627` | Fst `385` says up to two party members may accompany the player. | Enforced count, leader inclusion and accepted membership/admission predicate for this quest. |
+| C3 / `111827` | Wil `449` says up to two party members may accompany the player. | Enforced count, leader inclusion and accepted membership/admission predicate for this quest. |
+| C4 / `111410` | Com5l0.menberCountUnderRange forwards A4,A3 to WorldMaster row `28`; supplied values format admission wording. | Concrete supplied bounds and level, their producer and Limsa-specific enforcement. |
+| C5 / `111610` | Com5g0.menberCountUnderRange forwards A3,A4 to WorldMaster row `72`; followEvent_000 row `71` also uses supplied admission values. | Concrete supplied bounds and level, their producer and Gridania-specific enforcement. |
+| C6 / `111810` | Com5u0.menberCountUnderRange forwards A4,A3 to WorldMaster row `71`; supplied values format admission wording. | Concrete supplied bounds and level, their producer and Ul'dah-specific enforcement. |
+
+C1-C3 source: `xivl-client-data:docs/grand-company-journal-text.md`, exact
+quest/journal rows. This wording does not establish an enforced party bound.
+C4-C6 source: [original member-message helpers](grand-company-selector-paths.md#imperial-devices-member-message-helpers)
+and the full receiver-explicit tuples [below](#precise-return-and-presentation-qualifications).
+Those bodies do not enumerate members, compute range or test level. Their
+parameters are not fixed limits. Party group kind and authoritative membership
+remain a separate native binding question in
+`xivl-client-structs:docs/nameplate-group-native-contract.md`.
+
+### Reward amounts
+
+R1-R6 respectively denote `111427`, `111627`, `111827`, `111410`, `111610`
+and `111810` in
+`xivl-client-data:docs/grand-company-quest-rewards.md#selected-quest-rows`.
+That per-quest table owns the exact selected retail row presence/absence,
+generic-group boundary and separate EXP/gil/seal dispositions. The same-key quest-new-reward rows are present. The separate generic-sheet
+absences do not mean zero rewards. No wiki amount, neighbouring quest row, offer-widget
+calculation or client dialogue return establishes receipt for these six IDs.
+
+### Finite source boundary
+
+The admission, item, victory and companion dispositions reuse the six exact
+authenticated original resources and client contracts listed in
+[source locators](#source-locators-and-boundaries), their selected journal
+rows and the existing generic factory/event-argument findings cited above.
+The selected canonical records still match their four input-manifest pins,
+six source records and six original-resource records. This is a metadata
+agreement check, not a new original-bytecode inventory or historical invocation.
+The reward page identifies its distinct exact-member check separately.
+
+No additional quest-attributed Director, item-action, victory callback or
+retained retail transaction was identified in those bounded records. The
+closed OrbNormal, Toto-Rak entry, timeline, guide and boss cohorts supply no
+new attribution here and were not queried again. A precise missing join in
+the tables is an evidence requirement, not a plan for a new retail session.
+
 ## Alive - 111427
 
 Class `/Quest/Scenario/Gcl/Gcl102`. Source `xivl-client-scripts:lua/scripts/quest/scenario/gcl/gcl102.lua`. `initText` supplies text source `gcl102`; row ownership follows each call's explicit tuple and the receiver/readiness conditions in `xivl-client-scripts:docs/gc-text-source-bindings.md`.
