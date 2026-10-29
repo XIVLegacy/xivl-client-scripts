@@ -1,8 +1,8 @@
 # Command relation result consumers
 
 The recovered GameCommandBaseClass source has three consumers of
-`canAimForRelation`'s ordered returns. For the selected static helpers
-`23597-23602/23606-23607`, inherited target-control mode is `0`.
+`canAimForRelation`'s ordered returns. For every static helper listed below,
+inherited target-control mode is `0`.
 The separate force-target helper distinguishes `23602` by its third
 Boolean. These are decoded-source local contracts, without a historical
 command invocation or actor/encounter variant assignment.
@@ -20,6 +20,8 @@ and then GameCommandBaseClass.
 | --- | --- |
 | `23602` | `true,false,true` |
 | `23597/23598/23599/23600/23601/23606/23607` | `true,false,false` |
+| `23359/23369/23370/23372/23373/23375/23377/23404/23551/23553/23554/23555/23557/23558/23561/23562/23563/23564/23574/23575/23592/23593/23609` | `true,false,false` |
+| `23465-23475` | `true,false,false` |
 
 Sources: `xivl-client-data:manifests/staticactor_class_paths.json`, selected
 IDs; `csv/gameCommand.csv`, same IDs and numeric headers 137-139;
@@ -27,6 +29,9 @@ IDs; `csv/gameCommand.csv`, same IDs and numeric headers 137-139;
 `command/game/basic/monstersubstatothers.lua:1-8`.
 The diagnostic disappearance wording of 23602 does not name a relation
 category, numeric model state, scheduler operation or reset.
+The additional candidate and Chimera helper rows likewise preserve their
+unassigned/diagnostic names and actor/variant limits. Lion/dragon/goat return,
+A/B and leg/topple wording does not establish executed numeric transitions.
 
 ## Three recovered consumers
 
@@ -45,12 +50,12 @@ identities and the eventual caller/application remain unresolved.
 
 The selected class chain does not override these methods or
 `isMagicCommand/isAbilityCommand`. The two base predicates at
-lines 399-405 and 408-414 return false. Thus all eight selected helpers
+lines 399-405 and 408-414 return false. Thus every helper listed above
 inherit `aimWithSubTarget=false` and `getTargetControlMode=0`;
 23602's third Boolean does not make its mode 4.
 
 The independent force-target result does distinguish it: 23602 preserves the
-third explicit argument. For the other seven, it replaces the third with the
+third explicit argument. For every other listed helper, it replaces the third with the
 first only when the two compare unequal; otherwise it preserves the third.
 It returns the resulting third argument. This comparison does not establish
 reference identity, and the local result needs no historical actor-lifetime
@@ -65,8 +70,9 @@ Their local argument replacement does not establish a placed target,
 activation, cancellation, defeat/wipe/retry/exit operation or restoration.
 
 The relation categories remain unnamed here. Static class/row selection does
-not establish invocation on a retail actor or membership in original,
-repeatable or Hard Rivenroad. Packed playback selectors, model-qualified
+not establish invocation on a retail actor or membership in Ifrit, Garuda,
+Thornmarch, original/repeatable/Hard Rivenroad or a dungeon variant.
+Packed playback selectors, model-qualified
 WSS/BID banks and command IDs remain separate domains.
 
 ## Source identity and verification
@@ -88,6 +94,19 @@ and followed temporary alias calls into the three complete methods.
 It found 16 identifier occurrences: 13 definition bindings and these three
 executable references. This closes that predicate and corpus, without excluding
 dynamic, constructed, native or server-supplied callers.
+
+The selected `gameCommand.csv` member matched
+`xivl-client-data:manifests/tables.json`: 378,889 bytes, SHA-256
+`775aa8062aebc9f394c97cb634b3a75d687ff03063c849b95333a6bce8032811`.
+Its containing archive matched
+`xivl-client-data:manifests/private_csv_corpus.json`, 70,110,686 bytes,
+SHA-256 `006f9438a8cfd9277376f0ab28474500c67e4665050aa631cae64c9e6f38a5b0`.
+Python 3.12 `zipfile/csv/hashlib` derived headers 137/138/139 as zero-based
+physical fields 138/139/140 and checked all three declared types as Boolean.
+Each additional selected ID had exactly one same-key row with the stated
+tuple and the exact static class above. The 34 additional row projections
+reuse the established consumers; they do not repeat a command-issuer search
+or prove new command execution.
 
 The consumer branch and arity claims above are qualified to authenticated
 decoded source. Their original bytecode has not been verified.
