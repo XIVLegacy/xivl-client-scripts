@@ -190,6 +190,21 @@ match the canonical source hashes in
 The `initText` keys are arguments to `_loadTextDataPermanently`; the listed
 `say` values are literal row arguments. They do not identify localized text.
 
+`Etc1g1.processBUSH` (205-213) calls `_runBgScheduler` on its supplied
+third positional parameter with the fixed name `"von1"`. It supplies no
+additional Boolean and returns no values. The receiver's identity, the
+scheduler's target/effect and any collision or reset behavior are unbound.
+The original `client/script/tp5rq/r75w9s1v/5q7/5q7i3i.le.lpb` matched
+1,728 bytes and SHA-256
+`d231211b2a01e438f1c04a2bb7a1424829508042f970e2a7bb461eb7ef32e184`;
+its decoded payload matched the coverage manifest's 1,715-byte identity.
+Python 3.12 with `tools/retail_script.py:decode_lpb` and the Lua 5.1
+`ChunkReader` in `tools/build_quest_contracts.py` checked `root/proto4`,
+which has three parameters: CALL PC 2 at payload offset 1644 receives
+`[parameter2,"von1"]` and requests zero results; RETURN PC 3 at 1648 returns
+zero values. PCs and parameter indices are zero-based. This establishes the
+authored call, without observing its invocation or scheduler effect.
+
 | Script | `initText` key | Direct method calls and literal `say` rows |
 | --- | ---: | --- |
 | `etc1l0` | 3369 | `processEventHaldberkStart` (23-99): 1, 2, 3, 5, 19, 7, 8, 6; `processEvent000` (102-144): 9-11; `processEvent010` (147-186): 12-14; empty `processEvent020` (189-192). |
@@ -199,7 +214,7 @@ The `initText` keys are arguments to `_loadTextDataPermanently`; the listed
 | `etc1l6` | 3407 | `processEventNanapiriStart` (23-119): 2-6, 20, then 9 or 7, then 10, 11; `processEvent005_2` (122-154): 14, 15; `processEvent010` (157-215): 17-19, with fade duration and wait 1. |
 | `etc1l7` | 3411 | `processEventImaniaStart` (23-88): 2-6, then 8 or 7; `processEventImaniaFree` (91-115): 9, 10; `processEventYuyubesuStart` (118-169): 11-14, 45; `processEventYuyubesuFree` (172-206): 16, 17; `processEventYuyubesuAfter` (209-238): 20, 22; `processEventYuyubesuAfterFree` (241-270): 23, 25; `processEventHildie` (273-346): 26, 27, 29, 30, 32, 36, 37, 39-41. |
 | `etc1g0` | 3357 | `processEventSandreStart` (23-123): 1-8, then 10 or 9; `processEvent000` (126-154): 11, 12; `processEvent010` (157-202): 13-16. |
-| `etc1g1` | 3361 | `processEventMaroileStart` (23-129): 1-5, 8-11, then 6 or 7; `processEvent000` (132-165): 12, 13; `processEvent010` (168-202): 14-16; empty `processBUSH` (205-213). |
+| `etc1g1` | 3361 | `processEventMaroileStart` (23-129): 1-5, 8-11, then 6 or 7; `processEvent000` (132-165): 12, 13; `processEvent010` (168-202): 14-16; `processBUSH` (205-213) requests `_runBgScheduler("von1")` on a supplied receiver. |
 | `etc1g2` | 3377 | `processEventV_NabyanoStart` (23-153): rows 1, 2; ask `(3, 2)`; later rows 6-10, 12-14 or 11; `processEventV_NabyanoStart00` (156-184): 15, 16; `processEvent00` (187-259): 17, 18 then 22-24 or 19-21; `processEvent005`, `_1`, `_2` (262-348): 27-32; `processEvent05_3` (351-453): 33-36, fade/wait 1, ask `(37, 2)`, then 41-43 or 40. |
 | `etc1g4` | 3403 | `processEventNicoliauxStart` is detailed above; `processEvent010` (238-286): 17, 33, 16, 18; `processEvent020` (289-439): 21, 22, 19, 20, 23, 25, 28, 29 or 26, 27, then 30, 31; direct fade/wait durations 0.5, 0.5, 0.4, and 2. |
 | `etc1g5` | 3459 | `processEventLahonoStart` (23-115): 1-4, 6, 7, then 9 or 8; `processEventAfter` (118-225): 19-21, fade 1.5, then 24-27, 29-31; `processEventFree` (228-262): 15, 16. |
