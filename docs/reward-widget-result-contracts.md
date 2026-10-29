@@ -60,3 +60,85 @@ PC `031` (`0xAC2`). Equality returns the field-36 result, `nil`, `4405`, and
 result, `nil`, `4406`, `work.glRewardItem`, and `work.glRewardNumber` at
 PC `047` (`0xB02`). This is a client-side getter tuple. The constant's domain
 meaning and any server-side grant or inventory effect are not established.
+
+## Guildleve reward difficulty argument
+
+The selected guildleve reward wrappers copy their twelfth argument after
+self directly into `difficulty`. They open `Ask/ContentRewardWidget` in
+mode 1 with their actor and a trailing 1, then return two widget results.
+There is no addition or subtraction between this event argument and its
+stored difficulty. `AetheryteBaseClass` uses `aetheryteWork`; the other
+selected actors use `work`.
+
+`ContentRewardWidget.initAsk` calls
+`actor:getContentRewardItem(grid,row,column)` over ranges 1-3,1-4,1-2.
+For selectors (2,2,1), the selected actor getters return
+`(nil,nil,4408,difficulty)` under the conditions below. This passes the
+stored difficulty unchanged as the reward label's format argument.
+
+| Actor and event | Original difficulty store | Label condition and original return |
+| --- | --- | --- |
+| GuildleveWarpPoint.eventGuildleveReward | root/proto1 PC23, 0x5CD | difficulty > 1; root/proto8 PC176, 0xD06 |
+| PopulaceGuildleveTester.eventGuildleveReward | root/proto8 PC23, 0x991 | difficultyBonus > 0; root/proto14 PC174, 0xFC5 |
+| PopulaceFactionGLWorker.eventGuildleveReward | root/proto8 PC23, 0x46BA | difficulty > 1; root/proto15 PC176, 0x5408 |
+| PopulaceCompanyGLPublisher.eventGLReward | root/proto13 PC23, 0x16D4 | difficulty > 1; root/proto19 PC176, 0x1D48 |
+| AetheryteBaseClass.eventGLReward | root/proto14 PC23, 0xE10 | difficulty > 1; root/proto20 PC174, 0x1468 |
+
+Canonical methods: `chara/npc/object/guildlevewarppoint.lua:124-174,278-539`;
+`chara/npc/populace/populaceguildlevetester.lua:246-296,356-549`;
+`chara/npc/populace/populacefactionglworker.lua:3223-3273,3614-3875`;
+`chara/npc/populace/populacecompanyglpublisher.lua:681-734,797-1058`;
+and `chara/npc/object/aetheryte/aetherytebaseclass.lua:355-405,465-716`,
+all below `lua/scripts/`. The widget call is root/proto0 PC208/0x46E;
+its nested loop setup is PC194/198/202, 0x436/0x446/0x456.
+PCs are zero-based and offsets identify decoded payloads.
+
+The ordinary selected getters suppress this bonus slot for both 0 and 1.
+The tester instead uses the separate supplied difficultyBonus. The
+non-tester getters' separate reward-amount display path subtracts 1 from
+difficulty. That calculation does not change the incoming value or rebase
+the label argument.
+
+`xivl-client-data:csv/xtx__text_ui.csv`, row 4408, English column 1,
+labels the slot Difficulty Bonus and includes a conditional template with
+five ordered star strings. The same row in `xtx__text_ui(2).csv` is plain
+Difficulty Bonus. These strings do not identify the active sheet or prove
+runtime star rendering.
+
+### Retained received value
+
+The retained `party_battle_leve.pcapng` reward call carries 12 typed
+integers `(12487,611,542,0,3,0,12,1000001,5121,0,0,1)`, then END.
+The final difficulty argument is 1, with integer tag at application offset
+0x80, four-byte big-endian value at 0x81, and END at 0x85. No nil or
+actor/reference token occurs. This is main connection 0, s2c 0x0130,
+frame 3420/subevent 0, completing packet 5384, stream offset 422974.
+Source: `xivl-captures:studies/regional-guildleve-publisher-contract/derived/timeline.csv:62`.
+Capture member SHA-256:
+`6327e5e1f5cbd51a9baaa9bcbacf53ca51c50a98fe4b66ae3e6bdecd9198089f`.
+Application SHA-256:
+`4cf5349c4cf0f8de5a3f6066131da836549fb5e52ce8656da835b250fad623c9`.
+
+The capture establishes a reward value of 1. The selected client paths
+pass it through and use 1 as the ordinary no-difficulty-bonus baseline.
+They supply no reward-packet-to-label +1 conversion. A complete producer
+range of 1-5 and zero's server meaning remain **UNESTABLISHED**. In
+particular, zero suppression in these getters does not prove that zero is
+a defined wire sentinel. Start-widget difficulty labels and choices are
+separate from this reward argument contract.
+
+The canonical members and original LPB/payloads matched `scripts.json`
+and `retail_lua_coverage.json`. Original Lua 5.1 instructions were checked
+with `tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader/states_for/instruction`,
+using Python 3.12.0. The named CSV members matched
+`xivl-client-data:manifests/tables.json`; the retained capture and archive
+matched their owning member/input manifests.
+
+Capture reconstruction used
+`xivl-captures:tools/extractors/extract_00da_00e1_comparison.py:_decode_capture`
+after `tools/validate_framing.py:check` passed its framing checks. Exact
+typed-value decoding agreed between
+`tools/extractors/extract_local_guildleve_dialogue.py:decode_parameters`
+and `tools/extractors/extract_regional_guildleve_publisher_contract.py:decode_lua_values`.
+These are static and retained-wire observations, not runtime reward tests.
