@@ -560,6 +560,124 @@ PC 1281-1284 at `0x1424..0x1430` binds child `0.384` to
 `countRetainerMember`, and PC 1285-1288 at `0x1434..0x1440` binds child
 `0.385` to `getRetainerMemberInfo`.
 
+## Retainer withdrawal event result
+
+`OrdinaryRetainer.eventTalkRetainerItemList(2)` selects
+`Ask/RetainerItemListWidget`, whose code-22 result has four values. Let
+`I = self._getItem(package,item)` and `m` be the returned Bazaar type.
+The caller rejects a nil item or `_isAlive() == false`, then returns:
+
+`(22,I,m,0,I._getPackage(),0,I._countStack(),A,I._getCatalogID(),...I._getNameIndex())`.
+
+It initially obtains `A` from the third `_getDealingAttached()` result. If
+the first result is an `ItemBaseClass`, it replaces `A` with that item's
+stack count. Therefore `A` is not always an attached quantity: the native
+priced representation supplies `dealingAttached2`, consumed as the sale
+price by the [sale-price mode record](bazaar-price-modes.md). An unresolved
+or absent attachment can leave `A` nil. The return includes all results of
+`_getNameIndex`; the decompiler's temporary-variable list is not its arity.
+
+The selected row has Lua package `8`, but the widget can return its reward
+reference instead. The event returns the resolved item's `_getPackage()`,
+not an unconditional literal `8` or `7`. The getter's one-based package
+interpretation remains `INFERRED` in
+`xivl-client-structs:docs/binding-map-native-contract.md`, "Item natives".
+That native finding establishes a selected stored dword plus one, with a
+separate nil-sentinel branch. This event branch performs no numeric package
+conversion and does not call `setItemUndeal` or command `24216`.
+The separately documented native package-7 serializer path must not be
+assigned to this event result without a transport join.
+
+The Ask widget disables input when it yields code `22` and sets its local
+selection delay to `2`. A subsequent selection call invokes
+`setAskParameter`, which records server time, resets result/operation/editor
+state, redraws, and enables input. The selection handler compares elapsed
+server time with that delay. These local steps do not identify a server
+acknowledgement. `OrdinaryRetainer.eventReturnResult` handles only `31/32`;
+it supplies no code-22 reply payload or success mapping. No required
+withdrawal reply, completion event, or accepted mutation is established.
+
+Sources: `chara/npc/retainer/ordinaryretainer.lua:749-818,1024-1051`,
+`widget/desktopwidget_connector.lua:17165-17220`, and
+`widget/ask/retaineritemlistwidget.lua:4484-4647,6500-6645` below
+`lua/scripts/`. OrdinaryRetainer prototype `0.7` selects at PC `58`
+(`0xD68`), tests `22` at PC `299` (`0x112C`), reads the attachment at
+PC `315` (`0x116C`), and returns at PC `339` (`0x11CC`). The return-result
+prototype is `0.9`. Connector `0.380` resolves the Ask widget at PC `12`
+(`0x24D51`) and reads nine result positions at PC `25` (`0x24D85`), so the
+four-value code-22 result leaves its remaining positions nil.
+
+## Direct retainer repricing boundary
+
+Both retainer item-list variants return false from `operateBazaarSell`
+when `chosenPackage == 8`, before opening the price editor. Their buy and
+repair editor methods have the same package guard. The ordinary and Ask
+sale branches open `BazaarEditWidget` with mode `1` and owner selector `4`
+only after that guard. The editor returns listing code `21`; this does
+not provide a price-change code for an existing package-8 listing.
+
+The finite literal-caller domain for `BazaarEditWidget` contains those six
+retainer openings, three player-item openings, and the Bazaar-list opening.
+The player-item sale opening uses owner selector nil; the Bazaar-list
+opening uses mode `6`, owner `2`, and the established buyer route. Other
+literal occurrences are class declarations, update/lookups or closes.
+No direct repricing route for an already listed retainer package-8 item is
+established in that domain. Dynamic widget names, a different native UI,
+and server policy remain outside this result.
+
+Sources: `widget/retaineritemlistwidget.lua:8080-8226`,
+`widget/ask/retaineritemlistwidget.lua:4998-5202`,
+`widget/itemlistwidget.lua:4329,4394,4459`, and
+`widget/bazaarlistwidget.lua:4766` below `lua/scripts/`.
+The sale guards are original prototypes `0.52` and `0.47`, PC `2` at
+`0xCE49` and `0x8D1A`; both false returns are PC `5`. The retainer sale
+editor calls are PC `22`, `0xCE99` and `0x8D6A`. The editor's retainer
+code-21 call is prototype `0.10`, PC `336`, `0x398D`.
+
+## Summoning-bell roster selection
+
+`RetainerFurniture.eventPushStepOpenRetainerMenu` has no arguments after
+self. It directly reads `MyPlayer._getGroup(80001)` and returns `0` if
+the group is nil or its member count is less than `2`. Otherwise it opens
+the retainer list with `(self,true,nil,6501)`. The list uses the
+[in-game group roster](#in-game-retainer-roster-source).
+
+After the widget returns a selection, the bell enumerates group member
+indices `1..count`. Its separate display ordinal starts at `1` and advances
+only when `isPlayerMember(index) == false`. When that ordinal equals the
+widget result, it returns the group index. Thus, for members
+`[player,retainerA,retainerB]`, displayed selections `1/2` map to group
+indices `2/3`. These are group indices, not two possession bits or permanent
+owned-slot identifiers. The bell remap itself tests player membership,
+not employment state `127`.
+
+The roster initializer stores each one-based UI row index in
+`IntData.Value0`, and its Operate handler forwards that value as the answer.
+Widget Cancel/Close returns `0`, which the bell preserves. It has no
+post-widget nil-to-zero conversion: a nil result remains nil when no
+ordinal matches. The later `eventTalkRetainerMenu` argument passed to
+dismissal and its final choice-8 enable input do not supply this roster.
+The dismissal widget wrapper does not read its additional argument.
+
+The exact bell consumer therefore requires the in-game group snapshot,
+including member count and player-member classification. No particular
+incoming packet, native group-population field, possession-flag encoding,
+or server ownership policy is established by this script join.
+
+Sources: `chara/npc/object/retainerfurniture.lua:84-137,175-297` and
+`widget/retainerlistwidget.lua:119-121,225-281,703-710` below `lua/scripts/`.
+Furniture prototype `0.3` calls `_getGroup(80001)` at PC `6`, `0x51E`,
+checks the count at PC `13`, `0x53A`, opens the list at PC `23`, `0x562`,
+and tests `isPlayerMember` at PC `33`, `0x58A`. PCs `36-43`
+(`0x596-0x5B2`) remap the ordinal to a group index and return it.
+RetainerListWidget initializer `0.0` stores the UI loop index at PC `92`,
+`0x57A`, through `IntData.Value0`.
+
+The original-bytecode observations used `tools/retail_script.py:decode_lpb`
+and `tools/build_quest_contracts.py:ChunkReader/instruction` with Python
+3.12.0. Only the selected script paths and literal caller domain are covered;
+no retail execution or authoritative server mutation is claimed.
+
 ## Source identity and locators
 
 Extraction: `2012.09.19.0001`, retail 1.23b. Each named decoded Lua member
@@ -589,3 +707,7 @@ Decoded payload SHA-256 values pin the instruction offsets below.
 | `widget/ask/retainernamingwidget.lua` | `53546cd0d0702e27ed30fd3c27b2faf92f87b4ed9b011d8b9d3813eb676d1dc3` |
 | `chara/charabaseclass.lua` | `101cafa86ebcb362b502e47dd33e262ede31b4939cc7fe945ab571e1afd0d3a9` |
 | `command/commandbaseclass.lua` | `4d9cace900e712997f1a40663144d58f33b1f35f5a4aa521f637eb8c52364f25` |
+| `widget/retaineritemlistwidget.lua` | `6409aeac17d051590b7e0f2b15466ed6d5678f146ff11cf867a8a2b313a23301` |
+| `widget/ask/retaineritemlistwidget.lua` | `408cf496ed3fcda95c53a6925cc9c8e689c517e37893e6d566e55e0a64aae469` |
+| `chara/npc/object/retainerfurniture.lua` | `4a8af6a781c1e364dbdba23eda8824845f4d05b2b755a30402f5b3e18b03cee7` |
+| `widget/itemlistwidget.lua` | `f92b2bef0eac76acfc8896da338275659e14a8b826d944cc39634eb6defadded` |
