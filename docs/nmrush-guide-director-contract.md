@@ -297,8 +297,35 @@ the Guide's A1. An explicit actor-reference token also requires resolution
 before it becomes a Lua value. Selecting between these forms requires an
 actual requested outer function, typed parameters and resolved binding.
 
-The six-capture comparison at
+The fourteen-capture comparison at
 `xivl-captures:studies/request-nmrush-caller-bindings/README.md` found no Guide
 or NMRush Director class field and no selected Guide method call. That result
 does not identify A1 or the returned option consumer, and does not establish
 absence from the rest of the retained corpus.
+
+## Native update scalar
+
+The native producer for the scalar returned by `_getNMRushUpdateTime` is
+s2c `0x0193` subopcode `0x16`. In retail 1.23b `ffxivgame.exe`, image base
+`0x00400000`, SHA-256
+`9341f2b4567440b310a4d494f5cc5599ca334ba51c8042247317ff466492f2e9`,
+handler VA `0x00578C90` receives the subopcode from game-message `+0x10`,
+value from `+0x14` and clock from header `+0x08`. The `0x16` arm calls
+VA `0x0075D270` to replace timer-state `S+0x1C` with zero for value
+`0xFFFFFFFF`, or `(clock + value) mod 2^32` otherwise. Reader VA
+`0x0075D280` returns that dword unchanged.
+
+The static route and original-byte checks are canonical in
+`xivl-decomp:docs/net/s2c-0193-native-state.md`, "Timer readers" and
+"Handler arguments and stored words", and
+`xivl-decomp:config/s2c_0193_native_state.json`, `timerHandler` and
+`timerState`. The producing analysis used Ghidra 12.1.3; its focused
+`tools/verify_s2c_0193_native_state.py` executable checks reproduce the
+named reads, stores and arithmetic. The wrapper/binding identity is owned
+by `xivl-client-structs:docs/player-misc-native-contract.md`,
+`_getNMRushUpdateTime`.
+
+This scalar has no established join to a retained Skirmish invocation,
+the directors' `directNumber` or `limitTime`, an active battle duration,
+or admission, wave, reward, completion and reset rules. The sentinel's
+zero store does not establish what zero means to a Skirmish encounter.
