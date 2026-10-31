@@ -1081,3 +1081,44 @@ The decoded chunks and the pinned decompiler establish the recovered client
 scripts listed in the manifest. They do not establish server templates,
 authoritative routing, objective completion, rewards, or seasonal variants.
 Those claims require separate evidence and remain unresolved here.
+
+## Kinnison numeric predicates
+
+`DftFst.defaultTalkWithKinnison_001(self,player,npc,A3,A4)` first says
+row 239, then row 554 when either numeric input is at least zero, otherwise
+row 240. Both branches close talk and return zero values. The five fixed
+parameters and these comparisons do not identify the inputs' producers or
+assign named quest states.
+
+Source: `lua/scripts/quest/scenario/defaulttalk/dftfst.lua:3585-3622`,
+SHA-256 `6fb3588cbeb7c3b02908d812c9f6855de018732b64a7872e1b0dadca4cbc2bba`.
+The original member `tp5rq/r75w9s1v/6549pyqq9yz/64q4rq.le.lpb` has
+SHA-256 `cedf0db5f0eda2c78b76f5ef5dca61b7a747002cc049cd326d12cefd3a5e9e44`;
+its decoded payload SHA-256 is
+`cc67e0cb2e45a7fdfd3b57886738e1890d0d8bf432d79096b693679e732474be`.
+Original `root/proto119`, code start `0x92CF`, PCs 12-15
+(`0x92FF`-`0x930B`) implement the disjunction; say calls are PCs 20/26.
+The source and original member are pinned by `manifests/scripts.json` and
+`manifests/retail_lua_coverage.json`. The readers were
+`tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader/instruction`, with zero-based PCs.
+
+## Task Board speech operands
+
+`Noc000.pETaskBoardGuild(self,player,actor,A3)` forwards A3 unchanged to
+WorldMaster speech row 66 in bank `(5923,"noc000")`.
+`pETaskBoardOrder(self,player,actor,A3,A4,A5,A6)` forwards A3-A6 in order
+to row 67. These are formatter positions. The selected expressions and
+job-name keys belong to
+`xivl-client-data:docs/message-operand-rows.md`, Selected message operand rows;
+the calls do not establish a guild-to-class getter or server eligibility.
+
+Source: `lua/scripts/quest/scenario/noc/noc000.lua:85-113`, SHA-256
+`3dc5a60199f4b25abfa0dad4e504917a47b0229538c8f80badceab2972c74456`.
+The original member `tp5rq/r75w9s1v/wv7/wv7jjj.le.lpb` has SHA-256
+`2c71065b1b3d06a3bf5c177e99951e53195b6c3e818aa768281d7dd1fc2cd397`;
+its decoded payload SHA-256 is
+`79d77d4d8f5750fa53cc2205f0fa897a2630a4b8d6e40d6eaba1548a11d8df9d`.
+The original guild call is `root/proto4`, PC 5 (`0x55D`), with zero results;
+the order call is `root/proto5`, PC 8 (`0x5D0`). The source/member pins and
+readers are the same manifests and read-only tools described above.
