@@ -68,9 +68,53 @@ The matching
 does not identify a status ID, monster, part index, breakage bit, damage
 threshold, or recovery rule.
 
+## Main-skill-change status predicates
+
+The canonical decoded status scripts recover a class-level
+`isRemovedAtChangeMainSkill` predicate. `StatusBaseClass` returns false;
+`BerserkStatus` and `DivineAttackStatus` each override it with literal true.
+These three bodies read no sheet column, current class, destination class or
+active job.
+
+| Canonical source | Lines | Return | SHA-256 |
+| --- | --- | --- | --- |
+| `lua/scripts/status/statusbaseclass.lua` | 117-123 | false | `132f18c5f22f9958ab5a8c665ba99f8ed1e9ae4e55674cdf46e42bac565abbfa` |
+| `lua/scripts/status/ability/berserkstatus.lua` | 11-17 | true | `12c408bbebd3446c8a8e67a1c105a8a677862b1b889a6d48cd2b0fecb668cb07` |
+| `lua/scripts/status/ability/divineattackstatus.lua` | 11-17 | true | `3fa16fe5e80b6810eb4eb4ba92358679cbef136030859bbb794c55ce41923d56` |
+
+The byte identities are recorded in
+[`scripts.json`](../manifests/scripts.json). This is a direct reading
+of the pinned decoded source, without a separate bytecode or runtime check.
+
+The static-actor map in
+`xivl-client-data:manifests/staticactor_class_paths.json` and the exact-name
+rows in `xivl-client-data:derived/status_names.csv` join Berserk row 223207 to
+`/Status/Ability/BerserkStatus` and Cleric Stance row 223227 to
+`/Status/Ability/DivineAttackStatus`. The map's SHA-256 is
+`d612438827e5997422ab6f64a807e567ddf1b953c532e8a319d67b93c53c9db0`.
+The identically named Berserk rows remain separate: 223160 binds
+`/Status/ParameterControlStatus`, and 231004 binds `/Status/DummyStatus`.
+The selected recovered bodies define direct subclasses of `StatusBaseClass`
+without a main-skill-change override, so they retain the base false predicate.
+Their canonical source identities are:
+
+- `lua/scripts/status/parametercontrolstatus.lua:1-112`, SHA-256
+  `eef787f210d186a7e459562bf9cc3af5eeec2aaa33ce478dca27753b87311c2c`.
+- `lua/scripts/status/dummystatus.lua:1-8`, SHA-256
+  `974c1608bbce034994fa0c00719f3aa9089231c972996cef62b870fd1de0dd14`.
+
+This identifies recovered client predicates and exact row bindings. It does
+not establish which named status was active in retail, which caller evaluated
+the predicate, removal on a main-hand swap, or a server rule. In particular,
+the separate main-skill and active-job state described by
+`xivl-decomp:docs/actor/job-soulstone-state.md#base-class-active-job-and-stone`
+does not make command 12017 soul-stone equip or unequip a main-skill change.
+Removal on either job transition and the order of clear packets remain
+unresolved.
+
 ## General evidence boundary
 
-The scripts do not define numerical party bonuses, application eligibility,
-recast time, persistence, removal policy, server authority, or historical
-runtime state. The names `LightPartyEffect` and `FullPartyEffect` are client UI
+The scripts do not establish numerical party bonuses, server application
+eligibility, applied durations, historical runtime persistence or server
+removal policy. The names `LightPartyEffect` and `FullPartyEffect` are client UI
 commands, not proof of a party-size threshold outside the recovered branch.
