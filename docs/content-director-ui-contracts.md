@@ -1944,3 +1944,52 @@ No Behest or Skirmish script in this filing proves wave composition, routes,
 objectives, timers, or rewards. Those systems, and the server-side behavior
 behind the four recovered directors, remain unresolved and must not be filled
 from analogy.
+
+## Requested-data fixed arguments
+
+`PlayerBaseClass._onReceiveDataPacket` has fixed parameters `(self,selector)`
+and a variable tail. For selector `requestedData`, it forwards the first two
+tail values as the desktop method's subtype and supplied ID, followed by
+`select(3,...)`. The tail retains its order.
+
+`DesktopWidget.processRecievedRequestedDataForWidget` has three fixed
+parameters including self: `(self,subtype,suppliedID,...)`. Its `qtmap` arm
+never reads the supplied-ID formal and consumes only the following varargs.
+For the supplied list `requestedData,qtmap,110658,11065801`, the fixed ID is
+110658 and the marker tail is the single value 11065801. The existing map
+consumer therefore sends string `11065801` to both `ssd_marker_data.Row`
+and `CustomControl_MapNavigation.QuestMapIndex`, conditional on its widget
+guards. The preceding 110658 does not enter the marker list.
+
+The ordinary native call boundary is owned by
+`xivl-decomp:docs/event/user-data-receiver.md`: it supplies selected binding
+self followed by accepted typed values, without an inserted owner or event
+argument. The selected capture comparison belongs to
+`xivl-captures:studies/quest-journal-map-wire/derived/evidence-map.md`.
+That capture does not identify the historical leaf Lua class or actual
+looked-up function, so application of this static override remains conditional.
+Neither the incoming fixed ID nor the marker suffix identifies a quest phase.
+No concrete native sheet binding or visible UI result is established here.
+
+The authenticated canonical callback source is
+`lua/scripts/chara/player/playerbaseclass.lua:1429-1483`, SHA-256
+`6226b3fa15dfdbad279b7dba453f8a3b76fcb8b68bad6e14f5403d52987f76e4`.
+Its original member
+`client/script/729s9/uy9l5s/uy9l5s89r57y9rr.le.lpb` has SHA-256
+`32182274f3886d0cdf6329f8a82e6592790c9b3038e00bebe5b2b38702bbd53e`;
+decoded payload SHA-256 is
+`1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a`.
+Original `root/proto31`, code start `0x3431`, PCs 5-17
+(`0x3445`-`0x3475`) establish the requested-data forwarding. PC 7 captures
+two varargs; PCs 13-16 expand the tail beginning at its third value.
+
+The connector source is
+`lua/scripts/widget/desktopwidget_connector.lua:6652-6758`, SHA-256
+`9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01`.
+Original `root/proto102` has three fixed parameters; the existing `qtmap`
+window, PCs 9-65 at `0x1225F`-`0x1233F`, does not read register 2.
+Its LPB/payload identities are recorded above. The source and original
+member identities are pinned by `manifests/scripts.json` and
+`manifests/retail_lua_coverage.json`. The read-only readers were
+`tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader/instruction`, with zero-based PCs.

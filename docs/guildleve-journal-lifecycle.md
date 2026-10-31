@@ -776,3 +776,18 @@ authenticated recovered source; the complex method's original instruction
 control flow was not independently replayed here. Label evidence is
 `xivl-client-data:csv/populaceGuildlevePublisher.csv`, English column 1,
 rows 5-12, 25-32, 65-68 and 87-89.
+
+## Selected journal-map observation
+
+`xivl-captures:studies/quest-journal-map-wire/derived/evidence-map.md` owns
+the retained quest-110658 journal/map comparison. It records command 24211
+with literal 2, followed by a `requestedData,qtmap` message carrying 110658
+and 11065801. The argument split belongs to
+[Requested-data fixed arguments](content-director-ui-contracts.md#requested-data-fixed-arguments):
+the first number is fixed and the marker tail contains only the second.
+
+The same member's `qtdata` tail has six numeric inputs `0,0,0,0,0,8`.
+The sixth input's meaning remains unassigned by the common detail contract.
+Neither that value nor marker suffix 01 establishes a quest phase. The
+capture's temporal/ACK association does not expose a server selection rule
+or prove the historical callback lookup and visible UI result.
