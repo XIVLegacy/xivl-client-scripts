@@ -45,6 +45,7 @@ unverified native or server behavior.
 
 - [Event, Director and actor operands](event-actor-operands.md)
 - [Content director and scene contracts](content-director-ui-contracts.md)
+- [Content timing and operand authority](content-timing-value-evidence.md)
 - [Caravan reward guide contract](caravan-reward-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
 - [Guildleve initializer arguments](guildleve-initializer-arguments.md)
