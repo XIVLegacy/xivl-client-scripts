@@ -718,3 +718,61 @@ carrier with event name `commandRequest` and records the exact argument tail.
 The mapping does not establish a correlated server response or authoritative
 Break and Retry mutations. This page does not infer those behaviors from widget
 closure or native director teardown.
+
+## Company publisher start UI
+
+`PopulaceCompanyGLPublisher.initForEvent(self,townId)` stores townId as a
+temporary integer8 and loads text bank `(7712,"populaceCompanyGLPublisher")`.
+`eventGLDifficulty(self,A1)` does not use A1. It opens
+`Ask/GuildleveSelectLevelWidget` in mode 1 and returns nil unless selection
+reports true and its result differs from -1; otherwise it returns the result.
+
+`eventGLStart(self,A1,A2,A3)` opens `Ask/GuildleveStartWidget` in mode 1
+with `(A1,A2,0,0,0,0,0,0,0,A3)`. It returns A2 only when the widget's second
+result is 1, and returns nil otherwise. This differs from the nine-argument
+aetheryte wrapper's positional forwarding. The shared widget path does not
+prove a shared director type or activation transaction.
+
+The Company bank's authored instructions state that these duties begin upon
+acceptance, without aetheryte activation, and require one leve allowance
+(row 13). Row 7 describes a solo duty. Rows 14-15 describe performance-based
+seal rewards that can exceed the indicated amount, collection after duty
+completion, and some leves requiring a high rank. The Company-associated
+static rows belong to
+`xivl-client-data:docs/guildleve-selected-row-values.md#company-associated-authority-rows`.
+Neither this widget wrapper nor the instruction text establishes an observed
+allowance debit, exact offer set, seal calculation or balance change.
+
+Source: `lua/scripts/chara/npc/populace/populacecompanyglpublisher.lua:11-126,370-413`,
+23,821 bytes, SHA-256
+`AD37F1EE1EE570C458541C13427641FF3D863E932498C912F54FBC765E6E4642`,
+pinned by `manifests/scripts.json`. Its original resource and payload pins
+are already recorded in this page's Company source identity and
+`reward-widget-result-contracts.md`. The instruction cell is
+`xivl-client-data:csv/populaceCompanyGLPublisher.csv`, English column 1,
+rows 7, 13, 14 and 15, physical lines 9, 15, 16 and 17. Company leves are not identified with the
+faction-credit rows merely because both use Guildleve widgets.
+
+## Regional publisher result values
+
+The main `eventTalkType` menu labels distinguish Information at result 7
+from Tutorial at result 6. In the recovered source, the Information branch
+handles prompt 24 internally and returns 7 on its exit choice. Result 6
+reaches the ordinary return without an additional tutorial call in this
+method. The Fieldcraft branch calls prompt 64 with four answers and returns
+the selected index plus 20. Its Quit index 4, and its nil fallback to 4,
+therefore produce 24, hexadecimal 0x18.
+
+The evaluation submenu is the main result-5 branch. Its result 2 shows
+publisher keys 93, 94 and 113 followed by calls to the worldMaster helper
+with the explicit publisher owner and keys 116-119, then repeats the submenu.
+These client results do not prescribe a server continuation for 6, 7 or 24.
+
+Source: `lua/scripts/chara/npc/populace/populaceguildlevepublisher.lua:283-296,467-529,530-748`,
+27,496 bytes, SHA-256
+`578E390F7C9EA2EB9941560DF9319D7E3987CEBA3ABE0FD0105F93C9786CEEB1`,
+pinned by `manifests/scripts.json`. This branch description follows the
+authenticated recovered source; the complex method's original instruction
+control flow was not independently replayed here. Label evidence is
+`xivl-client-data:csv/populaceGuildlevePublisher.csv`, English column 1,
+rows 5-12, 25-32, 65-68 and 87-89.
