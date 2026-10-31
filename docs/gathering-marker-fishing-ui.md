@@ -99,3 +99,38 @@ Physical source lines are row ID plus two for these selected rows.
 The complete member identity is pinned by
 `xivl-client-data:manifests/tables.json`; the resource ID is in
 `xivl-client-data:manifests/sheet_inventory.csv`.
+
+## Place-driven judge-command mapping
+
+`PlaceDrivenCommand.mapJudgeCommand` implements this lookup:
+
+| Input | Judge command |
+| --- | ---: |
+| 20001 | 22002 |
+| 20002 | 22003 |
+| 20003, 30003 | 22004 |
+| 20004 | 22005 |
+| 20005, 20009 | 22006 |
+| 20006, 20010 | 22007 |
+| 20007, 20011 | 22008 |
+| Other | nil |
+
+The separate eligibility test accepts the interval 20001-20012, but the
+lookup adds no mapping for 20008 or 20012. The HarvestJudge contract above
+identifies 22002/22003/22004 as Mining/Felling/Fishing widget commands.
+This lookup does not name operands in another judge-event signature or
+establish a successful gathering transaction.
+
+The canonical source is
+`lua/scripts/command/system/placedrivencommand.lua:11-36`, SHA-256
+`720e1d329bdb1b89c40c51a00d256abc45cc0b67cf3601062c5a1d5644e1c9dc`,
+pinned by `manifests/scripts.json`. The authenticated original LPB member
+`7vxx9w6/rlrq5x/uy9756s1o5w7vxx9w6.le.lpb` has SHA-256
+`ed52209caee1914b6916840e0da972427d8f4756a78af290d7eb3752c44fa946`;
+its decoded Lua 5.1 payload is
+`a36c1c75db347a162f5e626212aba02302e4b6b27e73c2b7f42b15630dd69a07`,
+pinned by `manifests/retail_lua_coverage.json`. Original `root/proto0`,
+PCs 0-38, decoded byte offsets `0x146`-`0x1DE`, establishes the mapping.
+The readers were `tools/retail_script.py:decode_lpb` and
+`tools/build_quest_contracts.py:ChunkReader/instruction`; prototype indices
+and PCs are zero-based.
