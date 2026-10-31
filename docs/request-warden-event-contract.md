@@ -444,3 +444,28 @@ the named Join/End argument vectors, widget answer/continuation and a
 RequestDirector initialized with its requestId. UI answer production and
 text-expression evaluation would additionally settle the UI result and
 request-sheet key joins without importing server policy.
+
+## Other operation dialogs
+
+`eventTalkStep14(self)` takes no event arguments. It obtains the local player,
+starts talk in mode 2, runs scheduler `70799360`, and says
+`(self,1+speechType,0,townType...)`, followed by
+`(self,74+speechType,0)`. It then finishes talk and returns no values.
+The first say forwards the recovered result suffix of
+`getTempWork("townType")`; it is not an incoming timer value.
+
+`eventTalkStopForTimer(self)` also takes no event arguments. It calls
+`worldMaster:say(self,155)` and `worldMaster:say(self,156)`, then returns no
+values. This method contains no numeric countdown argument, widget open,
+talk-start or talk-finish call. The explicitly supplied Warden owner remains
+part of both message calls. Its matching bank rows describe a participation
+wait and direct the player to Attributes > Timers. The availability endpoint
+and StatusWidget consumer are described in the existing timer section.
+
+Source: `lua/scripts/chara/npc/populace/populacerequestwarden.lua:685-730`
+and `:387-403`, respectively. The complete canonical source is 17,477 bytes,
+SHA-256 `86499EE11D8B31F32E75477DB2472E75EA41EEA6DC60FD11B6CF0530503C4A13`,
+as pinned by `manifests/scripts.json`. Text row evidence belongs to
+`xivl-client-data:csv/populaceRequestWarden.csv`, English column 1,
+rows 74-77 and 155-156, physical lines 70-73 and 146-147. These source
+observations do not identify the historical caller or an operation schedule.
