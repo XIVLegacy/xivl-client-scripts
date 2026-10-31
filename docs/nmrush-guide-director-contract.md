@@ -329,3 +329,26 @@ This scalar has no established join to a retained Skirmish invocation,
 the directors' `directNumber` or `limitTime`, an active battle duration,
 or admission, wave, reward, completion and reset rules. The sentinel's
 zero store does not establish what zero means to a Skirmish encounter.
+
+## Additional Guide dialogs
+
+The recovered source supplies three additional methods:
+
+| Method | Client calls and result |
+| --- | --- |
+| `processNotWarp(self,A1)` | Starts mode 2 with A1, runs scheduler `354066432`, says self-owned rows 25 and 26, then calls `worldMaster:say(self,27)` and `worldMaster:say(self,28,45,4)`. It finishes talk and returns no values. |
+| `processNotBattle(self,A1)` | Starts mode 2 with A1, runs scheduler `354103296`, says self-owned rows 29-31, then calls `worldMaster:say(self,52)`. Its customization call is `(self,1,false,true,32,{34,35})`. It finishes talk and returns the first customization result. |
+| `processReturnAsk(self,A1)` | A1 is unused. It runs scheduler `69165056`, says self-owned rows 53 and 54, then asks `(self,2,false,true,37,{38,39})`. It finishes talk and returns the first customization result. This body contains no start-talk call. |
+
+The customization tuples use the same helper and result contract as the
+existing Guide methods. With options 34 and 35, result 1 corresponds to the
+first supplied option, Return to Limsa Lominsa, rather than Commence Skirmish.
+The ReturnAsk default is option 2; its first option is Yes. The script does
+not choose the server action from a returned index.
+
+Source: `lua/scripts/chara/npc/populace/populacenmrushguide.lua:89-131`,
+`:188-243` and `:246-284`, using the complete canonical source identity
+already pinned above. Text keys and option labels are in
+`xivl-client-data:csv/populaceNMRushGuide.csv`, English column 1,
+rows 34-35 and 37-39, physical lines 21-22 and 24-26. These additional
+source calls do not supply the unbound incoming actor or option consumer.
