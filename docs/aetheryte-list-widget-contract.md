@@ -167,3 +167,23 @@ repository-pinned unluac JAR at `tools/vendor/unluac/PROVENANCE.json`, SHA-256
 `98BE0FA84AC73CA66DCE2842A2E4512226F4C611B6500DC96415571FC5538FCC`. The
 source-form entry in `manifests/scripts.json` is a separate representation,
 not the byte input used for this decompilation.
+
+## Confirmation formatting argument
+
+The fixed formals of `TeleportCommand.eventConfirm` are
+`(self,player,A2,A3,A4,A5,A6)`. A5 is read only in the row-34138
+`askMultipleTextMacro` arm: it precedes A4 and literal 1 after the formatting
+flags. With false A2, the method asks row 34120 in mode 2 and does not forward
+A5. The method does not identify A5 as a destination, item or text-row key.
+
+The canonical source is `lua/scripts/command/system/teleportcommand.lua:44-98`,
+SHA-256 `468377e42ad3c05eae7f24d84a00fe89b66ad3cc478de36349e554fd7b326bcd`,
+pinned by `manifests/scripts.json`. The original LPB member
+`7vxx9w6/rlrq5x/q5y5uvsq7vxx9w6.le.lpb` is identified by the coverage
+manifest's entry for that source; its SHA-256 is
+`04b99f3c9672fea0bf1317ead1aebbf29683ce021417bb7f42598f45fc6e1039`.
+The decoded payload identity is recorded in Evidence above. In original
+`root/proto1`, A5 is moved at PC 32; the row-34138 call is PC 35
+(decoded offset `0x291`) and the row-34120 call is PC 48 (`0x2C5`).
+The read-only instruction reader was
+`tools/build_quest_contracts.py:ChunkReader/instruction`, with zero-based PCs.
