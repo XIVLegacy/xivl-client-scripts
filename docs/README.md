@@ -42,6 +42,7 @@ unverified native or server behavior.
 
 ## Quests and events
 
+- [Event, Director and actor operands](event-actor-operands.md)
 - [Content director and scene contracts](content-director-ui-contracts.md)
 - [Caravan reward guide contract](caravan-reward-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
