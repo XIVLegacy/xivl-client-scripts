@@ -116,6 +116,7 @@ unverified native or server behavior.
 ## Shops, items, and social UI
 
 - [Gathering marker and fishing UI](gathering-marker-fishing-ui.md)
+- [MiningInputWidget local interaction](mining-input-widget-contract.md)
 - [Grand Company shop lifecycle](grand-company-shop-lifecycle.md)
 - [Grand Company promotion client contract](gc-promotion-client-contract.md)
 - [Grand Company enlistment and promotion evidence](gc-enlistment-promotion-evidence.md)
