@@ -49,6 +49,7 @@ unverified native or server behavior.
 - [Content timing and operand authority](content-timing-value-evidence.md)
 - [Caravan reward guide contract](caravan-reward-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
+- [Journal confirmation widget interactions](journal-confirm-widget-contract.md)
 - [Guildleve initializer arguments](guildleve-initializer-arguments.md)
 - [Guildleve 12468 reveal and 12487 objectives](local-regional-leve-contracts.md)
 - [Guildleve party continuity](guildleve-party-continuity.md)
