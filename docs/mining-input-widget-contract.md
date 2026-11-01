@@ -192,4 +192,3 @@ The published HarvestJudge route in
 not establish runtime creation of this widget or a successful gathering
 transaction. No server yield, probability, depletion, fatigue, accepted
 transaction or historical invocation claim is made.
-
