@@ -50,6 +50,7 @@ unverified native or server behavior.
 - [Caravan reward guide contract](caravan-reward-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
 - [Journal confirmation widget interactions](journal-confirm-widget-contract.md)
+- [QuestAskWidget local interaction](quest-ask-widget-contract.md)
 - [Guildleve initializer arguments](guildleve-initializer-arguments.md)
 - [Guildleve 12468 reveal and 12487 objectives](local-regional-leve-contracts.md)
 - [Guildleve party continuity](guildleve-party-continuity.md)

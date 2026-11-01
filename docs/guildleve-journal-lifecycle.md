@@ -311,9 +311,11 @@ in `110001-110021` or equal to `110839`, `110829`, `110849`, `110841`, or
 `Ask/QuestAskWidget` (`root/proto2`, PCs 397-443, offsets `0x0976`-`0x0A2E`).
 `QuestBaseClass.showQuestInfomation` calls the helper for IDs in
 `110600-119999` or `110001-110021`, returning 1 for true and 2 otherwise;
-the fallback opens `Ask/QuestAskWidget` in mode 1 with the ID
+the fallback opens `Ask/QuestAskWidget` with scalar 1 and the ID
 (`root/proto27`, PCs 0-34, offsets `0x1ABE`-`0x1B46`). These are static
 client detail routes and do not establish why the raw ID ranges were selected.
+The [QuestAskWidget contract](quest-ask-widget-contract.md) owns its local
+initialization, command requests and numeric icon/category branches.
 
 `DesktopWidget.askActiveGuildleveDetailWidget` opens
 `Ask/JournalDetailWidget` with
