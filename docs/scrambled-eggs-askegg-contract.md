@@ -87,8 +87,10 @@ width and retained width were rejected. The check ran without a Lua VM.
 
 The [loading contract](scrambled-eggs-start-contract.md) separately owns the
 main/supplement relationship and selected G1Start prompt result. This method's
-item arguments, numeric comparisons and return tuple do not identify native
-slot meanings, cancel sentinels, inventory validation, item consumption, a
+item arguments, numeric comparisons and return tuple alone do not establish
+inventory validation, item consumption, a
 ring or other grant, eligibility, progression, invoking NPC, city, historical
-availability or a server settlement rule. Widget forwarding and native result
-arity/domain remain separate from this caller's fixed retention.
+availability or a server settlement rule. The
+[widget interaction contract](event-item-select-widget-contract.md#caller-and-evidence-boundary)
+derives forwarding and the local producer result through the shared Ask
+wrapper. Fixed caller retention alone is not proof of producer arity.

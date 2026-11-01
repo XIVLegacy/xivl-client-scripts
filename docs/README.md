@@ -84,6 +84,7 @@ unverified native or server behavior.
 - [Winter Is Not Coming snowman callbacks](winter-is-not-coming-client-contract.md)
 - [Scrambled Eggs require and start result](scrambled-eggs-start-contract.md)
 - [Scrambled Eggs askEgg tuple](scrambled-eggs-askegg-contract.md)
+- [EventItemSelectWidget inputs and results](event-item-select-widget-contract.md)
 - [Bombard Backlash item selector](bombard-backlash-selector-contract.md)
 - [The Heat Is On selector results](heat-is-on-selector-contract.md)
 - [Dreamer's Dilemma exchange results](dreamers-dilemma-exchange-contract.md)
