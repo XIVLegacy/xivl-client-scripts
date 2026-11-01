@@ -20,6 +20,54 @@ wrapper calls `_waitForItemSearchWidget()` (`desktopwidget_connector.lua:10099-1
 static routes in recovered Lua. They do not establish runtime invocation,
 widget display, request protocol, response, or results.
 
+## Local item-search row and result boundary
+
+The original phase-initializer bytecode submits `Name` and `Data` property
+writes for list rows 0 and 1, using literal `Data` values 0 and 1, then calls
+`updateListProperty`. This occurs separately for market, item-type and item
+selection. These are locally constructed selector values; a mapping to market
+identifiers, catalog items or history records is not established.
+
+The item-selection handler passes its R2 row argument to `getListProperty`
+for `Data`, stores its single result in `work.itemId`, and returns no Lua values.
+Its complete eight-instruction body contains no explicit `setBaseAskResult`
+call or phase change. The body establishes a local storage consumer, without
+an explicit ask-completion or selected-item return operation.
+
+`PopulaceBranchsVendor.eventSearchItemAsk` checks whether the result of
+`worldMaster:askMultipleTextMacro` has type `"number"`. Numeric 1 requests
+`askItemSearchWidget`, discards its Lua results and returns 0. Numeric 2
+returns the supplied value in register R2; its business role is unassigned.
+Other or non-number results return -1. The three-instruction desktop wrapper
+itself calls `_waitForItemSearchWidget` with only `self`, requests zero Lua
+results and returns none. These local branches do not identify a native
+search response or transport result.
+
+Original-bytecode locators below use zero-based PCs within each prototype and
+byte offsets in the decoded payload. The source identities are in the table
+below. For nonzero B and C, `CALL` encodes argument count plus one and result
+count plus one respectively; C=1 requests no results. B=0 takes arguments
+through the stack top, and C=0 accepts all results.
+
+| Script and prototype | PC and decoded-payload locator | Supported operation |
+| --- | --- | --- |
+| `itemsearchwidget.lua`, `root/proto6` | PCs 7-34, `0xA8D-0xAF9` | Market rows 0/1, literal Data 0/1 and list refresh |
+| Same script, `root/proto10` | PCs 7-33, `0xDC9-0xE31` | Item-type rows and refresh |
+| Same script, `root/proto14` | PCs 7-33, `0x110C-0x1174` | Item rows and refresh |
+| Same script, `root/proto16` | PCs 0-7, `0x1349-0x1365` | `CALL A4 B5 C2`, local `itemId` write and `RETURN A0 B1 C0` |
+| `populacebranchsvendor.lua`, `root/proto3` | PCs 18-37, `0xB26-0xB72` | Type guard, numeric 1/2 branches and single returned value |
+| `desktopwidget_connector.lua`, `root/proto428` | PCs 0-2, `0x27ADC-0x27AE4` | `CALL A1 B2 C1`, followed by zero-result return |
+
+The original LPBs were authenticated against `manifests/retail_lua_coverage.json`,
+decoded with `tools/retail_script.py:decode_lpb`, and read with
+`tools/build_quest_contracts.py:ChunkReader` and `instruction`. Generated
+decompile lines corroborate these bytecode locators; they do not replace them.
+The native wait target, actual widget invocation and visible result remain
+outside this contract. Per-item market history and an individual retainer's
+sold-count report require separate evidence.
+
+## Bazaar package route
+
 `DesktopWidget.orderBazaarWidget` resolves its target actor and, for mode `1`,
 opens `BazaarListWidget`. When the target is not the local player, it calls
 `updateItemPackage(8)`, waits for the widget, and then calls
@@ -28,6 +76,8 @@ argument is not `true`, closes the widget if its error flag is true or its
 actor is invalid. These calls do not
 prove that the package update succeeded, explain the native meaning of `8`,
 or establish server request/response behavior.
+
+## Evidence identities and locators
 
 | Decoded script | Canonical source SHA-256 | Reviewed decompile output SHA-256 | LPB and decoded-payload identity |
 | --- | --- | --- | --- |
