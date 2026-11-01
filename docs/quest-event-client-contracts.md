@@ -469,6 +469,59 @@ and fifth method arguments are both zero; the other recovered branch
 is dialogue. These direct calls do not identify the server-side event
 owner, instance start, quest sequence, clear condition, or reward.
 
+### Com0l5 talk methods and text rows
+
+`Com0l5.initText` loads text bank `(6160, 'com0l5')`. Each talk method
+calls `startCliantTalkTurn(2, player)` on its third argument, sends every
+`say(quest, row, 0)` through that same argument, and closes with
+`finishCliantTalkTurn`. The speaker of each row is therefore the event
+owner the server supplies as the third argument. The `com0l5` text table
+has no speaker column, and the chunk binds no actor class to any method.
+
+| Method | Prototype | Parameters | Text rows in call order | Branch and return |
+| --- | --- | --- | --- | --- |
+| `initText` | `root/proto0` | 1 | none | Loads the text bank |
+| `processEvent_hint` | `root/proto1` | 3 | 72, 73, 74, 75, 76 | No branch, no return value |
+| `processEventGUINCUMStart` | `root/proto2` | 3 | 2, 3, 4, 5, 6, then 8 or 7 | One `showQuestInfomation()` call (PC 33). Result 1 says row 8, any other result says row 7. Returns that result (PC 55) |
+| `processEvent_000` | `root/proto3` | 3 | 9 | No branch, no return value |
+| `processEvent_005_merlwyb` | `root/proto4` | 3 | 10, 11, 12, 13, 67, 14, 15, 16, 61 | No branch, no return value |
+| `processEvent_005_merlwyb_01` | `root/proto5` | 3 | 17 | No branch, no return value |
+| `processEvent_005_uri` | `root/proto6` | 3 | 18, 19, 20, 66, 21, 22, 23, 24 | No branch, no return value |
+| `processEvent_005_uri_01` | `root/proto7` | 3 | 25 | No branch, no return value |
+| `processEvent_010` | `root/proto8` | 3 | none | NQ `COM0l110` only, no talk turn |
+| `processEvent_015_01` | `root/proto9` | 4 | 47 | No instruction reads the fourth argument |
+| `processEvent_015_02` | `root/proto10` | 3 | 48 | No branch, no return value |
+| `processEvent_015_03` | `root/proto11` | 3 | 62 | No branch, no return value |
+| `processEvent_015_04` | `root/proto12` | 3 | 63, 65 | Both rows in one talk turn |
+| `processEvent_015` | `root/proto13` | 4 | 51, 71, 68, 52, 53, 54, 55, 56, 57, 58, then 59 or 64, 69, 70, then 60 | `_wait(3)` follows row 71. `EQ 0 R3 K20` (PC 66, `0x12B9`) compares the fourth argument with number 1. Equal says row 59, any other value says rows 64, 69 and 70. Row 60 closes both paths |
+| `processEvent_elevator_nq1` | `root/proto14` | 3 | 78, ask 79 mode 2, then 82 when the answer is not 1 | Returns the answer |
+| `processEvent_elevator_nq2` | `root/proto15` | 3 | 78, ask 79 mode 2, then 82 when the answer is not 1 | Returns the answer |
+| `processEventExit` | `root/proto16` | 3 | world-master ask 51036 mode 2 | Returns the answer |
+
+Only `processEvent_015` consumes a fourth argument. `processEvent_015_01`
+declares four parameters but never reads register 3, so its caller value
+has no client effect. The elevator cutscene branches and the exit ask
+are described above.
+
+The text table holds 78 data rows: 2-48, 51-76 and 78-82. Rows 1, 49, 50
+and 77 are absent. No `Com0l5` method passes rows 26-46, 80 or 81.
+Rows 45 and 46 hold the placeholder `\[en]`, and rows 80 and 81 hold
+`Yes.` and `No.` after prompt row 79 `Access the lift?`. Row 78 opens
+with a `@string` tag rather than literal text. The chunk does not identify the actors that
+own `processEvent_015_01` through `processEvent_015_04`, nor which talk
+the server dispatches first between a base method and its `_01` method.
+
+Source: the `Com0l5` LPB in the table above, decoded by
+`tools/retail_script.py:decode_lpb` to the 6,321-byte chunk with SHA-256
+`aa2b2d66bb19ddcb881644506580c7f6becedc18a0d448fcd8a23e42ceaaa4d1`.
+Prototype paths, parameter counts, call operands and branch targets were
+read with `tools/build_quest_contracts.py:ChunkReader`, `instruction`,
+`states_for`, `call_record` and `successors`, using zero-based PCs and
+chunk byte offsets. Text rows are `xivl-client-data:csv/com0l5.csv`,
+pinned in `xivl-client-data:manifests/tables.json` with SHA-256
+`b0db97552a9589ff553620ee6874e85ec832bae393e2c819cb5785f99c4b7c4b`
+(67,298 bytes, 78 data rows).
+
 ## Man0l1 cutscene preview gap
 
 The LPB at `client/script/tp5rq/r75w9s1v/x9w/x9wjyi.le.lpb` has SHA-256
