@@ -62,9 +62,28 @@ The original LPBs were authenticated against `manifests/retail_lua_coverage.json
 decoded with `tools/retail_script.py:decode_lpb`, and read with
 `tools/build_quest_contracts.py:ChunkReader` and `instruction`. Generated
 decompile lines corroborate these bytecode locators; they do not replace them.
-The native wait target, actual widget invocation and visible result remain
-outside this contract. Per-item market history and an individual retainer's
-sold-count report require separate evidence.
+Actual widget invocation and visible results remain unestablished. Per-item
+market history and an individual retainer's sold-count report require separate
+evidence.
+
+## Native item-search wait
+
+The native registration binds `DesktopWidget._waitForItemSearchWidget` to
+`0x006E1B90`. Its static path selects factory kind 1 and constructor
+`0x0052A540`, whose form path is `\widget\ItemSearchWidget.form`. It
+stores the widget at manager M+`0xC8` and yields through
+`s_ItemSearchWidgetResumeChecker`. The poll reports waiting while that field
+is nonzero and done when it becomes zero; the native pushes no Lua results.
+The exact clear writer and removal/destruction owner remain untraced.
+
+This native form path is distinct from the independently recovered Lua
+`widget/ask/itemsearchwidget.lua`. A matching class name or the Lua phase
+values do not establish that the native form loads that script. This contract
+does not bind them, identify received search rows or establish a runtime
+close. Source:
+`xivl-client-structs:docs/desktop-state-native-contract.md#item-search-widget-wait`
+and the `_waitForItemSearchWidget` row in
+`xivl-client-structs:manifests/desktop_state_native_call_contract.json`.
 
 ## Bazaar package route
 
