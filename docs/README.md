@@ -133,6 +133,7 @@ unverified native or server behavior.
 - [Parley target gate](parley-target-gate.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
+- [Retainer payment widget contract](retainer-payment-widget-contract.md)
 - [Bazaar and retainer client contracts](bazaar-retainer-client-contracts.md) -
   request routes and [sale price modes](bazaar-price-modes.md).
 - [Reward and delivery widget results](reward-widget-result-contracts.md)
