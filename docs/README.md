@@ -146,6 +146,7 @@ unverified native or server behavior.
 - [Retainer detail display and results](retainer-detail-widget-contract.md)
 - [Ask retainer cancel and focus guards](retainer-item-list-cancel-contract.md)
 - [Ask retainer lists and focus](retainer-list-focus-contract.md)
+- [Ask retainer row and Bazaar display](retainer-bazaar-display-contract.md)
 - [Bazaar and retainer client contracts](bazaar-retainer-client-contracts.md) -
   request routes and [sale price modes](bazaar-price-modes.md).
 - [Reward and delivery widget results](reward-widget-result-contracts.md)
