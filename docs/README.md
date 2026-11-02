@@ -120,6 +120,7 @@ unverified native or server behavior.
 - [MiningInputWidget local interaction](mining-input-widget-contract.md)
 - [FellingInputWidget local interaction](felling-input-widget-contract.md)
 - [ItemUseWidget local interaction](item-use-widget-contract.md)
+- [ItemDetailWidget local display](item-detail-widget-contract.md)
 - [Grand Company shop lifecycle](grand-company-shop-lifecycle.md)
 - [Grand Company promotion client contract](gc-promotion-client-contract.md)
 - [Grand Company enlistment and promotion evidence](gc-enlistment-promotion-evidence.md)
