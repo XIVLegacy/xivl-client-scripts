@@ -39,6 +39,7 @@ unverified native or server behavior.
 - [PlayerParameter TP consumer contract](player-parameter-tp-consumer.md)
 - [BonusPointAssignWidget local allocation](bonus-point-assign-widget-contract.md)
 - [AddressListWidget local interaction](address-list-widget-contract.md)
+- [LogSettingWidget local settings](log-setting-widget-contract.md)
 - [Status parameters and party buffs](status-parameters-party-buffs.md)
 - [MonsterAttackWeaponSkill getter profile](monster-attack-weapon-skill-profiles.md)
 - [Monster map-marker selection](monster-map-marker-selection.md)
