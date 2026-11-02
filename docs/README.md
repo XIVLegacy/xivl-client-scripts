@@ -129,6 +129,7 @@ unverified native or server behavior.
 - [Materia melding client contract](materia-meld-client-contract.md)
 - [Repair request client contract](repair-request-client-contract.md)
 - [CraftRepairWidget local interaction](craft-repair-widget-contract.md)
+- [CraftEditWidget material selection](craft-edit-widget-contract.md)
 - [Item-storage widget contracts](item-storage-widget-contracts.md)
 - [Rested experience client contract](rested-experience-client-contract.md)
 - [Job and Grand Company event contracts](job-grand-company-event-contracts.md)
