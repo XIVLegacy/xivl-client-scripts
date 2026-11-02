@@ -144,6 +144,7 @@ unverified native or server behavior.
 - [Retainer widget results](retainer-widget-results.md)
 - [Retainer payment widget contract](retainer-payment-widget-contract.md)
 - [Retainer detail display and results](retainer-detail-widget-contract.md)
+- [Retainer roster display helpers](retainer-roster-display-contract.md)
 - [Ask retainer cancel and focus guards](retainer-item-list-cancel-contract.md)
 - [Ask retainer lists and focus](retainer-list-focus-contract.md)
 - [Ask retainer row and Bazaar display](retainer-bazaar-display-contract.md)
