@@ -2,7 +2,7 @@
 
 `ConfigCameraWidget` is a local camera-configuration editor recovered from the
 retail Lua chunk for `widget/configcamerawidget`. Its nine own methods install
-camera control conditions, map controls to work slots, reset those slots,
+camera control conditions, request control work assignments and literal resets,
 request camera defaults, forward toggle and slider changes, and initialize
 control values. This contract describes those local requests and continuations.
 It does not claim that a native request succeeds, that a store changed, that a
@@ -94,10 +94,17 @@ ends with raw `RETURN` word `0x0080001E`.
 `ToggleButton_Camera1` through `ToggleButton_Camera5`, slider conditions for
 `Slider_CameraView`, `Slider_CameraOffset`, `Slider_CameraTurn` and
 `Slider_LockOn`, confirm conditions for `Button_AllClear`, `Button_Save` and
-`Button_Reset`, and base cancel and close conditions. It then installs the
-following slot/group mappings and calls `initControls`:
+`Button_Reset`, and base cancel and close conditions. It then requests the
+following control work assignments and calls `initControls`. Later
+`getControlUserWorkInt(1, control)` results independently supply the indexes
+forwarded to configuration helpers. The group/key and record columns describe
+the published map's meaning for the requested index. Applying that meaning to
+an invocation requires both the getter returning that index and the dynamic
+helper lookup reaching the documented connector/map. Setter requests prove
+neither condition. The direct literal reset operands below are independent of
+these control getters; their helper binding and effects remain unproved.
 
-| Control | Slot/group | Work index | Lua group/key | Registered record; range; default |
+| Control | Requested slot/group | Requested work index | Lua group/key for that index | Registered record for that index; range; default |
 |---|---:|---:|---:|---|
 | `ToggleButton_Camera1` | 1 | 20 | 3 / 1 | `cam_fp_vertical`; 0..1; 1 |
 | `ToggleButton_Camera2` | 1 | 21 | 3 / 2 | `cam_fp_horizontal`; 0..1; 1 |
@@ -124,7 +131,7 @@ changed.
 `initSliderBar` for `Slider_CameraView`, `Slider_CameraOffset`,
 `Slider_CameraTurn` and `Slider_LockOn`.
 Each `desktopWidget` expression is a fresh global lookup. The sequence only
-continues while each preceding lookup and native call returns normally; a
+continues while each preceding lookup and call returns normally; a
 failure at a reset request leaves the failing request as the final observed
 request and does not reach later reset IDs, `initControls` or
 `setDefaultCamera`.
@@ -179,7 +186,7 @@ leaves the upstream widget-to-camera producer unresolved
 
 Configuration work edges:
 
-- `init` writes slot/group 1 work indexes 20, 21, 22, 23, 5, 24, 28,
+- `init` requests slot/group 1 work indexes 20, 21, 22, 23, 5, 24, 28,
   36 and 70 at `root/proto0` PCs 56, 61, 66, 71, 76, 81, 86, 91 and 96.
   `processUICommandToggleButton` reads `(1, control)` at PC 3 and passes the
   result to `desktopWidget.setConfigFlag` at PC 8. Slider change reads the
@@ -206,14 +213,14 @@ The bounded instruction-driven checks ran 29 typed cases: 25 ordinary cases
 and 4 expected failures. They checked 287 raw call events, 291 typed literal
 expectations and 116 receiver/callable identity controls. All nine own methods
 were exercised through direct or nested calls. The cases covered the complete
-initialization condition and work mapping, every reset ID and order, all three
-operate branches plus no-op, numeric-one versus Boolean-true ask results,
+initialization conditions and requested work assignments, every reset ID and
+order, all three operate branches plus no-op, numeric-one versus Boolean-true ask results,
 toggle requests, view-slider addition and equal-value suppression, ordinary
 slider writes, view initialization subtraction and zero clamp, numeric-string
 addition, Boolean and nil arithmetic failures, zero-result and explicit-nil
 toggle tails, a multi-result open tail, and replacement of `setChecked` after
 capture. The checks also compared all nine `initControls` nested request
-tuples, every getter request tuple and raw native callable owner, exact error
+tuples, every getter request tuple and raw callable owner, exact error
 prefixes with no later requests, a reset-time global replacement, and the
 save branch's exact one-request sequence. Twenty-one targeted corruptions were
 rejected, including changed initialization and reset IDs, a Camera2-to-Camera1

@@ -50,7 +50,7 @@ width zero. The `open` widths above are retained: `getConfigFlag` supplies an
 open result tuple to `setChecked`, whose open argument width forwards that
 tuple after the fixed receiver and control arguments.
 
-Finite traces distinguish raw native results from Lua's consumed results: the
+Finite traces distinguish supplied helper results from Lua's consumed results: the
 fixed-width `getControlUserWorkInt` call keeps only its first result and pads a
 missing result with nil, while the open `getConfigFlag` call forwards zero,
 one, or multiple produced values unchanged. This is a bounded request trace,
@@ -69,7 +69,7 @@ not a native implementation claim.
 
 It returns zero values. When the admitted own-closure lookup resolves, the
 method calls the closure owned by this same parent resource; the closure's
-native work and flag requests are described below.
+work and flag helper requests are described below.
 
 ### Operate
 
@@ -113,9 +113,9 @@ the fresh `desktopWidget.getConfigFlag(work)` lookup. Its open result tuple is
 forwarded through that captured callable as `self.setChecked(control, ...)`
 after the fixed receiver and control. A zero result tuple therefore produces a
 two-argument `setChecked` request, while a two-value tuple produces the
-corresponding two typed values. The method returns zero values. The native
-result tuple is a supplied bounded input here, not a claim about the native
-implementation's actual flag count.
+corresponding two typed values. The method returns zero values. The helper
+result tuple is a supplied bounded input here; the trace does not attribute
+the dynamic call or its actual result count to a native implementation.
 
 ## Distinct Ask resource
 
@@ -167,7 +167,7 @@ receiver, a frame callable, an Ask callable, an Ask receiver, retained-error
 continuations at outer and nested boundaries, two same-width confirm-call
 order/PC mutations, an unused cancel argument, a forwarded work value, an Ask
 Boolean text decision, fresh and stale desktop receiver/callable rebinds,
-same-token spoofed owners for both globals and both resource natives, same-name
+same-token spoofed owners for both globals and both resource helpers, same-name
 outer closure clones for both resources, and a global `require` callable for
 each resource. Same-content table replacement and same-token helper-cache
 replacement were rejected at the poststate gate while preserving their prior

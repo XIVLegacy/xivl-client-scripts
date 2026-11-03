@@ -1,10 +1,13 @@
 # ConfigSoundWidget contract
 
 `ConfigSoundWidget` is a local sound-configuration editor recovered from the
-retail Lua chunk for `widget/configsoundwidget`. The body binds seven controls
-to control user-work slot/group 1 ids 50 through 56, then the published
-desktop map associates those work ids with Lua config group 4 keys 1 through
-7. It reads and writes the resolved ids through `desktopWidget` and uses
+retail Lua chunk for `widget/configsoundwidget`. The body requests seven
+control user-work slot/group 1 assignments for ids 50 through 56. Later
+getter results supply the ids forwarded through `desktopWidget`; the setter
+requests do not establish those results. The published desktop map associates
+those ids with keys 1 through 7 in Lua config group 4. Applying that map to
+an invocation requires both the corresponding getter result and the dynamic
+helper lookup reaching the documented connector/map. The widget uses
 `CommonAskWidget` for reset confirmation. This contract covers the root
 binding and all nine own methods. It does not claim effective audio output,
 native store success, application timing, completed save or persistence,
@@ -98,7 +101,7 @@ are no `TAILCALL` instructions. Every method ends with raw `RETURN` word
 `Slider_SystemSE`, `Slider_SE`, `Slider_Voice`, `Slider_EnvSound` and
 `Slider_SoundPos`, and a toggle condition for `ToggleButton_DOLBY`. It sets
 the confirm control to `Button_Reset`, installs base cancel and close
-conditions, sets modal true, stores work group 1 mappings, and calls
+conditions, sets modal true, requests work group 1 assignments, and calls
 `initControls`.
 
 `initControls` calls `initSliderBar` for the six sliders and
@@ -138,9 +141,15 @@ a claim about every Lua coercion or metamethod.
 
 The established work-index map places 50 through 56 in Lua group 4 at keys 1
 through 7 (`xivl-decomp:docs/script/desktop-user-config-reads.md:43-56`).
-The explicit control mapping is:
+The table records requested control assignments. Its Lua group/key and record
+columns describe the published map's meaning for the requested index. Applying
+that meaning to an invocation requires both a later getter returning that
+index and the dynamic helper lookup reaching the documented connector/map.
+A different getter result is forwarded instead; the actual helper binding
+remains unproved. Direct literal reset operands do not depend on a control
+getter, while their helper binding and effects remain unproved.
 
-| Control | Control user-work slot/group | Work index | Lua config group/key | Registered record; default |
+| Control | Requested slot/group | Requested work index | Lua group/key for that index | Registered record for that index; default |
 | --- | ---: | ---: | ---: | --- |
 | `Slider_BGM` | 1 | 50 | 4 / 1 | `music_volume`; 100 |
 | `Slider_SystemSE` | 1 | 51 | 4 / 2 | `sys_volume`; 100 |
@@ -176,8 +185,8 @@ argument, numeric 1 for Boolean true at both the toggle and exact child-open
 callsites, initialization `Slider_BGM` id 50 for 99, reset id 99 for 50, and a
 fresh `setChecked` callable. The executor
 used the actual frame receiver, desktop receiver and pinned local closures. It
-is not a live client run and its native
-functions are typed stubs; the checks therefore establish only the bounded Lua
+is not a live client run and its supplied helper callables are typed stubs;
+the checks therefore establish only the bounded Lua
 control flow and raw call shape.
 
 All nine own methods were parsed and exercised through direct or nested calls;

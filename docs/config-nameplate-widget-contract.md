@@ -2,7 +2,7 @@
 
 `ConfigNamePlateWidget` is a bounded local configuration editor recovered from
 the retail Lua chunk for `widget/confignameplatewidget`. It installs controls,
-maps them to configuration work indexes, forwards local changes, requests a
+requests control work-index assignments, forwards local changes, requests a
 restore sequence after a numeric ask result of `1`, and initializes control
 values.
 These requests do not establish rendered nameplate behavior, native success,
@@ -33,7 +33,7 @@ java -jar tools/vendor/unluac/unluac_2025_12_23.jar --disassemble --output <scra
 The wrapper authenticates the whole decoded payload by its pinned SHA-256. The
 static checker then pins the admitted prototype windows, selected literal CALL
 words and widths, RETURN words, and guard destinations. Its finite checks
-execute the authenticated payload prototypes with typed native stubs, original
+execute the authenticated payload prototypes with typed callable stubs, original
 own closures for nested calls, and actual receiver and callable object identity.
 The checker is a bounded Lua control-flow oracle, not a universal Lua simulator.
 
@@ -118,7 +118,16 @@ init PC 66. Each raw CALL has receiver-inclusive `B=2` and discarded-result
 `C=1`; these requests do not prove callable or base ownership or handler
 effects.
 
-| Control | Work index | Lua group/key | Registered record; range; default |
+The table records `setControlUserWorkInt` requests for group 1. Later
+`getControlUserWorkInt(1, control)` results independently supply the indexes
+forwarded to configuration helpers. The group/key and record columns describe
+the published map's meaning for the requested index. Applying that meaning to
+an invocation requires both the getter returning that index and the dynamic
+helper lookup reaching the documented connector/map. Setter requests prove
+neither condition. Direct literal reset operands remain independent of the
+control getter; their helper binding and effects remain unproved.
+
+| Control | Requested work index | Lua group/key for that index | Registered record for that index; range; default |
 | --- | ---: | ---: | --- |
 | `ToggleButton_NamePlate` | 26 | 3 / 7 | `name_plate`; 0..1; 1 |
 | `Slider_NamePlatePos` | 73 | 7 / 4 | `name_plate_offset`; -30..30; 0 |
@@ -220,6 +229,6 @@ claims about this widget's runtime handling.
 The decompiler's local register names and source labels are presentation, not
 independent semantic identifiers. Original bytecode prototype, PC, word,
 width and jump locators are the static authority. In particular, source-level
-multiple assignment around `initComboBox` corresponds to an open native result
+multiple assignment around `initComboBox` corresponds to an open helper result
 and an open following call; the finite checks retain zero, nil and multiple
 result tails instead of inferring a single scalar.
