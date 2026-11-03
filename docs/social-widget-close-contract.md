@@ -13,6 +13,7 @@ social mutation, server settlement or lifetime safety.
 | Ignore list | [Ignore list commands](ignore-list-widget-contract.md#commands-and-paging) records the signal-11 close sequence and the list-count and control branches that select it. |
 | Address submenu | [Address submenu](address-list-subwidget-contract.md) records border requests followed by open-tail close forwarding on cancel, Close, and invalid-name paths. |
 | Naming dialog | [Naming dialog](address-list-naming-widget-contract.md) distinguishes the direct close that discards results from paths that forward a close result tail, and records cancel/confirmation guards. |
+| Party root | [Party root](party-root-widget-contract.md) records refusal/latch guards, root-field writes before close, open-tail close paths and the join-cleanup path that discards close results. |
 
 The [published closeWidgetDirect contract](content-director-ui-contracts.md#closewidgetdirect-behavior)
 owns its argument, branch and result semantics. Nil widget input returns one

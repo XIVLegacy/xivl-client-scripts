@@ -40,6 +40,15 @@ unverified native or server behavior.
 - [BonusPointAssignWidget local allocation](bonus-point-assign-widget-contract.md)
 - [AddressListWidget local interaction](address-list-widget-contract.md)
 - [LogSettingWidget local settings](log-setting-widget-contract.md)
+- Social widgets: [ignore list](ignore-list-widget-contract.md),
+  [address submenu](address-list-subwidget-contract.md),
+  [naming dialog](address-list-naming-widget-contract.md),
+  [party root](party-root-widget-contract.md), and
+  [close/parent boundaries](social-widget-close-contract.md).
+- Configuration widgets: [nameplate](config-nameplate-widget-contract.md),
+  [sound](config-sound-widget-contract.md), [camera](config-camera-widget-contract.md),
+  [system](config-system-widget-contract.md), [keyboard/Ask](config-keyboard-widget-contract.md),
+  and the [default-camera continuation](default-camera-continuation.md).
 - [Status parameters and party buffs](status-parameters-party-buffs.md)
 - [MonsterAttackWeaponSkill getter profile](monster-attack-weapon-skill-profiles.md)
 - [Monster map-marker selection](monster-map-marker-selection.md)
