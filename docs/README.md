@@ -33,6 +33,7 @@ unverified native or server behavior.
 - [MyPlayer timer consumers](myplayer-timer-consumers.md)
 - [Widget-open command boundary](widget-open-command-boundary.md)
 - [Tutorial controller and Ask widget values](tutorial-widget-vocabularies.md)
+- [Gridania opening tutorial widget contracts](gridania-opening-tutorial-contract.md)
 - [ActionMenu grid visibility](action-menu-grid-visibility.md)
 - [Cast gauge lifecycle](cast-gauge-lifecycle.md)
 - [Cast gauge property and command flow](cast-gauge-property-command-flow.md)

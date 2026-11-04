@@ -53,6 +53,10 @@ The infoID dispatchers are at lines 127-396 and the mode dispatcher at
 at 9325-9337. This finding does not reconstruct the opener's complete
 yield/non-yield partition from its flattened decompiled branch chain.
 
+The [Gridania opening contract](gridania-opening-tutorial-contract.md#selected-widget-calls)
+resolves the directly selected infoID 6/7/11 paths against original bytecode,
+including controller override, argument forwarding and selection-result limits.
+
 All scripts below are extraction `2012.09.19.0001`, normalized by the
 canonical CRLF-pair-to-LF rule and authenticated against
 `manifests/scripts.json` before inspection:
