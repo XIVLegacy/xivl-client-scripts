@@ -161,6 +161,7 @@ unverified native or server behavior.
 - [ShopSellWidget local behavior](shop-sell-widget-contract.md)
 - [ShopSell opening and selection flow](shop-sell-selection-flow.md)
 - [ItemSelectWidget local selection](item-select-widget-contract.md)
+- [Bazaar reward item selection](bazaar-reward-selection-flow.md)
 - [Materia removal client UI](materia-removal-client-ui.md)
 - [Materia melding client contract](materia-meld-client-contract.md)
 - [Repair request client contract](repair-request-client-contract.md)
