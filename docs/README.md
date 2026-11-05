@@ -23,6 +23,7 @@ unverified native or server behavior.
 - [Echo text log request](echo-text-log-request.md)
 - [Echo text admission check](echo-text-check.md)
 - [Echo token replacement request](echo-token-replacement.md)
+- [Echo name-preparation request](echo-name-preparation.md)
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
 - [CommonAsk text requests](common-ask-text-request.md)
 - [CommonAsk answer-list adaptation](common-ask-answer-list.md)

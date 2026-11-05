@@ -88,11 +88,12 @@ establish how `replaceString` matches them, how many occurrences it changes,
 whether replacements are rescanned, or what it does with case variants,
 unknown or malformed tokens, non-string input or replacement values.
 It supplies no general delimiter parser, case folding or Unicode rule.
-The name `deleteChineseName` supplies no proved normalization semantics.
+The [name-preparation contract](echo-name-preparation.md#guard-request-and-results)
+owns that helper's guard and conditional library request.
 The [replacement contract](echo-token-replacement.md#guard-frame-and-results)
 qualifies the nil-replacement bypass and conditional native request. Actual
 converted text still needs the matching library/native frame and helper
-values. The name-normalization helper remains a separate source boundary.
+values. Actual predicate/library bindings and name values remain separate.
 
 The [standard-emote contract](standard-emote-command-contract.md#menu-and-typed-callers)
 describes `getCurrentTargetCharacter` and a self-clearing test in its own
