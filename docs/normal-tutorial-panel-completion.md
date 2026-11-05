@@ -145,7 +145,10 @@ and same-widget identity are required to connect this wait to the panel's
 result request.
 
 After selection returns normally, the opener discards its outcome and
-requests desktop focus restoration, even for a false selection result. It
+calls the desktop
+[focus helper](tutorial-widget-opening-contract.md#conditional-return-to-desktop-focus-request),
+even for a false selection result. The helper's exact-nil and Lua-equality
+guards can omit the native-named setter request. The opener
 reads no `getAskResult`, closes no widget and returns zero values. Thus the
 city method's following final mask and cleanup can follow a nil opening
 result or an alive-loss selection outcome as well as a finished Ask poll.
