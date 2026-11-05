@@ -38,6 +38,7 @@ unverified native or server behavior.
 - [Tutorial controller and Ask widget values](tutorial-widget-vocabularies.md)
 - [Tutorial widget module selection and opening](tutorial-widget-opening-contract.md)
 - [Normal tutorial panel completion](normal-tutorial-panel-completion.md)
+- [Normal tutorial Button event route](tutorial-button-native-route.md)
 - [Conditional tutorial TextBlock provider](tutorial-text-reference-provider.md)
 - [Tutorial form-name selection](tutorial-form-name-selection.md)
 - [Conditional tutorial widget creation frame](tutorial-widget-creation-frame.md)
