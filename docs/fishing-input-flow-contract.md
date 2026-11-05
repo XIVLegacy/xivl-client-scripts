@@ -90,7 +90,7 @@ sets focus=1 and requests angle-gauge focusability false before phase setup:
 | Phase operand | Selected requests and assignments |
 | --- | --- |
 | Numeric 1 | If the fresh previous phase is 2, requests the previous effect and `PhaseBtoA`. Sets phase=1 and requests phase-A visibility, slider focusability/enabled state, slider focus and help. The supplied HP does not replace stored HP. |
-| Numeric 2 | Freshly tests phase=1 for `PhaseAtoB`, then phase=2 for the previous effect. Stores supplied HP if nonnil, otherwise numeric zero, sets phase=2 and requests command focus. False and zero HP are preserved as supplied operands. |
+| Numeric 2 | Freshly tests phase=1 for `PhaseAtoB`, then phase=2 for the previous effect. Requests assignment of supplied HP if nonnil, otherwise numeric zero, sets phase=2 and requests command focus. False and zero remain supplied operands before native conversion. |
 | Every other value | Performs neither phase branch and makes no local phase assignment. |
 
 A nonnil rare operand selects the applicable phase's start request only for
@@ -111,7 +111,7 @@ completion paths are:
 | `UILuaCommands.Cancel` | In phase 1, a keyboard-focused control other than `Slider_PhaseA` requests slider focus and help; the slider-focused case requests `focusFirstCommand(true)`. Other phases make no such request. All return without setting a base result, changing the chosen command or closing. |
 | `ApplicationCommands.Operate` | Only phase 1 with keyboard focus exactly `Slider_PhaseA` requests `focusFirstCommand()`. It does not finish the ask. |
 | `UILuaCommands.Operate`, A2=`TemplateButton_Power`, focus=2 | Requests `stopAngleGauge()`. Only an exactly-true first result then requests base result 1 and gauge focusability false. Focus is set to zero even for a normally returned non-true stop result. |
-| Other `UILuaCommands.Operate`, A4 nonnil, focus not 2 | Stores the row, obtains one `getCommandId(row)` result, stores that command, collapses the list and requests command help. Phase 1 disables slider focusability/enabled state and requests base result 1. In other phases, only command 22708 satisfies `isUseGauge`: it sets focus=2 and starts the gauge. After that gauge start, stored HP differing from zero is passed to `updateHP`, then stored HP is set to zero, even if that helper normally returns false. Every nongauge command instead requests base result 1 immediately. |
+| Other `UILuaCommands.Operate`, A4 nonnil, focus not 2 | Stores the row, obtains one `getCommandId(row)` result, stores that command, collapses the list and requests command help. Phase 1 disables slider focusability/enabled state and requests base result 1. In other phases, only command 22708 satisfies `isUseGauge`: it sets focus=2 and starts the gauge. After that gauge start, a first stored-HP read equal to numeric zero skips both `updateHP` and the zeroing request. A nonzero first read obtains a fresh second HP read for `updateHP`, then requests stored HP zero after the helper returns normally, even if it returns false. Every nongauge command instead requests base result 1 immediately. |
 
 The power-control branch is consumed even when focus is not 2. Row operations
 while focus=2 are ignored. Command 22709 is not translated to a false status,
@@ -136,6 +136,37 @@ Unlike its Mining/Felling counterparts, Fishing's `updateHP` has no local
 `work.hp` assignment. Its valid path requests only the progress-bar value.
 The desktop update wrapper returns true after any normal nonnil-widget update,
 including such a refusal, and false when its widget lookup returns nil.
+
+### Declared HP and conditional native conversion
+
+`initAsk` declares `hp` as `integer8`, the second entry in `work._temp`
+(canonical lines 20-23). This is a work-member declaration, not a plain Lua
+HP storage table. The later assignment requests HP 100. Phase-two setup
+requests its nonnil supplied operand unchanged, with numeric zero only for
+nil. The supplied value and the value stored by a native descriptor are
+separate stages.
+
+The canonical native contract is
+`xivl-client-structs:docs/work-binder-native-contract.md`, "The write path",
+"The bind route", "Value coercion", "Initial values", "An object without
+storage" and "Member widths". Conditional on the resolved work userdata,
+installed declaration/storage and clear-bind descriptor write route, an
+`integer8` assignment uses `lua_tonumber`, truncates toward zero and stores
+the low eight bits. Its reader sign-extends the stored byte. Thus a supplied
+Boolean true requests conversion to numeric zero on that route, not one.
+The initializer's numeric 100 remains 100 on that route.
+This does not rewrite the supplied operand or make the separate progress-bar
+update assign `work.hp`.
+
+A later fresh read still depends on actual storage and intervening writes.
+Without installed storage, the declared member reads nil and drops writes.
+The pool's value before its first applied write is not established. Neither
+the declaration nor this conditional conversion proves actual widget
+identity, applied storage, a readback value, a comparison failure or rendered
+HP. The gauge branch tests its first HP read and, only in the nonzero arm,
+reads HP again for `updateHP`. A changed second read is the helper operand,
+even if it has become zero. The zeroing request requires that helper call
+to return normally.
 
 ## Wait, result width and cleanup
 
@@ -203,8 +234,10 @@ sizes and decoded-payload identities. Authenticate both representations, decode
 with `tools/retail_script.py:decode_lpb`, and parse to complete consumption
 with `tools/build_quest_contracts.py:ChunkReader/instruction`.
 
-Prototype indices and PCs below are zero-based. Offsets locate the start of
-the prototype's instructions in the decoded payload; PC n is at offset+4*n.
+Prototype indices and PCs below are zero-based. The original root binds
+Fishing `initAsk`, `setAskParameter` and `updateHP` at PCs 9, 48 and 54.
+Offsets locate the start of the prototype's instructions in the decoded
+payload; PC n is at offset+4*n.
 Canonical source ranges include the method binding for the two selected
 resources. Connector entries use their original root child identities.
 
@@ -214,7 +247,7 @@ resources. Connector entries use their original root child identities.
 | Judge `orderInputWidget` | 111-153 | 5 / `0x5A3` | 32 Fishing update, B=5,C=2; 37 one-value return |
 | Judge `askInputWidget` | 156-265 | 6 / `0x715` | 4-56 command predicates; 58-59 actor call/test; 110 Fishing call B=11,C=4; 114 false test; 122 RETURN B=4 |
 | Judge `closeInputWidget` | 383-419 | 9 / `0xE21` | 26 Fishing close, B=3,C=2; 31 one-value return |
-| Fishing `initAsk` | 11-204 | 0 / `0x381` | 103-149 HP/angle/phase/focus/slider and flag requests |
+| Fishing `initAsk` | 11-204 | 0 / `0x381` | 0-47 build and assign the work declaration, HP ordinal 2=`integer8`; 103 initial HP 100; 103-149 HP/angle/phase/focus/slider and flag requests |
 | Fishing input handler | 243-417 | 3 / `0xAE3` | 5-24 Cancel; 38-57 power; 59-121 row selection and completion |
 | Fishing `setAskParameter` | 750-924 | 13 / `0x1AAF` | 30-33 count refusal; 39/93 phases; 118-126 HP and phase; 143 bait request |
 | Fishing `getAskResult` | 927-949 | 14 / `0x2051` | 9 CALL C=0 and 10 RETURN B=0; 16 RETURN B=3 |
@@ -230,9 +263,18 @@ actor/Boolean predicates, explicit nil operands, phase/HP requests, Cancel
 navigation versus quit completion, gauge completion, wrapper failure width,
 open getter results and the judge's three-slot adjustment. Negative controls
 rejected a changed command constant and a truncated phase-A getter result.
-These ordinary-table fixtures use explicit mock helper results. They do not
-model native storage, metamethods, conversion/coercion beyond the supplied
-numeric cases, callback delivery or actual actor/widget identity.
+A bounded interpretation of the original `initAsk` declaration prefix through
+PC47 separately checked the HP name, ordinal and `integer8` tag. Original
+stores at `initAsk` PC103 and `setAskParameter` PCs 121/124 checked numeric
+100, parameter 7 after self and the nil fallback zero. A changed declaration
+tag was rejected. The conditional conversion above adopts the named native
+publication; these ordinary-table fixtures use explicit mock helper results
+and do not reproduce native storage, metamethods or conversion execution,
+callback delivery or actual actor/widget identity. The selected handler span
+at PCs 108-117 separately checked that a first zero read skips both the helper
+and zeroing request, while a nonzero first read makes a fresh second read for
+the helper before requesting zero. A changed second read of zero is still
+forwarded; an inverted zero guard was rejected.
 
 The first unsupported edges are actual instance selection and native property
 readback/application. Historical event selection, server validation, fish or
