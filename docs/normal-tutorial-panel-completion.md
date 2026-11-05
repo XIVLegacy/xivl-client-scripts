@@ -217,3 +217,51 @@ these guards, scalar/visibility operands and call/return widths must be
 rejected. Mock helper results qualify local instruction behavior and are
 not observed client results. Retain identities and semantic assertions,
 without source bodies, payloads or instruction listings.
+
+## Selected Operate event route
+
+For the selected normal panels, the shared Lua dispatch adds an exact command
+comparison before the unguarded tutorial operation. It adds no local focus,
+work-field or prior-result test on that path. This is a conditional source
+join, requiring W to resolve the published `_onUICommandEvent`, shared
+`processUICommandEvent` and tutorial `processUICommandOperate`, with preceding
+calls returning normally.
+
+Counting W as position 0, let A1 through A5 be the five event operands after
+W, with A3 the command.
+The published
+[AT-LUA-004 forwarding contract](https://github.com/XIVLegacy/xivl-client-structs/blob/8ee5be22e27b63b0442d4a413d584238796a744c/docs/autotranslate-selection-contract.md)
+and its
+[structured record](https://github.com/XIVLegacy/xivl-client-structs/blob/8ee5be22e27b63b0442d4a413d584238796a744c/manifests/autotranslate_wire_format_study.json)
+own `_onUICommandEvent`'s unchanged forwarding of A1 through A5 and surrounding
+thread-owner requests. In `widget/widgetbaseclass_common.lua`, canonical
+source 395-405, the first dispatch branch compares A3 with the exact string
+`UILuaCommands.Operate`. On equality it calls
+`processUICommandOperate(W,A1,A2,A4,A5)`: the command is omitted, while the
+other four operands retain their order and identity. The call discards all
+results and reaches a shared zero-value return. It does not compare an event
+operand with `Button_OK`. No semantic meaning is assigned here to A1, A2, A4
+or A5. A command mismatch leaves this selected branch; the other branches are
+outside this check.
+
+This additional original-bytecode check uses the common-module source, LPB
+and payload identities above. Root PC42 binds child 13 to
+`processUICommandEvent`, code start `0x26E6`, with six fixed parameters.
+Its PC2 command comparison selects the PC9 call with `B=6,C=1`, supplying
+five operands including W. PC10 jumps to the shared PC198 return with `B=1`.
+The first command-miss target is PC12. These PCs are one-based. Canonical
+source locators are separate from original prototype debug-line metadata.
+Bounded semantic checks preserve the four operand identities, discard helper
+results and stop mismatches at that first target. Mutations to the command,
+comparison polarity, forwarded operand, call widths, exit target and return
+width are rejected.
+
+This connects a supplied Operate command to the local result-1 request only
+under those receiver and normal-return conditions. It does not authenticate
+a native event producer, actual receiver or override selection, global object
+identity, thread scheduling/state or condition enforcement. The published
+[native condition contract](https://github.com/XIVLegacy/xivl-client-structs/blob/8ee5be22e27b63b0442d4a413d584238796a744c/docs/desktop-native-call-contract.md#ui-command-conditions)
+owns registration marshalling; numeric 5 remains a registration argument,
+without an event-enum interpretation here. Neither the conditional Lua join
+nor registration establishes a delivered event, physical click, movement,
+menu use, applied native state, widget closure or accepted progression.
