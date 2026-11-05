@@ -162,6 +162,23 @@ These comparisons do not name the gameplay conditions that assign those
 states or establish the native/property values for a particular item.
 The selected base checks are client eligibility, not accepted use.
 
+## Published itemData sheet creator
+
+`xivl-decomp:docs/script/sheet-globals.md`, "Sheets created by the Judge
+classes", records `CommonJudge.init` preparing path `itemData` and the derived
+global name `itemDataSheet`. Its "prepareSpreadSheet in the Judge classes"
+section qualifies publication and `SpreadSheet._onInit` forwarding that path
+to `_setFilename`. The existing-name reuse path can return an existing sheet;
+this preparation call alone does not authenticate the global's actual object
+or its loaded contents.
+
+`xivl-client-data:docs/item-equipment-columns.md`, introduction, identifies
+the named `itemData` table as game-schema resource `0x01030129`. Together these
+publications provide a static source candidate for the field-43 request.
+Applying it requires the actual `itemDataSheet` binding to select that sheet
+and its native reader/row. Neither publication supplies field 43's meaning,
+the current catalog row/value, an item-use count or an authoritative use rule.
+
 ## Evidence and reproduction
 
 Canonical source members were authenticated in memory against
