@@ -106,6 +106,18 @@ body does not assign meaning to the forwarded parser results, a numeric base,
 or their nilness. The table is therefore conditional on the normal conversion
 result matching the listed value.
 
+The handler first reads `getViewType()` to select the result calculation.
+Only when gate `L7 == 1` reaches callback dispatch does a later fresh read
+choose the parent callback method. The table's callback rows assume both reads
+return its listed view type and the dynamic methods resolve to these
+implementations. Close rows depend only on the first read and skip the later
+one. Initialization does not freeze either read. In `root/proto3`, zero-based
+CALL PCs 16 and 142 are at decoded
+offsets `0x0A93` and `0x0C8B` (canonical source lines 356 and 483).
+A first read of 6, conversion result 2 and later read of 5 instead request
+`setConfirmResult(-3)`. The [selected caller contract](journal-confirm-caller-contract.md#conditional-child-to-parent-continuation)
+records that split-read consequence for the non-Ask journal parent.
+
 | `viewType` | Conversion result | Internal result | Gate | Requested action |
 |---|---:|---|---:|---|
 | 5 | 1 | 1 | 1 | `_getParentWidget():setConfirmResult(1)` |
@@ -146,9 +158,11 @@ resource.
 
 ## Caller and lifetime boundary
 
-The cited generated metadata promotes this widget's class, base require, and
-own API calls, but does not provide a typed producer invocation to join here.
-Caller and producer remain unjoined in this contract. `getFormName` returns
+The [non-Ask JournalListWidget caller](journal-confirm-caller-contract.md)
+has an attributable child request and a conditional selected-result join.
+Its source keeps the opening guard, fresh view argument, child event-time
+reads and dynamic parent lookup separate. Native creation/initializer
+dispatch and actual parent identity remain unproved. `getFormName` returns
 `AskWidget`, but that string does not prove how a factory maps the class.
 
 The only close operation recovered here is the requested
