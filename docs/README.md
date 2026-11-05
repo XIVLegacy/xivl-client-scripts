@@ -43,6 +43,7 @@ unverified native or server behavior.
 - [Additional Gridania battle tutorial branches](gridania-battle-tutorial-branches.md)
 - [Limsa opening tutorial widget contracts](limsa-opening-tutorial-contract.md)
 - [Limsa normal tutorial flow](limsa-normal-tutorial-flow.md)
+- [Limsa tribe and dialogue operands](limsa-tribe-dialogue-contract.md)
 - [Ul'dah opening tutorial and Judge contracts](uldah-opening-tutorial-contract.md)
 - [Ul'dah normal tutorial flow](uldah-normal-tutorial-flow.md)
 - [Opening tutorial city comparison](opening-tutorial-city-contracts.md)

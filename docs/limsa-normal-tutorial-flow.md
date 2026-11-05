@@ -138,6 +138,9 @@ an actor-property identity or a localized race-name assignment. They then
 call `A0:sayFreeDisplayName(1600150,A0,91,v)` with that local value as an
 extra dialogue operand.
 
+The [tribe and dialogue operand contract](limsa-tribe-dialogue-contract.md)
+qualifies the getter, conditional static grouping and message forwarding.
+
 Both next call `D:_setTargetCharacter(1,nil)`, preserving the explicit final
 nil. They order desktop mode 16 again, cancel mode 16, request
 `D:openTutorialWidget(t,2)`, set mask `(false,true,true,true,true,4)`, unlock
