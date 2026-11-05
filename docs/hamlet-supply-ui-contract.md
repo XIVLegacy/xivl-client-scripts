@@ -5,6 +5,9 @@ and defense score routes. Their LPBs matched the recovered LUACs
 byte-for-byte; these calls describe client presentation, not a server-side
 supply, ranking, or reward policy.
 
+The [delivery-selection flow](hamlet-delivery-selection-flow.md) qualifies
+the item/materia menu results, selected price updates and separate close.
+
 `Noc002` defines captain and supply menu methods, including supply errors
 and item-selection dialogue (`noc002.lua:189-849`). Its
 `processSupplyAskWhatA04` runs a character scheduler, says text row 62,

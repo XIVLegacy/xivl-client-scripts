@@ -91,6 +91,7 @@ unverified native or server behavior.
 - [Local guildleve supplies contract](local-guildleve-supplies-contract.md)
 - [Aetheryte guildleve events and Guardian's Aspect](aetheryte-guildleve-events.md)
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
+- [Hamlet delivery selection flow](hamlet-delivery-selection-flow.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
 - [Quest event client contracts](quest-event-client-contracts.md)
 - [Joining the Spirit objective boundary](joining-spirit-objective-contract.md)
