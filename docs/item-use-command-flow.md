@@ -123,6 +123,22 @@ The two-result calls nil-pad a missing error and truncate extra results.
 If all pass, the base method returns one exact true. A message request does
 not establish rendering or a server refusal.
 
+The selected base `getItemUseMax(item)` tailcalls `item:getItemData(43)`.
+The base `getItemData(item, field)` takes one fresh result from
+`item:_getCatalogID()`, then tailcalls
+`itemDataSheet:_getData(catalog, field)`. Both helpers preserve the final
+callee's open result sequence. For this call, the field is numeric 43;
+the `canUse` caller takes only the first result before its exact-zero test.
+An empty result therefore supplies nil, and a first false remains distinct
+from numeric zero. This is a field request, without an inventory-count read
+in either selected helper. Actual method/global binding, native provider,
+physical table, field meaning and value remain unproved.
+
+These original common-module methods are `root/proto69`, decoded code
+offset 15743, five words, and `root/proto0`, offset7317, eight words.
+Their selected tailcalls are zero-based PC2 and
+PC5; the fresh catalog call is PC3 and requests one result.
+
 For the selected parts argument 1, the base target-parts method calls
 `canUseWithPartsCheck` and returns `(true, 0)` on either truthy or falsey
 results without reaching its target/parts readers. The base `canUseDetail`
