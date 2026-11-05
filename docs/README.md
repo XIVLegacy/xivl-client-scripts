@@ -46,6 +46,7 @@ unverified native or server behavior.
 - [Ul'dah opening tutorial and Judge contracts](uldah-opening-tutorial-contract.md)
 - [Ul'dah normal tutorial flow](uldah-normal-tutorial-flow.md)
 - [Opening tutorial city comparison](opening-tutorial-city-contracts.md)
+- [Normal opening tutorials across cities](opening-normal-tutorial-city-contracts.md)
 - [ActionMenu grid visibility](action-menu-grid-visibility.md)
 - [Cast gauge lifecycle](cast-gauge-lifecycle.md)
 - [Cast gauge property and command flow](cast-gauge-property-command-flow.md)
