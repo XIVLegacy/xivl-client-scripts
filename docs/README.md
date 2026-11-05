@@ -132,6 +132,7 @@ unverified native or server behavior.
 - [Dungeon exit client contracts](dungeon-exit-client-contracts.md)
 - [Aetheryte list widget](aetheryte-list-widget-contract.md)
 - [Aetheryte object events](aetheryte-object-event-contracts.md)
+- [Aetheryte restricted-choice result flow](aetheryte-restricted-choice-flow.md)
 - [Camp favored-destination client contract](camp-favored-destination-client-contract.md)
 - [Camp replacement-choice result flow](camp-replacement-choice-flow.md)
 - [Map-object door client contract](map-object-door-client-contract.md)

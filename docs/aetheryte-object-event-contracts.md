@@ -6,6 +6,10 @@ names or proof of a server-side teleport.
 
 ## Parent selection
 
+The [first-menu helper contract](aetheryte-restricted-choice-flow.md) owns its
+prefix-scan arity boundary, conditional row/result mapping and explicit close.
+The local branches below require the helper to return normally.
+
 `eventAetheryteParentSelect` calls `askRestrictChoices` with text ID 117.
 When its first argument is true, choice 2 can enter a second restricted-choice
 menu using text ID 7. A zero second argument instead produces a `say` call
@@ -13,8 +17,8 @@ with text ID 34115 and returns nil. Otherwise text ID 145 is shown with that
 argument, and the next five arguments provide the second menu's availability
 flags: zero disables a slot, while any nonzero value enables it and is passed
 through in order. A second-menu result of 6 returns nil; other results pass
-through unchanged. When the first argument is not true, the second choice in
-the text-117 menu is disabled.
+through unchanged. When the first argument is not true, the second
+restriction flag in the text-117 call is false.
 
 For the text-117 menu, result 1 returns nil, result 3 returns -1, and result 5
 returns -3. Result 4 shows text ID 328 and asks with text ID 329; it returns -2
