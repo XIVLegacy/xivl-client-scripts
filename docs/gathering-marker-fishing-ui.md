@@ -58,20 +58,19 @@ actor tested with `isPlayer`; A2 is unused in all four bodies below.
 | `orderInputWidget(self,A1,A2,A3,A4,A5)` | Under the same actor predicate, A5 selects the same widget and the method forwards A3/A4 to `updateEventModeWidget`. It returns the first result, with false as its local default. |
 | `askInputWidget(self,A1,A2,A3,A4,A5,A6,A7,A8,A9)` | A3 selects the widget. It receives three results from `selectEventModeWidgetYield`, retains the first as the selection flag, and returns the second, third and first in that order. An exactly-false flag zeroes the first two returned values. |
 
-The Mining/Felling ask argument tails are
-`(primary,secondary,extra,quit,nil,A4,nil,A9)`. Phase A4 equal to 1 selects
-primary commands 22701/22704; the other branch selects 22703/22705.
-The quit commands are 22702/22706, and extra is 22710 when A5 differs from
-zero, otherwise nil. These are extracted input and result routes, without
-an established server success calculation or a complete wire sequence.
+The [Mining/Felling input workflow](mining-felling-input-flow-contract.md)
+checks the original land branches, nil-preserving command tails, phase-specific
+input results, exact-false status adjustment and explicit close selection.
+The [selected Fishing contract](fishing-input-flow-contract.md) owns the
+Fishing branch and shared desktop wrappers. These are conditional client
+contracts, without an established server success calculation or wire sequence.
 
 Source: `lua/scripts/judge/harvest/harvestjudge.lua:11-26,69-265`,
 9,902 bytes, SHA-256
 `E097DE09274574430D14FCAFE02CE520CCA1BA14CCF8CC42C57413D5CD9CA814`,
-pinned by `manifests/scripts.json`. The Mining/Felling branch summaries here
-follow the recovered decompile. The [selected Fishing contract](fishing-input-flow-contract.md)
-checks its argument, branch, result-width and cleanup claims against original
-instructions. Retained wire observations remain a separate evidence class.
+pinned by `manifests/scripts.json`. The linked flow contracts own original
+instruction locators and result-width qualifications. Retained wire observations
+remain a separate evidence class.
 
 ## Selected HarvestJudge text
 

@@ -152,6 +152,7 @@ unverified native or server behavior.
 
 - [Gathering marker and fishing UI](gathering-marker-fishing-ui.md)
 - [Selected Fishing input workflow](fishing-input-flow-contract.md)
+- [Mining and Felling input workflow](mining-felling-input-flow-contract.md)
 - [MiningInputWidget local interaction](mining-input-widget-contract.md)
 - [FellingInputWidget local interaction](felling-input-widget-contract.md)
 - [ItemUseWidget local interaction](item-use-widget-contract.md)
