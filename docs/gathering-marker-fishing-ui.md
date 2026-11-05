@@ -42,6 +42,10 @@ These are input and display contracts. They do not establish bite selection,
 fish identity, yield, fatigue, sweet-spot probability, success chance, or
 server validation.
 
+The [selected Fishing flow](fishing-input-flow-contract.md) joins the
+HarvestJudge argument tail, phase/HP handling, UI Cancel versus quit,
+open result width, desktop status adjustment and explicit close request.
+
 ## HarvestJudge widget calls
 
 The recovered HarvestJudge uses these fixed formal argument lists. A1 is the
@@ -64,10 +68,10 @@ an established server success calculation or a complete wire sequence.
 Source: `lua/scripts/judge/harvest/harvestjudge.lua:11-26,69-265`,
 9,902 bytes, SHA-256
 `E097DE09274574430D14FCAFE02CE520CCA1BA14CCF8CC42C57413D5CD9CA814`,
-pinned by `manifests/scripts.json`. Branch descriptions here follow the
-recovered decompile; original instruction operands were not independently
-replayed for this finding. Retained wire observations remain a separate
-evidence class.
+pinned by `manifests/scripts.json`. The Mining/Felling branch summaries here
+follow the recovered decompile. The [selected Fishing contract](fishing-input-flow-contract.md)
+checks its argument, branch, result-width and cleanup claims against original
+instructions. Retained wire observations remain a separate evidence class.
 
 ## Selected HarvestJudge text
 
