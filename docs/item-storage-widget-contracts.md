@@ -148,6 +148,15 @@ Results 2 and 3 select explanatory dialogue and repeat the menu. Result 5 or
 nil finishes the talk and returns zero values; other results repeat the menu.
 A caller cannot obtain an entry or homepoint selector from this method's return.
 
+This restricted-choice call supplies five Boolean restrictions and no format
+tail (`root/proto284`, zero-based CALL PC 27). Under the published
+[restricted-choice arity contract](aetheryte-restricted-choice-flow.md#adopted-native-arity-contract),
+its prefix reaches the same boundary where `select` supplies zero results to
+`type`, rather than one explicit nil. Actual global bindings, diagnostic state
+and propagation remain unproved here. The local menu-result branches above
+require normal helper completion. The sibling method below retains its
+separate `askExtendWidget` contract.
+
 `defaultTalkWithInn_Desk_2` asks the supplied actor with
 `askExtendWidget(self, 588, 5, 1, 1)`. Result 1 says row 648 and returns that
 single value immediately, without finishing the talk. Results 2 and 3 display
