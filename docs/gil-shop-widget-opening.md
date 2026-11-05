@@ -5,6 +5,10 @@ for a purchase selection. `ShopBaseClass.openShopBuy` uses the desktop's
 widget-creation yield path; `selectShopBuy` later uses its selection yield
 path. These are separate client operations, not one combined user-input wait.
 
+The [purchase-selection contract](shop-buy-selection-contract.md) owns row and
+quantity results, reached numeric-input callbacks, cancellation and the separate
+explicit close request.
+
 ## Evidence identity
 
 This is static analysis of extraction `2012.09.19.0001` for client 1.23b,
