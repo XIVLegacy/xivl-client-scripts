@@ -50,8 +50,9 @@ or a missing numeric value. No editorial enum identifier is assigned here.
 The infoID dispatchers are at lines 127-396 and the mode dispatcher at
 11-75. The desktop controller helper is at
 `widget/desktopwidget_connector.lua:9415-9464` and opener type/alias selection
-at 9325-9337. This finding does not reconstruct the opener's complete
-yield/non-yield partition from its flattened decompiled branch chain.
+at 9325-9337. The [opening contract](tutorial-widget-opening-contract.md)
+reconstructs the complete yield/non-yield partition against original bytecode
+and distinguishes the selected path from runtime class/factory resolution.
 
 The [Gridania opening contract](gridania-opening-tutorial-contract.md#selected-widget-calls)
 resolves the directly selected infoID 6/7/11 paths against original bytecode,

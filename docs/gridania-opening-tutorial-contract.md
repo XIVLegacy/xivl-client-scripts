@@ -129,9 +129,10 @@ This establishes a possible producer, not that it ran before this invocation.
 
 ## Actions lesson contents
 
-The actual class identifier is `Ask/TutorialWidget`, whose source defines
-`TutorialWidget` with `AskBaseClass`. The distinct `widget/tutorialwidget.lua`
-was not substituted for it. `initAsk` stores infoID as an `integer8` field,
+The selected class-path operand is `Ask/TutorialWidget`, whose source defines
+`TutorialWidget` with `AskBaseClass`. The [opening contract](tutorial-widget-opening-contract.md)
+distinguishes that operand from runtime class/factory resolution and from
+the separate `widget/tutorialwidget.lua`. `initAsk` stores infoID as an `integer8` field,
 initializes `autoAnim` false and dispatches controller 2 to Pad text and
 controller 1 to Keyboard text. Other controller values take neither text
 branch despite receiving a K alias.
