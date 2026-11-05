@@ -500,7 +500,7 @@ For choices 2, 3, and 6, the method returns that choice only when its follow-up
 ask returns 1; otherwise it repeats the restricted-choice prompt. Choice 4
 with the supplied eighth argument equal to 1 says text ID 164 on the parent or
 53 on the child, then repeats the prompt. Otherwise it says text ID 162 or 51
-and opens `Ask/GuildleveSelectLevelWidget` in mode 1 with the eighth argument
+and requests one result from `Ask/GuildleveSelectLevelWidget`, with the eighth argument
 minus one. It returns `(4, selectedLevel)` only when the widget succeeds and
 the level is between 1 and 5. The [aetheryte guildleve event contract](aetheryte-guildleve-events.md)
 joins these text IDs to their menu labels and identifies the Favor balance,
@@ -518,7 +518,7 @@ payload SHA-256 values are pinned in
 ### Level-selection widget
 
 The parent and child choice-4 branches pass their eighth argument minus one
-to `Ask/GuildleveSelectLevelWidget` in mode 1. Its `initAsk` argument defaults
+to `Ask/GuildleveSelectLevelWidget`, requesting one result. Its `initAsk` argument defaults
 to 5 when nil. Level 1 is always confirmable; levels 2 through 5 are
 confirmable only when the preceding integer is less than that argument, and
 otherwise are hidden. The widget sets the title from text ID 50015, uses IDs
@@ -726,7 +726,7 @@ closure or native director teardown.
 `PopulaceCompanyGLPublisher.initForEvent(self,townId)` stores townId as a
 temporary integer8 and loads text bank `(7712,"populaceCompanyGLPublisher")`.
 `eventGLDifficulty(self,A1)` does not use A1. It opens
-`Ask/GuildleveSelectLevelWidget` in mode 1 and returns nil unless selection
+`Ask/GuildleveSelectLevelWidget`, requesting one result, and returns nil unless selection
 reports true and its result differs from -1; otherwise it returns the result.
 
 `eventGLStart(self,A1,A2,A3)` opens `Ask/GuildleveStartWidget` in mode 1

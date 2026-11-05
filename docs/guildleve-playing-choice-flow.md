@@ -168,10 +168,26 @@ nor a supported fractional difficulty. Slot 4 is normally omitted when the
 supplied numeric `A8` is nonpositive. The local branch itself does not repeat
 that availability check.
 
-This page stops at `askEventModeWidgetYield`. Its widget creation, selection,
-getter, wait and cleanup paths are not inferred from its name or from the
-different `askForEventMode` implementation. The playing caller has no separate
-explicit close request after this opaque call.
+The [published event-mode wrapper](craft-requested-quest-selection.md#selected-opening-and-result-tuple)
+owns `askEventModeWidgetYield` and its `askWidgetYield` path. Conditional on D
+resolving those implementations, 1 is the requested widget-result count.
+The opening request after D is
+`openWidgetYield(4,"Ask/GuildleveSelectLevelWidget",nil,nil,false,A8-1)`.
+
+On normal helper paths, if opening returns nil, the wrapper returns one false, without selection,
+getter or close. Otherwise let H be the non-nil opening result. The wrapper
+requests `selectWidgetYield(H,true)` and later `closeWidgetDirect(H)`.
+A selection result other than exact true returns one
+false without a getter; exact true reads the widget results and returns
+`true,R1`, preserving a nil first result and discarding later results. The
+playing caller requests two values, so a one-false failure supplies nil to
+its second local. The caller has no additional explicit close request.
+
+This adopts the actual event-mode wrapper and retains its opening operands.
+Actual widget creation, initializer/getter binding,
+native closure, scheduling and accepted difficulty remain unproved. The
+selected child widget's own result domain is owned by the
+[level-selection widget contract](guildleve-journal-lifecycle.md#level-selection-widget).
 
 Source: parent `1534-1571` and child `264-301`. Original PC114 has four total
 operands and requests two results. PCs115-125 establish the result predicates.
