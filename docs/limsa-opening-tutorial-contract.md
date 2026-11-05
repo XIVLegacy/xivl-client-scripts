@@ -1,5 +1,8 @@
 # Limsa opening tutorial widget contracts
 
+The [normal tutorial flow](limsa-normal-tutorial-flow.md) owns the separate
+normal/withHQ device, scene, tribe-dialogue, camera and movement-lesson sequence.
+
 `Man0l0.processTtrBtlMagic001` and `processTtrBtl002` both select the Actions
 lesson, infoID 11, for the crafter and gatherer categories 29 and 39. They
 wait for targeting before reading the supplied player's class state. The
