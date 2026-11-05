@@ -22,6 +22,15 @@ It does not populate the field, coerce its type or enforce a finite domain.
 The selected normal methods call `getTribe` on their supplied A1, whose
 actual class and method binding remain unproved.
 
+The published MyPlayer initialization declares `tribe` in `playerWork._sync`
+with type `integer8` and a native descriptor width of eight bits
+(`xivl-client-structs:docs/work-binder-native-contract.md`, Declared work of
+a MyPlayer / playerWork and Member widths). This does not establish that the
+supplied A1 uses that declaration or that its value is a static row ID 0-15.
+The same native contract's An object without storage section records that a
+declared member without installed instance storage reads nil. The actual
+layout, storage and value for this caller remain unproved.
+
 The [normal-flow mapping](limsa-normal-tutorial-flow.md#dialogue-argument-and-final-movement-lesson)
 owns the ordered inclusive comparisons and unmatched-value rule. Applying
 those actual instructions to all 16 static row IDs gives the exact value
