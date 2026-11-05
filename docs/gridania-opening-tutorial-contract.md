@@ -17,6 +17,9 @@ The [additional battle tutorial contracts](gridania-battle-tutorial-branches.md)
 own Magic001, Btl003 and Btl004. Their callable branches do not establish a
 historical continuation from the two methods inspected here.
 
+The [normal tutorial flow](gridania-normal-tutorial-flow.md) owns the separate
+normal/withHQ device loop, scene requests, camera wait and one-value return.
+
 ## Input identity and method
 
 The extraction is `2012.09.19.0001`, game version `1.23b`. The exact source
