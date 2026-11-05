@@ -292,3 +292,35 @@ text methods request exactly three helper results and forward them after
 text key 9008 for Pad or 9009 for Keyboard. This maps the local values while the
 actual fresh town value, receiver/method binding, native/provider state,
 formatter meaning, locale and rendered lesson remain unproved.
+
+## Selected text-property request
+
+For the two info2 text calls above, the inherited wrappers request
+`_setTextProperty(W,nil,"TextBlock_Text_1","Text",key,R1,R2,R3)`, where key
+is 9008 for Pad or 9009 for Keyboard and R1 through R3 are the helper results.
+The wrappers preserve all three operands, including nils, and return zero
+values. This composition requires the selected method bindings, normal
+prerequisite completion and the `type` call reporting `"number"` for the key.
+Only that numeric-key branch of `setTextProperty` is included here.
+
+The source methods in `widget/widgetbaseclass_common.lua` are `setText`,
+`root/proto89`, decoded code offset 21514, seven words; `setItemText`,
+`root/proto91`, offset 21697, eight words; and `setTextProperty`,
+`root/proto182`, offset 32430, 29 words. The last method's selected original
+path is zero-based PCs 0-14 and shared zero-value return PC 28. Its alternate
+property paths at PCs 15-27 were excluded. The same common-module source,
+LPB and payload identities used above apply.
+
+The published native contract at
+`xivl-client-structs:docs/widget-native-call-contract.md`, `_setTextProperty`,
+at revision `8ee5be22e27b63b0442d4a413d584238796a744c`,
+owns the declared arguments and encoding: a nonnil identifier starts `@`
+and the identifier, integers append `/i` and their values, strings append
+`/s` and their values, and the first Nil ends the scan. Given the corresponding
+typed native frame, a matched town tuple therefore contributes three integer
+format operands; the default tuple contributes integer 0, then stops at its
+first nil. This is an adoption of that native contract, not a new native trace.
+
+The selected source request and conditional encoding do not establish the
+actual native frame, selected receiver/control or text-data namespace,
+physical provider/table, formatter meaning, applied property or rendered text.
