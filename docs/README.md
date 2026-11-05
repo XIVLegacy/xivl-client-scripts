@@ -37,6 +37,7 @@ unverified native or server behavior.
 - [Tutorial widget module selection and opening](tutorial-widget-opening-contract.md)
 - [Wandering Minstrel client contracts](wandering-minstrel-client-contract.md)
 - [Gridania opening tutorial widget contracts](gridania-opening-tutorial-contract.md)
+- [Limsa opening tutorial widget contracts](limsa-opening-tutorial-contract.md)
 - [ActionMenu grid visibility](action-menu-grid-visibility.md)
 - [Cast gauge lifecycle](cast-gauge-lifecycle.md)
 - [Cast gauge property and command flow](cast-gauge-property-command-flow.md)
