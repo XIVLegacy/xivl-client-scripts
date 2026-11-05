@@ -1,0 +1,192 @@
+# Craft start material selection and results
+
+The selected player path in `CraftJudge.start` opens and looks up the literal
+`CraftStartWidget`. Its mode-1 result distinguishes a supplied material
+(slot result 0), a selected item index (positive result), and an empty slot
+(-1). Cancellation is operation 0 after successful selection; failed opening
+or selection instead makes the judge's operation result nil.
+
+The name `selectCraftItemSelectWidget` does not establish the distinct
+[ItemSelectWidget module](item-select-widget-contract.md) as the runtime type. The opening and
+lookup names do not prove that the returned object is a particular instance
+or dispatches the methods recovered from `widget/craftstartwidget.lua`.
+The contracts below are conditional on those dynamic bindings and normal
+completion of the requested calls.
+
+## Sources and established inputs
+
+The [supplies contract](local-guildleve-supplies-contract.md#requested-items-and-recipe-presentation)
+owns the initial mode/argument mapping, mode-1 `setInitialItems` behavior,
+`setReadyMaterialInSlot`, and original LPB/decoded payload identities for
+CraftJudge, CraftStartWidget and the desktop connector. The
+[journal contract](guildleve-journal-lifecycle.md#return-node-retry-and-local-synthesis-prompts)
+owns the mode-dependent Requested Items button labels. The
+[CraftEdit contract](craft-edit-widget-contract.md#complete-72-method-matrix)
+owns the child's local selection, virtual ready-item display and parent
+requests. Those existing contracts do not establish native supply storage.
+
+The retained archive matched the size and SHA-256 in
+`manifests/private_lua_corpus.json`; each selected canonical LF source matched
+`manifests/scripts.json`. Installed original LPBs and their in-memory decoded
+payloads matched `manifests/retail_lua_coverage.json` before parsing.
+
+| Source relative to `lua/scripts/` | Source manifest locator | Retail resource locator |
+| --- | --- | --- |
+| `judge/craft/craftjudge.lua` | `manifests/scripts.json:9903-9908` | `manifests/retail_lua_coverage.json:210-218` |
+| `widget/craftstartwidget.lua` | `manifests/scripts.json:15363-15368` | `manifests/retail_lua_coverage.json:25634-25642` |
+| `widget/desktopwidget_connector.lua` | `manifests/scripts.json:15399-15404` | `manifests/retail_lua_coverage.json:25454-25462` |
+
+The following source windows and original-bytecode locators support the new
+completion/result edges. Prototype paths, code offsets and PCs are zero-based
+in the decoded Lua 5.1 payload. A1 etc. exclude self.
+
+| Method | Canonical LF source lines | Prototype; code offset; selected PCs |
+| --- | --- | --- |
+| `CraftJudge.start` | 277-439 | `root/proto17`; 4367; 0-27, 60-151 |
+| Desktop `selectCraftItemSelectWidget` | 11039-11110 | `root/proto208`; 106963; 7-57 |
+| CraftStart `setButtonEvents` | 442-468 | `root/proto3`; 4975; 4-16 |
+| CraftStart `openItemListWindow` | 493-541 | `root/proto5`; 5429; 2-35 |
+| CraftStart `getSlotData` / `setSlotData` | 706-743 / 745-776 | `root/proto12` / `root/proto13`; 7170 / 7462; 0-31 / 0-25 |
+| CraftStart `processUICommandCancel` | 1038-1079 | `root/proto17`; 9517; 0-33 |
+| CraftStart `processUICommandDefault` | 1081-1303 | `root/proto18`; 9879; 0-34, 102-143 |
+| CraftStart `setSlotItem` | 1548-1600 | `root/proto21`; 13492; 0-44 |
+| CraftStart `processWaitCallFunction` | 1602-1616 | `root/proto22`; 13890; 0-8 |
+| CraftStart `getCraftOperation` / `getCraftItems` | 1618-1631 / 1633-1651 | `root/proto23` / `root/proto24`; 14010 / 14144; 0-7 / 0-13 |
+| `CraftJudge.closeCraftStartWidget` | 260-275 | `root/proto16`; 4208; 0-8 |
+
+## Opening and material slots
+
+For a player test returning exactly true, with A3 outside the special -1/-2
+branches, `start` cancels the main target and calls
+`openEventModeWidgetYield("CraftStartWidget")`. Only an exactly-true first
+result reaches the normal selector call. A4 exactly true selects mode 1;
+false, nil and numeric 0 select mode 0. The collected varargs omit nil values
+and preserve false and numeric 0, compacting later values into consecutive
+positions.
+
+The connector keeps one result W from
+`getWidget(4,"CraftStartWidget")`. Nil W returns exactly
+`false,0,nil,emptyTable`. For the mode-1 call it requests
+`W:setInitialData(1,0,A3)` and `W:setInitialItems(...)`, forwarding every result
+of global `unpack(suppliedTable)` after the W receiver. The latter call has
+open argument width (`CALL B=0`) and discards results. This branch does not
+call `continue`. W is retained locally, but each method lookup is dynamic.
+The separately opened widget and W are not proved identical.
+
+For a valid slot number greater than 0 and at most 8, `getSlotData` obtains
+the slot control name, then separately requests `IntData.Value0`,
+`IntData.Value1` and `IntData.Value2`, keeping one result from each. It returns
+those three values in that order. Nil or out-of-range numeric slot arguments
+return `0,0,0` without property reads. The local guard does not enforce an
+integer type. `setSlotData(slot,package,index)` requests writes only to
+Value0 and Value1, calls `updateSlotIcon(slot)`, and returns true after normal
+completion; it leaves ready Value2 alone. A true return does not prove native
+acceptance or later readback.
+
+An exact `UILuaCommands.ChooseSlot` callback stores A4 as `chosenSlot` and
+calls `openItemListWindow`. With a nonnil looked-up `CraftEditWidget`, that
+method reads the chosen slot. Package exactly 0 opens the child's item list,
+requests modal true and child focus; other package results request
+`removeItem` and refresh the selected slot icon/help. The
+child's [setItem and parent requests](craft-edit-widget-contract.md#complete-72-method-matrix)
+remain conditional on its independently obtained parent. No matching parent
+identity follows merely from the child name.
+
+The parent's `setSlotItem(package,index,count)` handles the selected
+replacement request. With a nonnil child and admitted count in 0..8, it scans
+from the current chosen slot, wrapping candidate slot numbers past 8. A slot
+whose first `getSlotData` result is exactly 0 receives
+`setSlotData(slot,package,index)` and child `setSlotItem(slot+8)` requests.
+Ready Value2 is not the vacancy test and is not overwritten by this setter.
+The local loop decrements count after each assignment and stops on exact 0;
+an initial count of 0 therefore is not an immediate no-op. The parent's
+`setSlotItem` returns zero values. Successful native storage and child
+ownership remain unbound.
+
+## Choice, completion and cancellation
+
+The two command handlers first reject `editWidgetMode ~= 0`, then
+`chosenOperation ~= -1`, then `recipemode == true`, returning one false on
+each guard. These are separate current property reads. `setButtonEvents`
+registers the control's dynamically read Command value, ButtonFocused and
+cancel conditions; button names alone do not establish delivered commands.
+
+| Delivered command/control after the guards | Local request and result |
+| --- | --- |
+| `UILuaCommands.CraftOperate`, `Button_CraftStartByMain` | Writes operation 1, edit mode 1, last button 1 and history mode false; disables input and returns true. |
+| Same command, `Button_CraftStartBySub` | Writes operation 2, edit mode 2, last button 2 and history mode false; disables input and returns true. |
+| Same command, `Button_CraftCancel` | Writes operation 0, disables input and returns true. |
+| `UILuaCommands.Quest` | Writes operation 3, disables input and returns true. This is a local selection result, not a craft outcome. |
+| Cancel callback for `Button_CraftCancel` | Writes operation 0 and disables input; returns zero values. |
+| Cancel callback for another control | Requests focus on `Button_CraftCancel` and help 3029/3030; leaves the operation unchanged and returns zero values. |
+
+`processWaitCallFunction` returns false only while its current operation read
+equals -1. Other values, including numeric 0, nil and false, return true.
+The already established
+[selection wait helper](fishing-input-flow-contract.md#wait-result-width-and-cleanup)
+polls the dynamically selected completion callback with no timeout and
+distinguishes an exactly-false alive result from other values. Local
+completion does not mean crafting succeeded.
+
+The connector calls `selectWidgetYield(W,true)` and keeps one result S.
+Only S exactly true invokes `getCraftOperation`, requesting exactly two
+results O and R: missing results are nil-padded and extras discarded.
+The recovered getter first captures a current chosenOperation, requests a
+chosenOperation=-1 write through another work read, then returns the captured
+operation and a subsequent chosenRecipe read. It does not freeze the work
+receiver or recipe value before that write.
+
+If O is numeric 0, the connector leaves the slot table empty. Otherwise it
+requests `getCraftItems(i)` once for each i=1..8, retaining one result per
+call. False and nil O also enter this arm; they are not numeric 0.
+
+| Current `getSlotData(i)` results `(package,index,ready)` | One `getCraftItems(i)` result |
+| --- | --- |
+| package is not numeric 0 | index unchanged, including a nil or false index |
+| package is numeric 0 and ready is not numeric 0 | numeric 0 |
+| package and ready are numeric 0 | -1 |
+
+The ready comparison is exact inequality: nil or false ready also selects
+the numeric-0 result. These comparisons do not prove typed package/index
+values. The connector always returns four values `S,O,R,slotTable`; O starts
+at 0 and R at nil. S=false, nil or numeric 0 skips both result getters and
+preserves that S with the initial O/R and an empty table.
+
+## Judge result adjustment and cleanup
+
+`start` requests exactly four selector results. If S is not exactly true,
+it replaces O with nil and does not convert the slot table. R remains the
+adjusted third result. Thus selection failure and successful operation-0
+cancellation remain distinct.
+
+For S exactly true, the judge traverses 1 through the Lua length of the
+returned slot table. Numeric slot result 0 selects the corresponding compacted
+supplied value; a positive result requests
+`A1:_getExtendedTemporaryItem(1,slotResult)`, keeping one result. Other numeric
+results leave the material at its initial 0, and a resulting nil is replaced
+with 0. A false slot result is not 0 and can reach the ordinary numeric
+comparison failure. Missing table entries and holes do not establish a dense
+eight-slot sequence or a fixed Lua length.
+
+The judge then makes two passes over its material values. Each pass freshly
+calls global `_isInstanceOf(value,"ItemBaseClass")`, keeping one result:
+the first appends truthy classifications, the second appends false/nil
+classifications. With stable classifications this preserves relative order
+inside each group and puts ItemBaseClass classifications first. Numeric 0
+is truthy here. Rebinding or changed classification results can duplicate or
+omit entries; no runtime class identity follows from this local call.
+
+Finally `start` returns O and R followed by every result of global
+`unpack(orderedTable)` (`CALL C=0`, `RETURN B=0`), rather than imposing a fixed
+final result width. Under ordinary unpack and stable classification of the
+dense local values, this is the two-value prefix plus eight material values.
+
+Neither this `start` path nor its connector calls a close helper. The result
+getter's operation reset is not destruction. The separate
+`closeCraftStartWidget` calls `closeEventModeWidget("CraftStartWidget")` only
+when A1's player test is exactly true, discards results and returns zero
+values. Its invocation is not established by `start`; the
+[generic close contract](fishing-input-flow-contract.md#wait-result-width-and-cleanup)
+owns subsequent close requests. No selected script call proves item debit,
+recipe acceptance, supply replenishment, XP, item grant, historical server
+selection, or actual widget lifetime.

@@ -117,6 +117,10 @@ text conditional arms. `worldMaster.csv` is pinned at
 
 ## Requested Items and recipe presentation
 
+The [selected CraftStart result flow](craft-start-selection-contract.md) owns
+completion, cancellation, slot readback and the judge's ordered material
+results. The setup and supply identities below remain its input contract.
+
 **A, recovered client behavior.** Retail `CraftCommand` itself has only
 `isUseActionGauge` and `canAimForRelation` in the published registry
 (`lua/registry.json:14803-14817`). Recipe and material UI behavior belongs to
