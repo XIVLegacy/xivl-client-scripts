@@ -2,6 +2,9 @@
 
 ItemUseWidget builds and maintains an `ItemList_Maker` package list, tracks 1-based selected/use package and item values, and routes local close, target-selection, sorting, and window-refresh requests. This contract records only its decoded Lua 5.1 body; request calls do not prove UI storage, rendering, lifetime, item acceptance, or game-state effects.
 
+The [selected command flow](item-use-command-flow.md) qualifies the helper's
+fresh item lookup, command operands, client eligibility and result boundary.
+
 ## Identity and locator
 
 - Public source: `xivl-client-scripts:lua/scripts/widget/itemusewidget.lua`.
