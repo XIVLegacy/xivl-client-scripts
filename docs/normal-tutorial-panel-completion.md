@@ -166,8 +166,9 @@ their original resources and decoded payloads matched
 [retail_lua_coverage.json](../manifests/retail_lua_coverage.json). Canonical
 source normalization replaces CRLF pairs with LF only. The Ask base's result
 methods and shared desktop helpers are adopted from their linked publications.
-The additional base-module inspection here is limited to the static require
-relationship and the actual `setConfirmCondition` definition and binding.
+The base-module inspection covers the static require relationship, the actual
+`setConfirmCondition` definition and binding, and the bounded getter/load
+contract below.
 
 | Input | Bytes | SHA-256 |
 | --- | ---: | --- |
@@ -355,3 +356,52 @@ The declaration and getter do not assign
 city names to numeric values or establish this player's value. The literal
 town-code format table above remains conditional on the actual read and
 selected method/helper bindings.
+
+## Form-name and declaration boundary
+
+The declared inherited `WidgetBaseClass.getFormName(W)` returns exactly one
+nil. It makes no call, field read or alias transformation. Its canonical
+source is `widget/widgetbaseclass_common.lua:182-187`, including the binding.
+The original is `root/proto2`, code start `0x2019`, two words, with one fixed
+parameter and no varargs. Zero-based root PCs 7/8 create and assign its
+closure. Its first instruction returns the initially nil register with
+`B=2`; the following zero-value return is unreachable on normal entry.
+The common-module source, LPB and decoded-payload identities above apply.
+
+`WidgetBaseClass.loadFormData(W,N)`, in
+`widget/widgetbaseclass.lua:190-201`, requests `W:_setFilename(N)`, then
+`W:_loadForm()`. It forwards its second fixed argument unchanged, including
+nil, false or zero if supplied. It discards both call results and returns
+zero values. The original is `root/proto3`, code start `0x87F`, six words,
+two fixed parameters and no varargs. Zero-based root PCs 13/14 create and
+assign its closure. Calls at child PCs 2/4 have `B=3,C=1` and `B=2,C=1`,
+respectively; PC5 returns with `B=1`. These are native-named requests, without
+a claim about marshalling, filename storage or successful loading.
+
+The base source identity above applies. Its LPB is
+`client/script/n1635q/n1635q89r57y9rr.le.lpb`, 4080 bytes, SHA-256
+`aad807a42296e93301582defc8f15e4003b8093af672794282cd54950cc556ad`.
+Its decoded payload is 4067 bytes, SHA-256
+`11e5bab509c4dbbd7e2767d35cdf132a59b5c510c32c2e215f83cac713115140`.
+Both matched the same coverage manifest. Complete parsing, selected source
+assertions, root bindings, exact call/return widths and rejecting operand
+controls qualify these eight words.
+
+Adopting the declared Ask inheritance and completed opener/alias contract
+does not connect `TutorialWidgetK2/P2/K5/P5` to N. The exact missing edge is
+the producer/adaptor supplying `loadFormData`'s second argument from the
+selected opener alias or another form-name value. The nil getter and the
+load wrapper do not supply it. The published resolver at
+`xivl-decomp:docs/resource/sqwt-form-locale-resolution.md`, Lua entry and The
+opener, applies only after the actual filename argument, loader state and
+locale/root are established. No adjacent initializer/helper is included here.
+
+`xivl-client-data:docs/tutorial-normal-form-declarations.md`, Selected
+declarations and Template reference and source ceiling, canonically owns the
+four supplied files' raw text/control declarations and identities. Their
+named controls and button command/content are statically compatible with the
+published text/button requests above. Matching declarations establish no active
+form, native lookup/cache hit, applied property/binding, delivered Operate
+event, rendered text or accepted tutorial outcome. The same page retains the
+unread style/provider dependency; no further dependency or native body was
+traced.
