@@ -8,6 +8,9 @@ interpretation, or runtime observation.
 The [Bazaar reward-selection flow](bazaar-reward-selection-flow.md) qualifies
 one mode-400 creator, parent callback and cancellation path.
 
+The [order-item selection flow](bazaar-order-item-selection-flow.md)
+qualifies a distinct mode-440 creator and its parent callbacks.
+
 ## Identity, pins, and metadata citations
 
 - Resource: `client/script/n1635q/1q5xr5y57qn1635q.le.lpb`.
