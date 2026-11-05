@@ -24,6 +24,10 @@ otherwise. A canceled ask or missing item returns seven zeroes
 it does not establish item ownership at the receiver, a server-side delivery,
 or a completed quest or Hamlet mutation.
 
+The [Hamlet](hamlet-delivery-selection-flow.md) and
+[Company](company-supply-delivery-flow.md) caller flows qualify their
+class-specific result adaptation and rearm boundaries.
+
 | Decoded script | Canonical source SHA-256 | Reviewed decompile output SHA-256 | LPB and decoded-payload identity |
 | --- | --- | --- | --- |
 | `lua/scripts/widget/ask/contentrewardwidget.lua` | `1a8973cb83bb82a9c1695b2aa4561081d5bd3c75d2104cc95443e281bfc0790b` | `d31d283d4b1cf830e15cacdcf4cfcde6def149052b716da5e6ce4e2423968187` | `n1635q/9rz/7vwq5wqs5n9s6n1635q.le.lpb`; LPB SHA-256 `c7e90eddf2671f4aab832f580d1c459fa4a1853cf27b1937c28d1e0ceecede94`; decoded payload SHA-256 `f0f91fbb8dae7a4fcfbe6a0baa8f27bbd2b54275cc2f0aee1dcc49ffe5be95a4` |

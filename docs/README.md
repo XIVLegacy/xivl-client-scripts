@@ -156,6 +156,7 @@ unverified native or server behavior.
 - [Selected item-use command flow](item-use-command-flow.md)
 - [ItemDetailWidget local display](item-detail-widget-contract.md)
 - [Grand Company shop lifecycle](grand-company-shop-lifecycle.md)
+- [Company supply delivery flow](company-supply-delivery-flow.md)
 - [Grand Company promotion client contract](gc-promotion-client-contract.md)
 - [Grand Company enlistment and promotion evidence](gc-enlistment-promotion-evidence.md)
 - [Gil-shop widget opening](gil-shop-widget-opening.md)
