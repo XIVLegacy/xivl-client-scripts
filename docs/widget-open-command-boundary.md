@@ -51,3 +51,48 @@ numeric `-3` when `work.askAnswer == -3`; otherwise it returns the name data
 when present or nil (lines 481-499). These are widget-level client
 semantics. They do not prove that command 24228 historically opened this
 widget or identify a subsequent caller or server effect.
+
+## Command formal frame and factory tail
+
+The authenticated canonical member
+`lua/scripts/command/system/widgetopencommand.lua` declares this function at
+line 11, ends it at line 37 and binds `command` at line 39
+([script identity](../manifests/scripts.json#L7653)). In the original resource
+pinned above, root CLOSURE/SETTABLE PCs 8/9 bind `root/proto0` to
+`WidgetOpenCommand.command`. That prototype starts at `0xF3`, contains 25
+instructions (PCs 0-24), and declares three fixed parameters with raw Lua 5.1
+vararg flag 3. These canonical line locators are separate from its original
+debug-line range 67-76. PCs here are zero-based.
+
+Let the incoming Lua frame be `(C, P, S, V1, ..., Vn)`. These symbols name
+positions, without assigning command, player or owner roles. `C`, `P` and `S`
+are the three fixed slots. Missing fixed slots are nil-filled; only arguments
+after the third fixed slot belong to the variadic sequence. The path is `S`:
+MOVEs at PCs 2, 8 and 15 copy fixed register 2 into the arguments for
+`_string.sub`, the `require` concatenation and `_string.gsub`, respectively.
+Their CALLs are PCs 5, 10 and 18. Neither `C` nor `P` is read anywhere in this
+prototype, and neither is inserted into the factory arguments.
+
+If the preceding calls return normally, the factory request has exactly
+`(nil, G, false, V1, ..., Vn)`, where `G` is the first result of the selected
+`_string.gsub(S, ".+/", "")` call. Its CALL at PC 18 (`0x13B`) has B=4,C=2,
+so any additional results are discarded. `_createActor` is looked up and
+saved at PC 11 (`0x11F`) before `_string` and its `gsub` field are read at
+PCs 13/14. That `_string` read is fresh after `require`, separate from the
+earlier `sub` lookup. The factory request uses the saved factory value and
+the selected `gsub` result, without another lookup of either.
+
+VARARG PC 20 (`0x143`), A=9,B=0, expands the entire variadic sequence after
+the three factory prefix values. Factory CALL PC 21 (`0x147`), B=0,C=2,
+consumes that open argument range and retains one result. An empty tail adds
+no argument. Explicit nil values, including trailing nils, remain arguments;
+false, zero and other supplied values are forwarded without a local filter
+or conversion. The retained factory result is unused, consistent with the
+true return described above.
+
+This establishes the local formal-to-factory mapping only. It does not
+identify an actual command object or receiver, prove a tutorial widget alias
+was supplied, establish a historical native dispatch frame, or turn the
+factory request into an observed widget initialization callback. Those joins
+require the actual native method selection, receiver and delivered typed
+argument sequence.
