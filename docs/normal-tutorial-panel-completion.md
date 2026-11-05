@@ -387,14 +387,15 @@ Both matched the same coverage manifest. Complete parsing, selected source
 assertions, root bindings, exact call/return widths and rejecting operand
 controls qualify these eight words.
 
-Adopting the declared Ask inheritance and completed opener/alias contract
-does not connect `TutorialWidgetK2/P2/K5/P5` to N. The exact missing edge is
-the producer/adaptor supplying `loadFormData`'s second argument from the
-selected opener alias or another form-name value. The nil getter and the
-load wrapper do not supply it. The published resolver at
+The [shared initializer and name-selection contract](tutorial-form-name-selection.md#incoming-initialization-frame)
+maps the first incoming `_onInit` variadic value through `initCommon`'s
+third fixed argument and its exact-nil getter fallback into the load-name
+request. Applying it to `TutorialWidgetK2/P2/K5/P5` still requires the actual
+incoming typed frame and method/library bindings; the opener alias alone does
+not establish that value. The published resolver at
 `xivl-decomp:docs/resource/sqwt-form-locale-resolution.md`, Lua entry and The
 opener, applies only after the actual filename argument, loader state and
-locale/root are established. No adjacent initializer/helper is included here.
+locale/root are established.
 
 `xivl-client-data:docs/tutorial-normal-form-declarations.md`, Selected
 declarations and Template reference and source ceiling, canonically owns the

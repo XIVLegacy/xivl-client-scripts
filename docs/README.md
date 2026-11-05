@@ -37,6 +37,7 @@ unverified native or server behavior.
 - [Tutorial controller and Ask widget values](tutorial-widget-vocabularies.md)
 - [Tutorial widget module selection and opening](tutorial-widget-opening-contract.md)
 - [Normal tutorial panel completion](normal-tutorial-panel-completion.md)
+- [Tutorial form-name selection](tutorial-form-name-selection.md)
 - [Ask widget result and wait state](ask-widget-result-state.md)
 - [Wandering Minstrel client contracts](wandering-minstrel-client-contract.md)
 - [Gridania opening tutorial widget contracts](gridania-opening-tutorial-contract.md)
