@@ -34,6 +34,7 @@ unverified native or server behavior.
 - [Item compatibility eligibility](item-equipment-compatibility.md)
 - [MyPlayer timer consumers](myplayer-timer-consumers.md)
 - [Widget-open command boundary](widget-open-command-boundary.md)
+- [Player widget-command request](player-widget-command-request.md)
 - [Tutorial controller and Ask widget values](tutorial-widget-vocabularies.md)
 - [Tutorial widget module selection and opening](tutorial-widget-opening-contract.md)
 - [Normal tutorial panel completion](normal-tutorial-panel-completion.md)

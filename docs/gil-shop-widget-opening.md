@@ -73,14 +73,11 @@ below comes from inspecting the manifest-matched decoded bodies.
 
 ## Player widget-command gates
 
-`PlayerBaseClass.commandAboutWidget` reads `_getServerTime`. It rejects a
-non-forced request if the nonzero stored `widgetCommandBurstBlocker` is later
-than that current value. It then rejects a non-forced request while the
-resolved command name is already playing. Otherwise it calls
-`_executeCommand` and stores the current time in the blocker
-(`chara/player/playerbaseclass.lua:2576-2623`). The recovered body adds no
-future cooldown interval. This does not establish how the native server-time
-clock behaves during a live session.
+The original [player widget-command adapter](player-widget-command-request.md)
+owns the exact local blocker/playing gates, truthy-force cancellation and
+recording requests, full `_executeCommand` argument tail and one-result
+return. Its blocker store uses the saved entry time without adding an interval.
+Actual native dispatch and accepted widget creation remain unestablished.
 
 `isCommandAboutWidgetPlaying` resolves the command name and forwards the
 name and command actor to `_isCommandPlaying` (`:2626-2639`). Thus the
