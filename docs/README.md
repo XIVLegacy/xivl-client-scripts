@@ -19,6 +19,7 @@ unverified native or server behavior.
 - [Passive-mode command state check](passive-mode-command-contract.md)
 - [Standard emote command targets](standard-emote-command-contract.md)
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
+- [CommonAsk text requests](common-ask-text-request.md)
 - [Linkshell and party command contracts](linkshell-party-command-contracts.md)
 - [Linkshell master-transfer evidence](linkshell-master-transfer-evidence.md)
 - [Equipment set and cancel command contracts](equipment-cancel-command-contracts.md)
