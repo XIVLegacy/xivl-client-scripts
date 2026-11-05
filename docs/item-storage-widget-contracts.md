@@ -177,6 +177,23 @@ First-menu results 5, -3 or nil finish the talk and return zero values.
 Other first-menu results repeat. Neither method performs a zone change or
 storage transaction; the caller owns any action on a returned value.
 
+Under the published
+[flag-1 askExtendWidget contract](request-warden-event-contract.md#widget-result-production),
+the first call builds answer rows 589-593 with text owner `self`; the
+confirmation builds rows 60017-60018 with text owner `worldMaster`. Both
+request default index 1, paging false and cancellation true. The numeric 5
+and 2 are answer counts in these calls. The
+[original open-argument forwarding](open-world-key-coffer-contract.md#confirmation-and-event-contract)
+preserves their empty format tails. These are row requests and flags, without
+an identified physical text provider, rendered labels or native acceptance.
+
+The published Ask cancel producer stores numeric -3. If that value reaches
+this caller's first result, cancellation at the first menu finishes the talk
+and returns zero values. At the confirmation it follows the non-1 path and
+repeats the first menu. This composes existing contracts; actual inherited
+method selection, same-widget result delivery and inn entry/homepoint/storage
+effects remain unproved.
+
 Original source: `client/script/tp5rq/r75w9s1v/6549pyqq9yz/64qn1y.le.lpb`,
 SHA-256 `f9305122e98522b72baee7bf405a04ebf30468d4c52187dc1445acea7daa93c2`;
 decoded payload SHA-256
