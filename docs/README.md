@@ -40,6 +40,7 @@ unverified native or server behavior.
 - [Normal tutorial panel completion](normal-tutorial-panel-completion.md)
 - [Conditional tutorial TextBlock provider](tutorial-text-reference-provider.md)
 - [Tutorial form-name selection](tutorial-form-name-selection.md)
+- [Conditional tutorial widget creation frame](tutorial-widget-creation-frame.md)
 - [Ask widget result and wait state](ask-widget-result-state.md)
 - [Wandering Minstrel client contracts](wandering-minstrel-client-contract.md)
 - [Gridania opening tutorial widget contracts](gridania-opening-tutorial-contract.md)
