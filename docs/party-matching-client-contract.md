@@ -83,13 +83,10 @@ themselves identify server content rows or runtime policy.
 ## Party controls
 
 `numberOfPeopleRemain` returns 7 when `countPartyMember()` is zero and
-otherwise returns `8 - countPartyMember()`. In `processUICommandOperate`, the
-`Button_Operate` path notifies with 30507 and closes the widget when the player
-confirm-group-command variation is 10001 or 10002. It has a separate matching
-branch that also notifies with 30507 and closes the widget when the party has
-more than one member and the local player is party leader. These are
-widget-side guards, not a complete recruitment or party matching server
-contract.
+otherwise returns `8 - countPartyMember()`. The
+[selected editor flow](party-recruitment-edit-flow.md) owns Operate, Cancel
+and Close guards, notification operands/results and parent cleanup. These
+local outcomes do not establish recruitment or party matching server acceptance.
 
 ## Evidence boundary
 

@@ -163,6 +163,7 @@ unverified native or server behavior.
 - [Job and Grand Company event contracts](job-grand-company-event-contracts.md)
 - [Loot item UI contract](loot-item-ui-contract.md)
 - [Party matching client contract](party-matching-client-contract.md)
+- [Recruitment editor outcomes](party-recruitment-edit-flow.md)
 - [Search and recruitment native boundaries](search-recruitment-native-boundaries.md)
 - [NPC Linkpearl client route](npc-linkpearl-client-contract.md)
 - [Parley target gate](parley-target-gate.md)
