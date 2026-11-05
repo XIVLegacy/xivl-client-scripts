@@ -7,7 +7,9 @@ event selection are three separate decisions.
 
 The canonical source and original-bytecode findings are:
 
-- [Gridania](gridania-opening-tutorial-contract.md): Btl001 and Btl002.
+- [Initial Gridania](gridania-opening-tutorial-contract.md): Btl001 and Btl002;
+  [additional branches](gridania-battle-tutorial-branches.md): Magic001 and
+  Btl003/004.
 - [Limsa](limsa-opening-tutorial-contract.md): Btl001, BtlMagic001 and
   Btl002/003/004.
 - [Ul'dah](uldah-opening-tutorial-contract.md): the corresponding five battle
@@ -49,7 +51,7 @@ stored input-device value.
 
 | City / selected methods | Target wait operand and main lesson request | Later callable methods within the published scope |
 | --- | --- | --- |
-| Gridania Btl002 | Target wait 3201406; then the class-selected infoID above. | Btl003/004 were not part of the selected Gridania source contract. Btl002 returns without selecting a successor or locally closing the final lesson. |
+| Gridania BtlMagic001 and Btl002 | Target wait 3201406; each independently reads class state and requests its selected infoID. | Btl003 has no success request and continues to infoID 1 and the final mask only for default/skill-7 branches. Btl004 requests success and inform row 90, then infoID 1 without a final mask. |
 | Limsa BtlMagic001 and Btl002 | Target wait 3205403; each independently reads class state and requests its selected infoID. | Btl003 requests success for every class, but only its default/skill-7 branches continue to infoID 1, Moving the Camera, and the final mask. Btl004 requests success and an inform dialog, then infoID 1, without a final mask call. |
 | Ul'dah BtlMagic001 and Btl002 | Target wait 3203301; each independently reads class state and requests its selected infoID. | Btl003 continues to infoID 12, Tactical Points, and the final mask only for default/skill-7 branches. Btl004 requests success and an inform dialog, then infoID 13, Weaponskills. |
 
@@ -70,7 +72,8 @@ answer or proves native creation, focus or rendering.
 ## Local and external continuation
 
 The selected Limsa and Ul'dah battle methods do not call one another.
-Gridania's Btl002 also supplies no local call to Btl003. A later method's
+Gridania's Btl002 supplies no local call to Btl003, and its three additional
+methods likewise do not call another battle tutorial method. A later method's
 initial close request cannot establish that it followed an earlier lesson
 for the same player. All such historical method selection remains external
 to these contracts.

@@ -13,6 +13,10 @@ establish a historical server invocation, rendered widget acceptance, or the
 event that follows the lesson. The shared titles/controller vocabulary is
 owned by [Tutorial widget values](tutorial-widget-vocabularies.md).
 
+The [additional battle tutorial contracts](gridania-battle-tutorial-branches.md)
+own Magic001, Btl003 and Btl004. Their callable branches do not establish a
+historical continuation from the two methods inspected here.
+
 ## Input identity and method
 
 The extraction is `2012.09.19.0001`, game version `1.23b`. The exact source

@@ -39,6 +39,7 @@ unverified native or server behavior.
 - [Ask widget result and wait state](ask-widget-result-state.md)
 - [Wandering Minstrel client contracts](wandering-minstrel-client-contract.md)
 - [Gridania opening tutorial widget contracts](gridania-opening-tutorial-contract.md)
+- [Additional Gridania battle tutorial branches](gridania-battle-tutorial-branches.md)
 - [Limsa opening tutorial widget contracts](limsa-opening-tutorial-contract.md)
 - [Ul'dah opening tutorial and Judge contracts](uldah-opening-tutorial-contract.md)
 - [Opening tutorial city comparison](opening-tutorial-city-contracts.md)
