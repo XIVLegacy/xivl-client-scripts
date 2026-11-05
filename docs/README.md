@@ -156,6 +156,7 @@ unverified native or server behavior.
 - [Gil-shop widget opening](gil-shop-widget-opening.md)
 - [ShopBuy purchase selection](shop-buy-selection-contract.md)
 - [ShopSellWidget local behavior](shop-sell-widget-contract.md)
+- [ShopSell opening and selection flow](shop-sell-selection-flow.md)
 - [ItemSelectWidget local selection](item-select-widget-contract.md)
 - [Materia removal client UI](materia-removal-client-ui.md)
 - [Materia melding client contract](materia-meld-client-contract.md)

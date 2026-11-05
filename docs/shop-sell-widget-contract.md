@@ -48,9 +48,11 @@ instruction vectors for the byte offsets and PCs below.
 
 ## Contract boundary and work state
 
-This is a local behavior contract under supplied values. It does not identify
-an opener, NPC, shop assignment, server request, inventory removal, currency
-mutation, completed sale, or settlement. UI and child calls record requested
+This is a local behavior contract under supplied values. The
+[selected sale flow](shop-sell-selection-flow.md) owns its conditional opener,
+rearming, result-to-item adaptation and explicit close. Actual NPC, shop
+assignment, server request, inventory removal, currency mutation, completed
+sale and settlement remain unbound. UI and child calls record requested
 handoffs and returned helper values; they do not prove rendering, widget
 creation, widget destruction, native persistence, or transaction effects.
 The ShopBuy opening tuple and `shopItem.csv` buy-price field are not sell

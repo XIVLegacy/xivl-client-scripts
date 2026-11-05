@@ -9,6 +9,9 @@ The [purchase-selection contract](shop-buy-selection-contract.md) owns row and
 quantity results, reached numeric-input callbacks, cancellation and the separate
 explicit close request.
 
+The [sale flow](shop-sell-selection-flow.md) owns the separate Ask/ShopSellWidget
+opener, five-result adaptation, supplied actor's item lookup and explicit close.
+
 ## Evidence identity
 
 This is static analysis of extraction `2012.09.19.0001` for client 1.23b,
