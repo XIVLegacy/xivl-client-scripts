@@ -34,19 +34,21 @@ other actor branches; the Manine branch above does not read them.
 | --- | --- |
 | `F1 == nil` | Finish the talk turn and return no values. |
 | Any of `F1..F3` equals `1280062` | Finish and return no values. |
-| Otherwise | Ask owner/self text 45 in mode 2; only answer 1 continues. |
-| Continued path | Say rows 48 and 49, then ask row 50 in mode 2; only answer 1 continues. |
+| Otherwise | Ask owner/self text 45 with answer count 2; only answer 1 continues. |
+| Continued path | Say rows 48 and 49, then ask row 50 with answer count 2; only answer 1 continues. |
 | First zero among `F1..F3` | Save result 1, 2 or 3 respectively. |
-| No zero | Ask row 53 in mode 4 with `F1,F2,F3`; retain its first result. |
+| No zero | Ask row 53 with answer count 4 and `F1,F2,F3`; retain its first result. |
 | Replacement result nil or 4 | Finish and return that result unchanged. |
-| Other replacement result | Resolve 1/2/3 to the corresponding supplied value, say row 59 with that old value and destination, then ask row 60 in mode 2. |
+| Other replacement result | Resolve 1/2/3 to the corresponding supplied value, say row 59 with that old value and destination, then ask row 60 with answer count 2. |
 | Final confirmation other than 1 | Replace the saved result with nil. |
 | Final tail | Finish the talk turn and return exactly one saved result. |
 
 The original bytecode preserves replacement answer 4. It does not normalize
-that answer to nil. An out-of-domain result from row 53 also has no explicit
-range rejection here; the widget's actual result domain needs its own evidence.
-This is a method with three input slots, not proof of an account-wide limit.
+that answer to nil. Other row-53 results have no explicit range rejection here.
+The [replacement-choice flow](camp-replacement-choice-flow.md) owns the
+WorldMaster/AskWidget argument roles, local result/cancel paths, failure zero
+and remaining native-delivery boundary. This is a method with three input
+slots, not proof of an account-wide limit.
 
 For destination `1280062`, the method supplies numeric `500` to speech row 49.
 That row formats a displayed gil amount. This static presentation does not
