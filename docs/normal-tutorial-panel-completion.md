@@ -324,3 +324,31 @@ first nil. This is an adoption of that native contract, not a new native trace.
 The selected source request and conditional encoding do not establish the
 actual native frame, selected receiver/control or text-data namespace,
 physical provider/table, formatter meaning, applied property or rendered text.
+
+## Initial-town getter and declaration
+
+The selected `PlayerBaseClass.getInitialTown(P)` reads
+`P.playerWork.initialTown` and returns exactly one value when the lookups
+complete normally. The getter has no conversion, default or additional
+predicate. Its original definition is `root/proto6`, decoded code offset
+3710, four words, in `chara/player/playerbaseclass.lua`.
+
+That canonical source has SHA-256
+`6226b3fa15dfdbad279b7dba453f8a3b76fcb8b68bad6e14f5403d52987f76e4`.
+Its original LPB is `client/script/729s9/uy9l5s/uy9l5s89r57y9rr.le.lpb`,
+SHA-256 `32182274f3886d0cdf6329f8a82e6592790c9b3038e00bebe5b2b38702bbd53e`;
+decoded-payload SHA-256
+`1530dc2b53353888ccc6b47f78920ebd2c2d876335b9968196312153b0db464a`.
+These identities matched the same script and retail resource manifests used
+above, with the selected archive member and LPB decoded in memory.
+
+The existing native declaration in
+`xivl-client-structs:docs/work-binder-native-contract.md`, Declared work of a
+MyPlayer / playerWork, at revision
+`c7188343bf5d18984e171f89b63f6adbac66fc63`, lists
+`playerWork._sync.initialTown` as `integer8`. This adopts the declaration
+without establishing that the getter's field uses that layout or storage.
+The declaration and getter do not assign
+city names to numeric values or establish this player's value. The literal
+town-code format table above remains conditional on the actual read and
+selected method/helper bindings.
