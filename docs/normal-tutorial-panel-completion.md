@@ -265,3 +265,30 @@ owns registration marshalling; numeric 5 remains a registration argument,
 without an event-enum interpretation here. Neither the conditional Lua join
 nor registration establishes a delivered event, physical click, movement,
 menu use, applied native state, widget closure or accepted progression.
+
+## Getting Around format operands
+
+The selected `getTutorial2TownNPC(W,town)` helper returns three values with
+these local numeric comparisons:
+
+| `town` input | First result | Second result | Third result |
+| --- | ---: | ---: | ---: |
+| numeric 1 | 1600150 | 1 | 1 |
+| numeric 2 | 2300120 | 2 | 1 |
+| numeric 3 | 1100003 | 2 | 1 |
+| default path | 0 | nil | nil |
+
+The comparisons are exact Lua numeric equality. String `"1"`, Boolean true
+and nil do not select the numeric-1 branch. The default returns three values,
+including its two nils. The body makes no call or external field read/write.
+These are formatting operands, without a town-name, NPC-identity, grammatical,
+quantity or text-rendering interpretation assigned here.
+
+The original helper is `root/proto41`, decoded code offset 15083, 30 words,
+with two fixed parameters including W; root zero-based PC132 binds it to
+`TutorialWidget.getTutorial2TownNPC`. It uses the same authenticated Ask
+tutorial source, LPB and payload as the selected callers above. Both info2
+text methods request exactly three helper results and forward them after
+text key 9008 for Pad or 9009 for Keyboard. This maps the local values while the
+actual fresh town value, receiver/method binding, native/provider state,
+formatter meaning, locale and rendered lesson remain unproved.
