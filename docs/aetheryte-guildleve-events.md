@@ -71,6 +71,10 @@ A declined confirmation repeats the main prompt. Choice 4 returns
 `(4, selectedDifficulty)` only for a successful selection in 1-5
 (P:1476-1588; C:206-317).
 
+The [playing-choice flow](guildleve-playing-choice-flow.md) qualifies the
+Boolean-prefix composition, original-slot adaptation and local result widths.
+The actual server operand types and historical invocation remain unbound.
+
 ## eventGLBoost and the Favor binding
 
 B `eventGLBoost:258-267` forwards its two payload slots unchanged to

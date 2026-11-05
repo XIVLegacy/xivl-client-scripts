@@ -90,6 +90,7 @@ unverified native or server behavior.
 - [Local guildleve publisher contract](local-guildleve-publisher-contract.md)
 - [Local guildleve supplies contract](local-guildleve-supplies-contract.md)
 - [Aetheryte guildleve events and Guardian's Aspect](aetheryte-guildleve-events.md)
+- [Guildleve playing choices and local results](guildleve-playing-choice-flow.md)
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
 - [Hamlet delivery selection flow](hamlet-delivery-selection-flow.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
