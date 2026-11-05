@@ -2,8 +2,9 @@
 
 `DesktopWidget.convertPronouns` prepares ordered replacement requests and
 returns one value. It directly recognizes a signal pattern under one control
-condition. Actual text substitution belongs to its opaque `replaceString`
-helper. The [parsed-key 107 caller](local-echo-client-request.md#selected-request-and-local-result)
+condition. Text substitution is requested through its
+[replacement helper](echo-token-replacement.md). The
+[parsed-key 107 caller](local-echo-client-request.md#selected-request-and-local-result)
 passes its freshly read input to this method and forwards its result to the
 saved echo method.
 
@@ -88,8 +89,10 @@ whether replacements are rescanned, or what it does with case variants,
 unknown or malformed tokens, non-string input or replacement values.
 It supplies no general delimiter parser, case folding or Unicode rule.
 The name `deleteChineseName` supplies no proved normalization semantics.
-The next source inputs needed for actual converted text are authenticated
-bindings and bodies of those two helpers, starting with `replaceString`.
+The [replacement contract](echo-token-replacement.md#guard-frame-and-results)
+qualifies the nil-replacement bypass and conditional native request. Actual
+converted text still needs the matching library/native frame and helper
+values. The name-normalization helper remains a separate source boundary.
 
 The [standard-emote contract](standard-emote-command-contract.md#menu-and-typed-callers)
 describes `getCurrentTargetCharacter` and a self-clearing test in its own
