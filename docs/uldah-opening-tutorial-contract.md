@@ -1,5 +1,8 @@
 # Ul'dah opening tutorial and Judge contracts
 
+The [normal tutorial flow](uldah-normal-tutorial-flow.md) owns the separate
+normal/withHQ device, scene, scheduler, camera and movement-lesson sequence.
+
 `Man0u0` selects battle lesson infoID 10 for skill category 21, 11 for
 categories 29/39, 9 for skill 7 after those category tests fail, and 8
 otherwise. The category helpers label 29 as crafter and 39 as gatherer.
