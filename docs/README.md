@@ -158,6 +158,7 @@ unverified native or server behavior.
 - [Materia melding client contract](materia-meld-client-contract.md)
 - [Repair request client contract](repair-request-client-contract.md)
 - [CraftRepairWidget local interaction](craft-repair-widget-contract.md)
+- [Craft repair selection flow](craft-repair-selection-flow.md)
 - [CraftEditWidget material selection](craft-edit-widget-contract.md)
 - [CraftStart material selection and results](craft-start-selection-contract.md)
 - [Requested Items quest selection](craft-requested-quest-selection.md)

@@ -191,6 +191,10 @@ sets the remapped mode to nil. The decompiler's apparent fixed return
 temporaries do not limit that open result sequence. None of these operations
 proves a server-selected callback, debit, material use or durability change.
 
+The [selected repair helper contract](craft-repair-selection-flow.md) owns
+the conditional creation/initialization join, getter-result adjustment,
+Cancel/failure distinction and explicit close before those results return.
+
 ## Evidence boundary
 
 The result is static retail-client evidence. The remaining discriminator is

@@ -204,6 +204,7 @@ selects this pinned binding. The widget body alone does not prove that
 selection, a server-selected callback, 24243/22012 settlement, debit, material
 consumption, durability repair, payment, success, or destruction.
 
-The contract is therefore limited to the local Lua interaction surface and
-leaves caller, native, rendering, lifetime, item identity, and server edges
-unresolved.
+The [selected helper flow](craft-repair-selection-flow.md) owns the conditional
+creation/init, result-width, wait and explicit-close composition. Actual
+caller invocation, native application, rendering, lifetime, item identity and
+server edges remain unresolved.
