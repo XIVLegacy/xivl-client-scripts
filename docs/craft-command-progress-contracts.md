@@ -21,6 +21,10 @@ provided progress, craft-point, and quality values. It fixes maximum progress
 at 100 and substitutes 999 when either supplied craft-point or quality maximum
 is zero or nil, then forwards the values to `updateProcess` for display.
 
+The [selected progress flow](craft-progress-flow-contract.md) records ordered
+Judge inputs, refresh defaults/preservation, original command forwarding,
+selection/cancellation results and the separate explicit close request.
+
 These are client classification and UI-routing facts. They do not establish
 craft success formulas, quality formulas, durability changes, inventory
 mutation, experience rewards, command eligibility, or server validation.

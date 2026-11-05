@@ -26,6 +26,7 @@ unverified native or server behavior.
 - [Party level-sync evidence](retail-level-sync-finding.md)
 - [TalkCommand client contract](talk-command-client-contract.md)
 - [Craft command and progress contracts](craft-command-progress-contracts.md)
+- [Selected crafting progress flow](craft-progress-flow-contract.md)
 - [Equipment parameter formulas](equipment-parameter-formulas.md)
 - [Debugger graphic-helper boundary](debugger-graphic-helper-boundary.md)
 - [General parameter 18 consumers](general-parameter-18-consumers.md)
