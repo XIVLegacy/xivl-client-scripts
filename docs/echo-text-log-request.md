@@ -11,8 +11,9 @@ The original method has two fixed parameters, receiver `W` and text `T`,
 with no variadic tail. Omitted parameters become nil; extra actual values are
 discarded before this body. It obtains `W.checkText`, calls it with exactly
 `(W, T)` and retains one result `C`. No results become nil; additional checker
-results are discarded. The checker body is opaque here, so its name does not
-establish accepted types, validation, normalization or a transformed string.
+results are discarded. The [separate checker contract](echo-text-check.md#predicate-and-composition)
+owns its original predicate. This call site does not establish the actual
+checker binding, accepted native types or a transformed string.
 
 When `C` is exactly false, the method returns zero values without reading
 global `worldMaster`. Otherwise it freshly reads that global into `M`, obtains
