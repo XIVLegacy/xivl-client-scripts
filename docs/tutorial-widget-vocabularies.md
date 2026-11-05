@@ -13,6 +13,27 @@ the alias `TutorialWidgetK` or `TutorialWidgetP` followed by the infoID.
 These selected consumers establish the two values, not a complete enumeration
 of every native input-device domain.
 
+`_isKeyboardOnlyTutorial` returns one Boolean, separate from the numeric
+controller choice. The
+[native keyboard-only test](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/talk-native-contract.md#keyboard-only-tutorial-test)
+in `xivl-client-structs:docs/talk-native-contract.md` owns its callback,
+refresh, field test and exact binary identity. Its constructor-based true
+result depends on the `INFERRED` receiver identity as
+`Application::Main::RaptureElementContainer` and the absence of an unknown
+store through a computed address. This does not establish an always-true
+runtime result or a fresh character's predicate value. The property meanings
+and the object behind `0xC0000024` remain unknown.
+
+The [normal city tutorial contracts](opening-normal-tutorial-city-contracts.md#shared-local-sequence)
+compare separate global predicate reads around device selection and wait 3.
+The selector's predicate reference at
+`widget/ask/tutorialmodeselectwidget.lua:20` is separate from those scenario
+reads. Equal scenario samples do not establish that the selector saw the
+same value, or that the stored `tutorialDeviceType` later read by the opener
+equals the local selector result. The button restriction does not validate
+that result as 1 or 2 or establish actual widget selection, hardware
+availability or accepted input.
+
 The content values below belong to `widget/ask/tutorialwidget.lua` and its
 infoID dispatchers. The distinct `widget/tutorialwidget.lua` declares the
 same class name with a different base and must not be merged into this table
