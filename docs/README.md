@@ -159,6 +159,7 @@ unverified native or server behavior.
 - [CraftRepairWidget local interaction](craft-repair-widget-contract.md)
 - [CraftEditWidget material selection](craft-edit-widget-contract.md)
 - [CraftStart material selection and results](craft-start-selection-contract.md)
+- [Requested Items quest selection](craft-requested-quest-selection.md)
 - [Item-storage widget contracts](item-storage-widget-contracts.md)
 - [Rested experience client contract](rested-experience-client-contract.md)
 - [Job and Grand Company event contracts](job-grand-company-event-contracts.md)

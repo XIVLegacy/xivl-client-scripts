@@ -117,6 +117,10 @@ text conditional arms. `worldMaster.csv` is pinned at
 
 ## Requested Items and recipe presentation
 
+The [Requested Items selector](craft-requested-quest-selection.md) owns the
+selected UI type/index adaptation, current quest getter results and cleanup.
+The quest-choice adapter and material-slot selector are separate client methods.
+
 The [selected CraftStart result flow](craft-start-selection-contract.md) owns
 completion, cancellation, slot readback and the judge's ordered material
 results. The setup and supply identities below remain its input contract.
