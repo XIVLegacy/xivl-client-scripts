@@ -19,6 +19,7 @@ unverified native or server behavior.
 - [Passive-mode command state check](passive-mode-command-contract.md)
 - [Standard emote command targets](standard-emote-command-contract.md)
 - [Selected local echo client request](local-echo-client-request.md)
+- [Echo pronoun conversion requests](echo-pronoun-conversion.md)
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
 - [CommonAsk text requests](common-ask-text-request.md)
 - [CommonAsk answer-list adaptation](common-ask-answer-list.md)
