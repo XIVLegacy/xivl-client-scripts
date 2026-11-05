@@ -45,7 +45,17 @@ item's `_getCatalogID()` when that item exists, and otherwise reads the
 selected row's `catalog` property. A nonpositive catalog ID becomes `nil`.
 The item-display path also calls `MyPlayer._canStoreItem(category,
 catalogId)` and rejects the item when the call returns false. Neither call
-reveals the native eligibility rule or proves that a selected item was stored.
+proves that a selected item was stored. The published native rule is owned by
+`xivl-client-structs:docs/player-world-native-contract.md`, Stored item lists:
+the MyPlayer implementation returns false when the item-number membership
+helper returns a negative index. Otherwise its class helper must equal
+`category - 1` for true. It reads no stored-item list. The native declaration
+takes two integers and may return one Boolean or no values; the actual
+receiver/dispatch and a completed storage transaction remain unproved here.
+
+The selected call is `setItemToXmlLight`, `root/proto18`, decoded code offset
+9969, zero-based CALL PC28, with receiver plus two operands and one requested
+result. Its next comparison tests that result against Boolean false at PC29.
 
 `ItemStorageGetWidget` populates its list using
 `MyPlayer._countStoredItem(category)` and
