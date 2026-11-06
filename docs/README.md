@@ -178,6 +178,7 @@ unverified native or server behavior.
 - [Grand Company promotion client contract](gc-promotion-client-contract.md)
 - [Grand Company enlistment and promotion evidence](gc-enlistment-promotion-evidence.md)
 - [Sanction CompanyBuffer client contract](sanction-company-buffer-contract.md)
+- [Sanction rank state composition](sanction-rank-state-composition.md)
 - [Sanction-scroll local eligibility](sanction-scroll-local-eligibility.md)
 - [Gil-shop widget opening](gil-shop-widget-opening.md)
 - [ShopBuy purchase selection](shop-buy-selection-contract.md)
