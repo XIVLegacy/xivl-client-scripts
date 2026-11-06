@@ -32,6 +32,89 @@ The score totals getter consumes and clears its cache; neither receiver
 directly opens a widget. Client display arithmetic does not validate server
 ranking, bonus or reward policy.
 
+## Score widget requests and total-read order
+
+`HamletDefenseScoreWidget.initAsk` has two fixed parameters: the widget
+receiver and a supplied value used in the title request. The original
+`root/proto0` contains 83 instructions starting at decoded offset `0x00010B`.
+The matching canonical span is
+`widget/ask/hamletdefensescorewidget.lua:11-117`, SHA-256
+`7C6ECF986F0DAA8CB9555B7FBE19F1C63C9EE86620443F1BDE29A27362282B78`.
+Its original instructions and canonical source agree on the requests below.
+The [script sidecar](../lua/scripts/widget/ask/hamletdefensescorewidget.calls.json)
+records the named getter references.
+
+All calls use the indicated object as their receiver. First the widget calls
+`setCancelCondition()` and `setConfirmCondition("Button_Confirm")`. It then
+reads global `worldMaster`, calls its `_getMyPlayer()` once, retains the first
+result as `player`, and calls `player:_countHamletDefenseScore()` once,
+retaining the first result as the loop limit. Neither the player nor the
+count has an explicit validity guard.
+
+For each numeric-loop index `i`, starting at 1 with step 1 through the captured
+limit, the method makes these calls in order:
+
+| Receiver | Method | Ordered explicit arguments | Results retained |
+|---|---|---|---|
+| `player` | `_getHamletDefenseScore` | `i` | First three: `points`, `category`, `factor` |
+| widget | `setListText` | `"DataMaker_ListBox", i - 1, "bonus", 13019, category, factor` | None |
+| widget | `setListProperty` | `"DataMaker_ListBox", i - 1, "point", points` | None |
+
+After the loop, including when it ran no iterations, the widget calls
+`updateListProperty("DataMaker_ListBox")`. Only after that call returns does
+the method replace a nil second parameter with the literal `9` and call
+`player:_getHamletDefenseScoreAll()`, retaining its first five results as
+`t1` through `t5`. The title fallback tests nil specifically: supplied
+`false` and `0` remain unchanged. The meaning of `9` is not established here.
+The totals call is at decoded offset `0x0001AB`, after the list update call
+at `0x000193` and before the first total text call at `0x0001D7`.
+
+The remaining calls occur in this order. Here `titleValue` is the supplied
+second parameter after the nil-only fallback.
+
+| Receiver | Method | Ordered explicit arguments |
+|---|---|---|
+| widget | `setText` | `"TextBlock_ContentsTitle", 13012, titleValue, t2` |
+| widget | `setText` | `"TextBlock_PointTotalValue", 225, t1` |
+| widget | `setText` | `"TextBlock_CorrectionLevelValue", 3189, t2` |
+| widget | `setText` | `"TextBlock_PointAfterCorrectionValue", 225, t3` |
+| widget | `setText` | `"TextBlock_ClearTimeValue", 225, t4` |
+| widget | `setText` | `"TextBlock_TotalPointsValue", 225, t5` |
+| widget | `setContent` | `"Label_TotalPointsValue", 225, t5` |
+
+Extra getter results are discarded and missing results are padded with nil
+to the stated widths. Row and total values, including nil, false and zero,
+are forwarded without a value guard. All presentation-call results are
+discarded, and `initAsk` returns no values on completion. Each method is
+looked up again on its retained receiver at its call site, including row
+getters on later iterations, the totals getter after the list update, and
+each `setText`. The global and player lookup are not repeated.
+
+The only explicit arithmetic in this method is the list index `i - 1` and
+numeric-loop progression. It neither multiplies row points by `factor` nor
+recomputes or checks the five totals. For example, authored getter results
+`(points, category, factor) = (17, 23, 4)` request point value `17`, not `68`.
+Totals `(19, 3, 7, 11, -5)` are forwarded unchanged even though they do not
+satisfy a correction formula. A nil title parameter with fourth total `27`
+still requests title arguments `(13012, 9, t2)`.
+
+The published getter contract in
+`xivl-client-structs:manifests/hamlet_wire_contract.json`, opcode `0x01a8`,
+at revision `180ab8aaa49b0157fee8996abe4d27e05b588bda`, identifies the native
+totals tuple as `(sum, signed correction, sum * correction, additive,
+sum * correction + additive)`. Conditional on the retained player using
+that binding and cache, the totals read consumes its score state before
+any of the seven total/title presentation requests. An earlier row or list
+update error prevents this method from reaching that read. A later control
+error has no local recovery or rollback of a completed read.
+
+These are requests to uninspected presentation helpers, not proof of rendered
+text or control behavior. Text rows `13019`, `13012`, `225` and `3189` are
+literal operands; this method establishes no text bank or provider binding.
+The source fixtures do not execute the retail client or establish actual
+scores, cache lifetime across other callers, a Hamlet variant, server score
+production, a historical clear, or reward delivery.
+
 `PopulaceHamletSupply` provides separate item and materia delivery-menu
 methods (`populacehamletsupply.lua:7-78`). Its item getters return a
 craft-list count of 8 and gather-list count of 3. For actor class IDs

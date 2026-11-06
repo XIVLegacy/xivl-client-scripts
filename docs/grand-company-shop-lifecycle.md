@@ -33,7 +33,9 @@ establish those relationships.
    helper compares the requested threshold with the local player's company
    rank; rank 127 is normalized to zero
    (`lua/scripts/chara/npc/npcbaseclass_event.lua:883-904`). These are observed
-   client gates, not proof of server authorization.
+   client gates, not proof of server authorization. The
+   [original helper details](caravan-entry-client-contract.md#shared-rank-gate)
+   qualify its fresh player reads, exact comparison and result width.
 3. `eventShopMenuOpen` snapshots `_getSpecialEventWork(9)` into
    `work.eventFlag`: only values 8 and 11 survive, otherwise it stores zero.
    It then opens `Ask/GrandCompanyShopWidget` with the actor as owner

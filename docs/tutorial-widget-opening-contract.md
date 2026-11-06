@@ -12,8 +12,8 @@ The [controller and content vocabulary](tutorial-widget-vocabularies.md) owns
 the stored-controller override, K/P alias convention and Ask lesson titles.
 The [Gridania contract](gridania-opening-tutorial-contract.md) owns that
 scenario's calls and the shared creation/selection helper behavior. This page
-completes the opener partition and distinguishes module selection from command
-dispatch and native actor creation.
+completes the opener partition and its conditional focus request, and
+distinguishes module selection from command dispatch and native actor creation.
 
 ## Static module and creation relationships
 
@@ -110,6 +110,53 @@ another call path. No unconditional cleanup is established by this opener.
 The explicit close helper is documented in the
 [Gridania cleanup contract](gridania-opening-tutorial-contract.md#scenario-order-and-cleanup).
 
+## Conditional return-to-desktop focus request
+
+The selected opener call supplies exactly `changeFocusedWidget(D,D)` and
+discards all results. If that method resolves to the connector implementation
+at canonical source 7055-7100, its four fixed parameters are adjusted to
+`(D,D,nil,nil)`. There is no vararg tail or optional-argument default. With
+normal method lookup and prerequisite returns, this call follows three steps:
+
+1. Request `checkActor(D,D)` and take only its first result. Exact nil returns
+   one false immediately. The result is used only for this guard; it does not
+   replace the supplied target D. False or zero from a different implementation
+   would pass the guard without local validation.
+2. Read `_getKeyboardFocusedWidget(D)` afresh, taking one result F. If Lua
+   equality reports `F == D`, return one true without calling the setter.
+3. Otherwise tailcall `_setKeyboardFocusedWidget(D,D)`, preserving its complete
+   result sequence. The opener discards that sequence just as it discards the
+   two local Boolean returns.
+
+The published [checkActor contract](item-use-command-flow.md#item-and-actor-operands)
+returns nil for nil input or an exact-false `_isAlive()` result, otherwise the
+original input. Applying it here still requires the actual binding and normal
+completion of its lookup and native-named call. The focus helper does not
+equate checkActor's result with the later focus read.
+
+For this D,D call, the target compares equal to the receiver, so the helper
+skips `setInputEnable`. Its omitted third argument is nil, so it also skips
+`isShow` and `show`. These skips follow the original comparisons rather than
+a current visibility or input-state observation. More generally, with receiver
+D and supplied target T, a target unequal to D requests
+`setInputEnable(T,true)` and discards its results. Only an exactly Boolean-true
+third argument requests `isShow(T)`. Only an exactly Boolean-false first
+visibility result then requests `show(T,true,S)`, where S is the fourth fixed
+argument, including nil when omitted. An exactly Boolean-false first show
+result returns one false before the focus read. Nil or zero from either call
+does not satisfy that false comparison. The focus read follows these reached
+requests and compares its first result with the original target T.
+
+The comparisons are Lua equality, including applicable `__eq` behavior; they
+do not authenticate raw object identity. A true local return does not establish
+actual keyboard ownership, and a setter result is forwarded without a local
+success test or readback. The contract stops at the dynamic getter/setter
+requests. Actual receiver and parent identity, native focus semantics and
+acceptance, callback scheduling and hardware input remain unestablished.
+The normal panel's
+[completion composition](normal-tutorial-panel-completion.md#composition-with-the-ask-poll-and-desktop-wait)
+therefore reaches this conditional request, without proving native restoration.
+
 ## Original-bytecode locators and reproduction
 
 The extraction is `2012.09.19.0001`, retail version `1.23b`. Authenticate the
@@ -133,6 +180,7 @@ zero-based below. PCs are one-based; offsets exclude the LPB wrapper.
 | --- | --- | --- | --- |
 | Connector `openTutorialWidget` | 491 -> 492 | 163 / `0x16A56` | 13/16/19/22/25/28/31/34/37 test 1/2/3/4/5/6/7/10/15; 59/62/65/68/71/74/77/80/83 test 8/9/11/12/13/14/16/17/18. |
 | Same opener | Same | Same | 47: open CALL `B=9,C=2`; 48: exact nil EQ `A=1`; 53: selection CALL `B=4,C=1`; 56: focus CALL `B=3,C=1`; 93: open CALL `B=9,C=1`; 97: RETURN `B=1`. |
+| Connector `changeFocusedWidget` | 368 -> 369 | 122 / `0x12E29`, 37 words | 3: actor CALL `B=3,C=2`; 4: exact nil; 8: target/receiver equality; 13: exact-true optional argument; 17/23: exact-false visibility/show results; 28: fresh focus CALL `B=2,C=2`; 29: focus/target equality; 35: setter TAILCALL `B=3,C=0`. |
 | Ask `initAsk` | 9 -> 10 | 0 / `0x7A4` | Root PCs3/7 require Ask base and declare TutorialWidget/AskBaseClass. |
 | Separate tutorial `init` | 9 -> 10 | 0 / `0x4D7` | Root PCs3/7 require Widget base and declare TutorialWidget/WidgetBaseClass. |
 | Desktop `createWidget` | 20 -> 21 | 2 / `0x4B7` | 16: dynamic require; 28: full VARARG; 29: factory CALL `B=0,C=2`; 35: one-result RETURN `B=2`. |
@@ -144,6 +192,20 @@ values, full factory varargs and each result adjustment. Changing an infoID
 comparison, module operand, open-result count, nil-test polarity or final
 return count must change the corresponding assertion. No raw source,
 payload or instruction listing is needed in the retained result.
+
+For the focus helper, the original prototype has four fixed parameters and no
+varargs; its debug-line range 5472-5498 is distinct from canonical source lines.
+PC12 requests input enablement with `B=3,C=1`; PC16 requests visibility with
+`B=2,C=2`; PC22 requests show with `B=4,C=2`. PCs7/26 return one false and
+PC32 returns one true. PC36 is the open-result return after the tailcall;
+PC37 is the final zero-value return instruction. Check the selected caller's
+receiver/target setup as well as its PC56 result discard, the nil-adjusted
+optional arguments, ordered requests, first-result tests and tailcall result
+preservation. Guard, getter/setter receiver and request-operand mutations must
+be rejected. Synthetic replies check these local instruction paths, not native
+focus state or a delivered tutorial invocation. The connector's exact original
+LPB and payload pins are also recorded in the
+[item-use input table](item-use-command-flow.md#evidence-and-reproduction).
 
 These contracts stop at actual command/factory dispatch, callback scheduling,
 native creation and focus acceptance, rendering and external event selection.

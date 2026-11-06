@@ -261,6 +261,10 @@ LPBs byte-for-byte after wrapper decoding. Their decoded SHA256 values are
 [`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json)
 and `manifests/scripts.json:7724-7729,15237-15240,15638-15643,15668-15673`.
 
+The [entry and question contracts](caravan-entry-client-contract.md) qualify
+the complete supplied frames, distinct ask-result paths and original shared
+rank comparison. These local presentation results do not prove admission.
+
 The separate `PopulaceCaravanManager` client script loads text bank 7520
 and exposes entry, question, join-success/failure, full/other-party, and
 cancel dialogue methods (`populacecaravanmanager.lua:3-266`). Its cancel
@@ -280,9 +284,12 @@ range 40 <= R5 < 50; these comparisons do not identify the argument semantics
 (`populacecaravanguide.lua:20-60`). `PopulaceCaravanAdviser.adviserSales`
 reads `getMoneyOnHand(1000001)`, passes the returned value to `say` row 53013,
 and asks selector 14 with literal 3011317 (`populacecaravanadviser.lua:48-72`).
-`ChocoboCaravanGuard.chocoboCommand` loads bank 7680, starts a client talk
+`ChocoboCaravanGuard.initForEvent` requests bank 7680 with provider identifier
+`chocoboCaravanGuard`. Its separate `chocoboCommand` starts a client talk
 turn, asks restricted choices, and calls ask row 6 with three forwarded
 arguments only when the first result is 2; it returns both results.
+The [chocobo command contract](caravan-chocobo-command-contract.md) owns the
+complete argument/result frames and conditional helper composition.
 `getBattalion` returns 1 (`chocobocaravanguard.lua:3-23`). These are client
 presentation and ask surfaces, not evidence of the server's signup, route,
 reward, or pack-chocobo actor selection. The four NPC/guard LPBs matched the
@@ -318,7 +325,7 @@ first forwarded value selects these client-side updates:
 | 1 | When the execution widget exists, sets its title from the director content ID, sets its timer from the finish time, and shows it. |
 | 2 | Copies three values to `harvestTbl[1..3]`. |
 | 3 | Zeros `harvestTbl[1..3]` and asks the execution widget to reset its gathering display when present. |
-| 4 | Copies six values to `fieldBuffTbl[1..6]`. |
+| 4 | Copies six values to `fieldBuffTbl[1..6]`; the [buff HUD contract](hamlet-buff-hud-contract.md#director-values-and-hud-arguments) owns their conditional command mapping. |
 | 5 | Normalizes three values into `lineStatusTbl[1..3]`: numeric 0 becomes 3, numeric 1 becomes 2, and every other value becomes 1. |
 | 6 | Copies four values to `goodsStatusTbl[1..4]`. |
 | 7 | Stores the first value as `cargoTarget`. |

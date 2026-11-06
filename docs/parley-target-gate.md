@@ -128,16 +128,17 @@ results 15-19. It also pauses the parent's limit timer, hides the chosen
 button, and sends `UILuaCommands.SoundPlayAbility` to it (`root/proto6`,
 PCs 0-22, offsets `0xD20`-`0xD78`; the addition is at PC 3, `0xD2C`).
 
-`NegotiationWidget.processUICommandCancel` opens `CommonAskWidget` with
-text IDs 7124, 7125, and 7126 and raw mode 2 (`root/proto3`, PCs 0-10,
-offsets `0x170C`-`0x1734`). `processAskResult` sets the ask result to -1
-only when the child result is 1 (`root/proto12`, PCs 0-4, offsets
-`0x3C95`-`0x3CA5`).
+The [selected cancel-confirmation contract](parley-cancel-confirmation-request.md)
+owns the ordered child-opening frame, raw 2's conditional default-answer
+role and exact numeric child-result 1 to base-result -1 continuation.
+Actual child creation, class/frame delivery, parent callback selection and
+result storage remain conditions.
 
 The widget's local ask results are therefore tiles 1-12, time-up 13,
-abilities 15-19, and confirmed cancel -1. They do not show how the judge
-or server consumes a result, name the abilities, or establish any
-result's gameplay effect.
+abilities 15-19, and confirmed cancel -1. The
+[selected Judge route](parley-input-result-route.md#supplied-frame-and-result-adjustment)
+owns its input and result adaptation. These local callbacks do not name the
+abilities or establish server consumption or gameplay effects.
 
 A prior external lead, `parley/parley_decomp_2026-09-27.md` and
 `quests/man300-toll-of-the-warden-parley/parley.md` at revision

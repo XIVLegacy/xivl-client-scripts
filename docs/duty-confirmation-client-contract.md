@@ -79,8 +79,9 @@ PC 75 / offset 1711 is `VARARG A19 B0`. PC 76 / 1715 is
 `CALL A12 B0 C1` to `_setProperty`, so every element of `Q` reaches that
 native entry and no result is retained.
 
-The answer loop supplies rows `25015+i` for `i=1,2`. It computes
-`k=max(n-2,0)` and forwards the complete suffix from `select(k+i,Q...)`,
+The answer loop supplies rows `25015+i` for `i=1,2`. This route specializes
+the shared calculation below to two answers and formatting tail `Q`, giving
+`k=max(n-2,0)`. It forwards the complete suffix from `select(k+i,Q...)`,
 with this fixed prefix:
 
 ```text
@@ -92,6 +93,51 @@ PC 94 / offset 1787 is `VARARG A25 B0`, PC 95 / 1791 is
 `CALL A23 B0 C0` to `select`, and PC 96 / 1795 is `CALL A16 B0 C1`
 to `_setProperty`. The suffix is not restricted to one value. The method
 itself returns zero values at PC 123 / offset 1903, `RETURN B1`.
+
+The same method accepts `(widget,owner,provider,default,paging,cancel,
+prompt,answers,F...)`. For a regular dense answer table, non-nil provider
+and numeric prompt, write r for the number of formatting values in F.
+After earlier widget setup, it
+reads `m=#answers` again at PC 29 / offset 1527. This is a separate table
+length read from the value written to `work.askAnswerMax` at PCs 3-4.
+PCs 30-33 / offsets 1531-1543 resolve the current global `select`, pass
+`"#",F...` and retain one count. PCs 34-37 / offsets 1547-1559 subtract m
+and clamp a negative result to zero. With the base `select`, this gives
+`k=max(r-m,0)`, counting explicit nil, false and numeric zero values.
+
+The question request forwards all of F. Only after that call returns does
+PC 79 / offset 1727 read `widget.work.askAnswerMax` for the answer loop's
+limit. Each iteration resolves `_setProperty`, reads the current
+`answers[i]`, then resolves global `select` at PC 92 / offset 1779.
+Its request uses that answer entry and the complete `select(k+i,F...)`
+suffix. The earlier m is not recomputed after the question, and the loop
+limit is not necessarily equal to m. Applying the declared work writes,
+normal helper completion and the relevant table/global/method bindings
+remain premises.
+
+The [Caravan chocobo caller](caravan-chocobo-command-contract.md#conditional-ask-and-result-composition)
+supplies the second question's frame
+`(widget,W,N,1,false,true,6,{7,8,9,10},A2,A3,A4)`.
+With the dense four-entry table unchanged at the length read, retained base
+`select` and work count 4, r=3, m=4 and k=0:
+
+| Property request | Provider / row | Complete formatting tail |
+| --- | --- | --- |
+| Question | N / 6 | `A2,A3,A4` |
+| Answer 1 | N / 7 | `A2,A3,A4` |
+| Answer 2 | N / 8 | `A3,A4` |
+| Answer 3 | N / 9 | `A4` |
+| Answer 4 | N / 10 | No values |
+
+The final request has only its six fixed operands, including the receiver.
+It does not append an explicit nil. Nil values supplied in A2-A4 instead
+retain their positions in the preceding suffixes. Canonical source line 146
+captures fourteen vararg slots before counting, line 192 captures seven for
+the question, and lines 212-213 capture one before `select` and three after.
+Those fixed assignments differ from the original open tails and do not
+replace the instruction contracts above. These are Lua request operands;
+they do not establish an item's identity, a native formatter argument
+position, rendered labels or a gameplay effect.
 
 `xivl-client-data:manifests/tables.json`, `worldMaster.csv`, pins the
 1,851,138-byte sheet to SHA-256
