@@ -261,6 +261,10 @@ LPBs byte-for-byte after wrapper decoding. Their decoded SHA256 values are
 [`content_director_ui_contracts.json`](../manifests/content_director_ui_contracts.json)
 and `manifests/scripts.json:7724-7729,15237-15240,15638-15643,15668-15673`.
 
+The [entry and question contracts](caravan-entry-client-contract.md) qualify
+the complete supplied frames, distinct ask-result paths and original shared
+rank comparison. These local presentation results do not prove admission.
+
 The separate `PopulaceCaravanManager` client script loads text bank 7520
 and exposes entry, question, join-success/failure, full/other-party, and
 cancel dialogue methods (`populacecaravanmanager.lua:3-266`). Its cancel

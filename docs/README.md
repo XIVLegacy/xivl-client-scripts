@@ -91,6 +91,7 @@ unverified native or server behavior.
 - [Content director and scene contracts](content-director-ui-contracts.md)
 - [Content timing and operand authority](content-timing-value-evidence.md)
 - [Caravan reward guide contract](caravan-reward-client-contract.md)
+- [Caravan entry and question contracts](caravan-entry-client-contract.md)
 - [Guildleve journal lifecycle](guildleve-journal-lifecycle.md)
 - [Journal confirmation widget interactions](journal-confirm-widget-contract.md)
 - [Journal list confirmation caller](journal-confirm-caller-contract.md)
