@@ -54,7 +54,36 @@ repeated suffix and checks whether it has reached 100. The reset branch
 at `1370-1393` writes zero to the timer icon's integer user work slot 2,
 `StartTime`, `EndTime`, and `RunningValue`, in that order.
 
-The command handler at `553-556` calls `updateMainSlotEnabled` when it
-receives `UILuaCommands.TimerEnd`. These are script request and consumer
-edges. Native lookup of the repeated suffix, property admission, timer
-math, and delivery of that command require native evidence.
+## TimerEnd refresh
+
+`actionmenuwidget.lua` registers `UILuaCommands.TimerEnd` through
+`setUICommandCondition` at lines 160-163 (`main/f0`, zero-based PCs
+110-112). The shared wrapper in `widgetbaseclass_common.lua` at
+1286-1296 (`main/f54`, PCs 0-4) passes `_widget`, the command and
+numeric `5` to the plain `_setUICommandCondition` native. Successful
+registration keys the subscription to the ActionMenu form root and sets
+condition byte `+0x54` to 0 and priority byte `+0x55` to 5. Matching
+delivery selects the Event path at `0x00896AF0`, subject to the
+native gates. The shared `_onUICommandEvent` in `widgetbaseclass.lua`
+at 250-257 (`main/f6`, PCs 6-12) forwards five argument slots to
+`processUICommandEvent`. [Shared registration and callback](https://github.com/XIVLegacy/xivl-client-scripts/blob/a99d17dc70e7017347c8ab2619537117ca0d9593/docs/action-menu-page-controls.md#L60-L88)
+
+On the checked normal-return completion path, the template's
+`TimerIcon.PercentAnimeEnd` trigger requests Sparkle sequences
+`No_anime` and `Effect_start` at lines 577-578 before issuing
+`UILuaCommands.TimerEnd` at 579. [Native completion action order](https://github.com/XIVLegacy/xivl-decomp/blob/2ee3fa0e087724da7e7b89274c955f04e5c37c48/docs/resource/action-menu-timer-icon-style.md#L116-L151)
+
+The `TimerEnd` action omits `CommandTarget`. The native fallback at
+`0x009B2B40` uses the trigger event source on a successful
+FrameworkElement cast. With that cast and a retained `RoutedCommand`,
+the checked completion path starts at the TimerIcon. If `PreviewExecuted`
+leaves the event unhandled, `Executed` bubbles from that TimerIcon and can
+reach the Window handler if the route continues. The `_widget` key applies
+at that root subscription. [Native action target and route](https://github.com/XIVLegacy/xivl-decomp/blob/2ee3fa0e087724da7e7b89274c955f04e5c37c48/docs/resource/sqwt-command-parameter-consumer.md#L404-L430)
+
+On an admitted `TimerEnd`, `processUICommandEvent` at lines 553-556
+(`main/f1`, PCs 241-245) calls `updateMainSlotEnabled` with the
+widget receiver alone. The refresh visits the current page's ten
+slots (1225-1232 and 2760-2770) and recomputes the applicable icon
+appearance, cost and recast requests. Live delivery to the root and
+the native payload defaults remain unresolved.
