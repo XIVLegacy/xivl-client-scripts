@@ -192,6 +192,7 @@ unverified native or server behavior.
 - [Materia removal client UI](materia-removal-client-ui.md)
 - [Materia melding client contract](materia-meld-client-contract.md)
 - [Repair request client contract](repair-request-client-contract.md)
+- [NPC repair manual client contract](npc-repair-manual-client-contract.md)
 - [CraftRepairWidget local interaction](craft-repair-widget-contract.md)
 - [Craft repair selection flow](craft-repair-selection-flow.md)
 - [CraftEditWidget material selection](craft-edit-widget-contract.md)
