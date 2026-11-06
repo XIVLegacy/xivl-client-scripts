@@ -31,6 +31,13 @@ produces the canonical script after CRLF-to-LF normalization.
 Use the same JAR's `--disassemble` for instruction order and Expat for
 decoded form and template line locations.
 
+Replay the shared wrapper and callback from
+`n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` and
+`n1635q/n1635q89r57y9rr.le.lpb` under `client/script` by the same
+LPB method. Their carrier, chunk and canonical script identities are in
+the coverage and script manifests above under `widgetbaseclass_common.lua`
+and `widgetbaseclass.lua`.
+
 ## Input and dispatch
 
 The standard form declares these input sources under `Window_ActionMenuWidget`.
@@ -50,10 +57,38 @@ Button mouse-to-command route and Lua subscription gates are in
 source and Subscription gate. The macro arrows at form lines 200 and 201
 declare the same Push commands.
 
-In `actionmenuwidget.lua`, `init` subscribes to the Push pair at lines
-125-132, `FinishAnimation` at 156-159, and the `ActionBarSlotPrev` and
-`ActionBarSlotNext` pair at 172-179. It initializes `slotMoving` false,
-`slotPage` to 1 and `slotMaxPage` to 3 at 184-195.
+## Event registration and page dispatch
+
+In `actionmenuwidget.lua`, `init` calls `setUICommandCondition` for
+these `UILuaCommands` in order, passing only each command name.
+PCs are zero-based in `main/f0`.
+
+| Command suffix | PCs | Canonical lines |
+| --- | --- | --- |
+| `PushSlotNext` | 84-86 | 125-128 |
+| `PushSlotPrev` | 87-89 | 129-132 |
+| `FinishAnimation` | 107-109 | 156-159 |
+| `ActionBarSlotPrev` | 119-121 | 172-175 |
+| `ActionBarSlotNext` | 122-124 | 176-179 |
+
+The wrapper in `widgetbaseclass_common.lua` at 1286-1296 (`main/f54`,
+PCs 0-4) passes `_widget`, the command, and numeric `5` to
+`_setUICommandCondition` without a separate template argument.
+The native uses the form root name as the template key and `_widget`
+for the root control. For each successful
+registration the numeric arm supplies condition byte `+0x54=0` and
+priority byte `+0x55=5`. [Native registration](https://github.com/XIVLegacy/xivl-decomp/blob/813128f03f2b83fe941caad04c760a11c0cb352c/docs/resource/sqwt-command-parameter-consumer.md#L670-L691)
+
+A matching command that reaches the native condition dispatch uses the
+Event path at `0x00896AF0`. Admission still depends on the native
+gates, including the active and pending priority comparisons. The callback
+`_onUICommandEvent` in `widgetbaseclass.lua` at 250-257 (`main/f6`, PCs 6-12)
+forwards five argument slots to the widget's `processUICommandEvent`. The registration
+and callback paths are static evidence. Actual callback delivery remains
+unresolved. [Native event admission](https://github.com/XIVLegacy/xivl-decomp/blob/813128f03f2b83fe941caad04c760a11c0cb352c/docs/resource/sqwt-command-parameter-consumer.md#L886-L899)
+
+`init` initializes `slotMoving` false, `slotPage` to 1 and
+`slotMaxPage` to 3 at 184-195.
 
 `processUICommandEvent` admits both Push and ActionBar aliases for each
 direction. In its unluac disassembly, both next comparisons at `l59`
