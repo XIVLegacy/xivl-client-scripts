@@ -164,6 +164,99 @@ rank queries (PC166 jumps to PC94). Each explanation iteration freshly reads
 of rows 10, 11, and 12. A provider that changes this work field can therefore
 change those dialogue operands while admission remains unchanged.
 
+## Conditional 180-minute explanation
+
+The row-13 request supports a conditional **180-minute explanation**. This
+composition adopts the published Lua forwarding, source-loader, message-pool
+and formatter contracts below. It does not establish an applied status life.
+
+At Welcome PC156 the function arguments are `say(worldMaster, npc, 13, 180)`.
+The [open forwarding contract](worldmaster-message-arguments.md#generic-argument-route)
+preserves the exact order and single variadic value:
+
+```text
+say(worldMaster, npc, 13, 180)
+showMessage(desktopWidget, worldMaster, 40, npc, 13, 180)
+_appendMessagePool(desktopWidget, worldMaster, 40, npc, 13, 180)
+```
+
+Both helpers discard results and return zero values. Removing the desktop
+receiver gives the following zero-based native positions, under the
+[registered callback contract](https://github.com/XIVLegacy/xivl-decomp/blob/4081fda7ba8b8493e9b59e875bf335aa29ddb8ce/docs/script/worldmaster-message-pool.md#registered-callback-and-call-arguments).
+
+| Native index after receiver | Supplied value | Conditional use |
+| --- | --- | --- |
+| 0 | `worldMaster` | Successful WorldMaster cast selects its message path |
+| 1 | `40` | Captured message-record dword |
+| 2 | `npc` | Actor-compatible capture supplies the provider's opaque handle |
+| 3 | `13` | Captured text row |
+| 4 | `180` | If numeric capture accepts it as integer dword K = 180, it becomes formatter integer argument 1, tag 0 |
+
+The last row is an explicit conversion premise. The publication qualifies an
+accepted integer branch and ordered tag-0 append, not arbitrary numeric
+conversion or an observed call. A string capture instead supplies formatter
+tag 1 and cannot satisfy the normal integer getter. Native index 4 is distinct
+from one-based formatter argument 1.
+
+The provider must be the same `npc` whose init PC3 requested
+`npc:_loadTextDataPermanently(10256, "populaceCompanyBuffer")`.
+Under the [ActorBase loader contract](https://github.com/XIVLegacy/xivl-decomp/blob/4081fda7ba8b8493e9b59e875bf335aa29ddb8ce/docs/script/actor-base-text-source.md),
+accepted numeric and source-name captures and successful immediate or deferred
+name assignment write that receiver's `+8` source wrapper. The numeric
+adjustment belongs to that loader contract; the request alone proves neither
+load completion nor a selected locale. The
+provider handle must still resolve this same live receiver, with the
+`populaceCompanyBuffer` wrapper preserved and nonempty. Deferred wrapper,
+checker, manager and interface lifetimes remain premises. WorldMaster's own
+text-source initialization does not substitute for the supplied NPC provider.
+
+The [source-to-formatter join](https://github.com/XIVLegacy/xivl-decomp/blob/4081fda7ba8b8493e9b59e875bf335aa29ddb8ce/docs/script/worldmaster-message-pool.md#quest-source-and-textmodule-join)
+also requires the matching initialized ScriptEnv/CoreWork carrier, preserved
+interfaces, constructor-selected callback/holder and TextModule/decoder tables,
+successful casts and helper completion, and source readiness. Selector `0xFF`
+uses the loaded sheet's default field, not a fixed English selector. For this
+composition that field must select the loaded English string cell for
+`populaceCompanyBuffer` row 13, with valid index/type maps and ready row data.
+The decoded CSV English column 1 alone does not establish that runtime schema
+or locale choice. No CompanyBuffer definition or runtime load is established
+by this composition.
+
+The [static-row finding](https://github.com/XIVLegacy/xivl-client-data/blob/e37ce5ef10d189f471458305e2482dbedec4291c/docs/sanction-static-rows.md#authored-companybuffer-text)
+identifies row 13's minutes wording and exact token
+`[@number:022003e80203]`. Its bytes are `02 20 03 E8 02 03`.
+Under [SQTP-04 through SQTP-06](https://github.com/XIVLegacy/xivl-decomp/blob/4081fda7ba8b8493e9b59e875bf335aa29ddb8ce/docs/resource/sqwt-plain-text-reference-lookup.md#sqtp-04-supplied-argument-selectors-and-output-handlers),
+`02` opens handler `20`; length byte `03` denotes a two-byte payload;
+`E8 02` selects supplied integer argument 1; the final `03` closes the strict
+frame subset. The normal integer getter requires tag 0. Handler `20` passes
+K to the selected signed decimal conversion with constants 10 and 0, producing
+ASCII `180` for K = 180 under its normal CRT, locale, memory and wrapper-helper
+premises. This evaluates the number control, not every control in the cell.
+SQTP-05's strict framing checks are a bounded interpretation, not universal
+native rejection behavior. SQTP-04 instead gives zero for an out-of-range
+integer reference and a mismatched-tag exception for the normal typed getter.
+Neither case justifies the `180` substitution.
+
+Consequently, if all these premises hold, the supplied literal and row-13
+number control compose to an explanation of 180 minutes. This is not an
+observed message delivery or rendering. It does not identify a scroll's
+duration, convert the separate 10800 operand to seconds, establish a
+three-hour applied buff, or prove status grant/removal, server approval or
+equipment-bonus application.
+
+The adopted publication identities pin the contracts used by this composition.
+The CompanyBuffer entry identifies the source contract at the cited revision.
+Byte counts and SHA-256 values identify the published Markdown, not newly
+inspected retail inputs.
+
+| Repository and publication | Revision | Bytes | SHA-256 |
+| --- | --- | ---: | --- |
+| `xivl-client-scripts:docs/sanction-company-buffer-contract.md`, Welcome PC156 and initialization PC3 | `daf704b2941991e64a01aa1dd4bbba4b47d6ae16` | 11225 | `1fa780b388a22cfe11d8473e1f93fb0b9d240787077262998f187ba580cbd3eb` |
+| `xivl-client-scripts:docs/worldmaster-message-arguments.md`, Generic argument route | `daf704b2941991e64a01aa1dd4bbba4b47d6ae16` | 15984 | `d93d33954646feb8cf16bc398b166a2228ca9cb7dd9eeb6e302d409ca1658b42` |
+| `xivl-client-data:docs/sanction-static-rows.md`, Authored CompanyBuffer text, row 13 | `e37ce5ef10d189f471458305e2482dbedec4291c` | 14183 | `e3011ff6152e51af152ef5ac85b68e0865a059f88c52e90b5c039680f65cb108` |
+| `xivl-decomp:docs/script/worldmaster-message-pool.md`, Registered callback and Quest source and TextModule join | `4081fda7ba8b8493e9b59e875bf335aa29ddb8ce` | 11892 | `df941d00ecdbd48158d498b210f41a2e5793fb7b5825c9d6f7a2cbdfa84e22ef` |
+| `xivl-decomp:docs/script/actor-base-text-source.md`, loader assignment and matching receiver/handle conditions | `4081fda7ba8b8493e9b59e875bf335aa29ddb8ce` | 12120 | `ce89ef7140936f3eee635d4d147274deba62a29bf66d44fc49563cb1d16d53b9` |
+| `xivl-decomp:docs/resource/sqwt-plain-text-reference-lookup.md`, SQTP-04, SQTP-05 and SQTP-06 | `4081fda7ba8b8493e9b59e875bf335aa29ddb8ce` | 46182 | `b74d3f8d91212b8ddba3a731bcc6ec1268d79760e6de1ec8a1f4776217c3a279` |
+
 ## Effect callbacks and cleanup
 
 | Method | Ordered requests | Return |
