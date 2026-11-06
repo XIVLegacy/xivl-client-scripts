@@ -135,9 +135,10 @@ only when the child result is 1 (`root/proto12`, PCs 0-4, offsets
 `0x3C95`-`0x3CA5`).
 
 The widget's local ask results are therefore tiles 1-12, time-up 13,
-abilities 15-19, and confirmed cancel -1. They do not show how the judge
-or server consumes a result, name the abilities, or establish any
-result's gameplay effect.
+abilities 15-19, and confirmed cancel -1. The
+[selected Judge route](parley-input-result-route.md#supplied-frame-and-result-adjustment)
+owns its input and result adaptation. These local callbacks do not name the
+abilities or establish server consumption or gameplay effects.
 
 A prior external lead, `parley/parley_decomp_2026-09-27.md` and
 `quests/man300-toll-of-the-warden-parley/parley.md` at revision

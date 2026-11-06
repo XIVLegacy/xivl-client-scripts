@@ -199,6 +199,7 @@ unverified native or server behavior.
 - [Search and recruitment native boundaries](search-recruitment-native-boundaries.md)
 - [NPC Linkpearl client route](npc-linkpearl-client-contract.md)
 - [Parley target gate](parley-target-gate.md)
+- [Parley input and result route](parley-input-result-route.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
 - [Retainer payment widget contract](retainer-payment-widget-contract.md)
