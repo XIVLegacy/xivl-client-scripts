@@ -42,12 +42,15 @@ matching `decodedScriptPath` row, identifies original resource
 The manifests were inspected at repository revision
 `abdb7db9b7282359ada0518bf4251d9766a2d54a`. The complete archive, canonical
 member, LPB and decoded payload identities were checked before method analysis.
-Only these three method bodies and the necessary header/root bindings were
+Only these six method bodies and the necessary header/root bindings were
 interpreted:
 
 | Method | Original prototype | Instructions | Payload range | Canonical lines |
 | --- | --- | ---: | --- | --- |
+| `processTimer` | `root/proto1` | 5 | `[0x8B8,0x8CC)` | 164-173 |
+| `initArmyBuff` | `root/proto16` | 11 | `[0x170E,0x173A)` | 592-607 |
 | `cmdSetArmyBuff` | `root/proto17` | 64 | `[0x179A,0x189A)` | 610-680 |
+| `initEnemyBuff` | `root/proto18` | 11 | `[0x19EB,0x1A17)` | 683-698 |
 | `cmdSetEnemyBuff` | `root/proto19` | 64 | `[0x1A78,0x1B78)` | 701-771 |
 | `setBuffIcon` | `root/proto20` | 16 | `[0x1CCB,0x1D0B)` | 774-796 |
 
@@ -57,6 +60,10 @@ the class, creates the named child closure, then assigns the method. PCs are
 zero-based and byte ranges are half-open decoded-payload offsets. The command
 methods have four fixed parameters including `self`; the helper has three.
 All three have zero vararg flags, upvalues and child prototypes.
+
+Root PCs 10-12 bind `processTimer`, PCs 55-57 bind `initArmyBuff`, and
+PCs 61-63 bind `initEnemyBuff` in the same way. These three methods each have
+one fixed parameter, `self`, and zero vararg flags, upvalues and child prototypes.
 
 ## Guard and control selection
 
@@ -135,6 +142,39 @@ never reached the write has not established that repeat suppression. Both
 guard and continuing paths return zero Lua values, distinct from returning
 one nil value.
 
+## Cache reset and timer requests
+
+`initArmyBuff(self)` calls `self:cmdSetArmyBuff(slot, 2, 0)` for numeric slots
+1, 2 and 3 in that order. `initEnemyBuff(self)` does the same through
+`self:cmdSetEnemyBuff`. Each iteration resolves the method on `self` again.
+The methods discard all call results and return zero Lua values after the
+third call. A lookup or call error stops the loop before later slots, without
+undoing earlier effects.
+
+These are reset requests through dynamic command bindings. Neither initializer
+directly accesses `work`, constructs or replaces a table, or writes a cache
+slot. If those bindings select the command methods described above and the
+required work tables exist, a slot already equal to numeric 2 returns without
+a request. Otherwise the command selects icon 0, requests visibility false,
+sends no control command and stores numeric 2 after the requests succeed.
+The literal fourth argument 0 is the command's unused parameter. This
+conditional composition does not initialize missing work tables or prove
+which method implementation was bound during a retail invocation.
+
+`processTimer(self)` resolves the global `desktopWidget`, then its
+`closeWidgetDirect` method, and calls it with that desktop object as receiver
+and `self` as its sole explicit argument. It discards every callee result and
+returns zero Lua values. There is no local guard or exception handler. A
+global/method lookup or call failure propagates. This is a direct close
+request, without a local cache reset or refresh request.
+
+The three canonical bodies parsed successfully under Lua 5.4.8. Against
+authored stubs, their ordered call tuples, fresh method resolution, discarded
+results, zero-value returns and error stops agreed with focused Lua 5.1
+instruction replay of the original methods. Rejecting controls changed a
+literal, binding, receiver, argument/result width, loop extent or direct
+storage behavior. This finite comparison does not execute the retail client.
+
 ## Canonical source comparison
 
 The authenticated canonical command text has malformed branch structure.
@@ -166,9 +206,12 @@ retain no retail body or instruction listing and do not run the client.
 
 ## Runtime boundary
 
-The first required state dependency is the initialization/producer of
-`self.work.armyBuff` and `self.work.enemyBuff`; those bodies were not inspected
-for this contract. The first outward call on a changed value is
+The storage producer for `self.work.armyBuff` and `self.work.enemyBuff` remains
+uninspected. The reset-request methods above do not allocate that storage,
+and their callers remain uninspected. `desktopWidget.closeWidgetDirect` is
+the timer hook's first uninspected callee. Its implementation and the hook's
+caller/scheduling do not follow from the hook name. The first outward call
+on a changed command value is
 `getIndexControlName`. Its implementation, `getTemplateControlName`,
 `setIcon`, `setVisibility` and `sendControlCommand` remain uninspected here.
 The requests therefore establish no actual control lookup, native visibility,
