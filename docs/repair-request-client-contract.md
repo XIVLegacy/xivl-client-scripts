@@ -1,5 +1,6 @@
 # Repair request client contract
 
+The NPC item-selection menu returns local numeric choices.
 RepairOrder 24243 supplies an equipment-request mode. Bazaar repair uses
 separate listing, withdrawal and ready-command routes. These client inputs,
 work consumers and local returns do not establish server repair settlement.
@@ -39,6 +40,111 @@ in `manifests/scripts.json`. `talkWelcome` is `root/proto1`, code offset
 (`0x0395`-`0x03DD`). The default false-flag path is PCs 96-98
 (`0x03E5`-`0x03ED`). These are static observations of extraction
 `2012.09.19.0001`, not a runtime repair observation.
+
+## NPC item-selection menu
+
+`PopulaceItemRepairer.selectItem(self,A1,A2,A3,A4,A5,A6,A7,A8,A9)`
+builds a paged text-choice request and returns three local values. It does
+not resolve an inventory item. The original method has ten fixed parameters,
+including the receiver, and no varargs. Missing arguments become nil and
+extra arguments are ignored. A1 is unused. A2 selects the table below and
+participates in result arithmetic. A3 is forwarded as the default answer.
+A4-A8 remain supplied formatter values without an established item, catalog,
+package or slot domain. Only A9 equal to Boolean false selects the first
+table; nil, zero and other values take the second table when A2 is 1.
+
+| Input branch | New answer table, indices 1-5 |
+| --- | --- |
+| A2 equals numeric 1, A9 equals false | `33,34,35,36,18` |
+| A2 equals numeric 1, every other A9 | `13,14,15,16,18` |
+| A2 equals numeric 2 | `20,21,23,25,26` |
+| Every other A2 | `89,90,92,94,95` |
+
+After constructing that table, the method reads global `desktopWidget`
+once, resolves its `askForEventMode` member and calls it with this exact
+tuple, including the desktop receiver `D` and NPC receiver `N`:
+
+```text
+(D,N,N,N,A3,true,true,88,answers,A2,3,0,0,0,A4,A5,A6,A7,A8)
+```
+
+This is its only call. It requests exactly one result, here called R, and
+ignores additional results. There is no receiver, type, range or helper
+result guard before the call. The member lookup uses the same desktop value
+as the call receiver. A later invocation reads the global/member again.
+Lookup or call errors prevent result adaptation. Nil supplied values retain
+their positions in the fixed call frame, including trailing A4-A8 values.
+
+Conditional on that lookup resolving the published
+[Ask connector](camp-replacement-choice-flow.md#ordered-call-and-display-requests),
+the opening request is `(D,4,"Ask/AskWidget",nil,nil,false)`. The opened
+widget's call is
+`(widget,N,N,A3,true,true,88,answers,A2,3,0,0,0,A4,A5,A6,A7,A8)`.
+The first N after D is the connector's owner argument and is omitted from
+the widget call. The other two N values supply the widget's speaker and
+text-provider positions. A3 is a default index, not a requested result count.
+The two true values request paging and cancellation. Row 88 and the five
+answer numbers are text-request inputs; this method supplies no labels or
+item-reference lookup.
+
+The published [Ask result paths](request-warden-event-contract.md#widget-result-production)
+associate PageNext/PagePrevious with -1/-2 when paging reads true and Cancel
+with -3 when cancellation reads true. These are conditional stored-result
+requests, not observed callbacks. The
+[connector completion contract](camp-replacement-choice-flow.md#local-completion-result-and-cancellation)
+owns the exact-nil opening check, exact-true selection check, first getter
+result, wait and explicit normal-path close. In particular, opening nil or
+a non-true selection can return numeric zero. Nil or false selected getter
+values are preserved. A reached normal close request precedes the following
+caller adaptation, even if that adaptation then errors.
+
+Let M be the supplied A2. The method tests R in the order shown and returns
+exactly three values on each normal path:
+
+| First helper result and guard | Local return |
+| --- | --- |
+| R equals -1 | `(nil,next,1)`, where `next=M+1`, replaced by 1 only when `3 < next`. |
+| R equals -2 | `(nil,previous,1)`, where `previous=M-1`, replaced by 3 only when `previous < 1`. |
+| R equals -3 | `(nil,nil,nil)`. |
+| M equals 1 and R equals 1 | `(nil,nil,nil)`. |
+| M equals 1 and R equals 2 | `(-1,M,R)`. |
+| Every other result | `(5*M+R-7,M,R)`. |
+
+For M=1,2,3, navigation wraps through those three values. It does not apply
+a general modulo or reject other supplied M values. The final formula has
+no answer-range or integer check. Numeric zero is not cancellation: M=1,
+R=0 returns `(-2,1,0)`. With numeric M, nil or false R instead reaches an
+arithmetic error. There is no catch, retry or second menu call here.
+Omitted M can still return three nils for R=-3, before any arithmetic.
+
+The first return is therefore an arithmetic choice value or a sentinel,
+not an authenticated catalog ID, item object, package/slot or inventory
+record. Even a plausible positive result does not identify the selected
+server item. The actual invocation, supplied value meanings, dynamic
+bindings, text evaluation and delivered UI result remain separate inputs.
+No command submission, repair confirmation, material check/debit, bulk
+service, settlement or durability change occurs in this method.
+
+Source: `lua/scripts/chara/npc/populace/populaceitemrepairer.lua:541-680`,
+with the original/canonical identities recorded above. Original Lua 5.1
+`root/proto3` starts at decoded offset 3496 and contains 120 instructions,
+zero upvalues and no children. Root PCs 17/18 create and bind `selectItem`.
+PCs 2/4/27 select the answer tables; 51/52 resolve the desktop/member;
+CALL PC 71 has B=20,C=2. Result tests are PCs 74/85/96/100/102/107,
+navigation arithmetic/comparisons are 76/77 and 87/88, and the final
+multiply/add/subtract is PCs 113-115. RETURN PCs 83/94/99/105/112/118
+all have B=4. PCs are zero-based; B includes the function slot for CALL,
+and B=4 returns three values for RETURN.
+
+The canonical decompile retains malformed extra `else` tokens at lines
+575 and 592. Its byte identity and those structural observations were checked
+separately from the original control flow. An exact isolated-method syntax
+check with Lua 5.4.8 rejected it; no repaired-source equivalence or retail
+execution is claimed. The behavior above follows the authenticated original
+instructions, with authored semantic fixtures checking the fixed frames,
+guards, arithmetic, errors and result widths. Published helper contracts
+were adopted without reopening their bodies. Confirmation, facility and
+other repair methods remain outside this method's evidence.
 
 ## Equipment request mode 24243
 
