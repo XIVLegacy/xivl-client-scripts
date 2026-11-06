@@ -284,9 +284,12 @@ range 40 <= R5 < 50; these comparisons do not identify the argument semantics
 (`populacecaravanguide.lua:20-60`). `PopulaceCaravanAdviser.adviserSales`
 reads `getMoneyOnHand(1000001)`, passes the returned value to `say` row 53013,
 and asks selector 14 with literal 3011317 (`populacecaravanadviser.lua:48-72`).
-`ChocoboCaravanGuard.chocoboCommand` loads bank 7680, starts a client talk
+`ChocoboCaravanGuard.initForEvent` requests bank 7680 with provider identifier
+`chocoboCaravanGuard`. Its separate `chocoboCommand` starts a client talk
 turn, asks restricted choices, and calls ask row 6 with three forwarded
 arguments only when the first result is 2; it returns both results.
+The [chocobo command contract](caravan-chocobo-command-contract.md) owns the
+complete argument/result frames and conditional helper composition.
 `getBattalion` returns 1 (`chocobocaravanguard.lua:3-23`). These are client
 presentation and ask surfaces, not evidence of the server's signup, route,
 reward, or pack-chocobo actor selection. The four NPC/guard LPBs matched the
