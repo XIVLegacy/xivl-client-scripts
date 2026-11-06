@@ -85,6 +85,12 @@ does not consume the setter's return or perform another getter read after
 the setter. Possible storage conversion is not read back into the text
 operand by this body.
 
+The [literal count-text contract](parley-literal-count-text-request.md) owns
+the conditional wrapper path for ordinary string conversion results. It
+records the fixed direct-property request and discarded formatting tail,
+retaining actual binding, native-frame, property-application and rendering
+conditions.
+
 ## Arithmetic and library conditions
 
 For ordinary Lua numeric operands, multiplication doubles R3 and division
