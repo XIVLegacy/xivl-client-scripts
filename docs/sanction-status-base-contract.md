@@ -11,7 +11,7 @@ also differs from the original bytecode on one fallback path.
 
 Each selected root binding reads the current global `StatusBaseClass`,
 creates its closure and assigns the named member. Those separate reads do
-not establish a stable table across all five assignments, who produced that
+not establish a stable table across the selected assignments, who produced that
 global or which runtime object receives the methods. In the frames below,
 `s` is the supplied receiver. Argument counts include explicitly passed receivers.
 
@@ -83,11 +83,73 @@ call. Conversely, the two sheet-data requests perform separate member reads
 and need not resolve to the same function. All supplied receivers and inputs
 are the original parameter values, without a fresh actor lookup.
 
-The adjustment helper bodies are outside this finding. In particular,
-`getStatusCompatibilityWithAdjust` receives `k` and `u1` through `u4`, but
-its name does not establish their interpretation or the meaning of its result.
-The displayed arithmetic is conditional on each actual member binding and
-normal return. No helper formula, multiplier range or time unit is inferred.
+The selected adjustment formulas are recovered below. Their composition
+remains conditional on each actual member binding and normal return.
+No multiplier range or time unit follows from the helper names.
+
+## Conditional inherited life adjustment
+
+The selected adjustment bodies supply the formula for the truthy-alive path
+above. They retain positional inputs because their actual receiver and
+provider meanings remain conditional. Each helper returns exactly one value.
+The high-level and low-level helpers return numeric `0.7` and `1`,
+respectively, without reading any input or calling another function.
+
+`getStatusCompatibilityWithAdjust(s, k, u1, u2, u3, u4)` returns numeric
+`1` when `u2` is nil or `k` equals numeric zero. Otherwise it resolves and
+calls `s.getStatusCompatibilityByHand(s, u1, u2, u3, u4)`, retains its
+first result `c`, and returns `c - (1 - c) * k`. Numeric zero and false
+in `u2` pass its nil guard. Nil or false `k` does not take the zero branch.
+There is no local clamp or numeric conversion call.
+
+`getStatusLifeLevelAdjustGrow(s, u1, u2, u3, u4)` first calls
+`s.getStatusData(s, 48)` and retains its first result `d`. If `d < 0`,
+it returns one nil and skips the remaining provider. Otherwise it resolves
+and calls `u1.judgeGrowColumn(u1, u4, d)` and returns exactly its first
+result `g`. An empty provider return becomes nil. Nil or false `d` reaches
+the comparison and can fail there. Numeric zero reaches `judgeGrowColumn`.
+
+`getStatusLevelAdjust(s, b, g, l, h, u1, u2, u3, u4)` returns `b`
+directly when `g` is nil, without resolving another member. False and zero
+`g` enter its provider path. In order, that path calls:
+
+| Resolved member | Complete arguments | Requested results |
+| --- | --- | --- |
+| `u2.getCommandLevel` | `(u2)` | One, `C` |
+| `u1.getStateMainSkillLevel` | `(u1)` | One, `T` |
+| `u2.getCommandLevelAdjustLevelMax` | `(u2)` | Two, `D` and `U` |
+
+Set the effective comparison value `E` initially to `T`. When `T < C`
+and `D ~= -1`, resolve the current global `_math` and its `min` member,
+call it with exactly `(D, C - T)`, retain one result `z` and set
+`E = C - z`. When `C < T` and `U ~= -1`, the corresponding call is
+`_math.min(U, T - C)` and `E = C + z`. There is no receiver argument
+to either `min` call. Equal values and the selected `-1` sentinel skip
+that call. The function named `min` is an actual binding premise.
+
+Next, resolve and call `u1.getGrowData(u1, C, g)` for one result `X`,
+then resolve the member afresh and call `u1.getGrowData(u1, E, g)` for
+one result `Y`. Compute `R = Y * (b / X)`, preserving that operation
+order. The result `a` is `b - (b - R) * l` when `E < C`,
+`b + (R - b) * h` when `C < E`, and `b` otherwise. Both grow calls
+and the ratio calculation occur even when `E == C`. The sheet-life caller
+then returns one `a * m`, with `l = 1` and `h = 0.7` only when those
+selected helper bindings supply its values.
+
+All called members are resolved separately at their stated point. Retained
+results remain cached values, including the two results from the maximum
+provider. Extra provider results are discarded and missing results become
+nil. There are no local type/range/zero-divisor guards or protected calls.
+An indexing, call, comparison or arithmetic error stops later work. Ordinary
+Lua arithmetic can coerce numeric strings, but this is not a separate
+conversion request. These ordinary-value checks do not characterize metatables.
+
+The first further body on the compatibility path is
+`getStatusCompatibilityByHand`. The grow path stops at `judgeGrowColumn`;
+the level path stops at the three level providers, `_math.min` and
+`getGrowData`. Their bodies remain uninspected. The selected formulas do
+not establish an actual Sanction adjustment value, time units, invocation,
+status application or expiry.
 
 ## Canonical fallback discrepancy
 
@@ -219,9 +281,35 @@ the queried base life value `b` only if all of these premises hold:
   published extraction, including row `223992`, zero-based column `47` and
   its float value. The row/column interpretation retains its `INFERRED` tier.
 
+The selected `xivl-client-data:csv/status.csv`, row `223992`, has raw
+empty cells at zero-based columns `48` and `49`. Both type-header cells
+are also empty. These are blank lexemes, not literal numeric zero or `-1`,
+and the headers establish no native type or blank-to-Lua conversion.
+The authenticated member has 43499 bytes, SHA-256
+`3b09a76123b0fd8aba320dc5513e8182820fef409cf9d40f0b522b10b11d02ec`.
+The selected row is CSV record 295, including the two header records.
+Its identity is recorded by `xivl-client-data:manifests/tables.json` for
+extraction `2012.09.19.0001` and by
+`xivl-client-data:manifests/private_csv_corpus.json`. The archive declaration
+pins source revision `8b38a02ce8ebf662b931092e46273251b38c58f0`,
+`extracted/ffxiv-1.23b/client-data/csv.zip`, 70110686 bytes, SHA-256
+`006f9438a8cfd9277376f0ab28474500c67e4665050aa631cae64c9e6f38a5b0`.
+
+Under the same table, cache, binding and argument premises, query `48`
+requests `(sheet, 223992, 48)`. The two raw blanks alone cannot determine
+its Lua result `d` or query `49`'s result `k`. If the actual `k` is
+numeric zero or `u2` is nil, compatibility returns `1` without calling
+`getStatusCompatibilityByHand`. If actual `d < 0`, grow returns nil
+without calling `judgeGrowColumn`, and level adjustment returns `b`
+without calling any level or grow-data provider. Together those conditions
+make the original truthy-alive path return `b * 1`, conditionally
+`10800 * 1`. The raw blanks do not establish those conditions. For ordinary
+values, nil, false or an empty string in `d` instead fails the comparison.
+No default numeric value is inferred from a blank or from a helper's name.
+
 With those premises, the original fallback computes `10800 * 1`. The truthy
-alive path instead sends that base value through the uninspected adjustment
-helpers before multiplying their results. This does not assign time units to
+alive path instead sends that base value through the selected adjustment
+formulas before multiplying their results. This does not assign time units to
 the value or establish the actual result of that adjustment path. An applied
 duration of 10800 seconds or three hours, expiry scheduling, status grant,
 actual death removal and gear bonuses remain outside the recovered contract.
@@ -253,8 +341,8 @@ the same Scripts manifests and revision. Its original resource is
 | Sheet descriptor original LPB | 1358 | `2c6d44d7b4c9adb69352fa295fb61f715fd0806f062d08d818c6a9ff5577fbf2` |
 | Sheet descriptor decoded payload | 1345 | `c9b4f2b8eb2b446cae97bfc6f319cb36e116c3632d0a08fc13eb1428d158c064` |
 
-Only the necessary header/root bindings, five status methods and one sheet
-descriptor are selected:
+The initial source selection comprises the necessary header/root bindings,
+five status methods and one sheet descriptor:
 
 | Method | Canonical lines | Original prototype / code offset / words | Root closure / assignment PCs |
 | --- | --- | --- | --- |
@@ -274,6 +362,27 @@ an unreachable zero-result return at PC 2. Sheet life returns one value at
 PC 53 before an unreachable zero-result return at PC 54.
 The sheet descriptor returns two values at PC 2 before an unreachable
 zero-result return at PC 3.
+
+The adjustment selection adds only these five bodies from the same status
+member, totaling 90 instruction words:
+
+| Method | Canonical lines | Original prototype / code offset / words | Root closure / assignment PCs | Fixed parameters |
+| --- | --- | --- | --- | ---: |
+| `getStatusCompatibilityWithAdjust` | 216-234 | `root/proto16` / 3301 / 16 | 49 / 50 | 6 |
+| `getStatusLevelAdjust` | 237-295 | `root/proto17` / 3458 / 54 | 52 / 53 | 9 |
+| `getStatusLifeAdjustForHighLevelUse` | 334-340 | `root/proto22` / 4089 / 3 | 67 / 68 | 5 |
+| `getStatusLifeAdjustForLowLevelUse` | 379-385 | `root/proto27` / 4394 / 3 | 82 / 83 | 5 |
+| `getStatusLifeLevelAdjustGrow` | 476-495 | `root/proto32` / 5071 / 14 | 97 / 98 | 5 |
+
+All five have zero vararg flags, upvalues and child prototypes. No further
+status/helper body is selected. Their original instructions and a separate
+literal canonical parser agree on focused ordinary-value fixtures for the
+formula, nil guards, false/zero distinctions, fresh member reads, cached
+results, one/two-result calls and error prefixes. Rejecting controls change
+the query operand, constants, guard polarity and call/return widths. Separate
+composition fixtures adopt the sheet-life caller above and preserve the raw
+blank-cell distinction. These checks do not establish a native cell type or
+blank conversion.
 
 Authentication uses `xivl-client-scripts:tools/retail_script.py`,
 `decode_lpb`, and `xivl-client-scripts:tools/build_quest_contracts.py`,
