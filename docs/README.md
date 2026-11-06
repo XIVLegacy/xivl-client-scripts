@@ -207,6 +207,7 @@ unverified native or server behavior.
 - [Parley topic-text provider](parley-topic-text-provider.md)
 - [Parley topic-data values](parley-topic-data-values.md)
 - [Parley tile-data assignments](parley-tile-data-assignment.md)
+- [Parley tile update requests](parley-tile-update-request.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
 - [Retainer payment widget contract](retainer-payment-widget-contract.md)
