@@ -50,6 +50,7 @@ unverified native or server behavior.
 - [Opening tutorial city comparison](opening-tutorial-city-contracts.md)
 - [Normal opening tutorials across cities](opening-normal-tutorial-city-contracts.md)
 - [ActionMenu grid visibility](action-menu-grid-visibility.md)
+- [ActionMenu recast inputs](action-menu-recast-inputs.md)
 - [Cast gauge lifecycle](cast-gauge-lifecycle.md)
 - [Cast gauge property and command flow](cast-gauge-property-command-flow.md)
 - [PlayerParameter TP consumer contract](player-parameter-tp-consumer.md)
