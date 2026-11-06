@@ -136,6 +136,11 @@ PC117 and returns one. This is a conditional client result contract, not
 proof that an interactive widget permits that choice. Welcome does not call
 either effect callback or apply a status before returning one.
 
+The [recovered macro profile](multiple-text-macro-request.md#conditional-three-choice-profile)
+qualifies this composition: under its ordinary-library premises, the
+false/true/true mask cannot return numeric 1. The caller's result-1 branch
+remains conditional on a helper result of that type and value.
+
 Numeric 2 makes these requests in sequence, with no additional wait:
 
 | PC | Request |

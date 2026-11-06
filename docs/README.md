@@ -27,6 +27,7 @@ unverified native or server behavior.
 - [ConfirmWarp and ConfirmRaise client contracts](confirm-prompt-client-contracts.md)
 - [CommonAsk text requests](common-ask-text-request.md)
 - [CommonAsk answer-list adaptation](common-ask-answer-list.md)
+- [Multiple-text-macro requests](multiple-text-macro-request.md)
 - [Linkshell and party command contracts](linkshell-party-command-contracts.md)
 - [Linkshell master-transfer evidence](linkshell-master-transfer-evidence.md)
 - [Equipment set and cancel command contracts](equipment-cancel-command-contracts.md)
