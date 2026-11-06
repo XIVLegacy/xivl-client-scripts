@@ -42,11 +42,12 @@ matching `decodedScriptPath` row, identifies original resource
 The manifests were inspected at repository revision
 `abdb7db9b7282359ada0518bf4251d9766a2d54a`. The complete archive, canonical
 member, LPB and decoded payload identities were checked before method analysis.
-Only these six method bodies and the necessary header/root bindings were
+Only these seven method bodies and the necessary header/root bindings were
 interpreted:
 
 | Method | Original prototype | Instructions | Payload range | Canonical lines |
 | --- | --- | ---: | --- | --- |
+| `init` | `root/proto0` | 113 | `[0x52A,0x6EE)` | 11-161 |
 | `processTimer` | `root/proto1` | 5 | `[0x8B8,0x8CC)` | 164-173 |
 | `initArmyBuff` | `root/proto16` | 11 | `[0x170E,0x173A)` | 592-607 |
 | `cmdSetArmyBuff` | `root/proto17` | 64 | `[0x179A,0x189A)` | 610-680 |
@@ -61,8 +62,9 @@ zero-based and byte ranges are half-open decoded-payload offsets. The command
 methods have four fixed parameters including `self`; the helper has three.
 All three have zero vararg flags, upvalues and child prototypes.
 
+Root PCs 7-9 bind `init`, with its closure at PC 8 and assignment at PC 9.
 Root PCs 10-12 bind `processTimer`, PCs 55-57 bind `initArmyBuff`, and
-PCs 61-63 bind `initEnemyBuff` in the same way. These three methods each have
+PCs 61-63 bind `initEnemyBuff` in the same way. These four methods each have
 one fixed parameter, `self`, and zero vararg flags, upvalues and child prototypes.
 
 ## Guard and control selection
@@ -142,6 +144,102 @@ never reached the write has not established that repeat suppression. Both
 guard and continuing paths return zero Lua values, distinct from returning
 one nil value.
 
+## Initial declaration and reset ordering
+
+`init(self)` resolves `self.work`, constructs a fresh Lua declaration list and
+nine fresh row tables, then assigns the list to `_temp` on that resolved work
+object (canonical lines 11-89).
+These are its only direct Lua table allocations. The descriptor rows and
+subsequent assignment operands are:
+
+| Member | Declaration operands after the name | Direct assignment |
+| --- | --- | --- |
+| `contentId` | `"integer32"` | -1 |
+| `hamletRank` | `"integer32"` | -1 |
+| `hasGatheringItem` | `"array", 9, "integer8"` | Slots 1-9: -1 |
+| `defenseLineStatus` | `"array", 3, "integer8"` | Slots 1-3: -1 |
+| `goodsStatus` | `"array", 4, "integer8"` | Slots 1-4: -1 |
+| `goodsKindTarget` | `"integer8"` | -1 |
+| `bossStatus` | `"boolean"` | false |
+| `armyBuff` | `"array", 3, "integer8"` | Slots 1-3: -1 |
+| `enemyBuff` | `"array", 3, "integer8"` | Slots 1-3: -1 |
+
+Assignments follow that row order at canonical lines 90-138, with numeric
+slots increasing within each array. Each assignment resolves `self.work`
+again. Each array iteration also resolves the named member again before
+writing its slot. The method does not directly construct `self.work` or the
+five array members. With authored plain tables, assigning `_temp` alone does
+not create them, and a missing member stops at its first indexed assignment.
+That fixture behavior does not establish a missing allocation in the retail
+client.
+
+The adopted native account in
+`xivl-decomp:docs/script/widget-work-members.md`, sections "Member names and
+owners", "Read and write routing" and "Declaration vocabulary", at revision
+`4081fda7ba8b8493e9b59e875bf335aa29ddb8ce`, describes own-class `work` as a
+conditionally created native work object. Its `_temp` write routes through
+`0x00D175B0 -> 0x00D16610 -> 0x00D1E0F0`. The selected registry node and
+factory remain conditions. Thus these declarations and assignment operands
+do not prove installed native array storage or its initial values.
+
+For the ordinary selected factories and a running bit start of zero for this
+declaration, the published width and alignment rules give this relative layout:
+
+| Member | Relative bit start | Width in bits |
+| --- | ---: | ---: |
+| `contentId` | 0 | 32 |
+| `hamletRank` | 32 | 32 |
+| `hasGatheringItem` | 64 | 72 |
+| `defenseLineStatus` | 136 | 24 |
+| `goodsStatus` | 160 | 32 |
+| `goodsKindTarget` | 192 | 8 |
+| `bossStatus` | 200 | 1 |
+| Alignment padding | 201 | 7 |
+| `armyBuff` | 208 | 24 |
+| `enemyBuff` | 232 | 24 |
+
+The declaration spans 256 bits, or 32 bytes, under those assumptions. Each
+buff declaration has capacity three `integer8` elements. The one-bit Boolean
+leaves bits 201-207 for byte alignment before `armyBuff`. These are
+declaration-relative positions. The actual pool, class-level base, installed
+storage, allocation, registry selection and lifetime remain unbound.
+
+The composition adopts `xivl-decomp:docs/script/job-action-acquisition.md`,
+"Native boolean layout": `0x00D243E0` reads count/type operands 3/4,
+`0x00D259E0` multiplies count by child width, and
+`0x00D1E59F..0x00D1E5CD` aligns and advances the running bit position.
+That page is pinned at revision
+`4081fda7ba8b8493e9b59e875bf335aa29ddb8ce`, SHA-256
+`66eadd0bf48108a84c17eb73b8361cfbea4f8837e9ff73f0149da9599e4dc130`.
+The 32/8/1-bit widths for `integer32`/`integer8`/`boolean` come from
+`xivl-client-structs:docs/work-binder-native-contract.md`, "Member widths",
+at revision `180ab8aaa49b0157fee8996abe4d27e05b588bda`, SHA-256
+`199234a32f4dc3dd8e798c8c9c1aeb8f284afedb52bc40dfa169c3ca2a6ff819`.
+
+After those direct assignments, `init` resolves and calls, in order,
+`self:initTitle()`, `self:initTimer()`, `self:initDefenseLineStatus()`,
+`self:initGoodsStatus()`, `self:initArmyBuff()`, `self:initEnemyBuff()` and
+`self:initGatheringItem()` (canonical lines 139-158). Each call has only `self`
+as receiver and no explicit arguments. All results are discarded, and normal
+completion returns zero Lua values. A failing lookup, assignment or call
+stops before later operations, without undoing earlier effects.
+
+The army and enemy slots receive direct -1 assignments before any of those
+method requests. If the dynamic reset and command bindings select the
+implementations described here, and earlier calls leave the required storage
+usable, each reset subsequently requests numeric 2 for its three slots.
+Visibility and the final stored value still depend on the command completing
+normally. This ordering does not prove that a retail caller invoked `init` or
+that native UI effects occurred.
+
+The unmodified canonical initializer parsed under Lua 5.4.8. Against authored
+work/member proxies and method stubs, its direct assignments, fresh reads,
+declaration-table identities, ordered calls and failure prefixes agreed with
+focused original Lua 5.1 instruction replay. Independent literal expectations
+and rejecting controls cover the descriptor, slot, sentinel, receiver, arity,
+result-width and read-order distinctions. This finite comparison does not
+execute the retail client or a native declaration factory.
+
 ## Cache reset and timer requests
 
 `initArmyBuff(self)` calls `self:cmdSetArmyBuff(slot, 2, 0)` for numeric slots
@@ -206,9 +304,13 @@ retain no retail body or instruction listing and do not run the client.
 
 ## Runtime boundary
 
-The storage producer for `self.work.armyBuff` and `self.work.enemyBuff` remains
-uninspected. The reset-request methods above do not allocate that storage,
-and their callers remain uninspected. `desktopWidget.closeWidgetDirect` is
+The local `init` declaration and assignments are inspected, including its
+direct calls to the two reset-request methods. Its caller, actual retail
+invocation and dynamic bindings remain uninspected. Its first outward request
+is `initTitle`. That method, `initTimer`, `initDefenseLineStatus`,
+`initGoodsStatus` and `initGatheringItem` remain uninspected here. The adopted
+native declaration route does not establish this widget's selected registry
+node, installed array storage or first values. `desktopWidget.closeWidgetDirect` is
 the timer hook's first uninspected callee. Its implementation and the hook's
 caller/scheduling do not follow from the hook name. The first outward call
 on a changed command value is
