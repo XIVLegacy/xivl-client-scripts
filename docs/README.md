@@ -110,6 +110,7 @@ unverified native or server behavior.
 - [Guildleve playing choices and local results](guildleve-playing-choice-flow.md)
 - [Hamlet supply and score UI](hamlet-supply-ui-contract.md)
 - [Hamlet delivery selection flow](hamlet-delivery-selection-flow.md)
+- [Hamlet buff HUD requests](hamlet-buff-hud-contract.md)
 - [Raid object client contracts](raid-object-client-contracts.md)
 - [Quest event client contracts](quest-event-client-contracts.md)
 - [Joining the Spirit objective boundary](joining-spirit-objective-contract.md)
