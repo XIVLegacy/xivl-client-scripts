@@ -42,8 +42,8 @@ matching `decodedScriptPath` row, identifies original resource
 The manifests were inspected at repository revision
 `abdb7db9b7282359ada0518bf4251d9766a2d54a`. The complete archive, canonical
 member, LPB and decoded payload identities were checked before method analysis.
-Only these seven method bodies and the necessary header/root bindings were
-interpreted:
+Only these seven widget method bodies and the necessary header/root bindings
+were interpreted:
 
 | Method | Original prototype | Instructions | Payload range | Canonical lines |
 | --- | --- | ---: | --- | --- |
@@ -273,6 +273,95 @@ instruction replay of the original methods. Rejecting controls changed a
 literal, binding, receiver, argument/result width, loop extent or direct
 storage behavior. This finite comparison does not execute the retail client.
 
+## Director values and HUD arguments
+
+`InstanceRaidHamletDefense.processUserMessage(self, selector, ...)` supplies
+the buff commands conditionally. The adopted
+[base packet callback](content-director-ui-contracts.md#instance-raid-data-packet-callback)
+first requires its initialization flag to differ from false. Its numeric
+selector 3 forwards the tail to this method, whose own selector is separate.
+This establishes no actual incoming frame or selected runtime director.
+
+The method first calls `desktopWidget:getHamletExecutionWidget()` and retains
+one result as the widget. Its numeric selector 4 copies the first six tail
+values to `self.work.fieldBuffTbl[1..6]`, in order. Each copy resolves `work`
+and `fieldBuffTbl` again and retains one result from `select(index, ...)`.
+Missing values therefore write nil; extra tail values do not add slots.
+These writes precede the shared HUD refresh, including when the widget is nil.
+
+Numeric selectors 1 and 10 return before that shared refresh. Other selectors,
+including unmatched values, reach it after their selected branch completes
+normally. A widget equal to nil skips the refresh. The test is not general Lua
+falsiness: false continues and can fail on widget access. Earlier branch,
+lookup, read, write or call errors can prevent the buff requests.
+
+The refresh performs its war-potential, defense-line, goods and target requests
+before calling `self:getCrafterBuffTbl()`. It retains one result, computes
+that table's length once and iterates from 1 through that length. After all
+army requests complete, it calls `self:getGathererBuffTbl()` and performs the
+enemy loop in the same way. Each getter receives only the director receiver.
+The inspected getters each return one fresh table:
+
+| Getter | Entries at numeric indices 1, 2, 3 |
+| --- | --- |
+| `getCrafterBuffTbl` | 4, 5, 6 |
+| `getGathererBuffTbl` | 1, 2, 3 |
+
+Each iteration reads `self.work.fieldBuffTbl[returnedTable[index]]` anew,
+then compares that value with Boolean true. If the dynamic getter bindings
+select these implementations, the complete request order is:
+
+| Order | Stored director slot | Widget request when exactly true | Widget request for every other value |
+| ---: | ---: | --- | --- |
+| 1 | 4 | `cmdSetArmyBuff(1, 3)` | `cmdSetArmyBuff(1, 2)` |
+| 2 | 5 | `cmdSetArmyBuff(2, 3)` | `cmdSetArmyBuff(2, 2)` |
+| 3 | 6 | `cmdSetArmyBuff(3, 3)` | `cmdSetArmyBuff(3, 2)` |
+| 4 | 1 | `cmdSetEnemyBuff(1, 1)` | `cmdSetEnemyBuff(1, 2)` |
+| 5 | 2 | `cmdSetEnemyBuff(2, 1)` | `cmdSetEnemyBuff(2, 2)` |
+| 6 | 3 | `cmdSetEnemyBuff(3, 1)` | `cmdSetEnemyBuff(3, 2)` |
+
+Every request uses the retained widget as receiver, resolves its named command
+again and passes only the two explicit arguments shown. The command's unused
+fourth fixed parameter consequently receives nil. Numeric 1, false, nil and
+strings all take the "every other value" column. The director does not copy
+the stored value directly to the HUD or write its normalized value back.
+
+The command results are discarded. An error stops later requests, including
+the later getter and enemy loop after an army failure, without rolling back
+earlier writes or calls. A command that replaces `self.work` or its buff table
+can affect later iterations because those reads are fresh. The widget itself
+is not re-resolved. Normal completion returns zero Lua values. Conditional on
+the widget command bindings and usable storage described above, the existing
+command equality guards and icon selection then apply. This does not prove
+native registration, control lookup, delivery, rendering or a gameplay effect.
+
+The director source is
+`lua/scripts/director/instanceraid/instanceraidhamletdefense.lua`, pinned by
+[the reproduction manifest](../manifests/scripts.json) to 16,556 bytes,
+823 lines and SHA-256
+`E9A1F5C2367152C1868A8BA2FAC689A031017E801E0A8B06628D8D55A8BDF9DB`.
+Its original LPB and decoded payload identities are owned by the
+[director contract](content-director-ui-contracts.md#hamlet-information-helper).
+Only these three additional bodies and their necessary header/root bindings
+were interpreted:
+
+| Method | Original prototype | Instructions | Payload range | Canonical lines | Root closure/assignment PCs |
+| --- | --- | ---: | --- | --- | --- |
+| `processUserMessage` | `root/proto9` | 262 | `[0xA51,0xE69)` | 285-570 | 35/36 |
+| `getGathererBuffTbl` | `root/proto1` | 7 | `[0x37D,0x399)` | 41-53 | 11/12 |
+| `getCrafterBuffTbl` | `root/proto2` | 7 | `[0x3DC,0x3F8)` | 56-68 | 14/15 |
+
+PCs are zero-based and payload ranges are half-open. The callback has two fixed
+parameters including `self` and raw vararg flags 3. Each getter has one fixed
+parameter and zero vararg flags. All three have zero upvalues and children.
+The original callback's army and enemy calls are PCs 233 and 252. Focused
+Lua 5.1 instruction replay and the unmodified canonical bodies under Lua
+5.4.8 agreed against authored receivers on mapping, exact Boolean tests,
+branch reachability, result widths, fresh reads and error stops. Independent
+literal expectations and rejecting controls checked the map entries,
+comparison polarity and command argument widths. These finite checks execute
+neither the retail client nor the other helper implementations.
+
 ## Canonical source comparison
 
 The authenticated canonical command text has malformed branch structure.
@@ -320,6 +409,8 @@ The requests therefore establish no actual control lookup, native visibility,
 rendered icon, status application or historical timing.
 
 The [Hamlet director contract](content-director-ui-contracts.md#hamlet-defense-director)
-owns the director's stored values and other UI behavior. This page does not
-join its six `fieldBuffTbl` values to these arguments. Numeric icon operands
-remain unnamed. Score, clear conditions and rewards are outside this contract.
+owns the director's other UI behavior. The
+[conditional director join](#director-values-and-hud-arguments) above maps its
+six retained values to these commands. Actual runtime selection and native
+application remain unbound. Numeric icon operands remain unnamed. Score, clear
+conditions and rewards are outside this contract.

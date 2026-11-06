@@ -322,7 +322,7 @@ first forwarded value selects these client-side updates:
 | 1 | When the execution widget exists, sets its title from the director content ID, sets its timer from the finish time, and shows it. |
 | 2 | Copies three values to `harvestTbl[1..3]`. |
 | 3 | Zeros `harvestTbl[1..3]` and asks the execution widget to reset its gathering display when present. |
-| 4 | Copies six values to `fieldBuffTbl[1..6]`. |
+| 4 | Copies six values to `fieldBuffTbl[1..6]`; the [buff HUD contract](hamlet-buff-hud-contract.md#director-values-and-hud-arguments) owns their conditional command mapping. |
 | 5 | Normalizes three values into `lineStatusTbl[1..3]`: numeric 0 becomes 3, numeric 1 becomes 2, and every other value becomes 1. |
 | 6 | Copies four values to `goodsStatusTbl[1..4]`. |
 | 7 | Stores the first value as `cargoTarget`. |
