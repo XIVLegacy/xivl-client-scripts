@@ -10,6 +10,10 @@ This is static retail 1.23b evidence from extraction `2012.09.19.0001`.
 It establishes the selected caller and conditionally composes published helper
 and callback contracts. It does not establish a turn outcome or server action.
 
+The [separate opener](parley-opening-request.md) owns opening and its requested
+initializer tail. The [parameter contract](parley-parameter-request.md) owns
+the selected three-value parameter method.
+
 ## Supplied frame and result adjustment
 
 Write the six fixed parameters as

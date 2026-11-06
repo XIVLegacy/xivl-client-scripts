@@ -84,6 +84,9 @@ call prevents the following requests and normal return.
 
 ## Related state and remaining boundaries
 
+The [initializer contract](parley-initial-state-request.md#work-declaration-and-direct-assignments)
+owns the selected work declarations and initial assignments.
+
 The [Parley callback and update contracts](parley-target-gate.md#negotiation-widget-boundary)
 own other writes and result producers. Their `work.time` and `work.select`
 references do not make either field an input assignment in this method.

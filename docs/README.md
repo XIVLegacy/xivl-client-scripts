@@ -201,6 +201,8 @@ unverified native or server behavior.
 - [Parley target gate](parley-target-gate.md)
 - [Parley input and result route](parley-input-result-route.md)
 - [Parley parameter requests](parley-parameter-request.md)
+- [Parley opening request](parley-opening-request.md)
+- [Parley initializer requests](parley-initial-state-request.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
 - [Retainer payment widget contract](retainer-payment-widget-contract.md)
