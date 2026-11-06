@@ -146,6 +146,146 @@ guards, arithmetic, errors and result widths. Published helper contracts
 were adopted without reopening their bodies. Confirmation, facility and
 other repair methods remain outside this method's evidence.
 
+## NPC repair confirmation
+
+`PopulaceItemRepairer.confirmRepairItem(N,A1,A2,A3,A4)` returns exactly
+one Boolean. Its five fixed parameters include receiver N; missing values
+become nil and extra arguments are ignored. A1 supplies the receiver of
+`getMoneyOnHand`. A2, A3 and A4 are forwarded unchanged, in the order
+A3,A4,A2. This method performs no arithmetic, type/range check or inventory
+lookup on those supplied values.
+
+The original first resolves `N.askExtendWidget`, retaining N as its call
+receiver. It then resolves `A1.getMoneyOnHand` and calls it with exactly
+`(A1)`. Let G be that call's complete result sequence, including its length
+and any nil, false or zero entries. The saved ask member is then called once
+with this exact frame, including the receiver:
+
+```text
+(N,N,6,2,1,1,A3,A4,A2,...G)
+```
+
+The getter's zero results contribute no arguments; one result contributes
+one; more results all survive, including trailing nils. The ask requests
+exactly one result R and ignores additional results. R equal to numeric 1
+returns one true. Every other R, including nil, false, true, numeric zero,
+-3 and string "1", returns one false. Missing ask results become nil. No
+result path here returns the getter value or an inventory reference.
+
+Both members are looked up afresh on each invocation. There is no global
+read, cache, retry or catch. An ask-member lookup error precedes the getter
+lookup. A getter lookup/call error prevents the ask call. A missing or
+noncallable ask member can still allow the getter to run before the ask
+call errors. Nil, false and zero supplied values keep their positions;
+an invalid receiver instead fails when its member is looked up. If the
+getter changes the NPC member, the already saved ask callable is used.
+
+Conditional on that member resolving the published
+[inherited helper](request-warden-event-contract.md#widget-result-production),
+the leading operands request prompt row 6, two consecutive answer rows
+7/8, flag 1 and default index 1. The published flag-1 route requests
+paging false and cancellation true. Its
+[open formatter tail](open-world-key-coffer-contract.md#confirmation-and-event-contract)
+preserves A3,A4,A2 and G. These are text-request numbers and supplied
+formatter values. The [initializer declaration](https://github.com/XIVLegacy/xivl-client-data/blob/f248f1132e6230b24810d4d26fe97b0b0f90504b/docs/repair-menu-text-contract.md#initializer-declaration)
+requests bank 2204/schema `populaceItemRepairer`; actual helper, getter,
+provider/schema/locale, formatter and delivered UI remain conditional.
+
+### Conditional wallet-helper binding
+
+If A1's member resolves to the authenticated
+`CharaBaseClass.getMoneyOnHand(W,C)`, confirmation supplies only W. The
+helper has two fixed parameters and no varargs. Missing C is nil; extra
+arguments are ignored. It first calls `_hasItemPackage(W,100)`, retaining
+one result. Only exactly Boolean false returns one numeric zero immediately.
+Nil, zero and other values continue. It then calls
+`_getItemPackageCapacity(W,100)` and `_getItemPackageFreeSpace(W,100)`, in
+that order, retaining only each first result. Their difference is the loop
+limit. The numeric loop starts at 1, steps by 1 and continues while its index
+is at most that limit. A limit below 1 performs no iterations. There is no
+local integer/range check or protected arithmetic.
+
+Each iteration freshly resolves `countStackAtIndex` and calls
+`(W,100,index)`, retaining exactly two results, K and V, padding missing
+results with nil and ignoring extras. After that call, C equal to nil is
+replaced by 1000001. False and zero C retain their values. The first K
+equal to C returns exactly one V, even if V is nil, false or zero.
+There is no sum or scan after the first match. Exhausting the loop returns
+one numeric zero. Each preceding member is also resolved when reached;
+lookup, call or arithmetic errors propagate and prevent later requests.
+No global is read. The four selected callees and package-list production
+remain uninspected.
+
+The existing [Gil paragraph](https://github.com/XIVLegacy/xivl-client-structs/blob/180ab8aaa49b0157fee8996abe4d27e05b588bda/docs/bazaar-native-wire-contract.md#settlement-update-dependencies)
+identifies package 100/catalog 1000001 and the matching-stack-count role.
+That is adopted here; the exact original one-value return is separately
+characterized. The cited publication is 39,087 bytes, SHA-256
+`cdfe48fefa170db14f5247763455f674f9ee2e23692860eb9eed65aeaac70e53`.
+It does not establish the actual wallet receiver or current binding for
+these confirmation calls.
+
+### Conditional historical input composition
+
+The existing
+[repair verdicts](https://github.com/XIVLegacy/xivl-captures/blob/2af0ba056282b42d529c7856c0d01aacb31df4f1/studies/retail-repair-contract/derived/verdicts.md#capture-proven-npc-repair-facts)
+own the six historical frames: an actor followed by three big-endian
+integers, quote 1, catalog ID and observed value 1. Their
+[observation rows](https://github.com/XIVLegacy/xivl-captures/blob/2af0ba056282b42d529c7856c0d01aacb31df4f1/studies/retail-repair-contract/derived/npc-repair-observations.csv)
+give catalog IDs `4030013,8011608,8070218,8090608,8050611,8080819` in
+sequence order. If those values are supplied as A1,A2,A3,A4 to this exact
+method and the dynamic lookups/calls succeed, its ask frame is
+`(N,N,6,2,1,1,catalog,1,1,...G)`. The actor supplies the getter receiver.
+The final observed integer remains a presentation/count input; neither
+this forwarding nor the capture establishes its server inventory identity.
+
+This adopts the already published signature, positive replies and six
+one-gil charges. The new finding characterizes their original client
+consumer. It supplies no new global NPC tariff, bulk-service availability,
+before/after item condition, material debit, settlement or atomicity claim.
+The verdicts are 6,062 bytes, SHA-256
+`f4df7eb4e78796a79e2efaf10344ac56c05dca0a22c1a47dd180e9198706bd1f`;
+the observation CSV is 764 bytes, SHA-256
+`d57d047f959a417f67f30b47a74073e7bfa8577bc54f336d8d599fbca57787b6`.
+
+Source: `lua/scripts/chara/npc/populace/populaceitemrepairer.lua:683-707`,
+with the original/canonical identities above. Original `root/proto4`
+starts at decoded offset 4319 and has 19 instructions, no varargs,
+upvalues or children. Root PCs 20/21 create and bind `confirmRepairItem`.
+SELF PCs 0/9 resolve the ask/getter members. Getter CALL PC10 has B=2,C=0;
+ask CALL PC11 has B=0,C=2. EQ PC12 compares the first ask result to numeric
+1. RETURN PCs 15/17 have B=2, returning one value; the trailing RETURN
+PC18 with B=1 is unreachable on normal control flow. PCs are zero-based.
+
+Canonical line 697 instead captures exactly two getter results, padding
+missing results with nil and discarding extras. Line 698 passes those two
+fixed slots after A2, giving exactly eleven ask arguments including its
+receiver. Thus zero, one or more than two getter results can change the
+frame relative to the original. The numeric-1 Boolean adaptation agrees.
+Under the exact wallet-helper binding above, every normal helper path
+returns one M, so the original appends M and the canonical appends M,nil.
+The canonical source therefore adds one trailing nil even for this binding.
+The canonical source was checked literally and retained unchanged, with
+the original open-width and canonical fixed-width cases tested separately.
+These are source and authored-fixture checks, without retail execution.
+
+Wallet source: `lua/scripts/chara/charabaseclass_cliprog.lua:273-312`,
+original `root/proto16`, decoded code offset 3218, 32 instructions, two
+fixed parameters and no varargs, upvalues or children. Root PCs 49/50
+create and bind `getMoneyOnHand`. CALL PCs 2/9/12 have B=3,C=2;
+CALL PC21 has B=4,C=3. EQ PCs 3/22/25 test the package result against false,
+C against nil and K against C. SUB PC15 forms the limit; FORPREP/FORLOOP
+PCs 17/28 control indices. RETURN PCs 6/27/30 have B=2; the trailing
+zero-value RETURN PC31 is unreachable on normal control flow. The canonical
+helper agrees on these calls, guards and one-value normal returns.
+`manifests/scripts.json` pins its 8,202-byte, 454-line canonical source,
+SHA-256 `ea04844921f8820562afd172845cab7baf2df235725d20ad179bb713754c87fd`.
+`manifests/retail_lua_coverage.json`, matching `decodedScriptPath`, pins
+original resource `729s9/729s989r57y9rr_7y1usv3.le.lpb`, 4,508 bytes,
+SHA-256 `06ac1ccf8aa9fdd612f4465f298b937138b9957ce67f3260bdea702da1bcb35f`,
+and decoded payload 4,495 bytes, SHA-256
+`ce7f2b32b9c218a45cf16828983f2e1b59d81562e17ce60c0b849d2021b89f58`.
+The archive identity is owned by `manifests/private_lua_corpus.json`.
+
 ## Equipment request mode 24243
 
 `RepairEquipmentDialogWidget.getDialogResult` constructs its mode from
