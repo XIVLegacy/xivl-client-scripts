@@ -139,6 +139,46 @@ overrides, partial assignments and other dynamic effects retain their own
 conditions. A later call's value must not be inferred from an earlier text
 request or from the declared member width.
 
+## Conditional storage conversion
+
+The [native widget work routing](https://github.com/XIVLegacy/xivl-decomp/blob/4081fda7ba8b8493e9b59e875bf335aa29ddb8ce/docs/script/widget-work-members.md#read-and-write-routing)
+connects a declared member assignment through work userdata `__newindex`
+(`0x00D2F000 -> 0x00D175B0`) to `0x00D272D0`. Applying it here requires the
+selected setter binding, a `C.work` userdata following that native route,
+and a matched declaration registry node and factory that actually select
+the `integer8` descriptor for the selected `valueN` member. A declaration
+request alone does not establish those selections or installed pool storage.
+
+The [work binder's bind route](https://github.com/XIVLegacy/xivl-client-structs/blob/180ab8aaa49b0157fee8996abe4d27e05b588bda/docs/work-binder-native-contract.md#the-bind-route)
+reaches descriptor slot `0x6C` for conversion and storage only with a
+nonzero installed storage dword and the shared `_bind` flag clear. A set
+flag takes the bind route without storing the value. A zero storage dword
+ends the write without a store; the corresponding integer reader yields
+nil. These alternatives cannot be treated as successful numeric writes.
+
+The [published value coercion](https://github.com/XIVLegacy/xivl-client-structs/blob/180ab8aaa49b0157fee8996abe4d27e05b588bda/docs/work-binder-native-contract.md#value-coercion)
+uses `lua_tonumber` through `0x00CF35C0` for an integer descriptor, then
+truncates toward zero through `0x009D6636`. For an ordinary finite fractional
+numeric E whose truncated integer fits `integer8`, this qualifies a conditional
+stored scalar distinct from E. The publication's qualification that the
+exact low-bit store masks were not read byte by byte still applies.
+
+For example, if the selected getter supplies ordinary numeric R3=3 and X
+selects division, E is 1.5. Under all the storage premises above, its
+`integer8` conversion yields scalar 1. The subsequent conversion request
+still receives retained E=1.5, without reading that scalar back. Ordinary
+`tostring` spelling requires its actual library binding, and a text request
+does not establish rendering. Thus this example cannot justify equating
+the text operand with a later work read.
+
+A later getter can be related to the stored scalar only with the matching
+getter binding, the same member/storage and descriptor reader at slot
+`0x1C`, and preservation until its fresh read. Neither that read nor the
+actual registry selection, installed storage or pool construction is proved
+here. The native publications' initial-value and lifetime questions remain
+open. This is composition of existing published contracts, not a native or
+client execution result.
+
 ## Failures and source limits
 
 A reached getter, arithmetic operation, lookup, concatenation, conversion or
