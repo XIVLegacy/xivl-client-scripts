@@ -212,6 +212,7 @@ unverified native or server behavior.
 - [Parley tile update requests](parley-tile-update-request.md)
 - [Parley update code 13 requests](parley-update-code-13-request.md)
 - [Parley update code 27 requests](parley-update-code-27-request.md)
+- [Parley cancel-confirmation request](parley-cancel-confirmation-request.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
 - [Retainer payment widget contract](retainer-payment-widget-contract.md)
