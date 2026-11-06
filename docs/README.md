@@ -205,6 +205,7 @@ unverified native or server behavior.
 - [Parley initializer requests](parley-initial-state-request.md)
 - [Parley child initialization](parley-child-initialization-request.md)
 - [Parley ability-list initialization](parley-ability-list-initialization.md)
+- [Parley Content property requests](parley-content-property-request.md)
 - [Parley topic-text provider](parley-topic-text-provider.md)
 - [Parley topic-data values](parley-topic-data-values.md)
 - [Parley tile-data assignments](parley-tile-data-assignment.md)
