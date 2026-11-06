@@ -203,6 +203,7 @@ unverified native or server behavior.
 - [Parley parameter requests](parley-parameter-request.md)
 - [Parley opening request](parley-opening-request.md)
 - [Parley initializer requests](parley-initial-state-request.md)
+- [Parley child initialization](parley-child-initialization-request.md)
 - [Parley topic-text provider](parley-topic-text-provider.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
