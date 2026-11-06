@@ -181,6 +181,7 @@ unverified native or server behavior.
 - [Sanction CompanyBuffer client contract](sanction-company-buffer-contract.md)
 - [Sanction rank state composition](sanction-rank-state-composition.md)
 - [Sanction-scroll local eligibility](sanction-scroll-local-eligibility.md)
+- [Sanction and the status base client contract](sanction-status-base-contract.md)
 - [Gil-shop widget opening](gil-shop-widget-opening.md)
 - [ShopBuy purchase selection](shop-buy-selection-contract.md)
 - [ShopSellWidget local behavior](shop-sell-widget-contract.md)
