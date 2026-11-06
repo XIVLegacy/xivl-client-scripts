@@ -175,6 +175,7 @@ unverified native or server behavior.
 - [Company supply delivery flow](company-supply-delivery-flow.md)
 - [Grand Company promotion client contract](gc-promotion-client-contract.md)
 - [Grand Company enlistment and promotion evidence](gc-enlistment-promotion-evidence.md)
+- [Sanction CompanyBuffer client contract](sanction-company-buffer-contract.md)
 - [Gil-shop widget opening](gil-shop-widget-opening.md)
 - [ShopBuy purchase selection](shop-buy-selection-contract.md)
 - [ShopSellWidget local behavior](shop-sell-widget-contract.md)
