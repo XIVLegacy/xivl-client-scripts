@@ -205,6 +205,7 @@ unverified native or server behavior.
 - [Parley initializer requests](parley-initial-state-request.md)
 - [Parley child initialization](parley-child-initialization-request.md)
 - [Parley topic-text provider](parley-topic-text-provider.md)
+- [Parley topic-data values](parley-topic-data-values.md)
 - [Player trade lifecycle](player-trade-lifecycle.md)
 - [Retainer widget results](retainer-widget-results.md)
 - [Retainer payment widget contract](retainer-payment-widget-contract.md)
