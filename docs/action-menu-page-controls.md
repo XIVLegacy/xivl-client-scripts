@@ -131,6 +131,46 @@ label's next and previous storyboards. Their storyboards declare
 clears `slotMoving` at 547-550. The handler therefore allows another
 turn after an admitted finish reaches it.
 
+## Command Button slot data
+
+The standard form declares `IntData.Value0` literals 1 through 10 on
+`Button_Command_1` through `Button_Command_10` at lines 177-186.
+The [native attached-property finding](https://github.com/XIVLegacy/xivl-decomp/blob/8cfde48ae1b2b2e7527bbf3debc3f5a4a20cb3bd/docs/resource/sqwt-qualified-property-lookup.md#actionmenu-button-integer-data)
+owns the receiver storage, default zero and literal conversion. These values
+are separate from the Buttons' declared command-parameter records.
+
+`getSlotNumberFromButton` at canonical lines 2693-2712 is `main/f62`.
+PCs 0-3 call `getControlProperty` with the supplied control name and
+`IntData.Value0`, requesting one result `v`. PCs 4-9 return nil when
+`v < 1` or `10 < v`. PCs 10-15 otherwise return
+`10 * work.slotPage - 10 + v`. Both returns contain one value.
+The helper performs its comparisons directly, without a nil guard or
+integer conversion. `getSlotNameFromButton` at 2674-2690
+(`main/f61`, PCs 0-10) returns nil when this helper returns nil,
+and otherwise forwards the result to `getSlotLabelCommandIconName`.
+
+On the `UILuaCommands.EnterButton` arm, `processUICommandEvent`
+(`main/f1`, PCs 23-45, canonical lines 305-330) passes its fourth
+explicit argument to `getSlotNameFromButton`. A nil result skips the
+selected block. The accepted block requests the enter animation, updates
+cost data and calls `setOnCursorControl`, in that order. PCs 41-45
+then call `getControlProperty` on that same handler argument with
+`IntData.Value0`, request one result and store it in `work.slotSelectIndex`.
+This value is read again after the preceding calls. It is not the global
+slot number computed by `main/f62`.
+
+The shared `getControlProperty` wrapper at
+`widgetbaseclass_common.lua:1491-1501` is `main/f69`, PCs 0-5.
+It tail-calls `_getProperty` with three explicit arguments after self,
+namely nil, control name and property name, and forwards all results.
+The two callers above each select one result. The native nil-name
+property route is recorded in
+`xivl-client-structs:docs/widget-native-call-contract.md`, Property access.
+The source identity and replay method above apply to both scripts.
+PCs are zero-based and count instructions, excluding labels and directives.
+Actual event delivery, the returned native value and intervening property
+writes remain unresolved.
+
 ## Page names and peer bindings
 
 The ordinary `changeSlotPage` sequence performs no `Name` or peer
