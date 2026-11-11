@@ -55,9 +55,10 @@ these steps:
 
 1. Builds `Button_Command_N` from that argument (PCs 0-2).
 2. Calls `desktopWidget:updateActionMenuWidget(false, true)` (PCs 3-7). The
-   false first argument skips the ready rescan. The Desktop method shows the
-   widget when the second argument is true and no sub-target selection is
-   active (lines 9485-9576).
+   false first argument skips the ready rescan but still refreshes the
+   enabled state, as described in [Enabled refresh](#enabled-refresh). The
+   Desktop method shows the widget when the second argument is true and no
+   sub-target selection is active (lines 9485-9576).
 3. Maps the button to a slot Label through `getSlotNameFromButton`, then calls
    `updatePlayerParameterCostData` and `isButtonEnabled` (PCs 21-29).
 4. For a disabled slot, calls `playCommandExecuteSound(false)`, which sends
@@ -96,14 +97,85 @@ and `VisualOpacity`. It writes `IconRed`, `IconBlue`, `IconGreen` and
 value. A disabled slot receives color channels and icon channels of 0.5, with
 `VisualOpacity` and `IconAlpha` of 0.9.
 
+### Enabled refresh
+
+STATIC. `DesktopWidget.updateActionMenuWidget` (connector lines 9485-9576,
+`root/proto168`) acts on its first argument only when it is nonnil. A true
+value first requests `updateReadyCommand` and the widget's `updateActionMenu`
+(PCs 5-10). Any nonnil value, false included, then requests
+`getStaticWidget(7):updateActionMenuEnabled(getMainTargetCharacter())` (PCs
+11-15).
+
+`updateActionMenuEnabled` (lines 679-687, `main/f6`) declares only the widget
+parameter, so the passed target is not read. It requests
+`updateMainSlotEnabled` and then `changeBattleModeDisplay` (PCs 0-3).
+
+`updateMainSlotEnabled` (lines 1223-1414, `main/f19`) visits the ten slots
+that `getSlotIndex` returns for the current page, `(slotPage-1)*10+1`
+through `(slotPage-1)*10+10` (PCs 1-6, lines 2760-2771). For each nonnil
+custom command with a truthy usable flag it performs these requests:
+
+1. `desktopWidget:isStackIntoActionMenu(command, nil, nil, category, 0)`
+   with three results, then `setButtonEnabled` on `Label_CommandIcon_N`
+   with the second result (PCs 12-39).
+2. `getRecastTimeForCustomCommand(slot)` with two results (PCs 40-45). When
+   both are positive and `player:getCommandSlotCompatibility(slot)` is not
+   exactly false, a slot whose `getControlUserWorkInt(2, icon)` value already
+   equals the first recast value, with `icon` the second
+   `getSlotIconName(slot)` result, and whose `icon..":IconControl_Command_2"`
+   `Percent` is at least 100 receives `setButtonEnabled(label, true)` when
+   the second `isStackIntoActionMenu` result is exactly false and the third
+   exactly true (PCs 46-122).
+
+`getSlotNameFromButton` (lines 2674-2688, `main/f61`) maps the pressed
+button's `IntData.Value0` in 1 through 10 to slot `slotPage*10-10+value`
+through `getSlotNumberFromButton` (lines 2693-2710, `main/f62`), then names it through
+`getSlotLabelCommandIconName` (lines 2598-2606, `main/f56`) as the same
+`Label_CommandIcon_N`. For a slot on the current page with a usable custom
+command, `isButtonEnabled` in handler step 3 therefore reads the control whose
+color this refresh last set. That the native color read returns that write is
+not established here.
+
+`DesktopWidget.isStackIntoActionMenu` (connector lines 15506-15543,
+`root/proto333`) returns `(false, false)` when `checkActor(command)` is nil
+(PCs 3-10). Otherwise it calls `command:processCanFireWithoutTarget` with the
+player and its second through fourth arguments, takes three results, and
+returns `command:isActionMenu(player, target)` followed by the first and
+third of those results (PCs 11-29). The target is
+`getCurrentTargetCharacter()`, or the player when that is nil. The fifth
+argument is not forwarded, and the refusal code, the second result, is not
+returned. In `processCanFireWithoutTarget` the third result is true only on
+the `processCanCommandForRecastTime` refusal (lines 2626-2638, PCs 98-110).
+Success returns `(true, 0)` (PCs 111-113).
+
 ## Command arguments
 
-For first argument 2, `executeGameCommand` (lines 859-1018, `main/f13`) reads
-`getPlayerEquippedCustomCommand(slot)`, which returns the command, its category
-and a usable flag (`widget/desktopwidget_connector.lua:12602-12650`).
+STATIC. `executeGameCommand` (lines 859-1018, `main/f13`) selects the command
+source from its first argument, the slot kind. Kind 1 reads three results of
+`getPlayerEquippedReadyCommand(slot)` (PCs 16-24) and kind 2 three results of
+`getPlayerEquippedCustomCommand(slot)` (PCs 26-34). Any other kind returns
+false (PCs 36-37). Both getters return the command, its category and a usable
+flag.
+
+`getPlayerEquippedCustomCommand` is at
+`widget/desktopwidget_connector.lua:12602-12650`.
 `CharaBaseClass.getCustomCommand` reads `charaWork.command` and
 `charaWork.commandCategory` at `commandBorder + slot`
 (`chara/charabaseclass_cliprog.lua:232-247`, `root/proto14`).
+
+`getPlayerEquippedReadyCommand` (connector lines 12535-12583,
+`root/proto248`) returns `(nil, -1, false)` when the slot is below 1 or above
+the player's `getReadyCommandSlotLength()` (PCs 0-12). Otherwise it reads two
+results of `player:getReadyCommand(slot)` as command and category (PCs
+13-15). A nil command returns `(nil, category, false)`. A command whose
+`_isAlive` is exactly false returns `(command, category, false)`, and any
+other command `(command, category, true)` (PCs 22-39).
+
+Within `widget/actionmenuwidget.lua`, `addSlot` is the only nonzero writer of
+the slot Label's `IntData.Value2`, and its one caller `updateMainSlot`
+passes 2. `removeSlot` (lines 2020-2100, `main/f35`) writes 0. This script
+therefore produces no kind 1 slot Label. Whether another source writes kind 1
+is not established here.
 
 `executeGameCommand` returns false for an exact true `isTutorialLock(5)` or
 `isSubTargetSelectMode()` (PCs 0-14) and for a falsey usable flag (PCs 38-41).
@@ -138,7 +210,17 @@ nonnil, except for a nil command or command IDs 12017 and 12009 (PCs 0-14).
 field after a `canCommand` pass (PC 54). The field is declared `timer` at lines
 478-479. Its duration and clearing are not established here.
 
-`canCommand` calls the command's `canFire`. In `GameCommandBaseClass`,
+STATIC. After the burst test, `canCommand` reads one
+`getCommandName(command)` result. Unless that name equals
+`"commandRequest"`, it returns one false when `_canExecuteCommand(name)`
+(line 2000) is falsey (PCs 15-26). `lua/napi_index.json` records
+`_canExecuteCommand` as a native bound for `PlayerBaseClass` in
+`chara/player/playerbaseclass_u`, with this line as its one callsite. The
+native check behind it is not established here.
+
+`canCommand` then calls the command's `canFire` with the player and its nine
+remaining arguments and returns one result (PCs 27-39). In
+`GameCommandBaseClass`,
 `canFire` calls `processCanFire`, which tailcalls `checkFireImpl` after its
 earlier checks. These base methods apply the following refusals:
 
