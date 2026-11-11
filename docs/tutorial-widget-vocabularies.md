@@ -97,3 +97,95 @@ keys. Their static title association does not establish a historical tutorial
 invocation or successful rendered display. The native control, wait and
 camera contracts remain in
 `xivl-client-structs:docs/tutorial-control-native-contract.md`.
+
+## Mode selector opening and buttons
+
+`DesktopWidget.askTutorialDeviceType` (`root/proto165`, code start
+`0x16DC2`, root binding PC 497) saves 1, then requests
+`openWidgetYield(D,12,"Ask/TutorialModeSelectWidget",nil,nil,false)` with
+`CALL B=7,C=2` (PCs 0-6). A nil widget skips selection and close (PC7). A
+nonnil widget W reaches `selectWidgetYield(D,W,true)`, keeping one result
+(PCs 9-12). Only an exact `true` reads one `W:getAskResult()` result into
+the saved value (PCs 13-17). `closeWidgetDirect(D,W)` follows on every
+nonnil path (PCs 18-20). The method stores the saved value in
+`work.tutorialDeviceType` (PC22). When that value equals 1 it also requests
+`setConfigFlag(D,43,false)` (PCs 23-28). It returns the one saved value
+(PC29). The meaning of configuration flag 43 is NOT TRACED here. The
+[root slot contract](desktop-widget-root-slots.md#selection-show-pass)
+owns the show pass that `selectWidgetYield` makes for its `true` flag.
+
+`TutorialModeSelectWidget` is defined over `AskBaseClass`. Its `initAsk`
+(`root/proto0`, code start `0x10B`) makes these requests, each discarding
+results:
+
+| PCs | Request |
+| ---: | --- |
+| 0-3 | `setCommandParameter(W,"Button_1",2)` |
+| 4-7 | `worldMaster:_isKeyboardOnlyTutorial()`, one result compared with true |
+| 9-12 | Exact true: `setEnable(W,"Button_1",false)` |
+| 14-16 | Otherwise: `setConfirmCondition(W,"Button_1")` |
+| 17-20 | `setCommandParameter(W,"Button_2",1)` |
+| 21-23 | `setConfirmCondition(W,"Button_2")` |
+
+`processUICommandOperate` (`root/proto1`, code start `0x236`) requests
+`setBaseAskResult(W,x)` with its fourth formal x (PCs 0-2). The shared
+`_onUICommandEvent` forwards `(W,t,c,cmd,i1,i2)` unchanged to
+`processUICommandEvent`, whose Operate arm requests
+`processUICommandOperate(W,t,c,i1,i2)`
+(`widget/widgetbaseclass.lua` root/proto6 PCs 6-12,
+`widget/widgetbaseclass_common.lua` root/proto13 PCs 0-8). The result is
+therefore the event's first integer.
+
+The shared helpers build the button parameter text:
+
+- `setCommandParameter(W,control,a,b)` (common `root/proto121`) keeps one
+  result of `packCommandParameter(W,a,b)` and requests
+  `setControlProperty(W,control,"CommandParameter",text)`.
+- `packCommandParameter(W,a,b)` (common `root/proto49`) returns one nil for
+  a nil a (PCs 0-1, 23-24). For a nil b it returns
+  `"{CommandParameter Int,"..tostring(a).."}"` (PCs 5-10). Otherwise it
+  returns `"{CommandParameter Int,"..tostring(a)..","..tostring(b).."}"`
+  (PCs 12-21). No type test is made on either operand.
+- `setControlProperty(W,control,prop,...)` (common `root/proto68`)
+  requests `_setProperty(W,nil,control,prop,...)` with the open tail.
+- `setEnable(W,control,flag)` (common `root/proto77`) requests
+  `setControlProperty(W,control,"IsEnabled",flag)`.
+- `setConfirmCondition(W,control)` (common `root/proto56`) requests
+  `_setUICommandCondition(W,control,"UILuaCommands.Operate",5)`.
+
+The selector therefore sets `{CommandParameter Int,2}` on `Button_1` and
+`{CommandParameter Int,1}` on `Button_2`. The
+`xivl-decomp:docs/resource/sqwt-command-parameter-grammar.md` "Brace text"
+and `xivl-decomp:docs/resource/sqwt-command-parameter-consumer.md` "Kind
+switch" and "Script entry" sections own the native parse of that text and
+the integer handed to the script. The join from the Lua property request to
+a button's stored command record is conditional on that native property path.
+
+Neither `TutorialModeSelectWidget.initAsk` nor `AskBaseClass.init` requests
+`setCancelCondition` or any `UILuaCommands.Cancel` subscription. The shared
+`initConsumedCommmand` writes a `ConsumedCommand` property whose text lists
+`UILuaCommands.Cancel` (common `root/proto1` PCs 8-27, 65-68). That property
+is not a subscription request, and its native role is NOT TRACED here. If a
+Cancel were delivered to the script, the base `processUICommandCancel` would
+forward to the base `processUICommandClose`, which requests
+`desktopWidget:closeWidgetDirect(W)` without a result write, as the
+[root slot contract](desktop-widget-root-slots.md#abort-sweep-and-deletion)
+describes. The `Subscription gate` section of the consumer page returns
+without a Lua call on a missing subscription.
+
+Canonical windows: `desktopwidget_connector.lua:9415-9455`,
+`tutorialmodeselectwidget.lua:11-45` and `48-56`, and
+`widgetbaseclass_common.lua:1164-1193` (`packCommandParameter`),
+`1312-1322` (`setConfirmCondition`), `1477-1488` (`setControlProperty`),
+`1631-1641` (`setEnable`) and `2315-2330` (`setCommandParameter`). The
+selector resource is `n1635q/9rz/qpqvs19yxv65r5y57qn1635q.le.lpb`, 649
+bytes, SHA-256
+`5325e333df3182ee2839a1807ce2415f9ebec48a2ae2ecd34140c02373824595`, with a
+636-byte decoded payload, SHA-256
+`b0da06584406330f78167546037200a3909a274a0187f8f2bf7c249adf04a779`. The
+common resource identities are pinned in the
+[CommonAsk answer-list page](common-ask-answer-list.md#source-identity-and-verification),
+and the connector identities in the
+[camp choice flow](camp-replacement-choice-flow.md#authenticated-inputs-and-locators).
+Prototype indices and PCs are zero-based, and code starts are
+decoded-payload offsets.

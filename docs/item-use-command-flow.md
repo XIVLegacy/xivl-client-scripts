@@ -58,6 +58,16 @@ Unsupported receiver shapes or numeric comparisons can fail before a normal
 return. The predicates do not prove native result types, storage, ownership
 or that this later lookup returns the same object used to choose the mode.
 
+`getReadyCommandIndex` maps 21007 to ready index 6 (connector
+`root/proto246`, code start `0x1CA99`, PCs 22-25,
+`desktopwidget_connector.lua:12408-12497`). The
+[ready-command dispatcher](equipment-cancel-command-contracts.md#callers-and-arguments)
+returns one `false` before its command lookup when
+`work.commandIndex[6] <= 0` (`root/proto279`, PCs 6-19), so the helper's
+tailcall then yields exactly that `false`. A nil entry fails that comparison
+under standard Lua rules instead of returning. The writer of
+`work.commandIndex` is NOT TRACED here.
+
 The static-actor map assigns `21007` to `/Command/ItemCommand`
 (`xivl-client-data:manifests/staticactor_class_paths.json:98-99`). This is a
 command ID and class-path mapping, not a network opcode or an observed

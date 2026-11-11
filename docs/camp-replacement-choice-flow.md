@@ -39,8 +39,9 @@ the widget `ask` call's results.
 `AskWidget.ask` calls `initialWidget`, which requests a base-result reset
 and initializes its local work fields. The selected call then requests
 `askAnswerMax=4`, `askPaging=false`, `canCancel=true` and `askPageMax=1`.
-It requests default answer 1 when the relevant work reads satisfy its range
-checks. These assignments do not prove native storage or later readback.
+It stores the nonnil default answer 1 without a range comparison, as the
+[default-answer contract](ask-widget-answer-focus.md#default-answer-and-focus)
+describes. These assignments do not prove native storage or later readback.
 
 For the question, its selected property request has this exact argument tuple:
 
