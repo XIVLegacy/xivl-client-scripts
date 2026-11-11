@@ -4,9 +4,10 @@
 property sources, list controls and item packages. Its row writer reads one
 player item and forwards its display values to the desktop XML helpers. Its
 selection handler requires keyboard focus before it records the chosen item,
-and its sub menu is positioned from window properties. The item objects it
-reads belong to a small Lua class family. These are recovered Lua request
-contracts, not proof of native list materialization, focus or layout.
+its focus helpers convert a list place to a row index through the list
+property, and its sub menu is positioned from window properties. The item
+objects it reads belong to a small Lua class family. These are recovered
+Lua request contracts, not proof of native list materialization, focus or layout.
 
 The [ItemSelectWidget contract](item-select-widget-contract.md) describes a
 different widget, `SubItemListWidget`, whose name and package maps differ.
@@ -138,6 +139,91 @@ Next request `catalogSkip(W,-1)` and `catalogSkip(W,1)` (PCs 19-59).
 one result of `D:_getKeyboardFocusedWidget()` and returns one `true` when it
 equals W under Lua equality, otherwise one `false`.
 
+## Focus and row index
+
+STATIC. `work.focus` holds a list place and `work.index` a row index. The
+helpers below convert between them through the list property
+`TabItem_<n>_Maker`. These are Lua requests. How the native list maps a
+place written to `FilteredIndex` onto `Index` is not established here.
+
+`getListBoxFocusNum(n)` (`root/proto25`) returns four zeros when
+`getListBoxItemNum(n)` is below 1 (PCs 0-12). Otherwise it reads the list
+property's `FilteredCount` and returns that count, the count minus 1, 0 and
+`work.focus`. The fourth value becomes the count minus 1 when the count is
+less than `work.focus` (PCs 13-28).
+
+`focusToIndex(n,focus)` (`root/proto26`) returns one -1 when the first
+`getListBoxFocusNum` result is below 1 or focus is at or above it (PCs 0-12).
+There is no lower-bound test. Otherwise it requests
+`setControlProperty(W,name,"FilteredIndex",focus)` and tailcalls
+`getControlProperty(W,name,"Index")` (PCs 13-21).
+
+`indexToFocus(n,index)` (`root/proto27`) starts at -1. For a positive first
+`getListBoxFocusNum` result it requests `Index` = index and returns one
+`FilteredIndex` read (PCs 0-22).
+
+| Consumer | Requests | PCs |
+| --- | --- | --- |
+| `processTimer` (`root/proto12`) | Converts `work.focus` on `work.listbox` and stores a nonnegative result in `work.index`. It then sets `work.page` to 0 and requests `updateWindowDisplay(W,true)` and `selectedBorder(W)` with no further argument. | 0-16 |
+| `updateListFocus` (`root/proto16`) | Returns one `false` for a nonzero `updatecount`. With a zero first focus result it shows `TextBlock_NoContents_<n>`, hides the list, sets `editWidgetOpen` to 0, requests `displayFocusedItemHelp` and focuses the empty text. Otherwise it clamps `work.focus` to the count minus 1 and stores a nonnegative `focusToIndex` result in `work.index`. It then writes `SqwtFocusedIndex` = `work.focus` on `ListBox_TabItem_<n>` and requests `setFocusedIndex`, `setWindowFocus` and `displayFocusedItemHelp`. | 0-5, 72-131 |
+| `operateSort` (`root/proto54`) and `setSortTypeWork` (`root/proto74`) | After `updateSortType`, convert the saved `work.index` with `indexToFocus` and store a result above -1 in `work.focus`. They convert that focus back with `focusToIndex` and store a nonnegative result in `work.index`. `operateSort` does this only for list 1. | 11-33 and 6-28 |
+| `catalogSkip` (`root/proto13`) | Passes `focusToIndex(work.listbox,place)` for each stepped place to `desktopWidget:getItemSortKey`. | 53-65 |
+
+The MouseEnteredItem and AnchoredItem arm of `processUICommandDefault` stores
+the focus and list and requests `setCommonTimer(W,0.2)` (PCs 19-37). That this timer reaches
+`processTimer` is INFERRED from the names.
+
+STATIC. The open and tab paths start from place 0:
+
+1. `setInitialData(W,A1,A2)` (`root/proto3`) requests `setModal`,
+   `resetListBox` for lists 1 through 6 and then the three list builders
+   (PCs 0-26). For A2 equal to 3 it requests `setSelectedIndex` on
+   `TabControl_ItemList` with 4 and sets `work.listbox` to 5. Otherwise `work.listbox` is
+   `getSelectedTab()`, or 1 when that is 0. Both paths request `changeList`,
+   a title text and `updateWindowDisplay(W,true)` (PCs 27-57).
+2. `changeList` (`root/proto45`) sets mode 100 and title text 3213 for list
+   5, and mode 310 with the `TabItem_<n>` `Header` as title otherwise. List 4
+   sets `materiaOrder` true (PCs 0-30). It then sets `work.index` and
+   `work.focus` to 0 and tailcalls `updateWindowDisplay(W,true)` (PCs
+   31-37).
+
+STATIC. Called with no arguments, as `setInitialData` calls it,
+`makeListFromPackage` (`root/proto36`) writes `FilteredSortKey` =
+`"sorttype"` on the list properties of lists 1 through 4 before their rows
+(PCs 41-45, 108-112, 175-179 and 249-253). `makeDropItemList`
+(`root/proto37`) and `makeMoneyList` (`root/proto38`) write the same key on
+lists 5 and 6 (PCs 24-28 in each).
+
+### Focused detail and row border
+
+STATIC. `displayFocusedItemHelp` (`root/proto42`) returns one `false` for a
+positive `updatecount` (PCs 0-5). With a zero first focus result it requests
+`displayHelp(W,3140)`, clears its detail flags, sets `work.page` to 0,
+requests `setGridVisibility(W,0)` and returns one `false` (PCs 6-33). It
+also returns one `false` when `work.index` is at or above the list's item
+count (PCs 34-43). Otherwise it reads one `player:_getItem(package,
+work.index+1)` result, with the package from `getPackageFromList` (PCs
+44-66). Its source selector is the literal 1, so the `getBazaarItem` arm at
+PCs 68-75 is not taken. The detail requests are:
+
+```text
+desktopWidget:setItemDetail(W,item,name,work.index,true)
+desktopWidget:setItemDetailEquip(W,item,name,work.index,equipped,
+                                 false,false,false,false,false,false,nil,true)
+```
+
+at PCs 76-87 and 205-224, where `equipped` is a `_getEquippingItem` result
+or nil.
+
+`selectedBorder(W,a,b)` (`root/proto44`) never uses `a` as a row. For a
+nonnil `a` it writes the row attribute `selected` of row `work.index` as
+`"Visible"`, or `"Collapsed"` when `b` is exactly false, and stores
+`work.selected` = `work.index` (PCs 4-21). For a nil `a` it returns at once
+when `work.selected` is -1 (PCs 22-26). Otherwise it writes `"Collapsed"` to
+rows 0 through the item count minus 1 and sets `work.selected` to -1 (PCs
+28-43). Both paths that continue request `updateListProperty(W,name)` (PCs
+44-46).
+
 ## Sub-widget positioning
 
 `openSubWidget` (`root/proto60`) looks up the child by window name
@@ -199,15 +285,30 @@ decoded-payload offsets with PC n at start plus 4n.
 | `init` | `itemlistwidget.lua:11-333` | 9 | `root/proto0` / `0xC8C` |
 | `initForm` | `itemlistwidget.lua:336-419` | 12 | `root/proto1` / `0x13CB` |
 | `initListBox` | `itemlistwidget.lua:422-492` | 15 | `root/proto2` / `0x1730` |
+| `setInitialData` | `itemlistwidget.lua:495-574` | 18 | `root/proto3` / `0x1992` |
 | `processUICommandSelection` | `itemlistwidget.lua:810-903` | 39 | `root/proto10` / `0x22B1` |
 | `processUICommandDefault` | `itemlistwidget.lua:906-966` | 42 | `root/proto11` / `0x25A5` |
+| `processTimer` | `itemlistwidget.lua:969-993` | 45 | `root/proto12` / `0x283B` |
+| `catalogSkip` | `itemlistwidget.lua:996-1099` | 48 | `root/proto13` / `0x292A` |
 | `getListPropertyName` | `itemlistwidget.lua:1102-1113` | 51 | `root/proto14` / `0x2BBD` |
+| `updateListFocus` | `itemlistwidget.lua:1166-1322` | 57 | `root/proto16` / `0x2DCD` |
 | `getListBoxName` | `itemlistwidget.lua:1560-1570` | 78 | `root/proto23` / `0x3A89` |
 | `getListBoxItemNum` | `itemlistwidget.lua:1573-1584` | 81 | `root/proto24` / `0x3AF1` |
+| `getListBoxFocusNum` | `itemlistwidget.lua:1587-1623` | 84 | `root/proto25` / `0x3B68` |
+| `focusToIndex` | `itemlistwidget.lua:1626-1654` | 87 | `root/proto26` / `0x3C8A` |
+| `indexToFocus` | `itemlistwidget.lua:1657-1689` | 90 | `root/proto27` / `0x3DA3` |
 | `getPackageFromList` | `itemlistwidget.lua:1692-1711` | 93 | `root/proto28` / `0x3ED3` |
 | `setItemToXmlLight` | `itemlistwidget.lua:1714-1909` | 96 | `root/proto29` / `0x3FAB` |
+| `makeListFromPackage` | `itemlistwidget.lua:2524-2902` | 117 | `root/proto36` / `0x5444` |
+| `makeDropItemList` | `itemlistwidget.lua:2905-3031` | 120 | `root/proto37` / `0x5B7F` |
+| `makeMoneyList` | `itemlistwidget.lua:3034-3144` | 123 | `root/proto38` / `0x5F00` |
+| `displayFocusedItemHelp` | `itemlistwidget.lua:3896-4195` | 135 | `root/proto42` / `0x715C` |
+| `selectedBorder` | `itemlistwidget.lua:4215-4271` | 141 | `root/proto44` / `0x7A05` |
+| `changeList` | `itemlistwidget.lua:4274-4320` | 144 | `root/proto45` / `0x7BAB` |
+| `operateSort` | `itemlistwidget.lua:4874-4925` | 171 | `root/proto54` / `0x8F86` |
 | `setSubPosition` | `itemlistwidget.lua:5272-5334` | 186 | `root/proto59` / `0x9AF0` |
 | `openSubWidget` | `itemlistwidget.lua:5337-5940` | 189 | `root/proto60` / `0x9CD9` |
+| `setSortTypeWork` | `itemlistwidget.lua:6546-6587` | 231 | `root/proto74` / `0xBE23` |
 | NormalItem `init` | `normalitembaseclass_common.lua:519-622` | 53 | `root/proto17` / `0x13CA` |
 | Common `getWindowPosition` | `widgetbaseclass_common.lua:2638-2653` | 431 | `root/proto143` / `0x6C50` |
 | Common `getWindowSize` | `widgetbaseclass_common.lua:2656-2671` | 434 | `root/proto144` / `0x6CC4` |
@@ -218,4 +319,6 @@ Reproduction uses `tools/retail_script.py:decode_lpb` and the
 `ChunkReader` and `instruction` definitions in
 `tools/build_quest_contracts.py`. Check the EQ and LT operands and jump
 targets of the package map, the selection gates and the 640 by 480 test,
-and the CALL widths of the two XML requests.
+and the CALL widths of the two XML requests. For the focus helpers, check
+the LT and LE guards of `focusToIndex`, its `TAILCALL`, and the `selectedBorder`
+FORLOOP bounds.
