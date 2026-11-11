@@ -193,7 +193,8 @@ IDs through `getQuestId`, and writes type 3 and the scenario slot index
 (root/proto14 PCs 7-39, offsets `0x26CD`-`0x274D`).
 
 `addQuestCompleteList` writes type-3 rows with `JournalIndex` 0 for IDs where
-`isQuestComplete(ID)` is not exactly true (root/proto15 PCs 3-29, offsets
+`isQuestComplete(ID)` is exactly true. PC14 is `EQ A=0` against true and
+skips every other result (root/proto15 PCs 3-29, offsets
 `0x28D7`-`0x293F`). This records the method's predicate without assigning
 the CSV candidate's `completed quest` label. `setListItem` writes `Name`
 from its text-key argument and stores `JournalType` and `JournalID`
@@ -203,6 +204,35 @@ exactly false sets `ItemColor` to `tostring(0.5)` and `JournalType` to 0
 (root/proto17 PCs 164-215, offsets `0x2F6E`-`0x303A`). These calls and row
 values do not establish category labels, text-key meanings, or the meaning of
 the color value.
+
+Every row write of `createList` and its builders names the list property
+source `ListBox`, distinct from the `ListBox_JournalList` control. `createList` requests
+`setVisibility("ListBox_JournalList",false)` and
+`deleteListPropertyAll("ListBox")` before the mode builders (root/proto10
+PCs 0-6, offsets `0x1D94`-`0x1DAC`), then `updateListProperty("ListBox")`
+and `setVisibility("ListBox_JournalList",true)` after them (PCs 88-94,
+offsets `0x1EF4`-`0x1F0C`). The shared helpers forward the source name
+unchanged: `deleteListPropertyAll` to `_clearAllList`,
+`updateListProperty` to `_updateList`, `setListProperty` to
+`_setListProperty` and `setListText` to `_setListTextProperty`
+(`widget/widgetbaseclass_common.lua` root/proto173, proto174, proto169 and
+proto175). The binding of the `ListBox` source to the control's items is
+NOT TRACED here.
+
+`addListTitle(row,text,help)` writes, on that row, `template`
+`DataTemplate_ListBoxItem_Title` through `setListPropertyTemplate`,
+`TitleText` with the text key, `TitleHelpType` 1, `TitleHelpValue0` with the
+help value and `JournalType` 0, then returns `row+1` (root/proto11 PCs 0-30,
+offsets `0x20A3`-`0x211B`). `addQuestList` heads its block with
+`addListTitle(row,4309,78401)` (root/proto14 PC5, offset `0x26C5`). After the
+quest rows it writes `NumberText` on the title row with key 228 and two
+values, the number of quest rows added and `getScenarioQuestLength()` (PCs
+40-49, offsets `0x2751`-`0x2775`). Its quest rows call
+`setListItem(row,3,getQuestId(),5001)`. `setListItem`'s `Name` request is
+therefore `_setListTextProperty("ListBox",row,"Name",5001,ID)`. The
+[list text native contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/desktop-native-call-contract.md#list-text)
+composes that text as `@5001` followed by `/i` and the ID when the ID is an
+int.
 
 `JournalListWidget.initAsk` declares `resultSelectFlag`, `requestResult`, and
 `guildleveFlag` as booleans; `mode` and `questType` as `integer8`; and
@@ -315,7 +345,9 @@ the fallback opens `Ask/QuestAskWidget` with scalar 1 and the ID
 (`root/proto27`, PCs 0-34, offsets `0x1ABE`-`0x1B46`). These are static
 client detail routes and do not establish why the raw ID ranges were selected.
 The [QuestAskWidget contract](quest-ask-widget-contract.md) owns its local
-initialization, command requests and numeric icon/category branches.
+initialization, command requests and numeric icon/category branches. The
+[QuestDetailWidget contract](quest-detail-widget-contract.md) owns the
+detail widget's mode branches and local results.
 
 `DesktopWidget.askActiveGuildleveDetailWidget` opens
 `Ask/JournalDetailWidget` with
