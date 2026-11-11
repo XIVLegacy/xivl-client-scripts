@@ -68,6 +68,7 @@ PCs are zero-based in `main/f0`.
 | `PushSlotNext` | 84-86 | 125-128 |
 | `PushSlotPrev` | 87-89 | 129-132 |
 | `FinishAnimation` | 107-109 | 156-159 |
+| `ShortCutAction` | 116-118 | 168-171 |
 | `ActionBarSlotPrev` | 119-121 | 172-175 |
 | `ActionBarSlotNext` | 122-124 | 176-179 |
 
@@ -86,6 +87,8 @@ gates, including the active and pending priority comparisons. The callback
 forwards five argument slots to the widget's `processUICommandEvent`. The registration
 and callback paths are static evidence. Actual callback delivery remains
 unresolved. [Native event admission](https://github.com/XIVLegacy/xivl-decomp/blob/813128f03f2b83fe941caad04c760a11c0cb352c/docs/resource/sqwt-command-parameter-consumer.md#L886-L899)
+The [ShortCutAction route](action-menu-shortcut-action-route.md) owns the
+`ShortCutAction` handler.
 
 `init` initializes `slotMoving` false, `slotPage` to 1 and
 `slotMaxPage` to 3 at 184-195.

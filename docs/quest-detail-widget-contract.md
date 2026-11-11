@@ -23,6 +23,19 @@ getter and completion poll.
 both work fields from its formals (PCs 19-22). Visibility, text, icon, help,
 condition and reward requests follow (PCs 23-109).
 
+The title and client text requests pass the quest key to `setText`.
+`getGrandCompany(questID)` selects the title target. A zero result requests
+text key 5025 on `TextBlock_Title` (PCs 41-42 load the name and key). A
+nonzero result requests the same key on `TextBlock_GrandCompany` (PC 86 loads
+the key). Both paths then request key 5028 on `TextBlock_ClientName`
+(PCs 99-100).
+
+`setConditionData` (`root/proto5`, lines 454-579) receives the quest key and
+reads quest field 53. A zero field requests key 5030 on `TextBlock_Condition`
+with the quest key (PCs 22-23). A nonzero field requests a key computed from
+5056 on `TextBlock_Condition` (PC 63 loads the name) and key 5030 on
+`TextBlock_RequiredLevel` (PC 82 loads the key).
+
 PC113 compares `work.mode` with 1. A mode other than 1 jumps to the offer
 branch at PC174:
 

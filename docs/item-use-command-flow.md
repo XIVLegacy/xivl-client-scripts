@@ -65,8 +65,42 @@ or that this later lookup returns the same object used to choose the mode.
 returns one `false` before its command lookup when
 `work.commandIndex[6] <= 0` (`root/proto279`, PCs 6-19), so the helper's
 tailcall then yields exactly that `false`. A nil entry fails that comparison
-under standard Lua rules instead of returning. The writer of
-`work.commandIndex` is NOT TRACED here.
+under standard Lua rules instead of returning.
+
+`DesktopWidget.init` zeroes `work.commandIndex` indices 1 through 18
+(connector lines 368-375). `DesktopWidget.updateReadyCommand` is the only method in the
+decoded corpus that stores a nonzero value there. It zeroes the same indices,
+then scans ready slots 1 through `getReadyCommandSlotLength()`. For each slot
+whose `getReadyCommand` result passes `checkActor`, it maps `getCommandId()`
+through `getReadyCommandIndex`. A nonzero index receives the slot number, so a
+later slot with the same index replaces an earlier one (lines 12351-12403,
+`root/proto245`, PCs 6-10 and 17-40).
+`CharaBaseClass.getReadyCommandSlotLength` returns 0 without
+`hasGameParameter` and otherwise returns `charaWork.commandBorder`
+(`chara/charabaseclass.lua:347-359`).
+
+Two connector methods call `updateReadyCommand`:
+
+| Caller | Lines and instruction | Condition |
+| --- | --- | --- |
+| `updateActionMenuWidget` | 9485-9576, `root/proto168` PC 7 | A truthy first argument. |
+| `updateMainMenuWidget` | 9595-9616, `root/proto170` PC 0 | Every call. |
+
+The literal-true `updateActionMenuWidget` callers are
+`initializeParameterforStaticWidget` and the local-player `command` or
+`commandEquip` branch of `processCharacterParameterUpdated`. Every other
+literal first argument in the decoded corpus is false. These paths reach a
+rescan:
+
+| Path | Lines and instructions |
+| --- | --- |
+| `DesktopWidget.init` calls `initializeParameterforStaticWidget`, which calls `updateActionMenuWidget(true, getConfigFlag(1), true)`. | 437-439 and 8305-8330, `root/proto0` PCs 318-319, `root/proto143` PCs 0-6 |
+| `processCharacterParameterUpdated` calls `updateActionMenuWidget(true)` and then `updateMainMenuWidget()`. | 4980-4990, `root/proto78` PCs 117-126 |
+| `CharaBaseClass._onUpdateItemPackage` forwards to `processUpdateItemInformation`, which calls `updateMainMenuWidget()` when its actor is the local player. | `chara/charabaseclass.lua:1310-1322`, `root/proto28` PC 3, connector 5861-6044, `root/proto86` PCs 59 and 150 |
+
+The other `updateMainMenuWidget` call sites also rescan. A rescan reads the
+ready slots present at that call. Native delivery of the callbacks and the
+contents of `charaWork.command` remain runtime inputs.
 
 The static-actor map assigns `21007` to `/Command/ItemCommand`
 (`xivl-client-data:manifests/staticactor_class_paths.json:98-99`). This is a
@@ -205,6 +239,7 @@ to retail `client/script/`.
 | `command/itemcommand.lua` | 837 / 42 / `3302b9e1d0f1fb763542233666617d04c6f75c468bd4f49df33c69526b0706f6` |
 | `item/itembaseclass.lua` | 1391 / 68 / `2a0841c0477019577e9939330eb80f2e3a3d1a2166a3d2278a7e378ee36540c8` |
 | `item/itembaseclass_common.lua` | 87762 / 4686 / `7620492917230c3e060ed84d3197bf164c234a3ab73e48a0939bc65107f6b7fa` |
+| `chara/charabaseclass.lua` | 34320 / 1734 / `f17b3e62a137d8f524ba88d55296e1fb064512dc803f7a85dc980dd4bcbc9625` |
 
 | LPB | Bytes / LPB SHA-256 | Decoded bytes / SHA-256 |
 | --- | --- | --- |
@@ -212,6 +247,7 @@ to retail `client/script/`.
 | `7vxx9w6/1q5x7vxx9w6.le.lpb` | 432 / `70573e99578745c3b9f0e6f46d19291ac204f086e17c73a9826474067b21a02c` | 419 / `771a29bfc514892d59f9b0b265dfde6d6284947661a347833a6c582a1dc504c9` |
 | `1q5x/1q5x89r57y9rr.le.lpb` | 759 / `03331954e7795cd1c820973d74ef975513a4cb1793c3bd78f49568972dc325d7` | 746 / `6a4e865ebcf1f4d2d70bf245e4eeb7b53988e877d5fbebcb71fdf4616697873d` |
 | `1q5x/1q5x89r57y9rr_7vxxvw.le.lpb` | 41430 / `50bd1025ad4ad14c12e51f96f9c73894d990f0c452cd756e0d815d684e5c91f0` | 41417 / `55f24303105864b50b37bab4e796f81ad65b889a08ff665e6130be96e62ba4d6` |
+| `729s9/729s989r57y9rr.le.lpb` | 13821 / `c7cd1dad84f7d9b723f5a10fb66108da9d9d6ef5d7c15186b48ec55092465238` | 13808 / `101cafa86ebcb362b502e47dd33e262ede31b4939cc7fe945ab571e1afd0d3a9` |
 
 PCs are zero-based. Offsets are decoded-payload byte offsets at the start
 of the prototype's instruction array; each instruction occupies four bytes.
@@ -222,6 +258,14 @@ of the prototype's instruction array; each instruction occupies four bytes.
 | Connector `isValidItemParameter` | 13481-13511 | `root/proto274` / 124643 / 26 | Actor CALL 2; package CALL 9; capacity CALL 16; range comparisons 17/19. |
 | Connector `getItem` | 13515-13543 | `root/proto275` / 124865 / 22 | Validation CALL 4; exact-false compare 5; item CALL 12; actor CALL 15; nil compare 16. |
 | Connector `executeCharacterUseItem` | 14618-14643 | `root/proto303` / 132592 / 19 | Player CALL 3; item CALL 6; nil compare 7; false RETURN 10; ready TAILCALL 16. |
+| Connector `updateReadyCommand` | 12351-12403 | `root/proto245` / 116990 / 42 | Zero loop 6-10, scan loop 17-40, slot store SETTABLE 39. |
+| Connector `updateActionMenuWidget` | 9485-9576 | `root/proto168` / 94225 / 74 | Nil compare 3, truth test 5, rescan SELF 7. |
+| Connector `updateMainMenuWidget` | 9595-9616 | `root/proto170` / 95002 / 15 | Rescan SELF 0. |
+| Connector `initializeParameterforStaticWidget` | 8305-8330 | `root/proto143` / 85889 / 18 | True operand 1, action-menu CALL 6. |
+| Connector `processCharacterParameterUpdated` | 4841-5338 | `root/proto78` / 61963 / 413 | `command` compare 117, `commandEquip` compare 120, true operand 123, menu SELF 125. |
+| Connector `processUpdateItemInformation` | 5861-6044 | `root/proto86` / 68581 / 153 | Local-player compare 59, menu SELF 150. |
+| CharaBase `getReadyCommandSlotLength` | 347-359 | `root/proto15` / 4427 / 10 | Parameter test 2, zero RETURN 5, border read 7. |
+| CharaBase `_onUpdateItemPackage` | 1310-1322 | `root/proto28` / 10472 / 9 | Forwarding SELF 3. |
 | ItemCommand `canFire` | 20-42 | `root/proto1` / 303 / 18 | Item `canUse` CALL 10 takes one result; truth test 11; boolean RETURNs 14/16. |
 | Item common `canUse` | 4511-4586 | `root/proto196` / 40275 / 65 | Nil comparisons 0/3/6; defaults 2/5/8; use-max CALL 10; zero compare 11; predicate CALLs 18/32/49; message CALLs 25/41/58; success RETURN 63. |
 | Item common actor-state predicate | 3556-3646 | `root/proto157` / 33281 / 109 | State/category CALLs 1/3; dead-use CALL 9; category/state comparisons 4-94. |
