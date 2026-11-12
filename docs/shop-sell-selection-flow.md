@@ -175,6 +175,36 @@ discarding both results. The base setter can request input disablement before
 the result write. Neither cancellation nor a finished wait closes the parent
 widget or proves that any write was read back.
 
+### Rearm relative to a package change
+
+Connector `root/proto556` calls `resetBaseAskResult` at PC 7,
+`setAskParameter` at PC 10 and `show` at PC 14. ShopSell
+`setAskParameter` calls `updateWindowDisplay(true)` at PC 2 before it
+assigns `askstatus=true`, requests a border reset when admitted, and
+assigns `waitNext=false`. The full refresh reaches `updateListFocus` at
+`root/proto5` PC 35. See [Focus after removal from the current package](shop-sell-widget-contract.md#focus-after-removal-from-the-current-package)
+for the list mapping and pending-count guards.
+
+In the main lane of the tracked `sell_item.pcapng` extract, server-to-client
+opcode runs 96 through 104 of `xivl-captures:derived/sequences.json`
+`perCapture.sell_item.pcapng.collapsed` contain `0x0153`, `0x0146`,
+`0x0148`, `0x0146`, `0x014E`, `0x0147` three times, `0x016E`, `0x0169`,
+and `0x0130` in order. The tracked call census counts three
+`selectShopSell` calls in the capture. The identity of the specific
+`0x0130` in run 104 and its frame separation remain unverified. See
+`xivl-captures:studies/local-guildleve-dialogue/derived/accounting.json`,
+`sell_item.pcapng`.
+
+The native item-command queue preserves received operation order. Its
+admitted, nondeferred UpdateEnd path integrates staged storage before
+requesting the dirty-package callback. An admitted `0x0130` can take its
+own immediate dispatch path or wait in the event receiver queue. See
+`xivl-decomp:docs/net/retainer-item-storage.md`, Refresh and packet ordering,
+and `xivl-decomp:docs/event/start-event-fn-receiver.md`, Submission, retry
+and execution. The captured stream order leaves the relative execution
+of the two queues, package callback completion, and the earliest safe
+rearm unresolved.
+
 ## Explicit close and evidence limits
 
 `selectShopSell` contains no parent-close request. Separate

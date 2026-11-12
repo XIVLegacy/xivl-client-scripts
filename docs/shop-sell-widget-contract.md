@@ -211,6 +211,52 @@ duration unit. `processTimer` conditionally writes the mapped index but always
 writes page 0 and requests redraw and selected-border update, including a
 negative mapped index.
 
+## Focus after removal from the current package
+
+`updatePlayerItem` (`root/proto38`) sets `work.updatecount` and clears the
+index and focus change flags on kind 0 (PCs 1-9). A bag change (kind 1)
+requests `makeListFromPackage(1, item)` at PC 16. The incremental build in
+`root/proto24` reads the player item at PC 162. A nonnil item rewrites
+maker row `item-1` at PC 170. A nil item removes the maker's current last
+row, `Count-1`, at PC 178 and updates the maker at PC 181. This applies
+to the supplied package slot even when its display position differs from
+its package position. On a zero pending count, the caller requests a
+second maker update at PC 64, handles an admitted editor close at PC 71,
+updates capacity and money at PC 75, and refreshes focus at PC 81 when the
+changed list is the current one. It clears `waitupdate` at PC 83 on normal
+return.
+
+`updateListFocus` (`root/proto6`) requires numeric `updatecount=0`. It
+gets the maker's `FilteredCount` through `root/proto14` PC 16 for a nonzero
+maker `Count`. The nonempty path clamps `work.focus` only when above
+`FilteredCount-1` (PCs 52-59). It then calls `focusToIndex` at PC 65.
+`root/proto15` writes maker `FilteredIndex` at PC 17 and reads maker
+`Index` at PC 21. The caller stores a nonnegative result in `work.index`
+at PC 69. It sends the display ordinal in the ListBox focus requests at
+PCs 75 and 80, then requests window focus and help at PCs 83 and 85. The
+standard ItemListWidget form binds `ListBox_TabItem_1` at line 65 to the
+`TabItem_1_Maker` resource at line 6. The filtered ordinal and the maker
+row can differ under the sort key.
+
+`displayFocusedItemHelp` (`root/proto26`) returns false for a positive
+pending count, zero filtered count, or maker `Count <= work.index` (PCs 2,
+10 and 36). It reads the player item at the selected package and a fresh
+`work.index+1` at PC 61. PC 79 passes the item to the detail helper. If
+that helper and the intermediate calls return, a nil item reaches the
+unconditional `isEquipment` lookup at PC 95. A successful visible focus
+request leaves these later reads and the item lookup conditional.
+
+The incoming package path reaches `CharaBaseClass._onUpdateItemPackage`
+(`root/proto28` PC 7), then `DesktopWidget.processUpdateItemInformation`.
+Connector `root/proto86` selects the ShopSell call at PC 76 after the local
+player comparison at PC 59. `root/proto90` looks up event-mode slot 4 and
+calls the Desktop batch helper at PC 11 if a widget exists.
+`root/proto97` calls the selected widget with `(0, #slots)` at PC 3 and
+with `(package, slots[i])` at PC 11, in ascending collection index order.
+These calls depend on the resolved actor, widget and methods and on prior
+calls returning normally. See the package publication dependency in
+`xivl-decomp:docs/net/retainer-item-storage.md`, Refresh and packet ordering.
+
 ## Binding and width limits
 
 The 55 child prototypes have seven tailcalls, 309 reachable CALL/TAILCALL
