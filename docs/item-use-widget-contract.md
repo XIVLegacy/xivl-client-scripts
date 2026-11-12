@@ -67,6 +67,46 @@ and `isWidgetExec(3)` gates. On the passing branch it calls
 tailcalls the same `openUseItemList` on static tray slot 15.
 [Layout0 source definitions](https://github.com/XIVLegacy/xivl-client-data/blob/e34b3da2cfa4bd023f029eae9af31413ab63dbe8/docs/movement-binding-rows.md)
 
+### Cancel and reopening
+
+With the work gates admitted, ItemUseWidget `root/proto21`
+PC21 (decoded offset 9811) tailcalls `previousSequence` on Cancel.
+The same method tailcalls it for WidgetClose at PC15 (9787).
+`root/proto20` saves sort state at PC1 (9603) and requests
+`closeWidgetDirect(self)` at PC5 (9619).
+The [Desktop close chain](content-director-ui-contracts.md#closewidgetdirect-behavior)
+covers the alive check, child traversal and thread owner handling.
+The inherited `WidgetBaseClass.close` requests input disable,
+`processClosing()` and `_delete()` in order. ItemUseWidget binds
+no `processClosing` override, and the inherited method returns
+immediately.
+[Native delete request](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/fade-actor-group-native-contract.md#widget-delete-override)
+
+The tray's `openUseItemList` `root/proto6` PC2 (6773) reads the
+named child. A nonnil result returns true at PC6 (6789). A nil result
+reaches the open request at PC12 (6813). The shared
+`getChildWidgetByWindowName` `root/proto46` calls the native child
+count at PC1 (15473), then reads each one-based child at PC8 (15501)
+and compares its window name at PC11 (15513). It returns the first
+match or nil after exhaustion. Neither Lua lookup tests visibility.
+
+If delivered, WidgetBase `_onFinalize` (`root/proto4`) first calls
+its superclass at PC2 (2280). For a non-Desktop initialized widget it
+requests `processWidgetDeleted(self)` at PC16 (2336), then requests
+`processFinalize()` at PC18 (2344). ItemUseWidget binds no finalizer
+override. Desktop connector `root/proto534` clears a nonnil root
+cache entry only if it is the finalizing widget or its alive result
+is other than exact true (PCs 5-25, 207077-207157). This code updates
+the root cache. The tray reads the native child vector through its
+own getter. The Lua close request and finalizer alone do not establish
+completed removal or visual close timing.
+
+Verify these LPBs against the installed carrier and payload pins in
+[retail_lua_coverage.json](../manifests/retail_lua_coverage.json).
+Read their zero-based prototype PCs with `decode_lpb` and
+`ChunkReader`. The observed instructions were checked without
+executing the retail client.
+
 ### Selected item and self target
 
 The standard `widget/ItemUseWidget.form` line 111 declares
