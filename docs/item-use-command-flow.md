@@ -120,7 +120,71 @@ object, current target and player identity at those later reads remain
 runtime inputs. The
 [shared return contract](equipment-cancel-command-contracts.md#return-and-refusal-handling)
 owns local dispatch acceptance and distinguishes it from server completion.
-This flow does not assign an ItemCommand event descriptor or wire payload.
+
+## Ordinary Selection and commandDefault
+
+The [installed widget route](item-use-widget-contract.md#selected-item-and-self-target)
+targets the named `ListBox_ItemList`. Its selected template passes
+`SelectedIndex` and `IntData.Value0` to `UILuaCommands.Selection`.
+MouseEnteredItem and AnchoredItem in the same template pass their own
+index plus the same list number. All three actions omit CommandTarget.
+The latter two update the saved focus and list, and can resolve a new
+maker index through `FilteredIndex` and `Index`. The Selection arm
+reads that saved index and uses index plus 1 as its package-1 slot.
+It does not use the Selection action's two values as a slot.
+See ItemUse `root/proto21` PCs 24-59 and 61-100, payload offsets
+9823-9963 and 9971-10127.
+
+For self target, PC174 (10423) reads capacity for package 1 and
+PC177 (10435) reads free space. PC178 subtracts them and PC189
+(10483) compares the fresh `work.useItem` to the difference.
+The other gates require `usePackage == 1` and `useItem > 0`.
+The [capacity native](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/scheduler-item-native-contract.md)
+reads the package capacity dword. The
+[free-space native](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/nameplate-group-native-contract.md)
+counts null cells in the entire slot vector at `0x006E5AB8..0x006E5AC5`.
+For a stable capacity-sized vector, the difference is occupied slot count.
+For example, if execution reaches this guard with useItem 4 and two
+occupied cells, it refuses the call even if slot 4 holds an item.
+The rebuild separately advances its maker output index only for an
+exact-true row creation result (`root/proto17` PCs 42-46,
+8115-8131). A sparse package therefore needs an independently
+qualified maker index before assigning an actual selected slot.
+[Package vector construction](https://github.com/XIVLegacy/xivl-decomp/blob/af764a34b28dbebf43e971212d2e8c5a0f464af1/docs/net/retainer-item-storage.md)
+
+The authenticated `command.csv` row 21007 has column 29 equal to 10.
+`CommandBaseClass.getPriority` (`root/proto10`, PC2 at 1678)
+requests that column. With the ItemCommand classification and earlier
+name branches passed, `CharaBaseClass.getCommandName` (`root/proto17`,
+PCs 82-93, 5140-5184) supplies `commandDefault`.
+The [definition capture](https://github.com/XIVLegacy/xivl-captures/blob/9c827fd1d84e12f7a462e6cd5234d874c0e886c9/studies/command-registration/README.md)
+records priority 10 and selector 0. The
+[constructor contract](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/command-descriptor-registration.md)
+constructs CommandBlock when the native selector is zero. The
+actual descriptor chosen by the later name lookup remains conditional.
+
+PlayerBase `command` (`root/proto44`, PC47 at 17182, CALL B=13)
+submits receiver, name, command actor and nine values. The admitted
+native path copies from argument index 1 and builds the
+[callback vector](https://github.com/XIVLegacy/xivl-decomp/blob/af764a34b28dbebf43e971212d2e8c5a0f464af1/docs/event/event-base-callback-arguments.md#callback-vectors)
+with the name followed by the command actor and those nine cells.
+For the CommandBlock callback, `_onCommandEvent` (`root/proto42`)
+only special-cases 24105 before its server call. Its PC14 (16406)
+VARARG B=0 and PC15 (16410) CALL B=0 forward all nine values,
+including trailing nil, to `_callServerOnCommand`. Command 21007
+also bypasses the command-12014 follow-up.
+
+The [direct wire fallback](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/player-command-wire-contract.md)
+consumes name and command actor in the envelope. For an admitted
+self-target item and ordinary integral ready category, its nine typed
+values are one item reference, nil, one integer, nil, one player
+control reference and four nils, in that order. The item reference
+uses the resolved control's native package and slot. Conditional
+serializer metadata and the terminator follow these values. The
+ready category comes from the selected command slot's
+`charaWork.commandCategory` read. The capture of the ready command
+does not fix that runtime operand or demonstrate a Potion request
+or settlement.
 
 ## ItemCommand and base item eligibility
 
