@@ -118,6 +118,61 @@ image base `0x00400000`, SHA-256
 All native addresses are VAs. Command and event initializers identify the
 names at `0x01072624` and `0x010726AC` respectively.
 
+### First-tab vertical focus
+
+STATIC. For an eligible Layout0 form, key binding rows 1013 and 1031
+request `ApplicationCommands.MoveFocus` with kind 1, directions 2 (Up)
+and 4 (Down), and `SqwtShowAnchor=True`. The ListBox `PreviewExecuted`
+slot `+0x100` selects `0x009641E0`. Its unhandled, bound-list branch
+requires mask 4 at list `+0x47C` and a nonnegative row resolved from the
+current anchor recipient through `0x00960DE0`. The directional loops
+scan toward smaller or larger filtered row indices and test eligibility
+through `0x00961810`. An initial press sets distance 1 (`0x0096426D`),
+so an eligible adjacent row is the candidate. An ineligible row can be
+skipped. The repeat branch adds a file-backed double zero at `0x0096427D`
+and caps the distance at 4.0. A changed eligible index requests
+`SqwtFocusedIndex` at `0x0096446F` (Down) or `0x00964546` (Up), then
+marks the command handled.
+[xivl-decomp:docs/resource/sqwt-listbox-constructed-parts.md, Layout0 vertical keyboard focus](https://github.com/XIVLegacy/xivl-decomp/blob/c1c7e5fd49af0a26e1ee3543a31c17bdb89ee03b/docs/resource/sqwt-listbox-constructed-parts.md#layout0-vertical-keyboard-focus)
+
+The local wrap branch requires at least two rows, a nonrepeat event and
+`KeyboardNavigation.DirectionalNavigation` parsed as `Cycle` by
+`0x00915570`. `0x009642E2..0x00964338` reads the attached property from
+the ListBox's own map (`0x0095F020 -> 0x0095EC10`). With current focus
+and anchor indices aligned and no eligible row beyond the current one,
+this local route changes no index unless the wrap gate passes
+(`0x009643EE..0x00964458`, `0x009644DB..0x00964538`). The standard form
+line 62 assigns `Cycle` to ancestor `TabControl_ItemList`; line 65 gives
+no such local value to `ListBox_TabItem_1`. An unhandled command can
+continue to the parent focus route. Its final target at an edge and the
+initial anchor and container state remain unmeasured.
+
+An admitted focus transfer can route `GotAnchor` through `0x0091B890`.
+An anchor made visible after the handled key command can also route
+`GotAnchor` to the then-current recipient (`0x0091BB76`, `0x0091BBB3`).
+ListBox input table `0x010720EC` slot `+0xDC` is `0x0096FAA0`. After the
+base handler, an unhandled event with a changed row index and enabled
+property holder writes `AnchoredIndex` at list `+0x498` and passes
+its descriptor `0x0135B620` to `0x00953BA0` (`0x0096FAC2..0x0096FB16`).
+Property ordinal 3 selects `0x0096F440`'s `AnchoredItem` arm, which
+routes descriptor `0x0135B500` at `0x0096F592`. These events require
+current recipients and delivery through the list.
+[xivl-decomp:docs/resource/sqwt-window-trigger-order.md, focus notifications](https://github.com/XIVLegacy/xivl-decomp/blob/c1c7e5fd49af0a26e1ee3543a31c17bdb89ee03b/docs/resource/sqwt-window-trigger-order.md#attachment-and-conditional-focus-notifications)
+
+The selected `ControlTemplate_ListBox` trigger (lines 72-74) requests
+`UILuaCommands.AnchoredItem` with `AnchoredIndex` and `IntData.Value0`,
+then separately requests `UILuaCommands.EnterSelectorKeyboardFocus` with
+the template parent's name. `initListBox` subscribes the first command
+on `ListBox_TabItem_1` at priority 5 (`root/proto16` PCs 14-17). The
+handler `processUICommandDefault` (`root/proto26` PCs 0-24) checks for a
+finished ask, rejects a nil tab and a nil or negative row, then stores
+`work.listbox=1` and `work.focus=row` for this first-tab event and requests
+`setCommonTimer(0.2)`. This branch writes no ask result. `processTimer`
+(`root/proto27` PCs 0-21) maps focus to source index and refreshes the
+window. `setWindowFocus` requests logical focus for a nonempty control
+name and requests keyboard focus only when the current focused widget
+is this receiver (`root/proto8` PCs 0-14).
+
 ## ContentRewardWidget caller routes
 
 Each method below calls `askEventModeWidgetYield` for
