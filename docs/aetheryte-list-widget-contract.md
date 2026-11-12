@@ -264,6 +264,62 @@ the eight-byte wrapper. The PE identity and method are in the
 | --- | --- | --- |
 | `client/sqwt/widget/WaitingCountdownWidget.form` | 1898, `9a8c1a236e3c3007c152f7151ef0173755818675b590a787ca4d4896473c4d71` | 1890, `e375a58a1c965b518b2f05a9cc9ebd558709a5b662cf14ec113f829a2ac29c06` |
 | `client/sqwt/widget/WaitingCountdownWidget.tpl` | 1002, `5935232e3be7c9370c8ea373729b70444c72262841ae778bb33e86040ae19071` | 994, `ce9a8fb39454cb3830c67b9a1aba567ef6c5fd9da5702ba4a9c98097f9be83d6` |
+| `client/sqwt/common/default.style` | 353783, `632b314cb2257fcbee42d4b002989a58dfeb42e64af864c1f5356336dc233dc0` | 353775, `33bb178c3b172c62eeb65e8bcaf94f701a0ec3921564e27a619516900896d9f6` |
+| `client/sqwt/common/default.skin` | 141967, `6788f2986d9cc8aeab83fcdbcf7a9115d3576ecfabf40529cc861f41f0df5640` | 141959, `929e65e9d5f191292d9b044e3e659ba115f18f6b3d8a82894046a7c75cbcad5a` |
+
+#### Countdown track and indicator
+
+The standard form selects `common/default.style`. Its outer
+`ProgressBar_CountDown` declares `PRB_parameter_tpMiddleH` and
+`ControlTemplate_ProgressBar` on line 21. The selected template
+root `ProgressBar_Anime` omits a local style and Template (line 3).
+With the declared outer template installed, initialization
+`0x00937190` skips that owner's default-template constructor.
+The admitted template attachment transfers the style to the inner
+bar, whose null Template allows the default track and indicator
+constructor. See the
+[native template selection and style inheritance](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/resource/sqwt-progress-template-style.md).
+The outer owns the value-change trigger. The inner owns the default
+track and indicator.
+
+In `common/default.style` lines 5491-5494, the ProgressBar style
+resolves `HorizontalBackground` to the Window style
+`PRB_parameter_middle_bgH` and `HorizontalIndicator` to
+`PRB_parameter_tpMiddleH`. The Window styles at lines 375 and 315 select those skins through
+their Frame parts for Normal, Hover, Active, Disabled and Focused.
+All listed cells in `common/default.skin` select atlas
+`common/default.dds`.
+
+| Role | Skin declaration | DrawMode |
+| --- | --- | --- |
+| Track | `PRB_parameter_middle_bgH` line 617, three cells, border thickness `6,1,6,1` | Stretch |
+| Indicator first layer | `PRB_parameter_tpMiddle_uvAnimeH` line 2434, referencing `PRB_parameter_tpMiddle_bgH` line 643 | Tiling |
+| Indicator second layer | `PRB_parameter_tpMiddle_uvAnime2H` line 2470, referencing `PRB_parameter_tpMiddle_bg2H` line 857 | Tiling |
+| Indicator frame | `PRB_parameter_tpMiddle_frameH` line 632, three cells | Stretch |
+
+The indicator's merged skin at line 2186 names those three layers
+in that order. The two animation references set `IsMinimumSize=False`.
+Their sequences declare horizontal Scroll parameters `30,0` and
+`-20,0` respectively. The frame is part of the indicator. The
+scroll parameters describe the texture sequences, while the inner
+Value drives the indicator's arranged width.
+
+The admitted float `ValueChanged` event (ID `0x30`) reaches ProgressBar
+input slot 13 at `0x0107E8E0 -> 0x00966B20`. The receiver's primary
+`+0x120` slot at `0x0107EAF4` calls `0x009B6330 -> 0x009B60A0`
+before the template trigger pass at `0x00966B58`.
+The sizing helper requires the default-template pointer at `+0x378`,
+which is initialized to null at `0x009B6713` and assigned on default
+template creation at `0x009B64F8`. The default-template helper
+computes `(Value-Minimum)/(Maximum-Minimum)` from its owner's values.
+The RangeBase constructor supplies Minimum zero at
+`0x009678E8..0x00967906`. For the default horizontal branch,
+the track Border arranges the indicator to the fraction of its inner
+width at `0x009B627A`. For an admitted finite range 0 to 900, Value
+450 requests half the available width, and Value 0 requests indicator
+Visibility 0 (Collapsed) at `0x009B60E7`. These are static layout
+and property requests. Exact pixels, animated texture sampling and
+live retail frame timing remain unverified.
 
 ## Evidence
 
