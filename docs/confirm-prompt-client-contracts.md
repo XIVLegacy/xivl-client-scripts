@@ -29,7 +29,7 @@ calls the matching DesktopWidget update method, which refreshes the main menu
 work-update trigger. The exact incoming packet, field encoding and server
 producer of these work values remain unestablished here.
 
-MainMenuWidget's `executeSystemCommand` and the tray's
+MainMenuWidget's `executeCommand` and the tray's
 `openConfirmTelepoWidget` / `openConfirmRaiseWidget` open the same generic
 question with the following ordered text inputs:
 
@@ -43,6 +43,40 @@ The default answer index is 1. Locators are
 `widget/consoleicontraywidget.lua:1975-2000,2030-2054`. These raw text IDs do
 not assign a duration or expiry meaning to answer 3.
 
+### Raise row in MainMenu
+
+`MainMenuWidget.updateSystemCommand` (`root/proto12` PCs 4-18) reads
+the local player's variation and offers a row when it is nonnil and differs
+from 40004. The call passes command 24306, label 1103, icon 264 and the
+variation to `addSystemCommand`. The call has four arguments after the
+receiver. The builder (`root/proto17` PCs 181-215) writes `SystemEnable` as
+`True`, the command ID as `SystemCommandID`, and the variation as
+`SystemCommandInfo`. The omitted fifth argument gives `SystemSubTarget`
+its default 100. The builder marks the appended row visible.
+
+`updateMainMenu` (`root/proto15` PCs 5-42, 93-100) clears the system row
+count before updating ready and system commands in that order. It shows
+`Grid_SystemMenu` if there are rows and the grid visibility reads false,
+updates the `SystemMenu` list, and requests focus at index 0 on grid reveal.
+The Raise row's index depends on preceding rows.
+
+`processUICommandSelectionChanged` (`root/proto1` PCs 210-235) handles
+`ListBox_SystemMenu` using its current selected index. It hides the menu,
+reads the row's ID, info and subtarget, and passes them to `executeCommand`.
+For ID 24306, that method sets `work.castingSystemCommand` and re-reads
+the player's variation tuple. It packs the fresh sender into question 1127
+and requests `openMainMenuRootWidget` for `CommonAskWidget`
+(`root/proto16` PCs 94-113). The row's info and subtarget are used by
+other command arms. The Raise arm uses the row ID and the fresh sender.
+
+The MainMenu toggle and the Raise question opener use the
+[Desktop menu and root guards](https://github.com/XIVLegacy/xivl-decomp/blob/42918e5322fac6d8fdef4c5db75da1adbd9e4171/docs/script/main-menu-command-route.md#selection)
+and [root-slot ownership](desktop-widget-root-slots.md).
+Raise row insertion precedes the separate `isMyPlayerDead` check
+(`root/proto12` PCs 36-57), whose dead branch can close an existing
+CommonAskWidget during refresh. The answer submission checks
+`isLiving` through the command eligibility below.
+
 ### Raise notification and tray input
 
 The Raise work notification refreshes the menu and tray. In
@@ -54,9 +88,7 @@ for slot 5 before the separate `isDead()` check. A nonnil slot 5 sets
 balloon timer (PCs 250-310). `setAnimIconVisibility` (`root/proto22`)
 requests `PushIconAnimeStart` when showing a control whose visibility reads false
 and `PushIconAnimeStop` when hiding it, then writes visibility. These
-requests do not open a question. MainMenu independently offers
-`addSystemCommand(24306,1103,264,variation)` for nonnil variation other
-than 40004 (`root/proto12` PCs 4-18).
+requests do not open a question.
 
 Standard `ConsoleIconTrayWidget.form` line 68 declares the collapsed
 `Button_Push_5` with `UILuaCommands.Operate` and
