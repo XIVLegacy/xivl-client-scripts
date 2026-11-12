@@ -100,6 +100,34 @@ through text row 214 with operands 10091 and 10093 and sets first-tab
 header 3207 (proto1 PCs 304-313, 353-356).
 [Shared form and first-tab selection](hamlet-delivery-selection-flow.md#inventory-selection-before-price)
 
+### Company banner
+
+With shop ID zero, `QuestDeliveryWidget.setInitialData` proto2 reads
+`_getBelongGrandCompany()` at PC30, stores it as `work.townID` at PC32
+and passes it to `displayGrandCompanyName` at PC57. That method
+(proto3 PCs 0-13) calls `getGrandCompanyBanner` and writes its result
+to `Label_GrandCompanyBanner.SqwtStyle`.
+
+| Membership | Style | `getGrandCompanyBanner` proto4 PC | `common/default.style` line | `common/default.skin` line |
+| --- | --- | --- | --- | --- |
+| 1 | `LAB_profile_stateBanner_LimsaLominsa` | 3 | 2325 | 967 |
+| 2 | `LAB_profile_stateBanner_Gridania` | 8 | 2349 | 977 |
+| 3 | `LAB_profile_stateBanner_Uldah` | 13 | 2337 | 972 |
+
+Other membership values reach the same return at PC17 with nil.
+The standard `GrandCompanyShopWidget.form` line 44 declares the label
+with the Limsa Lominsa style. The three runtime names are declared in the
+standard common style sheet and each references its same-name three-cell
+skin. The
+[shared form and QuestDelivery script identities](hamlet-delivery-selection-flow.md#inventory-selection-before-price)
+pin the selected inputs. Decode the following SQWT files with the
+basename Blowfish key and remove the eight-byte wrapper.
+
+| Client-relative asset | Stored bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `client/sqwt/common/default.style` | 353783, `632b314cb2257fcbee42d4b002989a58dfeb42e64af864c1f5356336dc233dc0` | 353775, `33bb178c3b172c62eeb65e8bcaf94f701a0ec3921564e27a619516900896d9f6` |
+| `client/sqwt/common/default.skin` | 141967, `6788f2986d9cc8aeab83fcdbcf7a9115d3576ecfabf40529cc861f41f0df5640` | 141959, `929e65e9d5f191292d9b044e3e659ba115f18f6b3d8a82894046a7c75cbcad5a` |
+
 ## Selection and omitted arguments
 
 `eventQuestItemMenuSelect(A1,A2,A3)` requests
