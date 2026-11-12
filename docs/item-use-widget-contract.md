@@ -1,6 +1,6 @@
 # ItemUseWidget local interaction contract
 
-ItemUseWidget builds and maintains an `ItemList_Maker` package list, tracks 1-based selected/use package and item values, and routes local close, target-selection, sorting, and window-refresh requests. This contract records only its decoded Lua 5.1 body; request calls do not prove UI storage, rendering, lifetime, item acceptance, or game-state effects.
+ItemUseWidget builds and maintains an `ItemList_Maker` package list, tracks 1-based selected/use package and item values, and routes local close, target-selection, sorting, and window-refresh requests. Its local requests are traced below through the installed entry controls.
 
 The [selected command flow](item-use-command-flow.md) qualifies the helper's
 fresh item lookup, command operands, client eligibility and result boundary.
@@ -19,6 +19,126 @@ fresh item lookup, command operands, client eligibility and result boundary.
 The decoded root contained exactly 27 child methods and no trailing bytes. Method windows and CALL PCs below are from the original Lua 5.1 instructions; UI/native/helper calls are requests without proven storage or side effects.
 `pN` denotes decoded child prototype `root/protoN`; `PC@offset` gives the original instruction index and byte offset within the authenticated decoded payload.
 A composed call below is a request only when its function/member binding exists and normal completion occurs. Fixed C>0 CALLs produce the stated local width by Lua 5.1 nil-padding or truncating callee results; C=0 CALL/TAILCALLs preserve the live open prefix. Direct method fixtures dispatch the pinned local prototype; no unproved self-method binding, storage, renderer effect, or native completion is assumed.
+
+## Ordinary item-use entry
+
+The standard inventory opens a separate operations submenu. In
+`widget/ItemListWidget.form` line 65, `ListBox_TabItem_1` selects
+`ControlTemplate_ListBox`. The template's Selection action at lines
+75-76 supplies two integers, `SelectedIndex` and `IntData.Value0`.
+`ItemListWidget.initListBox` registers the named list and stores list
+number 1. The shared dispatcher (`widgetbaseclass_common.lua`,
+`main/f13`, PCs 41-55) rereads the sender's SelectedIndex and passes it
+with the second payload to the list handler. `ItemListWidget` `main/f10`
+PCs 59-80 store the package and one-based item index and request
+`openSubWidget` and `selectedBorder` for lists other than 6.
+[Inventory list and submenu contract](item-list-widget-contract.md)
+
+The standard `widget/ItemSubWidget.form` declares its Buttons at lines
+13-27. They cover bazaar, repair, materia, drop, trash, sort and cancel.
+There is no Use control or Use branch in the corresponding
+`itemsubwidget.lua` `main/f5`. Its close and cancel arms (`main/f6`
+and `main/f7`, PCs 0-3) tailcall the parent list's `closeSubWidget`.
+That method hides the current child, clears the submenu flag when it
+exists, and requests a list refresh outside the materia case
+(`itemlistwidget.lua`, `main/f61`, PCs 0-15).
+
+The standard `widget/ConsoleIconTrayWidget.form` line 40 declares
+`Button_ItemUse` with `UILuaCommands.Operate`, no command parameter or
+target, and `ControlTemplate_Button_Icon`. Tray init (`main/f0`,
+PCs 57-59) requests `setConfirmCondition`. The shared wrapper
+(`main/f56`, PCs 0-4) registers the named Button with priority 5.
+The admitted no-parameter Operate callback supplies the Button name
+and no payload. Tray `main/f1` PCs 18-22 call `openUseItemList`
+and discard its result. That method (`main/f6`, PCs 0-12) returns
+true if the named `ItemUseWidget` child already exists. Otherwise it
+tailcalls `desktopWidget:openChildWidget("ItemUseWidget", self, true)`
+with open results. Connector `main/f536` PCs 0-9 forward the tray's
+widget index, the class name, nil window name, tray parent and true
+visibility to `openWidget`.
+
+Layout0 `key_config` row 167 defaults `KeyUseItem1$` to U and names
+`UILuaCommands.UseItemList` with parameter kind 0. Connector init
+(`main/f0`, PCs 376-378) registers that command at the Desktop root.
+The handler (`main/f62`, PCs 0-20, 452-456 and 538-562) includes
+the mode, focused-widget, root sender, sub-target, MainMenu visibility
+and `isWidgetExec(3)` gates. On the passing branch it calls
+`analyzeShortCutCommand`. That method (`main/f77`, PCs 49-55)
+tailcalls the same `openUseItemList` on static tray slot 15.
+[Layout0 source definitions](https://github.com/XIVLegacy/xivl-client-data/blob/e34b3da2cfa4bd023f029eae9af31413ab63dbe8/docs/movement-binding-rows.md)
+
+### Selected item and self target
+
+The standard `widget/ItemUseWidget.form` line 111 declares
+`ListBox_ItemList`. Its template lines 27-28 issue
+`UILuaCommands.Selection` with `SelectedIndex` and `IntData.Value0`
+as two signed 32-bit arguments. The action omits CommandTarget and can
+use the Selection event source. `main/f11` PCs 18-24 subscribe the
+named list to Selection and Cancel at priority 5. For an admitted
+ListBox release, input cell `0x0107219C` selects `0x0096ED00`. With
+the handled byte clear, it maps the routed source through
+`0x00960DE0`. A nonnegative result calls `0x0096EC00` at
+`0x0096ED34`, requesting SelectedIndex at complete receiver
+`+0x480` before raising Selection (id `0x3B`) from that ListBox.
+The keyboard Operate path at `0x0096ED40` can issue
+`Selector.SelectIndex` with one integer to the same ListBox. An
+unhandled kind-1 SelectIndex request calls the same setter at
+`0x0096EE40`. Actual hit, focus and event admission remain conditions.
+[Command parameter and target rules](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-command-parameter-consumer.md)
+
+ItemUseWidget's own Selection handler (`main/f21`, PCs 61-105) reads
+the saved focus, listbox and index. It does not select a slot from the
+two Selection arguments. The preceding hover or anchor branch
+(PCs 24-59) can set those fields through `focusToIndex`. With the
+catalog check passed, the selected package is 1 and the selected item
+is saved index plus 1. Selection then performs the independent item
+reads and mode decision below.
+
+In the pinned client tables, `_item` row 3020001 column 0 is
+`Normal/PotionItem`, `itemData` row 3020001 column 43 is 1, and
+`xtx_itemName` row 3020001 column 5 is English Potion.
+`ItemBaseClass.isUsable` (`itembaseclass_common.lua`, `main/f56`)
+checks that column against zero. `PotionItem.canUseForRelation`
+(`potionitem.lua`, `main/f1`, PCs 0-3) returns true, false, false.
+The inherited base dead and live predicates (`main/f167/f168`)
+return false and true. If the three lookups select these methods,
+mode 2 supplies the player as the target to
+`executeCharacterUseItem` (PC 198), with the existing package and
+capacity guards. The helper's exact true result requests
+`previousSequence`. Cancel and the standard `Button_Close` command
+(form line 106) request the same sequence without using an item.
+`main/f20` PCs 0-5 save the sort type and request direct close.
+[Client table identities](https://github.com/XIVLegacy/xivl-client-data/blob/e34b3da2cfa4bd023f029eae9af31413ab63dbe8/manifests/tables.json)
+
+The ready command is 21007. Its command-table column 29 is 10, and
+the ItemCommand branch of `CharaBaseClass.getCommandName`
+(`main/f17`, PCs 82-93) then supplies `commandDefault` when the
+earlier dispatch branches do not select another name. The captured
+`from_gridania_to_blackshroud.pcapng` lane 0, frame index 245,
+subevent 22, property record 388, shows the corresponding command
+actor in native slot 6. The 126-row EventStart owner census contains
+no exact owner match for that actor. The named dispatch and local true
+return do not establish a historical Potion request, consumption or
+server result.
+[Ready-command capture](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/manifests/command_slot_context.json#L1306-L1319)
+[EventStart owner census](https://github.com/XIVLegacy/xivl-captures/blob/9c827fd1d84e12f7a462e6cd5234d874c0e886c9/studies/director-wire-identity/derived/event-role-candidates.csv)
+
+Replay the named LPBs against the coverage and script manifests above.
+Extract each original form or template basename with `xivl-cli
+extract-resource --as sqwt` and verify with `verify-extraction --source`.
+The native locators use the pinned PE32 `ffxivgame.exe` identified in the
+[Button mouse source record](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source).
+Read the selected cells and functions with Ghidra CLI and verify the
+branches against PE section bytes with LLVM 21.0.0.
+
+| SQWT carrier under `client/sqwt/widget` | Bytes | Carrier SHA-256 |
+|---|---:|---|
+| `ItemListWidget.form` | 49304 | `65a8c82bc93664231778fe1b704b27254e03a759f4ec37fa23e6ae2f516a46be` |
+| `ItemListWidget.tpl` | 16943 | `ba8b86dbf36558e6086721524833d17528be08b11bf72c062d0b76fd318de7d5` |
+| `ItemSubWidget.form` | 4331 | `39f34b32d9fdeb1aa1d83cc3cc6085446f33a07b806ae9e0d5419a4ab4c017f1` |
+| `ConsoleIconTrayWidget.form` | 11166 | `180b7d709e588ec86fccead327aec813d4baab5b41ead05d2610cf318e787a0d` |
+| `ItemUseWidget.form` | 10627 | `35f88233e405f4fd6faa199f2bbd95106c224375091812c5fe7bf4d03390b7fd` |
+| `ItemUseWidget.tpl` | 4215 | `a39516ada145873b894c306113f8bbf982e45ed3f36485f63b7cacde8ffa38e9` |
 
 ## 27 behavior and result rows
 
