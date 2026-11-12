@@ -22,9 +22,55 @@ function selectors and zero-based PCs below. PCs count instructions, excluding
 labels and directives. The ActionMenu and shared-wrapper carrier and chunk
 identities are recorded in the [coverage manifest](../manifests/retail_lua_coverage.json).
 
+## WorkSync refresh
+
+`CharaBaseClass.initCommonParameterSync` in
+`chara/charabaseclass_parameter.lua` (`main/f40`, PCs 184-208) declares
+`commandDetailForSelf` with interval 1 and the actor as receiver.
+The group contains `parameterSave.commandSlot_recastTime`,
+`parameterSave.commandSlot_compatibility`, `parameterTemp.maxCommandRecastTime`
+and two force-control members. The recast arrays are integer32 and
+integer16, respectively. Their getters (`main/f11` and `main/f12`,
+PCs 0-4) read the supplied one-based slot directly from the respective
+`charaWork` table. The parameter script is installed as
+`729s9/729s989r57y9rr_u9s9x5q5s.le.lpb`. The manifests above pin this
+script, `chara/charabaseclass.lua` and `chara/player/playerbaseclass.lua`.
+[Work declarations](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/work-binder-native-contract.md#tag-groups)
+
+The retained `combat_skills.pcapng` record at lane 0, frame index 47,
+subevent index 1, contains slot-zero maximum and deadline hashes
+`0x620811c8` and `0x8d974f1c`, of widths 2 and 4, at stream offsets
+1 and 8. Both precede the `charaWork/commandDetailForSelf` marker.
+The following record starts at offset 48, consistent with the marker's
+30-byte text and one-byte tag occupying offsets 17-47.
+[Capture rows](https://github.com/XIVLegacy/xivl-captures/blob/9c827fd1d84e12f7a462e6cd5234d874c0e886c9/studies/property-stream-hash-catalog/derived/property-records.csv#L214-L217)
+[Hash identities](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/manifests/gam_hash_names.json)
+
+The ordinary actor `0x0137` path applies properties at `0x00775652`
+before processing completion at `0x007756F2`. Its unindexed tag for
+the 30-byte name is `0xA0`. The admitted callback receives
+`charaWork` and `commandDetailForSelf` after the actor receiver.
+`PlayerBaseClass._onUpdateWork` (`main/f30`, PCs 103-109) passes this
+group to its superclass. `CharaBaseClass._onUpdateWork` (`main/f23`,
+PCs 42-49) forwards the actor, table and tag to
+`desktopWidget:processCharacterParameterUpdated`. The route still
+depends on native target, readiness and owner admission.
+[Actor completion contract](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/net/actor-work-completion-targets.md)
+
+The Desktop callback (`main/f78`, PCs 108-115 and 141-145) requires
+truthy `actor:isPlayer()` and `actor:isMyPlayer()`, then calls
+`updateActionMenuWidget(false)`. The latter (`main/f168`, PCs 0-16)
+uses static widget 7 and calls `updateActionMenuEnabled`. The false
+argument skips the ready-command and slot rescan. The absent second
+argument bypasses the Window visibility, sub-target and focus branch.
+The enabled refresh (`actionmenuwidget.lua`, `main/f6`, PCs 0-3)
+updates the current page's slots and then the battle-mode display.
+The slot timer requests have no Window-show or sub-target guard in
+that refresh.
+
 ## Deadline and remainder
 
-`desktopwidget_connector.lua:12787-12827` implements the command-present
+`desktopwidget_connector.lua:12787-12827` (`main/f253`, PCs 26-45) implements the command-present
 path of `getRecastTimeForCustomCommand`. It returns early if the custom
 command is missing or its `_isAlive` call returns false. It reads the
 player's `getCommandRecastTime` and `getMaxCommandRecastTime` for the slot and subtracts
@@ -94,6 +140,13 @@ When the deadline matches, `1343-1360` reads `Percent` with that same
 repeated suffix and checks whether it has reached 100. The reset branch
 at `1370-1393` writes zero to the timer icon's integer user work slot 2,
 `StartTime`, `EndTime`, and `RunningValue`, in that order.
+
+On the admitted timer start, `RunningValue` triggers the installed
+TimerIcon style's `Percent` animation. The slot refresh makes no query of
+`AnimeTime`. The Timeline-to-TimerIcon reverse binding is a separate
+style path. A WidgetBase TimeSpan return is unnecessary for the sweep.
+[TimerIcon style](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/action-menu-timer-icon-style.md#observed-form-and-style-declarations)
+[TimeSpan and repeated name lookup](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-timer-icon-recast-inputs.md#observed-widgetbase-lookup-boundaries)
 
 ## TimerEnd refresh
 
