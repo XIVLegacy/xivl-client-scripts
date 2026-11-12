@@ -175,6 +175,95 @@ discarding both results. The base setter can request input disablement before
 the result write. Neither cancellation nor a finished wait closes the parent
 widget or proves that any write was read back.
 
+### Sale quantity in ShopEditWidget
+
+The mode-11 child uses the standard `widget/ShopEditWidget.form`.
+It imports `common/LABBasisNumberInputBox.tpl` at line 5.
+`Label_NumberInput_1` selects `ControlTemplate_Label_NumberInputBox`
+and wraps `CustomControl_NumberInput` of type `NumberInputBox` at
+lines 76-77. The template's ValueChanged action at lines 5-6 matches
+SourceType Slider and supplies one Int from the effective Value.
+`Button_Done` and `Button_Back` declare UILuaCommands.Operate at
+lines 122-123. The arrows are constructed RepeatButtons in the numeric
+control. A short admitted release on the selected ones arrow requests
++1 for Up or -1 for Down. The ordinary preview-down focus search
+can select the numeric control before that release.
+[NumberInputBox pointer and focus route](https://github.com/XIVLegacy/xivl-decomp/blob/af764a34b28dbebf43e971212d2e8c5a0f464af1/docs/resource/sqwt-number-input-pointer-edit.md)
+
+| SQWT path under `client/sqwt/` | Installed bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `widget/ShopEditWidget.form` | 9177, `23fb6f4c044126501e718779db8f2fe8512f5a3acdfc5c13cc70c2fc00c75fc5` | 9169, `1009c0fdfc908746c26f1c1b5e854c8f8bc07fbc67a0cdfb32f4f32168370c13` |
+| `common/LABBasisNumberInputBox.tpl` | 1059, `91c6aec1f2c3445faad6570d934eb4392afcd0aabdff36ae8cfbc69a48d269af` | 1051, `546672a02cb526a810bbe191a574832499b3208ff294df5940c184fb3e729922` |
+
+ShopEdit `root/proto1` stores `work.mode` from the supplied mode
+at PC1 (offset 1492) and admits mode 11 at PC132 (2016).
+PC161 (2132) requests `stackCount` as Int from the supplied parent.
+The helper `root/proto12` PC6 (10297) tailcalls that parent's
+`getItemContent(-1, "stackCount", "Int")`. ShopSell `root/proto42`
+PC79 (22548) passes the current list maker name, `work.index` and
+property name to the list getter with the extra type operand.
+The nominal shared list getter `root/proto170` PC4 (31286) forwards
+only the maker, index and property to `_getListProperty`.
+
+The row producer `ShopSellWidget.setItemToXmlLight` (`root/proto20`)
+reads `_isStackable` and `_countStack` at PCs28 and 31 (11124 and
+11136), then supplies them at PC69 (11288) with the row write flag
+true and subtype 7 or 8 for lists 1 and 2. On that normal
+`DesktopWidget.setItemToXml` branch in `desktopwidget_itemdetail.lua`
+(`root/proto0`), the truthy stackability arm requests numeric
+`stackable=1` and the supplied `stackCount` at PCs243 and 249
+(4188 and 4212). The other arm requests `stackable=0` and
+`stackCount=1` at PCs271 and 277 (4300 and 4324).
+
+ShopEdit sets the maximum from the selected row's count. When the
+supplied catalog is strictly between 1000002 and 1000101 and the
+count exceeds 999, PC178 (2200) caps it at 999. PC182 (2216) sets
+`work.num1` to that maximum. PC199 (2284) requests
+`setNumberInput("CustomControl_NumberInput", maximum, 1, maximum)`.
+The helper `root/proto4` requests Minimum, Maximum and Value in
+that order at PCs6, 12 and 16 (7409, 7433 and 7449).
+PC228 (2400) requires numeric `stackable == 1` for the branch
+that shows the numeric control at PC233 (2420). The other branch
+requests that control hidden at PC328 (2800). The initialized
+quantity is therefore the full selected stack, subject to the stated
+cap. The supplied unit price is multiplied by the selected count for
+`TextBlock_TotalPrice` at PCs190-191 (2248-2252).
+
+ShopEdit `root/proto0` PCs68-71 (941-953) register the named numeric
+control for `NumberInputBox.ValueChanged` before initialization.
+The shared condition helper `root/proto55` PC4 (17114) supplies
+priority 5. ShopEdit `root/proto8` PCs0-14 (8516-8572) requires
+parent wait status other than exact false and child operation zero.
+For the exact command it forwards the fifth total argument to
+`updateNumber`. In `root/proto9` PCs0-8 (8735-8767), the count
+write requires `CustomControl_NumberInput.IsKeyboardFocusWithin`
+to read exact true. The ordinary mode-11 unit is 1 (PC105 of
+`root/proto1`), so a successful edit also requests the new total
+as unit price times the current count at PCs29-37 (8851-8883).
+
+Done uses the same wait and operation gates, checks the name
+`Button_Done`, then writes child operation 1. ShopEdit `root/proto7`
+PC20 (8204) calls the retrieved parent with `setShopEditData(1, num1)`
+and PC22 (8212) requests `closeShopEdit()` with the optional operand
+omitted. In ShopSell `root/proto40`, the admitted confirm branch
+requests base result 1 and input disable, then sets `waitNext=true`
+at PCs8, 11 and 13 (21231, 21243 and 21251). The common continuation
+checks the named child lookup at PCs34-36 (21335-21343), requests
+`closeChildWidget` for a nonnil result at PC41 (21363), and clears
+`editWidgetOpen` at PC43 (21371). Connector `root/proto537`
+PC5 (207573) forwards the parent's widget index and name
+`ShopEditWidget` to `closeWidget`.
+[Close helper conditions](content-director-ui-contracts.md#closewidgetdirect-behavior)
+
+The ShopEdit and ItemDetail inputs are pinned in
+[retail_lua_coverage.json](../manifests/retail_lua_coverage.json)
+under `n1635q/r2vu561qn1635q.le.lpb` and
+`n1635q/65rzqvun1635q_1q5x65q91y.le.lpb`. Reproduce the operands
+with the decoder below. Decode the SQEX assets using their basenames
+as Blowfish keys and require byte-exact re-encryption before inspecting
+the named metadata. Native focus acceptance, later child lifetime and
+frame visibility remain unverified.
+
 ### Rearm relative to a package change
 
 Connector `root/proto556` calls `resetBaseAskResult` at PC 7,
