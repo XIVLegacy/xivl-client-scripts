@@ -174,6 +174,57 @@ PCs are zero-based and count instructions, excluding labels and directives.
 Actual event delivery, the returned native value and intervening property
 writes remain unresolved.
 
+## Ordinary slot mouse command
+
+OBSERVED. Form lines 177-186 under `StackPanel_MainMenu` declare
+`Button_Command_N` for N in 1 through 10. Each 44 by 44 Button declares
+`UILuaCommands.OperateCommand`, a kind-1 CommandParameter with one
+literal integer N, and a separate `IntData.Value0` of N. The Buttons
+omit local ClickMode and CommandTarget. Their selected template
+`ControlTemplate_Button_MenuIcon` at lines 132-147 contains the
+MouseLeave, LostAnchor, MouseEnter and GotAnchor triggers. It declares no
+Click trigger. Default Button Click and the conditional mouse-to-target
+join are recorded in
+`xivl-decomp:docs/resource/sqwt-command-parameter-consumer.md`,
+Ordinary ActionMenu slot hit and target.
+
+STATIC. `init` (`main/f0`, PCs 56-67) registers the named Button and
+`UILuaCommands.OperateCommand` for each N. The shared wrapper
+`setControlCommandCondition` (`widgetbaseclass_common.lua`,
+`main/f55`, PCs 0-4) passes the control, command and numeric priority
+5 to `_setUICommandCondition`. The native numeric arm at
+`0x006EB7F4` supplies condition kind 0 and priority 5. A kind-1 event
+record carries the integer independently of the condition kind. The
+native handler at `0x0053656E..0x00536595` reads the named control from
+the owner of the reached subscription. The WidgetBase callback
+forwards the template, control, command and integer to the handler.
+
+The `OperateCommand` arm of `processUICommandEvent`
+(`main/f1`, PCs 145-177) returns while `work.slotMoving` is truthy.
+It uses the callback's control argument (Lua register r2) with
+`getSlotNameFromButton`. That helper reads the named Button's attached
+`IntData.Value0` and resolves current page slot `10 * slotPage - 10 + N`.
+The callback integer (r4) does not select that slot. The branch then
+tests the resolved Label using `isButtonEnabled` (`main/f50`),
+which refuses when the first color result from
+`:IconControl_Command_1` is below 1. A refusal requests the error
+cue and returns. This arm uses current slot color without the
+`ShortCutAction` enabled refresh.
+
+The accepted arm reads the Label's `IntData.Value2` and
+`IntData.Value3`, then passes both to `executeGameCommand`
+(`main/f13`). The [shared execution route](action-menu-shortcut-action-route.md#command-arguments)
+records the tutorial and active sub-target refusals, usable check,
+separate cast-cancel and nonzero target-control branches, and mode-0
+submission through `desktopWidget:executePlayerCommand`. The result
+goes to `playCommandExecuteSound` (`main/f51`, PCs 0-9).
+That function requests `UILuaCommands.ExecuteCommand` on success or
+`UILuaCommands.ExecuteCommandError` on failure. The selected Window
+template maps those requests to FileNumber 42 and 41 at lines 63-68.
+These conditions establish the static command and cue paths. Physical
+delivery, native request admission and server acceptance remain separate
+observations.
+
 ## Page names and peer bindings
 
 The ordinary `changeSlotPage` sequence performs no `Name` or peer
