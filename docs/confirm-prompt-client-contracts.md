@@ -43,6 +43,68 @@ The default answer index is 1. Locators are
 `widget/consoleicontraywidget.lua:1975-2000,2030-2054`. These raw text IDs do
 not assign a duration or expiry meaning to answer 3.
 
+### Raise notification and tray input
+
+The Raise work notification refreshes the menu and tray. In
+`ConsoleIconTrayWidget.updatePushButton` (`root/proto12` PCs 13-23), a
+nonnil variation other than 40004 makes the selected sender the candidate
+for slot 5 before the separate `isDead()` check. A nonnil slot 5 sets
+`helpFlag[5]` and requests animated visibility for `Button_Push_5`
+(PCs 214-248). A new help flag can select balloon row 10715 and the
+balloon timer (PCs 250-310). `setAnimIconVisibility` (`root/proto22`)
+requests `PushIconAnimeStart` when showing a control whose visibility reads false
+and `PushIconAnimeStop` when hiding it, then writes visibility. These
+requests do not open a question. MainMenu independently offers
+`addSystemCommand(24306,1103,264,variation)` for nonnil variation other
+than 40004 (`root/proto12` PCs 4-18).
+
+Standard `ConsoleIconTrayWidget.form` line 68 declares the collapsed
+`Button_Push_5` with `UILuaCommands.Operate` and
+`ControlTemplate_Button_PushIcon`. Its installed template handles the
+animation commands at lines 26 and 48. Lua subscribes the button via
+`setConfirmCondition` at `root/proto0` PC119, using priority 5 in
+`widgetbaseclass_common.lua` `root/proto56` PC4. The tray's
+`processUICommandOperate` matches that source and calls
+`openConfirmRaiseWidget` (`root/proto1` PCs 172-175).
+
+The opener re-reads the local player's variation tuple and passes its
+sender to `packTextParameter(1127,sender)` before opening ask type 5
+(`root/proto28` PCs 0-15). The shared packer appends `/s` for a string or
+`/i` for a nonnil nonstring value (`widgetbaseclass_common.lua`
+`root/proto50`). `openAskWidget` returns if it finds an existing
+`CommonAskWidget` child. Otherwise it requests
+`openChildWidget("CommonAskWidget",self,true,nil,Q,1,1128,1129,1136)`
+and writes `work.askType=5` after that call returns (`root/proto29`
+PCs 0-15). The connector uses the tray parent's current widget index as
+the opener kind (`root/proto536` PCs 0-9). The [answer focus contract](ask-widget-answer-focus.md)
+owns the default answer focus and the separate MainMenu opening route.
+
+`CommonAskWidget.tpl` names `TemplateButton_Answer` with
+`UILuaCommands.Operate` at line 4 and forwards
+`RaptureCommands.LogControlPressKey` to Operate at lines 8-9. The
+[answer label evidence](https://github.com/XIVLegacy/xivl-client-data/blob/e34b3da2cfa4bd023f029eae9af31413ab63dbe8/docs/confirm-prompt-answer-labels.md)
+identifies the English answers as Yes, No and Close, in that order.
+Selection and Cancel keep the caller-specific forwarding below. The tray
+reads `work.askType` in `root/proto30` PC1. For 5, it calls
+`executePlayerSystemCommand(24306,nil,answer)` at PC42. That path reads
+the current variation again (`desktopwidget_connector.lua`
+`root/proto280` PCs 126-130). Neither caller stores a replacement variation.
+`CommonAskWidget.setAskResult` calls the parent first, then requests close
+(`root/proto3` PCs 4 and 8). A later Operate can request another question
+when the same tray button is eligible and the child lookup is nil. The
+work-refresh close path sends no answer.
+[xivl-decomp:docs/net/confirm-offer-timeout-evidence.md, Static question teardown](https://github.com/XIVLegacy/xivl-decomp/blob/ab4bfbb0ed04bffb6e33280f1131b662d4366966/docs/net/confirm-offer-timeout-evidence.md#static-question-teardown)
+
+The standard form/template identities were verified with the basename-key
+SQEX decoder and byte-exact re-encryption. These paths are relative to
+`client/sqwt/widget`.
+
+| File | Stored bytes | Stored SHA-256 | Decoded SHA-256 |
+|---|---:|---|---|
+| `ConsoleIconTrayWidget.form` | 11166 | `180b7d709e588ec86fccead327aec813d4baab5b41ead05d2610cf318e787a0d` | `efbf73d1ac6307ca4983e9eeaf3170ab507d48e012d4c797ae360119d49d5f3e` |
+| `ConsoleIconTrayWidget.tpl` | 20238 | `f3c362bb64d9e9b07dd60b2ba95e1b868640e43c82558b83c24d1fd32d3378f1` | `9f1f5a2c79c2d8b35ea0d0b510c5536bcb43464da236ce1f9dea665f01937386` |
+| `CommonAskWidget.tpl` | 836 | `7e7ff663fa55ab1d267da02b506844198f7d7eda116f079db978a5258aeebfc5` | `dc0a349aff6da743346037f577a451ac011a827981f8239e2739886f1b1666d1` |
+
 ## Answers and command submission
 
 `CommonAskWidget.processUICommandEvent` parses the numbered answer item and
@@ -96,8 +158,8 @@ where `I(v)` is `00` followed by u32be bits, `N` is `05`, and `E` is `0F`.
 
 Warp is enabled only for nonnil variations 20000-29999; raise is enabled
 only for 40000-49999. Warp requires `isLiving()`, matching variation,
-`isActiveMode() == false` and `_getActorMainStat() == 0`. Raise requires
-`isLiving() == false` and matching variation. Raise's detail predicate is
+`isActiveMode() == false` and `_getActorMainStat() == 0`. Raise rejects a truthy
+`isLiving()` result and requires matching variation. Raise's detail predicate is
 true. Both `fire` methods return false. The original chunks resolve the
 undefined temporary printed by the decompiler: `canFire` returns the detail
 result when the supplied variation matches, otherwise false
