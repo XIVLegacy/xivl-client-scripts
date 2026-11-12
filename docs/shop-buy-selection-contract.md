@@ -102,6 +102,30 @@ The parent stores the operation and quantity in `work.chosenOperation` and
 `:1368-1420,1422-1496`; `shopbuywidget.lua:2553-2561`). Native control bounds
 and callback delivery are not demonstrated by these Lua assignments.
 
+## Anchored row refresh
+
+STATIC. ShopBuy's `processUICommandDefault` (`main/f31`, PCs 26-44)
+handles `UILuaCommands.MouseEnteredItem` and `UILuaCommands.AnchoredItem`
+after the same child, wait, Ask and keyboard-focus gates. A nil list,
+nil focus or negative focus returns before the two work writes.
+The admitted arm assigns `work.listbox` and `work.focus` and calls
+`setCommonTimer` with the literal operand `0.2`. Its work writes
+precede the timer call. The arm does not write `SqwtFocusedIndex`.
+
+`processTimer` (`main/f32`, PCs 0-15) requests `focusToIndex` with
+the current list and focus. It stores a nonnegative result in
+`work.index`, sets `work.page` to zero and calls
+`updateWindowDisplay(true)`. That method's exact-true arm
+(`main/f5`, PCs 7-10) calls `updateListFocus`. Its named list
+`SqwtFocusedIndex` write, update-count gate and native scroll gates
+are in `xivl-decomp:docs/resource/sqwt-listbox-constructed-parts.md`,
+ShopBuy first-tab focus requests. The command return and the bound
+index write occur on separate call paths.
+
+The PCs are zero-based instructions in the decoded ShopBuy chunk
+identified in that study. They were checked with unluac 2025-12-23.
+Live timer delivery and the frame of the property write remain open.
+
 ## Confirmation, cancellation and cleanup
 
 | Input or call | Local consequence |
