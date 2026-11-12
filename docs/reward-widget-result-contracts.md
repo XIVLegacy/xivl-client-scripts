@@ -39,6 +39,85 @@ class-specific result adaptation and rearm boundaries.
 Canonical source hashes are pinned in `manifests/scripts.json`; LPB identities
 and decoded payload hashes are pinned in `manifests/retail_lua_coverage.json`.
 
+## RewardSelectWidget opening and keyboard selection
+
+The [Impish Impositions caller](impish-impositions-client-contract.md#runner-menu-and-callback-values)
+opens `Ask/RewardSelectWidget` with one requested result. The shared
+[Ask wrapper](materia-meld-client-contract.md#craftjudge-callback-contract)
+uses category 4 and forwards the remaining operands to `initAsk`. In this
+call, `RewardSelectWidget.initAsk(self, actor, 19, remembered, ...)` receives
+catalog IDs 8013301, 8013302, 8013303 and 8013304 in positions 4-7 after
+self. `initAsk` has 20 fixed parameters including self and reads neither
+of the first two operands after self. It calls `setInitialData` with
+positions 4-19 (root/proto1 PCs 224-241) and, if `remembered > 0`, stores
+`remembered - 1` as both `work.index` and `work.focus` (PCs 257-264).
+`setInitialData` (`root/proto2` PCs 0-68) requests up to 16 rows in caller
+order, then flushes the first tab through its final `-1` request.
+`makeRewardItemList` (`root/proto19`) skips nil item operands and requests
+`setItemToXml(1, slot - 1, catalogId)` for each nonnil operand. The row
+helper (`root/proto18`) uses `player:createVirtualItem(catalogId, 1)` and
+returns false for a nil item. The four caller IDs resolve to `_item`
+column 0 `Normal/StandardItem`. Their English `xtx_itemName` column 5
+values are Pumpkin Head, Unripened Pumpkin Head, White Pumpkin Head and
+Ripened Pumpkin Head in that order.
+[xivl-client-data:manifests/tables.json](https://github.com/XIVLegacy/xivl-client-data/blob/e34b3da2cfa4bd023f029eae9af31413ab63dbe8/manifests/tables.json)
+
+`getFormName` (`root/proto0` PCs 0-1) returns `ItemListWidget`. In the
+installed standard form, line 65 selects `DataTemplate_ItemList` and
+`ControlTemplate_ListBox` for `ListBox_TabItem_1`, bound to the first tab
+maker. The selected template's `Selection` event trigger (lines 75-77)
+executes `UILuaCommands.Selection` with kind `Int` and properties
+`SelectedIndex`, `IntData.Value0`, in that order. The Lua `initListBox`
+(`root/proto16` PCs 5-24) assigns the tab number to `IntData.Value0` and
+subscribes the list to `UILuaCommands.Selection` and `UILuaCommands.Cancel`.
+For this first tab the number is 1. `initAsk` also subscribes `_widget`
+to `UILuaCommands.WidgetClose` and `TabItem_1` through `TabItem_5` to
+Cancel (`root/proto1` PCs 101-115). The inherited helpers in
+`widget/widgetbaseclass_common.lua` use priority 5 in `root/proto55` PC4,
+`root/proto58` PC7 and `root/proto59` PC4.
+[xivl-decomp:docs/resource/sqwt-xpath-data-sources.md, carrier identities](https://github.com/XIVLegacy/xivl-decomp/blob/c1c7e5fd49af0a26e1ee3543a31c17bdb89ee03b/docs/resource/sqwt-xpath-data-sources.md#carriers-and-script-feed)
+
+STATIC. In the default Layout0 binding table, Enter row 11 is
+`ApplicationCommands.Operate` and Escape row 20 is `UILuaCommands.Cancel`.
+For the standard ListBox interface table `0x010720EC`, Executed slot 65
+is `0x0096ED40`. Its Operate branch (`0x0096ED83..0x0096EE02`) maps the
+event source to a row index through `0x00960DE0` and executes
+`Selector.SelectIndex` (`0x0135B530`) with kind 1 when the index is
+nonnegative. The same slot accepts that command while unhandled, reads
+its int at event `+0x7C` and calls `0x0096EC00` at `0x0096EE40`. That
+function requests the `SelectedIndex` write at `0x0096EC4E` before
+routing `Selection` at `0x0096ECA5` for an index other than -1. The
+`Selection` event descriptor is `0x0135B518`, initialized at `0x00F24890`
+with ID `0x3B`. These are branches for an admitted row source and command.
+[xivl-decomp:docs/script/main-menu-command-route.md, key bindings](https://github.com/XIVLegacy/xivl-decomp/blob/c1c7e5fd49af0a26e1ee3543a31c17bdb89ee03b/docs/script/main-menu-command-route.md#key-bindings)
+
+The inherited dispatcher re-reads `SelectedIndex` using the sender control
+name and suppresses a negative read (`widgetbaseclass_common.lua`,
+`root/proto13` PCs 41-55). The widget's own Selection handler takes that
+index and the tab number as `work.focus` and `work.listbox` (`root/proto25`
+PCs 6-9). It returns false if the ask has finished and refreshes without
+setting a result when there are no items or focus is at or above the
+filtered count (PCs 0-30). Otherwise it refreshes through `updateListFocus`,
+which reads source `Index` after writing `FilteredIndex` and updates
+`work.index` for a nonnegative mapped value (`root/proto6` PCs 59-68,
+`root/proto14` PCs 13-22). It then sets the selected border and requests
+base result `work.index + 1` (`root/proto25` PCs 31-44). Thus a successful
+second row selection on the four-item caller list supplies local result 2
+when the displayed order and source order agree. Cancel and WidgetClose
+supply -1. When the base wait completes and the shared wrapper closes the
+widget, its two return slots are the completion flag `true` and the local
+result. Live focus, rendering, historical invocation and server settlement
+remain unmeasured.
+
+PCs are zero-based. Replay the LPBs with `tools/retail_script.py` and
+`tools/build_quest_contracts.py:ChunkReader`, and verify the installed
+SQWT pair using the linked carrier recipe. The native branches are from
+Ghidra 12.1.4 and LLVM 21.0.0 disassembly of the 1.23b `ffxivgame.exe`,
+image base `0x00400000`, SHA-256
+`9341f2b4567440b310a4d494f5cc5599ca334ba51c8042247317ff466492f2e9`.
+All native addresses are VAs. Command and event initializers identify the
+names at `0x01072624` and `0x010726AC` respectively.
+
 ## ContentRewardWidget caller routes
 
 Each method below calls `askEventModeWidgetYield` for
