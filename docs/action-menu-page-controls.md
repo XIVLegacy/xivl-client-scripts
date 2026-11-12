@@ -57,6 +57,47 @@ Button mouse-to-command route and Lua subscription gates are in
 source and Subscription gate. The macro arrows at form lines 200 and 201
 declare the same Push commands.
 
+### Ordinary arrow pointer route
+
+The command-bar Buttons at form lines 38-39 are centered horizontally in
+the same 46-high Grid. Up aligns to its top and Down to its bottom.
+Both declare `IsTabStop=False` and omit local Template and Content.
+Their respective `BTN_actionMenu_slotUp` and `BTN_actionMenu_slotDown`
+styles select one Frame in `common/default.style` at lines 1445-1468.
+The Normal and Hover skins are 32 by 18 in `common/default.skin` at
+lines 185-196. The skins omit HitMargin. Active selects the Hover
+skin with offset `0,-1` for Up and `0,1` for Down. These are source
+dimensions and paint offsets. Pointer containment uses the current
+arranged Button rectangle and Visual clip. The installed common
+resources passed exact SQWT source replay.
+[Common resource identities](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-keyframe-target-binding.md#L448-L456)
+[Button frame measure and point test](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-number-input-button-frames.md#painted-dimensions-and-point-containment)
+
+STATIC. For an admitted ordinary arrow press, the Button's direct focus
+request at `0x0092EACD` requires the `IsTabStop` predicate at
+`0x00936F50`. A retained false value takes descendant mode 9 at
+`0x0092EAD7` and, on a miss, the logical ancestor search at
+`0x0092EAF1 -> 0x0092B150`. If the Button retains its default empty
+ContentPresenter, that presenter requests Focusable and IsHitTestVisible
+false at `0x0099D7BE` and `0x0099D7CB`. Each intervening Grid requests
+Focusable false at `0x00995CEA`. Window's constructor requests
+IsTabStop false at `0x00924B60`. With these values retained, no eligible
+added child, and the ordinary parent chain ending at the DesktopWindow,
+the two searches produce no new focus recipient.
+
+With the same live Button receiving unhandled press and release and
+its pressed bit retained until release, default mode 2 raises Click at
+`0x0097F11E`. The retained no-parameter command has kind 0. A clear
+Window focus-within bit selects the Button as the command target.
+A set bit uses the current keyboard-focus route. Either route must
+reach the ActionMenu Window's plain root subscription. On admitted
+delivery the callback receives `nil`, `_widget` and the matching
+PushSlot command, followed by nil in both payload slots of the shared
+Lua wrapper. The Window template also declares FileNumber 3 for each
+PushSlot command at lines 69-74. The actual hit and focus identities,
+native route admission, and cue delivery remain unresolved.
+[Arrow target fallback](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-command-parameter-consumer.md#actionmenu-arrow-target-fallback)
+
 ## Event registration and page dispatch
 
 In `actionmenuwidget.lua`, `init` calls `setUICommandCondition` for
@@ -116,6 +157,18 @@ or `changePrevSlot`, which passes true or false to `changeSlotPage`
    data, then refreshes the main slots and page display at 1936-1956.
    `changeSlotPageDisplay` writes the new page number to
    `TextBlock_SlotNumber` at 1962-1975.
+
+On the ordinary path, `main/f31` PCs 25-46 compute the page before
+dispatching the transition. The default range is 1 through 3. Next from
+3 returns to 1, and previous from 1 goes to 3. PCs 47-56 send to the
+outgoing page, then set `slotMoving`. PCs 59-72 can remap the saved
+cursor to the same physical slot on the new page, refresh its cost,
+refresh the new page's ten enabled states and update the page display.
+The path refreshes the retained equipped command set and makes no
+keyboard-focus request. The wrapper `isShow` in `widgetbaseclass_common.lua`
+(`main/f43`) checks for the exact values Visibility `Hidden` or Anime
+`Hide` before returning false. Pointer hit visibility is a separate
+native gate.
 
 The shared wrapper at `widgetbaseclass_common.lua:1255-1283` forwards
 the widget, a nil context, the target name, the command and two optional
