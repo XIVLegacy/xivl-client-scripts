@@ -118,6 +118,36 @@ image base `0x00400000`, SHA-256
 All native addresses are VAs. Command and event initializers identify the
 names at `0x01072624` and `0x010726AC` respectively.
 
+### First open and confirmation retry
+
+`Spl0i2.processEventSUMFES001` (`root/proto4`) initializes the remembered
+result to numeric zero at PC58 (`0xE0B`). PC65 copies it into the first
+selector call frame. PC71 replaces it with the second result of PC70,
+including nil when the wrapper returns one `false`. Confirmation retry
+jumps to PC59 from PC259, preserving that saved result. The selector's
+`initAsk` compares zero with the remembered operand directly at PC257
+(`0x951`). A nil operand fails this comparison under Lua 5.1. No value is
+substituted by the selected caller or its Lua opener.
+
+Both the preceding `Ask/AskWidget` and the selector request desktop root
+slot 4. `desktopwidget_connector.lua` `root/proto237` opens the first widget
+at PC15 and requests its close at PC39 before returning at PC40. The
+selector uses `root/proto541` PC5 and `root/proto542` PC8 to request an
+open with a nil parent. The [root opener](desktop-widget-root-slots.md#occupancy-test-and-root-opener)
+can refuse while the prior slot is occupied (`root/proto544` PCs2-8).
+The close request and slot release are separate operations.
+
+`root/proto542` PC14 requests the selector's show and wait for a nonnil
+open result. Its failure return at PC29 is one `false`. On exact true
+from the wait it reads the result at PC19 and returns `true` and the
+requested result at PCs30-36. The [base wait](ask-widget-result-state.md#selected-state-and-calls)
+starts with a requested zero and finishes on a read different from zero.
+The [selection wait](gridania-opening-tutorial-contract.md#selected-widget-calls)
+has no paint check. These contracts distinguish refusal before the wait
+from a finished poll with a nil result. Either leaves the quest caller
+with nil, which can reach confirmation without a price message. The
+actual native slot-release timing and initial painted state remain open.
+
 ### First-tab vertical focus
 
 STATIC. For an eligible Layout0 form, key binding rows 1013 and 1031
