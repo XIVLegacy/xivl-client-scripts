@@ -148,6 +148,123 @@ result 2 changes the local result to 2. The method returns that result and an
 optional boolean. It contains no zone-transition call; this method alone does
 not establish how a caller uses the return values or what the server does.
 
+### Waiting countdown widget
+
+In original `TeleportCommand.eventConfirm` root/proto1, PCs 71-74
+require exact Boolean true in A3 and numeric result 1. PCs 76-88 use
+A2 to select the text row and open `Ask/WaitingCountdownWidget`.
+The first argument after the widget name is the requested result count,
+one. The child receives `(15, worldMaster, row)`. PCs 89-96 return 2
+when the helper status is exact false or its widget result is numeric 2.
+Otherwise they retain the accepted result and the separately computed
+optional boolean.
+
+`WaitingCountdownWidget.initAsk` proto0 PCs 0-7 register three priority-5
+conditions through `WidgetBaseClass` common proto56, proto58 and proto54:
+`Button_Cancel` for `UILuaCommands.Operate`, `_widget` for
+`UILuaCommands.Cancel`, and `_widget` for
+`UILuaCommand.CountDownCompleted`. The completion name has singular
+`Command`. PCs 8-13 set `TextBlock_Text` from the supplied owner and
+row. PCs 14-21 set `ProgressBar_CountDown.Maximum`, then its `Value`,
+both to seconds times 60. For this caller both writes supply 900.
+The installed English WorldMaster rows 34136 and 34137 have plain
+logical field 1 text. Sheet `0x03A20027` references data
+`0x03A200BC`, enable `0x03A200BD` and offsets `0x03A200BE`.
+The row byte ranges in the data member are `[119144,119193)` and
+`[119193,119249)`.
+
+The standard form merges `common/WINBasis.tpl` and the widget template.
+It declares `TextBlock_Text` at line 20, the outer
+`ProgressBar_CountDown` with `ControlTemplate_ProgressBar` at line 21
+and `Button_Cancel` with `UILuaCommands.Operate` at line 23.
+The template declares `ProgressBar_Anime` with `Maximum` bound to
+the templated parent. Its `ValueChanged` EventTrigger selects the
+templated parent's name as source (line 5). Its single BeginStoryboard
+has a DoubleAnimation from the templated parent's `Value` to 0,
+with `Velocity=60` and target `ProgressBar_Anime.Value` (lines 6-8).
+The Storyboard's `CompletedCommand` is
+`UILuaCommand.CountDownCompleted`. The event source and the animated
+bar are distinct controls. The form declares `IsHitTestVisible=False`
+on the Grid at line 13. The cancel command routes below do not establish
+pointer admission through that Grid.
+
+An admitted changed ProgressBar value stores the bounded snapshot before
+raising the routed event, at `0x00966E4B` and `0x00966EA1`. See
+[xivl-decomp:docs/resource/sqwt-range-value-changed.md](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/resource/sqwt-range-value-changed.md).
+For this trigger and its resolved bindings, the
+[Velocity setup](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/resource/sqwt-double-animation-velocity.md)
+computes a 15000 ms span from 900 to 0 at 60 units per second.
+DoubleAnimation calls the Duration writer at `0x009B4A36` and
+the timeline reset at `0x009B4A48`. Reset `0x009AD020` reads
+`+0x48/+0x4C` at `0x009AD10B..0x009AD111` and stores the
+span at `+0xF8/+0xFC` at `0x009AD131..0x009AD157`.
+The forward evaluator reads that span at `0x009ACA81..0x009ACA87`.
+Group setup `0x009CAB40` takes the maximum child span from
+`0x009AC360`, writes it as its own Duration at `0x009CABE1`,
+and calls the same reset at `0x009CABF0`. With this sole child
+and the template's default nonrepeating clock, the final sample
+requests zero and Storyboard completion dispatches the retained command
+at `0x009A64C9`. See the
+[bounded forward completion path](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/resource/sqwt-double-animation-clock.md#bounded-nonrepeat-samples-and-completion).
+These are static paths conditional on property, trigger and timeline
+admission. Native instance attachment and successful live delivery are open.
+
+The widget accepts `Operate` on exact `Button_Cancel` (proto1
+PCs 0-8) or the Cancel callback (proto2 PCs 0-6) while
+`isAskFinish()` is exactly false. Both write base ask result 2.
+The Default callback requires that same unfinished guard and the
+exact completion command, then writes result 1 (proto3 PCs 0-8).
+`AskBaseClass.processWaitCallFunction` proto1 PCs 0-1 checks
+`isAskFinish`, whose proto10 tests base result against zero.
+The wait checks the result field. The timer producer is the Storyboard.
+
+The Desktop connector's `askEventModeWidgetYield` proto541
+PCs 0-5 selects category 4. `askWidgetYield` proto542 PCs 2-8
+opens with nil parent and forwards the child arguments. For a nonnil
+child, PCs 11-16 wait via `selectWidgetYield(child,true)`. Exact
+true collects `getAskResult` at PCs 17-22. PCs 23-25 request
+`closeWidgetDirect` for that same child on either normal wait
+outcome. PCs 26-36 return one false on failure or true and the
+requested result on success. The child callbacks set the result.
+The wrapper owns the
+[close request](content-director-ui-contracts.md#closewidgetdirect-behavior).
+This does not establish final detach timing for this form.
+
+The four retained `delegateCommand` messages with inner method
+`eventConfirm` carry false in D3, the formal A3. D2 and D3 are at
+offsets 19 and 20 in the 64-byte parameter field. The
+[delegate ABI](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/script/delegate-command-producer.md#typed-values-and-bounds)
+maps them to A2 and A3. The original members are pinned by the
+[1.23b capture manifest](https://github.com/XIVLegacy/xivl-captures/blob/9c827fd1d84e12f7a462e6cd5234d874c0e886c9/sources/pcap-1.23b/manifest.yaml).
+Replay clear main lane 0, server to client, opcode `0x0130`. After
+the actor and method prefix, D3 is tag `0x04` and the typed sequence
+ends at offset 32 in each case. Frame and subevent indices are zero-based.
+
+| Capture member | Frame | Subevent | D2 / A2 | D3 / A3 |
+| --- | --- | --- | --- | --- |
+| `return_to_inn.pcapng` | 6 | 1 | true | false |
+| `teleport_to_camp_nine_ivies.pcapng` | 42 | 2 | false | false |
+| `teleport_to_camp_tranquil.pcapng` | 20 | 2 | false | false |
+| `teleport_to_gridania.pcapng` | 24 | 2 | false | false |
+
+An A3=true fixture exercises a bytecode branch beyond these observed
+inputs. The result contract stops at the local confirmation callback.
+
+The installed widget LPB is
+`client/script/n1635q/9rz/n91q1w37vpwq6vnwn1635q.le.lpb`.
+Its stored and decoded identities are pinned by
+`manifests/retail_lua_coverage.json:26536-26550`. The original
+widget prototype starts are `0x15A`, `0x2CC`, `0x361` and
+`0x3DB` respectively. Inspect with the LPB reader above. Decode
+the following SQWT files with their basename Blowfish key and remove
+the eight-byte wrapper. The PE identity and method are in the
+[clock trace](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/resource/sqwt-double-animation-clock.md#identity-and-method).
+
+| Client-relative asset | Stored bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `client/sqwt/widget/WaitingCountdownWidget.form` | 1898, `9a8c1a236e3c3007c152f7151ef0173755818675b590a787ca4d4896473c4d71` | 1890, `e375a58a1c965b518b2f05a9cc9ebd558709a5b662cf14ec113f829a2ac29c06` |
+| `client/sqwt/widget/WaitingCountdownWidget.tpl` | 1002, `5935232e3be7c9370c8ea373729b70444c72262841ae778bb33e86040ae19071` | 994, `ce9a8fb39454cb3830c67b9a1aba567ef6c5fd9da5702ba4a9c98097f9be83d6` |
+
 ## Evidence
 
 The widget's decoded payload is SHA-256
