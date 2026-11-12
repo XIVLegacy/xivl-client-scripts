@@ -60,13 +60,18 @@ declare the same Push commands.
 ### Ordinary arrow pointer route
 
 The command-bar Buttons at form lines 38-39 are centered horizontally in
-the same 46-high Grid. Up aligns to its top and Down to its bottom.
-Both declare `IsTabStop=False` and omit local Template and Content.
+an unnamed 46-high Grid (line 36). Up aligns to its top and Down to its
+bottom. The chain toward the root continues through `Grid_MenuSlotChange`
+(line 35), `Grid_ActionCommands` (line 30), an unnamed Grid (line 16),
+`Grid_Base` (line 15) and `Window_ActionMenuWidget`.
+Both declare `IsTabStop=False` and omit local Visibility, Focusable,
+Template and Content.
 Their respective `BTN_actionMenu_slotUp` and `BTN_actionMenu_slotDown`
 styles select one Frame in `common/default.style` at lines 1445-1468.
 The Normal and Hover skins are 32 by 18 in `common/default.skin` at
-lines 185-196. The skins omit HitMargin. Active selects the Hover
-skin with offset `0,-1` for Up and `0,1` for Down. These are source
+lines 185-196. The skins omit HitMargin. Disabled selects the Normal
+skin, Anchored and Reserved select the Hover skin, and Focused and
+Droppable select NULL. Active selects the Hover skin with offset `0,-1` for Up and `0,1` for Down. These are source
 dimensions and paint offsets. Pointer containment uses the current
 arranged Button rectangle and Visual clip. The installed common
 resources passed exact SQWT source replay.
