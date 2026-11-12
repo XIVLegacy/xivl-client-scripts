@@ -256,6 +256,16 @@ look up that held item and require exact false from `_isEquipping()`. For shop I
 `rewardCS` when `_getNameIndex()==1`, otherwise `rewardHQCS`,
 and call `setPrice(package,slot,reward)`.
 
+Selection PCs 35-41 call `desktopWidget:checkKeyboardFocused(self)`
+and return zero results on exact false, before the row and tab writes.
+The original Desktop connector `checkKeyboardFocused` is proto121,
+PCs 0-7 (decoded offset `0x12DBE`). It calls the Desktop receiver's
+`_getKeyboardFocusedWidget()` with no explicit operands, then compares
+the returned widget with the supplied QuestDelivery widget using Lua
+equality at PC2. The helper returns one Boolean. This gate depends on
+the focused widget identity. The row and tab operands feed the later
+list selection.
+
 `setPrice` proto55 PCs 0-11 compare the supplied slot and package
 against `work.chosenItem` and `work.chosenPackage` at PCs 2 and 6,
 save the reward and clear `waitForPrice`. At PCs 47-106, shop ID zero
