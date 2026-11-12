@@ -199,6 +199,40 @@ found (PC 35, byte 4191). Mouse focus, the selected native route in a live
 window, actual Click delivery, inventory changes and quest settlement
 remain unverified.
 
+### Window Click sound
+
+The form imports `common/WINBasis.tpl` at decoded line 5 and selects its
+`ControlTemplate_Window_WINBasis` for the root Window at lines 11-12.
+That template's trigger collection contains one source-unqualified
+`EventTrigger` for `Click` at line 63. Its sole action at line 64 is
+`SoundPlayerAction` with `FileNumber` 4. It supplies no source name, source
+type, command, target, property write, or other action. The template is
+6278 bytes with SHA-256
+`27d03aca012d1554a3cf8ecd1b5e8da22cc7c815c6f92a1d6d0557dad3bcc5aa`.
+The 6270 decoded bytes have SHA-256
+`d3227d9200d301ba715250e393d8e09c0ca2d39080754e1ed517692fa7d50700`.
+The SQEX decode re-encrypts exactly.
+
+Click descriptor `0x0135E624` has id `0x38` and routing strategy 0, so the
+route visits the Button before its ancestors. The Button calls the stored
+command at `0x0097ED73` before generic Click forwarding at `0x0097ED96`.
+The intervening destruction-notification branch sets the Click stop byte
+and skips forwarding. If the event reaches the Window, its
+[template pass](https://github.com/XIVLegacy/xivl-decomp/blob/f99c31eb34782632e06e3f4d9a20dafbadf561be/docs/resource/sqwt-window-trigger-order.md#conditional-event-passes)
+requires a stop byte other than 1 and a nonnull descriptor and template.
+The EventTrigger callback `0x009B1820` compares the descriptor, skips
+both source tests when their strings are empty, and calls the action
+through slot 2 at `0x009B1996`, subject to its event and action flag gates.
+
+The [SoundPlayerAction](https://github.com/XIVLegacy/xivl-decomp/blob/f99c31eb34782632e06e3f4d9a20dafbadf561be/docs/resource/sound-effect-triggers.md#soundplayeraction)
+run path `0x009B3060` needs a nonnull Sqwt interface. With the omitted fields
+at constructor defaults it requests file number 4, Index 0, Volume 1.0,
+vector `(0,0,0,1)`, and Priority 0. The interface retains the request when
+its priority is at least the held priority. The next frame update plays
+category 0, index 4, resource `0x035B0004`, if this request is still held.
+This action adds an audio request after the Button's default command.
+Live delivery, playback and audibility remain unverified.
+
 ### Conditional press focus
 
 Button input table cell `0x01073C30` selects `0x0097EFF0` for
