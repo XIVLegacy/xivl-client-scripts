@@ -134,6 +134,85 @@ selector instead maps the same child result to its five-value false
 fallback. The materia tuple's fourth value preserves the price-wait flag;
 it is not a delivery acceptance result.
 
+## Inventory selection before price
+
+For the selected materia opener, the six operands after the child
+receiver are `(0,0,0,1,owner,A1)`. The opener and selector forward this
+same tail in actor proto4 and proto5 PCs 0-9. The slot-4 open helper
+is Desktop connector proto551 PCs 0-12. Its selected rearm helper
+(proto556 PCs 0-15) resets the base result, forwards the tail to
+`setAskParameter` and shows the same named widget. An omitted or nil
+A1 keeps the sixth child operand nil. In that case `initAsk` proto1
+PCs 228-240 assigns mode 1, the point text uses the zero fallback in
+proto2 PCs 83-92, and the rearm skips its optional point text write.
+At proto1 PCs 249-262, owner class 1500433 selects town 1 and shop
+1030. PC323 writes zero order catalog from this opener. The
+zero-catalog arm at PCs 420-431 selects the first tab.
+[Retail Lua coverage manifest](../manifests/retail_lua_coverage.json)
+
+`QuestDeliveryWidget.getFormName` proto0 PCs 0-1 returns
+`GrandCompanyShopWidget`. The standard form's first list
+`ListBox_TabItem_1` (line 98) binds to the `TabItem_1_Maker` data
+source, and selects `DataTemplate_ItemList` and
+`ControlTemplate_ListBox`. The template's `Selection` event
+(lines 73-75) executes `UILuaCommands.Selection` with two integer
+properties in order, `SelectedIndex` and `IntData.Value0`. Child
+proto27 PCs 5-24 writes the tab number to `IntData.Value0` and
+subscribes that list to Selection and Cancel. The first tab number
+is 1. The [ordinary ListBox Enter route](reward-widget-result-contracts.md#rewardselectwidget-opening-and-keyboard-selection)
+describes the same standard list selection producer and Layout0
+Enter/Escape bindings.
+
+| Client-relative asset | Bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `client/sqwt/widget/GrandCompanyShopWidget.form` | 47068, `89e91c09a2823b4531066948bc8c9ba0e44ba301dc5330ac4520300412439f39` | 47060, `e170acbfa2b1c4f2c64c63f5c62ef0eaa00f20f0eb66d3d42a259c1da5601215` |
+| `client/sqwt/widget/GrandCompanyShopWidget.tpl` | 15909, `09677ebf639a926f6aa3d59765b172bea3e44e6b04c83c9f51bc89a633856bcd` | 15901, `056173388f35cf640f776593d74ae6ed1039bc3c0ca884db4d5f1929c29cf1a2` |
+
+Child proto33 PCs 19-55 uses package 1 capacity minus free space as
+the one-based scan limit and requests one row per successfully read
+item. For this shop and zero catalog, proto30 PCs 161-187 qualifies
+row visibility on truthy `isEquipment()` and `isMateriaAttached()`.
+A first bag slot with one such held item exercises the first row
+without assumptions about sparse slots. The common Selection adapter
+(proto13 PCs 41-55) rereads the list's selected index and forwards it
+with the tab. Child proto40 PCs 23-84 requires the live ask and its
+keyboard focus, usable row count/index, no exact-true wait flags, and
+at least one server-clock second since `lastcommandtime`. The focus
+update maps the filtered row to the underlying index through maker
+`FilteredIndex` and `Index` (proto16 PCs 60-69, proto25 PCs 13-21).
+Proto40 PCs 85-113 then reads package 1 and one-based item slot and
+requires exact false from `_isEquipping()`. With positive shop ID and
+zero catalog, PCs 120-139 set `waitForPrice=true`, highlight the row
+and set base result 1. This result does not open ShopEdit in that arm.
+
+The accepted Cancel arm (proto38 PCs 0-19) requires zero
+`editWidgetOpen`, `waitNext` other than true and `isAskFinish()`
+other than true. It calls `previousSequence`, which saves sort and
+sets base result -1 (proto36 PCs 0-4). Under the published result
+adaptation above, an eligible package 1 slot 1 produces
+`(item,1,1,-1)` and Cancel produces `(nil,0,0,0)`. The close method
+remains separate.
+
+A direct `0x0130` call whose selected native binding is the live
+`PopulaceHamletSupply` owner can address each stock outer method
+directly. The native frame supplies the binding as self and the
+materialized operands in order. Thus Open and Select can each
+receive a single explicit nil, and Close can receive no operand.
+With successful completion, the native item-result branch uses tag
+`07`, with the resolved owner binding and native package and slot.
+The [incoming and return frame](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/script/delegate-command-producer.md#function-binding-value-and-supplied-frame)
+and [item serialization](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/net/retainer-item-storage.md#transfer-result-values-and-widths)
+own those conditional native routes. No retained invocation supplies a
+historical event identity or acceptance, removal or credit. The
+[Company selector](company-supply-delivery-flow.md#selection-and-omitted-arguments)
+shares the row and Cancel path, and adapts the canceled zero slot
+to `(false,nil,nil,nil,nil)`. Company price and quantity completion
+are outside this selected branch.
+
+To reproduce, authenticate the LPB pairs in the manifest, inspect the
+zero-based PCs above, and decode the standard form and template with
+the Sqwt resource wrapper before checking the named list and trigger.
+
 ## Price update boundary
 
 `eventQuestMateriaMenuSetPrice(A1,A2,A3)` first requests
