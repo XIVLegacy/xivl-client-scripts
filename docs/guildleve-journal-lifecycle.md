@@ -165,7 +165,103 @@ system command 24212 and calls `command("activegl",A3,nil,nil,nil)`
 client command arguments; it does not identify a server-side history or
 detail operation.
 
-### JournalListWidget modes and row arguments
+### Main-menu Journal cancel and slot release
+
+Main menu row 5 requests `openMainMenuRootWidget("Ask/JournalListWidget",
+self, 1)` (`MainMenuWidget` `root/proto1` PCs 53-58, call byte 3934).
+The connector refuses when static widget 17 reports true from `isShow()`.
+Otherwise it passes opener kind 3, the menu parent, true and mode 1
+(`root/proto538` PCs 9-15, tailcall byte 207722). The root opener
+refuses when `isWidgetExec(3)` is true. This selects the Ask
+journal implementation. The [non-Ask journal](journal-confirm-caller-contract.md)
+has a separate close handler.
+
+`Ask/JournalListWidget.initAsk` `root/proto0` PCs 28-31 calls
+`setCancelCondition()` and `setCloseCondition()` (call bytes 1069 and
+1077). The common methods register root `_widget` for
+`UILuaCommands.Cancel` and `UILuaCommands.WidgetClose`, respectively, both
+at numeric priority 5 (`root/proto58` PC 7, byte 17489 and `root/proto59`
+PC 4, byte 17630). On a delivered event, `WidgetBaseClass._onUICommandEvent`
+sets the thread-owner widget to its receiver before forwarding the
+event (`root/proto6` PCs 2-12, call bytes 2622 and 2650). Common event
+dispatch selects the corresponding override (`root/proto13` PCs 21-28
+and 31-38). The target registration is the Journal root. The mode-1
+overrides use the receiver and mode and do not inspect the template,
+control name, or optional event parameters. For a kind-0 delivery on the Cancel registration the
+[native entry](https://github.com/XIVLegacy/xivl-decomp/blob/f99c31eb34782632e06e3f4d9a20dafbadf561be/docs/resource/sqwt-command-parameter-consumer.md#script-entry)
+supplies nil, `_widget` and `UILuaCommands.Cancel` after the receiver.
+
+For mode 1, Journal `processUICommandCancel` `root/proto1` PCs 0-4
+and 19-21 call `finish()` with just the receiver (byte 2125).
+`processUICommandClose` `root/proto2` uses its mode-1 arm at PCs 4-5
+(call byte 2324). `finish` `root/proto7` PCs 0-8 requests
+`desktopWidget:closeWidgetDirect(self)` (PC 7, byte 4701), discards the
+result and returns before the other modes' Ask result writes. The
+handler makes no direct hide request and does not clear the slot.
+
+The [desktop close contract](content-director-ui-contracts.md#closewidgetdirect-behavior)
+qualifies the liveness gate and depth-first child close requests. When the
+Journal is still the retained thread owner, recursive close defers that
+receiver (`root/proto525` PCs 29-52), and `closeWidgetLocal` clears the
+thread owner then calls its `close()` (`root/proto526` PCs 2-13).
+Common `close` requests input disable, `processClosing()`, and `_delete()`
+in order (`root/proto38` PCs 0-6, call bytes 13813, 13821 and 13829).
+Input disable writes `SqwtIsEnableInput=false` through common
+`root/proto72`. These script calls do not establish destruction timing.
+
+The [root slot contract](desktop-widget-root-slots.md) owns the creation
+and finalization callbacks. The admitted creation callback stores the
+Journal in empty slot 3 at connector `root/proto532` PC 27 (byte 206451).
+For an initialized non-DesktopWidget, `_onFinalize` requests
+`processWidgetDeleted(self)` at `root/proto4` PC 16 (byte 2336). The
+connector reads the receiver's widget index. With a nonnil slot, the
+`root/proto534` writes at PC 21 or 25 (bytes 207141 and 207157) clear
+it when the live occupant compares equal to the receiver or the
+occupant's liveness result is anything other than true. While slot 3 is
+nonnil, `processCommandMainMenu` returns at `root/proto76` PCs 5-10.
+Clearing it removes this guard. With the other guards satisfied, the
+next command shows the hidden menu or hides the shown menu. The Journal
+close path itself does not reopen or hide the MainMenuWidget.
+
+The standard form selects `ControlTemplate_Window_WINBasisWithTitle`
+from `common/WINBasisWithTitle.tpl` at form lines 5 and 13-14. That
+template's `Button_Close` declares `UILuaCommands.WidgetClose` at
+line 11. The separate `Closing` trigger at lines 31-41 declares
+`ClosingAnimation` with completion command
+`ApplicationCommands.DestroyWindow`. The script's `_delete()` call
+alone does not establish a visit to this trigger, native completion or
+when finalization runs. The standard Journal template's category
+popup also declares Escape -> `ComboBox.CloseDropDown` at line 52, and
+its popup list style maps `UILuaCommands.Cancel` to that command at
+lines 78-81. Both target the templated parent. These are distinct
+routes. The native key's selected recipient and popup precedence
+remain unverified.
+
+A mode-1 Journal list can open a nested `Ask/JournalDetailWidget` or
+`Ask/QuestDetailWidget`. Connector `openChildWidget` takes the parent's
+widget index (`root/proto536` PCs 0-9). While the Journal remains the
+live slot-3 occupant, the child cannot replace it in creation or
+clear it in finalization. Cancel delivered to mode-1 JournalDetail
+reaches that child's `finish` (`root/proto2` PC 1, byte 4325),
+which closes the child (`root/proto4` PC 7, byte 4922).
+[QuestDetail](quest-detail-widget-contract.md#local-results) uses the
+base Cancel forwarding to its own Close override, which closes that
+child in mode 1. The selected parent Cancel instead requests closure
+of the Journal and the recursive traversal of its children.
+
+The Ask Journal LPB and decoded payload are pinned in the
+[Journal row writes](journal-list-row-writes.md#source-identity).
+Check the cited prototype operands using `retail_script.py` and
+`ChunkReader`. The standard form and template decoded using the SQEX
+basename-key rule and re-encrypted exactly:
+
+| Resource below `client/sqwt` | Installed bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `widget/JournalListWidget.form` | 3434 / `c72aeec944ae2072d4189cd0890bba6ca25d414d21393ee5d6eb086e017a939d` | 3426 / `84d3da484eb4570cfbbe16598ff367117bca9fc5521f7c37daa26850c1aebcc0` |
+| `widget/JournalListWidget.tpl` | 8692 / `12f30656cf5b8945ebec43f7c7756bc47a3e67ab8fe9160d09a2f15abb8a616f` | 8684 / `79a72fcae798b7250e8ec8d13eb410de615458573d077c7b4795cbc6050fd0ad` |
+| `common/WINBasisWithTitle.tpl` | 7175 / `636d5dd7dbdb0b9d12b08cea875ee0bde729a1e9de9c1cd58eea2d7f66d06daa` | 7167 / `93c745038827c5608f09f4aeb2b4186c06138f8f7f7d45c0a2a2483faf11f88b` |
+
+## JournalListWidget modes and row arguments
 
 `JournalListWidget.createList` (root/proto10 PCs 35-77, offsets
 `0x1E20`-`0x1EC8`) calls these row builders. Selection behavior is in
