@@ -216,6 +216,146 @@ final guard. A missing player or another reached lookup failure can raise
 instead of returning the fallback. No package-membership, positive-slot or
 delivery-acceptance check is added by these wrappers.
 
+## Mode 1 quantity selection
+
+This route uses a positive order catalog with proper package 1, shop ID
+zero and mode 1. `QuestDeliveryWidget.initAsk` proto1 PCs 323-329
+stores the catalog, the two opening rewards as `rewardCS` and
+`rewardHQCS`, and bundle 1. The first-tab row producer reads the held
+item's stackability and count (proto30 PCs 27-31) and supplies them
+to the [shared row writer](shop-sell-selection-flow.md#sale-quantity-in-shopeditwidget)
+at PC63. In the positive-catalog arm, an exact catalog match selects
+a visible row and the opener reward for that item's name index.
+The display uses reward times stack count for a stackable item and
+the reward alone for a nonstackable item. The `pricedata` field is
+the unit reward (proto30 PCs 101-146, 231-235).
+
+The standard first-tab
+[Selection trigger](hamlet-delivery-selection-flow.md#inventory-selection-before-price)
+passes `SelectedIndex` and `IntData.Value0` in that order, with tab
+number 1. The inherited adapter rereads the named sender's selected
+index before calling the child handler. The
+[ordinary Layout0 Enter path](reward-widget-result-contracts.md#rewardselectwidget-opening-and-keyboard-selection)
+supplies Selection when a focused list row is admitted. The markup's
+separate `MouseEnteredItem` and `AnchoredItem` triggers update focus
+and do not themselves select a row.
+
+For a closed quantity child, QuestDelivery Selection proto40 PCs 23-84
+reject exact-true `waitNext`, an already finished ask, exact-false
+widget keyboard focus, a zero list count, focus at or beyond the
+filtered count, exact-true `waitupdate`, or less than one server-clock
+second since `lastcommandtime`. It assigns the incoming focus and tab
+before refreshing. The refresh maps filtered focus through
+`FilteredIndex` to source `Index` and stores a nonnegative result
+(proto15 PCs 34-35, proto16 PCs 60-69, proto25 PCs 13-21). Proto40
+PCs 85-113 take package 1 from tab 1 and slot `work.index+1`.
+They look up that held item and require exact false from
+`_isEquipping()`. For shop ID zero and mode 1, PCs 173-203 choose
+`rewardCS` when `_getNameIndex()==1`, otherwise `rewardHQCS`,
+and call `setPrice(package,slot,reward)`.
+
+`setPrice` proto55 PCs 0-11 require matching chosen package and slot,
+save the reward and clear `waitForPrice`. At PCs 47-106, shop ID zero
+selects child mode 14. Membership 1, 2 and 3 select icon/seal catalog
+pairs (530,1000201), (531,1000202) and (532,1000203).
+`getGrandCompanyPoint` proto10 PCs 29-54 obtains the first result from
+the matching held seal count in package 100, defaulting to zero.
+The child-open request takes these twelve arguments after the Desktop
+receiver, and captures exactly one result:
+
+```text
+ShopEditWidget, parent, true, 14, unitReward, currentPoints,
+companyIcon, sealCatalog, parent, itemCatalog, nil, bundle
+```
+
+Desktop connector proto536 PCs 0-9 uses the parent's widget index,
+passes the parent and shown flag to `openWidget`, and forwards the
+nine initializer operands. Only an exact-true open result admits the
+highlight, `editWidgetOpen=11`, parent input disable and timestamp
+write (QuestDelivery proto55 PCs 107-124). The edit flag is 11 while
+the child mode is 14.
+
+### Quantity, focus and completion
+
+`ShopEditWidget.setInitialData` proto1 saves mode at PC1 and selects
+title 8034 for mode 14 at PCs 54-59. PCs 682-751 set Done/Back text
+8035/8036, copy a nonnil unit reward, and initialize quantity and
+maximum to the selected row's `stackCount`. Its helper requests
+`parent:getItemContent(-1,"stackCount","Int")` (proto12 PC6), and
+QuestDelivery proto52 PCs 69-79 forwards the named list maker,
+source index and property. The numeric input requests minimum 1,
+maximum equal to that count, and starts at the full stack. Mode 14
+retains unit 1 and shows the unit reward times quantity as total.
+There is no points-based quantity cap or 999 cap in this branch.
+The quantity control is shown only for numeric `stackable == 1`
+(proto1 PCs 775-785 and 877-880). The shared numeric setter writes
+Minimum, Maximum then Value (proto4 PCs 6, 12, 16).
+
+The same
+[standard ShopEdit form, template and pointer controls](shop-sell-selection-flow.md#sale-quantity-in-shopeditwidget)
+supply the quantity input and Done/Back buttons. The named
+`CustomControl_NumberInput` registers `NumberInputBox.ValueChanged`
+at priority 5 (ShopEdit proto0 PCs 68-71, common proto55 PC4).
+A short admitted press and release on its selected ones arrow
+requests +1 or -1 and can focus the numeric control before its
+changed effective Value is sent as one Int. Proto8 PCs 0-14 require
+parent wait status other than exact false, child operation zero and
+the exact command. Proto9 PCs 0-8 require exact true from
+`IsKeyboardFocusWithin` before storing that Int, then PCs 29-37
+refresh the mode-14 total. An unchanged effective value has no
+new ValueChanged event. This joins the selected markup to the
+[static pointer route](https://github.com/XIVLegacy/xivl-decomp/blob/af764a34b28dbebf43e971212d2e8c5a0f464af1/docs/resource/sqwt-number-input-pointer-edit.md#short-primary-button-gesture).
+
+`processAfterShow` proto3 PCs 0-4 skips the focus request when its
+explicit argument is exact true. Otherwise it requests
+`Button_Back`. Proto5 PCs 4-14 requests logical focus first and
+keyboard focus only when the Desktop's focused widget equals this
+child. The
+[normal creation callback](desktop-widget-root-slots.md#creation-callback)
+calls `show()` without arguments when admitted. Common show proto40
+PCs 38-40 forwards its omitted third operand to this callback.
+Focus acceptance remains conditional.
+
+Under the same wait and operation guards, ordinary Button activation
+can send `UILuaCommands.Operate` to the named Done or Back recipient.
+ShopEdit proto7 PCs 10-39 checks the name, calls the parent
+`setShopEditData(1,num1)` for Done or `setShopEditData(2,num1)`
+for Back, then calls `closeShopEdit()` with no extra operand.
+Each call discards all results, and the admitted child callback returns
+one true. Layout0 Escape supplies `UILuaCommands.Cancel`. ShopEdit
+proto6 PCs 10-28 gives the same Back outcome for sender
+`Button_Back`; a different sender only requests Back focus.
+[Button mouse command path](https://github.com/XIVLegacy/xivl-decomp/blob/7e453c250cef200b6694714647e65afe43de2cbb/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source)
+
+QuestDelivery proto49 PCs 1 and 3 store operation and count.
+For the omitted close operand, proto50 PCs 0-23 set base result 1,
+disable input and set `waitNext=true` on Done. Back re-enables parent
+input and leaves the Ask unfinished. Both reset operation, request
+`closeChildWidget("ShopEditWidget",parent)` for a nonnil named
+child, clear the edit flag and stamp server time (PCs 30-48).
+The connector proto537 PC5 forwards the parent's widget index and
+name to `closeWidget`. This is a child close request. Explicit
+Company close still owns the outer widget. The QuestDelivery getter returns
+seven values, Desktop prepends true, and the Company selector
+captures seven and emits five as described above.
+
+A bounded fixture uses one unequipped stack of three units with name
+index 1 in package 1 slot 1, a matching positive order catalog and
+supplied normal/alternate rewards 20 and 35. Enter on the first row
+opens at 3 and total 60. A focused ones-arrow decrement yields 2
+and total 40. Done can return `(true,2,1,0,item)` through the
+Company selector for an ordinary non-equipment item. A separate Back
+case requests child close and leaves the parent wait pending.
+These are supplied fixture operands. Historical Company invocation,
+original live focus/detach, server eligibility and settlement remain
+unverified.
+
+The installed ShopEdit LPB and decoded payload identities are in
+[retail_lua_coverage.json](../manifests/retail_lua_coverage.json)
+under `n1635q/r2vu561qn1635q.le.lpb`. The linked shop and Hamlet
+pages pin the standard SQWT carriers. Reproduce the selected PCs
+using the original-instruction reader below.
+
 ## Explicit close and evidence limits
 
 The selector contains no close request. Separate
