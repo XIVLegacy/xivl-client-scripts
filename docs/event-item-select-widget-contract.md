@@ -142,6 +142,115 @@ navigation branches and returns no values.
 enablement, `UILuaCommands.ButtonFocused` to item help, and
 `UILuaCommands.LostFocus` to item-help close. It returns no values.
 
+## Select and Close commands
+
+The installed `widget/EventItemSelectWidget.form` declares `Button_Operate`
+and `Button_Close` at decoded lines 351 and 352. Each is a Button with
+`Command=UILuaCommands.Operate` and no local `CommandTarget`,
+`CommandParameter`, or `ClickMode`. Their shared two-Grid ancestry reaches
+`Window_EventItemSelectWidget` at line 1. Each Button has a minimum width of
+120, a margin of `4,2,4,2`, and top alignment. The Close Button occupies
+column 1 of the bottom Grid. The checked Buttons and their explicit ancestors
+declare no local LayoutTransform or RenderTransform. These are markup
+declarations. Effective style values, final arranged bounds, rendered
+position, dynamic transforms, and pointer containment of a live form remain
+unmeasured.
+
+`initAsk` at `root/proto0` PCs 259-261 (CALL byte 1727) and 262-264 (CALL
+byte 1739) calls `setConfirmCondition` with `Button_Operate` and then
+`Button_Close`. The helper is `WidgetBaseClass_common` root closure PC 169,
+`root/proto56`, decoded code start 17199. PCs 0-4 call
+`_setUICommandCondition` on the named Button with command
+`UILuaCommands.Operate` and numeric priority 5 (CALL byte 17215, B=5, C=1).
+Both registrations therefore select the event path through the
+[native subscription gate](https://github.com/XIVLegacy/xivl-decomp/blob/f99c31eb34782632e06e3f4d9a20dafbadf561be/docs/resource/sqwt-command-parameter-consumer.md#subscription-gate).
+
+For a delivered Button Click, the [Button source](https://github.com/XIVLegacy/xivl-decomp/blob/f99c31eb34782632e06e3f4d9a20dafbadf561be/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source)
+uses the stored Command and CommandParameter. With the specified parent
+chain attached and no resolved CommandTarget, Button and Grid parent
+lookups reach the Window through `0x0092B1F0` and `0x00921BD0`.
+`0x0097ED47..0x0097ED5F` selects the Button interface when the Window byte
+at `+0x15D` has mask `0x20` clear. When the mask is set the recipient
+supplies null. The Window refresh reads this bit into the packed value for
+`IsActive` at `0x009268AB..0x0092690C`. The null-target branch checks for
+a current keyboard-focus recipient at `0x01357020` before entering the
+separate route through `0x0091EE90`. With the default record retained,
+the event parameter is kind 0.
+The native lookup uses the handler store's sender to select the subscription
+and passes the registered control name, independently of the parameter
+record. For the checked root registration the call supplies nil template,
+control name and command to `_onUICommandEvent`, after the receiver.
+
+`WidgetBaseClass._onUICommandEvent` at root closure PC 22, `root/proto6`,
+PCs 6-12 (CALL byte 2650) forwards the template, control, command and both
+optional argument slots. `WidgetBaseClass_common.processUICommandEvent`
+at root closure PC 40, `root/proto13`, PCs 0-8 (CALL byte 9990) selects
+`processUICommandOperate` for this command. It forwards the template, the
+registered control name, and the two optional arguments after the receiver.
+`EventItemSelectWidget.processUICommandOperate` reads R2 at PC 0 (byte
+4420), the third parameter including the receiver. The Button name is
+therefore supplied by the registration, with no markup parameter required.
+The selected script method performs no additional focus or enabled test
+before the two name branches. `setOperateButtonEnable` issues the separate
+`IsEnabled` write at `root/proto9` PC 26 (CALL byte 6197). The initial
+focus request in `processAfterShow` names the first visible heading-enabled
+`Label_<i>` (PC 27, byte 4159), or `Button_Close` when no such Label was
+found (PC 35, byte 4191). Mouse focus, the selected native route in a live
+window, actual Click delivery, inventory changes and quest settlement
+remain unverified.
+
+### Conditional press focus
+
+Button input table cell `0x01073C30` selects `0x0097EFF0` for
+PreviewMouseLeftButtonDown. Its call at `0x0097EFFE` reaches `0x0092EB90`,
+which calls the Control down base first at `0x0092EB99`. The post-base
+branch calls `0x0092EA10` at `0x0092EBB7` with complete Button E only if
+the handled byte behind args `+0x10` remains zero and the original-source
+field at args `+0x0C` equals E (`0x0092EB9E..0x0092EBAF`).
+
+For a non-Window Button, the direct focus-request branch
+`0x0092EA90..0x0092EACD` requires all three calls below to return nonzero.
+Other branches may request a different recipient or return without a
+request.
+
+| Receiver slot | Button cell | Target and checked read |
+| --- | --- | --- |
+| Input `+0x0C` | `0x01073B90` | `0x00939E30`, local input `+0x80` bit 0 and `+0x70` bit 2, with ancestor enabled-bit checks |
+| Input `+0x04` | `0x01073B88` | `0x0091C3D0`, input `+0x70` bit 0, the focusability gate |
+| Complete `+0xE4` | `0x01073D90` | `0x00936F50`, complete `+0x332` bit 5. The `IsTabStop` descriptor `0x01359268` uses the `+0x332` holder at `0x00937FCB..0x00937FE5` and `0x00938461..0x0093847B` |
+
+The admitted direct branch tail-calls Button input slot `+0x38`,
+cell `0x01073BBC`, to `0x0091E3E0`. Its accepted direct transition stores
+the interface at `0x01357020` through `0x0091E75C`. The
+[focus transfer rules](https://github.com/XIVLegacy/xivl-decomp/blob/f99c31eb34782632e06e3f4d9a20dafbadf561be/docs/resource/sqwt-window-trigger-order.md#focus-transfer-and-refresh)
+cover further guards, redirection and preview cancellation. This gives a
+conditional same-Button keyboard-focus producer before the later release
+and Click. It does not establish the live Button flags, whether a physical
+press has the Button itself as original source, or retention of that
+recipient through release and command routing. Live delivery and the accepted down-focus branch remain separate
+observations.
+
+The executable checks use `ffxivgame.exe` for 1.23b build
+2012.09.19.0001, PE32 i386, image base `0x00400000`, 15996808 bytes,
+SHA-256 `9341f2b4567440b310a4d494f5cc5599ca334ba51c8042247317ff466492f2e9`.
+All addresses are VAs. Apple LLVM 21.0.0 and Ghidra CLI 0.2.2 provided
+the selected instructions and xrefs. File-backed PE reads verified table
+cells and the direct calls. The executable was inspected statically.
+
+The form is 33984 bytes with SHA-256
+`814733cf4cecf378226de4714b338e1fba0889845e580dcb8461a3bd03813e0d`.
+The 33976 decoded bytes have SHA-256
+`00b954b0d754c87ab32096d4b96a98e516b7463526982246c0aedb7bb459b459`.
+Decode using the [SQEX format](https://github.com/XIVLegacy/xivl-tools/blob/604210657f4858fb69744a3a92c90f3369040057/docs/formats/sqex.md)
+and verify exact re-encryption. Use the existing LPB decoder and
+`ChunkReader` for the form's script and the two base scripts. All three
+wrappers and payloads matched `manifests/retail_lua_coverage.json` and
+parsed through the last byte. The two base payload SHA-256 values are
+`11e5bab509c4dbbd7e2767d35cdf132a59b5c510c32c2e215f83cac713115140`
+for `widget/widgetbaseclass` (4067 bytes) and
+`7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f`
+for `widget/widgetbaseclass_common` (32983 bytes).
+
 ## Item help
 
 `displayItemHelp` requires an `ItemDetailWidget` child and proceeds only when
