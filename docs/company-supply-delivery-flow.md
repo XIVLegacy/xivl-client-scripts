@@ -78,8 +78,8 @@ an opening result, separate from a later selection result.
 
 For a positive order catalog and supplied mode 1, the opener retains both
 operands. The widget's `initAsk` proto1 PCs 227-248 writes `work.mode=1`
-with an omitted sixth operand and selects title row 8031. It stores
-the catalog at PC323. Its `setInitialData` proto2 PCs 9-23 builds the
+with an omitted sixth operand and selects title row 8031.
+Its `setInitialData` proto2 PCs 9-23 builds the
 list, writes `work.listbox=1` at PC14, then sorts and refreshes it.
 The positive-catalog branch (proto1 PCs 382-418) calls
 `createVirtualItem(catalog,1):getItemProperPackage()`. Package 1 shows
@@ -220,8 +220,9 @@ delivery-acceptance check is added by these wrappers.
 
 This route uses a positive order catalog with proper package 1, shop ID
 zero and mode 1. `QuestDeliveryWidget.initAsk` proto1 PCs 323-329
-stores the catalog, the two opening rewards as `rewardCS` and
-`rewardHQCS`, and bundle 1. The first-tab row producer reads the held
+writes the supplied catalog to `work.orderCatalog` at PC323
+(decoded offset `0xEB7`), the two opening rewards to `rewardCS`
+and `rewardHQCS`, and bundle 1. The first-tab row producer reads the held
 item's stackability and count (proto30 PCs 27-31) and supplies them
 to the [shared row writer](shop-sell-selection-flow.md#sale-quantity-in-shopeditwidget)
 at PC63. In the positive-catalog arm, an exact catalog match selects
@@ -249,12 +250,14 @@ before refreshing. The refresh maps filtered focus through
 `FilteredIndex` to source `Index` and stores a nonnegative result
 (proto15 PCs 34-35, proto16 PCs 60-69, proto25 PCs 13-21). Proto40
 PCs 85-113 take package 1 from tab 1 and slot `work.index+1`.
-They look up that held item and require exact false from
-`_isEquipping()`. For shop ID zero and mode 1, PCs 173-203 choose
+They write `work.chosenPackage` at PC90 (`0x5952`) and the
+one-based slot to `work.chosenItem` at PC95 (`0x5966`), then
+look up that held item and require exact false from `_isEquipping()`. For shop ID zero and mode 1, PCs 173-203 choose
 `rewardCS` when `_getNameIndex()==1`, otherwise `rewardHQCS`,
 and call `setPrice(package,slot,reward)`.
 
-`setPrice` proto55 PCs 0-11 require matching chosen package and slot,
+`setPrice` proto55 PCs 0-11 compare the supplied slot and package
+against `work.chosenItem` and `work.chosenPackage` at PCs 2 and 6,
 save the reward and clear `waitForPrice`. At PCs 47-106, shop ID zero
 selects child mode 14. Membership 1, 2 and 3 select icon/seal catalog
 pairs (530,1000201), (531,1000202) and (532,1000203).
@@ -282,8 +285,11 @@ title 8034 for mode 14 at PCs 54-59. PCs 682-751 set Done/Back text
 8035/8036, copy a nonnil unit reward, and initialize quantity and
 maximum to the selected row's `stackCount`. Its helper requests
 `parent:getItemContent(-1,"stackCount","Int")` (proto12 PC6), and
-QuestDelivery proto52 PCs 69-79 forwards the named list maker,
-source index and property. The numeric input requests minimum 1,
+QuestDelivery proto52 PCs 8-16 look up the held item using
+`work.chosenPackage` and `work.chosenItem`. The quantity property
+falls through at PCs 69-79 to the maker from `work.listbox`
+and the source index from `work.index`. The catalog comparison is
+in the row producer at proto30 PCs 101-104. The numeric input requests minimum 1,
 maximum equal to that count, and starts at the full stack. Mode 14
 retains unit 1 and shows the unit reward times quantity as total.
 There is no points-based quantity cap or 999 cap in this branch.
