@@ -74,6 +74,32 @@ desktop helper reports false only for a nil first widget-helper result and
 true for every nonnil first result, including false or numeric zero. This is
 an opening result, separate from a later selection result.
 
+### Mode 1 first tab
+
+For a positive order catalog and supplied mode 1, the opener retains both
+operands. The widget's `initAsk` proto1 PCs 227-248 writes `work.mode=1`
+with an omitted sixth operand and selects title row 8031. It stores
+the catalog at PC323. Its `setInitialData` proto2 PCs 9-23 builds the
+list, writes `work.listbox=1` at PC14, then sorts and refreshes it.
+The positive-catalog branch (proto1 PCs 382-418) calls
+`createVirtualItem(catalog,1):getItemProperPackage()`. Package 1 shows
+`TabItem_1`, hides `TabItem_2` and requests zero-based
+`TabControl_ItemList.SelectedIndex=0`. Package 100 requests the
+second tab instead. A later admitted TabChanged writes
+`getSelectedIndex("TabControl_ItemList")+1` to `work.listbox`
+(proto41 PCs 62-70, proto21 PCs 0-4).
+
+For the Company branch with zero shop ID, proto2 PCs 24-63 reads the
+player's Grand Company membership and uses it for the banner, city,
+company name, rank and points. The city and company text helpers
+(proto5 and proto6) supply rows 100621-100623 and 8051-8053 for
+membership 1-3. Rank (proto7 PCs 3-34) uses the player rank and sex.
+Points (proto8 PCs 0-8) supplies the current and maximum values to row
+3551. The initializer also writes the item-life and repair headers
+through text row 214 with operands 10091 and 10093 and sets first-tab
+header 3207 (proto1 PCs 304-313, 353-356).
+[Shared form and first-tab selection](hamlet-delivery-selection-flow.md#inventory-selection-before-price)
+
 ## Selection and omitted arguments
 
 `eventQuestItemMenuSelect(A1,A2,A3)` requests
