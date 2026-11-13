@@ -211,6 +211,28 @@ separate command inputs passed to the callback. The
 declares the Slider command without a parameter. Native event delivery and
 effective property readback remain conditions on reaching the branch.
 
+## Footer Close
+
+The [standard form carrier](https://github.com/XIVLegacy/xivl-decomp/blob/0a1e703ebcf7f3f4331e8287112e1d4bcf5e775a/docs/resource/sqwt-track-rectangle-requests.md#float-slider-and-its-sound-configuration-styles)
+names the root `Window_ConfigSoundWidget` on decoded line 1 and selects
+`ControlTemplate_Window_WINBasis` on line 11 from `common/WINBasis.tpl`
+on line 5. The childless footer `Button_Close` on line 219 declares
+`UILuaCommands.WidgetClose`, Content `@1318` and SqwtStyle `BTN_basis`.
+It declares no command target, parameter, local template or click mode.
+
+ConfigSoundWidget init `root/proto0` PC34 calls `setCloseCondition()`.
+WidgetBase common `root/proto59` PCs 0-4 subscribes the receiver's
+`_widget` to `UILuaCommands.WidgetClose` with numeric condition 5.
+The [subscription gate](https://github.com/XIVLegacy/xivl-decomp/blob/bfd1a57c7e6ea61961759a5714f59239ffe0e0fe/docs/resource/sqwt-command-parameter-consumer.md#subscription-gate)
+owns the native condition encoding. On delivery, common
+`root/proto13` PCs 31-38 dispatch to `processUICommandClose`. The nine
+ConfigSoundWidget assignments above do not override this handler. Common
+`root/proto17` PCs 0-3 calls `desktopWidget:closeWidgetDirect(self)`.
+The [recursive close path](https://github.com/XIVLegacy/xivl-decomp/blob/ea5134a094750f27431709167fe467bbc1cab108/docs/script/main-menu-command-route.md#community-menu-close)
+owns retirement and the deferred close of the thread owner. Pointer
+admission, inherited click cue delivery and visual completion remain
+separate conditions.
+
 ## Finite checks and limits
 
 The instruction-driven executor ran 22 typed cases: 18 ordinary cases and 4
