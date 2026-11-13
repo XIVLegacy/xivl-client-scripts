@@ -224,8 +224,9 @@ PC349 and the item-source control at PC354 before checking
 `rewardIsItem` at PC358. The player item-reward branch reads
 `CustomControl_NumberInput` at PC443 and requires
 `work.isRetainer == false` at PC446. It gets the selected player item
-at PC453 and checks for nil. It refuses exact true from the item's
-`isDealingItem` and `isPlayerItemAttached` calls at PCs 465 and 477.
+at PC453 and checks for nil. It refuses exact true from
+`desktopWidget.isDealingItem` and `desktopWidget.isPlayerItemAttached`
+at PCs 465 and 477. Both calls receive the chosen package and slot.
 The refusal paths call `closeWidgetForCancel`. It separately obtains
 the reward item at PC488 using the stored reward package and slot.
 
