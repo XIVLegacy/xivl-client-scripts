@@ -168,6 +168,34 @@ an initial count of 0 therefore is not an immediate no-op. The parent's
 `setSlotItem` returns zero values. Successful native storage and child
 ownership remain unbound.
 
+## CraftStart cancel button markup
+
+The HD `widget/CraftStartWidget.form` root is `Window_CraftStartWidget`.
+It imports `widget/CraftStartWidget.tpl` and `common/WINBasis.tpl` in
+that order. `Button_CraftCancel` at decoded line 129 is a childless
+markup Button under the root's unnamed Grid. It declares
+`UILuaCommands.CraftOperate`, content `@3018`, `BTN_basis`, and the local
+`ControlTemplate_ButtonHelp`. It has no `CommandTarget`, `CommandParameter`,
+or `ClickMode` attribute.
+
+The local template at decoded line 2 targets Button and contains an empty
+ContentPresenter. Its only triggers request `UILuaCommands.ButtonFocused`
+on `Button.MouseEnter` and `Button.GotAnchor`. There is no Click or
+`UILuaCommands.CraftOperate` trigger in this template. These declarations
+identify a prospective input control. They do not establish focus,
+registered event delivery or the widget's current ability to accept input.
+
+The SQEX containers are under `client/sqwt/` in build `2012.09.19.0001`.
+Decode strict UTF-8 with the basename as the key using the
+[xivl-tools SQEX format](https://github.com/XIVLegacy/xivl-tools/blob/604210657f4858fb69744a3a92c90f3369040057/docs/formats/sqex.md).
+Re-encrypting each decoded payload reproduces its container with the original
+signature prepended.
+
+| Path | SQEX bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `widget/CraftStartWidget.form` | 13817, `86a2aef3e2d357f89c48f24fe6ff7e8bede1904ca477ca941e8f1170f0c5b643` | 13809, `def2bc31813719ab05ef7c2922b05d8c18ac1cc15d8fd85c30c468c56adc021a` |
+| `widget/CraftStartWidget.tpl` | 642, `3bfb761a14f685e8c6ff5f1707e5417ddf3e30d12944185ca0387ff24197dda9` | 634, `98984b5b2104b8061ab30cbd345789fb4401a355ac094c28aeb4a1510550f234` |
+
 ## Choice, completion and cancellation
 
 The two command handlers first reject `editWidgetMode ~= 0`, then
