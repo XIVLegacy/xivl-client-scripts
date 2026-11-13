@@ -224,6 +224,80 @@ receiver calls `previousSequence` after the update-counter guard
 path below. Native focus admission, visible pixels and child teardown
 remain conditional.
 
+### Inventory ownership and keyboard cancellation
+
+`MainMenuWidget` row 4 calls `setBazaarActor` and opens
+`openMainMenuRootWidget("ItemListWidget",self,true)` (`root/proto1`
+PCs 38-48). The Desktop connector inserts category index 3
+(`root/proto538` PCs 9-15) and checks that root slot before opening
+(`root/proto535` PCs 4-18). On the admitted creation callback,
+`processWidgetCreated` can publish the inventory in empty
+`work.rootWidget[3]` (`root/proto532` PCs 17-27). The inventory's
+`initForm` precreates a retained ItemSubWidget child with
+`initChildWidget("ItemSubWidget",false,true)` (`root/proto1`
+PCs 61-65). The normal inventory selection handler needs a result
+other than exact false from Desktop `checkKeyboardFocused(self)`.
+An admitted selected row supplies chosen package and source index plus
+one, then requests `openSubWidget` (`root/proto10` PCs 10-21 and 59-75).
+
+`openSubWidget` finds that child by window name (`root/proto60` PCs 0-4),
+requests the row-dependent button states, and calls `setModal(true)` and
+`show()` (PCs 398-402). It requests focus on `Button_BazaarBuy` when
+`work.lastsub == 3` and that button's state is 2 (PCs 423-431).
+Other admitted saved actions have separate focus arms. The fallback
+requests `Button_Cancel` at PCs 543-545. The standard submenu Window
+at form line 1 declares directional navigation Cycle. Its
+`StackPanel_ButtonPanel` holds `Button_BazaarBuy` at line 15 and
+`Button_Cancel` at line 27. The exact first directional focus result
+is conditional on the row-dependent visible and enabled controls.
+
+The editor and selector both use `openChildWidget`
+(`desktopwidget_connector` `root/proto536` PCs 0-9), which takes the
+supplied parent's `getWidgetIndex()` and tail-forwards that index and
+parent to `openWidget`. This gives the parent chain ItemListWidget,
+BazaarEditWidget, ItemSelectWidget. ItemSubWidget is a separate child
+of the inventory. Its admitted Seek operation requests that submenu
+hidden after the editor open returns true. Both later children inherit
+index 3 for the ordinary Main Menu path. The supplied parent bypasses
+the nil-parent slot-occupancy rejection (`root/proto523` PCs 20-28).
+An existing live inventory remains the root. On an exact-true creation
+request, `openWidgetLocal` may disable a shown parent's input without
+hiding it (`root/proto522` PCs 33-43). The admitted child creation
+callback can show a child with a true visible flag (`root/proto532`
+PCs 28-60). These are requests for nested separate windows. Paint
+order, exact overlap and native focus handoff remain unverified.
+
+With the default Layout0 bindings, [Enter and Escape](https://github.com/XIVLegacy/xivl-decomp/blob/77084a4baa020f0777d58df84e1d783d66f201d0/docs/script/main-menu-command-route.md#key-bindings)
+include no-parameter `ApplicationCommands.Operate` and
+`UILuaCommands.Cancel` at rows 11 and 20 respectively. The
+[Button Operate path](https://github.com/XIVLegacy/xivl-decomp/blob/77084a4baa020f0777d58df84e1d783d66f201d0/docs/script/main-menu-command-route.md#decide-and-chat-input)
+raises Click on an admitted Button at `0x0097EE90`. The Click handler
+runs the declared `UILuaCommands.Operate` on `Button_BazaarBuy` or
+`Button_Extra` when the respective control receives Enter. The editor
+form declares `Button_Extra` at line 239 and `init` registers its
+confirm condition at `root/proto0` PCs 150-152. The editor's mode-2
+initialization does not request initial focus on `Button_Extra`.
+Default focus and a fixed number of arrow presses remain unverified.
+
+The mode-400 selector's nonempty-list branch requests the filtered
+focus and the selected list at `root/proto7` PCs 66-81. Its
+`setWindowFocus` requests logical focus and requests keyboard focus
+only if Desktop's current keyboard-focused widget compares equal to
+self (`root/proto9` PCs 4-14). Cancel subscriptions include the root,
+active list, first tab, and Back. They use priority 5 through
+`widgetbaseclass_common` `root/proto58` PCs 0-7. On admitted delivery,
+the inherited dispatcher calls `processUICommandCancel`
+(`root/proto13` PCs 21-28). The selector clears its timer and requests
+`previousSequence` (`root/proto31` PCs 0-4), then the mode-400 branch
+requests `closeWidget` (`root/proto29` PCs 14-21). The latter calls
+`setReward(nil,nil)` on the nonnil current Bazaar parent and passes the
+selector itself to `closeWidgetDirect` (`root/proto41` PCs 0-14).
+The request does not close the editor or inventory. On the admitted
+finalize callback, Desktop clears an indexed root only if it is dead or
+compares equal to the deleted widget (`root/proto534` PCs 0-25). A live
+inventory root therefore survives deletion of its selector child. The
+native completion time and parent input restoration remain separate.
+
 ## Child selection and cancellation
 
 The complete child eligibility, focus, update-counter, and opacity rules
