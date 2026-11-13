@@ -64,6 +64,40 @@ The [duty confirmation contract](duty-confirmation-client-contract.md)
 owns `QuestBaseClass.contentsJoinAskInBasaClass`, its inherited NPC/widget
 forwarding, variable argument tuple and one-answer return boundary.
 
+### V'korolon opening dialogue row 4
+
+`Etc5g0.initText` calls `_loadTextDataPermanently` on the quest with
+ID 9092 and key `etc5g0`. The ActorBase text loader adds `0x03A20000`,
+selecting definition `0x03A22384`. The opening method
+`Etc5g0.processEventVKOROLONStart` passes that quest, row 4 and gesture 0
+to the NPC's `say` method. The call carries zero optional formatter
+arguments. The NPC message route forwards the quest as the text source.
+See the [ActorBase loader](https://github.com/XIVLegacy/xivl-decomp/blob/054880e3638f864203764687e74c2b7ae187b218/docs/script/actor-base-text-source.md)
+and the [NPC message route](https://github.com/XIVLegacy/xivl-decomp/blob/054880e3638f864203764687e74c2b7ae187b218/docs/resource/logcontrol-talker-name.md#source-name-of-an-npc-record).
+
+The installed `client/script/tp5rq/r75w9s1v/5q7/5q7e3j.le.lpb` is 2974
+bytes, SHA-256
+`943e852da4c453b27a09b341198c1749dc4423dac4054e58b4e308008d2dfbe4`.
+Its 2961-byte decoded chunk has SHA-256
+`2e1e9e1ff45b6d2f7af332caa2c1d87f88e835b5e6613ba018f59a7b259f8b7f`.
+Using the [pinned LPB decoder and unluac](ai_agents/retail-input-validation.md#pinned-toolchain-and-reproduction)
+reproduces the 7098-byte canonical source
+`lua/scripts/quest/scenario/etc/etc5g0.lua` in
+[the script manifest](../manifests/scripts.json).
+
+| Source lines | Lua 5.1 locator | Check |
+| --- | --- | --- |
+| 13-20 | Root PC 9 at `0x44`, proto0 PCs 0-3 at `0x196..0x1A2` | Registers `initText` and calls the loader with literal 9092 and `etc5g0`. |
+| 57-61, 110 | Root PC 12 at `0x50`, proto1 PCs 25-29 at `0x269..0x279` | Registers `processEventVKOROLONStart`. `CALL A3 B5 C1` passes the NPC receiver, quest, row and gesture with no return values. |
+
+The PCs are zero-based and offsets are relative to the decoded chunk.
+`tools/build_quest_contracts.py` supplies `ChunkReader` and
+`instruction` for the independent instruction check. The installed English
+formatter operands are recorded in
+`xivl-client-data:docs/vkorolon-opening-dialogue-row.md`. This extraction
+establishes the fixed call shape. Historical invocation and message delivery
+remain unobserved.
+
 ## Class quest choices and transitions
 
 The following method contracts use canonical script paths and method names
