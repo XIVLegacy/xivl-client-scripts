@@ -80,6 +80,34 @@ child then follows the selected opening above. The shared
 [widget-open helper](content-director-ui-contracts.md#commandcreatewidget-forwarding)
 qualifies the command request and owner operands.
 
+### Seek Item source validation
+
+`BazaarEditWidget.setInitialData` (`root/proto1` PC 60) reads the selected
+package and one-based slot from `MyPlayer._getItem` for the ordinary owner.
+PCs 116-149 set `work.error` when the source is nil, source liveness is
+exact false, the supplied parent is nil, parent liveness is exact false,
+or the parent's `checkChosenItem(item)` returns exact false. That call
+supplies the item alone. The latter refusal reaches the epilogue before
+mode-2 presentation requests.
+
+`ItemListWidget.checkChosenItem` (`root/proto70`) requires its chosen
+package to match the active list at PC 22 and its chosen slot to match
+`work.index + 1` at PC 31. PC 43 rereads the chosen item, and PC 44 compares
+the resulting Lua value with the supplied item. The [held NormalItem return](https://github.com/XIVLegacy/xivl-client-structs/blob/62c7d759e6e2b7231f012112f3fe5d3e75a6446f/docs/item-native-contract.md#held-normalitem-table-identity)
+can reuse an admitted Lua table by record identity. The successful comparison
+returns true at PCs 46-47.
+
+When the admitted first show finds `work.error` exact true, the editor
+hides `Grid_Base` and requests close. The ordinary parent path records
+operation 1 and calls `closeBazaarEdit` with the optional argument omitted
+(`BazaarEditWidget` `root/proto2` PCs 9-36). The parent clears the open and
+operation state before resolving the child (`ItemListWidget` `root/proto64`
+PCs 0-19). The separate matching package-update route sets `closeok`
+(`root/proto62` PCs 60-77), and the list focus update may consume it by
+calling `closeBazaarEdit(true)` (`root/proto16` PCs 20-47). These script
+requests establish conditional branches. Native close completion and its
+frame remain unverified.
+
 ### Standard mode-2 Bazaar editor
 
 The authenticated `BazaarEditWidget.form` merges `common/COMBasisLabel.tpl`
