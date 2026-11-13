@@ -59,6 +59,60 @@ Both branches continue at PC213 with visibility requests for
 `TextBlock_QuestItemTitle` and `TextBlock_QuestItem`, whose flag is true after
 the mode 1 branch and false after the offer branch (PCs 110, 172 and 213-228).
 
+## Ordinary Journal detail request
+
+For the active quest row path described in
+[JournalListWidget modes and row arguments](guildleve-journal-lifecycle.md#journallistwidget-modes-and-row-arguments),
+the local `Ask/QuestDetailWidget` child opens with mode 1 and the row's
+`JournalID` as `questID`.
+
+The installed `widget/QuestDetailWidget.form` names the root
+`Window_QuestDetailWidget` at line 1, imports `common/WINBasis.tpl` at
+line 5 and selects its `ControlTemplate_Window_WINBasis` at line 11.
+That template's `Shown` trigger at line 9 starts `OpeningAnimation`
+at lines 12-19. Its storyboard declares
+`CompletedCommand="UILuaCommands.Shown"` at line 13. The three
+animations use a 0.2-second duration. The
+[native Anime path](https://github.com/XIVLegacy/xivl-decomp/blob/5dc5699/docs/resource/sqwt-anime-property.md#window-handler)
+raises the Window's `Shown` event. The Lua command follows storyboard
+completion under the
+[animation clock](https://github.com/XIVLegacy/xivl-decomp/blob/5dc5699/docs/resource/sqwt-double-animation-clock.md#bounded-nonrepeat-samples-and-completion).
+
+The shared [setUICommandCondition wrapper](action-menu-page-controls.md#event-registration-and-page-dispatch)
+used by `initAsk` registers the plain `_widget` command with numeric
+priority 5. In `processUICommandDefault` (`root/proto3`), PCs 0-6
+compare the command with `UILuaCommands.Shown` and `work.mode` with
+integer 1. PCs 7-12 call
+`desktopWidget:executeCommandJournalDetailInfo(3,work.questID)`.
+An exactly false result opens failure widget 4311 and returns
+(PCs 13-20). Other modes skip this request.
+
+The connector's type-3 branch (`root/proto188`, PCs 24-36) reads
+`player:getSystemCommand(24211)` and calls
+`player:command(command,questID,nil,nil,nil,nil)` if it finds a
+command. The fourth formal of the connector is absent at the Shown
+call site. The
+[command's local guard](guildleve-journal-lifecycle.md#command-mapping)
+delegates to
+[`canRequestInformation`](player-command-event-routes.md#information-request-guard-and-record-state).
+The
+[journal capture comparison](https://github.com/XIVLegacy/xivl-captures/blob/a8e89429b1fe4aaa5adef435f886db58126eb60a/studies/quest-journal-map-wire/derived/evidence-map.md)
+records command 24211 with quest ID 110658 and eight nils, then a
+`qtdata` delivery. The receiver routes that tag to the
+[open detail widgets](quest-event-client-contracts.md#quest-journal-and-reward-presentation-widgets).
+The static command and capture identify the route and its arguments.
+Whether a given local attempt passes the request guard depends on the
+current player state.
+
+| Installed SQWT resource | Container bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `widget/QuestDetailWidget.form` | 17212 / `27517dfe9c2577efdb28c037a235c1fdb2bf559346ee29eecc2e4864dfc8d04d` | 17204 / `0a7203b9f1948ab117f8b3c13f6c143acc712978cdbda30b77ff16cdb11c9a00` |
+| `common/WINBasis.tpl` | 6278 / `27d03aca012d1554a3cf8ecd1b5e8da22cc7c815c6f92a1d6d0557dad3bcc5aa` | 6270 / `d3227d9200d301ba715250e393d8e09c0ca2d39080754e1ed517692fa7d50700` |
+
+Reproduce the SQWT locators with the basename-keyed Blowfish decoder in
+`xivl-tools:tools/research/census_sqwt.py`. Hash the complete decoded
+payload before XML parsing.
+
 ## Local results
 
 `processUICommandOperate(W,a,control,b,c)` (`root/proto1`) compares its
@@ -149,8 +203,10 @@ n at start plus 4n.
 | `initAsk` | `questdetailwidget.lua:11-277` | 9 | `root/proto0` / `0x2AA` |
 | `processUICommandOperate` | `questdetailwidget.lua:280-348` | 12 | `root/proto1` / `0xACB` |
 | `processUICommandClose` | `questdetailwidget.lua:351-369` | 15 | `root/proto2` / `0xD29` |
+| `processUICommandDefault` | `questdetailwidget.lua:372-435` | 18 | `root/proto3` / `0xDEB` |
 | `getAskResult` | `questdetailwidget.lua:438-451` | 21 | `root/proto4` / `0x1038` |
 | Connector `askQuestDetailWidget` | `desktopwidget_connector.lua:10078-10094` | 560 | `root/proto186` / `0x18239` |
+| Connector `executeCommandJournalDetailInfo` | `desktopwidget_connector.lua:10267-10322` | 566 | `root/proto188` / `0x1870C` |
 | Connector `askEventModeWidgetYield` | `desktopwidget_connector.lua:25790-25801` | 1912 | `root/proto541` / `0x32E39` |
 | Connector `askWidgetYield` | `desktopwidget_connector.lua:25805-25856` | 1916 | `root/proto542` / `0x32E9E` |
 
