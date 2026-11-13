@@ -170,6 +170,25 @@ bounded to the base conditions installed by `init`, the reset ask request and
 the numeric-one continuation above. Native storage, readback completion,
 application, file writes and persistence remain outside this source envelope.
 
+## Configuration menu opener
+
+The [Main Menu route](https://github.com/XIVLegacy/xivl-decomp/blob/ea5134a094750f27431709167fe467bbc1cab108/docs/script/main-menu-command-route.md)
+identifies the stock Configuration row and its `ConfigWidget` target.
+The installed ConfigWidget LPB is
+`client/script/n1635q/7vw413n1635q.le.lpb`, 2719 bytes with SHA-256
+`390ff909c274696fb28d623b59a50659a1e18886922c33775267e55cdd3eb392`.
+Its decoded Lua 5.1 payload is 2706 bytes with SHA-256
+`2665f1e053d3c3dd3dc3c6d23d92386430d2571f615b3c4cd4c2eb4515eef77e`.
+
+ConfigWidget `init` (`root/proto0`) calls
+`setConfirmCondition("Button_Sound")` at PCs 4-7. In ConfigWidget `processUICommandOperate` (`root/proto2`), PC11 tests
+the incoming control against `Button_Sound`. The matching branch at
+PCs 13-18 calls `desktopWidget:openChildWidget("ConfigSoundWidget",
+self, true)`. The call at decoded offset 1473 is `CALL A=6 B=5 C=1`.
+It discards all results. The bool is the third explicit operand.
+The [common open path](content-director-ui-contracts.md#openwidgetlocal-creation-request) owns its separate
+creation, parent and visibility guards.
+
 ## Inherited sound-control dispatch
 
 The installed WidgetBase common LPB is
