@@ -115,6 +115,31 @@ Source: `widget/craftprogresswidget.lua`, `init` lines 11-172,
 `widget/desktopwidget_connector.lua`, `orderCraftProgressWidgetUpdate`
 lines 11339-11364.
 
+### Progress property write
+
+In the installed 1.23b `widget/craftprogresswidget` chunk, root PCs 46-48
+register `updateProcess` from zero-based child 13. That child's PCs 28-31
+at decoded offsets `0x1B3F..0x1B4B` call the receiver's `setValue` with
+the literal control name `ProgressBar_Percentage` and the original first
+argument. The call discards its results.
+
+The installed `widget/widgetbaseclass_common` root PCs 312-314 register
+`setValue` from zero-based child 104. Its PCs 0-4 at decoded offsets
+`0x5AAA..0x5ABA` call `setControlProperty` with the forwarded name,
+literal property `Value` and forwarded number. The call discards its
+results. This is the script-side property request. Native setter admission,
+event delivery and rendered values remain separate.
+
+| Installed chunk | Wrapper bytes | Unwrapped SHA-256 |
+| --- | ---: | --- |
+| `n1635q/7s94qusv3s5rrn1635q.le.lpb` | 8029 | `b4d2f8d0a2f8e6ab6d6791ee012e57d432f8b4305a1d83cdd038d93c5abb1c53` |
+| `n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` | 32996 | `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
+
+Decode the `rle` wrapper with the payload starting at file offset 13 and
+XOR key `0x73`. Walk Lua 5.1 prototypes using little-endian four-byte
+`size_t` and compare the closure registrations, instruction operands and
+constant references at the cited PCs.
+
 ## Selection, completion, and local results
 
 The selected `craftCommandUI` and `craftTuningUI` callers pass a command count
