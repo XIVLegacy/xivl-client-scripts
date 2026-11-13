@@ -102,6 +102,82 @@ method's map lookup also returns nil. This establishes client result handling;
 it does not identify how attunement determines supplied arguments or how the
 server interprets the returned slot.
 
+### Region creation, form identity, and retained selection
+
+Original `TeleportCommand.eventRegion` (`root/proto2`, code start 1266)
+calls `desktopWidget.openEventModeWidgetYield("Ask/AetheryteListWidget")`
+at PCs 0-3. Only exact true reaches `selectAetheryteRegion` with A2 at
+PCs 4-10. The result returns at PC 11. Connector `root/proto551` PCs 0-6
+supplies category 4, path `S`, two nils, and false to `openWidgetYield`,
+with no further arguments. Let `D` denote the Desktop receiver and `S`
+the full widget path.
+
+Under the ordinary [Desktop creation wrappers](content-director-ui-contracts.md#openwidgetlocal-creation-request),
+local defaults select `S` as alias and `D` as parent. This gives
+`commandCreateWidget(D,S,false,D,true,S,4,false)` at connector `root/proto522`
+PC 32. Desktop `commandCreateWidget` (`root/proto4` PCs 0-13) looks up the
+local player twice, resolves system command 24228 using the second lookup,
+and forwards `(P,C,false,S,D,true,S,4,false)` to the first lookup's saved
+`commandAboutWidget`. Under its [selected adapter](player-widget-command-request.md#conditional-composition-with-widget-creation)
+and admitted gates the fixed false force is consumed there. Its native
+request receives the name, `C`, and full tail `(S,D,true,S,4,false)`.
+
+The [24228 command row](https://github.com/XIVLegacy/xivl-client-data/blob/4855dcebbf9531bf11ee777d303b3058badcee7b/docs/command-script-identity.md#widget-open-command-priority-declaration)
+supplies priority -1 and maps to `WidgetOpenCommand`. For a resolved
+SystemCommandBaseClass control, `CharaBaseClass.getCommandName` (`root/proto17`,
+code start 4812) initially selects `commandRequest` at PCs 59-61. The
+WidgetOpenCommand instance test at PCs 67-72 overrides that value to
+`widgetCreate` at PC 73 when true. The following MacroCommand test at
+PCs 74-80 can overwrite the name only on a distinct true instance test.
+The WidgetOpenCommand LPB defines that class over SystemCommandBaseClass.
+For that selected class and normal lookup, the final name is `widgetCreate`.
+Its [conditional native descriptor](https://github.com/XIVLegacy/xivl-client-structs/blob/422a2c832d53c0dff50aa49e66cce92969b8ee71/docs/command-descriptor-registration.md#definitions-and-construction)
+is CommandNonBlock. `PlayerBaseClass._onCommandRequest` (`root/proto43`
+PCs 0-5) first calls `C.command` with the player and complete tail, and a
+truthy result skips the fire and server fallbacks. The new widget owns
+the form load.
+
+On that callback path, [WidgetOpenCommand](widget-open-command-boundary.md#command-formal-frame-and-factory-tail)
+requires `/Widget/Ask/AetheryteListWidget` and requests
+`_createActor(nil,"AetheryteListWidget",false,D,true,S,4,false)`
+at `root/proto0` PCs 6-21. The selected Ask module derives from AskBaseClass
+and has no getFormName override. Under the shared creation-frame and binding
+conditions, the new widget `W` receives `(W,D,true,S,4,false)` in the base
+`_onInit` (`root/proto0`). Its PC 86 calls `initCommon`. The latter uses the
+inherited nil form-name getter and strips the path prefix from `S`
+(`widgetbaseclass_common` `root/proto0` PCs 26-39). `W.loadFormData`
+(`widgetbaseclass` `root/proto3`, PCs 2 and 4) requests `_setFilename` with
+`AetheryteListWidget` and then `_loadForm` on `W`. This precedes the
+base `_onInit` PC 95 call of `init` and the `AskBaseClass.init` PC 25
+call of `initAsk`. The selected require path names the Ask variant.
+
+After the load request, `initCommon` first stores the name
+`Window_AetheryteListWidget`, then requests `Window_Ask/AetheryteListWidget`
+through `setWindowName` and requests Hidden (`root/proto0` PCs 40-58).
+The common getter (`root/proto4` PCs 0-24) strips the leading `Window_` in
+this case. After initialization and parenting, `_onInit` marks initialized
+at PC 110. Its admitted Desktop callback at PCs 126-132 supplies `W`, the
+parent-readiness flag, true, `S`, 4, and false. Desktop `processWidgetCreated`
+(`root/proto532` PCs 17-27) publishes `W` to empty `work.rootWidget[4]` when
+that flag permits. Its visible-flag test at PCs 36-40 skips initial show
+for the false operand. `openWidgetYield` (`root/proto544` PCs 28-34) waits
+for the creation command, then requests `getWidget(4,S)`. That lookup checks
+the category root, liveness and retained window name (`root/proto530`
+PCs 4-21 and `root/proto529` PCs 4-17).
+
+Region and destination each call `initEventModeWidget(S,...)` through
+`selectEventModeWidgetYield` (`root/proto554` PC 4). Connector `root/proto556`
+PCs 0-14 looks up the already retained `W`, resets its base result, applies
+`setAskParameter`, and calls `show(true,true)`. Mode 0 supplies the region
+view. The independently invoked `TeleportCommand.eventAetheryte` (capital A,
+`root/proto3`) selects mode 1 through `selectAetheryteList`. The two methods
+use the same retained widget while it remains the category-4 occupant.
+Destination PCs 388-394 select, request `closeEventModeWidget(S)`, and then
+map the returned ordinal to the original slot. `closeEventModeWidget`
+(`root/proto553` PC 3) forwards `closeWidget(4,S)`. The region method leaves
+the widget open for that later call. The native and lifecycle gates still
+qualify form readiness and actual detachment.
+
 ### Original-bytecode evidence
 
 The wrapper source is pinned at `manifests/scripts.json:15399` for
@@ -147,6 +223,39 @@ remains accepted, it opens `Ask/WaitingCountdownWidget` with
 result 2 changes the local result to 2. The method returns that result and an
 optional boolean. It contains no zone-transition call; this method alone does
 not establish how a caller uses the return values or what the server does.
+
+### Confirmation creation
+
+`TeleportCommand.eventConfirm` (capital C, `root/proto1`) calls
+`WorldMaster.ask` at PCs 18 and 48, or `WorldMaster.askMultipleTextMacro`
+at PC 35. The riding-error branch can call `ask` again at PC 69. `worldmaster_event`
+`root/proto8` PC 19 and `root/proto9` PC 35 forward to Desktop
+`askForEventMode` and `askForEventModeMultiple` respectively. Those connector
+methods (`root/proto237` PC 15 and `root/proto238` PC 9) request a fresh
+`openWidgetYield(D,4,"Ask/AskWidget",nil,nil,false)` with no question
+operands in the creation tail. The category must admit a new occupant.
+The selected Ask module also inherits the shared nil form-name getter.
+The same initialization path therefore requests filename `AskWidget`
+and `_loadForm` on the new Ask widget, with retained window name
+`Window_Ask/AskWidget` and lookup name `Ask/AskWidget`.
+
+Only after opening returns a widget do connector `root/proto237` PC 27
+and `root/proto238` PC 22 supply the question operands to that widget's
+`ask` or `askMultiple` method. They wait through `selectWidgetYield(W,true)`,
+collect the result only on exact true, and request `closeWidgetDirect(W)`
+on either normal wait outcome (PCs 28-39 or 23-34). The confirmation widget
+therefore has a new load and owner distinct from the retained region and
+destination list. The later optional WaitingCountdownWidget is a third
+creation with its own child initialization operands.
+
+
+The standard SQWT inputs were read from the install with an exact basename
+Blowfish round trip and namespace-aware XML parse.
+
+| SQWT path | Installed bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| widget/AetheryteListWidget.form | 3160, a2b0ea4f84f89b774c82de73e3458efab203f97456e2ae08210ffeb15b119751 | 3152, 9c10caa466947fdc91b57a4d326bfc3a3304b031e4a23acbc25359721e2fe3b7 |
+| widget/AskWidget.form | 2619, e56d47f2d5a27f99f2d13a9763d960dd471b456868001f657f515c5230bcc92a | 2611, 227990f424902da69814b3de7bcc78ed3143435bbe5030192f14b9ac45a17af7 |
 
 ### Waiting countdown widget
 
