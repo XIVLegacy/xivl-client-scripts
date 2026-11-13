@@ -56,6 +56,14 @@ in the decoded Lua 5.1 payload. A1 etc. exclude self.
 
 ## Console icon tray entry
 
+Desktop connector `setDefaultWidgetLocation` requests
+`createStaticWidget(15, "ConsoleIconTrayWidget", nil, 3, true)`. Its
+`work.widget` is declared as an actor array with 24 entries. The creator
+stores the result at the given index. `getStaticWidget(15)` reads that
+same slot. The [shared static-widget storage route](https://github.com/XIVLegacy/xivl-decomp/blob/ea5134a094750f27431709167fe467bbc1cab108/docs/script/main-menu-command-route.md)
+qualifies the common creator and getter. A nonnil current slot is a
+condition on subsequent delivery.
+
 The standard `client/sqwt/widget/ConsoleIconTrayWidget.form` line 35
 declares the visible `Button_CraftGathering` with
 `UILuaCommands.Operate` and no explicit command parameter or target.
@@ -68,7 +76,16 @@ The [IconControl binding contract](https://github.com/XIVLegacy/xivl-decomp/blob
 owns the direct visual property transfer.
 
 `ConsoleIconTrayWidget.init` calls `setConfirmCondition` with
-`Button_CraftGathering`. When `updateCraftButton` receives a result
+`Button_CraftGathering`. The inherited helper requests a numeric
+condition of 5 for that control and `UILuaCommands.Operate`. On
+`_onUICommandEvent` entry, the WidgetBase wrapper requests
+`desktopWidget:setThreadOwnerWidget(self)`, then forwards its five explicit
+arguments to `processUICommandEvent`. The Operate arm requests
+`processUICommandOperate` with the template, sender and two payload
+positions, forwarding them unchanged. The outer wrapper later requests
+`desktopWidget:setThreadOwnerWidget(nil)` on normal return.
+
+When `updateCraftButton` receives a result
 other than exact false from `desktopWidget:isExistCraftCommand()`, it
 requests the craft icon, sets control user-work integer 1 to 22001, requests
 help, and requests visibility true. Exact false enters the separate
@@ -78,7 +95,11 @@ current method bindings and subsequent property application.
 
 When the installed `processUICommandOperate` reaches
 `Button_CraftGathering`, it reads control user-work integer 1 for that
-sender. Exact numeric 22001 calls `desktopWidget:executeCraftCommand()`
+sender. The inherited `getControlUserWorkInt(1, sender)` reaches
+`_getProperty(nil, sender, "IntData.Value0")`. The user-work index is
+reduced by one before decimal formatting and concatenation to
+`IntData.Value`. The matching write helper uses the same property name.
+Exact numeric 22001 calls `desktopWidget:executeCraftCommand()`
 with no explicit argument. Another value reaches
 `executePlayerSystemCommand` with that value. The synthesis branch
 discards the result of `executeCraftCommand`.
@@ -99,7 +120,14 @@ require separate evidence.
 
 | Original locator | Observation |
 | --- | --- |
+| Connector `root/proto0` PCs 139-144, `0x5FA3-0x5FB7` | Static-widget actor array declaration |
+| Connector `root/proto142` PCs 7-13, `0x14924-0x1493C` | Tray creation request in slot 15 |
 | Tray `root/proto0` PCs 75-77, `0x0673-0x067B` | Named confirm registration |
+| WidgetBase common `root/proto56` PCs 0-5, `0x432F-0x4343` | Operate registration with numeric condition 5 |
+| WidgetBase `root/proto6` PCs 5/12/34, `0x0A3E/0x0A5A/0x0AB2` | Thread-owner set, event forwarding, thread-owner clear |
+| WidgetBase common `root/proto13` PCs 1-8, `0x26EA-0x2706` | Operate forwarding with template, sender and two payload positions |
+| WidgetBase common `root/proto131` PC 4, `0x6780`, `root/proto123` PC 5, `0x63B0`, and `root/proto184` PC 9, `0x8034` | Control integer read, prefix, and indexed property read |
+| WidgetBase common `root/proto132` PC 5, `0x67DC`, `root/proto122` PC 6, `0x6348`, and `root/proto183` PC 10, `0x7FB7` | Control integer write, prefix, and indexed property write |
 | Tray `root/proto1` PCs 60-75, `0x0DE0-0x0E1C` | Current user-work integer read and two command requests |
 | Tray `root/proto9` PCs 0-37, `0x1DBE-0x1E52` | Craft/gather switch and presentation requests |
 | Tray `root/proto10` PCs 1-9, `0x1F99-0x1FB9` | Current main skill 29 selects icon 875 |
@@ -109,6 +137,8 @@ require separate evidence.
 
 Authenticate the [tray LPB](../manifests/retail_lua_coverage.json#L25832-L25846)
 and the connector listed under [sources](#sources-and-established-inputs).
+Authenticate the [WidgetBase LPBs](../manifests/retail_lua_coverage.json#L26986-L27014)
+before following the inherited methods.
 Read the original Lua 5.1 chunks with `tools/retail_script.py`
 (`decode_lpb`) and `tools/build_quest_contracts.py` (`ChunkReader`,
 `instruction`). Decode the pinned markup by basename with `xivl extract-resource --as sqwt`.
