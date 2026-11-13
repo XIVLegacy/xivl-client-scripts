@@ -182,7 +182,7 @@ is not established here.
 With config flag 15 set, a repeat of the casting command with a positive cast
 time calls `cancelCommand` and returns true (PCs 42-85). Past those checks,
 when the command's target control mode is 0, it calls
-`desktopWidget:executePlayerCommand(command, nil, 0, category)` (PC 117). A
+`desktopWidget:executePlayerCommand(command, nil, 0, category)` (PC 122). A
 nonzero mode takes the sub-target branch at lines 959-992 instead. The
 [connector forwarding contract](equipment-cancel-command-contracts.md#callers-and-arguments)
 then yields these submitted values:
@@ -200,6 +200,65 @@ requests.
 Within this script sequence, `ActionMenuWidget.processUICommandEvent` is the
 handler that reaches `executePlayerCommand`. Actual callback delivery and any
 resulting server request remain outside this static route.
+
+## Nonzero target mode
+
+The following locators use zero-based PCs within the named Lua 5.1
+prototype. The ActionMenu, WidgetBase and Desktop connector LPBs are
+decoded with the repository's `tools/retail_script.py` and checked
+with the pinned unluac and `tools/build_quest_contracts.py` ChunkReader.
+
+| Logical carrier | Decoded bytes | Decoded SHA-256 |
+| --- | ---: | --- |
+| `widget/actionmenuwidget` | 25113 | `826b09ef44102a51a34f53276ecafed348744688b8ce987831e82f7833fdcecc` |
+| `widget/widgetbaseclass` | 4067 | `11e5bab509c4dbbd7e2767d35cdf132a59b5c510c32c2e215f83cac713115140` |
+| `widget/desktopwidget_connector` | 213474 | `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+
+ActionMenu `root/proto13` reads the command's target mode at PC87
+and branches at PC88. For a nonzero mode it saves the slot and requests
+a cast-gauge update at PCs 91-95. When Desktop config flag 43 is
+exactly true, PC107 passes the mode, nil and the open results of
+`command:isMagicCommand()` to `requestSelectSubTarget`. WidgetBase
+`root/proto9` PC7 forwards the widget and four explicit operands to
+`desktopWidget.executeSubTarget`. The other branch calls
+`processSubTargetDecided` with the main target's results at PC113.
+The [config index map](https://github.com/XIVLegacy/xivl-decomp/blob/89b3382cf0bbb68987709a5ee527e3e3943bbec0/docs/script/desktop-user-config-reads.md#work-index-map)
+maps 43 to Lua group 3 key 31.
+
+Desktop connector `root/proto22` PCs 22-47 assign the first sub-target
+cursor index 2, image 3 and targetable distance 50. Connector
+`root/proto24` refuses while `work.subTargetExecuteWidget` is nonnil.
+It reads the main target at PC30 and tests it with `checkSubTargetable`
+at PC35. If the main target is nil it writes self to cursor 1 at PC41.
+A nil or ineligible main target seeds the candidate with self. It sets
+the current cursor at PC49 and the candidate at PC53. The later path
+handles visibility and focus, retains the initiating widget at PC126
+and returns true. This initialization selects directly from main or
+self without issuing a nearest-target request.
+
+Connector `root/proto52` PC3 calls `afterTargetChanged`. In its
+callee `root/proto49` PCs 67-76, the first sub-target cursor changing
+to nil calls `subTargetDecided(nil)`. The first sub-target arm of
+`_onTargetDecided`, `root/proto60` PCs 130-151, calls the same
+method with the decided actor. When its magic flag is exactly true
+and the local player's `_getGear` is nonzero, it requests message
+30211 and returns before that call.
+
+Connector `root/proto25` restores the saved static widget visibility
+and passes the actor or nil to the retained owner's
+`processSubTargetDecided` at PC65. The close flag with a nonnil actor
+requests close. Otherwise the prior hidden flag can reenable and show
+the owner. PC85 clears the owner and PC87 calls the cleanup helper.
+That helper, `root/proto35`, sets current cursor 1 at PC2 and clears
+the first sub-target cursor at PC8.
+
+The ActionMenu receiver `root/proto4` reads the saved slot again.
+With a nonnil decided actor and the usable command result, it requests
+`RaptureCommands.CastAutoFace` when `isMagicCommand()` is exactly
+true, then calls `desktopWidget.executePlayerCommand` at PC39 with
+`(command, nil, 0, category, 0, actor, nil)` after its receiver. Native
+callback timing, the live actor candidate and final server handling
+are separate conditions.
 
 ## Local refusals
 
