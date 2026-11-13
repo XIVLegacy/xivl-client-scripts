@@ -235,15 +235,20 @@ alongside the CraftStart inputs listed above. These declarations specify
 the selected callback's arguments and local requests. Pointer hit routing
 and successful delivery require their own evidence.
 
-## CraftStart cancel button markup
+## CraftStart main hand and cancel button markup
 
 The HD `widget/CraftStartWidget.form` root is `Window_CraftStartWidget`.
 It imports `widget/CraftStartWidget.tpl` and `common/WINBasis.tpl` in
-that order. `Button_CraftCancel` at decoded line 129 is a childless
-markup Button under the root's unnamed Grid. It declares
-`UILuaCommands.CraftOperate`, content `@3018`, `BTN_basis`, and the local
-`ControlTemplate_ButtonHelp`. It has no `CommandTarget`, `CommandParameter`,
-or `ClickMode` attribute.
+that order. The following childless markup Buttons sit under the root's
+unnamed Grid. Each declares `UILuaCommands.CraftOperate`, `BTN_basis`,
+and the local `ControlTemplate_ButtonHelp`. Each omits `CommandTarget`,
+`CommandParameter`, and `ClickMode`.
+
+| Control | Decoded line | Content | Grid.Row |
+| --- | --- | --- | --- |
+| `Button_CraftStartByMain` | 126 | `@3016` | 7 |
+| `Button_CraftStartBySub` | 127 | `@3017` | 8 |
+| `Button_CraftCancel` | 129 | `@3018` | 10 |
 
 The local template at decoded line 2 targets Button and contains an empty
 ContentPresenter. Its only triggers request `UILuaCommands.ButtonFocused`
