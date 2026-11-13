@@ -312,6 +312,64 @@ values. The connector always returns four values `S,O,R,slotTable`; O starts
 at 0 and R at nil. S=false, nil or numeric 0 skips both result getters and
 preserves that S with the initial O/R and an empty table.
 
+## Single recipe selection and confirmation
+
+`CraftJudge.selectRcp` passes its variable results after its two fixed
+arguments to the desktop's `selectCraftRecipeSelectWidget` and retains one
+result. The connector obtains `getWidget(4,"CraftStartWidget")`. A nil
+result leaves the return value at numeric 0. Otherwise it calls that
+widget's `setRecipeList` with the supplied candidates and waits through
+`selectWidgetYield(W)` with the show argument omitted. Selection must
+return exactly true before the connector reads `W:getRecipeIndex()`.
+
+For a first ordinary candidate list with A1 nonnil and A2 nil,
+`setRecipeList` sets `recipemode=true`, requests `setRecipeIndex(1,5)`,
+and sets `skiprecipelist=true`. The mode-5 setter writes chosenRecipe=1,
+chosenOperation=4 and historymode=false. The operation satisfies the
+normal selection wait, which treats numeric -1 as incomplete. The
+index getter returns the current chosenRecipe. It clears recipemode
+only on a current zero index. This path supplies the ordinal 1 for one
+candidate. The catalog value remains a separate input.
+
+`CraftJudge.confirmRcp` forwards its eight supplied values to the
+desktop recipe-detail helper. With a nonnil current CraftStart and
+`isRecipeMode()` exactly true, the connector requests
+`openWidgetYield(4,"CraftRecipeWidget",nil,W,false,A1..A8,facility)`.
+A nonnil child result leads to `W:clearOperation()`, which sets
+chosenOperation=-1, and then `child:show()`. The connector waits on W
+through `selectWidgetYield(W,true)`. Only exact true reads
+`W:getRecipeDecision()`. The returned decision is true when current
+recipemode is exactly true and chosenOperation is numeric 1.
+
+In the child, the Operate callback returns early unless chosenOperation
+is numeric -1 and a parent is present. When the sender is
+`Button_Operate` and mode is 0, it sets the child's chosenOperation to 1
+and requests the current parent's `setRecipeOperation(1)`. That setter
+writes the parent operation, requests the recipe child become nonmodal
+when present, restores the previous focus through the skip-list branch
+when the edit child is present, and requests the recipe child close.
+The retail capture records ordinal 1 and Boolean true as separate
+replies on the [supplied-material route](https://github.com/XIVLegacy/xivl-captures/blob/7163914/studies/local-guildleve-dialogue/README.md#recipe-selection-and-progress-opening).
+The recorded wire interval leaves the input method unresolved.
+
+| Original locator | Observation |
+| --- | --- |
+| Judge `root/proto18` PCs 0-4, `0x14C4-0x14D4` | Forwards the candidate values and keeps one result |
+| Desktop connector `root/proto209` PCs 0-18, `0x1A3C0-0x1A408` | Current start lookup, recipe list request, wait and index result |
+| CraftStart `root/proto25` PCs 262-274, `0x3BDF-0x3C0F` | First ordinary single-candidate path |
+| CraftStart `root/proto26` PCs 0-8, `0x3EC2-0x3EE2` | Mode-5 index setter |
+| CraftStart `root/proto30` PCs 0-8, `0x4415-0x4435` | Index read and conditional recipe-mode clear |
+| Desktop connector `root/proto210` PCs 0-37 and 54-65, `0x1A4B0-0x1A544` and `0x1A588-0x1A5B4` | Child open, parent clear, show and decision wait |
+| CraftStart `root/proto46` PCs 0-2, `0x55AF-0x55B7` | Operation clear |
+| CraftRecipe `root/proto3` PCs 0-21, `0x0BF8-0x0C4C` | Mode-0 Button_Operate dispatch |
+| CraftStart `root/proto31` PCs 0-29, `0x449C-0x4510` | Parent operation, modal and cleanup requests |
+| CraftStart `root/proto32` PCs 0-15, `0x461D-0x4659` | Current Boolean decision |
+
+The source inputs above and the recipe widget identity in
+[Requested Items and recipe presentation](local-guildleve-supplies-contract.md#requested-items-and-recipe-presentation)
+reproduce these selected instructions. The [installed form](https://github.com/XIVLegacy/xivl-client-data/blob/aaee96e/docs/craft-recipe-form.md)
+identifies the recipe operation button and frame.
+
 ## Judge result adjustment and cleanup
 
 `start` requests exactly four selector results. If S is not exactly true,
