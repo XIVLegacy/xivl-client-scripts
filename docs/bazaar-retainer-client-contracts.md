@@ -202,6 +202,42 @@ SHA-256 `23762a422118d99c4144a48b3495c52511b1b1b865e4fc50fdc61a973e3c6ece`
 and `e33205165bda559ed69bb63664514f0e12b7c29fc219d13ae17fa740985eca82`.
 The text variants do not establish which member a runtime selected.
 
+### Done button and player item reward
+
+The [standard editor carrier](bazaar-reward-selection-flow.md#evidence-identity-and-limits)
+declares a childless Button_Done at form line 240. Its command is
+UILuaCommands.Operate, Content is @3114 and SqwtStyle is BTN_basis.
+The button declares no target, command parameter or local template.
+BazaarEditWidget init prototype 0.0 PCs 144-146 calls
+`setConfirmCondition("Button_Done")`. The inherited
+[confirm helper](item-select-widget-contract.md#complete-48-method-behavior-and-result-rows)
+is the same named-control condition path used by the selector.
+
+BazaarEditWidget `processUICommandEvent` prototype 0.10 checks the
+Operate command at PC142, requires `work.chosenOperation == 0` at
+PC177 and matches Button_Done at PC180. PCs 182-184 call
+`checkCertainItem` and compare its result to exact false. The exact
+false branch sends the parent its cancel edit data and requests close.
+
+The mode-2 path sets 20 at PC346. It reads the total-gil control at
+PC349 and the item-source control at PC354 before checking
+`rewardIsItem` at PC358. The player item-reward branch reads
+`CustomControl_NumberInput` at PC443 and requires
+`work.isRetainer == false` at PC446. It gets the selected player item
+at PC453 and checks for nil. It refuses exact true from the item's
+`isDealingItem` and `isPlayerItemAttached` calls at PCs 465 and 477.
+The refusal paths call `closeWidgetForCancel`. It separately obtains
+the reward item at PC488 using the stored reward package and slot.
+
+For a nonnil reward, PC502 calls `desktopWidget.setItemDeal` with
+`(chosenPackage, chosenItem, 20, rewardItem, work.stack, rewardCount)`
+after its receiver. The reward count comes from PC443. Its exact-true
+branch reports the existing operation to the parent, requests close and
+returns true. Its other return branch sets chosenOperation to 0,
+requests close and returns false. This caller's close is independent of
+any server-side transaction result. Actual input admission, actor
+resolution and wire emission remain conditional.
+
 In the player branch, the editor obtains the requested count from
 `CustomControl_NumberInput_ItemSource`. With a numeric reward it passes
 `CustomControl_NumberInput_TotalGil` to `setItemDeal`. With an item reward
