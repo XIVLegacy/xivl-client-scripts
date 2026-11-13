@@ -144,6 +144,36 @@ namespace-aware XML parse. The BazaarEditWidget and common base LPBs
 matched their coverage manifest entries before instruction inspection.
 Live native attachment, event delivery and paint remain unverified.
 
+#### Polish badges in the standard form
+
+Two direct IconControls use icon 800 and bind Visibility with XPath
+`@polmax`, OneWay. The declarations have no Path, explicit Source,
+ElementName, RelativeSource or converter. `IconControl_PolishMAX` is at
+form line 74 under the anonymous Grid at line 65, inside `Grid_ItemName`
+(line 53) and `Grid_ItemSource` (line 43). That ancestry remains present
+on the ordinary mode-2 path. `IconControl_PolishMAX_2` is at line 135
+under the anonymous Grid at line 126, inside `Grid_RewardItemName`
+(line 114). Mode 2 requests that ancestor Collapsed at `root/proto1`
+PC 681. The form and its three direct dictionaries declare no
+DataContext or XmlDataSource.
+
+`BazaarEditWidget.setInitialData` writes the first icon's visibility
+through `setVisibility` (`root/proto1` PCs 184-223). Its operand is the
+Lua conjunction of the local equipment-fitness test, ownership of any
+of catalogs 2001001, 2001002 and 2001003 in package 101, and the selected
+item's `getMaterializePermission` result. The fitness flag requires
+truthy `isEquipment` and `getNormalItemFitness` equal to 10000. A
+nonnil reward-selection callback requests `Grid_RewardItemName` Visible
+(`setReward` `root/proto17` PCs 24-27) and writes the second icon's
+visibility from the corresponding tests on the selected reward item
+(PCs 134-173). Common `setVisibility` and `setItemVisibility`
+(`root/proto79` PC 4 and `root/proto80` PCs 0-10) use Visible for exact
+true and Collapsed otherwise. The selected LPB has no `polmax` or
+DataContext literal. The [direct ShopEdit carrier](https://github.com/XIVLegacy/xivl-decomp/blob/c9c0088e5d3b412b3b0ae1f427f7494bdf573f7e/docs/resource/sqwt-xpath-data-sources.md#separate-quantity-window)
+records the native source-less binding path under a null DataContext.
+The Bazaar declarations and direct requests leave the live DataContext
+and the order of binding evaluation and direct writes unverified.
+
 ### Standard selector carrier
 
 `ItemSelectWidget.getFormName` (`root/proto0` PCs 0-1) selects
