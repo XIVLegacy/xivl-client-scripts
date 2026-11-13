@@ -80,6 +80,70 @@ child then follows the selected opening above. The shared
 [widget-open helper](content-director-ui-contracts.md#commandcreatewidget-forwarding)
 qualifies the command request and owner operands.
 
+### Standard mode-2 Bazaar editor
+
+The authenticated `BazaarEditWidget.form` merges `common/COMBasisLabel.tpl`
+at line 5. `Grid_Unit` starts Collapsed at line 90 and contains
+`ComboBox_Select`, with its selected ComboBox template and initial text
+row 3116 at line 91. Its only item children, `ComboBoxItem_1` and
+`ComboBoxItem_2` at lines 92-93, supply content rows 3102 and 3103,
+Stretch content alignment, and select `ControlTemplate_ComboBoxItem`.
+Neither item supplies a local visibility, trigger, or input binding.
+
+The selected ComboBoxItem template at `COMBasisLabel.tpl` lines 30-35
+has one direct setter, `IsTabStop=False`, and one visual root. The root
+is `Button_XXX` with left content alignment, retail style
+`BTN_basis_listboxSelect`, margin zero, minimum height 20 and minimum
+width 100. Its sole child is an unnamed Binding element with Path
+`Content`, mode OneWay and RelativeSource TemplatedParent. The XML
+provides no explicit binding target property. This selected item
+has no event or command trigger. Admission of this resource can
+preserve that exact structure while the ancestor is hidden. The
+default target of the child Binding and expanded-dropdown interaction
+remain outside this static declaration contract.
+
+The separate ComboBox template at lines 2-29 declares SelectionChanged
+with `UILuaCommands.SelectComboBoxItem` and sound 3, and an Operate
+command trigger with `ComboBox.OpenDropDown` and sound 3. Its two
+ToggleButtons and Popup bind to IsDropDownOpen. The label reads the
+ComboBox Text property and has an OpenDropDown mouse binding. The Popup
+has a CloseDropDown Escape binding. The nested ListBox selects
+`Style_ListBox_Commands`, whose Cancel trigger requests CloseDropDown
+with sound 1 at lines 36-43. The Popup PlacementTarget attribute is
+missing the final outer Binding brace in the decoded asset. These are
+separate owners from the selected ComboBoxItem.
+
+`BazaarEditWidget.init` registers `UILuaCommands.SelectComboBoxItem` on
+`ComboBox_Select` (`root/proto0` PCs 172-175) through the common priority-5
+helper (`widgetbaseclass_common` `root/proto55` PCs 0-4). The matching
+handler needs that exact command, sender and `work.mode == 1`
+(`root/proto10` PCs 52-59). Mode 2 keeps the ComboBox ancestor hidden
+regardless of the popup's state.
+
+| Mode-2 initialization requests | `BazaarEditWidget.setInitialData` `root/proto1` |
+| --- | --- |
+| Show `Grid_Price` and `Grid_RewardTitle`. Hide `Grid_Unit`, `TextBlock_OpenBlacket`, `Grid_NumberInput_Gil` and `Grid_Tax`. | PCs 601-632 |
+| Source package 8 writes error true and returns false. For other packages show `Label_NumberInput_ItemSource` and hide `TextBlock_ItemStack_ItemSource`. | PCs 633-646 |
+| Set title 3127 and `Button_Extra` content 3124. | PCs 647-663 |
+| Hide `Grid_RewardItemName` and `Grid_ItemStack`. Show `Grid_NumberInput_TotalGil`, `Label_NumberInput_3` and `CustomControl_NumberInput_TotalGil`. Hide `TextBlock_NumberInput_TotalGil`. | PCs 678-701 |
+
+Earlier PCs 355-367 show the source-count ancestor `Grid_ItemSourceStack`
+when `work.bakstackable` differs from exact false, and hide it otherwise.
+The package-8 error path can hide `Grid_Base` and request close from
+`processBeforeShow` on the admitted first-show/error branch (`root/proto2`
+PCs 0-9 and 35-41). The ordinary mode-2 presentation and `Button_Extra`
+entry require the non-error path. No mode-2 ComboBox event is required
+by these selected paths.
+
+The installed `common/COMBasisLabel.tpl` is 3612 bytes, SHA-256
+`06fceb84b53604b04a8c5f66c6e6899f425389d003795ddf9079081b9d940e83`.
+The decoded member is 3604 bytes, SHA-256
+`88dc2e1de05802b80c478a2c0faacc3630fe14059e607855a4512cab22857a0b`.
+The form and dictionary matched a basename Blowfish round trip and
+namespace-aware XML parse. The BazaarEditWidget and common base LPBs
+matched their coverage manifest entries before instruction inspection.
+Live native attachment, event delivery and paint remain unverified.
+
 ### Standard selector carrier
 
 `ItemSelectWidget.getFormName` (`root/proto0` PCs 0-1) selects
