@@ -261,6 +261,64 @@ basename-key rule and re-encrypted exactly:
 | `widget/JournalListWidget.tpl` | 8692 / `12f30656cf5b8945ebec43f7c7756bc47a3e67ab8fe9160d09a2f15abb8a616f` | 8684 / `79a72fcae798b7250e8ec8d13eb410de615458573d077c7b4795cbc6050fd0ad` |
 | `common/WINBasisWithTitle.tpl` | 7175 / `636d5dd7dbdb0b9d12b08cea875ee0bde729a1e9de9c1cd58eea2d7f66d06daa` | 7167 / `93c745038827c5608f09f4aeb2b4186c06138f8f7f7d45c0a2a2483faf11f88b` |
 
+### Ordinary list Selection
+
+The standard form merges `widget/JournalListWidget.tpl` and declares the
+`ListBox` maker at form lines 6-7. At line 37, `ListBox_JournalList` binds
+`ItemsSource` to `XmlData` at `/ListBox` with OneWay mode and uses
+`Style_ListBox`, `LIB_basis` and `DataTemplate_ListBoxItem`. The same
+declaration sets `IsTabStop` and `IsHitTestVisible` to false.
+`Style_ListBox` sends `UILuaCommands.Selection` on the `Selection` event
+(template lines 71-77). Its action declares no command parameter or target.
+The [ListBox SelectIndex path](https://github.com/XIVLegacy/xivl-decomp/blob/061f01300881b586ee81236c05781942fd9d694c/docs/resource/sqwt-window-trigger-order.md#itemselectwidget-row-operate-and-selection)
+requests `SelectedIndex` before raising `Selection`.
+
+`initAsk` registers the list with `setControlCommandCondition`
+(`widget/ask/journallistwidget.lua:63-66`, `root/proto0` PCs 35-38,
+decoded bytes `0x445`-`0x451`). The common helper makes the plain
+`_setUICommandCondition` call with `ListBox_JournalList`,
+`UILuaCommands.Selection` and numeric priority 5
+(`widget/widgetbaseclass_common.lua:1299-1309`, `root/proto55` PCs 0-4,
+bytes `0x42CA`-`0x42DA`). On admitted kind-0 delivery the
+[native script entry](https://github.com/XIVLegacy/xivl-decomp/blob/061f01300881b586ee81236c05781942fd9d694c/docs/resource/sqwt-command-parameter-consumer.md#script-entry)
+supplies nil, the list name and the command after the receiver.
+
+`WidgetBaseClass._onUICommandEvent` sets the thread owner and forwards
+the arguments (`widget/widgetbaseclass.lua:244-257`, `root/proto6`
+PCs 2-12, bytes `0xA32`-`0xA5A`). The common dispatcher reads
+`getSelectedIndex(control)`, replaces the first optional argument with
+the result and calls `processUICommandSelection` only for a nonnegative
+index (`widgetbaseclass_common.lua:442-457`, `root/proto13` PCs 41-55,
+bytes `0x278A`-`0x27C2`). The getter reads `SelectedIndex` on the control
+(`root/proto113` PCs 0-4, bytes `0x5F38`-`0x5F48`).
+
+The Journal passes that index to `getListPropertyIndex("ListBox", index)`
+before reading `JournalType`, `JournalID` and `JournalIndex` from the
+resulting row (`journallistwidget.lua:197-224`, `root/proto3` PCs 0-21,
+bytes `0x981`-`0x9D5`). The helper writes `SortedIndex` and reads
+`Index` on the maker (`widgetbaseclass_common.lua:3188-3205`,
+`root/proto176` PCs 0-10, bytes `0x7C0D`-`0x7C35`). The
+[SqwtXmlDataMaker setter](https://github.com/XIVLegacy/xivl-client-structs/blob/b605bf8b52518ef76aa1076af61efa14d78ab046/docs/stub-overload-native-contract.md#sqwtxmldatamaker)
+traces the separate `SortedIndex` mapper and its write to `Index`.
+
+The Journal init and rebuild paths contain no explicit list focus or
+initial list selection request. The category initializer writes
+`ComboBox_Category_Quest.SelectedIndex=0` (`root/proto8` PCs 30-33,
+bytes `0x13EE`-`0x13FA`). Mode-1 `updateList` reads
+`getFocusedIndex("ListBox_JournalList")` and discards the result before
+rebuilding (`root/proto19` PCs 4-7, bytes `0x34A8`-`0x34B4`).
+The common getter reads `SqwtFocusedIndex` (`root/proto115` PCs 0-4,
+bytes `0x6011`-`0x6021`). The first native keyboard focus recipient and
+initial row remain unobserved.
+
+The form and template hashes are in the table above. Journal and common
+script identities are in the [row evidence](journal-list-row-writes.md#source-identity).
+`WidgetBaseClass` uses resource `n1635q/n1635q89r57y9rr.le.lpb`,
+SHA-256 `aad807a42296e93301582defc8f15e4003b8093af672794282cd54950cc556ad`,
+and decoded chunk SHA-256
+`11e5bab509c4dbbd7e2767d35cdf132a59b5c510c32c2e215f83cac713115140`.
+The pinned unluac listing and `ChunkReader` agree on the locators above.
+
 ## JournalListWidget modes and row arguments
 
 `JournalListWidget.createList` (root/proto10 PCs 35-77, offsets
