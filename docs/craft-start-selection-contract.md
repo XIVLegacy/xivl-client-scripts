@@ -54,6 +54,71 @@ in the decoded Lua 5.1 payload. A1 etc. exclude self.
 | CraftStart `getCraftOperation` / `getCraftItems` | 1618-1631 / 1633-1651 | `root/proto23` / `root/proto24`; 14010 / 14144; 0-7 / 0-13 |
 | `CraftJudge.closeCraftStartWidget` | 260-275 | `root/proto16`; 4208; 0-8 |
 
+## Console icon tray entry
+
+The standard `client/sqwt/widget/ConsoleIconTrayWidget.form` line 35
+declares the visible `Button_CraftGathering` with
+`UILuaCommands.Operate` and no explicit command parameter or target.
+Its `ControlTemplate_Button_CraftGatheringIcon` at
+`ConsoleIconTrayWidget.tpl` lines 194-201 binds the 32 by 32
+`IconControl_Icon.IconDatas` to the Button's
+`SqwtDesignData.StringValue0`. The standard-definition
+`ConsoleIconTrayWidget.sd.form` has no `Button_CraftGathering`.
+The [IconControl binding contract](https://github.com/XIVLegacy/xivl-decomp/blob/26b9fbe4b9e3571e06b634745786669f30980f2f/docs/resource/sqwt-icon-control-textures.md#direct-consoleicontray-design-data-binding)
+owns the direct visual property transfer.
+
+`ConsoleIconTrayWidget.init` calls `setConfirmCondition` with
+`Button_CraftGathering`. When `updateCraftButton` receives a result
+other than exact false from `desktopWidget:isExistCraftCommand()`, it
+requests the craft icon, sets control user-work integer 1 to 22001, requests
+help, and requests visibility true. Exact false enters the separate
+gather-command lookup and can hide the same Button. For main skill 29,
+`getCraftIconID` requests icon ID 875. The requests depend on the
+current method bindings and subsequent property application.
+
+When the installed `processUICommandOperate` reaches
+`Button_CraftGathering`, it reads control user-work integer 1 for that
+sender. Exact numeric 22001 calls `desktopWidget:executeCraftCommand()`
+with no explicit argument. Another value reaches
+`executePlayerSystemCommand` with that value. The synthesis branch
+discards the result of `executeCraftCommand`.
+
+The connector's `isExistCraftCommand` and `executeCraftCommand`
+tailcall `craftCommand` with false and true respectively. Both require
+the local player's `getMainSkillCategory()` to return numeric 29 and
+`getReadyCommand(3)` to give a non-nil result. The latter looks up
+`work.commandIndex[3]` and keeps the ready command only when the
+equipped-command helper's third result is exactly true. The true
+`craftCommand` route first returns false when
+`cannotExecuteWithErrorMessage()` returns exactly true. With a non-nil
+ready command it requests `executePlayerCommand` with the command,
+four explicit nils and the open result of `worldMaster:_getMyPlayer()`.
+This specifies the local request up to the player-command helper. Actual
+input delivery, the wire request from a given press, and server acceptance
+require separate evidence.
+
+| Original locator | Observation |
+| --- | --- |
+| Tray `root/proto0` PCs 75-77, `0x0673-0x067B` | Named confirm registration |
+| Tray `root/proto1` PCs 60-75, `0x0DE0-0x0E1C` | Current user-work integer read and two command requests |
+| Tray `root/proto9` PCs 0-37, `0x1DBE-0x1E52` | Craft/gather switch and presentation requests |
+| Tray `root/proto10` PCs 1-9, `0x1F99-0x1FB9` | Current main skill 29 selects icon 875 |
+| Connector `root/proto64/65` PC 2, `0xDFE2/0xE030` | Read-only and execution tailcalls |
+| Connector `root/proto66` PCs 0-33, `0xE076-0xE0FA` | Main skill category, execution gate, ready slot and argument order |
+| Connector `root/proto68` PCs 0-11, `0xE359-0xE385` | Ready-index lookup and exact-true third result |
+
+Authenticate the [tray LPB](../manifests/retail_lua_coverage.json#L25832-L25846)
+and the connector listed under [sources](#sources-and-established-inputs).
+Read the original Lua 5.1 chunks with `tools/retail_script.py`
+(`decode_lpb`) and `tools/build_quest_contracts.py` (`ChunkReader`,
+`instruction`). Decode the pinned markup by basename with `xivl extract-resource --as sqwt`.
+
+| Markup under `client/sqwt/widget` | Carrier bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `ConsoleIconTrayWidget.form` | 11166, `180b7d709e588ec86fccead327aec813d4baab5b41ead05d2610cf318e787a0d` | 11158, `efbf73d1ac6307ca4983e9eeaf3170ab507d48e012d4c797ae360119d49d5f3e` |
+| `ConsoleIconTrayWidget.tpl` | 20238, `f3c362bb64d9e9b07dd60b2ba95e1b868640e43c82558b83c24d1fd32d3378f1` | 20230, `9f1f5a2c79c2d8b35ea0d0b510c5536bcb43464da236ce1f9dea665f01937386` |
+| `ConsoleIconTrayWidget.sd.form` | 2717, `775d4b4f107d7b5a2f7dc087eeb407bae8e57d79c21c5291dcf8d9903149289d` | 2709, `9508129e70a6e081b88246e9c3f6fed981217a34f6ca8e5504f479104a12faff` |
+
 ## Opening and material slots
 
 For a player test returning exactly true, with A3 outside the special -1/-2
