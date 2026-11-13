@@ -144,6 +144,24 @@ namespace-aware XML parse. The BazaarEditWidget and common base LPBs
 matched their coverage manifest entries before instruction inspection.
 Live native attachment, event delivery and paint remain unverified.
 
+#### ComboBox help and comment field
+
+`ComboBox_Select` at form line 91 declares Help.Type 1 and Help.Value0
+`@75345`. These are its only Help fields. Neither ComboBoxItem child at
+lines 92-93 declares a Help field. Mode 2 requests `Grid_Unit` Collapsed
+at `root/proto1` PC 612. The selected mode-2 script does not read or
+write the ComboBox's Help fields.
+
+The only TextBox is `TextBox_BazaarComment` at line 228, a direct child
+of `Grid_BazaarComment` (line 221). It declares TextWrapping Wrap,
+MaxLines 3, CaretIndex 0, CharacterCasing Normal, and retail style
+`TEB_basis_input`, with height 52 and minimum width 480. The declaration
+supplies no MaxLength, IsReadOnly, IsEnabled, Focusable, IsTabStop,
+AcceptsReturn, AcceptsTab, input binding or local Visibility. The parent
+starts Collapsed. Neither name occurs in the BazaarEditWidget LPB, and
+the selected mode-2 path leaves the comment grid collapsed. Runtime
+TextBox defaults and editing behavior remain unverified.
+
 #### Polish badges in the standard form
 
 Two direct IconControls use icon 800 and bind Visibility with XPath
