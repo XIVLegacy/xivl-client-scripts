@@ -56,6 +56,62 @@ The entry flag comparison is PC `8`; selected guards are PCs
 `CALL B=9,C=2`, and PC `842`, offset `16757`, `CALL B=10,C=2`.
 The result comparisons and writes are PCs `825/828` and `843/846`.
 
+### Player inventory entry
+
+The standard `widget/ItemSubWidget.form` line 15 gives `Button_BazaarBuy`
+`UILuaCommands.Operate`. `ItemSubWidget.initForm` (`root/proto1` PCs 6-8)
+registers it through `setButtonEvents`, which reads the Button's `Command`
+and requests its condition (`root/proto2` PCs 0-8). In `ItemListWidget`, the
+ordinary package-1 menu branch gives this control state 2 when the chosen
+item's `_isEquipping`, `isRareItem` and `isExclusiveItem` each return false
+(`root/proto60` PCs 104-131, 346-349). The submenu interprets 2 as visible
+and enabled (`root/proto4` PCs 25-34). This is one admitted item shape.
+
+The submenu's `processUICommandOperate` (`root/proto5` PCs 22-29) calls its
+parent `operateBazaarBuy` and requests submenu close when the result equals
+true. `ItemListWidget.operateBazaarBuy` (`root/proto47` PCs 3-16) opens
+`BazaarEditWidget` under itself with operands `(true,true,2,package,item,nil,self)`
+after the parent. An exact true writes `editWidgetOpen=2` and `lastsub=3`
+(PCs 18-23). The editor declares `Button_Extra` with `UILuaCommands.Operate`
+in `widget/BazaarEditWidget.form` line 239. Its init registers the control
+(`root/proto0` PCs 150-152), and mode 2 initialization requests title 3127
+and extra-button content 3124 (`root/proto1` PCs 647-663). The mode-400
+child then follows the selected opening above. The shared
+[widget-open helper](content-director-ui-contracts.md#commandcreatewidget-forwarding)
+qualifies the command request and owner operands.
+
+### Standard selector carrier
+
+`ItemSelectWidget.getFormName` (`root/proto0` PCs 0-1) selects
+`widget/SubItemListWidget.form`. The standard form merges
+`widget/ItemListWidget.tpl`, `common/WINBasis_noGrayout.tpl` and
+`common/LABBasisNumberInputBox.tpl` at lines 21-23, and selects
+`ControlTemplate_Window_WINBasis` at line 28. The form's first tab uses
+`TabItem_1_Maker` at line 7 and `ListBox_TabItem_1` at line 72, with
+XPath `/TabItem_1`, `DataTemplate_ItemList`, `ControlTemplate_ListBox`, and
+height 200. Mode 400 chooses listbox 1 and tab index 0 (`root/proto2`
+PCs 151-176). This list maps to player package 1 on the non-retainer path.
+
+The shared list template turns its `Selection` event into
+`UILuaCommands.Selection` with `SelectedIndex` and `IntData.Value0` in that
+order (lines 75-76). `ItemSelectWidget.initListBox` writes the tab number to
+that second property and registers Selection and Cancel (`root/proto19`
+PCs 5-24). Its nonempty focus branch writes `SqwtFocusedIndex` and requests
+window focus on the list (`root/proto7` PCs 66-79). The shared dispatcher
+rereads the sender's `SelectedIndex` and suppresses a negative index
+(`widgetbaseclass_common` `root/proto13` PCs 41-55). The child maps the
+resulting filtered row through its source index to a one-based item slot.
+The [ListBox Operate path](reward-widget-result-contracts.md#rewardselectwidget-opening-and-keyboard-selection)
+records the native Selection producer for an admitted row.
+
+The child registers Cancel and Close on the root, and Cancel on the list
+and `Button_Back` (`root/proto5` PCs 0-3 and 17-22, `root/proto19`
+PCs 22-24). The Back button at form line 448 also declares Operate, whose
+receiver calls `previousSequence` after the update-counter guard
+(`root/proto30` PCs 0-16, 30-33). Cancel reaches the separate timer-clear
+path below. Native focus admission, visible pixels and child teardown
+remain conditional.
+
 ## Child selection and cancellation
 
 The complete child eligibility, focus, update-counter, and opacity rules
@@ -147,6 +203,20 @@ PCs `103/133`; the nonstackable `stack=1` write is PC `123`.
 The final flag write and true return are PCs `267/269`.
 
 ## Evidence identity and limits
+
+The standard Sqwt resources were decrypted by basename Blowfish and parsed
+as XML. Line numbers refer to the complete decoded documents.
+
+| Client-relative resource | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `client/sqwt/widget/ItemSubWidget.form` | 4331 | `39f34b32d9fdeb1aa1d83cc3cc6085446f33a07b806ae9e0d5419a4ab4c017f1` |
+| `client/sqwt/widget/BazaarEditWidget.form` | 20047 | `2e51fc3bd2a2caa86293acca9f896afa413734ff4cec8f33e6c17ed1e90f4d92` |
+| `client/sqwt/widget/SubItemListWidget.form` | 44072 | `b2de27032e31b5266f9ddf593005630387a456257b8ec4bf0851c8881bf56c38` |
+| `client/sqwt/widget/ItemListWidget.tpl` | 16943 | `ba8b86dbf36558e6086721524833d17528be08b11bf72c062d0b76fd318de7d5` |
+
+The installed `widget/itemsubwidget.lua`, `widget/itemlistwidget.lua` and
+`widget/widgetbaseclass_common.lua` LPBs and decoded payloads match their
+entries in [`retail_lua_coverage.json`](../manifests/retail_lua_coverage.json).
 
 Extraction: retail 1.23b, `2012.09.19.0001`. Canonical decoded members were
 authenticated in memory against [`manifests/scripts.json`](../manifests/scripts.json).
