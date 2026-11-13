@@ -326,6 +326,50 @@ dynamic `updateStackPrint`. These are requests, not achieved stack refresh.
 `getEmptySlotNum` and `getSameItemNum` tailcall parent count methods or return
 0 values without a parent.
 
+## First-bag selection from CraftStart
+
+CraftEdit uses the standard `widget/SubItemListWidget.form` carrier and
+requests the live root name `Window_CraftEditWidget`. The first tab's
+`ListBox_TabItem_1` at line 72 binds `XmlData_TabItem_1` and XPath
+`/TabItem_1`, selecting `DataTemplate_ItemList` and
+`ControlTemplate_ListBox`. Its local Left/LLeft and Right/LRight bindings at
+lines 74-77 request `UILuaCommands.Previous` and `UILuaCommands.Next`.
+The first-bag row Button has no local command. The shared template turns
+`Selection` into `UILuaCommands.Selection`, with `SelectedIndex` and
+`IntData.Value0` as the two integer fields in that order. The exact
+[carrier and dictionary identities](https://github.com/XIVLegacy/xivl-decomp/blob/a580ee8c6cb2de2a4d130e44d799f32f36c760b1/docs/resource/sqwt-number-input-box.md#standard-subitemlistwidget-trigger-owners)
+and [conditional native SelectIndex route](https://github.com/XIVLegacy/xivl-decomp/blob/a580ee8c6cb2de2a4d130e44d799f32f36c760b1/docs/resource/sqwt-window-trigger-order.md#itemselectwidget-row-operate-and-selection)
+also apply to this shared list declaration.
+
+`initListBox` (proto19 PCs 9 and 21) writes the list id to
+`IntData.Value0` and registers Selection. WidgetBase common proto55 PC4
+forwards condition 5. Its `processUICommandEvent` proto13 PCs 41-55
+rereads `SelectedIndex` from the sender, rejects negative values, and
+passes the reread index and the unchanged second integer to
+`processUICommandSelection`. For the first list the second integer is 1.
+The inherited dispatcher evidence is pinned under the
+[standard selector carrier](bazaar-reward-selection-flow.md#standard-selector-carrier).
+
+The [first empty CraftStart slot](craft-start-selection-contract.md#opening-and-material-slots)
+requests `openItemList` on its child. CraftEdit proto58 PCs 1-12 select
+normal mode 410 when the repair flag differs from true, set edit mode 1
+and list step 1. PCs 34-47 set listbox 1 and source index 0, select tab 0
+and refresh. In the populated branch, proto7 PCs 86 and 90 convert the
+filtered focus to the source index and store it. PCs 96, 101 and 108
+request the focused row and named logical focus. PCs 123-129 map list
+1 to package 1 and use source index plus one for the item slot. For
+source index 0, the resulting Lua package and slot are both 1.
+
+In this edit mode, proto7 PCs 136-164 bound the quantity by the row's
+remaining stack and the parent's empty slots. PC166 writes `num1=1` and
+PC174 requests the numeric control range and value. Selection proto42
+PCs 18-23 store the supplied focus and list id and refresh, then PC33
+checks eligibility. PC37 calls `setItem` after exact true. Proto51 PC11
+requests `parent:setSlotItem(chosenPackage,chosenItem,num1)`. Proto42 PC40
+refreshes the picker and returns with zero values. This branch does not
+call `gotoParent`. The distinct Back and Cancel continuations below
+request return to the parent.
+
 ## Recipe, history, selection, sorting, and close behavior
 
 `openRecipe` and `closeRecipe` only write `recipeopen` true/false. A nil
