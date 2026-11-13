@@ -168,6 +168,43 @@ an initial count of 0 therefore is not an immediate no-op. The parent's
 `setSlotItem` returns zero values. Successful native storage and child
 ownership remain unbound.
 
+## First material slot command
+
+In the HD form, decoded lines 40-49 place `Button_MaterialSlot_1`
+in `WrapPanel_MaterialSlot` under the content Label's Grid. The
+32-by-32 Button declares `UILuaCommands.ChooseSlot`, `BTN_null`,
+`IsTabStop="False"`, `Anchor="None"`, and the local
+`ControlTemplate_ButtonHelp`. It supplies no markup command target,
+parameter, or click mode. Its single Grid child is
+`Grid_MaterialSlot_1`. The Grid starts with an unnamed, hit-test-visible
+32-by-32 Border selecting `BOD_basis_iconBackground`, followed by the
+material icon, badge icons and hover label.
+
+CraftStart `init` requests `IntData.Value0`, `Value1` and `Value2`
+as zero and `IntData.Value3` as the slot index. It separately writes
+`CommandParameter` to the slot index. The first slot therefore requests
+numeric 1. It registers `UILuaCommands.ChooseSlot` through
+`setControlCommandCondition` and requests the material icon and badges
+hidden at initialization. The common helper forwards the control and
+command to `_setUICommandCondition` with numeric 5. The existing root
+kind-1 [native callback contract](https://github.com/XIVLegacy/xivl-decomp/blob/bb704f191da2b02d7e9b46a1835209e5feb64d1a/docs/resource/sqwt-command-parameter-consumer.md#kind-switch)
+carries one integer. On that delivery, the installed handler writes A4
+to `chosenSlot` and requests `openItemListWindow`. The vacant-slot
+branch requests the current child open its item list, sets `choosing`,
+requests modal true and transfers focus to that child.
+
+| Original locator | Observation |
+| --- | --- |
+| CraftStart `root/proto0` PCs 120-155, `0x08CF-0x095B` | Slot value writes, parameter and registration |
+| CraftStart `root/proto18` PCs 18-25, `0x26DF-0x26FB` | ChooseSlot reads A4, requests the child list and returns true |
+| CraftStart `root/proto5` PCs 6-23, `0x154D-0x1591` | Vacant slot, child list open, modal and focus |
+| WidgetBase common `root/proto55` PCs 0-5, `0x42CA-0x42DE` | Control-command registration with priority 5 |
+
+Authenticate the [WidgetBase common LPB](../manifests/retail_lua_coverage.json#L27003-L27016)
+alongside the CraftStart inputs listed above. These declarations specify
+the selected callback's arguments and local requests. Pointer hit routing
+and successful delivery require their own evidence.
+
 ## CraftStart cancel button markup
 
 The HD `widget/CraftStartWidget.form` root is `Window_CraftStartWidget`.
