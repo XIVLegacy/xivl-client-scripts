@@ -413,3 +413,54 @@ values. Its invocation is not established by `start`; the
 owns subsequent close requests. No selected script call proves item debit,
 recipe acceptance, supply replenishment, XP, item grant, historical server
 selection, or actual widget lifetime.
+
+## Recipe confirmation footer input
+
+The HD footer declares direct `Button_Operate` and `Button_Back`
+controls. Both declare `UILuaCommands.Operate` and leave their command
+parameter unset. [Recipe footer declarations](https://github.com/XIVLegacy/xivl-client-data/blob/0dbc54f/docs/craft-recipe-form.md#recipe-footer-buttons).
+
+`CraftRecipeWidget.init` subscribes each named control to Operate and
+Cancel separately. The common WidgetBase `setConfirmCondition` helper
+passes `UILuaCommands.Operate` and priority 5 to `_setUICommandCondition`.
+`setCancelCondition` passes `UILuaCommands.Cancel` and priority 5. Its
+omitted-control branch subscribes `_widget`. Recipe initialization also
+makes that separate root Cancel subscription.
+
+On admitted `UILuaCommands.Operate` delivery the inherited dispatcher
+calls `processUICommandOperate`. The callback requires a current parent and numeric -1 in
+`chosenOperation`. In mode 0, the `Button_Operate` sender sets the
+child operation to 1 and passes 1 to the parent `setRecipeOperation`.
+The `Button_Back` sender sets and passes 0. The current parent owns the
+confirmation result and closes the recipe child by name.
+
+On admitted `UILuaCommands.Cancel` the separate callback applies the
+same opening guards. A sender other than `Button_Back` requests focus on
+Back and returns. In mode 0, the `Button_Back` sender sets and passes
+operation 0. A widget-level Escape delivery can therefore request Back
+focus before it declines the recipe.
+
+The Button Click path retains the default kind-0 record when no parameter
+was assigned. A plain named subscription whose template key equals the
+form root passes nil in the first Lua argument. The remaining arguments
+are the actual sender and command, with zero parameter values. That is
+`(nil, "Button_Operate", "UILuaCommands.Operate")` for an admitted
+root-scoped Operate Button delivery, and the same shape with `Button_Back`
+for an admitted Back Button delivery. The native target route determines
+the recipient, including the current focus fallback in an active Window.
+[Default Button target and parameter](https://github.com/XIVLegacy/xivl-decomp/blob/a580ee8c6cb2de2a4d130e44d799f32f36c760b1/docs/resource/sqwt-command-parameter-consumer.md#actionmenu-arrow-target-fallback) and [Lua argument construction](https://github.com/XIVLegacy/xivl-decomp/blob/a580ee8c6cb2de2a4d130e44d799f32f36c760b1/docs/resource/sqwt-command-parameter-consumer.md#script-entry).
+
+| Original locator | Observation |
+| --- | --- |
+| CraftRecipe `root/proto0` PCs 76-81, `0x39E-0x3B2` | Named Operate and Back confirm registrations |
+| CraftRecipe `root/proto0` PCs 85-90 and 94-95, `0x3C2-0x3D6` and `0x3E6-0x3EA` | Named Cancel and separate root registration |
+| Common WidgetBase `root/proto56` PCs 0-5, `0x432F-0x4343` | Priority-5 Operate helper |
+| Common WidgetBase `root/proto58` PCs 0-8, `0x4435-0x4455` | Priority-5 Cancel helper and root default |
+| CraftRecipe `root/proto3` PCs 10-21 and 71-82, `0xC20-0xC4C` and `0xD14-0xD40` | Mode-0 footer Operate and Back write 1 and 0 |
+| CraftRecipe `root/proto2` PCs 0-25, `0x9CC-0xA30` | Cancel guards, focus Back branch and mode-0 decline |
+
+The input identities are in the [LPB manifest](../manifests/retail_lua_coverage.json)
+under `n1635q/7s94qs571u5n1635q.le.lpb` and
+`n1635q/n1635q89r57y9rr_7vxxvw.le.lpb`. The form and script establish the
+candidate receivers and their local branches. The first retail focus
+recipient on an attended press remains unmeasured.
