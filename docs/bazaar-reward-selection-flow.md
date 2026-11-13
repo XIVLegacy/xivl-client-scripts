@@ -252,6 +252,54 @@ receiver calls `previousSequence` after the update-counter guard
 path below. Native focus admission, visible pixels and child teardown
 remain conditional.
 
+### Selector command operands and window name
+
+For the ordinary Inventory parent, `openChildWidget` forwards widget index 3,
+a nil window-name override, the Bazaar editor as parent, and visible true
+(`desktopwidget_connector` `root/proto536` PCs 0-9). The local opener replaces
+the nil override with `ItemSelectWidget`. At `root/proto522` PC 32 it requests
+`commandCreateWidget(D,"ItemSelectWidget",false,B,E,"ItemSelectWidget",3,true,true,400,package,slot)`.
+D is Desktop and B is the editor. E defaults to true. If the first
+`B:isShow()` returns exact true and B compares unequal to D, E is the first
+unadjusted `B:getInputEnable()` result. The two `ItemSelectWidget` values
+occupy the command path and window-name positions respectively.
+
+The [player request](player-widget-command-request.md) consumes the false
+force and forwards the complete tail to `_executeCommand`. The selected
+WidgetOpenCommand class overrides the request name to `widgetCreate` in
+`CharaBaseClass.getCommandName` (`root/proto17` PCs 67-80). On admitted
+[command delivery](widget-open-command-boundary.md#command-formal-frame-and-factory-tail),
+the factory request is
+`_createActor(nil,"ItemSelectWidget",false,B,E,"ItemSelectWidget",3,true,true,400,package,slot)`.
+The last native joins require the selected callback and value conversions.
+
+The child loads `SubItemListWidget.form` and requests the root name
+`Window_ItemSelectWidget` (`widgetbaseclass_common` `root/proto0` PCs 26-58).
+The declared root name is `Window_SubItemListWidget` at form line 1. On the
+admitted base initializer path the child `init` receives `(true,400,package,slot)`
+after its receiver (`widgetbaseclass` `root/proto0` PCs 83-98). The omitted
+retainer operand becomes nil in the initializer. The selector's Cancel
+callback asks only to close the child. No parent input or keyboard-focus
+request occurs in its nil-reward callback. The separate creation callback can
+request parent `setInputEnable(E)` before testing child visibility
+(`desktopwidget_connector` `root/proto532` PCs 0-8). The native ordering of
+that request and the opener's input-disable request remains unverified.
+
+### First bag data owner
+
+The ordinary selector reads MyPlayer capacities for packages 1 and 100
+(`ItemSelectWidget` `root/proto1` PCs 234-246). The first-bag build supplies
+listbox 1, a compacted row index, package 1, a one-based slot and owner 1 to
+`setItemToXmlLight` (`root/proto26` PCs 73-89). `root/proto22` PC 24 reads
+`MyPlayer._getItem(1,slot)`. A nil item skips the slot without advancing the
+row index. The named data owner is `TabItem_1_Maker`, declared at form line 7.
+The visual `ListBox_TabItem_1` at line 72 binds to its `/TabItem_1` node.
+`focusToIndex` writes `FilteredIndex` and reads `Index` on the maker
+(`root/proto17` PCs 13-21). On the nonempty focus path, focused-item help
+rereads the slot and can reach an item method call with no nil test
+(`root/proto28` PCs 38-104). The ordinary empty list uses the separate empty
+control and Back focus path (`root/proto7` PCs 14-38).
+
 ### Inventory ownership and keyboard cancellation
 
 `MainMenuWidget` row 4 calls `setBazaarActor` and opens
