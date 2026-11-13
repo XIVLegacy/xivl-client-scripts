@@ -170,6 +170,28 @@ bounded to the base conditions installed by `init`, the reset ask request and
 the numeric-one continuation above. Native storage, readback completion,
 application, file writes and persistence remain outside this source envelope.
 
+## Inherited sound-control dispatch
+
+The installed WidgetBase common LPB is
+`client/script/n1635q/n1635q89r57y9rr_7vxxvw.le.lpb`, 32996 bytes with
+SHA-256 `c549f746370366f9827570ee22201516e07a05d91829ca643a2e2ec0c73bcf3c`.
+Its decoded Lua 5.1 payload is 32983 bytes with SHA-256
+`7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f`.
+The decoder, unluac disassembly and ChunkReader method above apply to
+this carrier as well. PCs are zero based within `root/proto13`.
+
+| Command branch | Read of sender A2 | Callback, arguments after self |
+| --- | --- | --- |
+| `UILuaCommands.ToggleButton`, PC137 | Calls `getChecked(self, A2)` for one result at PC141 | `processUICommandToggleButton(A1, A2, A4, A5, checked)` at PC148 |
+| `UILuaCommands.SliderValueChanged`, PC151 | Calls `getValue(self, A2)` with open results at PC157 and passes them to `_math.floor` at PC158 for one result | `processUICommandSliderChange(A1, A2, A4, A5, flooredValue)` at PC165 |
+
+The Slider branch resolves the floor callable before the value read. It
+derives the config value from that read, while A4 and A5 remain the
+separate command inputs passed to the callback. The
+[standard selected Style](https://github.com/XIVLegacy/xivl-decomp/blob/d7fdab17b8155a2515f2e1ea8b6947a7dcde77c5/docs/resource/sqwt-track-rectangle-requests.md#float-slider-and-its-sound-configuration-styles)
+declares the Slider command without a parameter. Native event delivery and
+effective property readback remain conditions on reaching the branch.
+
 ## Finite checks and limits
 
 The instruction-driven executor ran 22 typed cases: 18 ordinary cases and 4
