@@ -81,6 +81,37 @@ is obtained after its replacement value has been prepared. In contrast, a
 `deleteChineseName` method that receives a name-getter tail is captured before
 that getter runs. A side effect cannot replace that already captured method.
 
+## Map position helper
+
+Order 10 requests `getPlayerMapPosition` by name on the static widget
+result. The installed `widget/widgetbaseclass_common` chunk assigns that
+name on `WidgetBaseClass` at root PCs 450-452 from zero-based child 150.
+The child has two fixed parameters, receiver `W` and control name `N`,
+and code offset 28630. PCs 0-3 call
+`W.getControlProperty(W, N, "PlayerPosX")` and PCs 4-7 make the same
+call with `"PlayerPosY"`, each retaining one result. PCs 8-10 return
+those two values in that order. The method applies no conversion,
+default or nil test.
+
+`getControlProperty` is child 69 at code offset 18964, assigned at root
+PCs 207-209. Its PCs 0-4 tail-call
+`self._getProperty(self, nil, name, property)` and return every result.
+
+The parent tests at PCs 215 and 217 compare `0 <= X` and `0 <= Y` on
+the two raw results. Under standard Lua 5.1 comparison rules a nil or
+other non-number result raises there. It does not skip the replacement.
+That static widget 10 resolves the name to this class entry is a dynamic
+binding these chunks do not establish.
+
+`xivl-decomp:docs/resource/minimap-base-tiles.md`, Viewport center and
+scale inputs, names the MiniMap control properties `PlayerPosX` and
+`PlayerPosY`, their constructor value 0, and the readback that stores
+the truncated `(position - offset) / 100` pair or -1 for navigation
+row 1. That publication is adopted at Decomp revision
+`a580ee8c6cb2de2a4d130e44d799f32f36c760b1`. The join to this helper
+requires that `N` names such a control and the actual `_getProperty`
+binding.
+
 ## Text and actor boundaries
 
 The parent supplies the exact bracketed spellings above. It does not
@@ -138,6 +169,8 @@ The archive declaration pins source revision
 | Canonical `lua/scripts/widget/desktopwidget_connector.lua` | 660617 | `9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01` |
 | Original `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` | 213487 | `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425` |
 | Decoded payload | 213474 | `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| Original `n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` | 32996 | `c549f746370366f9827570ee22201516e07a05d91829ca643a2e2ec0c73bcf3c` |
+| Decoded common payload | 32983 | `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
 | Retained Lua archive | 14385427 | `0e8f902f7a2f592fc1220d41b89a3f35ec395cfb261806d4bd590a530099ae31` |
 
 The canonical member has 26564 lines. The publication normalization is exact
