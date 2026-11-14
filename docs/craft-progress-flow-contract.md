@@ -315,6 +315,29 @@ stock values, the next wait poll completes and the Judge returns the
 current nonzero command ID. The separate hover/anchor path only writes
 `focusedCommand`.
 
+`getButtonName` is the row name helper. Root PCs 22-24 of the widget
+chunk register it from `root/proto5`, which returns the literal
+`ListBox_Command_` joined with `tostring` of its one operand.
+`getCommandId` calls it for the row name before its `IntData.Value0`
+read.
+
+`processUICommandDefault` is `root/proto10`, registered at root PCs
+37-39, with five operands after the receiver. The common
+`processUICommandEvent` reaches it for a command that no earlier arm
+names and forwards all five operands unchanged. The method returns no
+value when `work.focusEnable` is exactly false or `work.chosenCommand`
+differs from numeric 0. It continues only for a third operand equal to
+`Selector.MouseEnteredItem` or `Selector.AnchoredItem`. It then reads
+the fourth operand as a zero-based row index. An index below zero
+returns the single value false. Any other index stores
+`getCommandId(index + 1)` in `work.focusedCommand`. A stored value
+other than nil calls `displayHelp` with it, and that method requests
+`setText("TextBlock_CommandHelp", 1105, command)`. The first, second
+and fifth operands are not read. The index test is a numeric comparison
+with no nil guard. The values a native selector delivery supplies in
+those operands for the plain ListBox registration are not established
+here.
+
 ### Original locators
 
 Prototype IDs, PCs, and byte offsets below are zero-based in the decoded
@@ -340,6 +363,8 @@ payload.
 | WidgetBase dispatcher / common Operate | `root/proto6` / `0x0A2A`, `root/proto13` / `0x26E6` | 6 PCs6-12 forwards A1-A5; 13 PCs1-8 Operate branch and A4 forwarding |
 | Widget Operate and mask | `root/proto9` / `0x14C7`, `root/proto6` / `0x0D35` | 9 PCs0-19 guards, row getter and chosen/mask; 20-30 help and localBuf; 6 PCs0-21 focus false, running style, disabled list |
 | Widget wait / getter | `root/proto14` / `0x1E8D`, `root/proto15` / `0x1F03` | 14 PCs0-8 chosen == 0 waits; 15 PCs0-2 returns selected command |
+| Widget hover and anchor | `root/proto10` / `0x1615`, `root/proto11` / `0x1771` | root PCs22-24, 37-39 and 40-42 register `getButtonName`, `processUICommandDefault` and `displayHelp`; 10 PCs0-9 guards, 10-13 command names, 14-17 negative index, 18-22 index plus one getter and store, 23-30 nonnil help; 11 PCs0-4 text key 1105 |
+| Common default dispatch | `root/proto13` / `0x26E6` | 189-195 forwards A1-A5 to `processUICommandDefault` |
 
 | Installed input | Wrapper bytes / SHA-256 | Decoded bytes / SHA-256 |
 | --- | --- | --- |
