@@ -137,6 +137,24 @@ an ordinary call followed by a bare return is `0 values`.
 | 71 | `changeSortType` | 1 | `root/proto70 @41313` | 5351-5363 | Stores the result of dynamic `desktopWidget.changeSortType(work.sorttype)`. | 0 values. |
 | 72 | `saveSortType` | 1 | `root/proto71 @41448` | 5366-5376 | Forwards current sort type to dynamic desktop persistence. | 0 values. |
 
+## List command names
+
+`initListBox` registers five literal command names for the list control it
+resolves: `UILuaCommands.MouseEnteredItem` (PCs 10-13),
+`UILuaCommands.AnchoredItem` (PCs 14-17), `UILuaCommands.Selection`
+(PCs 18-21), `UILuaCommands.Previous` (PCs 41-44) and `UILuaCommands.Next`
+(PCs 45-48), each through `setControlCommandCondition`. It calls
+`setCancelCondition` for the list control (PCs 22-24) and for the
+`TextBlock_NoContents_<n>` control (PCs 38-40).
+
+`processUICommandDefault` compares its third operand with
+`UILuaCommands.MouseEnteredItem` at PC 17 and with
+`UILuaCommands.AnchoredItem` at PC 19. Either match reaches the guards at
+PCs 21-28 and then PCs 29-35, which store the fifth operand in
+`work.listbox` and the fourth in `work.focus` and request
+`setCommonTimer(0.2)`. The values a native list delivery supplies in those
+operands are not established here.
+
 ## Selected decoded branch locators
 
 These zero-based decoded PCs and byte offsets anchor the consequential branch
@@ -170,6 +188,8 @@ every other method.
 | `processUICommandOperate` | `2@27561; 21@27637; 36@27697; 54@27769` | guard, command dispatch, and dynamic continuation |
 | `processUICommandCancel` | `2@28117; 12@28157; 26@28213` | guard, edit-mode split, and dynamic continuation |
 | `processUICommandSelection` | `2@28544; 13@28588; 23@28628; 33@28668; 49@28732; 58@28768` | recipe/keyboard guards, ignored display call, non-415 exact-true operation gate, and mode-415 parent selection path |
+| `initListBox` | `12@13620; 16@13636; 20@13652; 22@13660; 38@13724; 43@13744; 47@13760` | mouse, anchor and selection command names, list and no-contents cancel registrations, previous and next command names |
+| `processUICommandDefault` list commands | `17@29260; 19@29268; 30@29312; 32@29320; 33@29324` | mouse and anchor name compares, `work.listbox` and `work.focus` stores, timer request |
 | `processUICommandDefault` | `13@29244; 21@29276; 24@29288; 26@29296; 35@29332; 57@29420; 75@29492; 76@29496; 81@29516; 86@29536; 89@29548; 98@29584; 103@29604; 122@29680` | event guard, exact mouse nil/LT predicates, unguarded list-4 parent, dynamic Header title prefix/tail, both Back property writes, tab continuation, ButtonFocused properties, and skip dispatch |
 | `processTimer` | `6@30489; 16@30529; 24@30561; 32@30593` | focus conversion, step refresh split, and reachable unsupported-step 0-value return |
 | `catalogSkip` | `7@30936; 15@30968; 20@30988; 22@30996; 52@31116; 66@31172; 68@31180; 71@31192; 73@31200; 79@31224; 83@31240` | empty/list/sort branches, unsorted 10*A1 path, iteration*A1 changed-key path, end-point scan, and clamped result |

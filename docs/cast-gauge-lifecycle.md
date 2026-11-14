@@ -34,6 +34,28 @@ lookups succeed, the gauge receives `startCastGauge`. The zero branch calls
 of `IconControl_MainCommand` and `TextBlock_MainCommand` to false. The method
 name does not establish deletion of a native object.
 
+## Work update dispatch arm
+
+The connector chunk `widget/desktopwidget_connector.lua` is the installed
+resource `client/script/n1635q/65rzqvun1635q_7vww57qvs.le.lpb`, 213487
+bytes, whose decoded payload is 213474 bytes with SHA-256
+`685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621`
+([coverage manifest](../manifests/retail_lua_coverage.json)).
+`DesktopWidget.processCharacterParameterUpdated` is `root/proto78`, code
+start 61963, 413 PCs, with five operands after the receiver.
+
+PCs 108-115 leave the local-player block unless the first operand answers
+true to both `isPlayer` and `isMyPlayer`. PC 116 copies the third operand.
+PC 148 compares it with the string `castState`. On a match PCs 150-154 call
+`getStaticWidget(7)` on the desktop and `updateCastInfo` on the result with
+no further operand, and PC 155 leaves the method. `castState` occurs in no
+other prototype of the chunk.
+
+This establishes the script arm from an update named `castState` for the
+local player to static widget 7's `updateCastInfo`. The native caller of
+`processCharacterParameterUpdated` and the work change that supplies that
+name are outside these bodies.
+
 ## Timing boundary
 
 The script branch does not establish when native work changes invoke

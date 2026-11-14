@@ -158,6 +158,7 @@ unverified native or server behavior.
 - [Ferry service evidence](retail-ferry-service-finding.md)
 - [Area-base client initialization](area-base-client-initialization.md)
 - [Cutscene replay and skip contract](cutscene-replay-skip-contract.md)
+- [Desktop widget mode around a cut scene](desktop-widget-cutscene-mode-contract.md)
 - [Inn bed client hook](inn-bed-client-hook.md)
 - [Dungeon exit client contracts](dungeon-exit-client-contracts.md)
 - [Aetheryte list widget](aetheryte-list-widget-contract.md)

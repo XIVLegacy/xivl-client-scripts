@@ -338,6 +338,30 @@ with no nil guard. The values a native selector delivery supplies in
 those operands for the plain ListBox registration are not established
 here.
 
+The progress class has no Cancel route of its own. The widget root makes
+exactly 16 method bindings (root PCs 7-54): `init`, `setInitialData`,
+`initCommandList`, `setCommandList`, `getCommandId`, `getButtonName`,
+`maskCommandList`, `proceedTuningPhase`, `setWindowFocus`,
+`processUICommandOperate`, `processUICommandDefault`, `displayHelp`,
+`setCommand`, `updateProcess`, `processWaitCallFunction` and `getCommand`.
+None is `processUICommandCancel` or `processUICommandClose`. No prototype
+of the chunk holds a string constant that contains `Cancel` or `Close`, so
+no method calls `setCancelCondition` and none names `UILuaCommands.Cancel`.
+`init` requests `setModal(true)`, `setDrag(true)`, `initCommandList` and
+`setInitialData`. The only command registrations of `initCommandList` are
+the template registration and the two selector registrations listed below.
+
+The common chunk supplies the inherited defaults. `processUICommandEvent`
+forwards a third operand equal to `UILuaCommands.Cancel` to
+`processUICommandCancel`, whose default forwards its four operands to
+`processUICommandClose`, whose default requests
+`desktopWidget:closeWidgetDirect(self)`. The common `setCancelCondition`
+is the helper that registers `UILuaCommands.Cancel` with priority 5 for a
+named control, or for `_widget` when the name is nil. Because the progress
+class never calls it, these bodies specify no Cancel delivery for the
+progress window. Whether the native modal Window delivers Cancel to a root
+with no registration is not established here.
+
 ### Original locators
 
 Prototype IDs, PCs, and byte offsets below are zero-based in the decoded
@@ -365,6 +389,8 @@ payload.
 | Widget wait / getter | `root/proto14` / `0x1E8D`, `root/proto15` / `0x1F03` | 14 PCs0-8 chosen == 0 waits; 15 PCs0-2 returns selected command |
 | Widget hover and anchor | `root/proto10` / `0x1615`, `root/proto11` / `0x1771` | root PCs22-24, 37-39 and 40-42 register `getButtonName`, `processUICommandDefault` and `displayHelp`; 10 PCs0-9 guards, 10-13 command names, 14-17 negative index, 18-22 index plus one getter and store, 23-30 nonnil help; 11 PCs0-4 text key 1105 |
 | Common default dispatch | `root/proto13` / `0x26E6` | 189-195 forwards A1-A5 to `processUICommandDefault` |
+| Widget root bindings and init requests | root / `0x0020`, `root/proto0` / `0x02CE` | root PCs7-54 16 closure bindings; 0 PCs92-99 modal, drag and `initCommandList`, 102-109 `setInitialData` |
+| Common Cancel and Close defaults | `root/proto13` / `0x26E6`, `root/proto16` / `0x2FF3`, `root/proto17` / `0x3052`, `root/proto58` / `0x4435` | 13 PCs21-28 Cancel arm, 31-38 WidgetClose arm; 16 PCs0-5 forwards to Close; 17 PCs0-3 `closeWidgetDirect(self)`; 58 PCs0-7 nil name default and `UILuaCommands.Cancel` with 5 |
 
 | Installed input | Wrapper bytes / SHA-256 | Decoded bytes / SHA-256 |
 | --- | --- | --- |
