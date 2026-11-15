@@ -98,6 +98,18 @@ formatter operands are recorded in
 establishes the fixed call shape. Historical invocation and message delivery
 remain unobserved.
 
+`Etc5g0.processEvent_020` (root PC 24, `root/proto5`, code start `0x84F`,
+source lines 270-387) is the last event method of the script. It turns the
+NPC with `startCliantTalkTurn`, then interleaves `_runCharaScheduler` calls
+with `say` rows 21, 22, 23, 24, 45, 25, 26, 46, 27, 28 and 29. Rows 26 and
+46 go through `worldMaster`, the rest through the NPC. It then requests
+`startFadeOutCutSceneDefault`, `startNQCutScene("etc5g010",1)`,
+`startFadeInCutSceneDefault`,
+`desktopWidget:openPublicInformDialogWidget(quest,30)` and the NPC's
+`finishCliantTalkTurn`. The method makes no `sqrwa` call, and a constant search of the
+decoded chunk finds no `sqrwa` name, so no quest reward ask opens from this
+script.
+
 ## Class quest choices and transitions
 
 The following method contracts use canonical script paths and method names

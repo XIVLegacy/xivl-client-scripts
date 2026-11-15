@@ -104,6 +104,12 @@ The static command and capture identify the route and its arguments.
 Whether a given local attempt passes the request guard depends on the
 current player state.
 
+After that request, the same `Shown` arm reads `getVisibility(W,"Button_OpenMap")`
+and requests `setEnable(W,"Button_OpenMap",true)` when the result is `true`
+(`questdetailwidget.lua:397-407`). In mode 1 the arm reaches this only when
+the detail request did not return exactly false. Mode 1 `initAsk` starts
+the button disabled, so the map button becomes usable on the first `Shown`.
+
 | Installed SQWT resource | Container bytes / SHA-256 | Decoded bytes / SHA-256 |
 | --- | --- | --- |
 | `widget/QuestDetailWidget.form` | 17212 / `27517dfe9c2577efdb28c037a235c1fdb2bf559346ee29eecc2e4864dfc8d04d` | 17204 / `0a7203b9f1948ab117f8b3c13f6c143acc712978cdbda30b77ff16cdb11c9a00` |
@@ -173,8 +179,29 @@ branch does not subscribe. Under the positional reading of the
 `initAsk`. That native mapping of the opener's trailing values to the
 initializer formals is NOT TRACED here. The
 [requested-quest opening contract](craft-requested-quest-selection.md#selected-opening-and-result-tuple)
-states the same limit for this opener. The `Button_Destruction` CommonAsk
-result handler, `processAskResult` (`root/proto8`), is NOT TRACED here.
+states the same limit for this opener.
+
+## Abandon confirmation result
+
+`Button_Destruction` opens `CommonAskWidget` as a child of the detail
+widget. `CommonAskWidget.processUICommandEvent` turns an `Operate` on
+`TemplateButton_Answer` into `setAskResult(W,n)`, where n is
+`tonumber(desktopWidget:parseWidgetString(control,2,"Answers"))`, and a
+`Cancel` into `setAskResult(W,0)` (`commonaskwidget.lua:60-94`).
+`CommonAskWidget.setAskResult` calls `processAskResult(result)` on
+`_getParentWidget()` and then `desktopWidget:closeWidgetDirect` on itself
+(`commonaskwidget.lua:117-133`).
+
+`QuestDetailWidget.processAskResult(W,result)` (`root/proto8`,
+`questdetailwidget.lua:912-940`) acts only when the result equals 1. It
+then calls `desktopWidget:executeJournalCommand(3,work.questID,1)`. An
+exactly true return closes the detail widget with `closeWidgetDirect(W)`,
+and any other return opens `openCommandFailedWidget(W,4311)`. The
+[journal command mapping](guildleve-journal-lifecycle.md#command-mapping)
+owns the type 3, subindex 1 request that this call makes.
+
+Which answer index the CommonAsk form assigns to each button is outside
+these bodies.
 
 ## Source identity and locators
 
@@ -187,11 +214,13 @@ Original resources and decoded payloads matched
 | --- | ---: | --- |
 | `widget/ask/questdetailwidget.lua` | 23972 / 1072 | `0d1474c6b43cce61d90a75ba0fe32e2b1d77504fd396024ee32a8876ebc8c8ce` |
 | `widget/desktopwidget_connector.lua` | 660617 / 26564 | `9c33f21c1f70a0056147e716d53300634efabe5b744ef6e8690114db21613a01` |
+| `widget/commonaskwidget.lua` | 2851 / 133 | `d304094ae53cd9fa82c59166495941f310161ce1fac62c37025bfdb5da3cd8e5` |
 
 | Original resource | LPB bytes / SHA-256 | Payload bytes / SHA-256 |
 | --- | --- | --- |
 | `n1635q/9rz/tp5rq65q91yn1635q.le.lpb` | 8553 / `f65d63b3a2e6588eb924ad4d521b00a817a51528307a68d401ca58d726cdbc27` | 8540 / `47fda35f2a462b17f7ca8f0ff751e7ac4f3341052cd1ffcfae5d4400f1a0d9ca` |
 | `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` | 213487 / `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425` | 213474 / `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| `n1635q/7vxxvw9rzn1635q.le.lpb` | 1559 / `cad77ceafd51dfc6b59da750b7beb01d2d25f3641ba2e52ded2d198964c56b9c` | 1546 / `1a023c9f9d0b995d1640fd6e7c211b823d6eae0dd1970a615adc18e79d1c041b` |
 
 The root defines `QuestDetailWidget` over `AskBaseClass` after requiring
 `/Widget/Ask/AskBaseClass`, and binds 14 child prototypes. Prototype indices
@@ -205,6 +234,9 @@ n at start plus 4n.
 | `processUICommandClose` | `questdetailwidget.lua:351-369` | 15 | `root/proto2` / `0xD29` |
 | `processUICommandDefault` | `questdetailwidget.lua:372-435` | 18 | `root/proto3` / `0xDEB` |
 | `getAskResult` | `questdetailwidget.lua:438-451` | 21 | `root/proto4` / `0x1038` |
+| `processAskResult` | `questdetailwidget.lua:912-940` | 33 | `root/proto8` / `0x1C44` |
+| `CommonAskWidget.processUICommandEvent` | `commonaskwidget.lua:60-94` | 12 | `root/proto1` / `0x348` |
+| `CommonAskWidget.setAskResult` | `commonaskwidget.lua:117-133` | 18 | `root/proto3` / `0x56C` |
 | Connector `askQuestDetailWidget` | `desktopwidget_connector.lua:10078-10094` | 560 | `root/proto186` / `0x18239` |
 | Connector `executeCommandJournalDetailInfo` | `desktopwidget_connector.lua:10267-10322` | 566 | `root/proto188` / `0x1870C` |
 | Connector `askEventModeWidgetYield` | `desktopwidget_connector.lua:25790-25801` | 1912 | `root/proto541` / `0x32E39` |

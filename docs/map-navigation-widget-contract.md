@@ -59,6 +59,41 @@ and `Visibility` `"Visible"`. `focusMenuListItem(n)` requests
 No statement of this script names `UILuaCommands.EventMapNavigationClose`,
 the command the window template sends on `MouseLeftButtonDown`.
 
+## Top menu
+
+`setTopMenuList` (title text 5205) sets the previous category to -1 and
+requests `clearMenuListItem(1)`. That method calls
+`setMenuListItemText(i, nil, "")` and `setMenuListItemData(i, -1, -1)` for
+rows 1 to 30, and `setMenuListItemText` with an empty text sets the row's
+`Visibility` to `"Collapsed"`. The method then fills rows by mode:
+
+| Mode | Rows written |
+| ---: | --- |
+| 0 | row 1: text 5206, data 2, help 0, then row 2: text 1318, data -1, help 77309 |
+| 1 | row 8: text 1318, data -1, help 77309 |
+| other | row 1: text 1318, data -1, help 77309 |
+
+In every mode it ends with `focusMenuListItem(1)`. In mode 1 row 1 is a
+row the clear collapsed, so the keyboard focus request names a collapsed
+item.
+
+`callbackTopMenuList(row)` reads the row datum. In mode 1 a datum of 0 or
+more is passed to `dispMarker`, and in other modes it is passed to
+`setMenuCategory`. A negative datum requests
+`desktopWidget:closeWidgetDirect(self)` in every mode. The `Cancel` arm of
+`processUICommandEvent` above closes the widget for the previous category
+-1 that this list sets.
+
+What the native list does with a focus request on a collapsed item, and
+which code fills rows 1 to 7 in mode 1, are outside this script.
+
+| Method | Prototype / code start |
+| --- | --- |
+| `setMenuListItemText` | `root/proto14` / `0x1AF4` |
+| `clearMenuListItem` | `root/proto17` / `0x1E9B` |
+| `setTopMenuList` | `root/proto20` / `0x21A5` |
+| `callbackTopMenuList` | `root/proto21` / `0x23AF` |
+
 ## Region list
 
 The region list (title text 5205, previous category 2) holds these row data
