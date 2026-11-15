@@ -28,6 +28,60 @@ The [Hamlet](hamlet-delivery-selection-flow.md) and
 [Company](company-supply-delivery-flow.md) caller flows qualify their
 class-specific result adaptation and rearm boundaries.
 
+## QuestRewardWidget timed mode
+
+`QuestRewardWidget.initAsk(W,mode,questKey,...)` (`root/proto0`, code start
+`0x1F7`) stores `mode` in `work._temp` as `integer8`. After the shared
+title, icon and reward rows it tests `work.mode` against 2. In mode 2 it
+requests, in order:
+
+- `setProperty("SqwtStartupVerticalAlignment","Top")` and
+  `setProperty("Margin","0,20%,0,0")`
+- `setUICommandCondition("UIFormCommands.TimerFinish")`
+- `setProperty("StringData.Value0","0:0:8")` and `setDrawPriority(0.2)`
+- `setVisibility("Button_Confirm",false)`
+- `sendCommand("UIFormCommands.TimerStart")`
+- `setModal(false)` and `setFocusable(false)`
+
+In mode 2 `processAfterShow` (`root/proto1`) requests
+`setInputContorlFlag(false)` and `setInputEnable(false)` and returns true.
+`processUICommandDefault` (`root/proto4`) requests
+`desktopWidget:closeWidgetDirect(W)` on `UIFormCommands.TimerFinish` in
+every mode. The operate and cancel handlers (`root/proto2`, `root/proto3`)
+set no result outside mode 1.
+
+`DesktopWidget.openQuestRewardWidget(questKey,a,b,...)` (connector
+`root/proto225`, code start `0x1B5C5`) returns
+`openWidget(17,"Ask/QuestRewardWidget",nil,nil,true,2,questKey,a,b,...)`,
+a plain open with mode 2 rather than an ask. A constant search of every
+decoded payload in the coverage manifest finds the name
+`openQuestRewardWidget` only in `widget/desktopwidget_connector.lua` and
+`quest/questbaseclass.lua`. There, `QuestBaseClass._onJobQuestCompleteThird`
+(`root/proto8`, code start `0x746`) runs chara scheduler 67111902 on the
+player, calls `openQuestRewardWidget` with `getQuestId()`, its first two
+arguments and up to eight more, and then calls `onJobQuestCompleteThird`.
+The ask path of `QuestBaseClassCommon.sqrwa` uses mode 1.
+
+So mode 2 is a timed, unfocusable reward display that closes itself after
+the form's timer. What the `0:0:8` string drives inside the form and which
+native receiver raises `_onJobQuestCompleteThird` are outside these bodies.
+
+The decoded inputs are identified in the
+[coverage manifest](../manifests/retail_lua_coverage.json):
+`widget/ask/questrewardwidget.lua` from `n1635q/9rz/tp5rqs5n9s6n1635q.le.lpb`
+(payload SHA-256
+`21f32f0fdbbbfcdd39100dfee22067cb6929f60685752f10b2bc7759f667cea4`),
+`widget/desktopwidget_connector.lua` from
+`n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (payload SHA-256
+`685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621`) and
+`quest/questbaseclass.lua` from `tp5rq/tp5rq89r57y9rr.le.lpb` (payload
+SHA-256 `6903eb4a86f200f5cd690cda2d4104476d72d1eeba86e3b03f3cd2631966ef88`,
+canonical source SHA-256
+`9c10eeefc10d1017cfec32930f8e3470cb89dba7f327f727063128b75c97f6b8`).
+`tools/retail_script.py` decoded each LPB and ran the pinned unluac. The
+constant search reads the decoded payloads with `decode_lpb` and matches the
+NUL-terminated name.
+
 | Decoded script | Canonical source SHA-256 | Reviewed decompile output SHA-256 | LPB and decoded-payload identity |
 | --- | --- | --- | --- |
 | `lua/scripts/widget/ask/contentrewardwidget.lua` | `1a8973cb83bb82a9c1695b2aa4561081d5bd3c75d2104cc95443e281bfc0790b` | `d31d283d4b1cf830e15cacdcf4cfcde6def149052b716da5e6ce4e2423968187` | `n1635q/9rz/7vwq5wqs5n9s6n1635q.le.lpb`; LPB SHA-256 `c7e90eddf2671f4aab832f580d1c459fa4a1853cf27b1937c28d1e0ceecede94`; decoded payload SHA-256 `f0f91fbb8dae7a4fcfbe6a0baa8f27bbd2b54275cc2f0aee1dcc49ffe5be95a4` |

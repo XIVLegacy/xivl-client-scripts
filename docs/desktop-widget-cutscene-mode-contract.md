@@ -134,8 +134,63 @@ widget 3 with `createStaticWidget(3, "LogWidget", "LogWidget2", 1, true, 2)`.
 
 So modes 61 and 63 apply true to `setStaticForceVisible` for both log widgets
 and set the log event hide, while mode 62 applies false to both. What
-`setStaticForceVisible`, `setLogEventHide` and the native side draw for each
-value is outside these bodies.
+`setStaticForceVisible` and the native side draw for each value is outside
+these bodies.
+
+## Log event hide
+
+`DesktopWidget.setLogEventHide(flag, force)` (connector `root/proto138`,
+code start `0x145B7`) returns early when `force` is not true and either
+static widget 2 answers `isForceHide()` with true or `work.logHideFlag` is
+true. Otherwise it calls `setEventHide(flag)` on static widgets 2 and 3.
+The cut scene arm passes `force` true, so the guards do not apply there.
+
+`LogWidget.setEventHide(b)` (`widget/logwidget.lua`, `root/proto24`, code
+start `0x2A46`) requests `setControlUserWorkInt(4, "Window_LogWidget", v)`
+with v 1 for `b == true` and 0 otherwise. In
+`widget/widgetbaseclass_common.lua`, `setControlUserWorkInt`
+(`root/proto130`) forwards to `setUserWorkInt(index, nil, control, value)`
+(`root/proto122`), which calls `setUserWork("IntData.Value", index, ...)`
+(`root/proto183`). That method appends `tostring(index - 1)` to the prefix
+and requests `_setProperty(nil, control, "IntData.Value3", value)` for
+index 4.
+
+The installed `widget/LogWidget.form` merges `widget/LogWidget.tpl` and uses
+its `ControlTemplate_Window`. The triggers of that template react to
+`IntData.Value3` of the window:
+
+| Condition | Action |
+| --- | --- |
+| `IntData.Value3` 1, no keyboard focus within | sets `StringData.Value3` to 0 and `IntData.Value3` to 2 |
+| `IntData.Value3` 1, keyboard focus within | sets `StringData.Value3` to 10 and `IntData.Value3` to 2 |
+| `IntData.Value3` 2, `VisualOpacity` 1, no keyboard focus within | runs `LogWin.FadeOut5sec` |
+| `IntData.Value3` 2, `VisualOpacity` 1, keyboard focus within | stops `LogWinFadeOut5sec` |
+| `IntData.Value3` 0 and `IntData.Value0` 0 | stops `LogWinFadeOut5sec` and runs `Log.FadeIn` |
+
+`LogWin.FadeOut5sec` starts five 0.2-second `DoubleAnimation`s of
+`VisualOpacity` to 0, on the window and four named parts, each with a
+`BeginTime` bound to `StringData.Value3`. A `LogChanged` routed event sets
+`StringData.Value3` to 10 and runs `LogWin.FadeIn` and `Log.FadeIn`.
+`LogWin.FadeIn` stops the fade-out and animates the window opacity to 1.
+
+Read together, an event hide with no keyboard focus in the log fades the
+window out after a begin time of 0, and a new log line brings it back with
+a begin time of 10 for the next fade. The unit of the bound
+`BeginTime` and the native animation clock are outside these files.
+
+| Decoded path under `lua/scripts/` | Installed resource under `client/script/` | Wrapper bytes | Decoded bytes / SHA-256 |
+| --- | --- | ---: | --- |
+| `widget/logwidget.lua` | `n1635q/yv3n1635q.le.lpb` | 19090 | 19077 / `f40fdae854b956352b045242defcfbedf964944bd2219dc621f9f802600b9a91` |
+| `widget/widgetbaseclass_common.lua` | `n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` | 32996 | 32983 / `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
+
+| Installed SQWT resource | Container bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `widget/LogWidget.form` | 12323 / `0a5cf3d560a7fa4e32d6363a9a4efffba628ca45ec166af7b95c53243eae29fe` | 12315 / `a7c64d3fd69b4b2bdf5bfeadb6536d6d6052284afcd60f7baf252b1316707f88` |
+| `widget/LogWidget.tpl` | 21543 / `1db2198b63cc37f8bbd6131e8029153a5a57bb529803bb865549f9e8a078c112` | 21535 / `508b182fba0991a501b3aa581044d1fdfe8620b2a114d541606bbe9a34d3effc` |
+
+The SQWT files were decoded with the basename-keyed Blowfish cipher of
+`xivl-tools:tools/blowfish.py`, as `xivl-tools:tools/research/census_sqwt.py`
+does, and hashed before XML parsing.
 
 ## Limits
 
