@@ -194,3 +194,70 @@ Script identities are pinned in `manifests/scripts.json`: `charabaseclass.lua` S
 `782D96D9F92E012913300E484250F3A6D7063E366F7B8B5EE5A9931755426EEF`,
 and `desktopwidget_connector.lua` SHA256
 `9C33F21C1F70A0056147E716D53300634EFABE5B744EF6E8690114DB21613A01`.
+
+## Command icon text and detail work
+
+`setIconList`, the shared list builder (`actionsettingwidget.lua:3893-4023`),
+calls `setText` on `<prefix><n>:TextBlock_CommandData` with text row 10214
+and the arguments command ID and 36 (`:3926-3933`) for an entry that passes
+the level test at `:3924`.
+`setCommandIcon` writes the same row and arguments when its command is not 0,
+then sets the visibility of `:IconControl_CommandIcon` to whether it wrote
+(`:2019-2049`). `setCommandInfo` writes row 10214 with the help command ID
+and 36 to `TextBlock_CommandHelpIcon` (`:625-783`).
+
+The template `client/sqwt/widget/ActionSettingWidget.tpl` (7433 stored
+bytes, SHA256
+`CC07F15DF3C5C2FCABD08D4E0FD0FBD4AFAB83863008B68557B65EBEF6444ECA`, 7425
+decoded bytes, SHA256
+`DEF8486A5E91A804EC6B470767E1B61E998A95D66B9F4D2CBFA77276071AA42C`)
+declares a hidden `TextBlock_CommandData` and an `IconControl_CommandIcon`
+with `IconDatas="{Binding Path=Text Mode=OneWay ElementName=TextBlock_CommandData}"`
+in `ControlTemplate_Button_BattleCommand` (decoded lines 2-11),
+`ControlTemplate_Button_BattleCommand_2` (lines 23-38) and
+`ControlTemplate_Button_Command` (lines 50-65).
+`ControlTemplate_Button_Class` (line 77) declares `IconDatas="0"` instead.
+The form `client/sqwt/widget/ActionSettingWidget.form` (65519 stored
+bytes, SHA256
+`7E5053EBAF8918CDAB08CC51AC3A6D0ABACBE5E16E84E64C5AB84935D9D98638`, 65511
+decoded bytes, SHA256
+`1CA68AE60818FA14044DDC809AD192BFFF242843F15F07EBA061BD8D7C9155AF`) gives
+the ClassAction, JobAction, AddAction, BattleCommand and Godsend buttons the
+`_BattleCommand_2` template, the ProductionCommand and PropertyCommand
+buttons `_Command`, and the FighterSorcerer and GathererCrafter class
+buttons `_Class`. Its help panel binds `IconDatas` to
+`TextBlock_CommandHelpIcon` the same way (decoded line 520). Decode each
+SQWT file with its basename as the Blowfish key after the eight-byte
+wrapper, or with `xivl-cli extract-resource --as sqwt`.
+
+String columns 0 to 3 of `xtx/_text_ui` row 10214 each hold the single
+frame `022817ff1167616d65436f6d6d616e644261736963e802e80303`, written as a
+`[@sheet:...]` cell, and column 4 is empty
+(`xivl-client-data:csv/xtx__text_ui.csv`, SHA256
+`23762A422118D99C4144A48B3495C52511B1B1B865E4FC50FDC61A973E3C6ECE` in
+`xivl-client-data:manifests/tables.json`). It is a `0x28` named-sheet
+request whose sheet name is the string `gameCommandBasic`, whose row is
+`0xE8 0x02` and whose field is `0xE8 0x03`. The handler decodes the name,
+then the row, then the field
+(`xivl-decomp:docs/resource/rich-text-sheet-and-case-handlers.md`, RT-03),
+and `0xE8` selects a supplied argument by its one-based index
+(`xivl-decomp:docs/resource/sqwt-plain-text-reference-lookup.md`, SQTP-04).
+Read with the literal bytes `0x02` and `0x03` as indexes 1 and 2, the row
+is the command ID and the field is 36.
+In `xivl-client-data:csv/gameCommandBasic.csv` (SHA256
+`4D2D75D88E96D56D1B4812B27D1D8CBA68919EC9A4D4E2527647F4AE38CF7424`),
+column 36 holds 30086 for command 27150 and 30021 for command 27100.
+
+INFERRED. Each row's icon is the `gameCommandBasic` field 36 of its command,
+which the bound `IconDatas` reads as text. That logical field 36 maps to
+decoded CSV column 36 is not checked against the field map of the handler,
+and the native `IconDatas` parse of the text is not traced here.
+
+`update` (`:786-856`) reads `getControlUserWorkString(1, "Grid_Detail")` and,
+when the result is not `""`, reads `getControlUserWorkInt(3, result)` and
+passes it to `setHelp` (`:838-853`). The only writer of that string slot is
+`processUICommandEnterFocus` (`:511-546`). When user work integer 1 of the
+focused control is 1 to 4, it calls `setHelp` with that control's user work
+integer 3 and then stores the control name there (`:536-545`). An `update`
+before the first such focus therefore reads a slot the script never wrote.
+The value the native call returns for such a slot is not established here.
