@@ -107,10 +107,40 @@ So after an order of mode 61, 62 or 63 that `setDesktopModeDetail` applies,
 `work.mode` holds that mode and `isCutSceneMode` answers true until a later
 `setDesktopModeDetail` call replaces it.
 
+## Log widgets in the cut scene modes
+
+After the shared first arm, `setDesktopModeDetail` starts a set of local
+flags at false and a draw priority local at 0.1, sets some of them in one
+arm per mode, and then applies them all in a fixed order. These rows are read
+from the decompiled body of the same decoded resource. PCs are not counted
+here.
+
+| Mode | Log flag | Log hide flag | Draw priority |
+| ---: | --- | --- | ---: |
+| 61 | true | true | 0.12 |
+| 62 | false | false | 0.1 |
+| 63 | true | true | 0.12 |
+
+The apply sequence passes the log flag to `setStaticForceVisible` for static
+widgets 2, 3 and 8 and stores it in `work.widgetEnableFlag[7]`. It stores the
+log hide flag in `work.logHideFlag` and requests
+`setLogEventHide(logHideFlag, true)` and `setLogPriority(false)`. Later in
+the same sequence, `getStaticWidget(14)` receives `setDrawPriority` with the
+priority local.
+
+`DesktopWidget.setDefaultWidgetLocation` in the same file creates static
+widget 2 with `createStaticWidget(2, "LogWidget", nil, 1, true, 1)` and static
+widget 3 with `createStaticWidget(3, "LogWidget", "LogWidget2", 1, true, 2)`.
+
+So modes 61 and 63 apply true to `setStaticForceVisible` for both log widgets
+and set the log event hide, while mode 62 applies false to both. What
+`setStaticForceVisible`, `setLogEventHide` and the native side draw for each
+value is outside these bodies.
+
 ## Limits
 
-- The per-widget flags that the later arms of `setDesktopModeDetail` write
-  for each mode are not mapped here.
+- The other flags that the later arms of `setDesktopModeDetail` write for
+  each mode, and static widget 8, are not mapped here.
 - Mode 64 has a level and counts as a cut scene mode, but the constants
   of `setDesktopModeDetail` do not include 64, so no arm of it names that
   mode.
