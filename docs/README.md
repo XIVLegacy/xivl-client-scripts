@@ -169,6 +169,7 @@ unverified native or server behavior.
 - [Camp favored-destination client contract](camp-favored-destination-client-contract.md)
 - [Camp replacement-choice result flow](camp-replacement-choice-flow.md)
 - [Map-object door client contract](map-object-door-client-contract.md)
+- [Map navigation widget contract](map-navigation-widget-contract.md)
 - [Open-world key coffer contract](open-world-key-coffer-contract.md)
 - [Keyed treasure-box registration](keyed-treasure-box-registration.md)
 - [Weather director client contract](weather-director-client-contract.md)
