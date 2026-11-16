@@ -74,6 +74,7 @@ unverified native or server behavior.
 - [Cast gauge property and command flow](cast-gauge-property-command-flow.md)
 - [PlayerParameter TP consumer contract](player-parameter-tp-consumer.md)
 - [BonusPointAssignWidget local allocation](bonus-point-assign-widget-contract.md)
+- [Point allotment Ask contract](point-allotment-ask-contract.md)
 - [AddressListWidget local interaction](address-list-widget-contract.md)
 - [LogSettingWidget local settings](log-setting-widget-contract.md)
 - Social widgets: [ignore list](ignore-list-widget-contract.md),
@@ -88,6 +89,7 @@ unverified native or server behavior.
 - [Status parameters and party buffs](status-parameters-party-buffs.md)
 - [MonsterAttackWeaponSkill getter profile](monster-attack-weapon-skill-profiles.md)
 - [Monster map-marker selection](monster-map-marker-selection.md)
+- [NPC map-marker selection](npc-map-marker-selection.md)
 
 ## Quests and events
 

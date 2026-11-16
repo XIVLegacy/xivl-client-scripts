@@ -289,3 +289,46 @@ operation.
 
 Decode the form and template as the section above states and count the
 `Button` elements and their attributes.
+
+## Keyboard focus mark
+
+Each of the four ControlTemplates of `ActionSettingWidget.tpl`, pinned above,
+sets the templated Button's `IsTabStop` to `False` and its `Anchor` to
+`None` through Setters, and holds a `Label_IconEffect` with
+`IsTabStop="True"` and the style `LAB_basis_iconHoverEffect` (decoded lines
+10, 36, 63 and 86). Each template's `GotAnchor` EventTrigger (decoded lines
+17, 44, 71 and 93) runs `ExecuteCommandAction` with
+`Command="UILuaCommands.EnterKeyboardFocus"` and the templated parent's
+`Name` as `CommandParameter`, then a `SoundPlayerAction` with
+`FileNumber="3"`.
+
+The style `LAB_basis_iconHoverEffect` of `client/sqwt/common/default.style`
+(identity in [point allotment Ask](point-allotment-ask-contract.md#installed-form),
+decoded line 2097) draws the skin `LAB_basis_iconHoverEffect` for
+`SkinHover`, `SkinActive` and `SkinAnchored` and `NULL` for `SkinNormal`,
+`SkinDisabled`, `SkinFocused`, `SkinReserved` and `SkinDroppable`.
+
+INFERRED. The keyboard anchor of an action Button sits on its
+`Label_IconEffect`, whose skin marks it, and `GotAnchor` routes the focus to
+`processUICommandEnterFocus` (`:511-548`). The native step that puts the
+anchor on the Label when a key moves the focus is not traced here.
+
+## Update after a command change
+
+In `DesktopWidget.processCharacterParameterUpdated`
+(`widget/desktopwidget_connector.lua:4841-5340`), the local player arm
+treats the update groups `command` and `commandEquip` alike
+(`:4979-5003`). It calls `updateActionMenuWidget(true)` and
+`updateMainMenuWidget()`, then `getWidget(3, "ActionSettingWidget")` and,
+when that answers a widget, its `update`. The group `commandDetailForSelf`
+calls only `updateActionMenuWidget(false)` (`:5007-5011`).
+
+`update` (`:786-856`) calls `setEquipAction` (`:1900-1938`), which asks
+`desktopWidget:getPlayerEquippedCustomCommand(slot)` for slots 1 to 30. A
+slot whose first answer is not nil and whose third answer is true takes
+`desktopWidget:getCommandID` of the first answer, any other slot takes 0,
+and the script calls `setCommandIcon` and `setCommandIconEquipBar` on
+`Button_BattleCommand_<slot>` with that ID either way.
+
+INFERRED. Each `command` update repaints all 30 bar slots of an open
+Actions and Traits window from the native equipped list.

@@ -255,6 +255,29 @@ size (dw,dh), the requests are:
 The values written to the two unused limit registers at PCs 19, 21, 27
 and 29 are not read afterwards. No lower clamp is applied to left or top.
 
+## Sort button
+
+The form `client/sqwt/widget/ItemListWidget.form` (49304 stored bytes,
+SHA256 `65A8C82BC93664231778FE1B704B27254E03A759F4EC37FA23E6AE2F516A46BE`,
+49296 decoded bytes, SHA256
+`2D5D129D4028F025863C288FA0B9028E7F9222C5C0546B7E09F015B34A37622A`)
+declares `Button_SortStatus` with `Command="UILuaCommands.Operate"` and
+`CommandTarget="{Binding ElementName=Button_SortStatus}"`, a binding of the
+Button itself, and no `CommandParameter`.
+
+`initForm` calls `setConfirmCondition("Button_SortStatus")`
+(`itemlistwidget.lua:341-344`). `processUICommandOperate` (`:756-781`)
+returns false while `work.updatecount` is above 0, and otherwise calls
+`operateSort` for the sender `Button_SortStatus` (`:770-773`). `operateSort`
+acts only for list 1. With no argument it calls `changeSortType`
+(`:4874-4925`), which stores
+`desktopWidget:changeSortType(work.sorttype)` back in `work.sorttype`
+(`:6956-6968`).
+
+INFERRED. A Sort click reaches `processUICommandOperate` as an Operate whose
+target is the Button that raised it, the same as a command with no target.
+The native resolution of a self-binding `CommandTarget` is not traced here.
+
 ## Source identity and locators
 
 The extraction is retail 1.23b `2012.09.19.0001`. Canonical sources matched
