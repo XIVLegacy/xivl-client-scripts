@@ -261,3 +261,31 @@ focused control is 1 to 4, it calls `setHelp` with that control's user work
 integer 3 and then stores the control name there (`:536-545`). An `update`
 before the first such focus therefore reads a slot the script never wrote.
 The value the native call returns for such a slot is not established here.
+
+## Button markup command
+
+The form `client/sqwt/widget/ActionSettingWidget.form`, pinned in the
+section above, declares 140 Buttons. Every one carries the markup attribute
+`Command="UILuaCommands.Operate"`, and none carries a `CommandParameter`, a
+`CommandTarget` or a trigger. The form declares no trigger element at all.
+By name family the Buttons are `Button_BattleCommand_` 30, `Button_ClassAction_`
+20, `Button_AddAction_` 20, `Button_PropertyCommand_` 20,
+`Button_ProductionCommand_` 20, `Button_Godsend_` 10,
+`Button_GathererCrafter_` 8, `Button_FighterSorcerer_` 7 and
+`Button_JobAction_` 5. The template `ActionSettingWidget.tpl`, pinned above,
+declares eight EventTriggers, a `MouseEnter` with `SourceType="Button"` and a
+`GotAnchor` in each of its four ControlTemplates, and no other trigger.
+
+`setButtonEvent` (`actionsettingwidget.lua:1335-1358`) calls
+`setConfirmCondition` and `setCommandParameter`. The Operate a placement
+Button raises carries no markup parameter, so its integer is inferred to be
+the one `setButtonEvent` writes. The native delivery of
+that integer is in
+`xivl-decomp:docs/resource/sqwt-command-parameter-consumer.md`, sections
+"Kind switch" and "Script entry". A ClassAction or JobAction Button raises
+the same markup command with no `setButtonEvent` write, which the
+[placement gate](#action-bar-placement-gate) above leaves without an
+operation.
+
+Decode the form and template as the section above states and count the
+`Button` elements and their attributes.
