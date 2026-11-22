@@ -643,8 +643,8 @@ outputs for declared test inputs, not an observed historical player row.
 The comment attribute `text_textblock_comment` is written separately by
 `0x00691270`. `0x00693B50` stops its comment loop when a cached comment
 pointer is null (`0x00693C51..0x00693C66`). The row's first publication
-therefore need not include that attribute. Comment transformation, a
-missing binding's effective Text, result-row selection and populated
+therefore need not include that attribute. Nonempty comment transformation,
+a missing binding's effective Text, result-row selection and populated
 server behavior remain unverified here.
 
 A successful one-row completion formats HitCount as `@228/i1/i200`.
@@ -657,6 +657,74 @@ and PE reads corroborated the branches, literal operands, serializers,
 lookup examples and Update ordering. Namespace-aware XML checks compared
 the producer names with all 23 selected template binding attributes. No
 original client ran.
+
+### Search row lookup seeds and empty comment
+
+STATIC. In the pinned location table, selector 155 occurs only in record
+index 13 at `0x0104DBF4`, whose key is 201. The setup and lookup above
+therefore produce `text_textblock_location` as `@11023/i201`. This is a
+numeric selector-to-key finding. A server's choice to use 155 for a
+particular zone is interoperability input, not a retail zone-name claim.
+
+The guarded class-icon seed in `0x00870210` writes the following exact
+selector/icon pairs to map `0x0134FF8C`. LLVM disassembly checked each key
+operand and following icon store in `0x00870227..0x008704EF`. The icons
+are serialized as decimal strings by the already documented row writer.
+The table assigns no localized class or job names and establishes no
+unlisted selector's output.
+
+| Selector | IconDatas | Selector | IconDatas |
+| ---: | ---: | ---: | ---: |
+| 2 | 206 | 3 | 203 |
+| 4 | 204 | 7 | 207 |
+| 8 | 205 | 10 | 208 |
+| 15 | 940 | 16 | 939 |
+| 17 | 941 | 18 | 943 |
+| 19 | 942 | 22 | 233 |
+| 23 | 234 | 26 | 945 |
+| 27 | 944 | 29 | 212 |
+| 30 | 209 | 31 | 216 |
+| 32 | 213 | 33 | 211 |
+| 34 | 210 | 35 | 215 |
+| 36 | 214 | 39 | 217 |
+| 40 | 218 | 41 | 219 |
+
+A valid `0x01E0` comment entry with length 1 contains only its terminal
+NUL. The [stream contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-results-and-completion)
+requires a matching nonzero token, an admitted row index and the framing
+bounds. Native `0x004C79FC..0x004C7A15` reads the big-endian length and
+checks the terminal NUL. `0x004C7A21..0x004C7A2F` installs a nonnull
+pointer to that NUL at cached row `+0x5C` and advances by 4 for this entry.
+An explicitly empty string is therefore distinct from an absent entry.
+
+With that pointer admitted by the comment loop, `0x00691270` copies the
+empty profile comment, takes its optional text-filter path when enabled,
+and searches the separator from position 0. The zero-length search
+returns 0 (`0x004465BD..0x004465CC`), then substring length 0 constructs
+an empty Sqwt string (`0x00447A87..0x00447ABB`). The store at
+`0x00691383` writes `text_textblock_comment` as the explicit empty string
+before the shared maker Update. Attribute store `0x009425B0` creates
+a missing XmlAttr or uses the existing one. Its value slot at
+`0x0106C8D8` selects `0x00942500`, which copies the supplied string
+without an empty-value removal branch. The optional filter preserves empty
+input. Its zero-character worker skips the edit loop at
+`0x0045813B..0x0045813F`, and the separate type-3 check reads a temporary
+copy (`0x00458100..0x0045811C`). The narrow-copy helper `0x00457920`
+retains the terminal NUL for that empty output.
+
+When the cached pointer is null, `0x00693C64..0x00693C66` instead exits
+the comment loop without calling the writer. It does not synthesize an
+empty comment attribute. In the selected template, TextBlock_Comment's
+Text is the OneWay `@text_textblock_comment` XPath binding (line 90).
+It declares no literal fallback Text or binding fallback. The effective
+Text after an absent attribute remains unproved. A retained prior value
+must not be described as an explicit empty-string publication.
+
+PE identity, selected SQWT hashes and projection gates are pinned above.
+The selector lists and template bindings were checked with direct PE reads
+and authenticated XML. Ghidra supplied leads, and LLVM disassembly checked
+the entry framing, empty-string branches and final attribute store. These
+static joins establish neither observed retail traffic nor live pixels.
 
 ### Main Menu root open and close
 
