@@ -744,6 +744,97 @@ the paths. Physical hit, press/release admission, route membership,
 callback reentry and historical search results remain unverified. No
 original client ran.
 
+### Search Status selector child
+
+MEASURED. The standard Search form declares Label_Status at line 58 with
+ControlTemplate_Label_SearchSetting, Width 200 and Help value 0 `@79602`.
+The selected Label template's Button_SearchSetting uses
+UILuaCommands.Operate without a local parameter or target. The
+[ordinary Button command path](#begin-search-activation-and-first-use-filters)
+and current form/operator admission apply.
+
+STATIC. Setup retains Label_Status:Button_SearchSetting at operator `+0x2C`.
+Operate `0x00693670..0x00693694` requires that exact source, sets current
+selector `+0x8C` to 0, registers the existing parent callback through
+`0x0086F180`, and requests PcSearchSelectWidget child-name index 3.
+This is the same native child and parent ownership route as the
+[Class selector](#search-class-selector-child). Callback `0x00690510`
+returns the Status vector at `0x01343078`, `0x00690520` supplies tree mode
+0, and `0x00690650` supplies title `@11027` to TextBlock_SettingTitle.
+The child does not receive a separate Lua status-choice argument.
+
+Table selector 0 in `0x0086FD50`, instructions `0x0086FD64..0x0086FD78`,
+returns four 0x14-byte records at `0x0104DF20`. Their order and operands
+are as follows. Text operand 2 is zero in every record, so `0x008724E0`
+formats the plain text reference shown here, without an `/i` argument.
+All four catalog expand bytes are 1 and checked bytes are 0.
+
+| Original row / list_index | Level | Text | user_id / query value |
+| ---: | ---: | --- | ---: |
+| 0 | 0 | `@11001` | -1 |
+| 1 | 1 | `@11002` | 3 |
+| 2 | 1 | `@11003` | 1 |
+| 3 | 1 | `@11004` | 2 |
+
+The shared mode-0 maker build writes text, list_index, user_id, level,
+expand_flag, checked_flag and the checked/expand control roles 1 and 0.
+Its Boolean and Visibility spellings, exact selected Toggle bindings and
+initial visibility are in [Class row setter operands](#class-row-setter-operands).
+For this initially expanded Status vector, all four row visibility values
+are True. Header no_child is False and each leaf's is True. The header
+omits visibility_expand, leaves write Hidden, and visibility_checked is
+omitted in mode 0. The corresponding empty bound Visibility follows the
+same admitted conversion as the Class child.
+
+The [mode-0 leaf combination path](#class-leaf-combinations-caption-and-retained-query-order)
+negates the selected maker checked_flag, preserves the other leaves and
+recomputes the header as the conjunction of its three leaves. Repeating
+one leaf deselects it. Both normal child Cancel and Close save those flags
+into the Status vector and update the parent caption. One checked leaf
+uses its row text without ThreePoint. Two checked leaves use the first
+checked row's text in catalog order and ThreePoint 1. All three checked
+leaves also check the header, select the default caption `@11001` and clear
+ThreePoint. No checked leaves select the same default caption and clear
+ThreePoint, but retain different vector state from all three checked.
+
+The Status arm of `0x00690760`, `0x00690778..0x006907BC`, stores live caption
+`0x01343498` and marker byte `0x013434EC`, then requests the retained
+Label_Status text and marker Visibility. Normal root-close save copies them
+to `0x013431D8` and `0x0134322C` (`0x00691827..0x00691842`). The existing
+setup restore loop republishes those saved values. Reopening the selector
+uses the current Status vector. The parent Button_Reset replaces it with
+the four unchecked, expanded catalog records, restores `@11001` and clears
+the marker. The child's own Button_Reset is also admitted by the shared
+operator: `0x0086F450` matches that named source, calls callback `+4 ->
+0x00691F20`, and rebuilds the maker. That callback resets the current
+selector through `0x00691DC0` (`0x00691F20..0x00691F27`). The child stays
+open. Its usual close publishes the resulting parent caption.
+
+Query loop `0x006937D0..0x00693852` emits each record whose checked byte is
+exactly 1 and query value is not -1. At `0x00693826..0x00693835` it passes
+tag 7, width 2 and the value's low word to `0x004B5940`. The
+[wire request contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-requests)
+owns the tagged little-endian encoding. The Status tags precede Class tags.
+They follow catalog order, not click order or numeric value order.
+
+| Retained Status leaves at admitted Begin Search | Status bytes only |
+| --- | --- |
+| Row 1 | `07 03 00` |
+| Row 2 | `07 01 00` |
+| Row 3 | `07 02 00` |
+| Rows 2 then 1 selected | `07 03 00 07 01 00` |
+| All three leaves | `07 03 00 07 01 00 07 02 00` |
+| None or Reset defaults | none |
+
+A checked header emits no tag because its query value is -1. The matching
+all-selected and unselected captions therefore do not justify removing the
+three retained tags. These bytes establish the client filter, not server
+interpretation or historical results. The same pinned executable, form,
+child template and LPBs support this shared path. Original instruction
+operands and table rows were checked directly. Header activation, expand
+gestures, physical routing and original runtime remain outside this Status
+leaf contract. No original client ran.
+
 ### Search Class selector child
 
 MEASURED. The standard parent selects
