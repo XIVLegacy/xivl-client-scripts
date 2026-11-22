@@ -25,6 +25,98 @@ predicates and conditional request representation below do not identify
 package 5 with a server-side inventory, establish a global package alias or
 prove a command's server effect.
 
+## Main Menu Booty and the initial list
+
+`MainMenuWidget.processBeforeShow` requests `updateMainMenu` (`root/proto4`
+PCs 28-29). `update` makes the same request (`root/proto7` PCs 0-1).
+`updateMainMenu` resets the command count and Booty flag, runs the main,
+ready and system command builders, and publishes `SystemMenu` (`root/proto15`
+PCs 5-28 and 93-95). The system builder returns early when
+`desktopWidget:isMyPlayerDead()` is truthy. Its next branch sets
+`isBootyCommandShow` and adds system command 0 with text key 2127 and icon
+289 only when `isExistDropItemCommand()` is exactly true (`root/proto12`
+PCs 36-69). `addSystemCommand` refuses at a count of 15 or more, otherwise
+uses the incremented count minus 1 as the row. For command 0 it writes
+Help 74617 along with `SystemIcon`, `SystemEnable` as `True`, and
+`SystemCommandID` as 0 (`root/proto17` PCs 0-24 and 136-192).
+
+The connector's `isExistDropItemCommand` tests `getItemPackageCount(5) > 0`
+(`root/proto69` PCs 0-7). The count helper reads the local player through
+`_getMyPlayer`, returns 0 for exact false from `_hasItemPackage`, and
+otherwise subtracts `_getItemPackageFreeSpace` from `_getItemPackageCapacity`
+for the requested package (`root/proto404` PCs 0-17, assigned at root
+PCs 1361-1364). This is the menu's occupied-slot check.
+
+The standard `MainMenuWidget.form` lines 6 and 29 bind `ListBox_SystemMenu`
+to the `SystemMenu` maker through `/System`. The template uses `SystemEnable`
+on `Button_Command` at line 155 and formats `SelectedIndex` as the integer
+parameter of `UILuaCommands.SelectionChanged` at lines 189-192. `init`
+subscribes to that command on `ListBox_SystemMenu` (`root/proto0` PCs 48-51).
+The handler hides the menu, reads `SystemCommandID`, `SystemCommandInfo` and
+`SystemSubTarget` at the supplied row index, and passes them to
+`executeCommand` (`root/proto1` PCs 210-235). Command 0 calls
+`desktopWidget:openDropItemWidget()` (`root/proto16` PCs 202-206).
+The command identity comes from the row data.
+
+`openDropItemWidget` requests `openMainMenuRootWidget` with `ItemListWidget`,
+nil, true and 3 (`desktopwidget_connector` `root/proto70` PCs 0-5).
+The wrapper refuses while static widget 17 reports shown, otherwise uses
+root opener kind 3 with the nil parent and the mode tail (`root/proto538`
+PCs 0-15). The shared root opener requires an empty slot 3
+(`root/proto535` PCs 4-18). [Root widget slots](desktop-widget-root-slots.md#occupancy-test-and-root-opener).
+
+`ItemListWidget.init` requests form setup and initializes all six list boxes
+before `setInitialData` (`root/proto0` PCs 207-230). Form setup includes
+opening its `ItemSubWidget` child through `initChildWidget` (`root/proto1`
+PCs 61-65). `setInitialData` requests the modal state, resets all six lists,
+and calls `makeListFromPackage`, `makeDropItemList` and `makeMoneyList`
+before the mode test (`root/proto3` PCs 0-27). Mode 3 writes raw selected
+tab index 4 on `TabControl_ItemList` and sets `work.listbox` to 5
+(PCs 29-36). `changeList` sets internal `work.mode` to 100 and title
+text key 3213 for list 5, then seeds the index and focus place to 0 and
+requests `updateWindowDisplay(true)` (`root/proto45` PCs 0-10 and 31-37).
+The display request hides `Button_SortStatus` for list 5 and requests
+`updateListFocus` (`root/proto15` PCs 15-35).
+
+For its initial population, `makeDropItemList` reads package 5 capacity,
+requests `SourceFirstIndex=0` and `SourceCount=capacity` on the list, and
+writes `FilteredSortKey=sorttype` on the maker (`root/proto37` PCs 0-28).
+It reads physical slots from 1 through capacity into zero-based rows. Only
+an exact true from `setItemToXmlLight` advances the row. The other path
+exits the loop before checking the stale suffix and publishing the maker
+(PCs 29-65). A nil `_getItem(5,slot)` therefore ends the initial walk at
+the first empty slot (`root/proto29` PCs 4-20). Each admitted item needs
+`_getCatalogID`, `getItemIcon`, `_isStackable`, `_countStack` and
+`_getNameIndex` before the two desktop XML helpers (PCs 21-34 and 87-118).
+The builder finally sets the `TabItem_5` header using text key 3231 and
+the package count (`root/proto37` PCs 89-102).
+
+The standard `ItemListWidget.form` lines 10, 62 and 115-117 connect
+`TabItem_5`, `ListBox_TabItem_5` and `TabItem_5_Maker` through `/TabItem_5`.
+The published [list and item contract](item-list-widget-contract.md#row-write)
+identifies the row arguments and conditional focus/detail callbacks. The
+script requests establish a path to populate the form before an item
+action. Physical row targeting, native item availability and the first
+live draw remain unobserved.
+
+### Reproduction
+
+Verify the installed resources under `client/script`. Use
+`tools/retail_script.py:decode_lpb` and `ChunkReader` and `instruction` in
+`tools/build_quest_contracts.py`. PCs are zero-based. Check the cited call
+operands and the loop exit at `ItemListWidget` `root/proto37` PC 45.
+
+| Resource | LPB bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `n1635q/x91wx5wpn1635q.le.lpb` | 19491 / `c0e1782a3ca183fcaa520a16320946f62d3fc861c74978cde19ea20fcd064b0a` | 19478 / `185d856d406d46ba7416444ddc2212b68036f7d56d0ee62148be2567630c90b2` |
+| `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` | 213487 / `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425` | 213474 / `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| `n1635q/1q5xy1rqn1635q.le.lpb` | 51910 / `f905d03e5b54218f690e37bf36db3f71f289468ff973004e1f030b684115e647` | 51897 / `f92b2bef0eac76acfc8896da338275659e14a8b826d944cc39634eb6defadded` |
+
+Decode the installed forms and templates with the SQEX basename rule.
+Their identities are recorded in `xivl-decomp:docs/script/main-menu-command-route.md`,
+Input and method, and `xivl-decomp:docs/resource/sqwt-xpath-data-sources.md`,
+ItemListWidget.
+
 ## Command classes and eligibility
 
 `xivl-client-data:manifests/staticactor_class_paths.json` maps these IDs to
