@@ -1184,6 +1184,101 @@ branch does not establish that historical streams exceeded 200 or admit
 malformed result records. LLVM disassembly and the two literal reads at
 `0x00FC7E3C/0x00FC7E50` corroborated the common danger style.
 
+### Search result activation and local player detail
+
+MEASURED. In the selected DataTemplate_PcSearchList, Button_SearchResult
+has Command UILuaCommands.Operate, no explicit CommandParameter or
+CommandTarget, and Height 40 (template line 36). Its contained player-name
+TextBlock has IsHitTestVisible False. The ListBox outer template handles
+Selection by executing UICommands.Selection (lines 4-6). The result-row
+Button's Operate is not itself a Lua selection callback or a server request.
+
+STATIC. A separately admitted PreviewMouseLeftButtonUp can select the row.
+ListBox input table `0x010720EC`, slot `+0xB0`, selects `0x0096ED00`.
+The handler calls its base first and requires the byte behind event `+0x10`
+to remain zero. It maps event source `+0x08` to the owning list index through
+`0x00960DE0` and calls `0x0096EC00(index,0,1)` only for a nonnegative
+result (`0x0096ED09..0x0096ED34`). The source lookup admits direct bound
+row identity and a retained row's descendant through `0x00929800`, as the
+[shared selector route](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-window-trigger-order.md#itemselectwidget-row-operate-and-selection)
+records. The caller is the source ListBox's own bound-item helper, not a
+search by displayed player name or a global row ordinal.
+
+`0x0096EC00` requests SelectedIndex through descriptor `0x0135B680` before
+raising Selection, descriptor `0x0135B518`, id `0x3B`, with the ListBox as
+source and original source. This is a release route with its own unhandled
+and source-index predicates. It does not test the result Button's IsPressed
+snapshot. The [ordinary Button click](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source)
+has separate paired-press and ClickMode predicates. The [Layout0 Operate
+route](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-window-trigger-order.md#itemselectwidget-row-operate-and-selection)
+can also reach SelectIndex through a focused row or descendant, conditional
+on that command's actual recipient and admission.
+
+UICommands.Selection literal `0x00FC918C` is registered as native id 4
+at `0x00F142AF..0x00F142CE`. Under the existing form operator/input guards,
+`0x00695CA3..0x00695CC1` requires the routed source's SelectedIndex at
+`+0x480` nonnegative, then calls operator virtual `+0x2C` with source,
+command arguments and that index. PcSearch cell `0x00FC8450` selects
+`0x006904D0`. Setup retains ListBox_PlayerInformation at operator `+0x84`
+and ListBox_SearchResult at `+0x88`. The latter exact source match stores
+the selected index at operator `+0x108`, then requests child-name index 5
+through `0x00695AD0` (`0x006904E7..0x006904FD`). The player-information
+list instead requests child index 4 and does not take this selected-result
+arm (`0x006904D8..0x006904E2`).
+
+Child-name lookup `0x00874810` indexes the string array `0x013506C8`
+with stride 0x54. Initializer `0x00F1CD5F..0x00F1CD69` names entry 5
+PcInformationWidget from literal `0x0104F040`. Entry 4 is the distinct
+PlayerInformationWidget. The OpenChild request and
+[shared Lua ownership path](#main-menu-root-open-and-close) pass the child
+name with the current Search widget as parent, preserving its category.
+No selected actor identity or name is added to that child-open argument.
+
+STATIC. PcInformationWidgetOperator constructor `0x008D9050`, table
+`0x010642B4`, reads operator kind 2 from its manager through `0x00694CD0`
+and retains that PcSearch operator at `+0x20`. It immediately calls
+`0x006914F0` on that operator and retains the returned profile at `+0x24`
+(`0x008D90BC..0x008D90E9`). The accessor uses the saved `+0x108` index
+into the native profile vector `[+0xFC,+0x100)`, stride 0xE0. It asserts
+on a null vector or an index beyond its current count. The proven join
+therefore requires the same live Search operator and a still-valid cached
+row. The displayed XML name is not the identity used to recover the profile.
+
+The standard child form names Window_PcInformationWidget, imports
+common/WINBasis.tpl and declares TextBlock_PlayerName, Button_Tell,
+Button_Invite and Button_Close (lines 1, 8, 26, 314-316). Button_Close
+uses UILuaCommands.WidgetClose and text `@11055`. The constructor reads
+the retained profile's name through `0x0086F690` and requests it on
+TextBlock_PlayerName (`0x008D919F..0x008D91DD`). Its other class, location,
+status and comment projection remains a separate presentation contract.
+
+PcInformationWidget.init (`main/f0` PCs 0-13) installs Cancel, WidgetClose,
+operator Close, OpenChild and Request conditions, then requests modal true.
+It has no close override. Its admitted Cancel or Button_Close command uses
+the shared close path and finalization. The current child can retire while
+the different live root Search widget at category 3 survives. This does not
+prove physical focus restoration or release before deferred finalization.
+Its Request handler (`main/f2`) reads XmlDataMaker_Data row 0
+string_target_name and delegates request 1 to setTellAddress and request 2
+to executePlayerPartyInviteByName. The corresponding button lookup,
+request production, chat focus and transport results are outside this
+open-and-close contract.
+
+| Selected original input | Carrier bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `widget/pcinformationwidget`, `n1635q/u71w4vsx9q1vwn1635q.le.lpb` | 972 / `aa01ff9a6ae0271e630cc75ab851d0a85358dd8367a9e14f4de9cbfb3f1d3f85` | 959 / `4e9c497661dc0b14771bc95f9cc43aba8a3ce0d6764ec22061d7fcdaa0b934b0` |
+| `widget/PcInformationWidget.form` | 28109 / `493f402223283ade6dc98a061b99ba1e5b2aee69e1049df6513ebdf8badf04fb` | 28101 / `4efd80b802e1a2d6c0cf5a15c1807fd23b2cf2fd37767972828e5d789ec4c38e` |
+
+The LPB carrier matches the retail Lua manifest and its decoded Lua 5.1
+instructions were inspected with unluac. The form was decrypted with the
+basename key, re-encrypted byte-for-byte and parsed as XML. Ghidra leads,
+LLVM instructions and section-mapped reads of the identified PE corroborate
+the native joins. A discriminating bounded case selects the second of two
+cached result profiles, opens PcInformationWidget for that second profile,
+then closes only the child. Stale row/vector lifetime, physical mouse hit
+and capture, modal admission, complete detail rendering, player interaction
+and server settlement remain UNKNOWN. No original client ran.
+
 ### Ordinary Search row publication
 
 STATIC. This path uses the result maker above and the matching-token ordinary
