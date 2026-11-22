@@ -726,6 +726,77 @@ and authenticated XML. Ghidra supplied leads, and LLVM disassembly checked
 the entry framing, empty-string branches and final attribute store. These
 static joins establish neither observed retail traffic nor live pixels.
 
+### Search class and job level lookup
+
+STATIC. The row writer's class-to-job helper `0x0086F600` has exactly
+these positive mappings. Its byte selector table at `0x0086F678` and
+jump table at `0x0086F658` select the return constants at
+`0x0086F61D..0x0086F64D`.
+
+| Class selector | Derived job selector |
+| ---: | ---: |
+| 2 | 15 |
+| 3 | 16 |
+| 4 | 17 |
+| 7 | 18 |
+| 8 | 19 |
+| 22 | 26 |
+| 23 | 27 |
+
+Every other input retains `0xFFFFFFFF`, interpreted as signed -1
+(`0x0086F604..0x0086F616`, `0x0086F652`). In particular, a job selector
+is not mapped to itself. This table is separate from the icon table.
+
+Decoder `0x0086FA90` materializes level-map keys 1 through 43 at profile
+`+0xC0` (`0x0086FBBD..0x0086FBC2`, `0x0086FC3F..0x0086FC5A`).
+The classification table at `0x0086FD29 + selector`, reached only for
+selectors 15 through 27, selects the membership branch for
+15, 16, 17, 18, 19, 26 and 27. The other keys use ordinary level pairs.
+This includes keys for which the published icon seed has no entry.
+
+For an ordinary key, the decoder searches the 20 fixed two-byte pairs at
+wire row `+0x2C`. Equality reads the following unsigned level byte
+(`0x0086FC20..0x0086FC26`, `0x0086FC8C..0x0086FC97`). A greater key
+ends that lookup with 0. A smaller key advances to the next pair, up to
+40 bytes (`0x0086FC28..0x0086FC32`). There is no zero-key terminator.
+Zero keys are skipped, and a first matching level 0 is stored as 0.
+A later duplicate does not replace the first match. The decoder does not
+sort or generally discard unrecognized keys. A higher key before a later
+matching pair can hide that match. A wire key above 43 is never itself
+queried, but it can still stop a lower-key search.
+
+For a membership key, the decoder instead searches the eight bytes at
+row `+0x54`, with the same equality/greater/advance ordering
+(`0x0086FBDE..0x0086FBF9`). Equality writes 1 and no match writes 0
+(`0x0086FBFB..0x0086FC17`). Zero entries are skipped rather than ending
+the list. Duplicates do not accumulate a value. A job-key level pair in
+`+0x2C` is not read for this branch. The membership-derived 1 is not an
+ordinary numeric job level.
+
+Getter `0x0086FA40` returns 0 immediately for a negative selector
+(`0x0086FA40..0x0086FA49`). For the materialized nonnegative keys it
+returns the map value at profile `+0xC0` (`0x0086FA4C..0x0086FA5C`).
+The writer's derived-job test therefore requires a mapped job selector
+and positive membership-derived value before showing its secondary job
+icon (`0x00690C4A..0x00690D1A`, `0x00690E63..0x00690F31`). A positive
+base-class level alone is insufficient. This does not infer an active job
+from a class/icon id or replace the ordinary class level with 1.
+
+AUTHORED distinguishing inputs. For current class 3, an ordinary pair
+`(3,7)` with no job-16 membership supplies level 7 but no secondary job
+icon. Adding job selector 16 to the membership bytes supplies value 1 for
+that job and admits its icon. An ordinary `(16,99)` pair alone cannot do
+so. Ordinary `(0,0),(3,0),(3,7)` pairs yield level 0 for key 3 because
+zero is not a terminator and the first match wins. These are static
+consequences for declared test inputs, not observed retail rows.
+
+The pinned PE and wire-row identities are recorded above. Ghidra supplied
+leads. LLVM disassembly and direct PE switch-table reads corroborated the
+key domains, unsigned comparisons, fixed extents, constants and stores.
+Unlisted icon outputs, lookup keys outside 1 through 43, malformed framing
+and historical ordering of actual server rows remain outside this finding.
+No original client ran.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
