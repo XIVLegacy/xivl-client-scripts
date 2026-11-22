@@ -268,6 +268,41 @@ signature prepended.
 | `widget/CraftStartWidget.form` | 13817, `86a2aef3e2d357f89c48f24fe6ff7e8bede1904ca477ca941e8f1170f0c5b643` | 13809, `def2bc31813719ab05ef7c2922b05d8c18ac1cc15d8fd85c30c468c56adc021a` |
 | `widget/CraftStartWidget.tpl` | 642, `3bfb761a14f685e8c6ff5f1707e5417ddf3e30d12944185ca0387ff24197dda9` | 634, `98984b5b2104b8061ab30cbd345789fb4401a355ac094c28aeb4a1510550f234` |
 
+## Clear material slots
+
+The HD form pinned above declares `Button_ClearMaterial` at decoded line
+39. The childless Button sits in the unnamed Grid inside the row-4 content
+Label. It selects `BTN_basis_light` and the local `ControlTemplate_ButtonHelp`,
+with content `@3015` and command `UILuaCommands.ClearSlot`. The declaration
+omits `CommandTarget`, `CommandParameter` and `ClickMode`.
+
+CraftStart `init` passes `Button_ClearMaterial` to `setButtonEvents`. That
+method reads the control's current `Command` and registers the result through
+`setControlCommandCondition`, then registers ButtonFocused and Cancel. The
+shared registration helper supplies numeric condition 5 for the command.
+The default handler first requires `editWidgetMode == 0`,
+`chosenOperation == -1` and `recipemode ~= true`. With those guards passed,
+exact `UILuaCommands.ClearSlot` requests `clearAllMaterialSlot()`, writes
+`historyItem=0` when `craftMode == 1`, and returns true.
+
+`clearAllMaterialSlot` visits slots 1 through 8 in order, then requests
+`updateStackPrint` on a nonnil current CraftEdit child. For each slot,
+`clearMaterialSlot` returns false if the first `getSlotData` result is numeric
+zero. The other branch calls `setSlotData(slot, 0, 0)`, requests the current
+child's `setDummyItem(slot+8)` if present, sets `historyItem=0` in craft mode
+1, refreshes the slot icon and returns true. The slot setter writes only
+Value0 and Value1 as described under [material slots](#opening-and-material-slots).
+These are local script requests. Input delivery and property acceptance require
+separate evidence.
+
+| CraftStart original locator | Observation |
+| --- | --- |
+| `root/proto0` at `0x06EF`, PCs 202-204 | Registers `Button_ClearMaterial` |
+| `root/proto3` at `0x136F`, PCs 0-16 | Reads Command and registers the conditions |
+| `root/proto18` at `0x2697`, PCs 0-17 and 90-101 | Guard, ClearSlot branch and true return |
+| `root/proto8` at `0x1810`, PCs 0-14 | Eight slots and the child stack refresh |
+| `root/proto9` at `0x18ED`, PCs 7-38 | Slot check, writes, child row and icon refresh |
+
 ## Choice, completion and cancellation
 
 The two command handlers first reject `editWidgetMode ~= 0`, then
