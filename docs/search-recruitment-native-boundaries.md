@@ -315,10 +315,11 @@ Initializer `0x00F148C0..0x00F148CA` names that object `Value`.
 The query's `0x00695950` reads that same property and converts its string
 with `atol` (`0x00695994..0x006959B1`). Successful control construction,
 property application and no intervening input remain premises.
-The separate operator virtual `+0x1C` (cell `0x00FC8440`, body
-`0x006917F0`) re-caches both control values through `0x00695950`, but
-its invocation timing is untraced and Begin Search reads the controls
-directly rather than establishing a cache write on each edit.
+Begin Search reads the controls directly. The
+[level-editing and title-close paths](#search-level-editing-and-title-close-cache)
+separately establish opposite-bound correction and a cache-save boundary.
+The [first class-info Reply](#first-class-info-reply-level-range) can replace
+these setup values before the first query.
 
 The Search arm tests selector row `+0x11 == 1` and value `+0x0C != -1`
 before serializing it. It tests the checkbox's effective checked bit and
@@ -356,6 +357,106 @@ disassembly and section-mapped PE reads corroborated command and vtable
 cells, branch operands, source tables and property names. SQWT decryption,
 re-encryption and namespace-aware XML checks authenticated the selected
 button declaration. No original client ran.
+
+### Search level editing and title-close cache
+
+MEASURED. The two controls named above have no local Value, Minimum,
+Maximum or Style declaration. Their containing Labels select
+`ControlTemplate_Label_NumberInputBox` from the imported
+`common/LABBasisNumberInputBox.tpl` (form lines 10, 91-96).
+That template's ValueChanged trigger has SourceType Slider and executes
+`NumberInputBox.ValueChanged` with one Int read from PropertyName1 Value,
+without an explicit target (template lines 2-10).
+The [constructed numeric control](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-number-input-box.md)
+and [short arrow press](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-number-input-pointer-edit.md)
+contracts apply to this exact selected Type NumberInputBox. SmallChange is
+1, the rebuilt ones digit is selected, and an eligible short arrow press
+requests the selected decimal-place delta through the same bounded Value.
+The [digit editor](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-number-input-digit-grid.md)
+is a separate embedded editor. These contracts do not establish initial
+OS focus or successful physical input delivery for Search.
+
+STATIC. Initializer `0x00F14557..0x00F14576` registers the literal at
+`0x00FC902C`, NumberInputBox.ValueChanged, with native command id 16.
+Dispatcher switch cell `0x00695F04` selects `0x00695DF7`, which calls
+virtual `+0x64` at `0x00695E06`. PcSearch cell `0x00FC8488` selects
+`0x00690470`. Under the existing active operator and Window input guards,
+it reads current lower and upper Values through `0x00695950`. If lower
+exceeds upper and the routed source is exactly the retained lower control,
+it writes upper to lower. For the exact upper source, it writes lower to
+upper (`0x00690474..0x006904BD`). Otherwise there is no opposite-bound
+write. This callback changes the controls, not the two global bound caches.
+No new Lua ValueChanged subscription is required by this native path.
+
+The ordinary native WidgetClose arm has a distinct cache boundary. Id 3
+selects `0x00695C8B`, then PcSearch virtual `+0x28`, cell `0x00FC844C`,
+body `0x00695F40`. It immediately calls `0x006959F0`. That helper invokes
+virtual `+0x1C` at `0x00695A20`, before setting operator `+0x1C` bit
+`0x40000000` at `0x00695A22` and requesting UIOperatorCommands.Close on
+its retained root (`0x00695A42..0x00695A6B`). The save body `0x006917F0`
+reads the two current Values and writes lower `0x01342BF4`, upper
+`0x01342BF0` (`0x0069180F..0x00691831`). Later normal setup restores those caches. This proves a
+save before the admitted native title-close request, not a save on every
+edit, arbitrary Lua close, hide or teardown. The Escape handler
+`0x00691730` has a separate active numeric-editor arm before this close
+request, so Escape while editing must not be treated as an unconditional
+root close.
+
+### First class-info Reply level range
+
+STATIC. The installed PcSearchWidget `processAfterShow` calls
+`desktopWidget:demandPlayerExpInfomation()` and calls its own update only
+when the return is exactly false (`main/f1`, zero-based PCs 0-7).
+The desktop method calls the self player's updateGameParameters with
+`"exp"` (`desktopwidget_connector`, `main/f390` PCs 0-5). Its later
+processCharacterParameterUpdated branch requires isPlayer and isMyPlayer,
+then category `"exp"`, looks up current category-3 PcSearchWidget, and
+calls update only when that lookup is nonnil (`main/f78` PCs 108-115,
+262-263, 322-330). This is the stock immediate-or-callback publication
+path, not evidence that every show already has class information.
+
+PcSearchWidget.update writes row 0 value_current_skill in
+XmlDataMaker_Data from desktopWidget:getPlayerMainSkillNumber
+(`main/f3` PCs 0-7). That getter reads the self player's getStateMainSkill
+and replaces nil with 0 (connector `main/f386` PCs 0-8). Update writes
+value_skill and value_skill_level for selectors 1 through 44, then a -1
+selector at row 44, and sends UIOperatorCommands.Reply Int 1
+(`main/f3` PCs 8-40). The level getter uses getSkillLevel. For a job it
+first requires hasJobStone, returning 0 when absent, and otherwise applies
+convertSkillId before getSkillLevel (connector `main/f387` PCs 0-22).
+Update does not publish a maker Update action before Reply.
+
+Native Reply id 23 calls virtual `+0x6C`, cell `0x00FC8490`, body
+`0x00691540`. It reads value_current_skill from maker `+0x98`, row 0,
+and stores it in the current profile at `0x013430F8 +0xBC` through
+`0x0086F730` (`0x00691594..0x006915DE`). It then reads value_skill and
+value_skill_level from rows 0 through 42, exactly 43 rows, and writes
+that profile's sparse level map through `0x0086FA70`
+(`0x006915E3..0x00691687`). This is not a 44-row native loop.
+
+At `0x006916AD..0x006916C3` it sets operator `+0xF4` to 1 and, only
+when byte `0x01342BFA` is zero, calls `0x006902D0` and sets that byte
+to 1. The helper requires nonzero `+0xF4`, reads the profile's current
+selector through `0x0086F720`, then its corresponding level L through
+`0x0086FA40`. It writes cached lower=max(L-5,1) and upper=min(L+5,50),
+then requests those Values on the current lower and upper controls, in
+that order (`0x006902D3..0x00690336`). It writes both caches and requests
+both current control Values. The controls' own 1..50 bounds remain a
+separate rule.
+Reset `0x00691EE0` clears this first-Reply byte at `0x00691F12`.
+The ordinary retained reopen does not by itself clear it.
+
+Reply's first-range branch is not restricted to Int 1. A kind-1 record
+with `Int[0] == 2` changes a local flag used by the later nondefault
+command-line automatic-query arm, but does not skip the preceding profile
+reads or first-range branch (`0x0069157B..0x00691589`,
+`0x006916C9..0x006916D4`). The supported stock update above supplies
+Reply 1 and complete attributes. Missing or malformed attributes,
+nondefault command-line setup, editor focus routing and historical live
+input timing remain outside this contract. LLVM instruction and PE table
+reads corroborated the native branches. Authenticated original bytecode
+and selected SQWT inputs corroborated the named producers. No original
+client ran.
 
 ### Search result maker identity
 
