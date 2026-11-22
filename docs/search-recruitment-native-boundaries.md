@@ -97,6 +97,74 @@ Both inputs were decoded with basename-keyed Blowfish, re-encrypted
 byte-for-byte and inspected as namespace-aware XML. Direct-child and
 descendant counts were checked independently of visual rendering.
 
+### Search checkbox presentation
+
+MEASURED. The standard form declares one ToggleButton,
+`ToggleButton_JobCheck`, at line 74 inside Grid_SearchSetting's class-filter
+area. It declares IsChecked False, Command `UICommands.Operate`,
+SqwtStyle `TOG_basis_checkBox`, Width and Height 16, Margin `0,2,3,0`,
+and left/top alignment. It has no children, Content, explicit Template,
+local Style, IsEnabled or Visibility declaration. The adjacent
+sibling TextBlock_JobCheck uses `@11067` (line 75). The form and its
+selected templates contain one ToggleButton in total.
+
+The form names `common/default.style`. Its ToggleButton style
+`TOG_basis_checkBox` has two referenced parts (lines 3464-3467):
+CheckedButton uses Button style `CHB_basis_checked`, and UncheckedButton
+uses Button style `CHB_basis_unChecked`. Each referenced Button style has
+one Frame part (lines 1409-1432).
+
+| Frame condition | Checked skin | Unchecked skin |
+| --- | --- | --- |
+| SkinNormal, SkinDisabled | `CHB_basis_checked_N` | `CHB_basis_unChecked_N` |
+| SkinHover, SkinActive, SkinAnchored, SkinReserved | `CHB_basis_checked_H` | `CHB_basis_unChecked_H` |
+| SkinFocused, SkinDroppable | `NULL` | `NULL` |
+
+The four selected skins are one-by-one CellSkins with one Stretch Cell,
+HitMargin 2 and a 20-by-20 source rectangle in the declared
+`common/default.dds` sheet (`common/default.skin` lines 439-450).
+This source extent is separate from the form's declared 16-by-16 control
+and the effective arranged or physical pixel extent.
+
+STATIC. The [native Toggle skin profile](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/resource/action-menu-timer-icon-style.md#conditional-initial-toggle-skin)
+orders the own-key groups UncheckedButton then CheckedButton, independent
+of their order in this style XML. With the constructor seeds retained,
+group 0 and condition 0 select UncheckedButton Frame SkinNormal.
+The [checked callback](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/input/game-controller-startup.md#checked-state-callback-changes-the-image-part-index)
+requests image-part index 1 or 0 under its mutation guards. These published
+paths select the retail Frame from the effective checked state. Physical
+input acceptance remains unverified.
+
+The native operator can restore the checked state. In the identified PE, routine
+`0x00691F30` resolves the `ToggleButton_JobCheck` name at
+`0x00692253..0x0069227E` and retains its result at receiver `+0x78`.
+At `0x006930E7..0x006930F6` it loads the byte at `0x01342BF8`, loads
+that retained toggle as ECX, and requests the published IsChecked setter
+`0x0095D440(value,0,1)`. This setup can replace the form's declared False.
+
+The same setup routine resolves Button_Reset and stores it at `+0x74`
+(`0x0069220B..0x00692236`). Handler `0x00693650` compares its control
+argument with that retained value at `0x00693729..0x0069372C`.
+After the matched branch's preceding calls return, it zeroes the cached
+byte and requests `0x0095D440(0,0,1)` on receiver `+0x78`
+(`0x0069378B..0x0069379B`). Runtime delivery, mutation and a Reset click
+remain unverified.
+Ghidra supplied leads, and LLVM disassembly of the identified PE
+corroborated the control offsets, arguments and callsites.
+
+The default style and skin identities are pinned in the
+[numeric presentation input table](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/resource/damage-plate-numeric-presentation.md#identity-and-method).
+Their installed carriers were decoded, re-encrypted byte-for-byte and
+parsed as XML. The selected number-input template
+`common/LABBasisNumberInputBox.tpl` is 1059 bytes, SHA-256
+`91c6aec1f2c3445faad6570d934eb4392afcd0aabdff36ae8cfbc69a48d269af`.
+Its decoded 1051-byte XML has SHA-256
+`546672a02cb526a810bbe191a574832499b3208ff294df5940c184fb3e729922`.
+Form and other selected template identities are recorded on this page.
+Other cached-state producers, ordinary toggle click routing, job-filter
+semantics, result changes and first live pixels remain outside this paint
+contract.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
