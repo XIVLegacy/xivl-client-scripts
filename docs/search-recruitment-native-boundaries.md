@@ -1340,8 +1340,9 @@ common/WINBasis.tpl and declares TextBlock_PlayerName, Button_Tell,
 Button_Invite and Button_Close (lines 1, 8, 26, 314-316). Button_Close
 uses UILuaCommands.WidgetClose and text `@11055`. The constructor reads
 the retained profile's name through `0x0086F690` and requests it on
-TextBlock_PlayerName (`0x008D919F..0x008D91DD`). Its other class, location,
-status and comment projection remains a separate presentation contract.
+TextBlock_PlayerName (`0x008D919F..0x008D91DD`). Region, status and preferred
+class projection is qualified below. Location, comment and class-level
+projection remains a separate presentation contract.
 
 PcInformationWidget.init (`main/f0` PCs 0-13) installs Cancel, WidgetClose,
 operator Close, OpenChild and Request conditions, then requests modal true.
@@ -1369,6 +1370,87 @@ cached result profiles, opens PcInformationWidget for that second profile,
 then closes only the child. Stale row/vector lifetime, physical mouse hit
 and capture, modal admission, complete detail rendering, player interaction
 and server settlement remain UNKNOWN. No original client ran.
+
+### Selected player detail Region, status and preferred class
+
+STATIC. These writes continue in PcInformationWidgetOperator constructor
+`0x008D9050` after the name write above. Each profile getter receives the
+same retained `+0x24` profile from the current Search result selection.
+The shown path requires that profile and named form controls to remain valid.
+It does not request a new result packet or wait for a maker Update between
+these direct control property requests.
+
+| Stock control | Retained input and request | Native locator |
+| --- | --- | --- |
+| `TextBlock_Region_1` | Region bit 0 -> VisualOpacity | `0x008D91F2..0x008D924D` |
+| `TextBlock_Region_2` | Region bit 1 -> VisualOpacity | `0x008D9262..0x008D92BD` |
+| `TextBlock_Region_3` | Region bit 3 -> VisualOpacity | `0x008D92D2..0x008D932E` |
+| `TextBlock_Region_4` | Region bit 2 -> VisualOpacity | `0x008D9343..0x008D939F` |
+| `TextBlock_Status` | Effective status -> positive selector text key -> `@<key>` | `0x008D9531..0x008D95B8` |
+| `IconControl_Status` | Visibility byte 0, Collapsed, regardless of the status lookup result | `0x008D95CD..0x008D9604` |
+| `TextBlock_Class` | Positive first preferred class -> `@206/i<class>` | `0x008D9654..0x008D96BF` |
+| `IconControl_Class` | Same positive class -> class-icon map -> decimal IconDatas. A nonpositive class instead requests Collapsed | `0x008D96D4..0x008D96F6` |
+
+Region getter `0x0086F750` tests the supplied bit in profile byte `+0xD0`.
+Every one of the four detail controls is requested, using float 1.0 for a
+set bit and 0.2 for a clear bit. Constants `0x01063AA0/0x01063AA4` contain
+`0x3F800000/0x3E4CCCCD`. Setter `0x009402C0` selects VisualOpacity descriptor
+`0x0135988C`. The displayed suffix order is 0, 1, 3, 2, as in the result
+row. This does not equate the primary wire Region field directly with a bit
+mask. The decoder and its additional flags remain owned by the wire contract.
+
+Effective status getter `0x0086F6E0` returns 2 when profile byte `+0xDC`
+is nonzero, otherwise dword `+0xA8`. The constructor initializes both lookup
+outputs to zero, skips the lookup for status 0, then calls
+`0x0086FE10(0,status,&textKey,&secondary)` for a nonzero status. It requests
+Text only when textKey is positive. The helper obtains mode-0 records from
+`0x0086FD50`: table `0x0104DF20`, four records, stride `0x14`. It matches
+record `+0x0C` against status, copying `+4` and `+8` into those outputs.
+
+| Effective status | Text key requested on the detail control |
+| ---: | --- |
+| 1 | `@11003` |
+| 2 | `@11004` |
+| 3 | `@11002` |
+
+The header record matches -1 and carries text key 11001. Status 4 has no
+matching record. Status 0 or an unmatched value leaves the existing detail
+Text unchanged. The unconditional following IconControl_Status collapse
+is not a request for the result row's online, party, AFK or invitation icon.
+The table's secondary output is not used to assign an icon in this path.
+
+Preferred class getter `0x0086F990` returns the first dword of the nonempty
+vector `[profile+0xB0,profile+0xB4)`, or zero for an empty vector. This is
+not current class at `+0xBC`, and the detail branch is not conditioned on
+status 3. For a positive selector, text setter `0x009557D0` receives the
+formatted `@206/i<class>`. Icon helper `0x00695470` formats the result of
+`0x00870210(class)` with `%d` and passes it to IconDatas setter `0x0096A010`.
+The [class-icon seeds](#search-row-lookup-seeds-and-empty-comment) own the
+supported selector mappings. An absent or nonpositive first class collapses
+only the icon here. The shown branch does not clear TextBlock_Class, replace
+the preferred class with the current class, or prove an unlisted icon mapping.
+
+MEASURED. The authenticated standard detail form identified above declares
+Region_1 through Region_4 with Text `@11017` through `@11020` at lines 34-37.
+Only Region_4 declares VisualOpacity, 0.2. At lines 74-75, IconControl_Status
+starts with IconDatas 0 and explicit Visible, while TextBlock_Status has no
+Text declaration. At lines 86-87, IconControl_Class starts with IconDatas 234
+and no explicit Visibility, while TextBlock_Class has no Text declaration.
+Thus markup alone does not supply the native constructor's status, preferred
+class or all four effective Region opacities.
+
+AUTHORED fixture. Select the second of two distinct cached profiles with
+effective status 1, preferred class vector beginning with 3, a different
+current class, and only Region bit 0 set. The shown constructor requests
+Region opacities `1.0,0.2,0.2,0.2`, status Text `@11003`, Collapsed status
+icon, preferred Text `@206/i3` and class IconDatas `203`. Empty preferred
+class and status 4 distinguish the no-write Text branches from invented
+fallback strings. This is a derived fixture, not historical result traffic.
+Ghidra leads were checked with LLVM disassembly and section-mapped PE reads.
+The selected form's carrier/decoded hashes and cipher round trip were checked
+independently. Later retained-profile refresh, location, comments, job/level
+presentation, Tell, Invite and original runtime remain UNKNOWN here. No
+original client ran.
 
 ### Ordinary Search row publication
 
