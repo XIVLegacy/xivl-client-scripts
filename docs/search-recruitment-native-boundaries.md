@@ -1434,9 +1434,10 @@ Numeric setMacroText `main/f93` requests `_setTextProperty` with nil template,
 TextBox_ChatInput, TextUI, 2256, 103 and selectedName. The
 [formatted-text and submission boundaries](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/autotranslate-selection-contract.md#recovered-chat-boundary)
 separate that property request from PressEnter, text-command analysis and the
-chat sender. The shown path ends at a text property request. The exact
-formatted prefix, native TextUI application, caret, selection and physical
-keyboard focus remain UNKNOWN.
+chat sender. The
+[English TextUI contract](https://github.com/XIVLegacy/xivl-decomp/blob/b99724b33ed8bd2325742eac98ed6247425c62df/docs/resource/sqwt-plain-text-reference-lookup.md#uistr-02-selected-english-tell-editor-prefill)
+records the lookup, Text replacement and changed-text caret and selection
+behavior. Physical keyboard focus and other locales remain unverified.
 
 | Additional authenticated original LPB | Carrier bytes / SHA-256 | Decoded bytes / SHA-256 |
 | --- | --- | --- |
