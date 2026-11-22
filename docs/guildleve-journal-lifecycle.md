@@ -319,6 +319,42 @@ and decoded chunk SHA-256
 `11e5bab509c4dbbd7e2767d35cdf132a59b5c510c32c2e215f83cac713115140`.
 The pinned unluac listing and `ChunkReader` agree on the locators above.
 
+### Journal category change
+
+`JournalListWidget.initAsk` registers `ComboBox_Category_Quest` with
+`UILuaCommands.SelectionChanged` (`root/proto0` PCs 39-42, decoded bytes
+`0x455`-`0x461`). The same common `setControlCommandCondition` wrapper
+supplies priority 5. The standard template action declares only the command
+name. If the native kind-0 event reaches the subscription, it passes nil,
+the ComboBox control name and the command after the receiver.
+`xivl-decomp:docs/resource/sqwt-combobox-dropdown.md`, Installed Journal
+category declarations, and the [native script entry](https://github.com/XIVLegacy/xivl-decomp/blob/061f01300881b586ee81236c05781942fd9d694c/docs/resource/sqwt-command-parameter-consumer.md#script-entry).
+
+The common `processUICommandEvent` compares `UILuaCommands.SelectionChanged`
+and `UILuaCommands.SelectionChangedOnce` before entering the same branch
+(`root/proto13` PCs 58-62, bytes `0x27CE`-`0x27DE`). It calls
+`getSelectedIndex(control)`, replaces the first optional argument with the
+result and exits when that index is negative (PCs 63-69, bytes
+`0x27E2`-`0x27FA`). For a nonnegative index it calls
+`processUICommandSelectionChanged(template, control, index, secondOptional)`
+(PCs 70-75, bytes `0x27FE`-`0x2812`). The getter reads the control property
+`SelectedIndex` (`root/proto113`, bytes `0x5F38`-`0x5F48`). The Journal
+handler receives the index from that property read.
+
+`JournalListWidget.processUICommandSelectionChanged` passes the index to
+`getListPropertyIndex("QuestComboBox", index)`, then uses the mapped row
+to read `QuestType` (`root/proto4` PCs 0-8, bytes `0xE37`-`0xE57`).
+The result is compared with `work.questType` and stored when different
+(PCs 9-14, bytes `0xE5B`-`0xE6F`). The index that the control supplies
+and the `QuestType` read from the mapped row have separate roles.
+
+These are `ChunkReader` locators for the [Journal input](journal-list-row-writes.md#source-identity)
+and `n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` in the
+[retail coverage manifest](../manifests/retail_lua_coverage.json).
+The common resource's decoded payload is 32983 bytes, SHA-256
+`7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f`.
+Mouse routing and live delivery to the Journal remain unobserved.
+
 ## JournalListWidget modes and row arguments
 
 `JournalListWidget.createList` (root/proto10 PCs 35-77, offsets
