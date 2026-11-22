@@ -564,6 +564,88 @@ none, it returns the earliest row with the first value true; otherwise it
 returns literal 1 (`root/proto8`, PCs 0-46, offsets `0xDEE`-`0xEA6`). The
 method does not name either returned value's meaning.
 
+### Main Menu mode-1 Linkshell list lifetime
+
+STATIC. Main Menu row 10 requests
+`desktopWidget:openMainMenuRootWidget("Ask/LinkshellListWidget", self, 1)`
+(`widget/mainmenuwidget`, `root/proto1` PCs 175-182). The
+[Main Menu route](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/script/main-menu-command-route.md#selection)
+owns the root-index-3 wrapper and its static-widget-17 and occupancy guards.
+This caller opens a normal root with numeric mode 1 through the Main Menu root wrapper.
+
+The selected script is `widget/ask/linkshelllistwidget.lua`, whose LPB and
+payload hashes are in the pinned identities below. Its carrier is 3292 bytes and decoded payload is 3279 bytes.
+`AskBaseClass.init`, `root/proto0` PCs 16-25, initializes askResult to 0,
+inputControlFlag to true, sets modal true, and forwards its complete varargs
+to `initAsk`. The selected `initAsk` registers Cancel and WidgetClose
+(PCs 8-11), registers `ListBox_Linkshell` for
+`UILuaCommands.SelectionChanged` (PCs 12-15), sets modal true (PCs 16-18),
+and stores its first argument in `work.mode` (PCs 53-54).
+
+The inherited common `setCancelCondition` (`root/proto58` PCs 0-7) and
+`setCloseCondition` (`root/proto59` PCs 0-4) register `_widget` for
+`UILuaCommands.Cancel` and `UILuaCommands.WidgetClose`, respectively, with
+numeric condition 5. `setControlCommandCondition` (`root/proto55` PCs 0-4)
+also supplies 5 for the list registration. The common event dispatcher reaches
+Cancel through `processUICommandCancel`, which forwards to the selected
+`processUICommandClose`. WidgetClose reaches that selected close handler
+directly (`widgetbaseclass_common`, `root/proto13` PCs 21-38 and
+`root/proto16` PCs 0-5).
+
+The selected close handler branches on its stored `work.mode`.
+Only exact numeric 1 calls `desktopWidget:closeWidgetDirect(self)`
+(`root/proto1` PCs 0-7). Other modes call `setBaseAskResult(-1)` instead
+(PCs 9-11). The mode-1 arm has no control-name, group-membership, selected-row
+or keyboard-focus comparison. It makes no ask-result write. Normal handler
+return discards the close result and does not establish finalization.
+
+MEASURED. Standard `widget/LinkshellListWidget.form` names
+`Window_LinkshellListWidget`, uses title `@1201` and directional navigation
+Cycle (line 1), merges `common/WINBasisWithTitle.tpl` (line 5), and selects
+`ControlTemplate_Window_WINBasisWithTitle` (lines 10-12). The shared
+[title close declaration and root cleanup](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/script/main-menu-command-route.md#community-menu-close)
+qualify Button_Close's `UILuaCommands.WidgetClose`, the separate Closing
+storyboard, native deletion and finalization. The
+[Layout0 Escape row](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/script/main-menu-command-route.md#key-bindings)
+requests `UILuaCommands.Cancel` without a parameter. Both commands require
+admitted delivery to the current widget. Modal true alone establishes no
+physical Escape recipient or restored parent focus.
+
+The smallest empty-list premise is a nonnull player whose
+`countCommunityGroup(20002)` returns 0. `createList`, `root/proto3`
+PCs 0-10, first reads that player's current type-20002 group and the count.
+For count 0, PCs 130-137 show `TextBlock_NoContents` and hide
+`ListBox_Linkshell`. No group row, crest, member count or rank is read in
+this branch. A fixture may supply nil for the current group. The form's
+empty control uses `@1264`, starts Collapsed, and declares
+`IsEnabled=False`, `Focusable=True` (line 53). `initAsk` also hides
+`Grid_Introductory` (PCs 57-60). A list selection is unnecessary to close
+this empty mode-1 root.
+
+The positive mode-1 selection and child arguments are documented above.
+`LinkshellListSubWidget.processUICommandCancel` first requests
+`setParentBorder()`, then `closeWidgetDirect(self)` (`root/proto2` PCs 0-5).
+The border helper requests `parent:setBorder(-1)` only for a nonnil parent.
+The shared finalizer clears index 3 for the matching root or a root whose
+liveness result is not exactly true. It preserves a different live root
+when a child at that index finalizes. A bounded close test therefore opens
+row 10 with index 3 free, finishes initialization in mode 1, delivers title
+WidgetClose or Escape Cancel to that current owner, finishes finalization,
+and checks that index 3 is free and can open again. Index release establishes the mode-1 outcome.
+
+Historical empty-list display, native focus selection, deletion timing, group
+creation, membership and linkshell server behavior remain unverified. The selected
+AskBaseClass LPB is `n1635q/9rz/9rz89r57y9rr.le.lpb`, 1742 bytes, SHA-256
+`4c1c98059f5b3663d24a85897d21ff603dfb5c95000c20fdfa4befd592ad431d`.
+Its 1729-byte decoded payload has SHA-256
+`a1d4129ca5779c3b2598da418909f057bd9b6c6733701855fd70bf2a9dcb1230`.
+PCs were checked with `unluac --disassemble` after LPB wrapper decoding.
+The standard form was decoded with basename-keyed Blowfish, re-encrypted
+byte-for-byte and parsed as namespace-aware XML. Its carrier is 5337 bytes,
+SHA-256 `54313093b70fb11112f14ed78f13ea9f7d1f681e33fc276deeaf4e3125630122`.
+Its decoded markup is 5329 bytes, SHA-256
+`a9371aff788a0835a0e8327edc069654feac8d2da9b1e4db41836e0bef12a414`.
+
 ### Linkshell icon event state
 
 `CharaBaseClass.initEventSyncWork` declares `eventTemp.linkshellIcon` as
