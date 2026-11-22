@@ -724,3 +724,37 @@ Arbitrary row rectangles, capture changes, hidden/replaced panels, default
 child hit properties, failed attachment and an unconditional historical
 physical click remain outside the qualified case. An original execution
 was not run.
+
+## GameManager publication of the frame-rate setting
+
+STATIC. GameConfig helper `0x004B4F70` calls the registered integer getter
+`0x00443E40` with native group 4, key 8 and fallback 60
+(`0x004B4F70..0x004B4F7B`). These are Lua group 5/key 9 and the same
+`draw_frame_rate` record used by work 64. This is the game store, not the
+separate SystemConfig `scene_frame_rate` record.
+
+The caller `0x00560FE0` obtains the GameConfig store through `0x004D73C0`
+at `0x00561023`, then reads that helper at `0x0056102A`. It compares the
+result with its own cached dword `+0x240` at `0x0056102F`. Equality skips
+publication. A changed value is cached at `0x00561040`, then supplied to
+ScenePacket constructor `0x004EC130` at `0x00561046` with key 0 and type 6.
+That constructor stores key at `+0x90`, type at `+0x94`, size 4 at `+0x96`
+and the setting dword at payload `+0x10`. Submission at `0x0056105D`
+calls `0x004D6780`, which forwards through the owner's retained poster
+at `+0x84`, virtual `+0x0C`. The store and poster must remain valid.
+Construction and submission do not establish eventual receiver application.
+
+The owner is Application::Main::Element::System::GameManagerElement.
+Its constructor `0x005600B0` installs table `0x00FA4AA8` at
+`0x00560117` and seeds cached `+0x240` to 60 at `0x00560133`.
+That table's slot 6 at `0x00FA4AC0` selects `0x005628E0`, whose call
+at `0x005628E5` reaches the publication check. Under this initialized path,
+a current stored 30 differs from cached 60 and can publish one type-6
+setting when this slot runs. A repeated current 30 does not republish.
+A later current 60 can publish another changed value.
+
+These facts qualify the setting read and changed-value ScenePacket channel.
+They do not establish the slot's cadence, the type-6 receiver, its clock
+units or formula, display synchronization, sleep/present behavior or a
+measured achieved frame rate. Those consumers remain a separate trace.
+No original-client execution was performed.
