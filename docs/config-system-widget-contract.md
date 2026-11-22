@@ -542,3 +542,113 @@ an OS hit or a complete popup arrangement. The immediate config setter and
 parent Configuration save boundaries above also apply here. There is no
 additional System close/save call in this selection handler, and no frame
 pacing behavior is established.
+
+## Standard frame-rate popup gestures and inline source lookup
+
+MEASURED. The selected System template above has the same named ComboBox
+parts as the [native dropdown join](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#retained-template-parts).
+`PART_DropDownButton` is the childless right-docked arrow ToggleButton.
+`PART_DropDownButton_Text` holds `PART_Label`. Both toggles declare
+Focusable False and TwoWay IsChecked to the current templated parent's
+IsDropDownOpen, with no Command or ClickMode. The label separately declares
+LeftClick -> ComboBox.OpenDropDown with that parent as explicit target.
+The template's Operate trigger also opens the dropdown. `PART_Popup` holds
+`PART_ListBox`, and no PART_EditableTextBox is declared. Popup binds IsOpen
+TwoWay to the same owner. Its PlacementTarget and MaxHeight binding strings
+omit the outer closing brace, as in the selected Journal template. They
+are the installed syntax, not balanced replacement declarations.
+
+The current COM_basis style selects DownButton TOG_basis_comboDown,
+ListBox LIB_basis_comboList and Background COM_basis_bg. The arrow style
+uses BTN_basis_comboDown for both checked states. Its Normal/Disabled,
+Hover/Anchored and Active Frames select suffixes `_N`, `_H` and `_A`.
+Each selected skin has one Stretch cell, a 20-by-20 source rectangle and
+HitMargin 2. These source dimensions do not establish physical hit size.
+The list style selects WIN_basis_comboList for its background. Its ordinary
+Frame uses WIN_basis_comboList_frame_N, with a 3-by-3 cell grid,
+HitMargin 4 and SkinBorderThickness 4. The skin carrier
+`common/default.skin` is 141967 bytes, SHA-256
+`6788f2986d9cc8aeab83fcdbcf7a9115d3576ecfabf40529cc861f41f0df5640`.
+Its decoded 141959 bytes have SHA-256
+`929e65e9d5f191292d9b044e3e659ba115f18f6b3d8a82894046a7c75cbcad5a`.
+The style carrier is pinned in the Vulgarity section. The two inline choice
+objects and their selected Button_XXX template are pinned above. That
+Button has no explicit command or parameter in the selected template.
+
+STATIC. An admitted arrow Click uses the existing Toggle mutation before
+its command phase. The attached TwoWay binding can reverse-transfer the
+new checked value to owner IsDropDownOpen. The owner's changed callback
+first notifies property listeners at `0x00968102`, allowing the binding to
+request Popup.IsOpen and its Visible/Hidden state, then requests focus on
+the retained popup at `0x0096815B` when still open. Explicit OpenDropDown
+can make an additional focus request preferring the retained list over the
+popup at `0x00968B1B..0x00968B4A`. These are different admitted opening
+paths. Neither proves the eventual stored focus. The exact property,
+release, binding and focus guards are in the
+[arrow and focus contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#arrow-release-and-checked-state-binding).
+No settings write is established merely by opening the popup.
+
+### Inline row source to index
+
+STATIC. The no-ItemsSource branch of `0x00960DE0` delegates source lookup
+to the current generator at owner `+0x368`, virtual `+0x10`
+(`0x00960FC7..0x00960FE1`). The standard System ComboBox declares no
+ItemsSource. Constructor `0x009695C0` constructs its embedded generator
+at owner `+0x508` at `0x0096972F..0x00969741`, installs vtable
+`0x01070A1C`, and passes it to the ItemContainerGenerator setter
+`0x009635D0` at `0x009697EF`. The corresponding property descriptor
+is `0x0135AC40`. That table's slot 4, cell `0x01070A2C`, selects
+`0x009C3A30`.
+
+The lookup returns -1 for a null retained panel at generator `+8` or for a
+source outside that panel's recursive child tree
+(`0x009C3A34..0x009C3A4B -> 0x00929800`). It then visits current panel
+children in order, using the array at panel `+0x2B4/+0x2B8` and
+`0x00978B50` at `0x009C3A50..0x009C3A77`. A direct child identity match
+or recursive descendant match returns that child's zero-based index
+(`0x009C3A7C..0x009C3AA6`). Exhaustion returns -1. The panel itself is
+not a child match. Helper `0x00929800` enumerates the receiver's child
+collection and recurses, rather than checking names or screen coordinates.
+The generator's panel attachment/migration method is `0x009C3BD0`.
+This establishes a source predicate on the current retained composition,
+not an association with a previous panel, another ComboBox or a same-name
+Button outside the current row. The generator/panel and logical-item order
+must agree before treating the result as one of the two installed choices.
+
+The shared preview release `0x0096ED00` can call `0x0096EC00(index,0,1)`
+only after the event remains unhandled and this receiver's lookup succeeds.
+That call requests SelectedIndex, then raises Selection for a requested
+index other than -1. An equal index can skip SelectionChanged but still
+raise this user Selection event. The selected System trigger and shared Lua
+readback above then own the current index-to-work-64 request. Ordinary
+ComboBox release `0x00968A20` independently requests closure after its own
+successful source lookup. It does not require a changed SelectedIndex.
+The [paired release contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#named-left-button-release)
+owns these branches and their order. A nested ListBox Selection alone is
+not a substitute for the qualifying ComboBox source and trigger.
+
+### Close and surviving input boundary
+
+STATIC. Clearing owner IsDropDownOpen can notify Popup.IsOpen and request
+Visibility Hidden through the existing binding/callback path. In the closed
+owner callback, the explicit focus request at `0x009681C1` is conditional
+on retained PART_EditableTextBox at owner `+0x4CC`. The selected System
+template has none. This branch supplies no explicit return focus to the
+ComboBox, prior row or parent Configuration. Visibility/focus-manager
+side effects and the final keyboard-focus recipient remain unqualified.
+Popup Escape and the list's Cancel trigger request CloseDropDown as declared
+above. They do not declare Selection or a settings write. Their routing and
+precedence depend on current focus and unhandled input.
+
+The proven row action begins with delivery of the current row source to the
+ComboBox preview/ordinary handlers. Complete OS press/capture ingress,
+actual arranged row hit rectangles and the popup's current route back to
+that owner were not observed. The inline item declarations have
+IsHitTestVisible False. They alone do not identify the effective physical
+source in a generated row. ComboBox generator creation `0x00967BF0` is
+a further discriminator for that realized container and its inner content. The route builder walks interface parent
+`+0x60` at `0x0091E2A6`. Establishing that current ancestor chain across
+the realized popup is a remaining discriminator before claiming an
+unconditional physical row click. A bounded consumer can retain the exact
+arrow/open and current-row predicates above without claiming arbitrary
+ListBox forwarding, guaranteed focus restoration or frame pacing.
