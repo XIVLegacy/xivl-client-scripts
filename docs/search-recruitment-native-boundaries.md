@@ -36,6 +36,109 @@ PC 1..11, code offset `0x359`; `update` as `0.3`, PC 1..42, code offset
 The original LPB payload SHA-256 is
 `e25be2fa13ce9e9b66c1c658076493d632722226080aa93574590acdb024a122`.
 
+### Main Menu root open and close
+
+STATIC. Main Menu row 7 requests
+`desktopWidget:openMainMenuRootWidget("PcSearchWidget", self)`, with no extra
+mode argument (`widget/mainmenuwidget`, `main/f1` PCs 70-76, zero-based).
+The [Main Menu route](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/script/main-menu-command-route.md#selection)
+owns row 7's text id 2130 and Help id 75739. Connector `main/f538`
+PCs 0-15 refuses when static widget 17 is shown with exact true, otherwise
+tail-forwards `openRootWidget(3,name,parent,true,...)`. The latter refuses
+an occupied root index before opening. The existing
+[root lifecycle](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/script/main-menu-command-route.md#community-menu-close)
+qualifies creation, close requests and finalization for that shared index.
+
+PcSearch `init`, `main/f0` PCs 0-12, installs Cancel, WidgetClose,
+operator Close, OpenChild and Request conditions, then sets modal true.
+The shared helpers register the following commands on `_widget`, with
+numeric condition 5. PcSearch defines no close-handler override.
+
+| Command | `widgetbaseclass_common` helper and PCs | Shared receiver path |
+| --- | --- | --- |
+| `UILuaCommands.Cancel` | `main/f58` PCs 0-7 | `main/f13` PCs 21-28 -> `processUICommandCancel`, `main/f16` PCs 0-5 -> `processUICommandClose` |
+| `UILuaCommands.WidgetClose` | `main/f59` PCs 0-4 | `main/f13` PCs 31-38 -> `processUICommandClose` |
+| `UIOperatorCommands.Close` | `main/f63` PCs 0-4 | `main/f13` PCs 168-171 -> `processUIOperatorCommandClose` |
+
+The common `processUICommandClose` (`main/f17` PCs 0-3) and
+`processUIOperatorCommandClose` (`main/f29` PCs 0-3) both request
+`desktopWidget:closeWidgetDirect(self)` and discard its results. Neither
+compares a control name, mode, selected search row or keyboard-focus result.
+The [subscription gate](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/resource/sqwt-command-parameter-consumer.md#subscription-gate)
+and actual routed delivery still qualify entry to these Lua handlers.
+
+MEASURED. Standard `widget/PcSearchWidget.form` names
+`Window_PcSearchWidget`, uses title `@11024` and directional navigation
+Cycle (line 1), merges `common/WINBasisWithTitle.tpl` (line 8), and selects
+`ControlTemplate_Window_WINBasisWithTitle` (lines 14-16). That shared
+template's `Button_Close` has Command `UILuaCommands.WidgetClose` and
+`Focusable=False` (line 11). Its source-named Click trigger plays sound
+only (lines 71-73). Its Cancel trigger also plays sound only (lines 80-82).
+Delivery of the registered command requests the Lua close.
+The Closing storyboard's completion command is separately
+`ApplicationCommands.DestroyWindow` (lines 31-44).
+
+The [Layout0 key declarations](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/script/main-menu-command-route.md#key-bindings)
+give Escape row 20 `UILuaCommands.Cancel` without a parameter. Thus an
+Escape delivered to this admitted widget takes the same close request as
+the title button. Modal true does not alone prove the first physical Escape
+recipient. PcSearch's Lua does not choose an initial focused control or
+request parent focus restoration on close.
+
+STATIC. The close helper rejects nil and exact-false widget liveness before
+recursive cleanup. The shared UI callback sets the thread owner to self,
+and recursive cleanup postpones that owner's own close until the local
+caller clears the thread owner. The root lifecycle link above owns these
+branches and the native-delete boundary. Finalization first calls the
+superclass, then requests `processWidgetDeleted(self)` for a non-Desktop
+widget whose `isInitializing()` is false or nil (`widgetbaseclass`,
+`main/f4` PCs 0-16). Connector `main/f534` PCs 0-25 gets the deleted
+widget's index. It clears a nonnil root entry when that entry is the same
+widget or its liveness result is not exactly true. A different live root
+at index 3 survives. A close request's true return alone proves no release.
+
+Operator OpenChild forwards its supplied name to
+`desktopWidget:openChildWidget(name,self,true)` (common `main/f13`
+PCs 174-178 and `main/f30` PCs 0-5). Connector `main/f536` PCs 0-9 uses
+the parent's widget index and passes that parent to `openWidget`.
+`PcSearchSelectWidget.init`, `main/f0`, installs Cancel, WidgetClose,
+operator Close and OpenChild conditions and sets modal true. It supplies no
+close override. Its standard form's `Button_Close` directly declares
+`UILuaCommands.WidgetClose` (line 38). When this child has index 3,
+finalizing it preserves a different live PcSearch root under the guard
+above. Which native operation requests this particular child name remains
+untraced here.
+
+The bounded installed test is an admitted row-7 open with root index 3 free,
+completed widget initialization and the registered current widget as command
+recipient. Deliver title WidgetClose or Escape Cancel, complete finalization,
+then check that index 3 is free and the same row can open a fresh root.
+An optional child-close test must preserve a different live root. This fixture checks command delivery and root lifetime. Search filtering,
+results, network success, native child selection,
+exact focus restoration and deletion timing remain outside this close path.
+
+#### Selected original inputs
+
+The PcSearch LPB is `client/script/n1635q/u7r59s72n1635q.le.lpb`, 2403 bytes,
+SHA-256 `0f9fa18847d72b5fed5948ef6f9c176a33e8cf81eeddafec71828c4e9418eded`.
+Its decoded payload identity is above. PcSearchSelect's LPB is
+`client/script/n1635q/u7r59s72r5y57qn1635q.le.lpb`, 577 bytes, SHA-256
+`5e086d8cf04cad26ae006655d3908aa086fe5870466407eb4b3a19870bec58b9`.
+Its decoded 564-byte payload has SHA-256
+`9a5a1fec103e82e82154ccbe5e8e0ad3abb1d3d5d70048e2c043d06ded3dedc2`.
+These agree with `manifests/retail_lua_coverage.json`. Bytecode PCs were
+checked with `unluac --disassemble` after LPB decoding. The shared class,
+common and connector identities are pinned in the root lifecycle evidence.
+
+The following standard installed SQWT inputs were decoded with basename-keyed
+Blowfish, re-encrypted byte-for-byte and parsed as namespace-aware XML.
+
+| Path below `client/sqwt` | Carrier bytes and SHA-256 | Decoded bytes and SHA-256 |
+| --- | --- | --- |
+| `widget/PcSearchWidget.form` | 12840, `b15fa2735d3c07d2cf817f3ca25018b262b171e4a24e0a2dcfe9c6bbbfc3f35d` | 12832, `e8bcd312c8eee13f4b8c8a0e57bab7b293966d87560cccdce6b1319e2285b1c4` |
+| `common/WINBasisWithTitle.tpl` | 7175, `636d5dd7dbdb0b9d12b08cea875ee0bde729a1e9de9c1cd58eea2d7f66d06daa` | 7167, `93c745038827c5608f09f4aeb2b4186c06138f8f7f7d45c0a2a2483faf11f88b` |
+| `widget/PcSearchSelectWidget.form` | 2860, `bf86242d0e924d908ff667edf6eb10208f9547a9f6f118ae9e410c9b15a3fda5` | 2852, `0e656a15f4de4294f2209ee7ec41f3f50047f346bad262b85ab322cc290eeb50` |
+
 ## Recruitment results
 
 `PcMatchingFindWidget` uses the native `Result_Maker` control as its result
