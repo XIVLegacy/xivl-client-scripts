@@ -240,6 +240,36 @@ checked with `unluac --disassemble`. Actual gate installation and lifetime,
 property admission, dispatch scheduling, reused controls, result retrieval
 and live rendering remain unverified.
 
+### Native setup restores selector captions
+
+STATIC. During the admitted AfterLuaInit setup `0x00691F30`, the normal
+continuation restores cached selector captions without a click. After the
+numeric and job-checkbox writes, the loop at `0x006930FB..0x00693139`
+walks caption records `[0x013431D8,0x01343498)` with stride 0x58. It
+makes eight interface calls. Each passes that record's string and byte
+`+0x54` to embedded selector interface virtual `+0x18` at `0x00693121`,
+while temporarily setting operator current-selector `+0x8C` to the slot.
+The preceding selector index is restored on every iteration.
+
+The selected body `0x00690760` supports indices 0 through 4 and returns
+without a caption write for indices 5 through 7. Its five supported arms
+request Text on each retained TextBlock_ButtonText and Visibility on the
+corresponding TextBlock_ThreePoint. A zero flag requests Collapsed and a
+nonzero flag requests Visible (`0x00690778..0x006908DE`). The named
+owners, default caption references and interface cell are in the
+[Reset contract](#search-reset-button-and-retained-first-reply-byte).
+First-use `0x00691EE0` supplies those defaults before the restore loop.
+A normal reopen restores the saved strings and flags, including a
+retained Class choice.
+
+This loop precedes readiness presentation `0x00691AE0` at `0x00693199`,
+the initial NoContents requests at `0x0069319E..0x006931F5`, and the
+optional nondefault-mode query at `0x0069321C..0x00693225`. This is part of
+AfterLuaInit. Successful named-control lookup,
+property writes and text resolution remain conditions on rendered captions.
+LLVM disassembly and the identified PE's interface cells corroborated the
+loop and setter ordering. No original client ran.
+
 ### Begin Search activation and first-use filters
 
 MEASURED. The standard form's `Button_Search` declares
@@ -678,9 +708,12 @@ order through `0x008725E0`, finalizes the hierarchy through `0x00873220`
 and publishes Update. The row writer supplies list_index, user_id, level,
 text, expand_flag, checked_flag, and role values
 control_index_toggle_expand=0 and control_index_toggle_checked=1.
-It writes visibility_icon Collapsed, indent1 Visible for level >=1,
-indent2 Visible for level >=2, otherwise Collapsed. Hierarchy finalization
-writes row `visibility`, sets no_child on leaves and, in mode 0, requests
+It writes visibility_icon Collapsed, visibility_indent1 Visible for
+level >=1, visibility_indent2 Visible for level >=2, otherwise Collapsed.
+The literal indenter names come from pointer cells `0x012D4DA4` and
+`0x012D4DA8`. The selected template binds those exact names to
+Border_Blank_1 and Border_Blank_2 Visibility at lines 14-15.
+Hierarchy finalization writes row `visibility`, sets no_child on leaves and, in mode 0, requests
 Hidden for a leaf's expand control. The first leaf is original row 1,
 selector 3, text `@206/i3`. The mode-0 initial build does not write
 visibility_checked. The selected binding therefore reads empty text for
