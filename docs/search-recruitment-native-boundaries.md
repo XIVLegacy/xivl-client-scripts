@@ -626,6 +626,115 @@ the paths. Physical hit, press/release admission, route membership,
 callback reentry and historical search results remain unverified. No
 original client ran.
 
+### Search Class selector child
+
+MEASURED. The standard parent selects
+Label_Class:Button_SearchSetting through its selected Label template.
+The qualified short Button release uses UILuaCommands.Operate with no
+explicit parameter or target. Setup retains this exact Button at operator
+`+0x30` (`0x006920A5..0x006920D0`). Under the existing Operate guards,
+its source match at `0x00693699` sets current selector `+0x8C` to 1,
+registers the embedded callback at operator `+0x20` through `0x0086F180`,
+and requests native child-name index 3 through `0x00695AD0`
+(`0x00693699..0x006936B8`). The callback pointer is retained globally at
+`0x0134F550`. Initializer `0x00F1CD29..0x00F1CD33` names child index 3
+PcSearchSelectWidget. The request issues UIOperatorCommands.OpenChild
+on the retained parent. The [shared child-open path](#main-menu-root-open-and-close)
+passes that name to openChildWidget(name,self,true), preserving the current
+parent and category index. This is a native request, not a new Lua Class
+selection callback.
+
+STATIC. The selected child operator constructor is `0x0086F290`, table
+`0x0104D184`. It initializes TreeView at child `+0x24` from the registered
+parent callback. The callback's `+0` method `0x00690510` returns the Class
+vector at `0x01343088`, while `+8` method `0x00690520` supplies tree mode
+0. The constructor resolves ListBox_TreeView and
+XmlDataMaker_TreeView_Key (`0x0086F317..0x0086F327`, `0x0086F510`,
+`0x006955B0`). The form declares maker Name XmlDataMaker_TreeView,
+XPath `/XmlDataMaker_TreeView_XPath`, and binds ListBox_TreeView to it
+with DataTemplate_TreeView (lines 5, 28). The ListBox declares MaxHeight
+440, MinWidth 400, IsTabStop False and IsHitTestVisible False. The latter
+is a [local hit flag](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#local-hit-flags-and-child-first-query),
+not a rule to prune every child hit.
+
+The Class vector is copied from the 22 records at `0x0104DFB0`, stride
+0x14 by the parent's first-use or Reset path. Each group header has
+level 0 and query selector -1. Each leaf has level 1 and the listed
+positive selector. Catalog expand byte `+0x10` is 1 and checked byte
+`+0x11` is 0 for every record. Opening a child uses the retained current
+vector and does not clear its checks back to these defaults. Text formatting
+`0x008724E0` produces the header reference below, or `@206/i<selector>`
+for a leaf.
+
+| Header row | Header text | Following leaf selectors in row order |
+| ---: | --- | --- |
+| 0 | `@11007` | 3, 2, 4, 8, 7 |
+| 6 | `@11008` | 23, 22 |
+| 9 | `@11009` | 39, 40, 41 |
+| 13 | `@11010` | 29, 30, 31, 32, 33, 34, 35, 36 |
+
+Tree build `0x00873560` clears the maker, writes each original row in
+order through `0x008725E0`, finalizes the hierarchy through `0x00873220`
+and publishes Update. The row writer supplies list_index, user_id, level,
+text, expand_flag, checked_flag, and role values
+control_index_toggle_expand=0 and control_index_toggle_checked=1.
+It writes visibility_icon Collapsed, indent1 Visible for level >=1,
+indent2 Visible for level >=2, otherwise Collapsed. Hierarchy finalization
+writes row `visibility`, sets no_child on leaves and, in mode 0, requests
+Hidden for a leaf's expand control. The first leaf is original row 1,
+selector 3, text `@206/i3`. The mode-0 initial build does not write
+visibility_checked. The selected binding therefore reads empty text for
+that absent attribute. On the admitted ordinary
+[Visibility string path](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-xpath-data-sources.md#conditional-visibility-write),
+empty text requests Visible, not Collapsed. Constructor title publication
+uses `@11028` from parent callback `0x00690650` for
+TextBlock_SettingTitle.
+
+MEASURED. The selected template's ToggleButton_TreeViewChecked binds
+IsChecked OneWay to checked_flag, IntData.Value0 to list_index and
+IntData.Value1 to control_index_toggle_checked. Its Command is
+UICommands.Operate, with no explicit parameter. Thus the row and role
+come from source properties, not a Lua selected-index argument. After the
+[Toggle checked mutation](#search-job-checkbox-gesture-and-query), the
+native child Operate method `0x0086F450` forwards to TreeView
+`0x00873760`. That method accepts the exact source names
+ToggleButton_TreeViewExpand and ToggleButton_TreeViewChecked, reads the
+two IntData values, and handles checked role 1. Mode 0 negates the maker's
+checked_flag, applies it to descendants, recomputes the parent check and
+publishes Update (`0x00873A6A..0x00873CFB`). For the single initial
+row-1 leaf gesture, checked_flag becomes true while the other leaves
+remain false. The OneWay binding is not a reverse write from the earlier
+Toggle mutation. Keyboard traversal, expansion gestures and other tree
+modes remain outside this representative leaf route.
+
+STATIC. Child Cancel selects virtual `+0x24`, cell `0x0104D1A8`, body
+`0x0086F190`, which only jumps to virtual `+0x28`. The declared
+Button_Close sends UILuaCommands.WidgetClose and reaches that same
+`0x00695F40` close request. Both call the shared pre-close save, whose
+child virtual `+0x1C`, cell `0x0104D1A0`, is `0x0086F1A0`.
+It calls `0x008736A0 -> 0x00872AE0` to copy maker expand_flag and
+checked_flag into the current Class vector's record bytes `+0x10/+0x11`.
+It derives the caption, calls the parent's caption updater and clears
+`0x0134F550` (`0x0086F1F4..0x0086F253`). Neither Cancel nor Close rolls
+back the maker checks or returns a Lua selection result. With only row 1
+checked, the parent caption becomes `@206/i3`, without a ThreePoint
+marker. The later guarded root Search loop emits Class tag 1, width 1,
+value 3 (`0x00693881..0x006938A2`), producing `01 03` independently
+of the job checkbox. Header selector -1 is skipped.
+
+The bounded path requires the current parent's callback to remain registered
+and unchanged while its child builds and closes. Concurrent selectors,
+stale owners, arbitrary deletion, physical focus, hit geometry and server
+filter interpretation are not established here. The public wire contract
+owns request framing. Original LPB/form identities are listed below.
+The selected template carrier has 2321 bytes, SHA-256
+`25d58df2898d0a3e52f07dde503191da7b6ca5555fb5a1d6be0f4729bedcdde3`.
+Its decoded 2313-byte XML has SHA-256
+`916e68dd06c580f3ae4988752416ac834da1a632c29ba23f463b40cf40ef5cec`.
+It was decrypted, re-encrypted byte-for-byte and parsed as XML. Native
+instructions, vtable cells and original Class records corroborated the
+consumer joins. No original client ran.
+
 ### Search result maker identity
 
 MEASURED. The standard `widget/PcSearchWidget.form` declares a
@@ -1136,8 +1245,8 @@ operator Close and OpenChild conditions and sets modal true. It supplies no
 close override. Its standard form's `Button_Close` directly declares
 `UILuaCommands.WidgetClose` (line 38). When this child has index 3,
 finalizing it preserves a different live PcSearch root under the guard
-above. Which native operation requests this particular child name remains
-untraced here.
+above. The [Class selector path](#search-class-selector-child) identifies its native
+open request and current-check retention on both child close commands.
 
 The bounded installed test is an admitted row-7 open with root index 3 free,
 completed widget initialization and the registered current widget as command
