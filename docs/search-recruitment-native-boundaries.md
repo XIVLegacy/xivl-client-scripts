@@ -1439,6 +1439,52 @@ and no explicit Visibility, while TextBlock_Class has no Text declaration.
 Thus markup alone does not supply the native constructor's status, preferred
 class or all four effective Region opacities.
 
+#### Search wire row to the detail profile
+
+STATIC. The ordinary result callback above passes a retained clientbound
+`0x01DF` row to decoder `0x0086FA90` before caching the profile that the
+child retains. The wire contract owns the 12-byte application header,
+`0x5C` row stride and stream admission. The offsets below are relative to
+that copied row, not the packet or application header.
+
+| Detail input | Exact decoded producer | Native locator |
+| --- | --- | --- |
+| Profile raw status `+0xA8` | Initialize to 1. Load row `+0x08` as unsigned 16-bit. For values other than 2, zero-extend and store that value | `0x0086FAD9`, `0x0086FB3D..0x0086FB4F` |
+| Profile party override `+0xDC` | Initialize to 0. Set to 1 only when the same row status equals 2 | `0x0086FB02`, `0x0086FB41..0x0086FB4D` |
+| First preferred class at vector `[+0xB0,+0xB4)` | Erase the prior vector range, then append exactly one dword zero-extended from row byte `+0x00`, including zero | `0x0086FB55..0x0086FBAE` |
+| Profile Region bits `+0xD0`, low four | For bit index k in 0..3, set the bit exactly when row byte `+0x02 == k` or row byte `+0x03` has bit k | `0x0086FC60..0x0086FD02` |
+
+The status read is the direct x86 word load at `0x0086FB3D`. This decoder
+does not swap that word or normalize other non-2 values to 1. Thus status
+2 produces internal raw status 1 plus override 1, and effective getter
+`0x0086F6E0` returns 2. This decoded override is not a separate lookup of
+current local party membership. Status 0 and status 4 survive as those
+raw values with override 0.
+
+For preferred class, the erase call `0x0071CC50` receives the current begin
+and end of the vector rooted at profile `+0xAC`. Append `0x00559540` stores
+one supplied dword and advances the end, or uses its growth helper. Neither
+the shown byte load nor append tests the selector for nonzero. The decoded
+row therefore supplies a first entry even for selector 0. The detail getter
+then returns that zero and takes its nonpositive-class branch. Row byte
+`+0x01` is not joined into a 16-bit preferred selector.
+
+The decoder clears Region byte `+0xD0` at `0x0086FAEF`, stores the unsigned
+primary selector at `+0xCC`, and initially ORs a shifted byte at `0x0086FC6E`.
+It subsequently writes or clears each low bit with the stated predicate.
+For ordinary primary selectors 0..3, the resulting byte is the primary
+one-hot bit OR the low four additional bits. No higher additional-mask bit
+is copied by these branches. This low-bit contract is sufficient for the
+four detail getters, including their displayed order 0,1,3,2. It does not
+assign language or geographic names to the numeric selectors.
+
+AUTHORED distinguishing input. A retained row with preferred byte 0, status
+word 2, primary Region 1 and additional Region mask 8 gives effective status
+2, preferred first entry 0 and low Region mask 10. The detail constructor
+therefore requests status Text `@11004`, a Collapsed preferred-class icon,
+and Region opacities `0.2,1.0,1.0,0.2`. This is a derived input/output case,
+not retained historical traffic or a server settlement claim.
+
 AUTHORED fixture. Select the second of two distinct cached profiles with
 effective status 1, preferred class vector beginning with 3, a different
 current class, and only Region bit 0 set. The shown constructor requests
