@@ -491,6 +491,117 @@ and the `0x01E0` ingress corroborated branches, call arguments and order.
 Section-mapped PE reads checked the callback cells and named style/format
 literals. The authenticated standard form supplies the control identities.
 
+### Ordinary Search row publication
+
+STATIC. This path uses the result maker above and the matching-token ordinary
+callback already documented. In `0x00693B50`, each newly admitted row index
+first obtains the cached wire row through `0x004C39B0(6,index)`, decodes it
+with `0x0086FA90`, appends its native profile to the operator cache and
+calls `0x00690900(profile,maker,index)` (`0x00693BD0..0x00693C15`).
+The row writer does not request a maker Update for each attribute. After
+the row loop and any available comment writes, `0x00693D58..0x00693D5E`
+publishes Update on `XmlDataMaker_PcSearchList`, then updates HitCount.
+A one-row continuation from cursor 0 writes maker row 0 before that Update.
+
+MEASURED. The selected `DataTemplate_PcSearchList` (template lines 33-95)
+has 23 distinct row-attribute bindings. Its Button_SearchResult is Height
+40. TextBlock_PlayerName binds `text_textblock_player_name` (line 58).
+Four fixed IconControls bind only their opacities, with IconDatas 878, 879,
+880 and 881 for invitation, party, AFK and online (lines 53-56). The
+current and desired class groups, company icon and region labels use the
+bindings below. This is presentation evidence, not a result-row activation
+or focus contract.
+
+The writer helpers serialize values into XML attribute text before
+`0x009425B0`. `0x00944ED0` copies a Sqwt string through `0x00914C70`.
+`0x00944DA0` formats its integer through `0x00988A90`, whose empty-format
+branch uses `%d` at `0x01077268`. `0x00945F40` uses `0x00914630`, which
+prints 0 as Collapsed, 1 as Hidden and other values as Visible.
+`0x00946070` copies a C string through `0x00915670`. These are attribute
+strings, not live control property writes or an Update per setter.
+
+| Attribute or group | Producer and conversion | Native locator |
+| --- | --- | --- |
+| `text_textblock_player_name` | Profile name string, without a numeric or reference format | `0x0069095C..0x0069097A` |
+| `visualopacity_iconcontrol_invite_party` | `1.0` for effective status 3, otherwise `0.0` | `0x00690994..0x006909E3` |
+| `visualopacity_iconcontrol_party` | `1.0` for status 2, otherwise `0.0` | `0x00690A3D` |
+| `visualopacity_iconcontrol_afk` | `1.0` for status 4, otherwise `0.0` | `0x00690A97` |
+| `visualopacity_iconcontrol_online` | `1.0` for status 1, otherwise `0.0` | `0x00690AF1` |
+| `visibility_grid_desired_class` | Visible only for status 3 and nonzero desired class, otherwise Hidden | `0x00690B06..0x00690B8D` |
+| `visibility_grid_current_class` | Hidden for class 0, otherwise Visible | `0x00690D31..0x00690DA2` |
+| `icondatas_iconcontrol_desired_class`, `icondatas_iconcontrol_current_class` | Class icon lookup `0x00870210`, serialized as decimal integer | `0x00690BE5`, `0x00690DF9` |
+| `text_textblock_desired_class`, `text_textblock_current_class` | Corresponding class's level from `0x0086FA40`, restricted to its low byte, then decimal integer | `0x00690C3A`, `0x00690E0E..0x00690E4E` |
+| `visibility_iconcontrol_grand_company` | Hidden for company 0, otherwise Visible | `0x00691001..0x006910C0` |
+| `icondatas_iconcontrol_grand_company` | Company icon lookup `0x00870510`, serialized as decimal integer | `0x0069104C` |
+| `text_textblock_location` | Positive mapped location uses `@11023/i<key>`, otherwise the initialized empty string | `0x00690F5D..0x00690FEA` |
+
+The effective status getter `0x0086F6E0` returns 2 when profile byte
+`+0xDC` is set, otherwise profile dword `+0xA8`. The wire decoder's
+status-2 special case and sparse class/level inputs are owned by the
+[wire contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-results-and-completion).
+The opacity objects are initialized from literal strings `1.0`, `0.2`
+and `0.0` at `0x00F13A00..0x00F13A70`. Status icons use 1.0 or 0.0.
+Region labels use 1.0 or 0.2.
+
+For either visible class group, the writer maps that class through
+`0x0086F600` to a possible job and tests the job's level. A positive level
+writes `icondatas_iconcontrol_jobchange_1` or `_2` and Visible. Otherwise
+it writes `visibility_iconcontrol_jobchange_1` or `_2` as Collapsed
+(`0x00690D1A`, `0x00690F31`). The suffix 1
+belongs to the desired group and 2 to the current group. A Hidden class
+group does not establish writes to its children's icon or level attributes.
+
+The four `visualopacity_textblock_region1` through `region4` attributes
+sample `0x0086F750` with bit indices 0, 1, 3 and 2, respectively
+(`0x006910D5..0x00691232`). The getter tests profile byte `+0xD0`.
+The decoder combines primary Region and additional Region flags, as pinned
+in the wire contract. The displayed suffix is not always bit index plus 1.
+
+#### Bounded lookup examples and receipt
+
+The seeded class-icon map contains class 3 -> icon 203 and class 16 ->
+icon 939 (`0x00870227..0x0087023D`, `0x00870456..0x00870463`). The
+class-to-job switch maps 3 -> 16 in `0x0086F600`. Native catalog setup
+`0x008705A0` also seeds company 1 -> 51, 2 -> 52 and 3 -> 54
+(`0x00870604..0x00870656`). This does not identify every supported class,
+job or company by localized name.
+
+Location setup inserts 42 records from `0x0104DA88`, stride `0x1C`,
+into map `0x0134FF80` (`0x008705D8..0x008705F8`). Each key is followed
+by a negative-terminated list of location ids. Lookup `0x0086FF30` returns
+the key for a matching nonnegative entry or 0 when none matches. No list
+contains location 0. Location 133 occurs only under key 101. The empty
+fallback object at `0x01343758` is initialized from an empty literal at
+`0x00FC7926` (`0x00F13B40..0x00F13B50`). General location mappings and
+localized text output are outside these examples.
+
+AUTHORED fixture. A single accepted row can use status 1, current class 3
+with an admitted sparse level, no job-16 membership, company 0, primary
+Region 0 with no additional flags, and location 133. The traced conversion
+then requests the supplied name, online opacity 1.0 with the other status
+opacities 0.0, a Hidden desired-class group, current icon 203 with its
+numeric level, Collapsed jobchange-2, Hidden company icon, location token
+`@11023/i101` and Region opacities `1.0,0.2,0.2,0.2`. These are derived
+outputs for declared test inputs, not an observed historical player row.
+
+The comment attribute `text_textblock_comment` is written separately by
+`0x00691270`. `0x00693B50` stops its comment loop when a cached comment
+pointer is null (`0x00693C51..0x00693C66`). The row's first publication
+therefore need not include that attribute. Comment transformation, a
+missing binding's effective Text, result-row selection and populated
+server behavior remain unverified here.
+
+A successful one-row completion formats HitCount as `@228/i1/i200`.
+The ready helper's count-between-1-and-199 branch collapses MaximumOver
+and restores Button_Search without changing the pending Hidden
+NoContents (`0x00691C16..0x00691C44` -> `0x00691B95`). It is separate
+from one row's first publication and has the existing request, callback,
+property and current-root gates. Ghidra supplied leads. LLVM disassembly
+and PE reads corroborated the branches, literal operands, serializers,
+lookup examples and Update ordering. Namespace-aware XML checks compared
+the producer names with all 23 selected template binding attributes. No
+original client ran.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
