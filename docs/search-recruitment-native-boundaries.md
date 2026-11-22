@@ -1781,9 +1781,10 @@ outputs for declared test inputs, not an observed historical player row.
 The comment attribute `text_textblock_comment` is written separately by
 `0x00691270`. `0x00693B50` stops its comment loop when a cached comment
 pointer is null (`0x00693C51..0x00693C66`). The row's first publication
-therefore need not include that attribute. Nonempty comment transformation,
-a missing binding's effective Text, result-row selection and populated
-server behavior remain unverified here.
+therefore need not include that attribute. The
+[short ASCII comment contract](#short-ascii-comments-with-the-text-filter-disabled)
+qualifies its filter-disabled transformation. A missing binding's effective
+Text and populated server behavior retain their separate boundaries.
 
 A successful one-row completion formats HitCount as `@228/i1/i200`.
 The ready helper's count-between-1-and-199 branch collapses MaximumOver
@@ -1863,6 +1864,111 @@ The selector lists and template bindings were checked with direct PE reads
 and authenticated XML. Ghidra supplied leads, and LLVM disassembly checked
 the entry framing, empty-string branches and final attribute store. These
 static joins establish neither observed retail traffic nor live pixels.
+
+### Short ASCII comments with the text filter disabled
+
+STATIC. The list comment writer `0x00691270` reads the profile's full comment
+through `0x0086F6B0` and copies it into a temporary string
+(`0x006912B2..0x006912C3`). The getter returns profile `+0x54`. The
+optional filter operates on that temporary, before the separator search.
+It does not replace the comment retained in the profile on this shown path.
+
+The current enable predicate is `0x004B4ED0`, called at `0x006912E3`.
+It reads GameConfig native group 2, key 7 through `0x00443E40`, with fallback
+1, and returns whether the value is nonzero (`0x004B4ED0..0x004B4EE1`).
+The [user-config contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/user-config-store-contract.md#game-store)
+names that int record vulgar, Lua group 3 / key 8, and records its constructor
+default 1 and registration at `0x004C586F`. Thus the exact current value 0
+skips the filter at `0x006912E8..0x006912F5`. Absence of a user override,
+an unavailable config value or plain ASCII input is not evidence that the
+filter is disabled.
+
+STATIC. After that gate, the writer constructs the separator from literal
+`0x00FC82A4`, whose bytes are LF followed by NUL. It calls string find with
+start 0 through `0x00446F70 -> 0x004465A0` at `0x0069131C` and passes the
+returned position as substring length with start 0 to `0x00447A80` at
+`0x00691343`. For nonempty ASCII, find returns the first LF position, or
+`0xFFFFFFFF` when no LF exists (`0x004466CF..0x004466D9`). Substring length
+-1 selects the full remaining string (`0x00447AE1..0x00447AF3`), and length
+0 constructs an explicit empty string (`0x00447A87..0x00447ADC`). The setter at `0x00691383`
+publishes that prefix as text_textblock_comment through the already documented
+string-attribute writer. It adds no ellipsis and performs no whitespace trim
+in this filter-disabled branch. The control's later layout and text processing
+remain separate from this attribute-string result.
+
+| Supplied short ASCII comment, current vulgar value 0 | Published list attribute |
+| --- | --- |
+| `Ready` | `Ready` |
+| `Ready\nLater` | `Ready` |
+| `\nLater` | explicit empty string |
+| `Ready\r\nLater` | `Ready\r` |
+| two spaces, `Ready`, two spaces | same spaces and word |
+
+These are AUTHORED input vectors interpreted through the static branch.
+`\n` denotes one LF and `\r` one CR, not backslash text. The bounded
+inputs contain no embedded NUL, rich tokens or text-reference syntax.
+They do not qualify arbitrary Unicode, filtering, text-reference resolution
+or byte limits of the input transport.
+
+#### Raw profile, detail and contiguous comment cursor
+
+STATIC. The completion path copies each admitted cache comment string from
+record `+0x5C` into native profile `+0x54` through `0x0086F6C0` before
+calling the list writer (`0x00693C6C..0x00693CD0`, `0x00693D3A`). The
+setter adds `+0x54` then jumps to the string copy at `0x00447450`.
+The filtered or shortened list temporary is not copied back to that profile.
+
+PcInformationWidget constructor `0x008D9050` independently reads the same
+retained profile comment at `0x008D96FB..0x008D970B`, checks the same config
+predicate at `0x008D9728`, and optionally filters its own temporary at
+`0x008D9738`. It then requests the complete resulting string on
+TextBlock_Comment through `0x0068E840` at `0x008D977A`. No separator search
+or first-line substring lies between that copy and setter in
+`0x008D96FB..0x008D977A`. With the same exact config value 0, the detail
+request therefore carries the full raw comment, including any LF, while the
+list request carries its first-LF prefix. This is a property request, not proof
+of actual multiline rendering or of a current detail child's lifetime.
+
+The completion loop starts at retained operator cursor `+0x9C`, not the
+start of newly appended profiles. It fetches cache kind 6 at that cursor
+and stops at the first null comment pointer (`0x00693C51..0x00693C66`).
+That stop does not advance the cursor or synthesize an empty attribute.
+A nonnull empty string follows the copy/writer route normally. Only after
+writing a comment does `0x00693D46` increment the cursor. A later admitted
+callback resumes there, subject to its supplied upper bound, so a missing
+entry blocks later ready comments until the gap is filled. The shown loop
+does not revisit already consumed indices. The common maker Update still
+occurs at `0x00693D58..0x00693D5E`, including after a null-pointer stop.
+All existing matching-token, completion, live-operator and vector bounds
+conditions remain required.
+
+A distinguishing cache replay starts with three current profiles and comments
+`First\nDetail`, absent, `Last`, cursor 0 and upper bound 3. It writes only
+row 0 as First and leaves cursor 1. A later admitted callback with an explicit
+empty string at row 1 writes rows 1 and 2, then leaves cursor 3. Replacing
+cache comment 0 after that does not make this shown loop rewind. The raw
+profile 0 retains `First\nDetail`, rather than the list prefix.
+
+#### Enabled-filter frontier
+
+STATIC. Nonzero vulgar calls `0x00445BB0`, which takes a context from TLS
+`+8` and enters `0x00458680`. The adapter's selected dispatcher
+`0x00458640` invokes worker `0x004580B0` for kinds 0 through 3 with mode 0
+(`0x00458652..0x00458667`). The worker depends on context table offsets
+`+0x8110 + 4*kind` and word `+8` before its edit path
+(`0x004580B0..0x0045811C`). Its matcher, tables and nonempty output are not
+qualified here. ASCII is not a proven identity branch. The existing explicit
+empty-comment result remains separately established above. Supporting nonempty
+comments under constructor-default value 1 requires the TLS context's
+construction/table population and the selected match/edit operations to be
+traced. No substitute filter or assumed no-op is supplied by this contract.
+
+The identified PE, authenticated selected templates and their comment binding
+support these static claims. Section-mapped reads and LLVM instruction listings
+checked the LF literal, config call operands, copies, substring call, cache
+cursor, detail setter and filter frontier. Synthetic replay distinguishes
+CR/LF, empty from absent, raw profile from list prefix and the retained cursor.
+No original client ran.
 
 ### Search class and job level lookup
 
