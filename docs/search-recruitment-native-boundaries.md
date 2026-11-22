@@ -690,6 +690,34 @@ empty text requests Visible, not Collapsed. Constructor title publication
 uses `@11028` from parent callback `0x00690650` for
 TextBlock_SettingTitle.
 
+#### Class row setter operands
+
+STATIC. In `0x00873560`, the row writer's user_id argument comes from
+original record `+0x0C`, the query selector. Its text operand separately
+comes from `+0x04/+0x08` through `0x008724E0`. Thus header user_id is -1,
+while row 1 has list_index 1 and user_id 3. Begin Search reads the class
+selector directly from the retained record.
+
+For the ordinary empty working string created by `0x00945CE0`, Boolean
+formatter `0x00989060` emits exact `True` or `False`
+(`0x00945DA0..0x00945DB7`, `0x00989196..0x009891AE`). Those are the
+text values of expand_flag, checked_flag, no_child and row visibility.
+Catalog defaults initially supply expand_flag True and checked_flag False.
+Reopening instead copies their current retained bytes. The row writer sets
+no_child False before hierarchy finalization. Finalization sets it True on
+leaves and leaves headers False. For the initially expanded catalog, every
+row's visibility is True (`0x00873220 -> 0x004EC390 -> 0x00945CE0`).
+
+Visibility-valued attributes use `0x00945F40 -> 0x00914630`, which emits
+`Collapsed`, `Hidden` or `Visible` for values 0, 1 or other, respectively
+(`0x00914630..0x0091465F`). In the mode-0 initial hierarchy pass,
+headers with children take `0x008734AE..0x008734B0` to the return at
+`0x0087350C` before the visibility_expand setter. Leaves write Hidden.
+Mode 0 also omits visibility_checked.
+The selected at-sign binding and ordinary Visibility conversion described
+above supply Visible from the absent attribute's empty text. These claims
+require admitted maker rows and ordinary attribute writes.
+
 MEASURED. The selected template's ToggleButton_TreeViewChecked binds
 IsChecked OneWay to checked_flag, IntData.Value0 to list_index and
 IntData.Value1 to control_index_toggle_checked. Its Command is
