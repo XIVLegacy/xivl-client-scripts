@@ -463,3 +463,82 @@ reads the same current config record when it projects a comment. This
 setter path does not establish an automatic repaint of previously projected
 comments, successful disk persistence or a historical user's saved choice.
 Frame-rate interaction and other controls are outside this gesture contract.
+
+## Selected inline frame-rate caption
+
+STATIC. In the identified executable above, ComboBox Text has descriptor
+`0x0135B14C`, ordinal 2. Initializer `0x00F242B0..0x00F242C9` joins it to
+string `Text` at `0x010707E0`. Descriptor `0x0135AFE4` instead names
+SelectionBoxItemTemplate, ordinal 3 (`0x00F242D0..0x00F242F3`, string
+`0x010707E8`). These two properties must remain distinct.
+
+The [Selector index callback](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#selector-payload-and-events)
+at `0x0096F440` takes its ordinal-0 arm only with nonnull ItemsPanel at
+owner `+0x35C`, then calls `0x0096F080` with current SelectedIndex at
+`+0x480`. That routine constructs the added/removed index lists and
+raises SelectionChanged through `0x0091F1E0` at `0x0096F3E9`.
+The ComboBox input interface cell `0x01070AB8` selects `0x0096EA60`.
+For event id `0x3C`, its call at `0x0096EA84` reaches primary slot 71.
+ComboBox primary cell `0x01070CC8` selects `0x00968C90`. The primary
+table has zero-offset COL `0x0117C964` and remains the concrete receiver.
+
+At `0x00968C9E`, this handler requires event source `+8` equal to itself.
+It takes the first added index only when that vector is nonempty
+(`0x00968CA7..0x00968CE2`), resolves the logical item through
+`0x00961420` on its accessor at owner `+0x3A0`, and requires a successful
+FrameworkElement cast. Its virtual `+4` call at `0x00968D0B` obtains
+that item's text representation. The concrete inline ComboBoxItem's
+primary table `0x010807FC`, zero-offset COL `0x01181A98`, has slot 1
+`0x00934AD0`. That getter reads Content's text pointer at item `+0x344`,
+falling back to the shared empty string when null. The
+[Content storage](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-qualified-property-lookup.md#contenttemplate-write-gates-and-fresh-content)
+contract distinguishes that pointer from the Content payload and type flags.
+
+The handler passes that text to the owner Text holder at `+0x4AC`, with
+Text descriptor `0x0135B14C`, ordinary update mode 0, notify 1 and final helper flag 1
+(`0x00968D0D..0x00968D28 -> 0x009BA4E0 -> 0x00983FE0`). The holder's
+property guards and string equality still apply. A changed admitted string
+reaches notification through `0x00953BA0`. The existing OneWay
+TemplatedParent.Text binding on `PART_Label` can therefore reflect the new
+current Text, rather than retaining the form's original `@2316` forever.
+The later `0x00967B60` call also installs a Content-to-Text binding for the
+selected FrameworkElement (`0x00967B8E..0x00967BAE`). General subsequent
+Content mutation and template replacement are outside this caption case.
+
+For the two authenticated inline items above, realized selection index 0
+uses Frame1 Content `@2316`, and index 1 uses Frame2 Content `@2315`.
+The existing English text lookup yields `60 fps` and `30 fps`, respectively.
+Thus an initial stored work-64 value 30, followed by the normal System
+update's index-1 request with its current ItemsPanel and logical items ready,
+can replace the default closed caption with the second item's text. This is
+a qualified selected-item path, not a rule that arbitrary indexes or missing
+items clear the caption. This trace does not settle replay when index was
+set before ItemsPanel became available, failed property mutation, or a
+retired/replaced source. Those cases must not be promoted to this success.
+Caption synchronization uses SelectionChanged. It does not itself establish
+the separate Selection event used by the template below. A Lua index restore
+must not be treated as an additional user Selection command.
+
+## Frame-rate selection application boundary
+
+OBSERVED. The selected System ComboBox template declares Selection on
+SourceType ComboBox, then `UILuaCommands.Selection` without a parameter.
+The shared Lua dispatcher reads `getSelectedIndex(sender)` before calling
+`processUICommandSelection(template,sender,index,extra)`
+(`widgetbaseclass_common` `main/f13` PCs 41-55). A negative current index
+returns without that handler call. System `main/f4`
+PCs 0-8 sends `setConfigWork(64,30)` only for numeric index 1, and 60
+otherwise. Its registered sender is the current `ComboBox_FrameRate` from
+init `main/f0` PCs 36-39. The two valid installed rows provide indexes
+0 and 1. These local requests use Lua GameConfig group 5/key 9, not the
+separate native SystemConfig store.
+
+The [native selection command path](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#named-left-button-release)
+qualifies a named release by its receiver's source-to-index lookup. With a
+nonnegative match it requests that receiver's index and raises Selection.
+It does not forward an arbitrary nested ListBox selection to the ComboBox.
+The System declaration and native source-qualified path are not proof of
+an OS hit or a complete popup arrangement. The immediate config setter and
+parent Configuration save boundaries above also apply here. There is no
+additional System close/save call in this selection handler, and no frame
+pacing behavior is established.
