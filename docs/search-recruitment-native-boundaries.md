@@ -574,6 +574,58 @@ setup and historical query results remain outside this static contract.
 The identified PE's instructions, interface cells and constant tables,
 and the authenticated form corroborate these facts. No original client ran.
 
+### Search job checkbox gesture and query
+
+MEASURED. The selected ToggleButton_JobCheck declaration and checked art
+are documented [above](#search-checkbox-presentation). It names
+UICommands.Operate, has no explicit CommandParameter, CommandTarget or
+ClickMode, and has no local trigger or binding that saves its checked
+state. The initial False and later native setup restoration are distinct.
+
+STATIC. On the [qualified ToggleButton release path](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#arrow-release-and-checked-state-binding),
+Click calls primary slot 71 at `0x0097ED20` before it checks the stored
+Command at `0x0097ED22`. ToggleButton cell `0x0106F3D0` selects
+`0x0095D2B0`, whose call at `0x0095D2BB` reaches slot 75, cell
+`0x0106F3E0`, body `0x0095D470`. Under the property guards it complements
+the effective IsChecked bit at `+0x3B4`, mask 0x20, stores it at
+`0x0095D4D6` and invokes the checked callback at `0x0095D4D8`.
+The callback and toggle's base Click handling return before the stored
+Command is routed. Thus the gesture's checked mutation precedes that
+Operate dispatch. A refused property mutation is not a successful toggle.
+
+UICommands.Operate literal `0x00FC91CC` is registered with native id 1
+at `0x00F14205..0x00F14224`. The current PcSearch Operate method
+`0x00693650` compares the routed source with the five selector Buttons,
+Button_Reset and Button_Search. It has no ToggleButton_JobCheck `+0x78`
+arm. With those retained controls distinct, an Operate from the job toggle
+does not enter Reset or Search. Its checked mutation is the ToggleButton
+behavior above, not a separate Lua or operator toggle callback.
+
+The shared close-save body `0x006917F0` reads the current toggle at
+operator `+0x78`, extracts its effective checked bit and writes cached
+byte `0x01342BF8` (`0x006917F3..0x00691806`). Both admitted native title
+Close and the unmatched Cancel fallthrough reach this save before the
+root-close request. The matched numeric Cancel restore arm does not.
+Later normal setup requests that cached Boolean on the new current toggle
+at `0x006930E7..0x006930F6`. The ordinary click has no checked-cache arm
+in `0x00693650`. Reset instead clears both the cached byte and the current
+checked property, as [documented above](#search-reset-button-and-retained-first-reply-byte).
+Direct Lua close, arbitrary teardown and nondefault command-line setup are
+outside these persistence claims.
+
+The Search arm reads the **current control bit**, not that cached byte,
+at `0x006938B5..0x006938BF`. When set, it calls `0x004B5940` with tag 3,
+width 1 and value 1 (`0x006938C1..0x006938CE`). The
+[wire helper](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-requests)
+emits `03 01`. This branch follows the Class-row loop and does not require
+that loop to emit a Class tag. An unchecked control emits no tag 3.
+Tag 7 belongs to selected Status rows, independently. These client bytes
+do not establish the server's interpretation of the job-only request.
+Original PE instructions, table cells and authenticated markup corroborate
+the paths. Physical hit, press/release admission, route membership,
+callback reentry and historical search results remain unverified. No
+original client ran.
+
 ### Search result maker identity
 
 MEASURED. The standard `widget/PcSearchWidget.form` declares a
