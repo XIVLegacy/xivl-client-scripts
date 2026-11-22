@@ -1368,8 +1368,91 @@ LLVM instructions and section-mapped reads of the identified PE corroborate
 the native joins. A discriminating bounded case selects the second of two
 cached result profiles, opens PcInformationWidget for that second profile,
 then closes only the child. Stale row/vector lifetime, physical mouse hit
-and capture, modal admission, complete detail rendering, player interaction
+and capture, modal admission, complete detail rendering
 and server settlement remain UNKNOWN. No original client ran.
+
+### Selected player detail Tell and Invite buttons
+
+MEASURED. The authenticated PcInformationWidget.form above declares
+Button_Tell and Button_Invite at lines 314-315 with Content `@11053` and
+`@11054`, Style BTN_basis and Command UILuaCommands.Operate. Neither
+specifies CommandParameter, CommandTarget or ClickMode. The
+[ordinary Button click](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source)
+therefore retains its paired primary press/release, default ClickMode and
+actual routed-recipient conditions. The markup establishes the declared
+command. OS input, current focus and hit admission have separate gates.
+
+STATIC. The shared form operator gate dispatches admitted command id 1 to
+operator virtual `+0x20` at `0x00695C5B..0x00695C6A`. It declines when
+operator `+0x1C` bit 30 is set and consumes without this dispatch when root
+`+0x3E0` mask `0x20` is clear (`0x00695C20..0x00695C3D`). PcInformation
+cell `0x010642D4` selects `0x008D9A20`. Its constructor looks up the maker
+resource XmlDataMaker_Data_Key and retains it at `+0x28`
+(`0x008D90F3..0x008D9115`). It looks up literal button_Tell and button_Invite
+and retains those controls at `+0x2C` and `+0x30`
+(`0x008D912F..0x008D918C`). The branches compare the command source with the exact retained controls.
+The current Search owner and selected-profile lifetime conditions still apply.
+
+| Exact source | Name publication before request | Requested operation |
+| --- | --- | --- |
+| retained Tell `+0x2C` | Read retained profile `+0x24` with `0x0086F690` at `0x008D9A86`, then set maker row 0 string_target_name through `0x00944ED0` at `0x008D9AD2` | integer 1 through `0x00695B80` at `0x008D9B02` |
+| retained Invite `+0x30` | Same profile getter at `0x008D9B37`, same row/property setter at `0x008D9B80` | integer 2 through `0x00695B80` at `0x008D9BAB`, then Close through `0x006959F0` at `0x008D9BC2` |
+
+`0x00695B80` resolves UIOperatorCommands.Request, then calls its virtual
+`+8` with the supplied value and this operator's root `+0xB4` when the root
+exists (`0x00695B81..0x00695BAB`). It has a separate null-root fallback.
+The supported contract is the branch with its retained root. The name setter
+is followed directly by Request. The
+Lua Request handler `main/f2` PCs 0-4 reads XmlDataMaker_Data row 0
+string_target_name. Request 1 calls desktopWidget.setTellAddress at PCs
+8-11. Request 2 calls executePlayerPartyInviteByName at PCs 16-19.
+The operator reads the retained profile for the name.
+
+STATIC. The Invite branch requests Close after Request in both helper
+outcomes. `0x006959F0` calls operator virtual `+0x1C`, sets the
+bit-30 input refusal flag, then routes UIOperatorCommands.Close on the
+operator root (`0x00695A1D..0x00695A6B`). The child Lua close/finalization
+path remains the lifecycle owner. The timing of Lua Request completion
+relative to deferred finalization remains unverified.
+The [party command contract](linkshell-party-command-contracts.md#command-inputs)
+owns the checked-name, content restriction, local-player/party predicates and
+conditional nine-value PartyInvite 24203 command. For its admitted by-name
+branch the values are `(selectedName, nil x8)`, with the existing conditional
+`commandRequest` / `0x012D` native fallback. Activation requests the helper. Its acceptance, packet emission and server
+settlement have separate conditions. The Tell branch ends after Request.
+
+STATIC. Tell is a local chat preparation request. DesktopWidget.setTellAddress
+`main/f129` PCs 0-13 obtains static widget 2, calls
+changeFocusedWidget(logWidget,false), calls setKeyboardFocusToChatControl,
+then appendTextIdForChatControl(2256,103,selectedName), in that order.
+LogWidget.setKeyboardFocusToChatControl `main/f6` tail-calls
+setKeyboardFocusToChatInput. The latter `main/f26` PCs 0-10 requests
+TextBox_ChatInput focus only when desktopWidget._getKeyboardFocusedWidget()
+equals that LogWidget. appendTextIdForChatControl `main/f9` PCs 0-13 checks
+the same equality before calling setMacroText on TextBox_ChatInput.
+Numeric setMacroText `main/f93` requests `_setTextProperty` with nil template,
+TextBox_ChatInput, TextUI, 2256, 103 and selectedName. The
+[formatted-text and submission boundaries](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/autotranslate-selection-contract.md#recovered-chat-boundary)
+separate that property request from PressEnter, text-command analysis and the
+chat sender. The shown path ends at a text property request. The exact
+formatted prefix, native TextUI application, caret, selection and physical
+keyboard focus remain UNKNOWN.
+
+| Additional authenticated original LPB | Carrier bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `n1635q/yv3n1635q.le.lpb` (LogWidget) | 19090 / `d99be24e3e64e9d105b25b722d119ee349c5f9244ddddf4e2e1f048c32355ad7` | 19077 / `f40fdae854b956352b045242defcfbedf964944bd2219dc621f9f802600b9a91` |
+| `n1635q/65rzqvun1635q_7vww57qvs.le.lpb` (DesktopWidget connector) | 213487 / `0f8ca1585bb97c40d36cbf120dd3f6fa6351927c4530e3fad76a71582af95425` | 213474 / `685a0a6dda2d4ae6fe06a9c684e57efd7e819938e145cb1a4a65df56555bd621` |
+| `n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` (WidgetBaseClass common) | 32996 / `c549f746370366f9827570ee22201516e07a05d91829ca643a2e2ec0c73bcf3c` | 32983 / `7c45426b1a9f168557d84e420c5767c6fdea4abf90b976b276546af4e6a5de5f` |
+
+Reproduction uses the identified PE and selected form above, the manifest-pinned
+LPB carriers, `tools/retail_script.py` decode_lpb and unluac instruction listings.
+PCs here are zero-based within the named main prototype. Section-mapped reads
+and LLVM disassembly corroborate the exact controls, setter calls, integer
+requests and Close order. A distinguishing case opens the second of two
+current cached profiles and activates Invite: the published name must be that
+profile's name, Request must carry 2, and Close must follow the request even
+when the downstream helper refuses. The two branches require the exact
+retained source. These are static observations.
 
 ### Selected player detail Region, status and preferred class
 
