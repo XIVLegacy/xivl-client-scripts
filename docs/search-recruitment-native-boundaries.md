@@ -86,7 +86,8 @@ Search template. The outer template contributes the triggers. The two
 makers and separate ItemTemplate provide the generated rows. An empty
 maker supplies zero row visuals. This contract covers the measured
 trigger-only shape. Native initial maker contents, later visibility writes,
-search success, scrolling and observed pixels remain unverified.
+search success and observed pixels remain unverified. The native scroll surface
+and its conditional wheel command are described below.
 
 The form identity is in Selected original inputs below. The template carrier
 is 9428 bytes, SHA-256
@@ -96,6 +97,93 @@ Its decoded markup is 9420 bytes, SHA-256
 Both inputs were decoded with basename-keyed Blowfish, re-encrypted
 byte-for-byte and inspected as namespace-aware XML. Direct-child and
 descendant counts were checked independently of visual rendering.
+
+### Search result scroll surface
+
+MEASURED. The two selected Search ListBoxes described above each use SqwtStyle
+`LIB_basis`. The 628 by 280 `ListBox_SearchResult` owns its generated results.
+The 628 by 40 `ListBox_PlayerInformation` has a distinct maker and item host.
+Both Lists use the constructed viewer. The result Button declares Height
+40. Its final arranged extent and visible row count remain layout-dependent.
+
+STATIC. ListBox constructor `0x0096D980` supplies a separate panel at `+0x4B0`
+and viewer at `+0x7E0`, named `PART_ListBox_ScrollViewer`. The viewer owns a
+ScrollContentPresenter with ClipToBounds enabled and publishes its arranged
+viewport to the panel. Its vertical bar is Auto, in the constructed Grid's
+right Auto column, and its inherited horizontal bar is Disabled. The native
+vertical part is `PART_VerticalScrollBar` (`0x00970B63`, name `0x010730AC`),
+with `PART_UpButton`, `PART_DownButton`, `PART_Track` and `PART_Thumb` as
+recorded in the [ScrollViewer part table](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-tab-scroll-text-parts.md#part-keys-set-by-the-constructors). `LIB_basis`
+selects `SCB_basis` for the vertical part. The
+[constructed item viewport](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-listbox-constructed-parts.md#constructed-item-viewport)
+owns constructor, style, clipping and geometry locators. The trigger-only
+Search outer template does not replace those parts.
+
+STATIC. Base ScrollViewer constructor `0x00973190`, specifically
+`0x009734EC..0x00973514`, constructs one MouseBinding at complete viewer
+`+0xB88`. Its command is `ScrollViewer.LineUpCommand`, descriptor `0x0135C0B0`,
+its explicit target is that viewer's input interface at `+0xB4`, and its
+initial parameter kind is 0. Primary virtual `+0x28 -> 0x00971A40` adds this
+binding through the viewer's collection interface at `+0xE0` at
+`0x00971EAD..0x00971EBB`. The binding's shared MouseGesture at `0x012E47C8`
+has action byte `+0x18 = 7`, modifier mask `+0x1C = 0`, and zero repeat and
+release bytes at `+0x20/+0x21` in the PE data.
+
+The admitted MouseWheel descriptor has id `0x1E`. Dispatcher `0x0091D320`
+subtracts 1 from that id and uses byte `0x0091D835 = 0x1B`, table cell
+`0x0091D7CC -> 0x0091D367`, then input virtual `+0x74`. The viewer table
+`0x01071E4C + 0x74` selects `0x0091F270`. That worker visits a returned
+provider binding collection, when nonempty, then its own collection through
+`0x009212A0`. The walker rejects an already handled event unless the binding
+allows it, and requires a nonnull stored target to pass input `+0x5C`.
+A gesture match and command virtual `+4` success are required before command
+virtual `+8` executes with the stored target. The actual live pointer route
+remains conditional.
+
+MouseGesture match `0x0094D8E0` requires the exact current modifier mask.
+Its `0x0094DAB5..0x0094DAD2` arm accepts MouseWheel id `0x1E` only for action
+7 and a nonzero device virtual `+8` wheel value. `0x0094DB20` puts that signed
+value in integer 2 of a kind-3 parameter record (`+0x60`), converting the two
+pointer coordinates into integers 0 and 1. Executed event construction copies
+integer 2 to event `+0x84`. The
+[mouse provider](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/input/sqwt-rapture-mouse-device.md)
+and [numeric mouse callback](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/input/sqex-mouse-numeric-callback.md)
+own the signed wheel quotient and routed input producer. The
+[command event contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#executed-event-delivery)
+owns record copying and PreviewExecuted before Executed.
+
+| Native command consumer | Verified vertical effect |
+| --- | --- |
+| `0x0097144F..0x009714E8`, LineUpCommand | With integer 2 positive, repeat up that many times. With it negative, repeat down its negation. With zero, take one up step after applying the repeat flag from integer 7. |
+| `0x009714F0..0x00971524`, LineDownCommand `0x0135BC08` | Apply the repeat flag from integer 7, then take one down step. |
+| `0x009713ED..0x0097144C`, PageUpCommand `0x0135C210` and PageDownCommand `0x0135BD10` | Require complete viewer byte `+0x3AE` exactly 2, then subtract or add current viewport height. The meaning and current value of that byte are not established here. |
+
+All those consumers call the base Executed handler first and run only if its
+handled pointer still reads zero. Accepted branches mark event `+0x19`.
+Viewer primary `+0x12C/+0x120` reaches panel interface `+0x40/+0x34`,
+`0x009B7E60/0x009B7DA0`. Each step calls `0x009B7B60`, subtracts or adds
+the step to vertical offset, then clears the interface's `+0x2C` mask 4.
+With that mask clear, the step helper sets 24.0 layout units from
+`0x0107F56C`. With it set, it multiplies the retained step by the double at
+`0x01073260` and caps it at 48.0 from `0x0107F574`. Thus an ordinary wheel
+step from a clear repeat flag moves the vertical offset by 24 layout units.
+The page methods `0x009B7B00/0x009B7AA0` subtract or add interface `+0x20`,
+the current viewport height.
+
+The common vertical setter `0x009B7D00` clamps an ordinary finite offset to
+the available extent and publishes only a changed value. ScrollChanged then
+sets the presenter's vertical translation to the negative offset inside the
+clip. The constructed-parts page also records the conditional visible-range
+optimization and its retained mask. Its use by the live Search style
+remains untraced.
+
+INFERRED. A current admitted result viewer can apply this local scroll route
+to its own viewport.
+A Search-specific physical hit, active modal/capture selection, intervening
+handled event, effective viewport after layout, scrollbar thumb gesture and
+repeat cadence remain UNKNOWN. No original client execution or observed
+Search scroll is claimed. A bounded wheel consumer needs the current owner,
+visible clipped surface, zero modifiers and routed-command admission.
 
 ### Search checkbox presentation
 
