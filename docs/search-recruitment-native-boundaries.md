@@ -496,7 +496,8 @@ then requests those Values on the current lower and upper controls, in
 that order (`0x006902D3..0x00690336`). It writes both caches and requests
 both current control Values. The controls' own 1..50 bounds remain a
 separate rule.
-Reset `0x00691EE0` clears this first-Reply byte at `0x00691F12`.
+The first-use default helper `0x00691EE0` clears this first-Reply byte
+at `0x00691F12`. It is distinct from the Button_Reset arm below.
 The ordinary retained reopen does not by itself clear it.
 
 Reply's first-range branch is not restricted to Int 1. A kind-1 record
@@ -510,6 +511,68 @@ input timing remain outside this contract. LLVM instruction and PE table
 reads corroborated the native branches. Authenticated original bytecode
 and selected SQWT inputs corroborated the named producers. No original
 client ran.
+
+### Search Reset button and retained first-Reply byte
+
+MEASURED. The standard form's Button_Reset declares
+Command UILuaCommands.Operate, Content `@11062`, SqwtStyle BTN_basis,
+MinWidth 180 and Help value 0 `@79610` (line 135). It has no explicit
+CommandTarget, CommandParameter, ClickMode or local event trigger.
+The [ordinary Button release path](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source)
+and [Operate gate](#begin-search-activation-and-first-use-filters) apply
+conditionally. The source must reach the current operator as its exact
+retained Button_Reset, resolved at `0x0069220B..0x00692236` into `+0x74`.
+The matched branch is `0x00693729..0x0069379B` in `0x00693650`.
+
+STATIC. The branch resets selector indices 0 through 4 in order through
+`0x00691DC0` (`0x0069372E..0x00693780`). That helper erases the current
+selector vector and refills it through `0x00870530` from the constant
+table selected by `0x0086FD50`. Every source row's `+0x11` byte is 0
+in the five [first-use tables](#first-use-state-and-query). It also
+restores that selector's caption reference and clears its retained
+caption flag (`0x00691E24..0x00691E62`). The caller
+requests each restored caption through the embedded interface at
+operator `+0x20`, virtual `+0x18` (`0x00693754..0x00693768`).
+Constructor `0x00693558` installs table `0x00FC83FC` for that interface,
+and cell `0x00FC8414` selects `0x00690760`.
+
+The caption reference producer `0x00690530` selects these values. Setup
+retains the named TextBlock_ButtonText and TextBlock_ThreePoint children
+under the corresponding Label (`0x0069229B..0x0069254B`).
+
+| Selector | Label owner | Restored caption |
+| --- | --- | --- |
+| 0 | Label_Status | `@11001` |
+| 1 | Label_Class | `@11006` |
+| 2 | Label_Region | `@11016` |
+| 3 | Label_GrandCompany | `@11011` |
+| 4 | Label_Location | `@11021` |
+
+`0x00690760` requests each caption's Text through `0x0068E840` and
+requests Visibility 0, Collapsed, on its ThreePoint child when passed
+the cleared byte (`0x00690778..0x006908DE`). The loop preserves the
+operator's preceding current-selector index around each update.
+
+After all five selectors, the branch directly calls `0x006902D0` at
+`0x00693786`, then writes cached checkbox byte `0x01342BF8` to 0 and
+requests IsChecked false on retained `ToggleButton_JobCheck` at `+0x78`
+(`0x0069378B..0x0069379B`). After an admitted class-info Reply has set
+`+0xF4`, the direct call immediately writes both numeric caches and
+requests both current controls using the current profile's class level
+and the [published range rule](#first-class-info-reply-level-range).
+It does not wait for another Reply.
+
+This Button_Reset arm does not call `0x00691EE0` or write first-Reply
+byte `0x01342BFA`. If that byte is already 1, the next Reply updates the
+profile but skips its first-range call. Before the first class-info
+Reply, `+0xF4` is zero and the direct range helper returns without
+changing the numbers. The still-zero first-Reply byte can then admit
+the later Reply's range call. An ordinary Reset also does not enter the
+separate Search-source arm when the two retained Buttons are distinct.
+Actual pointer acceptance, callback reentry, nondefault command-line
+setup and historical query results remain outside this static contract.
+The identified PE's instructions, interface cells and constant tables,
+and the authenticated form corroborate these facts. No original client ran.
 
 ### Search result maker identity
 
