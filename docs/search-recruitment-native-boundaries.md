@@ -357,6 +357,24 @@ cells, branch operands, source tables and property names. SQWT decryption,
 re-encryption and namespace-aware XML checks authenticated the selected
 button declaration. No original client ran.
 
+### Search result maker identity
+
+MEASURED. The standard `widget/PcSearchWidget.form` declares a
+SqwtXmlDataMaker with Name `XmlDataMaker_PcSearchList`, resource key
+`XmlDataMaker_PcSearchList_Key` and XPath `/XmlDataMaker_PcSearchList_XPath`
+(decoded line 5). ListBox_SearchResult selects that key and XPath as its
+OneWay ItemsSource (line 152). This is distinct from the PlayerInformation
+maker and XmlDataMaker_Data declared on lines 6-7.
+
+STATIC. Setup `0x00691F30` resolves the result resource key literal at
+`0x00FC7A6C` through `0x006950A0`, then retains it at operator `+0x90`
+(`0x00691F7C..0x00691FA8`). Query construction passes that same maker to
+clear `0x00942FA0` and Update `0x00943980` at
+`0x00693A8F..0x00693AAA`. Result projection loads `+0x90` at
+`0x00693D58` and calls Update at `0x00693D5E`. Thus these published clear
+and Update requests name `XmlDataMaker_PcSearchList`, not the result
+ListBox or either other maker. The selected form identity is pinned below.
+
 ### Pending Search and empty completion
 
 STATIC. This path continues the admitted `Button_Search` send above and
