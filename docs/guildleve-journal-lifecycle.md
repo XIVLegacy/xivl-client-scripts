@@ -341,12 +341,23 @@ result and exits when that index is negative (PCs 63-69, bytes
 `SelectedIndex` (`root/proto113`, bytes `0x5F38`-`0x5F48`). The Journal
 handler receives the index from that property read.
 
+After the handler returns, the common dispatcher tests the original command
+for exact `UILuaCommands.SelectionChanged` and calls
+`setSelectedIndex(control)` with the index argument omitted (`root/proto13`
+PCs 76-80, bytes `0x2816`-`0x2826`). The setter replaces the omitted nil
+with `-1` and writes `SelectedIndex` through `setControlProperty`
+(`root/proto112` PCs 0-7, bytes `0x5EB7`-`0x5ED3`).
+
 `JournalListWidget.processUICommandSelectionChanged` passes the index to
 `getListPropertyIndex("QuestComboBox", index)`, then uses the mapped row
 to read `QuestType` (`root/proto4` PCs 0-8, bytes `0xE37`-`0xE57`).
 The result is compared with `work.questType` and stored when different
-(PCs 9-14, bytes `0xE5B`-`0xE6F`). The index that the control supplies
-and the `QuestType` read from the mapped row have separate roles.
+(PCs 9-14, bytes `0xE5B`-`0xE6F`). Mode 1 calls `createCategoryComboBox`
+with no start override (`root/proto0` PCs 68-71, bytes `0x4C9`-`0x4D5`).
+The default builder starts the maker row ordinal at 0 and the category
+number at 1 (`root/proto8` PCs 0-14, bytes `0x1376`-`0x13AE`). The row
+writer stores the category number as `QuestType` (`root/proto9` PCs 241-246,
+bytes `0x1890`-`0x18A4`).
 
 These are `ChunkReader` locators for the [Journal input](journal-list-row-writes.md#source-identity)
 and `n1635q/n1635q89r57y9rr_7vxxvw.le.lpb` in the
