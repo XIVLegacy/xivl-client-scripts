@@ -475,7 +475,8 @@ State notification `0x004B5DF0` invokes a callback only from prior states
 `0x0104ED88` is `0x008746B0`. That callback restores readiness and requests
 the ready helper but does not invoke `0x00693B50` to project HitCount.
 Readiness alone is therefore not proof of successful empty completion.
-State 5, timeout behavior and all error displays remain outside this case.
+State 5 and timeout behavior remain outside this case. The shared ready
+tail below also qualifies the error callback's presentation requests.
 
 Projection's final-byte and pending-flag guards, request token/state checks
 and current registry lookup are distinct. They do not establish a lifecycle
@@ -490,6 +491,38 @@ Ghidra CLI supplied focused leads. LLVM disassembly of `0x00691AE0`,
 and the `0x01E0` ingress corroborated branches, call arguments and order.
 Section-mapped PE reads checked the callback cells and named style/format
 literals. The authenticated standard form supplies the control identities.
+
+#### Shared ready tail for current Search
+
+STATIC. In `0x00691AE0(1)`, restoring `Button_Search.SqwtStyle` to
+`BTN_basis` at `0x00691BAB..0x00691BDE` and clearing operator `+0xF5`
+at `0x00691BFB` are common tail requests. They do not require a successful
+empty result. Entry with `+0xF5 == 0` jumps directly to that tail at
+`0x00691B1A..0x00691B21`, without NoContents or MaximumOver requests.
+
+With `+0xF5 != 0`, cached count zero selects NoContents Text `@11058`
+and Visible before collapsing MaximumOver. Count 1 through 199 instead
+takes `0x00691C44 -> 0x00691B95`, requests MaximumOver Collapsed and
+reaches the same Button tail. It requests neither NoContents Text nor
+Visibility, leaving its pending Hidden state intact. The exact-200 arm
+also rejoins the Button tail after its separate warning requests. These
+are style and notice requests, not IsEnabled writes.
+
+Error callback slot 2 (`0x008746B0`) writes contractor readiness 1 before
+looking up operator kind 2. A nonnull lookup tail-calls `0x00691AE0(1)`
+(`0x008746B0..0x008746D0`). Thus this current error callback restores
+Search art through the common tail even though it does not project
+HitCount through `0x00693B50`. If the pending flag remains set and the
+cache count is zero, the ready helper also requests the zero-count
+NoContents notice on this error path. That notice is not proof of a
+successful empty stream. A null operator lookup skips the UI request.
+
+These branches describe an admitted callback and current operator.
+Wrong-token packets suppressed at ingress produce no such callback.
+The ready helper contains no request-token or widget-generation check.
+A retained callback reaching a replacement operator, or a transport error
+that never invokes this callback, remains outside the proven route.
+LLVM disassembly corroborated these common and conditional branches.
 
 ### Ordinary Search row publication
 
