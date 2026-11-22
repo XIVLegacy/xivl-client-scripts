@@ -395,12 +395,65 @@ virtual `+0x1C` at `0x00695A20`, before setting operator `+0x1C` bit
 `0x40000000` at `0x00695A22` and requesting UIOperatorCommands.Close on
 its retained root (`0x00695A42..0x00695A6B`). The save body `0x006917F0`
 reads the two current Values and writes lower `0x01342BF4`, upper
-`0x01342BF0` (`0x0069180F..0x00691831`). Later normal setup restores those caches. This proves a
-save before the admitted native title-close request, not a save on every
-edit, arbitrary Lua close, hide or teardown. The Escape handler
-`0x00691730` has a separate active numeric-editor arm before this close
-request, so Escape while editing must not be treated as an unconditional
-root close.
+`0x01342BF0` (`0x0069180F..0x00691831`). Later normal setup restores
+those caches. This proves a save before the admitted native title-close
+request, not a save on every edit, arbitrary Lua close, hide or teardown.
+The [Cancel source test](#search-cancel-source-and-numeric-restore) below
+has a numeric restore arm before this close request.
+
+### Search Cancel source and numeric restore
+
+STATIC. UILuaCommands.Cancel literal `0x00FA868C` is registered with
+native id 2 at `0x00F0F2F9..0x00F0F31B`. Switch cell `0x00695ECC`
+selects `0x00695C73`, which calls virtual `+0x24` at `0x00695C82`.
+PcSearch cell `0x00FC8448` selects `0x00691730`. The existing operator
+and Window input guards still apply. This handler uses the routed source
+passed by that dispatcher, not an independent editor-active flag.
+
+Let C be a retained lower or upper NumberInputBox and D its selected
+NumberLabel. Accessor `0x0069C090` returns C+0x3B84, D, while
+`0x0069C080` returns the embedded TextBox at C+0x11D0. D is not proof
+of an active text editor. The
+[digit rebuild](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-number-input-digit-grid.md#digit-controls-and-value-binding)
+already selects ones and retains the generated ContentLabel child at
+D+0x340 when its constructor's Content cast succeeds.
+
+The lower arm consumes only when D is nonnull and the routed source
+matches D+0x340 or the lower embedded TextBox
+(`0x00691733..0x00691756`). Otherwise it tries the upper arm. That arm
+requires upper D nonnull and source equal to upper D+0x340, or to the
+**lower** embedded TextBox (`0x0069178B..0x006917AC`). The lower lookup
+in the upper fallback is the actual load at `0x006917A2`, not a symmetric
+upper-editor rule. A matched arm calls `0x0069C0A0` on the matched box,
+requests that box's input virtual `+0x38`, then returns without calling
+the native root-close arm (`0x00691758..0x0069177A`,
+`0x006917AE..0x006917D6`).
+
+`0x0069C0A0` requests typed Value from C+0x3B80 through `0x00967090`
+with arguments 0,1 (`0x0069C0A0..0x0069C0AB`). The NumberInputBox
+constructor registers `0x0069C230` for descriptor `0x01359468` at
+`0x0069DBCF..0x0069DBF1`. Initializer `0x00F227E0..0x00F227F6`
+names it IsKeyboardFocusWithinChanged, event id 0x2B, strategy 1.
+That handler copies current effective Value C+0x35C into C+0x3B80 only
+when the current IsKeyboardFocusWithin bit C+0x15D bit 5 is set
+(`0x0069C230..0x0069C23F`). The restore request is not the Search
+bound-cache save and does not itself call the text-editor opening path.
+
+The [qualified short-arrow route](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-number-input-pointer-edit.md#focus-before-the-quantity-step)
+can focus C before digit selection and the release step. Its MouseDown
+handler selects D at C+0x3B84. Those operations do not call the separate
+`0x0069C020` text-editor opener. If the later Cancel's actual routed
+source is C, it matches neither numeric content nor embedded TextBox.
+Both unmatched arms fall through to virtual `+0x28` at `0x006917E6`,
+then the shared save and root-close request described above. If source
+is one of the matched inner controls, the numeric restore arm applies.
+The [Layout0 Escape bindings](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/script/main-menu-command-route.md#key-bindings)
+request Cancel and separately MoveFocus 10. Their actual route membership,
+first source, preview handling and post-command focus remain conditions.
+This static branch does not make every physical Escape a root close or
+an editor cancel. LLVM instructions and section-mapped reads of the
+identified PE corroborated the accessors, source comparisons and calls.
+No original client ran.
 
 ### First class-info Reply level range
 
