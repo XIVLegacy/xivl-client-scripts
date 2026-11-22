@@ -251,3 +251,128 @@ extra actual requests. This demonstrates the guard without claiming that the
 retail helper suppresses errors. Metamethods, native effects, storage application,
 persistence, server outcomes, restart/OS effects and complete lifetime remain
 unresolved.
+
+## Standard Configuration entry and closed frame-rate selector
+
+MEASURED. The selected standard resources are the following. Decoded SQWT
+sizes include the UTF-8 BOM and retain the original CRLF line endings.
+
+| Resource | Carrier bytes / SHA-256 | Decoded bytes / SHA-256 |
+| --- | --- | --- |
+| `widget/ConfigWidget.form` | 2930 / `2029f43c19dd567ad11946553ba09520fe8f4860bfa85c57ae0f00409d972cbf` | 2922 / `6114add8a5e292997ae903575e7c73a044275826ad83cf2275b51f970381ad45` |
+| `widget/ConfigSystemWidget.form` | 15103 / `9a53345e2bfa1b790a26837d67f600b0df087cbff6b36c013a20324bf9e02e85` | 15095 / `e5ca55ee2b9fb759d96d6cd9dca356eaafd18bce7ecbb555f21ed13f9d52ff68` |
+| `widget/ConfigSystemWidget.tpl` | 3561 / `7968c998152122313cd3e5e2dd001182222122a316745c419d5ff3afa4feca09` | 3553 / `d6f16d532cf59eeb28a79f17a7d465e94c5b02d84db12c790a3b84f4395783e7` |
+
+Decode each SQWT carrier after its eight-byte header using
+`xivl-tools:tools/blowfish.py`, with its complete basename as the key. Retain
+the decoded line endings when checking these digests. These are declarations
+and authenticated static analysis, not an original-client execution.
+
+### System child and shared close
+
+OBSERVED. The Configuration opener is the existing
+[ConfigWidget resource](config-sound-widget-contract.md#configuration-menu-opener).
+Its `main/f0` PCs 0-2 call `setConfirmCondition("Button_System")`.
+The common helper `widgetbaseclass_common` `main/f56` PCs 0-4 registers that
+control for `UILuaCommands.Operate` with condition 5. In ConfigWidget
+`main/f2` PCs 0-8, the exact sender name `Button_System` selects
+`desktopWidget:openChildWidget("ConfigSystemWidget", self, true)`.
+The CALL has B=5,C=1. There is no mode argument or additional initializer
+operand. The Configuration form's `Button_System` declares that command,
+Content `@1360`, style `BTN_basis` and MinWidth 208. It has no local command
+target, command parameter, template or click mode.
+
+OBSERVED. Desktop connector `openChildWidget`, `main/f536` PCs 0-9,
+reads the supplied parent's widget index and tailcalls
+`openWidget(index,"ConfigSystemWidget",nil,parent,true,...)`. For this
+no-extra-argument caller, the vararg tail is empty. The
+[creation request](content-director-ui-contracts.md#openwidgetlocal-creation-request)
+owns the parent liveness, saved input and exact-true creation gates.
+The child inherits Configuration's category index. This call does not request
+an independent replacement of its live root. Connector `processWidgetCreated`
+`main/f532` PCs 20-27 installs the created widget as the root only if that
+category's entry is nil. Its enabled/visible branches reach `show()` at
+PCs 59-60. Creation success and current parent identity remain prerequisites.
+
+OBSERVED. System init `main/f0` PCs 43-49 calls `setCancelCondition()`,
+`setCloseCondition()` and `setModal(true)`, then calls `update()` at PC96.
+The standard root is `Window_ConfigSystemWidget`, with margin `318,64,0,0`,
+style `WIN_basis_noDecoration` and cyclic directional navigation. It imports
+`common/WINBasis.tpl` and the selected System template above. Its childless
+footer `Button_Close`, decoded form line 164, declares
+`UILuaCommands.WidgetClose`, Content `@1318`, style `BTN_basis`, MinWidth 120
+and right alignment. It has no local target, parameter, template or click
+mode. It is not a title-template close button.
+
+The inherited Cancel helper registers `_widget` with condition 5
+(`widgetbaseclass_common` `main/f58` PCs 0-7). The Close helper does likewise
+for WidgetClose (`main/f59` PCs 0-4). Common Cancel forwards to
+`processUICommandClose` (`main/f16` PCs 0-5), and that method calls
+`desktopWidget:closeWidgetDirect(self)` (`main/f17` PCs 0-3). System's eight
+own methods above override neither route. The
+[recursive close and finalizer](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/script/main-menu-command-route.md#community-menu-close)
+qualify the native deletion and root cleanup. A different live Configuration
+root survives the child finalizer. ConfigWidget alone overrides
+`processClosing` to request `_saveUserConfig()` (`main/f3` PCs 0-2).
+System does not add a save call on its own close. This is not proof of disk
+write completion or immediate native finalization.
+
+Neither selected own initializer makes an explicit named-control focus
+request. Modal, input-enable and show requests do not establish the final OS
+or native focused element. The ordinary shared command gates still apply.
+
+### Closed frame-rate presentation
+
+MEASURED. System form lines 151-154 declare `ComboBox_FrameRate`, Width 120,
+style `COM_basis`, selected `ControlTemplate_ComboBox`, and Text `@2316`.
+It owns exactly two childless inline ComboBoxItems, in this order:
+
+| Name | Content | Declared item properties |
+| --- | --- | --- |
+| `ComboBoxItem_Frame1` | `@2316` | IsTabStop False, FontEdge True, style NULL, IsHitTestVisible False |
+| `ComboBoxItem_Frame2` | `@2315` | IsTabStop False, FontEdge True, style NULL, IsHitTestVisible False |
+
+Both select `ControlTemplate_ComboBoxItem`. Neither declares ItemsSource or
+an item data template. The selected item template, System template lines
+30-35, contains one Button with style `BTN_basis_listboxSelect`, MinHeight 20
+and MinWidth 100, and an element-form OneWay Content binding to its templated
+parent. These are inline choice contents, not unconditional sibling rows in
+the closed form.
+
+MEASURED. The selected ComboBox template's DockPanel contains two toggle
+parts bound TwoWay to IsDropDownOpen. `PART_DropDownButton_Text` has style
+NULL and contains `PART_Label`, Height 16 and FontSize 13. That label's Text
+binds OneWay to its templated parent's Text, with Padding `2,-1,0,0`
+(template lines 13-21). `PART_Popup` separately binds IsOpen TwoWay to
+IsDropDownOpen and contains `PART_ListBox` (lines 22-28). The template's
+Selection trigger declares `UILuaCommands.Selection` and sound 3. Its
+Operate trigger declares OpenDropDown and sound 3. The popup Escape binding
+and the list's Cancel trigger declare CloseDropDown. These declarations do
+not by themselves prove physical input delivery or successful popup layout.
+
+STATIC. In the pinned executable identified by
+[xivl-decomp's ComboBox contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#input-and-method),
+constructor `0x009695C0` clears object byte `+0x4A8` bits 0-5 at
+`0x0096960E`. The two following metadata operations at
+`0x00969635..0x0096967D` restore only bits 1 and 0. Thus its IsDropDownOpen
+bit `0x20` starts clear. The selected form declares no overriding open
+value. Popup hiding, part ownership and changed open/close callbacks remain
+owned by that native contract. A closed-only consumer can preserve these two
+inline items and show the current parent Text without painting their popup
+choices or claiming support for dropdown selection.
+
+MEASURED. The English `xtx/_text_ui` rows 2315 and 2316, field 1, resolve to
+`30 fps` and `60 fps`. In data resource `0x0B4502B5` their stored intervals
+are `[0x2FF3,0x2FFD)` and `[0x2FFD,0x3007)`, with SHA-256
+`5d005cd9bdc3ca544574d760eb81a0acfdf008c84c542530a0448ad3dafea450`
+and `5b8c3a298302e1a1ffe2505ae6c268455e711017687173045fdae5da6d48d199`.
+The sheet definition, enable and offset resources are identified in
+[xivl-decomp's selected English UI text route](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-plain-text-reference-lookup.md#static-english-definition).
+The Lua update rule above selects index 0 for value 60 and index 1 for 30.
+[Work index 64](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/script/desktop-user-config-reads.md#work-index-map)
+selects Lua GameConfig group 5/key 9. Its registered `draw_frame_rate`
+default is 60 in
+[xivl-client-structs](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/user-config-store-contract.md#group-4-lua-group-5).
+This establishes the unmodified default closed caption. This section does
+not establish how a changed selected item replaces Text, popup item hit
+geometry, or native frame pacing.
