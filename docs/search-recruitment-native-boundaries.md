@@ -240,6 +240,123 @@ checked with `unluac --disassemble`. Actual gate installation and lifetime,
 property admission, dispatch scheduling, reused controls, result retrieval
 and live rendering remain unverified.
 
+### Begin Search activation and first-use filters
+
+MEASURED. The standard form's `Button_Search` declares
+`Command=UILuaCommands.Operate`, Content `@11033`, `SqwtStyle=BTN_basis`,
+MinWidth 180 and Help value 0 `@79609` (decoded line 134). It is in
+Grid_SearchSetting's third row, beside Button_Reset. It has no local
+CommandTarget, CommandParameter, ClickMode, Template, Visibility or
+IsEnabled declaration. The selected form and template identities are below.
+
+STATIC. The [ordinary Button command path](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#button-mouse-source)
+qualifies eligible delivered press/release and default ClickMode 2. Its
+Click uses the Button as source and original source, then invokes its
+stored Command. The omitted parameter retains the shared kind-0 record.
+The [Window target fallback](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-command-parameter-consumer.md#actionmenu-arrow-target-fallback)
+and keyboard-focus alternative remain conditional. This markup does not
+prove the physical OS recipient, capture or initial keyboard focus.
+
+The Operate literal at `0x00FA8674` is registered as native command id 1
+by `0x00F0F279..0x00F0F29B`. The active PcSearch form gate sees Executed
+before Lua lookup. Its existing operator/input guards are documented above.
+For id 1, switch cell `0x00695EC8` selects `0x00695C5B`, which calls
+operator virtual `+0x20` at `0x00695C6A`. PcSearch table cell `0x00FC8444`
+selects `0x00693650`. The gate passes the routed source as that method's
+control argument. This native path does not require a new Lua Operate
+subscription or call `processUIOperatorCommandRequest`.
+
+Setup resolves literal `Button_Search` at `0x00FC7B80` and retains its
+control at operator `+0x70` (`0x006921C4..0x006921EF`). The search arm
+requires its supplied control to equal that value at `0x006937AB`, then
+requires nonzero `0x00874590(operator+0x28)` at
+`0x006937B4..0x006937BE`. The reader returns contractor byte `+0x14`.
+The contractor constructor sets it to 1 at `0x0087454A`. A different sender
+or zero readiness byte skips the search arm before query construction.
+Matching the command string alone is insufficient.
+
+#### First-use state and query
+
+STATIC. Equal `mode_widget` text on a fresh operator skips command-line
+parsing and the automatic query, as documented in the setup section.
+There is also a separate retained first-use byte at `0x01342BF9`.
+When it is zero, setup calls `0x00691E80`, calls `0x00691EE0`, then writes
+1 to it (`0x00692797..0x006927BA`). The latter helper resets the five
+search selector vectors, writes lower 1 at `0x01342BF4`, upper 50 at
+`0x01342BF0`, and checkbox 0 at `0x01342BF8`
+(`0x00691EE6..0x00691F12`). Reopening a Window with the first-use byte
+already set does not establish these defaults.
+
+For selector indices 0 through 4, reset `0x00691DC0` calls `0x00870530`
+at `0x00691E1F`. It rebuilds the vector from the records selected by
+`0x0086FD50`, with stride `0x14`. The row copy at `0x0068FB00` preserves
+all `0x14` bytes. These constant source tables have no row whose byte
+`+0x11` equals 1:
+
+| Selector | Table VA | Records |
+| --- | --- | ---: |
+| Status | `0x0104DF20` | 4 |
+| Class | `0x0104DFB0` | 22 |
+| Region | `0x0104E168` | 5 |
+| GrandCompany | `0x0104E1D0` | 5 |
+| Location | `0x0104E238` | 46 |
+
+MEASURED. The form declares `CustomControl_LevelFrom` and
+`CustomControl_LevelTo` with Type NumberInputBox and Width 64 (lines 92
+and 96). STATIC. Setup resolves those literals at `0x00FC7D58` and
+`0x00FC7D70`, retaining the lower control at operator `+0x7C` and upper
+at `+0x80` (`0x006925F7..0x00692622`, `0x0069263E..0x00692669`).
+It sets both controls' minimum to 1 and maximum
+to 50, then requests the cached lower and upper values
+(`0x00693086..0x006930E2`). It requests the cached checkbox through
+`0x0095D440` at `0x006930E7..0x006930F6`. `0x006958B0` writes the decimal
+`%d` value through the named property object `0x01345510`.
+Initializer `0x00F148C0..0x00F148CA` names that object `Value`.
+The query's `0x00695950` reads that same property and converts its string
+with `atol` (`0x00695994..0x006959B1`). Successful control construction,
+property application and no intervening input remain premises.
+The separate operator virtual `+0x1C` (cell `0x00FC8440`, body
+`0x006917F0`) re-caches both control values through `0x00695950`, but
+its invocation timing is untraced and Begin Search reads the controls
+directly rather than establishing a cache write on each edit.
+
+The Search arm tests selector row `+0x11 == 1` and value `+0x0C != -1`
+before serializing it. It tests the checkbox's effective checked bit and
+serializes both levels only when both are positive. The
+[wire request](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-requests)
+owns the tag widths and record. With the first-use defaults above retained,
+no selector or checkbox tag is emitted. The only filter is tag 2, lower 1,
+upper 50. The used tail length is 3. Application dword `+0x00`, word
+`+0x06` and unused tail bytes are zero. This is a conditional first-use
+query, not a rule to replace current filters with defaults on each click.
+
+Before sending, the native arm clears its cached results, sets operator
+`+0x108` to -1, clears the result maker and publishes Update
+(`0x00693A59..0x00693AAA`). It passes the `0x104`-byte query to
+`0x008746E0` at `0x00693AD2`. That method checks readiness again and calls
+emitter `0x004C7300`. Only emitter success clears contractor `+0x14`,
+requests the pending presentation with `0x00691AE0(0)`, and returns
+success (`0x008746E3..0x0087473A`). The caller then sets operator `+0xF5`
+to 1. Failure instead requests NoContents text `@11065` and Visible
+(`0x00693ADB..0x00693B22`). Query acceptance is not an empty-result reply.
+
+The bounded ordinary action is an eligible activation of the exact current
+Button_Search routed to its initialized current PcSearch operator, with
+readiness and current filters preserved. A stock empty-search check also
+needs the [result/completion stream](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-results-and-completion):
+a latched nonzero token, zero returned rows and matching completion through
+`0x01E0`, then the native completion callback. A send, timeout, zero rows
+without completion, or the setup's no-query message is insufficient.
+Result rendering and historical empty-search traffic are outside this trace.
+
+The executable is the identified 15996808-byte `ffxivgame.exe`, SHA-256
+`9341f2b4567440b310a4d494f5cc5599ca334ba51c8042247317ff466492f2e9`,
+image base `0x00400000`. Ghidra CLI supplied focused leads. LLVM
+disassembly and section-mapped PE reads corroborated command and vtable
+cells, branch operands, source tables and property names. SQWT decryption,
+re-encryption and namespace-aware XML checks authenticated the selected
+button declaration. No original client ran.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
