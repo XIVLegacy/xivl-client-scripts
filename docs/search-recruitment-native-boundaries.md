@@ -357,6 +357,122 @@ cells, branch operands, source tables and property names. SQWT decryption,
 re-encryption and namespace-aware XML checks authenticated the selected
 button declaration. No original client ran.
 
+### Pending Search and empty completion
+
+STATIC. This path continues the admitted `Button_Search` send above and
+the [matching-token stream](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-results-and-completion).
+It concerns normal `mode_widget`, zero cached rows and successful terminal
+state 3. Populated rows, comment construction, other command-line modes,
+error presentation and observed historical traffic are outside this case.
+The identified executable and method are recorded above.
+
+#### Pending requests
+
+On emitter success, `0x008746E0` first clears contractor readiness
+`+0x14` and its projected-row cursor `+0x18`, then requests
+`0x00691AE0(0)` on the registered PcSearch operator
+(`0x00874710..0x00874731`). The caller sets operator `+0xF5` to 1 only
+after that call returns. The readiness predicate in the Search arm refuses
+a further query while the byte is zero.
+
+`0x00691AE0(0)` requests the following changes in order. The retained
+operator `+0x68/+0x6C` controls are NoContents and MaximumOver, as pinned
+in setup above. The named button lookups resolve `Button_Search`.
+
+| Control and property | Requested value | Instruction range |
+| --- | --- | --- |
+| `TextBlock_NoContents.Visibility` | 1, Hidden | `0x00691CEE..0x00691CFF` |
+| `Button_Search.SqwtStyle` | `BTN_basis_disabled` | `0x00691D0A..0x00691D37` |
+| `TextBlock_MaximumOver.Text` | `@11066` | `0x00691D50..0x00691D78` |
+| `TextBlock_MaximumOver.SqwtStyle` | `TBL_null` | `0x00691D7D..0x00691D88` |
+| `TextBlock_MaximumOver.Visibility` | 2, Visible | `0x00691D8D..0x00691D9E` |
+
+Text uses `0x009557D0`, Visibility uses `0x0093C2A0`, and the named style
+helper is `0x004EC650`. Visibility 1 is
+[Hidden](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-anime-property.md#visibility-and-anime).
+This body makes no HitCount Text or Visibility request and no IsEnabled
+write. Its disabled Button style is separate from the native readiness
+gate. It requests no new widget or modal setting. The enclosing Search
+root's modal initialization is already documented, and this presentation
+path establishes no additional modal, overlay or input capture.
+
+#### Zero rows and terminal completion
+
+PcSearchContractor table cell `0x0104ED84` selects ordinary callback
+`0x00874610`. It obtains the current row count through `0x004C3980(4)`,
+truncates it to u16 and passes the previous cursor, new count and contractor
+byte `+0x0C` to `0x00693B50` when the registry lookup for operator kind 2
+succeeds (`0x0087461A..0x00874645`). Projection requires that final byte
+be zero and operator `+0xF5` be nonzero (`0x00693B8B..0x00693BAD`).
+Ordinary `0x008746E0` success clears contractor `+0x0C` at `0x00874736`.
+These predicates are not proof of a particular widget generation.
+
+For old cursor 0, count 0 and the cleared cache from query construction,
+the row and comment loops execute no iterations. The normal continuation
+publishes result-maker Update at `0x00693D58..0x00693D5E`, then writes
+`TextBlock_HitCount.Text` as `@228/i0/i200` and its SqwtStyle as `TBL_null`
+(`0x00693D92..0x00693E30`). The format is `@%d/i%d/i%d` at `0x00FC83EC`.
+There is no HitCount Visibility request in this body. An intermediate
+zero-row callback can already publish this count. It does not itself
+finish the query.
+
+After projection, `0x00874610` updates contractor cursor `+0x18`, then
+tests terminal predicates through `0x004BBE60` with selectors 1, 2 and 3
+(`0x0087464A..0x00874672`). `0x004B65E0` maps them to request states 3,
+4 and 5 and also requires nonnull request `+0x24`. Nonterminal state 2
+returns without restoring readiness. The successful empty case takes
+state 3. It writes readiness 1 at `0x00874674`, then requests
+`0x00691AE0(1)` when operator kind 2 is still registered
+(`0x00874678..0x00874698`). Readiness is restored before these UI requests.
+
+With operator `+0xF5` still set and its cached row count zero,
+`0x00691AE0(1)` requests the following ordered continuation:
+
+| Control and property | Requested value | Instruction range |
+| --- | --- | --- |
+| `TextBlock_NoContents.Text` | `@11058` | `0x00691B52..0x00691B7A` |
+| `TextBlock_NoContents.Visibility` | 2, Visible | `0x00691B7F..0x00691B90` |
+| `TextBlock_MaximumOver.Visibility` | 0, Collapsed | `0x00691B95..0x00691BA6` |
+| `Button_Search.SqwtStyle` | `BTN_basis` | `0x00691BB1..0x00691BDE` |
+
+It then clears operator `+0xF5` at `0x00691BFB`. Normal `mode_widget`
+retains `+0x24 == 0`, so the following non-widget enable helper is skipped.
+The pending MaximumOver text may remain stored while that control is
+Collapsed. Completion does not require clearing its Text or setting
+HitCount Visibility.
+
+#### Completion and stale-input boundaries
+
+Clientbound `0x01E0` requires active opcode `0x01DD`, a request state other
+than 3, 4 or 5, a retained nonzero token and exact incoming token equality
+(`0x004C78A3..0x004C78E4`). Its error mask 4 takes state 4 before copying.
+Its completion mask 2 requests state 3 after parsing. The linked wire
+contract owns the initial `0x01DF` token latch and zero-row premise.
+Wrong tokens, wrong active opcode and already terminated records therefore
+do not establish this successful empty continuation.
+
+State notification `0x004B5DF0` invokes a callback only from prior states
+1 or 2 with a nonnull callback pointer and an admitted reentry counter
+(`0x004B5DF9..0x004B5E46`). State 4 selects callback slot 2, whose cell
+`0x0104ED88` is `0x008746B0`. That callback restores readiness and requests
+the ready helper but does not invoke `0x00693B50` to project HitCount.
+Readiness alone is therefore not proof of successful empty completion.
+State 5, timeout behavior and all error displays remain outside this case.
+
+Projection's final-byte and pending-flag guards, request token/state checks
+and current registry lookup are distinct. They do not establish a lifecycle
+generation check when the root has been replaced or reopened. A bounded
+empty-result observation needs the same admitted request and current root,
+matching-token successful completion, count projection and ready UI requests.
+Callback reentry, property refusal, overlapping roots and late callbacks
+against replacements remain unobserved. No original client ran.
+
+Ghidra CLI supplied focused leads. LLVM disassembly of `0x00691AE0`,
+`0x00693B50`, `0x00874610`, `0x008746B0`, `0x004B5DF0`, `0x004B65E0`
+and the `0x01E0` ingress corroborated branches, call arguments and order.
+Section-mapped PE reads checked the callback cells and named style/format
+literals. The authenticated standard form supplies the control identities.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
