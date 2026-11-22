@@ -923,6 +923,77 @@ It was decrypted, re-encrypted byte-for-byte and parsed as XML. Native
 instructions, vtable cells and original Class records corroborated the
 consumer joins. No original client ran.
 
+#### Class leaf combinations, caption and retained query order
+
+STATIC. For the admitted checked-role 1 source and tree mode 0 above,
+`0x008738EA..0x008738F3` selects the multiple-choice arm at `0x00873A6A`.
+The mode-0 arm reads the maker's checked_flag, negates it and writes that
+same row (`0x00873A6A..0x00873AF2`). It then copies that value only to
+following rows whose level is greater than the selected row's level
+(`0x00873B54..0x00873C0E`). Every ordinary Class leaf has level 1 and
+no deeper following row, so a leaf gesture leaves other leaf checks intact.
+Repeating the same leaf gesture negates its current maker value again.
+
+The immediate parent lookup `0x00871FC0` walks backward to the first row
+with lower level. For a level-1 leaf, `0x00872C30` starts after that parent
+and reads checked_flag until a row with level below 1 or the maker end.
+It returns false on the first unchecked row (`0x00872CB4..0x00872D83`).
+The caller writes that Boolean to the parent (`0x00873C17..0x00873CB6`).
+Thus header row 0 is checked exactly when all its five leaf rows 1 through
+5 are checked. Two checked leaves in that group leave the header false.
+The mode-0 route publishes maker Update, reruns hierarchy visibility and
+publishes Update again (`0x00873CCE..0x00873CFB`). The aggregate is Boolean.
+
+STATIC. The shared child pre-close save first copies all maker check and
+expand flags back to the current Class vector, as described above.
+Caption fold `0x00872E70` scans this retained vector in row order. Its
+first pass formats only the first checked record through `0x008724E0`
+(`0x00872EF3..0x00872F2E`). Its second pass derives the multiple-selection
+byte, accounting for checked ancestors (`0x00872F51..0x00872FFE`).
+For two checked leaves with unchecked headers, that byte is 1.
+
+Close `0x0086F1F4..0x0086F243` uses the default callback caption if every
+record is checked or the folded string is empty, then clears the marker
+byte in that fallback. Otherwise it preserves the first-record caption and
+multiple-selection byte. Callback virtual `+0x18 -> 0x00690760` writes
+the Class TextBlock_ButtonText and makes TextBlock_ThreePoint Visible for
+a nonzero byte, Collapsed for zero. All-unchecked Class falls back to
+`@11006`. Localization and drawing depend on the admitted control path.
+
+INFERRED. Starting from the catalog's unchecked mode-0 vector, the following
+sequence distinguishes retained multiple selection from single selection
+and from click-order caption or query construction. The other leaves and
+all headers remain unchecked throughout this sequence.
+
+| Admitted gesture before child close | Checked leaf selectors | Folded caption | ThreePoint | Class tag-1 bytes in the later admitted query |
+| --- | --- | --- | ---: | --- |
+| Row 2, then row 1 | 3, 2 | `@206/i3` | 1 | `01 03 01 02` |
+| Row 2 again after those gestures | 3 | `@206/i3` | 0 | `01 03` |
+| Row 1 again after that | none | `@11006` | 0 | none |
+
+STATIC. Query construction `0x00693854..0x006938B3` walks Class records
+forward with stride 0x14. For each checked byte exactly 1 and selector
+not -1, it appends tag 1, width 1, using the selector at record `+0x0C`
+(`0x00693881..0x006938A2`). Repeated Class tags follow catalog row order.
+The encoder skips header selector -1. Server handling of repeated filters
+remains outside this trace.
+
+The same-parent child reopen rebuilds from the saved current vector without
+resetting it. On the admitted parent root-close save, `0x006917F0` also
+copies the live Class caption at `0x013434F0` into saved caption
+`0x01343230` and byte `0x01343544` into `0x01343284`
+(`0x00691848..0x00691868`). The
+[normal setup loop](#native-setup-restores-selector-captions) restores that
+saved caption and marker. The [Reset path](#search-reset-button-and-retained-first-reply-byte)
+replaces the Class vector with all 22 catalog records, restores every expand
+byte to 1 and checked byte to 0, restores `@11006` and clears the marker.
+
+The selected assets and executable identity are those pinned above. Original
+instruction operands, loop bounds and the Class catalog corroborate this
+sequence. Header activation, expand gestures, other tree modes, arbitrary
+teardown without the normal save, concurrent selectors, physical routing
+and original runtime behavior remain outside this leaf combination contract.
+
 ### Search result maker identity
 
 MEASURED. The standard `widget/PcSearchWidget.form` declares a
