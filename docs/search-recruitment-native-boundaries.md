@@ -524,6 +524,29 @@ A retained callback reaching a replacement operator, or a transport error
 that never invokes this callback, remains outside the proven route.
 LLVM disassembly corroborated these common and conditional branches.
 
+#### Exact-200 ready warning
+
+STATIC. With ready argument 1 and operator `+0xF5` nonzero,
+`0x00691AE0` compares the cached profile count with exactly 200 at
+`0x00691C3F`. Equality requests these writes in order:
+
+| Control and property | Requested value | Callsite |
+| --- | --- | --- |
+| `TextBlock_MaximumOver.Text` | `@11059` | `0x00691C72` |
+| `TextBlock_MaximumOver.SqwtStyle` | `TBL_parameterDanger` | `0x00691C82` |
+| `TextBlock_MaximumOver.Visibility` | 2, Visible | `0x00691C98` |
+| `TextBlock_HitCount.SqwtStyle` | `TBL_parameterDanger` | `0x00691CD0` |
+
+The arm then jumps to the shared Button_Search `BTN_basis` restore and
+pending-flag clear (`0x00691CE9 -> 0x00691BAB`). It makes no NoContents
+write and does not replace HitCount Text. With a positive count unequal
+to 200, including greater than 200, `0x00691C44` instead branches to
+`0x00691B95`, which requests MaximumOver Collapsed before the same tail.
+With `+0xF5 == 0`, all these notice writes are skipped. This equality
+branch does not establish that historical streams exceeded 200 or admit
+malformed result records. LLVM disassembly and the two literal reads at
+`0x00FC7E3C/0x00FC7E50` corroborated the common danger style.
+
 ### Ordinary Search row publication
 
 STATIC. This path uses the result maker above and the matching-token ordinary
