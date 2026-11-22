@@ -268,6 +268,30 @@ signature prepended.
 | `widget/CraftStartWidget.form` | 13817, `86a2aef3e2d357f89c48f24fe6ff7e8bede1904ca477ca941e8f1170f0c5b643` | 13809, `def2bc31813719ab05ef7c2922b05d8c18ac1cc15d8fd85c30c468c56adc021a` |
 | `widget/CraftStartWidget.tpl` | 642, `3bfb761a14f685e8c6ff5f1707e5417ddf3e30d12944185ca0387ff24197dda9` | 634, `98984b5b2104b8061ab30cbd345789fb4401a355ac094c28aeb4a1510550f234` |
 
+## Off Hand availability
+
+After registering the button conditions, `CraftStartWidget.init` calls
+`worldMaster:_getMyPlayer():_getEquippingItem(2)`. A nil item or an
+`isCraftWeapon()` result other than exact true requests
+`setVisibility("Button_CraftStartBySub", false)`. A passing item skips that
+request, leaving the button's current visibility in place. The gate runs in
+`init`. In `setInitialData`, the mode-dependent `setEnable` calls target
+`Button_Recipe`. The [equipment lookup contract](https://github.com/XIVLegacy/xivl-client-structs/blob/8a8930c6da61d1ff8b3d442fe169396805394d23/docs/scheduler-item-native-contract.md)
+owns the translation from Lua slot 2 to zero-based slot 1 in package `0xFE`.
+
+`ItemBaseClass.isCraftWeapon` reads `_getCatalogID()` and returns true for
+numeric IDs from 6000000 through 6999999, inclusive. Catalog 6011004 is
+Bronze Claw Hammer in `xivl-client-data:derived/shop_catalog.csv:606`.
+Authenticate the [ItemBaseClass common LPB](../manifests/retail_lua_coverage.json#L408-L420)
+alongside the CraftStart source above. These branches establish the script's
+visibility request and catalog predicate. Input delivery requires separate evidence.
+
+| Original locator | Observation |
+| --- | --- |
+| CraftStart `root/proto0` at `0x06EF`, PCs 208-210 and 223-239 | Off Hand registration, equipped item lookup and hide request |
+| CraftStart `root/proto1` at `0x0FAB`, PCs 8-11 and 17-20 | Recipe enable requests |
+| ItemBase common root PC 98, `root/proto32` at `0x2C54`, PCs 0-10 | Craft weapon predicate binding, catalog read, inclusive range and Boolean results |
+
 ## Clear material slots
 
 The HD form pinned above declares `Button_ClearMaterial` at decoded line
@@ -353,6 +377,18 @@ at 0 and R at nil. S=false, nil or numeric 0 skips both result getters and
 preserves that S with the initial O/R and an empty table.
 
 ## Single recipe selection and confirmation
+
+The ordinary Main Hand and Off Hand callbacks clear history and recipe mode
+and select operations 1 and 2 respectively. On a successful selector result,
+the material collection and Judge result conversion use the same path for
+both operations. The follow-up calls described below take the current
+CraftStart widget and derive their results from the supplied candidates and
+current recipe state. CraftStart `root/proto18` PCs 127-143 sets the
+Off Hand operation and mode. Desktop connector `root/proto208` at
+`0x1A1D3`, PCs 38-52, skips material collection only for operation 0.
+CraftStart `root/proto25` PCs 262-274 and `root/proto26` PCs 0-8 select the
+first ordinary candidate. Connector `root/proto210` PCs 8-37 and 54-65
+checks the recipe state and selection result.
 
 `CraftJudge.selectRcp` passes its variable results after its two fixed
 arguments to the desktop's `selectCraftRecipeSelectWidget` and retains one
