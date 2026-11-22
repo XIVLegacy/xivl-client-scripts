@@ -735,6 +735,45 @@ remain false. The OneWay binding is not a reverse write from the earlier
 Toggle mutation. Keyboard traversal, expansion gestures and other tree
 modes remain outside this representative leaf route.
 
+#### Selected tree toggle bindings and frames
+
+MEASURED. In the authenticated selected TreeView template, line 16 declares
+ToggleButton_TreeViewExpand with Command UICommands.Operate, style
+TOG_basis_tree, Width and Height 16, and no explicit CommandParameter or
+CommandTarget. Every binding in this table is XPath with Mode OneWay.
+
+| Expand property | Row attribute |
+| --- | --- |
+| IsChecked | `@expand_flag` |
+| Visibility | `@visibility_expand` |
+| IntData.Value0 | `@list_index` |
+| IntData.Value1 | `@control_index_toggle_expand` |
+
+The adjacent ToggleButton_TreeViewChecked at line 17 selects
+TOG_basis_checkBox. Its [checked and unchecked Frame parts](#search-checkbox-presentation)
+are the same CHB_basis_checked and CHB_basis_unChecked parts already
+recorded for the parent job toggle. The native row writer's expand and
+checked role values remain 0 and 1, respectively.
+
+In authenticated common/default.style, TOG_basis_tree lines 3472-3475
+redirect CheckedButton to Button style TOG_basis_treeMinus and
+UncheckedButton to TOG_basis_treePlus. Each Button style has one Frame
+part (lines 1913-1936), with these selected keys.
+
+| Frame condition | Checked expand | Unchecked expand |
+| --- | --- | --- |
+| SkinNormal, SkinDisabled | `TOG_basis_treeMinus_N` | `TOG_basis_treePlus_N` |
+| SkinHover, SkinActive, SkinAnchored, SkinReserved | `TOG_basis_treeMinus_H` | `TOG_basis_treePlus_H` |
+| SkinFocused, SkinDroppable | `NULL` | `NULL` |
+
+The four tree skins are 1-by-1 CellSkins, each with one Stretch Cell and
+a 16-by-16 source rectangle in common/default.dds (default.skin lines
+1850-1861). The common style/skin identities are pinned in the
+[numeric presentation input table](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/damage-plate-numeric-presentation.md#identity-and-method).
+Both carriers were decrypted, re-encrypted byte-for-byte and parsed as XML.
+These are the selected declarations and skin keys. Actual animation,
+style resolution, hit acceptance and rendered pixels remain conditional.
+
 STATIC. Child Cancel selects virtual `+0x24`, cell `0x0104D1A8`, body
 `0x0086F190`, which only jumps to virtual `+0x28`. The declared
 Button_Close sends UILuaCommands.WidgetClose and reaches that same
