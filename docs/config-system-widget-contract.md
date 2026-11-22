@@ -652,3 +652,75 @@ the realized popup is a remaining discriminator before claiming an
 unconditional physical row click. A bounded consumer can retain the exact
 arrow/open and current-row predicates above without claiming arbitrary
 ListBox forwarding, guaranteed focus restoration or frame pacing.
+
+## Qualified inline Button hit and attached input route
+
+STATIC. The inline item's local IsHitTestVisible False does not itself prune
+hit testing of its current visual children. Visual hit descent `0x0097DE40`
+visits child visuals at recursive call `0x0097E0BE` before the current
+object's primary `+0x38` leaf call at `0x0097E181`.
+It carries clip and coordinate transforms, and returns early after a child
+produces a primary hit. Its descent has no ancestor IsHitTestVisible test.
+The [arranged-box hit contract](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-number-input-button-frames.md#painted-dimensions-and-point-containment)
+owns the coordinate and clip rules. This is a local traversal fact, not a
+claim that every descendant is visible or hittable.
+
+IsHitTestVisible is descriptor `0x01359354`, ordinal 2, named by
+`0x00F22930..0x00F22949` from `0x0106BEC4`. Setter `0x0093C300`
+uses the holder at complete element `+0x15A` at `0x0093C31F`.
+For a normal point request whose override byte `+0x10` is clear, the
+Button leaf `0x0092B640` requires its own holder bit `0x20` before
+recording a primary hit. It first requires a nonzero input virtual `+0x5C`
+result. Its separate Help.Type branch can record auxiliary help state
+without establishing a primary hit. The primary-hit writes occur at
+`0x0092B7AE..0x0092B7B9` only after point containment and the local hit
+predicate. Thus a current eligible Button_XXX descendant can be the primary
+hit despite the containing inline item's local False. The item's own false
+value alone is not proof of the child's effective property value. Control
+hit wrapper `0x00939B10` returns the primary hit element's input interface
+(complete object plus `0xB4`) after the descent, rather than returning the
+non-hittable ancestor merely because it contains that Button.
+
+STATIC. Logical attach `0x009313C0` checks parent/child identity and the
+old parent, and calls parent input virtual `+0x50` with child input at
+`0x009313EF..0x00931405`. The checked Button, ComboBoxItem, DockPanel,
+ContentPresenter, StackPanel, VirtualizingStackPanel, ScrollContentPresenter,
+ScrollViewer, ListBox, Popup and ComboBox input tables select common
+`0x0091E180` for that slot. For unequal nonnull child input, that method
+removes a different old input parent through its slot `+0x54`, registers
+the child and stores the new parent input at child interface `+0x60`.
+Popup has no special override of this attachment slot. The routed event
+walk at `0x0091E2A6` follows that input-parent field.
+
+This input attachment precedes the guarded logical Parent property store.
+A logical Parent value or a template declaration alone is not a lease on
+the current input chain. For an attached current Button-to-row-to-panel
+and selected Popup/DockPanel-to-ComboBox chain that retains those input
+parents, the route can visit the owning ComboBox's preview and ordinary
+handlers. The existing current-panel source lookup then qualifies the row
+index. Popup does not introduce a special route cut through this slot.
+Current attachment, visibility, clip, local hit admission, source identity
+and the native preview and ordinary producer conditions remain necessary.
+Preview release also tests the event's handled byte before lookup.
+This admits that bounded current Button case without
+replacing it with a raw coordinate-to-index guess or nested ListBox callback.
+
+### Container creation and remaining boundary
+
+STATIC. Every admitted invocation of ComboBox generator slot 7,
+`0x00967BF0`, allocates a new 0x36C-byte ComboBoxItem through
+`0x009BA8D0` (`0x00967C15..0x00967C39`). It does not inspect the supplied
+item's type to reuse it in this method. It assigns the supplied object as
+Content through `0x009350A0` at `0x00967C52`, can request Visibility 0
+when its second argument is zero, then appends the created object through
+`0x009C3FE0` at `0x00967C76`. The latter is also the generator's direct
+Add slot 5. This factory path and direct Add are distinct.
+
+The normal inline-markup caller choosing direct Add versus this wrapping
+slot was not established. Do not infer the actual stock hit source is a new
+wrapper merely from this factory. The current drawn eligible Button and
+current ancestor-chain predicate above does not require that inference.
+Arbitrary row rectangles, capture changes, hidden/replaced panels, default
+child hit properties, failed attachment and an unconditional historical
+physical click remain outside the qualified case. An original execution
+was not run.
