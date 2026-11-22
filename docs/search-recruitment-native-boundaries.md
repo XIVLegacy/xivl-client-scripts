@@ -835,6 +835,109 @@ operands and table rows were checked directly. Header activation, expand
 gestures, physical routing and original runtime remain outside this Status
 leaf contract. No original client ran.
 
+### Search Region selector and English Language caption
+
+MEASURED. The standard form's Label_Region selects
+ControlTemplate_Label_SearchSetting, Width 200 and Help value 0 `@79608`.
+Its selected Button_SearchSetting has UILuaCommands.Operate with no explicit
+parameter or target. Setup looks up Label_Region:Button_SearchSetting at
+`0x006920ED..0x00692118` and retains it at operator `+0x34`.
+The [ordinary Button and current operator gates](#begin-search-activation-and-first-use-filters)
+remain required. No new Lua selection callback is declared by this Label.
+
+STATIC. Operate `0x006936BD..0x006936DC` matches that exact retained Button,
+sets current selector `+0x8C` to 2, registers the existing parent callback
+through `0x0086F180`, then requests PcSearchSelectWidget child-name index 3.
+The [shared child ownership path](#search-class-selector-child) retains the
+current Search parent and category. Callback `0x00690510` returns the
+selector vector at `0x01343098`, with begin/end at `0x0134309C/0x013430A0`.
+The same callback's `0x00690520` returns tree mode 0. Title callback
+`0x00690650`, arm `0x006906C3..0x006906E8`, formats `@11032`.
+The child uses ListBox_TreeView, XmlDataMaker_TreeView and the selected
+DataTemplate_TreeView already authenticated for the Class child.
+
+STATIC. Selector 2 of `0x0086FD50` selects five 0x14-byte records at
+`0x0104E168`. The complete table SHA-256 is
+`7afa947ae8d1839ccebd8675d3f5f034dba85a3bead570f19352b0872882f183`.
+Text operand 2 is 0 throughout, so `0x008724E0` produces plain `@<key>`
+references, without an integer formatting argument. Every catalog expand
+byte is 1 and checked byte is 0.
+
+| Original row / list_index | Level | Text reference | user_id / query value | Selected English caption |
+| ---: | ---: | --- | ---: | --- |
+| 0 | 0 | `@11016` | -1 | All Languages |
+| 1 | 1 | `@11069` | 0 | Japanese (JA) |
+| 2 | 1 | `@11070` | 1 | English (EN) |
+| 3 | 1 | `@11071` | 3 | French (FR) |
+| 4 | 1 | `@11072` | 2 | German (DE) |
+
+INSTALLED-DATA. The English client UI definition maps these text keys to
+logical field 1 / physical column 0. Title key 11032 is Language. Thus the
+control's internal Region name denotes the Language criterion in this selected
+English presentation. These filter keys differ from the detail/result Region
+labels 11017 through 11020. The named schema and backing identities are the
+[static English UI inputs](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-plain-text-reference-lookup.md#uistr-01-selected-english-backing-strings).
+Only this selected definition's labels are established, not a runtime locale
+or a general mapping of every Region field to geography or session language.
+
+STATIC. The [mode-0 checked-role path](#class-leaf-combinations-caption-and-retained-query-order)
+applies to this current vector too. A leaf gesture negates its maker
+checked_flag, leaves the other level-1 leaves intact, and recomputes the
+header as the conjunction of all four leaf flags. Repeating a leaf deselects
+it. The shared maker build, role fields, Boolean spellings and Visibility
+bindings are those in [Class row setter operands](#class-row-setter-operands).
+The initial expanded hierarchy admits all five row visibility values, gives
+each leaf no_child True and its expand control Hidden, and supplies no
+mode-0 visibility_checked attribute. The user_id 0 leaf is a valid record.
+It must not be confused with an absent selection.
+
+Both admitted normal child Cancel and Close save maker flags into the current
+vector before the shared caption fold. One checked leaf uses its own text
+and clears ThreePoint. Two or three checked leaves use the first checked
+leaf in catalog order and set ThreePoint. No checked records, or all five
+records checked through the header aggregate, use default `@11016` and clear
+the marker. Cancel on this ordinary child does not undo the checked changes.
+The same-parent reopen reads the retained vector without resetting it.
+
+Caption callback `0x006907FC..0x00690840` stores live string `0x01343548`
+and marker byte `0x0134359C`, then requests the retained
+Label_Region:TextBlock_ButtonText and TextBlock_ThreePoint. Normal root-close
+save copies them to `0x01343288` and `0x013432DC`
+(`0x0069185E..0x00691882`). The [normal setup loop](#native-setup-restores-selector-captions)
+restores that saved caption and marker. The shared parent Reset replaces the
+vector with these five unchecked, expanded catalog records and publishes the
+default caption. The child's own admitted Reset callback for current selector
+2 also resets the vector and caption cache, then rebuilds the current maker
+and leaves the child open. Its usual close publishes the parent caption.
+
+STATIC. Begin Search walks this vector in row order at
+`0x006938D3..0x0069392E`. A checked byte must equal 1 and query value must
+not equal -1 (`0x00693901..0x0069390F`). For each admitted leaf it calls
+`0x004B5940` with tag 5, width 1 and the selector's low byte
+(`0x00693911..0x0069391D`). These tags follow the Class/job-checkbox arms and
+precede GrandCompany. Location has its separate expanded-entry tag 6 path,
+as the [wire contract](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/search-recruitment-wire-contract.md#player-search-requests)
+records. Default unchecked Region emits no tag 5, not an implicit wildcard
+byte. Query selector 0 is emitted normally when its leaf is checked.
+
+| Current retained leaves at admitted Begin Search | Parent caption / ThreePoint | Region tags only |
+| --- | --- | --- |
+| French, then English selected | `@11070` / 1 | `05 01 05 03` |
+| English toggled off after that | `@11071` / 0 | `05 03` |
+| None or Reset defaults | `@11016` / 0 | none |
+| All four leaves | `@11016` / 0 | `05 00 05 01 05 03 05 02` |
+
+The table is a static replay expectation from the catalog, common caption
+fold and encoder predicates. A bounded installed-form case opens this child
+from the current Region Button, selects French then English, uses its normal
+Cancel, and reopens with both flags retained. The parent must show the first
+catalog caption and marker above. A later admitted Begin Search emits the
+shown tag order. This proves client inputs, not server interpretation or a
+historical query result. The identified PE, authenticated parent/child assets
+and English UI backing were checked directly. Physical routing, concurrent
+selectors, header/expand gestures, arbitrary teardown and original runtime
+remain outside this leaf contract. No original client ran.
+
 ### Search Class selector child
 
 MEASURED. The standard parent selects
