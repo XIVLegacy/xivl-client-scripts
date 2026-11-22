@@ -165,6 +165,81 @@ Other cached-state producers, ordinary toggle click routing, job-filter
 semantics, result changes and first live pixels remain outside this paint
 contract.
 
+### Fresh native Search message setup
+
+STATIC. The stock setup request is `UIOperatorCommands.AfterLuaInit`.
+`WidgetBaseClass._onInit` sends BeforeLuaInit, calls the selected `init`,
+then sends AfterLuaInit (`widget/widgetbaseclass`, `main/f0` PCs 87-98).
+Initializer `0x00F14755..0x00F14774` registers AfterLuaInit with command
+id 25. Its RoutedCommand constructor `0x00928D90` retains that id at
+command `+0x78`.
+
+The [form gate](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/resource/sqwt-command-parameter-consumer.md#form-gate-object)
+factory selects PcSearchWidgetOperator for Window_PcSearchWidget. An active
+gate receives Executed before the Lua subscription lookup. Its table
+`0x00FC8424` slot 42 selects `0x00695C20`. That dispatcher requires
+operator `+0x1C` bit `0x40000000` clear and the root Window's
+`+0x3E0` bit `0x20` set (`0x00695C20..0x00695C39`). The latter is the
+published [SqwtIsEnableInput bit](https://github.com/XIVLegacy/xivl-client-structs/blob/e8061eda875c38a3816eeafb81476df6dfbba8b4/docs/sqwt-window-input-property.md).
+The switch subtracts 1 from the command id. For id 25, table cell
+`0x00695F28` selects `0x00695E57`, whose call at `0x00695E66` invokes
+virtual `+0x74`. PcSearch table cell `0x00FC8498` selects setup
+`0x00691F30`. The guarded command delivery starts this setup.
+
+PcSearch `init` with no argument writes `mode_widget` to
+`XmlDataMaker_Data` row 0 attribute `string_command_line` (`main/f0`
+PCs 24-29). It makes no list Update request. Common `setListProperty`,
+`main/f169` PCs 0-5, only forwards to `_setListProperty`. The
+[native maker contract](https://github.com/XIVLegacy/xivl-client-structs/blob/e8061eda875c38a3816eeafb81476df6dfbba8b4/docs/stub-overload-native-contract.md#lists)
+separates SetAttr's XML attribute store from Update's recount and filtered
+view rebuild. The native setup reads the stored string through
+`0x009452C0` at `0x00692765` before any Update.
+The later class-information `update` sends `UIOperatorCommands.Reply` with
+1. Reply is command id 23 and selects virtual `+0x6C` through
+`0x00695E27..0x00695E36`, a different callback from this setup.
+
+Setup resolves TextBlock_NoContents to operator `+0x68` at
+`0x00692567..0x00692592` and TextBlock_MaximumOver to `+0x6C` at
+`0x006925AF..0x006925DA`. After its earlier helper call at `0x00693199`,
+the normal continuation requests these changes in order:
+
+| Control and property | Requested value | Instruction range |
+| --- | --- | --- |
+| `TextBlock_NoContents.Text` | `@11064` | `0x0069319E..0x006931CB` |
+| `TextBlock_NoContents.Visibility` | 2, Visible | `0x006931D0..0x006931E0` |
+| `TextBlock_MaximumOver.Visibility` | 0, Collapsed | `0x006931E5..0x006931F5` |
+
+The Text request uses `0x009557D0`, which supplies descriptor
+`0x0135A300`. The Visibility requests use `0x0093C2A0` and the
+[published 0/2 encoding](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/resource/damage-plate-numeric-presentation.md#numeric-branch-and-reused-roles).
+The property gates govern these setter requests. The initial NoContents
+request replaces the form's `@11058` reference with `@11064`.
+
+Fresh constructor `0x00693500` clears operator byte `+0x24` at
+`0x0069355F`. Setup compares the stored command-line text with
+`mode_widget` at `0x0069277E..0x00692793`. Helper `0x00445E00` returns
+zero for equal bytes through the first NUL and nonzero for unequal bytes.
+Only unequal text sets `+0x24` to 1. The final setup branch at
+`0x0069321C..0x00693225` calls `0x00690360(0)` only for nonzero `+0x24`.
+Thus equal default text on a fresh operator skips that automatic query.
+The message requests above precede this branch and require no result packet.
+Retained operators or different command-line text have different premises.
+
+TextBlock_HitCount has no literal Text in the form. This setup establishes
+no initial count-text or Visibility request for it. Result projection
+`0x00693B50` is separate: it requires its final flag zero and operator
+`+0xF5` nonzero, then formats `@228/i<count>/i200` and sets the hit-count
+text at `0x00693D92..0x00693DE4`. Fresh construction clears `+0xF5`
+at `0x00693585`. The completed-query helper's zero-count and
+equality-to-200 branches belong to result projection.
+
+Ghidra output supplied leads. LLVM disassembly, section-mapped PE reads,
+command literals, switch cells and vtable cells corroborated these claims
+against the executable identified above. The selected LPB operands were
+checked with `unluac --disassemble`. Actual gate installation and lifetime,
+property admission, dispatch scheduling, reused controls, result retrieval
+and live rendering remain unverified.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
