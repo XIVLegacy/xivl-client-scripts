@@ -376,3 +376,90 @@ default is 60 in
 This establishes the unmodified default closed caption. This section does
 not establish how a changed selected item replaces Text, popup item hit
 geometry, or native frame pacing.
+
+## System Vulgarity toggle gesture and current setting
+
+MEASURED. In the authenticated standard System form above, decoded line 89
+names the childless `ToggleButton_Vulgarity`. It declares
+`UILuaCommands.ToggleButton`, IsChecked True, style `TOG_config`, Width 120,
+right/center alignment and Grid.Column 1. It declares no local Content,
+Template, CommandTarget, CommandParameter, ClickMode, Visibility or
+IsEnabled. Its parent Grid has Margin `12,2,0,2` and Help type 1/value 0
+`@77405`. Neither that parent nor the toggle declares a visibility override.
+The adjacent descriptive TextBlock is a separate element, not the command
+sender. This scopes the control declaration, not its effective ancestor
+visibility, hit footprint or current focus.
+
+The selected `common/default.style` has 353783 carrier bytes, SHA-256
+`632b314cb2257fcbee42d4b002989a58dfeb42e64af864c1f5356336dc233dc0`,
+and 353775 decoded bytes, SHA-256
+`33bb178c3b172c62eeb65e8bcaf94f701a0ec3921564e27a619516900896d9f6`.
+Its `TOG_config` style selects CheckedButton `TOG_config_leftOn` and
+UncheckedButton `TOG_config_rightOn` (lines 3448-3451). Each referenced
+Button style has one Frame (lines 1577-1600). For either prefix, Normal
+uses suffix `_N`, Hover/Active/Anchored/Reserved use `_H`, Disabled uses
+`_D`, and Focused/Droppable use NULL. These are Toggle image groups and
+style references, not two form-declared child Button command senders.
+The [native checked callback](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/input/game-controller-startup.md#checked-state-callback-changes-the-image-part-index)
+selects image-part index 1 for checked and 0 for unchecked. The
+[Toggle group ordering](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/action-menu-timer-icon-style.md#conditional-initial-toggle-skin)
+selects UncheckedButton before CheckedButton independently of XML order.
+
+OBSERVED. System init `main/f0` PCs 16-19 requests
+`setControlCommandCondition("ToggleButton_Vulgarity",
+"UILuaCommands.ToggleButton")`. Common `main/f55` PCs 0-4 passes that
+control and command to `_setUICommandCondition` with condition 5. System
+PCs 70-74 assign group-1 control user-work 27 to the same named control.
+Its update calls `initToggleButton("ToggleButton_Vulgarity")` at
+`main/f1` PCs 12-14. The existing `main/f6` getter chain above restores the
+current config flag through `setChecked`. Thus a completed update can
+replace the form's initial True with the current stored False.
+
+STATIC. The identified native
+[Toggle release path](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-combobox-dropdown.md#arrow-release-and-checked-state-binding)
+uses default ClickMode 2 and requires its handled, hit and prior pressed
+conditions. Click calls primary slot 71 at `0x0097ED20`, reaching
+`0x0095D2B0 -> 0x0095D470`, before it tests and routes the stored Command
+at `0x0097ED22..0x0097ED73`. The guarded changed branch complements the
+effective IsChecked bit `0x20` at object `+0x3B4`, writes it at
+`0x0095D4D6` and invokes its callback at `0x0095D4D8`. A refused property
+mutation does not establish a complemented value. The later command can
+still observe the effective old checked state. These paths establish
+ordering after accepted native Click, not arbitrary pointer acceptance or
+successful command subscription.
+
+OBSERVED. The inherited command dispatcher supplies the value rather than
+requiring a Boolean command parameter. In `widgetbaseclass_common`
+`main/f13`, PCs 137-141 match `UILuaCommands.ToggleButton` and read
+`self:getChecked(sender)`. PCs 142-148 call
+`processUICommandToggleButton(template,sender,extra1,extra2,checked)` using
+the first checked result. Common `getChecked`, `main/f103`, requests the
+sender's IsChecked through `getControlProperty`. System `main/f5` PCs 0-8
+then reads `getControlUserWorkInt(1,sender)` and calls
+`desktopWidget:setConfigFlag(workIndex,checked)`. The retained root/control
+subscription, current named control and native routing gates qualify this
+join. The value is current property readback, not a guessed complement of
+a cached config value or an integer command parameter.
+
+OBSERVED. Desktop connector `setConfigFlag`, `main/f490` PCs 0-7, converts
+exact Boolean true to integer 1 and every other normally returned value to
+0, then calls `setConfigWork`. That helper, `main/f485` PCs 0-24, resolves
+the group/key and reads `_getUserConfig`. Missing group or an equal current
+value returns false. Otherwise it calls `_setUserConfig(group,key,value)`
+at PC19 and `updateConfigWork(workIndex)` at PC22 before returning true.
+Its `main/f486` has no work-27 arm. The work-index map's `main/f484`
+PCs 139-143 selects Lua GameConfig group 3/key 8 for work 27.
+The [native store](https://github.com/XIVLegacy/xivl-client-structs/blob/main/docs/user-config-store-contract.md#record-model)
+places the integer in the current record and then notifies its configured
+listener. The registered record is `vulgar`, native group 2/key 7, default 1.
+A subsequent successful `getConfigFlag(27)` reads that current integer and
+returns true only for 1. The local setting is not deferred until Close.
+
+There is no own update, reset, child close or save request in the toggle
+handler. The shared System-close and parent Configuration save boundaries
+above remain distinct. The
+[Search comment formatter](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/text-word-filter.md#inputs-and-method)
+reads the same current config record when it projects a comment. This
+setter path does not establish an automatic repaint of previously projected
+comments, successful disk persistence or a historical user's saved choice.
+Frame-rate interaction and other controls are outside this gesture contract.
