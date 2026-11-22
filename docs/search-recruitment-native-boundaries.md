@@ -36,6 +36,67 @@ PC 1..11, code offset `0x359`; `update` as `0.3`, PC 1..42, code offset
 The original LPB payload SHA-256 is
 `e25be2fa13ce9e9b66c1c658076493d632722226080aa93574590acdb024a122`.
 
+### Selected Search list templates
+
+MEASURED. The standard `widget/PcSearchWidget.form` declares exactly two
+ListBoxes. Both select `ControlTemplate_ListBox` explicitly and use
+`DataTemplate_PcSearchList` as ItemTemplate. Both have IsTabStop false,
+IsHitTestVisible false, Width 628 and no inline children. Their ItemsSource
+bindings use StaticResource makers and Mode OneWay.
+
+| ListBox | Form line | Height | Maker key | XPath |
+| --- | ---: | ---: | --- | --- |
+| `ListBox_PlayerInformation` | 30 | 40 | `XmlDataMaker_PcSearchListPlayer_Key` | `/XmlDataMaker_PcSearchListPlayer_XPath` |
+| `ListBox_SearchResult` | 152 | 280 | `XmlDataMaker_PcSearchList_Key` | `/XmlDataMaker_PcSearchList_XPath` |
+
+`widget/PcSearchWidget.tpl` defines `ControlTemplate_ListBox` with TargetType
+ListBox at lines 2-14. Its only direct child is ControlTemplate.Triggers.
+It has no visual root, Setter or ContentPresenter. Its three EventTriggers
+are Selection -> `UICommands.Selection`, MouseEnteredItem ->
+`UICommands.EnterSelectorMouseFocus`, and AnchoredItem ->
+`UICommands.EnterSelectorKeyboardFocus` (lines 4-12).
+
+The separate `DataTemplate_PcSearchList` at lines 33-95 sets IsTabStop false
+and contains one Grid visual root. Its Button_SearchResult has height 40,
+Command `UILuaCommands.Operate`, and a Grid with two Auto rows and five Auto
+columns. Descendant text, icon, visibility and opacity bindings read row
+attributes such as `text_textblock_player_name`, `text_textblock_comment`
+and `text_textblock_location`. This DataTemplate has no ContentPresenter or
+nested ListBox. Each maker supplies the count and data of its rows.
+
+The headings and empty/result controls are siblings outside the lists.
+The form declares `TextBlock_PlayerInformation` with `@11025` (line 25),
+`TextBlock_SearchSetting` with `@11026` (line 41), and
+`TextBlock_SearchResult` with `@11034` (line 147). Grid_SearchResult explicitly
+declares Visible (line 139). `TextBlock_NoContents` uses `@11058` alongside
+the result ListBox (line 153). TextBlock_MaximumOver uses `@11059` and
+TextBlock_HitCount has no literal Text (lines 161-162). Those three controls
+have no explicit Visibility declaration here. The markup alone does not
+choose their effective visibility or supply a hit count.
+
+STATIC. Native ListBox construction supplies an embedded items panel and
+viewer, inserts the viewer as a visual and logical child independently of
+the outer Template, and gives that viewer its own presenter template. The
+[constructed item viewport](https://github.com/XIVLegacy/xivl-decomp/blob/4802bdfe22b04413a283695c301a67239128b19f/docs/resource/sqwt-listbox-constructed-parts.md#constructed-item-viewport)
+records the exact constructors, attachments and conditional composition.
+The same page records the bare outer presenter selected by ItemListWidget.
+
+INFERRED. The constructed item host remains available under this selected
+Search template. The outer template contributes the triggers. The two
+makers and separate ItemTemplate provide the generated rows. An empty
+maker supplies zero row visuals. This contract covers the measured
+trigger-only shape. Native initial maker contents, later visibility writes,
+search success, scrolling and observed pixels remain unverified.
+
+The form identity is in Selected original inputs below. The template carrier
+is 9428 bytes, SHA-256
+`3f00ec92eaad78105bb946d76b3a9f920721f3258eb3822783789048d66b096d`.
+Its decoded markup is 9420 bytes, SHA-256
+`14bbe467d89e0ed28477a7c00bee25e991795fdfe24a709b968cbd94c98aa87c`.
+Both inputs were decoded with basename-keyed Blowfish, re-encrypted
+byte-for-byte and inspected as namespace-aware XML. Direct-child and
+descendant counts were checked independently of visual rendering.
+
 ### Main Menu root open and close
 
 STATIC. Main Menu row 7 requests
