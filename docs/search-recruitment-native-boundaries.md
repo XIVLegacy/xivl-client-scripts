@@ -938,6 +938,95 @@ and English UI backing were checked directly. Physical routing, concurrent
 selectors, header/expand gestures, arbitrary teardown and original runtime
 remain outside this leaf contract. No original client ran.
 
+### Search GrandCompany and Location selector children
+
+MEASURED. The standard form's Label_GrandCompany and Label_Location select
+ControlTemplate_Label_SearchSetting with Width 200. Their Help values are
+`@79607` and `@79606` and their heading TextBlocks, TextBlock_GrandCompany and
+TextBlock_Location, read `@11031` and `@11030`. Each selected
+Button_SearchSetting is the same Operate Button as in the
+[Region selector](#search-region-selector-and-english-language-caption).
+
+STATIC. Setup looks up Label_GrandCompany:Button_SearchSetting at
+`0x00692134..0x0069215F` and retains it at operator `+0x38`, then looks up
+Label_Location:Button_SearchSetting at `0x0069217C..0x006921A7` and retains
+it at `+0x3C`. Operate arm `0x006936E1..0x00693705` matches `+0x38`, sets
+current selector `+0x8C` to 3, registers the parent callback through
+`0x0086F180` and requests PcSearchSelectWidget child-name index 3 through
+`0x00695AD0`. Arm `0x00693705..0x00693729` does the same for `+0x3C` with
+selector 4. The shared parent callback methods then return, for selector
+`n`, the vector at `0x01343078 + 16n` from `0x00690510` and tree mode 0 from
+`0x00690520`. Selector 3 is `0x013430A8` with begin and end at `0x013430AC`
+and `0x013430B0`, and selector 4 is `0x013430B8` with begin and end at
+`0x013430BC` and `0x013430C0`. Title callback `0x00690650` switches through
+the table at `0x0069074C`. Its five arms push the text keys 11027, 11028,
+11032, 11031 and 11030 for selectors 0 to 4, so the two children publish
+`@11031` and `@11030`.
+
+STATIC. Selector 3 of `0x0086FD50` selects the table `0x0104E1D0` with count 5
+(`0x0086FDC0`). Selector 4 selects `0x0104E238` with count 46 (`0x0086FDD7`). Records are 0x14 bytes. The fields below are the
+dwords at `+0x00`, `+0x04`, `+0x08`, `+0x0C` and `+0x10`.
+
+| Row | Level | Text key | Operand | Query value | Expand | Selected English caption |
+| ---: | ---: | ---: | ---: | ---: | ---: | --- |
+| 0 | 0 | 11011 | 0 | -1 | 1 | All Grand Companies |
+| 1 | 1 | 11012 | 0 | 1 | 1 | The Maelstrom |
+| 2 | 1 | 11013 | 0 | 2 | 1 | The Order of the Twin Adder |
+| 3 | 1 | 11014 | 0 | 3 | 1 | The Immortal Flames |
+| 4 | 1 | 11015 | 0 | 0 | 1 | None |
+
+The Location table has five level 0 headers with text key 11022, operands 1
+to 5 and query value -1, each followed by level 1 leaves with text key 11023
+whose operand equals the query value:
+
+| Header operand | Leaf query values |
+| ---: | --- |
+| 1 | 101 to 113 (13 leaves) |
+| 2 | 201 to 209 (9 leaves) |
+| 3 | 301 to 309 (9 leaves) |
+| 4 | 401 to 408 (8 leaves) |
+| 5 | 501 and 502 (2 leaves) |
+
+That is 5 headers and 41 leaves in 46 rows. Every Expand dword is 1. Text key
+11021 is the restored caption of selector 4 in the
+[setup caption table](#native-setup-restores-selector-captions) and decodes to
+`All Regions`.
+INSTALLED-DATA. In the selected English backing of the
+[static English UI inputs](https://github.com/XIVLegacy/xivl-decomp/blob/main/docs/resource/sqwt-plain-text-reference-lookup.md#uistr-01-selected-english-backing-strings),
+keys 11027, 11028, 11031 and 11030 decode to Online Status, Class, Grand
+Company and Region, so the selector the code names Location carries the
+heading Region, as the Region selector carries the heading Language. Keys 11022
+and 11023 decode to token strings that name `txtx/placeName` and the
+parameters `regionParam` and `zoneGroupParam`. The two keys are the header
+and leaf forms of a place name selected by the operand. This record does not
+resolve those names to place text.
+
+STATIC. Begin Search walks the GrandCompany vector after the
+Region tag 5 loop (`0x00693930..0x00693997`). For each record whose checked
+byte `+0x11` equals 1 and whose query value `+0x0C` is not -1 it calls
+`0x004B59A0` with tag 8, width 1, the low word of the value and a trailing 0.
+The value 0 of the `None` leaf is therefore emitted. The Location vector is
+walked next (`0x00693997..0x00693A1A`). For each such record it calls
+`0x008705A0`, then `0x008701F0` with the query value, which returns the
+negative-terminated dword list for that key from the map seeded out of the
+42 records at `0x0104DA88`. It calls `0x004B5940` with tag 6, width 2 and the
+low word of each list entry until a negative entry (`0x006939F0..0x00693A07`).
+A checked leaf with query value 101 emits the tag 6 values 133, 230, 134, 232
+and 140. A header row has query value -1 and emits nothing itself. The
+level tag 2 path follows (`0x00693A1A`).
+
+The 42 map keys are the 41 leaf query values and the key 601, whose list is
+the single entry 244. No tree row carries 601. The first list entries of the
+other leaves are in the table at `0x0104DA88`, stride `0x1C`, key dword
+followed by up to six list dwords.
+
+Ghidra supplied leads. Section-mapped PE reads corroborated the tables, the
+map, the arm addresses and the switch tables. SQWT decryption and
+namespace-aware XML checks confirmed the form attributes. The English backing
+rows were read by the framing recipe of the lookup page above. No original
+client ran. Selected-row routing, runtime vector state and server
+interpretation of tags 6 and 8 remain outside this contract.
+
 ### Search Class selector child
 
 MEASURED. The standard parent selects
