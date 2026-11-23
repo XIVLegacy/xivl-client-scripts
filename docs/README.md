@@ -215,6 +215,7 @@ unverified native or server behavior.
 - [Rested experience client contract](rested-experience-client-contract.md)
 - [Job and Grand Company event contracts](job-grand-company-event-contracts.md)
 - [Loot item UI contract](loot-item-ui-contract.md)
+- [Item sub menu and discard flow](item-sub-menu-and-discard-flow.md)
 - [Party matching client contract](party-matching-client-contract.md)
 - [Recruitment editor outcomes](party-recruitment-edit-flow.md)
 - [Search and recruitment native boundaries](search-recruitment-native-boundaries.md)
