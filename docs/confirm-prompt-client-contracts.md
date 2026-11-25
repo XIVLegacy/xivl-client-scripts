@@ -137,6 +137,48 @@ SQEX decoder and byte-exact re-encryption. These paths are relative to
 | `ConsoleIconTrayWidget.tpl` | 20238 | `f3c362bb64d9e9b07dd60b2ba95e1b868640e43c82558b83c24d1fd32d3378f1` | `9f1f5a2c79c2d8b35ea0d0b510c5536bcb43464da236ce1f9dea665f01937386` |
 | `CommonAskWidget.tpl` | 836 | `7e7ff663fa55ab1d267da02b506844198f7d7eda116f079db978a5258aeebfc5` | `dc0a349aff6da743346037f577a451ac011a827981f8239e2739886f1b1666d1` |
 
+### Tray push selectors and keyboard entry
+
+`ConsoleIconTrayWidget.processUICommandOperate` (`root/proto1` PCs 149-178)
+matches the first five push controls to these openers. Each opener takes no
+argument after the receiver.
+
+| Control | PCs | Opener |
+|---|---|---|
+| `Button_Push_1` | 149-152 | `openConfirmPartyWidget` |
+| `Button_Push_2` | 155-158 | `openConfirmLinkshellWidget` |
+| `Button_Push_3` | 161-164 | `openConfirmTelepoWidget` |
+| `Button_Push_4` | 167-170 | `openConfirmTradeWidget` |
+| `Button_Push_5` | 173-176 | `openConfirmRaiseWidget` |
+
+The five question openers are `root/proto24` to `root/proto28`. They call
+`openAskWidget` with ask types 1 to 5 and these text rows. The default answer
+index is 1 in each.
+
+| Prototype | Variation getter | Ask type | Question | Answers |
+|---:|---|---:|---:|---|
+| 24 | `getConfirmGroupCommandVariation`, requires 10001 | 1 | 1121 | 1122, 1123, 1136 |
+| 25 | `getConfirmGroupCommandVariation`, requires 10002 | 2 | 1137 | 1138, 1139, 1136 |
+| 26 | `getConfirmWarpCommandVariation` | 3 | 1130 | 1131, 1132, 1136 |
+| 27 | `getConfirmTradeCommandVariation` | 4 | 1124 | 1125, 1126, 1136 |
+| 28 | `getConfirmRaiseCommandVariation` | 5 | 1127 | 1128, 1129, 1136 |
+
+`processAskResult` (`root/proto30` PCs 1-45) calls
+`desktopWidget:executePlayerSystemCommand(id,nil,answer)` with ID 24303 for
+ask types 1 and 2, 24304 for type 3, 24305 for type 4 and 24306 for type 5.
+
+The `DesktopWidget` connector creates static widget 15 as
+`ConsoleIconTrayWidget` through `createStaticWidget` (`root/proto142` PCs
+8-14). Its `root/proto0` registers `UILuaCommands.Function2` and
+`UILuaCommands.ConsoleTray` with `setUICommandCondition` (PCs 395-397 and
+419-421). In `root/proto62`, the comparisons at PCs 520 and 523 send both
+command names to one arm at PCs 525-533. That arm gets static widget 15, calls
+`setFocusable(true)` on it and then calls `changeFocusedWidget` with it. The
+installed default bindings of the two commands are recorded in
+`xivl-client-data:docs/movement-binding-rows.md`, "Console tray command
+rows". Focus traversal inside the tray, its first anchor and the return of
+focus were not traced.
+
 ## Answers and command submission
 
 `CommonAskWidget.processUICommandEvent` parses the numbered answer item and
