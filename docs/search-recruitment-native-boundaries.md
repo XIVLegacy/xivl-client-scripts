@@ -1015,6 +1015,16 @@ A checked leaf with query value 101 emits the tag 6 values 133, 230, 134, 232
 and 140. A header row has query value -1 and emits nothing itself. The
 level tag 2 path follows (`0x00693A1A`).
 
+STATIC. Both append helpers bound the filter buffer, whose u16 length is at
+its start. `0x004B5940(tag, width, value)` returns 0 and writes nothing when
+the current length plus width plus 1 is 256 or more
+(`0x004B5945..0x004B5952`). `0x004B59A0` applies the same test with twice the
+width (`0x004B59A0..0x004B59B2`). The tag 8 call at `0x00693984` and the tag 6
+call at `0x006939FF` do not test the returned byte before their loops
+continue. INFERRED: a selection that fills the buffer loses the entries that
+no longer fit without a client error on these two loops. The server response
+to such a filter was not observed.
+
 The 42 map keys are the 41 leaf query values and the key 601, whose list is
 the single entry 244. No tree row carries 601. The first list entries of the
 other leaves are in the table at `0x0104DA88`, stride `0x1C`, key dword
