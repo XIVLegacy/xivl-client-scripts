@@ -34,8 +34,11 @@ alone. It does not read `tutorialFlag`.
 PCs 83-89 call `updateButtonMask` on static widget 15 when f4 or the type
 changed. Repeating a mask with f1 `true` therefore issues no second player
 lock. Starting from the initial `false`, `orderTutorialMode` reaches the one
-`_lockPlayerControl` call through its all-`true` mask. A later all-`true`
-mask, such as the ones in `Man0g1.processEventTu_001`, issues none.
+`_lockPlayerControl` call through its all-`true` mask. While the stored f1
+stays `true`, a later all-`true` mask issues none. After a mask has stored
+`false`, the next `true` f1 calls `_lockPlayerControl` again. The lock effect
+of an all-`true` mask, such as those in `Man0g1.processEventTu_001`,
+therefore depends on the stored value.
 
 `orderTutorialMode` (`root/proto152`) sets `tutorialFlag=true`, calls
 `_lockLockonControl`, requests mask `(true,true,true,true,true,4)` and orders
