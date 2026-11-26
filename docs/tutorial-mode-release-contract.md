@@ -90,6 +90,22 @@ which makes `processCommandMainMenu` return early. Whether or not any
 tutorial test matched, the method then stores `mainMenuIndex` and calls
 `hide` (PCs 50-56).
 
+### Lesson 16 and slot 12
+
+Lesson 16 is in the open-only group of the
+[opener partition](tutorial-widget-opening-contract.md#complete-opener-partition),
+so the status 0 arm reaches `openWidget` for slot 12 with a nil parent
+directly after the close request, with no wait between them. Under a nil
+parent, [`openWidget`](content-director-ui-contracts.md#desktop-widget-admission-and-close)
+returns false while `work.rootWidget[12]` is nonnil. The shared `close` does
+not clear the slot. [Desktop root widget slots](desktop-widget-root-slots.md#abort-sweep-and-deletion)
+lists the routes that do. So lesson 16 passes the slot test only when slot 12
+is already clear at the open request. This holds for an earlier lesson only if
+its slot was released before the close request returned, or before the status
+0 arm ran. INFERRED from these linked contracts. When the native side raises
+`_onFinalize` relative to the close request is not established. The arm sets
+status 1 without testing an open result.
+
 ## Numeric data-packet route
 
 `PlayerBaseClass._onReceiveDataPacket(self,key,...)` first calls the
@@ -135,6 +151,66 @@ in the connector, `PlayerBaseClass` and the two raid directors whose code 3
 call is in the
 [content director contracts](content-director-ui-contracts.md). A constant
 search does not cover a method name computed at run time.
+
+## Blocked trigger tutorial methods
+
+Four `Man0` scenario scripts hold methods named `processTtrBlkNml00n`. Each
+method with a body reads `desktopWidget:isTutorialMode()` and calls
+`orderTutorialMode()` only when the first result is exactly `false`. It then
+aims the tutorial camera at one display name number, requests look-at, tutorial
+scheduler and dialogue calls, cancels the look-at on each number it set and
+cancels the camera aim. None calls `cancelTutorialMode`. They differ in the
+mask request that stands before the aim cancellation.
+
+| Script under `quest/scenario/man/` | Method | Aim operand | `setTutorialMask` operands |
+|---|---|---:|---|
+| `man0u0.lua` | `processTtrBlkNml001` | 4000542 | No call |
+| `man0u0.lua` | `processTtrBlkNml002` | 4000608 | `(false,false,false,true,true,3)` |
+| `man0u0.lua` | `processTtrBlkNml003` | 4000610 | `(false,false,false,true,true,3)` |
+| `man0g0.lua` | `processTtrBlkNml001` | 1600102 | `(false,false,false,true,true,3)` |
+| `man0g1.lua` | `processTtrBlkNml001` | 4000611 | `(false,false,false,false,false,3)` |
+| `man0l1.lua` | `processTtrBlkNml001` | 4000604 | `(false,false,false,false,false,3)` |
+| `man0l1.lua` | `processTtrBlkNml002` | 4000605 | `(false,false,false,false,false,3)` |
+
+`Man0g0.processTtrBlkNml002` has an empty body.
+
+Under the [stored mask rules](#stored-tutorial-state), a mask with a `false`
+first operand releases a player lock that is stored as `true`, and a `false`
+second operand does the same for the target cursor lock. When
+`Man0u0.processTtrBlkNml001` orders tutorial mode, it requests no later mask.
+The player and target cursor elements that the order stored as `true` then
+stay stored, and the locks stay requested, after the method returns. No method
+in the table releases the lock-on lock that `orderTutorialMode` requests,
+because a mask does not touch it and none of them calls `cancelTutorialMode`.
+These are local request contracts. They do not establish native counts, the
+caller of any method or what runs after it.
+
+| Script | Method | Root binding PC | Prototype / code start | Words |
+|---|---|---:|---|---:|
+| `man0g0` | `processTtrBlkNml001` | 84 | `root/proto25` / `0x3941` | 55 |
+| `man0g0` | `processTtrBlkNml002` | 87 | `root/proto26` / `0x3B82` | 1 |
+| `man0u0` | `processTtrBlkNml001` | 114 | `root/proto35` / `0x3736` | 40 |
+| `man0u0` | `processTtrBlkNml002` | 132 | `root/proto41` / `0x4D76` | 73 |
+| `man0u0` | `processTtrBlkNml003` | 135 | `root/proto42` / `0x5011` | 55 |
+| `man0g1` | `processTtrBlkNml001` | 285 | `root/proto92` / `0x4F24` | 55 |
+| `man0l1` | `processTtrBlkNml001` | 291 | `root/proto94` / `0x58A3` | 55 |
+| `man0l1` | `processTtrBlkNml002` | 294 | `root/proto95` / `0x5AE4` | 55 |
+
+PCs and prototype indices are zero-based. In each method with a body, PC 1
+names `isTutorialMode`, PC 3 compares its result with the constant `false`,
+and PC 6 names `orderTutorialMode`. No prototype in the table holds the
+constant `cancelTutorialMode`, and `root/proto35` of `man0u0` also lacks
+`setTutorialMask`.
+
+| Source under `quest/scenario/man/` | LPB under `client/script/` | Decoded bytes / SHA-256 |
+|---|---|---|
+| `man0g0.lua` | `tp5rq/r75w9s1v/x9w/x9wj3j.le.lpb` | 15868 / `a6770c85f650b05b0993704e7eeb8bb3456bb59a77a113ba9ba0d6b1de43d0ef` |
+| `man0u0.lua` | `tp5rq/r75w9s1v/x9w/x9wjpj.le.lpb` | 21943 / `850591e834ab2849dc8b53c949d5db743e829264ea90ced0ea83c6ebbbfb1a4c` |
+| `man0g1.lua` | `tp5rq/r75w9s1v/x9w/x9wj3i.le.lpb` | 21280 / `8f7e7524bb64b5160adc4491909cc7fd9a39336ae3daf6f2bf88ecd39042dff4` |
+| `man0l1.lua` | `tp5rq/r75w9s1v/x9w/x9wjyi.le.lpb` | 26366 / `34791b21c1701fb3f549b9fc2f45834d28c180304f442b3ff631ad437cd62c15` |
+
+The canonical sources of the four matched
+[scripts.json](../manifests/scripts.json) after the CRLF-pair-to-LF rule.
 
 ## Source identity and locators
 
