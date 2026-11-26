@@ -143,10 +143,13 @@ Three methods in this module name the `work` field `autoAnim`.
 
 `initWidgetWithButton` does not name the field. Its requests are in
 [button requests and operation](normal-tutorial-panel-completion.md#button-requests-and-operation).
-Under the ordinary bindings and normal completion, an open-only lesson
-therefore ends initialization with `autoAnim` requested true, and a wait lesson
-with the false request of `initAsk`. These are requests of the local methods,
-without proof of stored work values, a delivered command or a visible button.
+Suppose `initAsk` receives a controller operand of exactly numeric 1 or 2 and
+an infoID from the table. Under the ordinary bindings and normal completion, an
+open-only lesson therefore ends initialization with `autoAnim` requested true,
+and a wait lesson with the false request of `initAsk`. Other controller values
+call no text method and leave only the false request of `initAsk`. These are
+requests of the local methods, without proof of stored work values, a delivered
+command or a visible button.
 
 The inputs are the Ask tutorial identities in
 [input identities and original locators](normal-tutorial-panel-completion.md#input-identities-and-original-locators).
