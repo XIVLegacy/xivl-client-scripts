@@ -110,6 +110,80 @@ another call path. No unconditional cleanup is established by this opener.
 The explicit close helper is documented in the
 [Gridania cleanup contract](gridania-opening-tutorial-contract.md#scenario-order-and-cleanup).
 
+## Lesson text methods and the answer button
+
+In `widget/ask/tutorialwidget.lua`, the 36 methods `setTextPad1` to
+`setTextPad18` and `setTextKeyboard1` to `setTextKeyboard18` each name exactly
+one of two initializers. The call to it is the last instruction before the
+method's only return, and no path through the method reaches a return without
+that call. The call passes the receiver alone and keeps no result. The same
+initializer serves both controller families of an infoID.
+
+| infoID | Initializer in the Pad and the Keyboard method |
+| --- | --- |
+| 1, 2, 3, 4, 5, 6, 7, 10, 15 | `initWidgetWithButton` |
+| 8, 9, 11, 12, 13, 14, 16, 17, 18 | `initWidgetNoButton` |
+
+The first row is the same set of infoIDs as the creation-and-selection wait
+group of the [complete opener partition](#complete-opener-partition). The
+second row is its open-only group. This is a static agreement of two
+separately declared comparison lists. It does not prove that one invocation
+reaches both, or that the widget receives the infoID that the opener passed.
+The [dispatch methods](normal-tutorial-panel-completion.md#initialization-and-selected-text-branches)
+`setTextPad` and `setTextKeyboard` compare the infoID with each number from 1
+to 18 and call the matching method. They have no default text method.
+
+Three methods in this module name the `work` field `autoAnim`.
+
+| Method | Use |
+| --- | --- |
+| `initAsk` | Requests false before it dispatches to a text method. |
+| `initWidgetNoButton` | Requests true, then requests `Focusable` false through `setProperty` and calls `disableButtonGrid`. |
+| `processUICommandDefault` | Reads the field on the [Shown command](normal-tutorial-panel-completion.md#button-requests-and-operation). |
+
+`initWidgetWithButton` does not name the field. Its requests are in
+[button requests and operation](normal-tutorial-panel-completion.md#button-requests-and-operation).
+Under the ordinary bindings and normal completion, an open-only lesson
+therefore ends initialization with `autoAnim` requested true, and a wait lesson
+with the false request of `initAsk`. These are requests of the local methods,
+without proof of stored work values, a delivered command or a visible button.
+
+The inputs are the Ask tutorial identities in
+[input identities and original locators](normal-tutorial-panel-completion.md#input-identities-and-original-locators).
+Root PCs are one-based and bind the named child closure. Child indices are
+zero-based. Code starts are decoded payload byte offsets.
+
+| infoID | Pad: binding PC, child, start, call PC | Keyboard: binding PC, child, start, call PC |
+| --- | --- | --- |
+| 1 | 25, 5, `0x1355`, 10 | 79, 23, `0x2739`, 10 |
+| 2 | 28, 6, `0x140D`, 21 | 82, 24, `0x27F1`, 21 |
+| 3 | 31, 7, `0x1541`, 24 | 85, 25, `0x2925`, 24 |
+| 4 | 34, 8, `0x1681`, 24 | 88, 26, `0x2A65`, 24 |
+| 5 | 37, 9, `0x17C1`, 10 | 91, 27, `0x2BA5`, 10 |
+| 6 | 40, 10, `0x1879`, 10 | 94, 28, `0x2C5D`, 10 |
+| 7 | 43, 11, `0x1931`, 24 | 97, 29, `0x2D15`, 24 |
+| 8 | 46, 12, `0x1A71`, 21 | 100, 30, `0x2E55`, 21 |
+| 9 | 49, 13, `0x1BA3`, 10 | 103, 31, `0x2F87`, 10 |
+| 10 | 52, 14, `0x1C59`, 22 | 106, 32, `0x303D`, 22 |
+| 11 | 55, 15, `0x1DB7`, 26 | 109, 33, `0x319B`, 22 |
+| 12 | 58, 16, `0x1F45`, 10 | 112, 34, `0x32F7`, 10 |
+| 13 | 61, 17, `0x1FFB`, 22 | 115, 35, `0x33AD`, 22 |
+| 14 | 64, 18, `0x2157`, 22 | 118, 36, `0x3509`, 22 |
+| 15 | 67, 19, `0x22AB`, 21 | 121, 37, `0x365D`, 21 |
+| 16 | 70, 20, `0x23E0`, 23 | 124, 38, `0x3792`, 23 |
+| 17 | 73, 21, `0x2551`, 21 | 127, 39, `0x3903`, 21 |
+| 18 | 76, 22, `0x2683`, 10 | 130, 40, `0x3A35`, 10 |
+
+`initAsk` is child 0 at `0x7A4`. Its PC16 stores false, and its first text
+dispatch call is at PC35. `initWidgetNoButton` is child 50 at `0x4281`, bound
+at root PC160, and its PC2 stores true. `processUICommandDefault` is child 2
+and reads the field at its PC5. A search of every prototype in the chunk finds
+the constant `autoAnim` in these three only. Reproduce the census with
+`tools/retail_script.py:decode_lpb` and the reader and instruction decoder in
+`tools/build_quest_contracts.py`. For each text method, require one `SELF` that
+names an initializer, locate its `CALL` with `B=2,C=1`, and require that every
+path from entry to a `RETURN` passes that call.
+
 ## Conditional return-to-desktop focus request
 
 The selected opener call supplies exactly `changeFocusedWidget(D,D)` and
