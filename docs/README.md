@@ -58,6 +58,7 @@ unverified native or server behavior.
 - [Wandering Minstrel client contracts](wandering-minstrel-client-contract.md)
 - [Gridania opening tutorial widget contracts](gridania-opening-tutorial-contract.md)
 - [Gridania normal tutorial flow](gridania-normal-tutorial-flow.md)
+- [Tutorial mode control locks, menu lesson release and cancel routes](tutorial-mode-release-contract.md)
 - [Additional Gridania battle tutorial branches](gridania-battle-tutorial-branches.md)
 - [Limsa opening tutorial widget contracts](limsa-opening-tutorial-contract.md)
 - [Limsa normal tutorial flow](limsa-normal-tutorial-flow.md)
