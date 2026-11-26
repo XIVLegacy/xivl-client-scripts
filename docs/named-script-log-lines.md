@@ -42,7 +42,7 @@ One more site, `showEventBeforeNpsLS` in
 
 | Script, method | Sites | Category |
 |---|---:|---:|
-| `world/worldmaster_event.lua`, `notify` and `alert` | 1 each | 32 and 33. The receiver is the world master and the source is a caller operand, as in [WorldMaster message arguments](worldmaster-message-arguments.md) |
+| `world/worldmaster_event.lua`, `notify` and `alert` | 1 each | 32 and 33. The source is the method receiver, the world master. The owner and row are caller operands, as in [WorldMaster message arguments](worldmaster-message-arguments.md) |
 | `quest/scenario/noc/noc001.lua`, `showSupplyLimit` and `pELimitErr` | 1 each | 40, source `worldMaster` |
 | `chara/player/playerbaseclass.lua`, `_onReceiveLimitAddicted` | 5 | 68, through `_appendLogPool` with source `worldMaster` |
 
