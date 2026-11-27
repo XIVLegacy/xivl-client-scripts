@@ -165,7 +165,9 @@ Neither `TutorialModeSelectWidget.initAsk` nor `AskBaseClass.init` requests
 `setCancelCondition` or any `UILuaCommands.Cancel` subscription. The shared
 `initConsumedCommmand` writes a `ConsumedCommand` property whose text lists
 `UILuaCommands.Cancel` (common `root/proto1` PCs 8-27, 65-68). That property
-is not a subscription request, and its native role is NOT TRACED here. If a
+is not a subscription request. Its native role, the list of commands the window
+marks handled after its subscriptions run, is in
+`xivl-decomp:docs/input/escape-key-routing.md`, "Who handles Cancel". If a
 Cancel were delivered to the script, the base `processUICommandCancel` would
 forward to the base `processUICommandClose`, which requests
 `desktopWidget:closeWidgetDirect(W)` without a result write, as the

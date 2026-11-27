@@ -56,6 +56,15 @@ return false. The request callback therefore reaches `_doServerOnCommand`
 when the inherited command method and `fire` both return false and the
 remaining native transport gates pass.
 
+For an `NpcBaseClass` target, `fire` (`root/proto1` PCs 16-31) calls
+`player:_executeEmote(target, emoteId)` and returns true when it returns true,
+so no command request is sent for that emote. A false result takes the fallback
+above. `PlayerBaseClass.command` (`root/proto44`) records the `commandRequest`
+information (PCs 49-52) and sets `playerWork.commandBurstBlocker = 1`
+(PCs 53-54) after `_executeCommand` returns, whether or not `fire` consumed the
+emote. The native match and condition packet are in
+`xivl-decomp:docs/event/npc-emote-condition-wire.md`.
+
 The conditional native envelope, descriptor lookup and argument serializer
 remain owned by
 `xivl-client-structs:docs/player-command-wire-contract.md` and
